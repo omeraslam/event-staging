@@ -1,0 +1,75 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.widgets {height: 100%}
+
+#home {
+    background: url(/assets/sparkler.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    h1 {
+
+        margin-top: 0;
+        padding: 0;
+        letter-spacing: 1px;
+        font-size: 100px;
+        line-height: 100px;
+        margin-bottom: 18px;
+
+    }
+    
+}
+
+
+
+
+    .temp-banner {
+
+        width: 600px;
+        height: 600px;
+
+        color: #fff;
+        background: #21afbf;
+
+        -ms-transform: rotate(45deg); /* IE 9 */
+        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        transform: rotate(45deg);
+
+        position: fixed;
+        top: -400px;
+        right: -400px;
+        text-align: center; 
+        .temp-banner-content {
+
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+
+    }
+
+    .lead {
+    font-size: 28px;
+    color: #fff;
+    font-family: "sofia-pro",sans-serif;
+    font-weight: 300;   
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.btn {
+    background: #21afbf;
+    color: #fff;
+    padding: 15px 30px;
+    &:hover {
+        background-color: lighten(#21afbf, 10%);
+        color: #fff;
+    }
+}

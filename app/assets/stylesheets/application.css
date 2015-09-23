@@ -1,0 +1,136 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+html,body {height:100%;}
+
+body { padding:0;margin:0; color:#fff;}
+footer { margin-top: 100px; }
+table, td, th { vertical-align: middle; border: none; }
+th { border-bottom: 1px solid #DDD; }
+table img { width:100px;}
+
+* {
+    padding:0;
+    margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6,p, table, ul {
+    margin-bottom: 40px;
+}
+
+a:hover {
+    background: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:visited {
+    color: #fff;
+}
+
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+
+
+
+#logo {
+    display: block;
+    width: 300px;
+    height: 45px;
+    background-image: url(event_create_logo.png);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+}
+
+#logo span {text-indent:-9999px; position:absolute;}
+
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+
+
+html {
+    min-height: 100%;
+}
+
+body {
+    
+    margin: 0;
+    
+    background: rgb(66,75,87);
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%, rgba(49,59,74,1) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(66,75,87,1)), color-stop(100%,rgba(49,59,74,1)));
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+    background: -o-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+    background: radial-gradient(ellipse at center,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424b57', endColorstr='#313b4a',GradientType=1 );
+    
+    
+    font-family: "sofia-pro",sans-serif;
+    font-style: normal;
+    font-weight: 300;   
+    
+    
+    
+}
+
+
+h1 {
+    color: #fff;
+    font-size:56px;
+    font-weight: 300;
+    line-height: 66px;
+}
+
+.container {
+    padding: 100px;
+}
+
+input:focus {
+    outline: none;
+}
+.main-container {
+    height: 100%;
+}
+
+
+.navbar-default {
+    background: transparent;
+    border-bottom: none;
+}
+
+
+
+ #center, #center-below, #center-above {
+   display: block;
+   top: 50%;
+   left: 50%;
+   width: 100%;
+   text-align: center;
+    -webkit-transform: translate(0%,50%);
+    -webkit-transform-origin: 50% 50%;
+ }
