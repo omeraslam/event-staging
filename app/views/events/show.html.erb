@@ -1,31 +1,20 @@
 
 <div class="container">
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
+<div class="overlay"></div>
 
-<p>
-  <strong>Time:</strong>
-  <%= @event.time %>
-</p>
+<div class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)"></div>
+<div class="event-info">
+ <h1> <%= @event.name %></h1>
 
-<p>
-  <strong>Location:</strong>
-  <%= @event.location %>
-</p>
+<p class="lead">
+  <%= @event.time %> | <%= @event.location %></p>
 
-<p>
-  <strong>Background img:</strong>
-  <%= image_tag(@event.background_img, :width => 100) if @event.background_img.present?  %>
-</p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<!--   <strong>Description:</strong>
+  <%= @event.description %> -->
+
+<!-- <%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %> -->
 </div>
