@@ -1,16 +1,16 @@
 
-<div class="container">
+<div class="container registration">
 <h1>Log in</h1>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <!-- <%= f.label :email %><br /> -->
+    <%= f.email_field :email, autofocus: true, :class => 'input-primary', :placeholder => 'Email' %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <!-- <%= f.label :password %><br /> -->
+    <%= f.password_field :password, autocomplete: "off", :class => 'input-primary', :placeholder => 'Password' %>
   </div>
 
   <% if devise_mapping.rememberable? -%>
@@ -21,7 +21,7 @@
   <% end -%>
 
   <div class="actions">
-    <%= f.submit "Log in"%>
+    <%= f.submit "Log in", :class => 'btn' %>
   </div>
 <% end %>
 

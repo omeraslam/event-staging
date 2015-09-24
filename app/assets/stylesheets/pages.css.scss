@@ -65,7 +65,10 @@
 
 
 .btn {
+    border: none;
+    font-family: "sofia-pro",sans-serif;
     background: #21afbf;
+    font-size: 14px;
     color: #fff;
     padding: 15px 30px;
     &:hover {
@@ -73,3 +76,16 @@
         color: #fff;
     }
 }
+
+
+
+
+
+/*  background: #21afbf;
+    font-size: 14px;
+    color: #fff;
+    padding: 15px 30px;
+    &:hover {
+        background-color: lighten(#21afbf, 10%);
+        color: #fff;
+    }*/
