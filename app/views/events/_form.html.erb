@@ -10,28 +10,32 @@
       </ul>
     </div>
   <% end %>
-
+<div class="event-registration">
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+   <!--  <%= f.label :name %><br> -->
+    <%= f.text_field :name, :class => 'input-primary', :placeholder => 'What is the name of the event?' %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <!-- <%= f.label :description %><br> -->
+    <%= f.text_field :description, :class => 'input-primary', :placeholder => 'Description' %>
   </div>
   <div class="field">
-    <%= f.label :time %><br>
-    <%= f.text_field :time %>
+    <!-- <%= f.label :time %><br> -->
+    <%= f.text_field :time, :class => 'input-primary', :placeholder => 'Time' %>
   </div>
   <div class="field">
-    <%= f.label :location %><br>
-    <%= f.text_field :location %>
+   <!--  <%= f.label :location %><br> -->
+    <%= f.text_field :location, :class => 'input-primary', :placeholder => 'Location' %>
   </div>
   <div class="field">
-    <%= f.label :background_img %><br>
+    <%= f.label :background_img  %><br>
     <%= f.file_field :background_img %>
   </div>
+</div>
   <div class="actions">
-    <%= f.submit %>
+    <a href="">Prev</a>
+    <%= f.submit "Create Event", :class => 'btn' %>
+
+    <a href="">Next</a>
   </div>
 <% end %>
