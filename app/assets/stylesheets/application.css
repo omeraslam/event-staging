@@ -265,3 +265,6 @@ input.input-primary:focus {
     text-align: center;
 }
 
+.profile {
+    border-radius: 50%;
+}
