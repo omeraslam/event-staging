@@ -13,6 +13,12 @@ group :production do
 end
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
+# Use these for social logins
+gem 'therubyracer'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google'
 # Use devise for authentication
 gem 'devise'
 
