@@ -29,10 +29,10 @@
        <li><a href="/users/sign_in">Sign In</a></li>
    </ul> -->
    <ul>
-<% if user_signed_in? %>
-      <%= link_to_if current_user.image, image_tag(current_user.image, :class => 'profile'), '/events' %>
+<% if user_signed_in? %><!-- 
+      <%= link_to_if current_user, image_tag(current_user, :class => 'profile'), '/events' %> -->
  
-  Logged in as <strong><%= link_to current_user.email, edit_user_registration_path %></strong>.
+  Logged in as <strong><%= link_to current_user.email, '/events' %></strong>.
  <!--  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> | -->
   <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
 <% else %>
