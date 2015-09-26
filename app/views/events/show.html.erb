@@ -1,20 +1,49 @@
 
-<div class="container">
+<div class="container event-container">
 
 
-<div class="overlay"></div>
 
-<div class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)"></div>
-<div class="event-info">
- <h1> <%= @event.name %></h1>
+    <div class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 
-<p class="lead">
-  <%= @event.time %> | <%= @event.location %></p>
+    <div class="overlay"></div>
 
+        <div class="event-info">
 
+           <h1> <%= @event.name %></h1>
+
+           <p class="lead">
+              <%= @event.time %> | <%= @event.location %></p>
+
+          </div>
+
+          <!-- #B3193F -->
 <!--   <strong>Description:</strong>
   <%= @event.description %> -->
 
 <!-- <%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %> -->
+    <%= link_to 'Back', events_path %> -->
+</div>
+
+
+<div id="attendee-form" >
+
+    <form>
+
+        <div>
+            <ul class="list-inline list-unstyled">
+            <li class="input-md">
+            <input type="radio" name="attending" value="true"><span>I'm in!</span></li>
+            <li class="input-md"><input class="" type="radio" name="attending" value="false"><span>Mrr. I can't make it.</span></li>
+            </ul>
+        </div>
+        <input class="input-primary input-md" placeholder="First Name" />
+        <input class="input-primary input-md" placeholder="Last Name" />
+        <input class="input-primary input-md" placeholder="Email Address"/>
+        <input class="input-primary input-md" placeholder="Phone Number"/>
+        <textarea class="input-primary input-lg" placeholder="Public message (i.e., I Can't Wait!)"></textarea><br/>
+        <button class="btn btn-bordered" type="submit" />RSVP</button>
+    </form>
+
+</div>
+
 </div>
