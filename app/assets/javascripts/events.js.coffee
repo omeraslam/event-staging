@@ -3,10 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-  formArray = $('.field')
+  formArray = $('.event-registration .field')
   percentRange = 100 / formArray.length
   currentIndex = 0
-  $('.field').addClass 'slide-down-hide'
+  $('.event-registration .field').addClass 'slide-down-hide'
   $(formArray[0]).removeClass('slide-down-hide').addClass 'slide-up-show'
   $('.event-preview').hide()
   $('.side-nav li a').on 'click', (e) ->
@@ -15,9 +15,9 @@ $(document).on 'ready page:load', ->
     $('.side-nav li a').removeClass 'active'
     $(this).addClass 'active'
     if currentIndex < $(this).parent().index()
-      $('.field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-up-hide'
+      $('.event-registration .field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-up-hide'
     else
-      $('.field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-down-hide'
+      $('.event-registration .field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-down-hide'
     currentIndex = $(this).parent().index() - 1
     console.log (currentIndex + 1) * percentRange
     $(formArray[currentIndex]).removeClass('slide-up-hide slide-down-hide').addClass 'slide-up-hide'
@@ -31,7 +31,7 @@ $(document).on 'ready page:load', ->
     #     $('.event-preview h1').text('title of event');
     #     $('.event-preview p.lead').text('TIME OF SOMETHING'+' | '+ 'LOCATION OF SOMETHING');
     # } else {
-    # $('.field').show();
+    # $('.event-registration .field').show();
     # $('.event-preview').hide();
     # }
     return
