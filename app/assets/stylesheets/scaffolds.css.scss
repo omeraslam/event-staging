@@ -37,31 +37,31 @@ pre {
 
 
 a {
-    color: #21afbf;
-    text-decoration: none;
-    transition: color .4s ease;  
-    background: none;
+  color: #21afbf;
+  text-decoration: none;
+  transition: color .4s ease;  
+  background: none;
 }
- a:hover {
-    color: darken(#21afbf, 10%) !important;
+a:hover {
+  color: darken(#21afbf, 10%) !important;
   
- }
+}
 
- .btn:hover {
+.btn:hover {
   color: #fff !important;
- }
+}
 
- a:visited {
+a:visited {
   color: #fff;
- }
+}
 
- .registration a {
+.registration a {
 
 
   color: #fff;
 
 
- }
+}
 
 
 div {
@@ -113,24 +113,24 @@ th { border-bottom: 1px solid #DDD; }
 table img { width:100px;}
 
 * {
-    padding:0;
-    margin: 0;
+  padding:0;
+  margin: 0;
 }
 
 h1,h2,h3,h4,h5,h6,p, table, ul, textarea {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 
 #logo {
-    display: block;
-    width: 300px;
-    height: 45px;
-    background-image: url(event_create_logo.png);
-    position: absolute;
-    top: 20px;
-    left: 20px;
+  display: block;
+  width: 300px;
+  height: 45px;
+  background-image: url(event_create_logo.png);
+  position: absolute;
+  top: 20px;
+  left: 20px;
 
 }
 
@@ -138,110 +138,110 @@ h1,h2,h3,h4,h5,h6,p, table, ul, textarea {
 
 
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 *, *:before, *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 
 
 html {
-    min-height: 100%;
+  min-height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: "sofia-pro",sans-serif;
-    font-style: normal;
-    font-weight: 300;    
+  margin: 0;
+  font-family: "sofia-pro",sans-serif;
+  font-style: normal;
+  font-weight: 300;    
 }
 
 
 h1 {
-    color: #fff;
-    font-size:56px;
-    font-weight: 300;
-    line-height: 66px;
+  color: #fff;
+  font-size:56px;
+  font-weight: 300;
+  line-height: 66px;
 }
 
 .container {
-    padding: 100px;
+  padding: 100px;
 }
 
 input:focus {
-    outline: none;
+  outline: none;
 }
 .main-container {
-    height: 100%;
+  height: 100%;
 }
 
 
 .navbar-default {
-    background: transparent;
-    border-bottom: none;
+  background: transparent;
+  border-bottom: none;
 }
 
 
 
- #center, #center-below, #center-above {
-   display: block;
-   top: 50%;
-   left: 50%;
-   width: 100%;
-   text-align: center;
-    -webkit-transform: translate(0%,50%);
-    -webkit-transform-origin: 50% 50%;
- }
+#center, #center-below, #center-above {
+ display: block;
+ top: 50%;
+ left: 50%;
+ width: 100%;
+ text-align: center;
+ -webkit-transform: translate(0%,50%);
+ -webkit-transform-origin: 50% 50%;
+}
 
- h1 {
-    text-align: center;
- }
+h1 {
+  text-align: center;
+}
 
- nav ul {
+nav ul {
  /*   position: fixed;
     right: 20px;
     top: 20px;*/
     float: right;
     margin: 20px;
- }
+  }
 
- nav {
+  nav {
     position: fixed;
     z-index:2;
     width: 100%;
- }
- nav ul  li {
+  }
+  nav ul  li {
     display: inline-block;
- }
+  }
 
- nav ul li a {
+  nav ul li a {
     padding: 0 20px;
     color: #21afbf;
 
 
- }
+  }
 
 
 
 
- .container.registration {
+  .container.registration {
     background: #ccc;
- }
+  }
 
- .registration, .event-registration {
+  .registration, .event-registration {
     text-align: center;
     overflow: hidden;
- }
+  }
 
- .registration form, .event-registration form {
+  .registration form, .event-registration form {
     width: 800px;
     margin: 0 auto;
- }
+  }
 
 
 
-.container, .event-registration {
+  .container, .event-registration {
     height: 100%;
     background: rgb(66,75,87);
     background: -moz-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%, rgba(49,59,74,1) 100%);
@@ -252,13 +252,13 @@ input:focus {
     background: radial-gradient(ellipse at center,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424b57', endColorstr='#313b4a',GradientType=1 );
     
-}
-.container.dashboard {
+  }
+  .container.dashboard {
     height :auto;
-}
+  }
 
 
-.input-primary {
+  .input-primary {
     font-family: "sofia-pro",sans-serif;
     font-weight: 100;
     background: none;
@@ -270,18 +270,18 @@ input:focus {
     font-size: 30px;
     color: #fff;
     transition: border-bottom .2s ease;
-}
+  }
 
-input.input-primary:focus {
+  input.input-primary:focus {
     border-bottom: 1px solid #21afbf;
-}
+  }
 
-.event-registration {
+  .event-registration {
     padding: 0;
     //overflow: hidden;
-}
+  }
 
-.alert {
+  .alert {
 
     position: absolute;
     background: aquamarine;
@@ -290,20 +290,20 @@ input.input-primary:focus {
     right: 40%;
     z-index:2;
     border-radius: 4px;
-}
+  }
 
-.event-registration, .event-registration form {
+  .event-registration, .event-registration form {
     width: 100%;
     height: 100%;
     margin-bottom: 0;
 
-}
+  }
 
-.event-registration .field {
+  .event-registration .field {
     width: 100%;
-}
+  }
 
-.event-page {
+  .event-page {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -313,9 +313,9 @@ input.input-primary:focus {
     top: 0;
     left: 0;
     z-index:0;
-}
+  }
 
-.event-info {
+  .event-info {
     position: relative;
     z-index: 1;
 
@@ -327,9 +327,9 @@ input.input-primary:focus {
 
       padding-top: 200px;
     }
-} 
+  } 
 
-.overlay {
+  .overlay {
     background: #000;
     width: 100%;
     height: 100%;
@@ -339,8 +339,8 @@ input.input-primary:focus {
     left: 0;
     z-index:1;
     //display: none;
-}
-.event-registration .actions {
+  }
+  .event-registration .actions {
     bottom: 0;
     position: fixed;
     padding: 40px;
@@ -348,35 +348,35 @@ input.input-primary:focus {
     background: #ccc;
     width: 100%;
     margin-bottom: 0;
-}
+  }
 
-.actions a {
+  .actions a {
     margin: 0 20px;
     padding: 20px;
-}
+  }
 
 
-.event-registration .field input {
+  .event-registration .field input {
 
     text-align: center;
-}
+  }
 
-.profile {
+  .profile {
     border-radius: 50%;
-}
+  }
 
 
-.container.event-container {
+  .container.event-container {
     height: 100%;
     padding: 0;
-}
+  }
 
-.input-md {
-  width: 40%;
-}
+  .input-md {
+    width: 40%;
+  }
 
-.input-lg {
-  width: 85%;
+  .input-lg {
+    width: 85%;
   //margin: 0 20px;
 }
 
@@ -385,52 +385,52 @@ input.input-primary:focus {
 
 
 #attendee-form {
-    background: #a0002f;
-    width: 100%;
-    height: 600px;
-    padding: 60px;
-    display: block;
-    form {
-      text-align: center;
+  background: #a0002f;
+  width: 100%;
+  height: 600px;
+  padding: 60px;
+  display: block;
+  form {
+    text-align: center;
 
-  margin: 0 auto;
-  width: 80%;
-  li {
-    margin-left: 0;
+    margin: 0 auto;
+    width: 80%;
+    li {
+      margin-left: 0;
 
-    width: 49%;
-    color: rgba(255,255,255,.6);
-          span {
+      width: 49%;
+      color: rgba(255,255,255,.6);
+      span {
 
         font-family: "sofia-pro",sans-serif;
-    font-weight: 100;
-    font-size: 30px;
-  
-    
-  }
-
-  }
-
-
-
-
+        font-weight: 100;
+        font-size: 30px;
+        
+        
+      }
 
     }
 
-    textarea, input {
-      text-align: center;
-      margin: 20px;
-      border-bottom-color: rgba(255,255,255, .4);
-      transition: all .2s ease-out;
 
-      &:focus {
+
+
+
+  }
+
+  textarea, input {
+    text-align: center;
+    margin: 20px;
+    border-bottom-color: rgba(255,255,255, .4);
+    transition: all .2s ease-out;
+
+    &:focus {
       outline: none;
       border-bottom-color: rgba(255,255,255, 1);
-      }
     }
+  }
 
-      textarea {
-        margin-bottom: 80px;
+  textarea {
+    margin-bottom: 80px;
 
   }
 }
@@ -439,8 +439,8 @@ input.input-primary:focus {
 
 .list-inline { 
   li {
-  
-  display: inline-block;
+    
+    display: inline-block;
   }
 }
 .list-unstyled {
