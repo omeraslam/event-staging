@@ -17,3 +17,6 @@
 public/uploads
 tmp
 logs
+
+.env
+Procfile

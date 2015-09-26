@@ -6,11 +6,13 @@ gem 'rails', '4.1.4'
 # Use sqlite3 as the database for Active Record
 group :development do
     gem 'sqlite3'
+    gem 'foreman'
 end
 group :production do
     gem 'pg'
     gem 'rails_12factor'
 end
+
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
 # Use these for social logins
