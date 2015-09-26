@@ -2,3 +2,74 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.percent {
+    position: fixed;
+    z-index:1;
+    top: 0;
+    width: 100%;
+    height: 10px;
+    display: block;
+    background-color: rgb(66,75,87);
+
+    span {
+    width: 0%;
+    background-color: #21afbf;
+    height: 100%;
+    display: block;
+
+    }
+}
+
+.slide-up-hide {
+    top: -20%;
+    opacity: 0;
+    z-index:0;
+}
+
+.slide-down-hide {
+    top: 20%;
+    opacity: 0;
+    z-index:0;
+}
+
+.slide-up-show {
+    top: 0%;
+    opacity: 1;
+    z-index: 1;
+}
+
+.field {
+    padding-top: 30%;
+    transition: all .3s ease-out;
+    //top: -50%;
+    position: absolute;
+}
+
+.event-registration {
+
+    // position: fixed;
+    // z-index:9999;
+}
+.side-nav {
+    top: 40%;
+    z-index: 9999;
+    li {
+        list-style-type: none;
+        margin: 20px 10px;
+      a {
+        width: 10px;
+        border-radius: 50%;
+        height: 10px;
+        display: block;
+        background: #fff;
+        transition: background-color .2s ease-in-out;
+
+            &:hover, &.active {
+                background-color: #21afbf;
+            }
+        }
+    }
+    position: absolute;
+    right: 0;
+}

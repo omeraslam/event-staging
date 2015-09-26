@@ -146,6 +146,7 @@ input:focus {
 
  .registration, .event-registration {
     text-align: center;
+    overflow: hidden;
  }
 
  .registration form, .event-registration form {
@@ -155,8 +156,8 @@ input:focus {
 
 
 
-.container, .event-registration .field {
-    height: 100%;
+.container, .event-registration {
+    //height: 100%;
     background: rgb(66,75,87);
     background: -moz-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%, rgba(49,59,74,1) 100%);
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(66,75,87,1)), color-stop(100%,rgba(49,59,74,1)));
@@ -204,11 +205,15 @@ input.input-primary:focus {
     border-radius: 4px;
 }
 
-.event-registration,.event-registration .field, .event-registration form {
+.event-registration, .event-registration form {
     width: 100%;
     height: 100%;
     margin-bottom: 0;
 
+}
+
+.event-registration .field {
+    width: 100%;
 }
 
 .event-page {
@@ -257,7 +262,7 @@ input.input-primary:focus {
 }
 .event-registration .field {
     
-    padding-top: 20%;
+   // padding-top: 55%;
 }
 
 .event-registration .field input {

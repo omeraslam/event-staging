@@ -11,31 +11,33 @@
     </div>
   <% end %>
 <div class="event-registration">
-  <div class="field">
+  <div class="field slide-up-show">
    <!--  <%= f.label :name %><br> -->
     <%= f.text_field :name, :class => 'input-primary', :placeholder => 'What is the name of the event?' %>
   </div>
-  <div class="field">
+  <div class="field slide-down-hide">
     <!-- <%= f.label :description %><br> -->
     <%= f.text_field :description, :class => 'input-primary', :placeholder => 'Description' %>
   </div>
-  <div class="field">
+  <div class="field slide-down-hide">
     <!-- <%= f.label :time %><br> -->
     <%= f.text_field :time, :class => 'input-primary', :placeholder => 'Time' %>
   </div>
-  <div class="field">
+  <div class="field slide-down-hide">
    <!--  <%= f.label :location %><br> -->
     <%= f.text_field :location, :class => 'input-primary', :placeholder => 'Location' %>
   </div>
-  <div class="field">
-    <%= f.label :background_img  %><br>
+  <div class="field slide-down-hide">
+    <%= f.label :background_img, 'Choose A Background Image'  %>
     <%= f.file_field :background_img %>
   </div>
 </div>
+
+
   <div class="actions">
-    <a href="">Prev</a>
+    <a class="btn-prev" href="">Prev</a>
     <%= f.submit "Create Event", :class => 'btn' %>
 
-    <a href="">Next</a>
+    <a class="btn-next" href="">Next</a>
   </div>
 <% end %>
