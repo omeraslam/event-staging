@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :attendees
+
   get '/terms' => 'pages#terms'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
