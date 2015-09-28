@@ -234,12 +234,15 @@ nav ul {
     overflow: hidden;
   }
 
-  .registration form, .event-registration form {
-    width: 800px;
+  .registration form {
+    max-width: 800px;
     margin: 0 auto;
   }
 
 
+.event-registration form {
+  
+}
 
   .container, .event-registration {
     height: 100%;

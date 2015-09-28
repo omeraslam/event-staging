@@ -15,8 +15,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @event %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Show', user_events_path(current_user, @event) %> |
+<%= link_to 'Back', user_events_path(current_user) %>
 
 </div>
 
