@@ -3,28 +3,29 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-  
-  img = document.getElementById('eventPage')
-  style = img.currentStyle or window.getComputedStyle(img, false)
-  bi = style.backgroundImage.slice(4, -1)
-  bi = style.backgroundImage.slice(4, -1).replace(/"/g, '')
-  
-  sourceImage =  bi
+  if $('#eventPage').length != 0
+    img = document.getElementById('eventPage')
+    if img.currentStyle != 0
+      style = img.currentStyle or window.getComputedStyle(img, false)
+      bi = style.backgroundImage.slice(4, -1)
+      bi = style.backgroundImage.slice(4, -1).replace(/"/g, '')
+      
+      sourceImage =  bi
 
-  oImg = document.createElement('img')
-  oImg.setAttribute 'src', bi
-  oImg.setAttribute 'width', '100px'
-  oImg.setAttribute 'height', '100px'
+      oImg = document.createElement('img')
+      oImg.setAttribute 'src', bi
+      oImg.setAttribute 'width', '100px'
+      oImg.setAttribute 'height', '100px'
 
 
-   
-  oImg.onload = ->
-    `var colorThief`
-    colorThief = new ColorThief
-    photoColor = colorThief.getColor(oImg)
-    console.log photoColor 
-    $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
-    return
+       
+      oImg.onload = ->
+        `var colorThief`
+        colorThief = new ColorThief
+        photoColor = colorThief.getColor(oImg)
+        console.log photoColor 
+        $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
+        return
 
 
 
