@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/terms' => 'static_pages#terms'
+  get '/terms' => 'pages#terms'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     root :to => 'pages#info', as: :authenticated
   end
 
-  root :to => 'static_pages#home'
+  root :to => 'pages#home'
 
   # resources :users
 
