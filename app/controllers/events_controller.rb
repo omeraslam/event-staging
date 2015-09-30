@@ -12,8 +12,7 @@ class EventsController < ApplicationController
     @events = @user.events
 
 
-    @attendees = Attendee.all
-    respond_with(@attendees) 
+    # @attendees = Attendee.all
 
     #@events = Event.all
   end
@@ -23,7 +22,7 @@ class EventsController < ApplicationController
   def show
 
     @attendee = Attendee.new
-    respond_with(@attendee)
+    respond_with(@attendees)
   end
 
   # GET /events/new
