@@ -22,8 +22,23 @@ class AttendeesController < ApplicationController
 
   def create
     @attendee = Attendee.new(attendee_params)
-    @attendee.save
-    respond_with(@attendee)
+    @attendee.user_id = current_user.id;
+    @attendee.event_id = params[:event_id]
+
+    #@attendee.save
+
+    respond_to do |format|
+      if @attendee.save
+        format.html { redirect_to attendees_path, notice: 'Attendee was successfully created.' }
+        format.json { render :show, status: :created, location: attendees_path }
+      else
+        format.html { render :new }
+        format.json { render json: @attendee.errors, status: :unprocessable_entity }
+      end
+    end
+
+    #redirect_to :back
+    #respond_with(@attendee)
   end
 
   def update

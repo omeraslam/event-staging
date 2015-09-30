@@ -25,24 +25,81 @@
 </div>
 
 
+
 <div id="attendee-form" >
 
-    <form>
 
-        <div>
+<%= form_for(@attendee) do |f| %>
+  <% if @attendee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>
+
+      <ul>
+      <% @attendee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<!-- <%= radio_button_tag(:age, "child") %>
+<%= label_tag(:age_child, "I am younger than 21") %>
+<%= radio_button_tag(:age, "adult") %>
+<%= label_tag(:age_adult, "I'm over 21") %> -->
+<!-- 
+    <div>
             <ul class="list-inline list-unstyled">
             <li class="input-md">
+             <div class="field">
+    <%= f.label :attending %><br>
+    <%= f.check_box :attending %>
+  </div>
             <input type="radio" name="attending" value="true"><span>I'm in!</span></li>
             <li class="input-md"><input class="" type="radio" name="attending" value="false"><span>Mrr. I can't make it.</span></li>
             </ul>
-        </div>
-        <input class="input-primary input-md" placeholder="First Name" />
-        <input class="input-primary input-md" placeholder="Last Name" />
-        <input class="input-primary input-md" placeholder="Email Address"/>
-        <input class="input-primary input-md" placeholder="Phone Number"/>
-        <textarea class="input-primary input-lg" placeholder="Public message (i.e., I Can't Wait!)"></textarea><br/>
-        <button class="btn btn-bordered" type="submit" />RSVP</button>
-    </form>
+        </div> -->
+
+    <div>
+
+
+            <ul class="list-inline list-unstyled">
+            <li class="input-md">
+
+    <%= f.radio_button :attending, true, :checked => true %>
+    <%= f.label :attending, "I'm in!", :value => "true"  %>
+            </li>
+            <li class="input-md">
+           
+    <%= f.radio_button :attending, false %>
+    <%= f.label :attending, "No", :value => "false" %>
+            </li>
+            </ul>
+    </div>
+
+        
+
+
+
+    <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
+  
+    <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
+
+
+    <%= f.text_field :email, :class => 'input-primary input-md', :placeholder => 'Email'  %>
+ 
+    <%= f.text_field :phone_number, :class => 'input-primary input-md', :placeholder => 'Phone Number'  %>
+ 
+    <%= f.text_field :message, :class => 'input-primary input-lg', :placeholder => "Public message (i.e., I Can't Wait!)" %>
+ 
+ 
+    <%= hidden_field_tag 'event_id', @event.id %>
+    <%= f.submit "RSVP", :class => 'btn btn-bordered' %>
+<% end %>
+
+
+
+
 
 </div>
 

@@ -2,6 +2,8 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show,  :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  respond_to :html
+
   # GET /events
   # GET /events.json
   def index
@@ -9,12 +11,19 @@ class EventsController < ApplicationController
     @user = User.find(params[:user_id])
     @events = @user.events
 
+
+    @attendees = Attendee.all
+    respond_with(@attendees) 
+
     #@events = Event.all
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
+
+    @attendee = Attendee.new
+    respond_with(@attendee)
   end
 
   # GET /events/new
