@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get '/terms' => 'pages#terms'
 
+  get '/attendees/:id', to: 'attendees#index'
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
