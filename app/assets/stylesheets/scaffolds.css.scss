@@ -75,32 +75,46 @@ div {
 }
 
 .field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+  // padding: 2px;
+  // background-color: red;
+  // display: table;
+  input {
+    border-bottom: 1px solid red;
+  }
 }
 
 #error_explanation {
-  width: 450px;
-  border: 2px solid red;
+  
+  width: 480px;
   padding: 7px;
   padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+  display: table;
+  margin: 0 auto 20px;
+  background-color: red;
+
+
+
   h2 {
     text-align: left;
     font-weight: bold;
     padding: 5px 5px 5px 15px;
     font-size: 12px;
-    margin: -7px;
     margin-bottom: 0px;
-    background-color: #c00;
     color: #fff;
+
   }
-  ul li {
-    font-size: 12px;
-    list-style: square;
+  ul {
+      margin-bottom: 20px;
+      li {
+        font-size: 12px;
+        list-style: inherit;
+        text-align: left;
+        margin: 0 40px 0px;
+      }
+
   }
+
+  
 }
 
 
