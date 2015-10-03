@@ -30,7 +30,7 @@
         <td><%= attendee.attending %></td>
         <td><%= attendee.event_id %></td>
         <td><%= attendee.user_id %></td>
-        <% if (attendee.user_id).to_i == current_user.id %>
+        <% if (attendee.user_id) == current_user.id.to_s %>
         <td><%= link_to 'Show', attendee %></td>
      
         <td><%= link_to 'Edit', edit_attendee_path(attendee) %></td>

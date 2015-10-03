@@ -6,7 +6,7 @@ class AttendeesController < ApplicationController
   def index
 
     @attendees = Attendee.all
-     @attendees = Attendee.where(user_id:current_user.id, event_id:params[:event])
+     @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
      #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
     respond_with(@attendees)
   end
