@@ -51,7 +51,8 @@ class AttendeesController < ApplicationController
 
   def destroy
     @attendee.destroy
-    respond_with(@attendee)
+    redirect_to :back
+    #respond_with(@attendee)
   end
 
   private

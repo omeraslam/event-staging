@@ -23,7 +23,19 @@ $(document).on 'ready page:load', ->
         `var colorThief`
         colorThief = new ColorThief
         photoColor = colorThief.getColor(oImg)
-        console.log photoColor 
+        console.log photoColor
+
+
+        $('.btn-bordered').removeClass 'hover-color'
+        $('.btn-bordered').hover(
+          (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
+          (ev) -> $(this).css('color', 'rgb(255,255,255)');
+        )
+
+     
+
+
+
         $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
         return
 

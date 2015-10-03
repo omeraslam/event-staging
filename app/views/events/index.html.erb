@@ -26,7 +26,7 @@
       <tr>
         <td><%= link_to event.name, user_event_path(@user, event) %></td>
         <td><%= event.description %></td>
-        <td><%= event.time %></td>
+        <td><%= event.event_time.strftime("%B %d at %I:%M %p") %></td>
         <td><%= event.location %></td>
         <td><%= image_tag(event.background_img) %></td>
         <td><%= link_to 'Show Guest List', attendees_path(:event => event.id)%></td>

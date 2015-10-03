@@ -47,7 +47,7 @@ a:hover {
   
 }
 
-.btn:hover {
+a.btn:hover {
   color: #fff !important;
 }
 
@@ -453,14 +453,18 @@ nav ul {
   }
 }
 
-.btn-bordered {
+.btn.btn-bordered {
   border: 2px solid #fff !important;
   background: none;
   padding: 10px 50px;
   transition: all .2s ease-out;
+
+  &.hover-color {
+    color: #fff;
+  }
   &:hover {
     background: #fff;
-    color: #a0002f !important;
+    //color: #a0002f !important;
   }
 
 }

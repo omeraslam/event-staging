@@ -20,8 +20,10 @@
     <%= f.text_field :description, :class => 'input-primary', :placeholder => 'Description' %>
   </div>
   <div class="field slide-down-hide">
-    <!-- <%= f.label :time %><br> -->
-    <%= f.text_field :time, :class => 'input-primary', :placeholder => 'Time' %>
+
+<%= f.datetime_select :event_time, :class => 'input-primary', :placeholder => 'Time',  
+                       ampm: true %>  
+
   </div>
   <div class="field slide-down-hide">
    <!--  <%= f.label :location %><br> -->

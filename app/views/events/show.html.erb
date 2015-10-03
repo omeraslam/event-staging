@@ -13,7 +13,7 @@
 
 
      <p class="lead"><%= @event.description %> </p>
-     <p class="lead"> <%= @event.time %> | <%= @event.location %></p>
+     <p class="lead"> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%= @event.location %></p>
 
     </div>
 
@@ -79,7 +79,7 @@
 
 
   <%= hidden_field_tag 'event_id', @event.id %>
-  <%= f.submit "RSVP", :class => 'btn btn-bordered' %>
+  <%= f.submit "RSVP", :class => 'btn btn-bordered hover-color' %>
   <% end %>
 
 
