@@ -32,8 +32,10 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       if @attendee.save
-        format.html { redirect_to attendees_path, notice: 'Attendee was successfully created.' }
-        format.json { render :show, status: :created, location: attendees_path }
+        format.html { redirect_to :back, notice: 'Your RSVP has been confirmed.' }
+        format.json { render :show, status: :created, location: :back }
+        #send invite email to them now, thank you and sign up with hash
+        #
       else
         format.html { render :new }
         format.json { render json: @attendee.errors, status: :unprocessable_entity }

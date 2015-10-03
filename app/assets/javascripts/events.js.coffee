@@ -32,6 +32,7 @@ $(document).on 'ready page:load', ->
           (ev) -> $(this).css('color', 'rgb(255,255,255)');
         )
 
+
      
 
 
@@ -39,6 +40,16 @@ $(document).on 'ready page:load', ->
         $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
         return
 
+  $('.checkmarks .yes').on 'click', (e) ->
+    e.preventDefault()
+    $('#attendee_attending_true').click()
+    return
+
+
+  $('.checkmarks .no').on 'click', (e) ->
+    e.preventDefault()
+    $('#attendee_attending_false').click()
+    return
 
 
   formArray = $('.event-registration .field')

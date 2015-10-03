@@ -84,7 +84,7 @@ div {
 }
 
 #error_explanation {
-  
+
   width: 480px;
   padding: 7px;
   padding-bottom: 0;
@@ -481,4 +481,29 @@ nav ul {
     //color: #a0002f !important;
   }
 
+}
+
+
+.checkmarks {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  z-index:1;
+  text-align: center;
+  ul {
+    margin: 0;
+    li {
+    margin: 10px 10px 20px;
+    padding: 20px 30px;
+    font-size: 40px;
+    border: 2px solid #fff;
+    opacity: .6;
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+    }
+
+  }
 }
