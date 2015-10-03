@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/event-create', to: 'events#new'
 
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => {  registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
   authenticated do
