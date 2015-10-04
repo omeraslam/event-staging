@@ -17,6 +17,7 @@ class AttendeesController < ApplicationController
 
   def new
     @attendee = Attendee.new
+    @attendee.event_id = params[:event_id]
     respond_with(@attendee)
   end
 
@@ -36,8 +37,14 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       if @attendee.save
+        #if not created by host
         UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
         UserMailer.rsvp_update(current_user, @attendee, @event_url).deliver unless @attendee.invalid?
+        #else send guest emails
+          # UserMailer.invitations_sent(@attendee, @event_url).deliver unless @attendee.invalid?
+          # UserMailer.guest_invitation_sent
+        
+        
         format.html { redirect_to :back, notice: 'Your RSVP has been confirmed.' }
         format.json { render :show, status: :created, location: :back }
         #send invite email to them now, thank you and sign up with hash

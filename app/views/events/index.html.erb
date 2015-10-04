@@ -1,5 +1,10 @@
 
+
+
 <div class="container dashboard">
+
+
+
   <h1>Your events</h1>
   <table class="table table-striped">
     <thead>
@@ -10,6 +15,7 @@
         <th>Location</th>
         <th>Background</th>
         <th>Guest List</th>
+        <th>Invite guests</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -21,6 +27,7 @@
         <td><%= event.event_time.strftime("%B %d at %I:%M %p") %></td>
         <td><%= event.location %></td>
         <td><%= image_tag(event.background_img) %></td>
+        <td><%= link_to 'Invite guests', new_attendee_path(:event => event.id) %></td>
         <td><%= link_to 'Show Guest List', attendees_path(:event => event.id)%></td>
         <td><%= link_to 'Edit', edit_user_event_path(@user, event) %></td>
         <td><%= link_to 'Destroy', user_event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -30,5 +37,43 @@
   </table>
 
 
-  <%= link_to 'New Event', '/event-create' %>
+  <%= link_to 'New Event', :class => 'btn btn-primary' '/event-create' %>
+
+
+<h2>Send an invite </h2>
+    
+
+<div id="invite-form" >
+
+  <%= form_for(@attendee) do |f| %>
+
+     <% if @attendee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>
+
+      <ul>
+        <% @attendee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+  <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
+  
+  <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
+
+
+  <%= f.text_field :email, :class => 'input-primary input-md', :placeholder => 'Email'  %>
+
+
+  <%= f.submit "Invite", :class => 'btn btn-bordered' %>
+  <% end %>
+
+
 </div>
+
+
+
+</div>
+

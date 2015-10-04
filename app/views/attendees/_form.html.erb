@@ -35,6 +35,8 @@
     <%= f.label :attending %><br>
     <%= f.check_box :attending %>
   </div>
+
+  <%= hidden_field_tag 'event_id', @attendee.event_id %>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -8,8 +8,11 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
 
+    @attendee = Attendee.new
+
     @user = User.find(current_user.id)
     @events = @user.events
+    
 
 
     # @attendees = Attendee.all
