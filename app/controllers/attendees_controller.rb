@@ -17,7 +17,7 @@ class AttendeesController < ApplicationController
 
   def new
     @attendee = Attendee.new
-    @attendee.event_id = params[:event_id]
+    @attendee.event_id = params[:event]
     respond_with(@attendee)
   end
 
@@ -28,8 +28,8 @@ class AttendeesController < ApplicationController
 
     @attendee = Attendee.new(attendee_params)
     @attendee.user_id = current_user.id;
-    @attendee.event_id = params[:event_id]
-    @event_url = 'http://localhost:3000/users/' +  @attendee.user_id.to_s + '/events/' + @attendee.event_id.to_s
+    @event = Event.find_by id: params[:event_id]
+    @event_url = 'http://localhost:3000/users/' +  @attendee.user_id.to_s + '/events/' +  @event.id.to_s
 
 
 
@@ -37,15 +37,18 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       if @attendee.save
-        #if not created by host
-        UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
-        UserMailer.rsvp_update(current_user, @attendee, @event_url).deliver unless @attendee.invalid?
-        #else send guest emails
-          # UserMailer.invitations_sent(@attendee, @event_url).deliver unless @attendee.invalid?
-          # UserMailer.guest_invitation_sent
+        #if not equal to host
+         if current_user.id.to_s != @event.user_id.to_s
+           #send guest rsvpd emails
+           UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
+           UserMailer.rsvp_update(current_user, @attendee, @event_url).deliver unless @attendee.invalid?
+         else
+           #send invitations sent emails
+           UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+           UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+         end
         
-        
-        format.html { redirect_to :back, notice: 'Your RSVP has been confirmed.' }
+        format.html { redirect_to :back }
         format.json { render :show, status: :created, location: :back }
         #send invite email to them now, thank you and sign up with hash
         #

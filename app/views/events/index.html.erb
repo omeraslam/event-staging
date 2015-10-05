@@ -40,38 +40,6 @@
   <%= link_to 'New Event', :class => 'btn btn-primary' '/event-create' %>
 
 
-<h2>Send an invite </h2>
-    
-
-<div id="invite-form" >
-
-  <%= form_for(@attendee) do |f| %>
-
-     <% if @attendee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>
-
-      <ul>
-        <% @attendee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-    <% end %>
-
-  <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
-  
-  <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
-
-
-  <%= f.text_field :email, :class => 'input-primary input-md', :placeholder => 'Email'  %>
-
-
-  <%= f.submit "Invite", :class => 'btn btn-bordered' %>
-  <% end %>
-
-
-</div>
 
 
 

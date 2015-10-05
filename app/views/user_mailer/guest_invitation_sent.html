@@ -4,8 +4,8 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  <h1>Let's Party!</h1>
-  <p><%= @event.name %> invitations have been sent! Relax and watch the RSVPs roll in.</p>
+  <h1>Hello <%= @attendee.first_name %>! </h1>
+  <p>You've been invited to <%= @event.name %>, hosted by <%= @user.email %>. Check out the details of the event here:</p>
   <p>
     <%= link_to 'View your event', @url %>
   </p>
