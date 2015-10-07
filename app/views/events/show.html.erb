@@ -90,7 +90,7 @@
   <%= f.text_field :message, :class => 'input-primary input-lg', :placeholder => "Public message (i.e., I Can't Wait!)" %>
 
 
-  <%= hidden_field_tag 'event_id', @event.id %>
+  <%= hidden_field_tag 'event_id', @event.id%>
   <%= f.submit "RSVP", :class => 'btn btn-bordered hover-color' %>
   <% end %>
 

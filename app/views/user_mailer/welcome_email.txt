@@ -1,0 +1,10 @@
+Welcome to EventCreate
+===============================================
+ 
+Thanks for joining!
+ 
+
+Our only goal at EventCreate is to ensure you have the snazziest invitations ever. Whether you want to invite your friends via mobile or web, welcome to invitations for the new age.
+
+<%= link_to 'Start Planning now!', @url %>
+ 

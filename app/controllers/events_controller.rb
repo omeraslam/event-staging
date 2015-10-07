@@ -8,8 +8,11 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
 
-    @user = User.find(params[:user_id])
+    @attendee = Attendee.new
+
+    @user = User.find(current_user.id)
     @events = @user.events
+    
 
 
     # @attendees = Attendee.all
@@ -27,7 +30,7 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user.id)
     @event = @user.events.build
   end
 

@@ -37,9 +37,8 @@
       
  	<ul>
  		<li><i class="icon icon-user">  </i>   
- 
 		 		<ul> 
-	
+	<!-- '/dashboard' -->
 		 			<li><%=  link_to "My events", user_events_path(current_user) %>    </li>
 		 			<li><%=  link_to "Create new event", user_events_path(current_user) %>    </li>
 		 			
@@ -53,8 +52,6 @@
   </ul>
   
   <ul><li><a href="/users/sign_up">Manage this event</a></li></ul>
-  
-  
 <% else %>
 
        <a class="logo" href="/"><span>Event Create</span></a>

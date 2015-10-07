@@ -9,8 +9,8 @@ group :development do
     gem 'foreman'
 end
 group :production do
-    gem 'pg'
-    gem 'rails_12factor'
+    #gem 'pg'
+    #gem 'rails_12factor'
 end
 
 # Use carrierwave for uploading pictures
