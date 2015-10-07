@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20151003022521) do
     t.integer  "event_id"
     t.string   "user_id"
   end
+  
+ActiveRecord::Schema.define(version: 20150923151518) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -50,10 +52,6 @@ ActiveRecord::Schema.define(version: 20151003022521) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
