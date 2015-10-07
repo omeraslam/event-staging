@@ -1,19 +1,23 @@
 
 <div class="container event-container">
 
-
+	
 
   <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 
     <div class="overlay"></div>
 
     <div class="event-info">
+    
+    
+    <div class="event-details"> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%= @event.location %> | Hosted by {HOST}</div>
+    
 
+		<div class="share"><a href="#" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	
      <h1> <%= @event.name %></h1>
 
 
-     <p class="lead"><%= @event.description %> </p>
-     <p class="lead"> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%= @event.location %></p>
+     <p class="event-description"><%= @event.description %> </p>
 
 
 
@@ -21,8 +25,8 @@
 
      <div class="checkmarks">
      <ul class="list-unstyled list-inline">
-       <li class="yes"><i class="fa fa-check"></i></li>
-       <li class="no"><i class="fa fa-close"></i></li>
+       <li class="yes"><i class="icon icon-check"></i></li>
+       <li class="no"><i class="icon icon-x"></i></li>
      </ul>
      </div>
     <!-- #B3193F -->

@@ -1,12 +1,12 @@
 <div class="container registration">
-<h1>Sign up</h1>
+<h1>Make something beautiful.</h1>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field"><!-- 
     <%= f.label :email %><br /> -->
-    <%= f.email_field :email, autofocus: true, :class => 'input-primary', :placeholder => 'Email' %>
+    <%= f.email_field :email, autofocus: true, :class => 'input-primary', :placeholder => 'Your email address' %>
   </div>
 
   <div class="field">
@@ -14,12 +14,12 @@
     <% if @validatable %>
    <!--  <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br /> -->
-    <%= f.password_field :password, autocomplete: "off", :class => 'input-primary', :placeholder => 'Password (8 character min)' %>
+    <%= f.password_field :password, autocomplete: "off", :class => 'input-primary', :placeholder => 'Password ' %>
   </div>
 
   <div class="field">
    <!--  <%= f.label :password_confirmation %><br /> -->
-    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input-primary', :placeholder => 'Password confirmation' %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input-primary', :placeholder => 'Confirm password' %>
   </div>
 
   <div class="actions">

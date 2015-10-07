@@ -5,21 +5,43 @@
 .widgets {height: 100%}
 
 #home {
-    background: url(/assets/sparkler.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height: 100%;
+		background:#ff;
+
+		.cover {
+			//background:#09c;
+		}
+	
+    .cover img {
+	     width:100%;
+	     line-height:0;
+	     display:block;
+    }
+    
     h1 {
-
-        margin-top: 0;
-        padding: 0;
-        letter-spacing: 1px;
-        font-size: 100px;
-        line-height: 100px;
-        margin-bottom: 18px;
-
+    		font-size:44px;
+    		text-align:left;
+    		color:#555;
+    		padding:0 50px;
+    		margin-bottom:100px;
+    		letter-spacing:1px;
+    		
+    		span {
+    				border-bottom:2px solid;
+    		}
+    
+    }
+    
+    .examples {
+    		display:none;
+    		width:70%;
+    		margin:0 auto;
+    		
+				img {
+						width:100%;
+						height:auto;
+				}
+    		
+    
     }
     
 }
