@@ -20,8 +20,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
+<body <%= current_root_class %> >
     <nav>
    <% if user_signed_in? %><!-- 
       <%= link_to_if current_user, image_tag(current_user, :class => 'profile'), '/events' %> -->

@@ -5,11 +5,33 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: #313b4a;
+  // background: rgb(66,75,87);
+  // background: -moz-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%, rgba(49,59,74,1) 100%);
+  // background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(66,75,87,1)), color-stop(100%,rgba(49,59,74,1)));
+  // background: -webkit-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+  // background: -o-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+  // background: -ms-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+  // background: radial-gradient(ellipse at center,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424b57', endColorstr='#313b4a',GradientType=1 );
+    
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+}
+
+.pages {
+  background-color: #fff;
+  color: #000;
+
+  .logo {
+    background-image: url(event_create_logo_black.png);
+  }
+
+  .logo-simple {
+    background-image: url(event_create_logo_simple_black.png);
+  }
 }
 
 p, ol, ul, td {
@@ -312,21 +334,10 @@ nav ul {
   }
 
 
-.event-registration form {
-  
-}
 
   .container, .event-registration {
     height: 100%;
-    background: rgb(66,75,87);
-    background: -moz-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%, rgba(49,59,74,1) 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(66,75,87,1)), color-stop(100%,rgba(49,59,74,1)));
-    background: -webkit-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
-    background: -o-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
-    background: -ms-radial-gradient(center, ellipse cover,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
-    background: radial-gradient(ellipse at center,  rgba(66,75,87,1) 0%,rgba(49,59,74,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424b57', endColorstr='#313b4a',GradientType=1 );
-    
+
   }
   .container.dashboard {
     height :auto;
