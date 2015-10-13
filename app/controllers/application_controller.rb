@@ -7,6 +7,21 @@ class ApplicationController < ActionController::Base
 
 end
 
+#def current_root_class
+#  'class=pages' if controller_name == "pages"
+#  
+#end 
+
+
 def current_root_class
-  'class=pages' if controller_name == "pages"
+	case controller_name
+		when 'pages'
+			 'class=pages'
+		when 'registrations'
+			 'class=registration'
+		when 'events'
+			 'class=events'
+		else 
+			 'class=standard'
+		end
 end 

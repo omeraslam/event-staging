@@ -38,63 +38,147 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-x:before {
+.icon-alpha:before {
   content: "a";
 }
-.icon-users:before {
+.icon-arrow-double-left:before {
   content: "b";
 }
-.icon-arrow-double-down:before {
+.icon-arrow-down:before {
   content: "c";
 }
-.icon-arrow-down:before {
+.icon-arrow-left:before {
   content: "d";
 }
-.icon-trash:before {
+.icon-arrow-right:before {
   content: "e";
 }
-.icon-star:before {
+.icon-arrow-up:before {
   content: "f";
 }
-.icon-arrow-left:before {
+.icon-bolt:before {
   content: "g";
 }
-.icon-twitter:before {
+.icon-camera:before {
   content: "h";
 }
-.icon-unclocked:before {
+.icon-chart:before {
   content: "i";
 }
-.icon-arrow-right:before {
+.icon-chat:before {
   content: "j";
 }
-.icon-arrow-up:before {
+.icon-check:before {
   content: "k";
 }
-.icon-user:before {
+.icon-close:before {
   content: "l";
 }
-.icon-camera:before {
+.icon-columns:before {
   content: "m";
 }
-.icon-check:before {
-  content: "n";
+.icon-download:before {
+  content: "K";
 }
 .icon-email:before {
-  content: "o";
+  content: "L";
+}
+.icon-expand:before {
+  content: "M";
+}
+.icon-flag:before {
+  content: "N";
+}
+.icon-folder:before {
+  content: "O";
+}
+.icon-folder-open:before {
+  content: "P";
+}
+.icon-group:before {
+  content: "Q";
 }
 .icon-hamburger:before {
-  content: "p";
+  content: "R";
 }
-.icon-loading:before {
-  content: "q";
+.icon-heart:before {
+  content: "S";
 }
-.icon-location:before {
-  content: "r";
+.icon-home:before {
+  content: "T";
 }
-.icon-locked:before {
-  content: "s";
+.icon-image:before {
+  content: "U";
 }
-.icon-facebook:before {
-  content: "t";
+.icon-info:before {
+  content: "V";
+}
+.icon-key:before {
+  content: "W";
+}
+.icon-library:before {
+  content: "X";
+}
+.icon-list:before {
+  content: "Y";
+}
+.icon-loader:before {
+  content: "Z";
+}
+.icon-move:before {
+  content: "0";
+}
+.icon-pause:before {
+  content: "1";
+}
+.icon-pencil:before {
+  content: "2";
+}
+.icon-plus:before {
+  content: "3";
+}
+.icon-print:before {
+  content: "4";
+}
+.icon-question:before {
+  content: "5";
+}
+.icon-quote:before {
+  content: "6";
+}
+.icon-replay:before {
+  content: "7";
+}
+.icon-replay-back:before {
+  content: "8";
+}
+.icon-search:before {
+  content: "9";
+}
+.icon-settings:before {
+  content: "!";
+}
+.icon-sign-out:before {
+  content: "\"";
+}
+.icon-star:before {
+  content: "#";
+}
+.icon-trash:before {
+  content: "$";
+}
+.icon-undo:before {
+  content: "%";
+}
+.icon-unlock:before {
+  content: "&";
+}
+.icon-upload:before {
+  content: "'";
+}
+.icon-user:before {
+  content: "(";
+}
+.icon-users:before {
+  content: ")";
 }

@@ -2,15 +2,49 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.events-list {
+	.event {
+		background:#efefef;	
+		clear:both;
+		margin:20px 0;
+		padding:20px;
+		box-sizing:border-box;
+		
+		.image {
+			width:200px;
+			height:200px;
+			float:left;
+			margin-right:10px;
+			background-size:cover;
+			display:block;
+		
+		}
+		
+		.title {
+			font-size:30px;		
+		
+		}
+	
+	
+	
+	}
+	
+	.event:after {
+		content: "";
+ 		display: table;
+ 		clear: both;		
+	}
+
+}
 
 .percent {
     position: fixed;
-    z-index:1;
+    z-index:2;
     top: 0;
     width: 100%;
     height: 10px;
     display: block;
-    background-color: rgb(66,75,87);
+    background-color: transparent;
 
     span {
     width: 0%;
@@ -40,11 +74,20 @@
 }
 
 .event-registration .field {
-    padding-top: 30%;
+    padding: 160px 100px 100px 100px;
     transition: all .3s ease-out;
-    //top: -50%;
     position: absolute;
 }
+
+
+.event-registration  .input-primary{
+color:#1a1a1a;
+text-align: center;
+border-bottom:1px solid #444;    
+}
+
+
+
 
 .event-registration {
 

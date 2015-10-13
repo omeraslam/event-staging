@@ -1,6 +1,6 @@
 <%= form_for [current_user, @event] do |f| %>
   <% if @event.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert error">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
       <ul>
@@ -11,25 +11,31 @@
     </div>
   <% end %>
 <div class="event-registration">
-  <div class="field slide-up-show">
-   <!--  <%= f.label :name %><br> -->
-    <%= f.text_field :name, :class => 'input-primary', :placeholder => 'What is the name of the event?' %>
+  <div class="field slide-up-show"> 
+    <h2>So what's this event called?</h2> 
+    <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
   </div>
-  <div class="field slide-down-hide">
-    <!-- <%= f.label :description %><br> -->
-    <%= f.text_field :description, :class => 'input-primary', :placeholder => 'Description' %>
-  </div>
-  <div class="field slide-down-hide">
 
+  <div class="field slide-down-hide">
+<h2>Sounds like fun. Now, when is it?</h2> 
 <%= f.datetime_select :event_time, :class => 'input-primary', :placeholder => 'Time',  
                        ampm: true %>  
 
   </div>
   <div class="field slide-down-hide">
-   <!--  <%= f.label :location %><br> -->
+<h2>And where?</h2> 
     <%= f.text_field :location, :class => 'input-primary', :placeholder => 'Location' %>
   </div>
+  
   <div class="field slide-down-hide">
+    <h2>Any more details? Add a description.</h2> 
+    <%= f.text_field :description, :class => 'input-primary', :placeholder => 'Description' %>
+    <p>Nulla sollicitudin, dui quis cursus dapibus, nulla dui facilisis enim, sit amet eleifend tortor lectus nec arcu. Mauris lobortis felis at mauris commodo, a tempor felis pharetra. Aliquam erat volutpat. Sed auctor sem eu lacinia viverra. 
+     </p>
+  </div>
+  
+  <div class="field slide-down-hide">
+   <h2>Time to add some style. Choose a background image, or upload your own </h2>
     <%= f.label :background_img, 'Choose A Background Image'  %>
     <%= f.file_field :background_img %>
   </div>
@@ -37,9 +43,9 @@
 
 
   <div class="actions">
-    <a class="btn-prev" href="">Prev</a>
+    <a class="btn-prev" href="">previous</a>
     <%= f.submit "Create Event", :class => 'btn' %>
 
-    <a class="btn-next" href="">Next</a>
+    <a class="btn-next" href="">skip</a>
   </div>
 <% end %>
