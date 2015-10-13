@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
 
   authenticated do
-    root :to => 'pages#info', as: :authenticated
+    root :to => 'pages#home', as: :authenticated
   end
 
   root :to => 'pages#home'

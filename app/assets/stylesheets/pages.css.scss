@@ -4,97 +4,56 @@
 
 .widgets {height: 100%}
 
-#home {
-		background:#ff;
 
-		.cover {
-			//background:#09c;
-		}
+.pages {
+	background:#1a1a1a;
 	
-    .cover img {
-	     width:100%;
-	     line-height:0;
-	     display:block;
-    }
+	
+	.logo {
+	  display: block;
+	  width: 250px;
+	  height: 37px;
+	  background-image: url(event_create_logo.png);
+	  background-size:contain;
+	}
+	
+	
+	
+}
+
+
+#home {
+		-webkit-background-size: cover;
+		 -moz-background-size: cover;
+		 -o-background-size: cover;
+		 background-size: cover;
+		 background-repeat:no-repeat;
     
     h1 {
-    		font-size:44px;
+    		font-size:144px;
     		text-align:left;
-    		color:#555;
-    		padding:0 50px;
-    		margin-bottom:100px;
-    		letter-spacing:1px;
-    		
-    		span {
-    				border-bottom:2px solid;
-    		}
-    
+    		color:#fff;
+    		margin:40px 0 80px;
+    		letter-spacing:1px;  
     }
     
-    .examples {
-    		display:none;
-    		width:70%;
-    		margin:0 auto;
-    		
-				img {
-						width:100%;
-						height:auto;
-				}
-    		
+    ul.features {
+    	font-size:20px;
+    	line-height:34px;
+    	color:#fff;
     
-    }
     
+    	a {
+    		opacity:.5;
+    		color:#fff;
+    		display:block;
+    	}
+
+			a:hover {
+				opacity:1;
+				color:#bf2160;
+			}
+    
+    }    
 }
-
-    .temp-banner {
-
-        width: 600px;
-        height: 600px;
-
-        color: #fff;
-        background: #21afbf;
-
-        -ms-transform: rotate(45deg); /* IE 9 */
-        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
-        transform: rotate(45deg);
-
-        position: fixed;
-        top: -400px;
-        right: -400px;
-        text-align: center; 
-        .temp-banner-content {
-
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            border-radius: 10px;
-        }
-
-
-    }
-
-    .lead {
-    font-size: 28px;
-    color: #fff;
-    font-family: "sofia-pro",sans-serif;
-    font-weight: 300;   
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-
-.btn {
-    border: none;
-    font-family: "sofia-pro",sans-serif;
-    background: #21afbf;
-    font-size: 14px;
-    color: #fff;
-    padding: 15px 30px;
-    &:hover {
-        background-color: lighten(#21afbf, 10%);
-        color: #fff;
-    }
-}
-
-
 

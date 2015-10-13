@@ -1,32 +1,28 @@
 <div id="home"> 
-	<div class="cover">
-		<img src=<%= image_path("intro_overlay.png") %> />
-	</div>
- 	<h1>create stunning event websites for <span>any occasion</span></h1>
- 	
- 	<div class="examples">
- 			<div class="example" id="hipster"> <img src=<%= image_path("example_hipster.jpg") %> /> </div>
- 	</div>
- 		
+	<div class="container">
+	 	<h1>be eventful</h1>
+	 	
+	 	<ul class="features"> 
+	 		<li> create free, stunning events websites for</li>
+	 		<li> <a href="#" class="feature" data-image="weddings.jpg">weddings</a> </li>
+	 		<li> <a href="#" class="feature" data-image="weddings.jpg" >birthday parties</a> </li>
+	 		<li> <a href="#" class="feature" data-image="weddings.jpg">corporate events</a> </li>
+	 		<li> <a href="#" class="feature" data-image="weddings.jpg">meetups</a> </li>
+		</ul>
+ 	 </div>
 </div>
 
-
-
-
-
 <script type="text/javascript">
+	$(".feature").hover(
+	  function() {
+	  		
 
-$('.cover').vide({
-  mp4: "<%= image_path("1.mp4") %>"
-}, {
-	  volume: 1,
-	 
-	  muted: true,
-	  loop: true,
-	  autoplay: true,
-	  position: '50% 50%', // Similar to the CSS `background-position` property.
-	  posterType: 'none', // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
-	  resizing: false // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
-	});
-	
+	    $("#home").parent("body").css("background", "url(<%= image_path('home/wedding.jpg') %>)");
+	    
+	  }, function() {
+			$("#home").parent("body").css("background", "#1a1a1a");	  
+			
+			}
+	);
+
 </script>
