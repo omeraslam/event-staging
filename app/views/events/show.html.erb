@@ -1,7 +1,9 @@
 
 <div class="container event-container">
 
-	
+<% if current_user.premium != true %>
+	Made with EventCreate
+<% end %>
 
   <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 

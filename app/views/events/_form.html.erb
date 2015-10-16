@@ -29,7 +29,7 @@
   
   <div class="field slide-down-hide">
     <h2>Any more details? Add a description.</h2> 
-    <%= f.text_field :description, :class => 'input-primary', :placeholder => 'Description' %>
+    <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Description' %>
     <p>Nulla sollicitudin, dui quis cursus dapibus, nulla dui facilisis enim, sit amet eleifend tortor lectus nec arcu. Mauris lobortis felis at mauris commodo, a tempor felis pharetra. Aliquam erat volutpat. Sed auctor sem eu lacinia viverra. 
      </p>
   </div>
@@ -38,6 +38,15 @@
    <h2>Time to add some style. Choose a background image, or upload your own </h2>
     <%= f.label :background_img, 'Choose A Background Image'  %>
     <%= f.file_field :background_img %>
+    <p>
+    or choose one one of the images below:</p>
+
+    <ul class="list-unstyled list-inline">
+    <li><img src="/assets/home/wedding_thm.jpg"></li>
+    <li><img src="/assets/home/corporate_thm.jpg"></li>
+    <li><img src="/assets/home/meetups_thm.jpg"></li>
+    <li><img src="/assets/home/birthday_thm.jpg"></li>
+    </ul>
   </div>
 </div>
 

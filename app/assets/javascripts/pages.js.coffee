@@ -17,3 +17,8 @@ $(document).on 'ready page:load', ->
     ), ->
       $(images[$(this).index() - 1]).fadeOut 50
       return
+
+    $('.open-menu, .cover').click (e) ->
+      $('nav').toggleClass 'menu-open'
+      e.preventDefault()
+      return

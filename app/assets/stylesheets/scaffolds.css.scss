@@ -320,18 +320,18 @@ input:focus {
   
   
   // home 
-#home, .container {
-  height: 100%;
-}
-#home .container {
-  position: relative;
-  z-index: 1;
-
-  .feature a{
-     position: relative;
-     z-index: 1;
+  #home, .container {
+    height: 100%;
   }
-}
+  #home .container {
+    position: relative;
+    z-index: 1;
+
+    .feature a{
+       position: relative;
+       z-index: 1;
+    }
+  }
 
   .bg-overlay {
     position: absolute;
@@ -344,7 +344,13 @@ input:focus {
     display: none;
   }
   
-  
+//footer 
+footer {
+  position: absolute;
+  bottom: 0;
+  padding: 10px 20px;
+  font-size: .8em;
+}
   
   
 //event creation styles
@@ -592,7 +598,7 @@ input:focus {
 }
 
 .events {
-	background:#fff;
+	background:#EFEFEF;
 	color:#1a1a1a;
 
 
