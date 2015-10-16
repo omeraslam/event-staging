@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
+
+
   if $('#eventPage').length != 0
     img = document.getElementById('eventPage')
     if img.currentStyle != 0

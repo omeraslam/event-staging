@@ -1,28 +1,27 @@
 <div id="home"> 
 	<div class="container">
 	 	<h1>be eventful</h1>
+
+	
 	 	
 	 	<ul class="features"> 
 	 		<li> create free, stunning events websites for</li>
-	 		<li> <a href="#" class="feature" data-image="weddings.jpg">weddings</a> </li>
-	 		<li> <a href="#" class="feature" data-image="weddings.jpg" >birthday parties</a> </li>
-	 		<li> <a href="#" class="feature" data-image="weddings.jpg">corporate events</a> </li>
-	 		<li> <a href="#" class="feature" data-image="weddings.jpg">meetups</a> </li>
+	 		<li class="feature"> <a href="#">weddings</a>
+	 		 </li>
+	 		<li class="feature"> <a href="#" >birthday parties</a>
+	 		</li>
+	 		<li class="feature"> <a href="#" >corporate events</a>
+	 		</li>
+	 		<li class="feature"> <a href="#" >meetups</a>
+	 		</li>
 		</ul>
+
  	 </div>
+ 	 		 	<ul>
+	 		<li><div class="bg-overlay" data-image="wedding.jpg"></div></li>
+	 		<li><div class="bg-overlay" data-image="birthday.jpg"></div></li>
+	 		<li><div class="bg-overlay" data-image="corporate.jpg"></div></li>
+	 		<li><div class="bg-overlay" data-image="meetups.jpg"></div></li>
+	 	</ul>
 </div>
 
-<script type="text/javascript">
-	$(".feature").hover(
-	  function() {
-	  		
-
-	    $("#home").parent("body").css("background", "url(<%= image_path('home/wedding.jpg') %>)");
-	    
-	  }, function() {
-			$("#home").parent("body").css("background", "#1a1a1a");	  
-			
-			}
-	);
-
-</script>
