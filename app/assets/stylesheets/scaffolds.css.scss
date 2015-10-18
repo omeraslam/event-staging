@@ -315,7 +315,10 @@ input:focus {
    border-bottom: 1px solid red;
 }
   
-
+// validation error styles
+.error {
+  color: red;
+}
   
   
   
@@ -368,6 +371,48 @@ footer {
     
 }
 
+#default_bg_picker {
+  img {
+    border: 2px solid transparent;
+
+    &:hover, &.active {
+      border: 2px solid #21afbf;
+    }
+  }
+}
+
+.side-nav {
+  li {
+    position: relative;
+    span {
+
+    background: #000;
+    color: #Fff;
+    padding: 4px 2px;
+    font-size: 10px;
+    position: absolute;
+    width: 90px;
+    top: -8px;
+    right: 30px;
+
+        opacity: 0;
+    }
+
+    &:hover {
+      span {
+        opacity:1;
+      }
+    }
+
+    &:after {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 50px 0 50px 200px;
+      border-color: transparent transparent transparent #007bff;
+    }
+  }
+}
 
 .event-page {
     background-size: cover;

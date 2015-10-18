@@ -19,8 +19,11 @@
   <div class="field slide-down-hide">
 <h2>Sounds like fun. Now, when is it?</h2> 
 <%= f.datetime_select :event_time, :class => 'input-primary', :placeholder => 'Time',  
-                       ampm: true %>  
+                       ampm: true %>  <br/>
 
+                        or <label><input type="checkbox" id="cb_time" value="time_checkbox">TBD</label><br>
+
+ 
   </div>
   <div class="field slide-down-hide">
 <h2>And where?</h2> 
@@ -41,7 +44,7 @@
     <p>
     or choose one one of the images below:</p>
 
-    <ul class="list-unstyled list-inline">
+    <ul id="default_bg_picker" class="list-unstyled list-inline">
     <li><img src="/assets/home/wedding_thm.jpg"></li>
     <li><img src="/assets/home/corporate_thm.jpg"></li>
     <li><img src="/assets/home/meetups_thm.jpg"></li>
