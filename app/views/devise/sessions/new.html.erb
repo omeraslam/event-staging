@@ -12,6 +12,7 @@
     <!-- <%= f.label :password %><br /> -->
     <%= f.password_field :password, autocomplete: "off", :class => 'input-primary', :placeholder => 'Password' %>
   </div>
+  
 
   <% if devise_mapping.rememberable? -%>
     <div class="field" style="display: none;">
@@ -21,7 +22,7 @@
   <% end -%>
 
   <div class="actions">
-    <%= f.submit "Log in", :class => 'btn' %>
+    <%= f.submit "Log in", :class => 'btn btn-large' %>
   </div>
 <% end %>
 

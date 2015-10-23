@@ -4,7 +4,7 @@
 
 .events-list {
 	.event {
-		background:#efefef;	
+		background:#fff;	
 		clear:both;
 		margin:20px 0;
 		padding:20px;
@@ -14,7 +14,7 @@
 			width:200px;
 			height:200px;
 			float:left;
-			margin-right:10px;
+			margin-right:30px;
 			background-size:cover;
 			display:block;
 		
@@ -22,6 +22,22 @@
 		
 		.title {
 			font-size:30px;		
+		
+		}
+		
+		.attendees {
+			margin-top:20px;
+		
+		}
+		
+		.actions {
+			margin-top:20px;
+			
+			a {
+				font-size:12px;
+				margin-right:10px;
+				display:inline-block;
+			}
 		
 		}
 	
@@ -73,11 +89,7 @@
     z-index: 1;
 }
 
-.event-registration .field {
-    padding: 160px 100px 100px 100px;
-    transition: all .3s ease-out;
-    position: absolute;
-}
+
 
 
 .event-registration  .input-primary{
@@ -115,4 +127,102 @@ border-bottom:1px solid #444;
     }
     position: absolute;
     right: 0;
+}
+
+
+
+.attendee-form-container {
+	
+	//position:fixed;
+	position:relative; 
+	width:100%;
+	//z-index:999;
+	//top:5%;
+	//left:0;
+
+	
+	#attendee-form {
+		width:100%;
+		margin:0 auto;
+		background:#1a1a1a !important;
+		text-align: center;
+		padding:50px 40px;
+		color:#fff;
+		
+		form {
+			max-width:500px;
+			margin:0 auto;
+			
+			ul {
+				margin: 0 0 40px 0;
+			
+				li {
+				  width: 49%;
+				}
+			}
+			
+			label {
+				font-size:18px;
+				margin-left:6px;
+				cursor:pointer;
+			
+			}
+			
+			.input-primary {
+			
+				width:100%;
+				display:block;
+				margin: 0 auto;
+				margin-bottom:20px;
+				border-bottom:1px solid #444;    
+				text-align:center;
+				color:#1a1a1a;
+				
+			
+			
+				&.input-md {
+					width:50%;
+					float:left;
+				
+				}
+				
+				&:focus {
+					border-bottom: 1px solid #21afbf;
+				}
+			
+			}
+		}
+	}
+}
+
+
+
+
+
+
+.checkmarks {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  z-index:1;
+  text-align: center;
+  ul {
+    margin: 0;
+    li {
+    margin: 10px 10px 20px;
+    padding: 30px;
+    width:50px;
+    height:50px;
+    font-size: 40px;
+    border: 2px solid #fff;
+    border-radius:50%;
+    opacity: .6;
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+    }
+
+  }
 }

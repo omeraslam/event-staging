@@ -28,9 +28,10 @@
 		 -o-background-size: cover;
 		 background-size: cover;
 		 background-repeat:no-repeat;
+    background-image: url(home/3.jpg);
     
     h1 {
-    		font-size:144px;
+    		font-size:174px;
     		text-align:left;
     		color:#fff;
     		margin:40px 0 80px;
@@ -41,17 +42,20 @@
     	font-size:20px;
     	line-height:34px;
     	color:#fff;
+    	
+    	li {
+    	}
     
     
     	a {
     		opacity:.5;
     		color:#fff;
-    		display:block;
+    		display:inline-block;
     	}
 
 			a:hover {
 				opacity:1;
-				color:#bf2160;
+				color:#21afbf;
 			}
     
     }    
