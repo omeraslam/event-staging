@@ -1,7 +1,7 @@
 <div class="container event-container">
 
 <% if current_user.premium != true %>
-	Made with EventCreate
+	<div class="ec-banner" style="display: none;">Made with EventCreate</div>
 <% end %>
 
   <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
@@ -11,23 +11,21 @@
     <div class="event-info">
     
     
-    <div class="event-details"> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%= @event.location %> | Hosted by {HOST}</div>
+    <div class="event-details"> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%= @event.location %> </div>
     
 
-		<div class="share"><a href="#" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	
+		<div class="share" style="display: none;"><a href="#" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	
+     
      <h1> <%= @event.name %></h1>
 
 
      <p class="event-description"><%= @event.description %> </p>
 
-
+		<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
 
     </div>
 
-     <div class="checkmarks">
-     	<a href="#" class="btn btn-bordered">RSVP</a> 
-     </div>
-     
+         
      
 <!--     <ul class="list-unstyled list-inline">
        <li class="yes"><i class="icon icon-check"></i></li>
@@ -62,7 +60,7 @@
 
 
 
-  <div>
+  <div style="display: none;">
 
 
     <ul class="list-inline list-unstyled">
@@ -74,7 +72,7 @@
       <li class="input-md">
 
         <%= f.radio_button :attending, false %>
-        <%= f.label :attending, "No", :value => "false" %>
+        <%= f.label :attending, "Sorry, I can't make it", :value => "false" %>
       </li>
     </ul>
   </div>
@@ -82,21 +80,29 @@
 
 
 
-
+	<div class="field">
   <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
+  </div>
   
+ <div class="field"> 
   <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
+  </div>
+
+<div class="field">
+  <%= f.text_field :email, :class => 'input-primary', :placeholder => 'Email'  %>
+</div>
 
 
-  <%= f.text_field :email, :class => 'input-primary input-md', :placeholder => 'Email'  %>
-
-  <%= f.text_field :phone_number, :class => 'input-primary input-md', :placeholder => 'Phone Number'  %>
+ <div class="field" style="display: none;"> 
+  <%= f.text_field :phone_number, :class => 'input-primary', :placeholder => 'Phone Number'  %>
+  </div>
+  
 <!-- 
   <%= f.text_field :message, :class => 'input-primary input-lg', :placeholder => "Public message (i.e., I Can't Wait!)" %> -->
 
-
+	<br>
   <%= hidden_field_tag 'event_id', @event.id%>
-  <%= f.submit "RSVP", :class => 'btn btn-bordered hover-color' %>
+  <%= f.submit "Submit my RSVP", :class => 'btn btn-bordered hover-color' %>
   <% end %>
 
 
