@@ -12,7 +12,7 @@
 	  	<%= link_to event.name, user_event_path(@user, event), :class => 'title'  %> 
 	  		<div class="time"><%= event.event_time.strftime("%B %d at %I:%M %p") %> </div>
 	  		<div class="location" style="display: none;"><%= event.location %> </div>
-	  		<div class="attendees"> 
+	  		<div class="registrants"> 
 <!--	  			<%= link_to 'Invite guests', new_attendee_path(:event => event.id) %>-->
 	  		 <i class="icon icon-users"> </i>	<%= link_to 'View Guest List', attendees_path(:event => event.id)%>	  		
 	  		</div>
