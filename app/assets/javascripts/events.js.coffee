@@ -106,6 +106,8 @@ $(document).on 'ready page:load', ->
   $(formArray[0]).removeClass('slide-down-hide').addClass 'slide-up-show'
   $('.event-preview').hide()
 
+  console.log 'currentINdex: ' + currentIndex
+
   $('.percent span').animate { 'width': (currentIndex + 1) * percentRange + '%' }, 500
   $('.side-nav li a').on 'click', (e) ->
    
@@ -113,25 +115,17 @@ $(document).on 'ready page:load', ->
     $('.side-nav li a').removeClass 'active'
     $(this).addClass 'active'
     if currentIndex < $(this).parent().index()
+      console.log 'going down'
       $('.event-registration .field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-up-hide'
     else
+      console.log 'going up'
       $('.event-registration .field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-down-hide'
     currentIndex = $(this).parent().index()
-    console.log (currentIndex + 1) * percentRange
     $(formArray[currentIndex]).removeClass('slide-up-hide slide-down-hide').addClass 'slide-up-hide'
-    $(formArray[currentIndex + 1]).removeClass('slide-down-hide slide-up-hide').addClass 'slide-up-show'
+    $(formArray[currentIndex]).removeClass('slide-down-hide slide-up-hide').addClass 'slide-up-show'
     $('.percent span').animate { 'width': (currentIndex + 1) * percentRange + '%' }, 500
-    console.log 'currentIndex ' + currentIndex + 2 + '|| length of nav' + $('.side-nav li a').length
-    # if((currentIndex+2) == $('.side-nav li a').length) {
-    #     $('.field').hide();
-    #     $('.event-preview').show();
-    #     $('.event-bg').css({'background-style': 'url(http://placehold.it/300x300)'});
-    #     $('.event-preview h1').text('title of event');
-    #     $('.event-preview p.lead').text('TIME OF SOMETHING'+' | '+ 'LOCATION OF SOMETHING');
-    # } else {
-    # $('.event-registration .field').show();
-    # $('.event-preview').hide();
-    # }
+  
+
     return
   $('.btn-prev').on 'click', (e) ->
     e.preventDefault()

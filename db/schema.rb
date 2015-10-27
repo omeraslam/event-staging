@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151016014444) do
+ActiveRecord::Schema.define(version: 20151026233526) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20151016014444) do
     t.datetime "updated_at"
     t.string   "user_id"
     t.datetime "event_time"
+    t.boolean  "time_display"
+    t.boolean  "location_display"
   end
 
   create_table "users", force: true do |t|
