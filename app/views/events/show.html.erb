@@ -1,3 +1,17 @@
+<ul class="event-editor"> 
+		<li><a class="icon icon-edit-inline" id="event-edit" href="#"> </a>
+		</li>
+		<li><a class="icon icon-share" id="event-share"></a> 
+			<div class="event-share"> 
+				<input id="share-url" type="text" value="www.eventcreate.com/2" readonly onClick="this.select();"> 
+				<p> Send an email invite, or go social!  </p>
+				<a class="icon icon-email" href="" id="email-share"></a> <a class="icon icon-twitter" id="twitter-share"></a>
+			</div>
+		</li>
+		<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"> </a>
+		</li>
+</ul>
+
 <div class="container event-container">
 
 <% if current_user.premium != true %>
@@ -14,7 +28,7 @@
     <div class="event-details"> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%= @event.location %> </div>
     
 
-		<div class="share" style="display: none;"><a href="#" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	
+		<div class="share" style="display: none;"><a href="#" target="_blank" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	
      
      <h1> <%= @event.name %></h1>
 
@@ -112,3 +126,56 @@
 </div>
 
 </div>
+
+<script type="text/javascript">
+
+     function startIntro(){
+        var intro = introJs();
+          intro.setOptions({
+            steps: [
+              { 
+                intro: "<h3>Done! </h3> <p>Your website is now live and ready to share. It doesn't get much easier than that!</p> "
+              },
+
+							{ 
+								element: "#event-edit",
+							  intro: "<h4>Edit away</h4><p>Need to make some final tweaks or edits? You can quickly modify your text or design. </p>",
+							  position:'left'
+							},  
+              { 
+              	element: "#event-share",
+                intro: "<h4>Don't forget to share</h4><p>Easily share and market your event website via email, facebook, or twitter. Attracting attendess never got so easy. </p>",
+                position:'left'
+              },    
+              { 
+              	element: "form",
+                intro: "<h4>Collect registrations</h4><p>Once you've shared your website, your guests can register here. That's it!</p>",
+                position:'top'
+                
+              }                     
+              
+              
+              ]
+          });
+
+          intro.start();
+      }
+
+
+
+$( document ).ready(function() {
+	$("#event-share").click(function() {
+	  $(".event-share").toggle();
+	});
+	$("#share-url").val(window.location.href); 
+	$("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  window.location.href ); 
+	$("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  window.location.href ); 
+	
+	
+	
+	startIntro();
+});
+
+
+ 
+</script>

@@ -195,7 +195,84 @@ border-bottom:1px solid #444;
 	}
 }
 
+	
+ul.event-editor {
+	margin:0;
+	float:right;
+	float: none;
+	position:fixed;
+	right:140px;
+	top:0;
+	z-index:10;
+	background:#1a1a1a;
 
+	li {
+		display: inline-block;
+	}
+
+
+	a {
+		color: #fff;
+		font-size:13px;
+		padding:20px;
+		display:inline-block;
+		font-weight:400;
+		font-size:18px;
+		color:#21afbf;
+		cursor:pointer;
+	
+		&:hover {
+			background:#21afbf;
+			color:#fff;
+			
+		}
+	}
+	
+	
+	.event-share {
+		position:absolute;
+		background:#fff;
+		padding:20px;
+		right:0;
+		text-align:center;
+		width:340px;
+		display:none;
+				
+		input {
+			padding:10px;
+			font-size:14px;
+			color:#444;
+			width:100%;
+			background:#F3F2F2;
+		
+		}
+		
+		a {
+			padding:2px;
+			margin-right:10px;
+			font-size:30px;
+			cursor:pointer;
+			
+			&:hover {
+				background:transparent;
+				color:#444;
+				
+				
+				
+			
+			}
+			
+		
+		}
+		
+	
+	
+	}
+	
+	
+	
+	
+}
 
 
 
@@ -225,4 +302,83 @@ border-bottom:1px solid #444;
     }
 
   }
+}
+
+
+.introjs-helperNumberLayer {
+	display:none !important;
+
+}
+
+.introjs-tooltip {
+	text-align:center;
+	max-width:500px !important;
+	margin-left:-250px !important;
+	width:500px;
+	padding: 20px 30px !important;
+	    border-radius: 0 !important;
+}
+
+
+.introjs-tooltiptext h3{
+	font-size:44px;
+	line-height:56px;
+	margin-bottom:10px;
+	font-weight:300;
+
+}
+
+
+.introjs-tooltiptext h4{
+	font-size:28px;
+	line-height:36px;
+	margin-bottom:10px;
+	font-weight:300;
+
+}
+
+.introjs-tooltiptext p{
+	font-size:14px;
+	line-height:22px;
+	color:#555;
+
+}
+
+.introjs-tooltipbuttons {
+	text-align:center !important;
+}
+
+.introjs-button {
+	background: #21afbf !important;
+  color: #fff  !important;
+  text-shadow: none  !important;
+  margin: 10px 5px !important;
+  
+  font-family: "sofia-pro",sans-serif !important;
+  font-size: 14px !important;
+  padding: 12px 26px !important;
+  border-radius: 40px !important;
+  font:14px "sofia-pro" !important;
+  
+  &:hover {
+  
+  
+  }
+  
+  &.introjs-prevbutton, &.introjs-skipbutton {
+  	//background:#888 !important;
+  
+  }
+  
+  &.introjs-disabled {
+  	opacity:.5;
+  }
+  
+  
+  
+}
+
+.introjs-arrow.bottom {
+
+    right: 10px !important;
 }
