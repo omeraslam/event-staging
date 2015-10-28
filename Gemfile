@@ -16,6 +16,12 @@ end
 #email sending stats
 gem 'mandrill-api'
 
+#s3 set up
+gem 'aws-sdk', '~> 2'
+
+#carrier wave s3 module
+gem "fog"
+
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
 # Use these for social logins
