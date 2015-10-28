@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :attendees
 
   get '/terms' => 'pages#terms'
+  get '/privacy' => 'pages#privacy'
 
   get '/attendees/:id', to: 'attendees#index'
 
