@@ -28,7 +28,7 @@
 <body class="<%= controller.controller_name %>">
     <nav>
    
-   	<% if user_signed_in? %>
+   	<% if signed_in? %>
        	<% if action_name != "show" and controller_name == "events" %>
        		<a class="logo" href="/"><span>Event Create</span></a>
        	<% end %>
@@ -53,11 +53,13 @@
   
 		<% else %>
 		
+       	<% if action_name != "show" and controller_name != "events" %>
 	       <a class="logo" href="/"><span>Event Create</span></a>
 					<ul class="navbar-links">
 						<li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
 						<li><%= link_to 'Create event', '/event-create', :class => 'btn'  %> </li>
 					</ul>
+		<% end %>
 		
 		<% end %>
 

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show,  :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except => [:show]
 
   respond_to :html
 
@@ -86,8 +86,8 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-
-      @event = current_user.events.find(params[:id])
+      @user = User.find(params[:user_id])
+      @event = @user.events.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
