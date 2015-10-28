@@ -63,7 +63,7 @@ $(document).on 'ready page:load', ->
       oImg.setAttribute 'src', bi
       oImg.setAttribute 'width', '100px'
       oImg.setAttribute 'height', '100px'
-
+      oImg.crossOrigin "anonymous"
 
        
       oImg.onload = ->

@@ -16,11 +16,14 @@ end
 #email sending stats
 gem 'mandrill-api'
 
+#manage environment variables
+gem 'figaro'
+
 #s3 set up
 #gem 'aws-sdk', '~> 2'
 
 #carrier wave s3 module
-#gem "fog"
+gem "fog"
 
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
