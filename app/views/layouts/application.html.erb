@@ -33,6 +33,27 @@
        		<a class="logo" href="/"><span>Event Create</span></a>
        	<% end %>
 
+
+       	<% if action_name == "show" and controller_name == "events" %>
+       	<ul class="event-editor"> 
+		<li><!-- <a class="icon icon-edit-inline" id="event-edit" href="#"> </a>
+ -->
+    <%= link_to '',edit_user_event_path(), :class => 'icon icon-edit-inline', :id => 'event-edit'  %>
+
+
+		</li>
+		<li><a class="icon icon-share" id="event-share"></a> 
+			<div class="event-share"> 
+				<input id="share-url" type="text" value="www.eventcreate.com/2" readonly onClick="this.select();"> 
+				<p> Send an email invite, or go social!  </p>
+				<a class="icon icon-email" href="" id="email-share"></a> <a class="icon icon-twitter" id="twitter-share"></a>
+			</div>
+		</li>
+		<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"> </a>
+		</li>
+</ul>
+<% end %>
+
 					<ul class="navbar-links signed-in">
 						<li><%= link_to '', '/event-create', :class => 'icon icon-plus'  %> </li>
 				 		<li><%=  link_to '', user_events_path(current_user), :class => 'icon icon-user open-menu'  %></li>
