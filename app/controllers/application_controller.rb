@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
 
   helper :all
 
+  protected
+  def authenticate_user!
+    redirect_to new_user_registration_path, notice: "You must login to create event" unless user_signed_in?
+  end
+
 end
 
 #def current_root_class
@@ -25,3 +30,6 @@ def current_root_class
 			 'class=standard'
 		end
 end 
+
+
+

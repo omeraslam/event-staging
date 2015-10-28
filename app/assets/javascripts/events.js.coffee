@@ -5,6 +5,7 @@
 $(document).on 'ready page:load', ->
 
   $('#new_event').validate
+    onfocusout: true
     debug: false
     rules:
       'event[name]':
@@ -69,7 +70,6 @@ $(document).on 'ready page:load', ->
         `var colorThief`
         colorThief = new ColorThief
         photoColor = colorThief.getColor(oImg)
-        console.log photoColor
 
 
         $('.btn-bordered').removeClass 'hover-color'
@@ -79,12 +79,9 @@ $(document).on 'ready page:load', ->
         )
 
 
-     
-
-
-
         $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
         return
+
 
   $('.checkmarks .yes').on 'click', (e) ->
     e.preventDefault()
@@ -99,14 +96,12 @@ $(document).on 'ready page:load', ->
 
 
   formArray = $('.event-registration .field')
-  console.log formArray.length
   percentRange = 100 / formArray.length
   currentIndex = 0
   $('.event-registration .field').addClass 'slide-down-hide'
   $(formArray[0]).removeClass('slide-down-hide').addClass 'slide-up-show'
   $('.event-preview').hide()
 
-  console.log 'currentINdex: ' + currentIndex
 
   $('.percent span').animate { 'width': (currentIndex + 1) * percentRange + '%' }, 500
   $('.side-nav li a').on 'click', (e) ->
@@ -115,10 +110,8 @@ $(document).on 'ready page:load', ->
     $('.side-nav li a').removeClass 'active'
     $(this).addClass 'active'
     if currentIndex < $(this).parent().index()
-      console.log 'going down'
       $('.event-registration .field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-up-hide'
     else
-      console.log 'going up'
       $('.event-registration .field').removeClass('slide-up-hide slide-up-show slide-down-show').addClass 'slide-down-hide'
     currentIndex = $(this).parent().index()
     $(formArray[currentIndex]).removeClass('slide-up-hide slide-down-hide').addClass 'slide-up-hide'
@@ -127,14 +120,25 @@ $(document).on 'ready page:load', ->
   
 
     return
+  $('#btn-create').hide()
+  checkStep = ->
+    if currentIndex < formArray.length - 1
+      $('#btn-create').hide()
+      $('.btn-next').show()
+    else
+      $('#btn-create').show()
+      $('.btn-next').hide()
+    return
+
   $('.btn-prev').on 'click', (e) ->
     e.preventDefault()
     $('.side-nav li a.active').parent().prev().find('a').click()
+    checkStep()
     return
   $('.btn-next').on 'click', (e) ->
     e.preventDefault()
-    console.log $('.side-nav li a.active').parent().next().find('a').index()
     $('.side-nav li a.active').parent().next().find('a').click()
+    checkStep()
     return
 
   $('.side-nav li a').each ->
@@ -148,6 +152,7 @@ $(document).on 'ready page:load', ->
     $('#default_bg_picker img').removeClass('active')
     $(this).addClass('active')
   return
+
 
 
 
