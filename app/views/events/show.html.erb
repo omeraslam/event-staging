@@ -1,5 +1,9 @@
 <ul class="event-editor"> 
-		<li><a class="icon icon-edit-inline" id="event-edit" href="#"> </a>
+		<li><!-- <a class="icon icon-edit-inline" id="event-edit" href="#"> </a>
+ -->
+    <%= link_to '',edit_user_event_path(), :class => 'icon icon-edit-inline', :id => 'event-edit'  %>
+
+
 		</li>
 		<li><a class="icon icon-share" id="event-share"></a> 
 			<div class="event-share"> 
@@ -173,7 +177,7 @@ $( document ).ready(function() {
 	
 	
 	
-	startIntro();
+	//startIntro();
 });
 
 

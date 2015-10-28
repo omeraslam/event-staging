@@ -17,10 +17,10 @@ end
 gem 'mandrill-api'
 
 #s3 set up
-gem 'aws-sdk', '~> 2'
+#gem 'aws-sdk', '~> 2'
 
 #carrier wave s3 module
-gem "fog"
+#gem "fog"
 
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
