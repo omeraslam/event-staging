@@ -59,28 +59,28 @@ $(document).on 'ready page:load', ->
       
       sourceImage =  bi
 
-      oImg = document.createElement('img')
-      oImg.setAttribute 'src', bi
-      oImg.setAttribute 'width', '100px'
-      oImg.setAttribute 'height', '100px'
-      oImg.crossOrigin = "anonymous"
+  #  oImg = document.createElement('img')
+  #  oImg.setAttribute 'src', bi
+  #  oImg.setAttribute 'width', '100px'
+  #  oImg.setAttribute 'height', '100px'
+  #  oImg.setAttribute  'crossOrigin', 'anonymous'
 
-       
-      oImg.onload = ->
-        `var colorThief`
-        colorThief = new ColorThief
-        photoColor = colorThief.getColor(oImg)
-
-
-        $('.btn-bordered').removeClass 'hover-color'
-        $('.btn-bordered').hover(
-          (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
-          (ev) -> $(this).css('color', 'rgb(255,255,255)');
-        )
+  #   
+  #  oImg.onload = ->
+  #    `var colorThief`
+  #    colorThief = new ColorThief
+  #    photoColor = colorThief.getColor(oImg)
 
 
-        $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
-        return
+  #    $('.btn-bordered').removeClass 'hover-color'
+  #    $('.btn-bordered').hover(
+  #      (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
+  #      (ev) -> $(this).css('color', 'rgb(255,255,255)');
+  #    )
+
+
+  #    $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
+  #    return
 
 
   $('.checkmarks .yes').on 'click', (e) ->
