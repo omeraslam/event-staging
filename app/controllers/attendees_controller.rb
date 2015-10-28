@@ -7,8 +7,9 @@ class AttendeesController < ApplicationController
 
     @attendees = Attendee.all
      @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+     @event = Event.where(id:params[:event])
      #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
-    respond_with(@attendees)
+    respond_with(@attendees, @event)
   end
 
   def show
@@ -17,7 +18,7 @@ class AttendeesController < ApplicationController
 
   def new
     @attendee = Attendee.new
-    @attendee.event_id = params[:event]
+    @attendee.event_id = Event.find_by id: params[:event_id]
     respond_with(@attendee)
   end
 
@@ -29,6 +30,8 @@ class AttendeesController < ApplicationController
     @attendee = Attendee.new(attendee_params)
     @attendee.user_id = current_user.id;
     @event = Event.find_by id: params[:event_id]
+
+    @attendee.event_id =  @event.id.to_s
     @event_url = 'http://localhost:3000/users/' +  @attendee.user_id.to_s + '/events/' +  @event.id.to_s
 
 

@@ -1,7 +1,9 @@
 <div class="container">
-  
-<h1>Listing attendees</h1>
-
+  <% @event.each do |event| %>
+<h2>Guest List for
+<strong><%= event.name %></strong>
+</h2>
+<% end %>
 
     <% if !@attendees.empty? %>
 <table>
@@ -9,13 +11,8 @@
     <tr>
       <th>First name</th>
       <th>Last name</th>
-      <th>Email</th>
-      <th>Phone number</th>
-      <th>Message</th>
-      <th>Attending</th>
-      <th>Event Id</th>
-      <th>User Id</th>
-      <th colspan="3"></th>
+      <th>Email</th><!-- 
+      <th colspan="3"></th> -->
     </tr>
   </thead>
 
@@ -25,16 +22,11 @@
         <td><%= attendee.first_name %></td>
         <td><%= attendee.last_name %></td>
         <td><%= attendee.email %></td>
-        <td><%= attendee.phone_number %></td>
-        <td><%= attendee.message %></td>
-        <td><%= attendee.attending %></td>
-        <td><%= attendee.event_id %></td>
-        <td><%= attendee.user_id %></td>
         <% if (attendee.user_id) == current_user.id.to_s %>
-        <td><%= link_to 'Show', attendee %></td>
+   <!--      <td><%= link_to 'Show', attendee %></td>
      
         <td><%= link_to 'Edit', edit_attendee_path(attendee) %></td>
-        <td><%= link_to 'Destroy', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
          <% end %>
       </tr>
     <% end %>

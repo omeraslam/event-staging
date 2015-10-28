@@ -27,6 +27,7 @@ body {
 }
 
 
+
 p, ol, ul, td {
   font-size: 13px;
   line-height: 18px;
@@ -73,11 +74,27 @@ a {
 
 table, td, th { 
 	vertical-align: middle; 
-	border: none; 
+	//border: none;
+  border: 1px solid #222;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  border-spacing: 0;
 }
 
+table
+{
+  margin-top: 20px;
+}
+
+td, th {
+  padding: 10px 0;
+}
+
+
 th { 
-	border-bottom: 1px solid #DDD; 
+  width: 200px;
+	//border-bottom: 1px solid #DDD; 
 }
 table img { 
 	width:100px;
@@ -726,8 +743,14 @@ footer {
 .events, .attendees {
 	background:#EFEFEF;
 	color:#1a1a1a;
+}
 
+.attendees {
+  text-align :center;
 
+  table {
+    margin: 20px auto;
+  }
 }
 
 

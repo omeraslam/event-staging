@@ -13,6 +13,9 @@ group :production do
     gem 'rails_12factor'
 end
 
+#email sending stats
+gem 'mandrill-api'
+
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
 # Use these for social logins
