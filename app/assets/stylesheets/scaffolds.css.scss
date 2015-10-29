@@ -403,17 +403,29 @@ footer {
 //event creation styles
   
 .event-registration {
-    padding: 0;
+  padding: 0;
     width: 100%;
     height: 100%;
     margin-bottom: 0;
     text-align:center;
     
+    .event-nav {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+    }
+    form {
+      height: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
+    
     .field {
     
       width: 100%;
       display:block;
-      padding: 160px 100px 100px 100px;
+      padding: 160px 0px;
+      min-height: 560px;
       transition: all .3s ease-out;
       position: absolute;
       
@@ -545,12 +557,11 @@ footer {
     //display: none;
   }
   .event-registration .actions {
-    bottom: 0;
+    bottom: 40px;
+    left: 44%;
     position: fixed;
-    padding: 40px;
-    text-align: center;
-    width: 100%;
     margin-bottom: 0;
+    z-index: 2;
   }
 
   .actions a {
@@ -834,4 +845,14 @@ footer {
   93.333333% { -webkit-transform: matrix3d(1.00042, 0, 0, 0, 0, 1.00042, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.00042, 0, 0, 0, 0, 1.00042, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   96.666667% { -webkit-transform: matrix3d(1.00056, 0, 0, 0, 0, 1.00056, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.00056, 0, 0, 0, 0, 1.00056, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);} 
+}
+
+@media screen and (max-width: 400px) {
+  .event-registration {
+      .actions {
+    left: 30%;
+  }
+
+  }
+
 }

@@ -29,6 +29,7 @@ class AttendeesController < ApplicationController
 
     @attendee = Attendee.new(attendee_params)
     @current_user = User.find(params[:user_id])
+    @attendee.user_id = params[:user_id]
     @event = Event.find_by id: params[:event_id]
 
     @attendee.event_id =  @event.id.to_s

@@ -14,8 +14,11 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', user_events_path(current_user, @event) %> |
+<div class="event-nav">
+	<%= link_to 'Show', user_events_path(current_user, @event) %> |
 <%= link_to 'Back', user_events_path(current_user) %>
+</div>
+
 
 </div>
 

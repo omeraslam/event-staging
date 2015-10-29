@@ -4,8 +4,11 @@
 
 $(document).on 'ready page:load', ->
 
-  $('#new_event').validate
-    onfocusout: true
+  $('form#new_event .slide-up-show input, form.edit_event .slide-up-show input').focus()
+  $('#new_event, form.edit_event').validate
+    onfocusout: (element) ->
+      $(element).valid()
+      return
     debug: false
     rules:
       'event[name]':
@@ -137,7 +140,10 @@ $(document).on 'ready page:load', ->
     return
   $('.btn-next').on 'click', (e) ->
     e.preventDefault()
-    $('.side-nav li a.active').parent().next().find('a').click()
+
+    if($('.error:visible').length <= 0)
+      $('.side-nav li a.active').parent().next().find('a').click()
+      $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
     checkStep()
     return
 
