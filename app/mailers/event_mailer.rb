@@ -1,3 +1,3 @@
 class EventMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "hello@eventcreate.com"
 end
