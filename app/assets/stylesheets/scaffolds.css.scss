@@ -410,7 +410,7 @@ footer {
     text-align:center;
     
     .event-nav {
-      position: absolute;
+      position: fixed;
       left: 20px;
       bottom: 20px;
     }
@@ -658,7 +658,7 @@ footer {
   }
 }
 
-.btn {
+.btn, .carrier-wave-field input {
 		cursor:pointer;
     border: none;
     font-family: "sofia-pro",sans-serif;
@@ -855,4 +855,27 @@ footer {
 
   }
 
+}
+
+.event-registration select {
+
+  &:disabled {
+    opacity: .3;
+  }
+  outline: none;
+  font-size: 16px;
+  display: inline-block;
+  padding: 1.2em 3em 1.3em 1.5em;
+  margin: 0;
+
+  transition: border-color 0.2s;
+  border: 2px solid #21afbf;
+  border-radius: 5px;
+
+  background: #fff;
+  color: #555;
+  line-height: normal;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }

@@ -10,8 +10,10 @@
 
     <div class="event-info">
     
-    
-    <div class="event-details"> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%= @event.location %> </div>
+    <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %> |    <%else%>
+        TBD |
+        <%end%><%= @event.location %> </div>
+  
     
 
 		<div class="share" style="display: none;"><a href="#" target="_blank" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	

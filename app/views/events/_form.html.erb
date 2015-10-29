@@ -18,10 +18,15 @@
 
   <div class="field slide-down-hide">
 <h2>Sounds like fun. Now, when is it?</h2> 
-<%= f.datetime_select :event_time, :class => 'input-primary', :placeholder => 'Time',  
-                       ampm: true %>  <br/>
+<div class="time-select">
+<%= f.datetime_select :event_time, :class => 'input-primary', :placeholder => 'Time', :minute_step => 15, 
+                       ampm: true %> </div> 
 
-                        or <label><input type="checkbox" id="cb_time" value="time_checkbox">TBD</label><br>
+
+    or <label>
+    <%= f.check_box :time_display, :id => 'cb_time' %>TBD</label>
+<!-- 
+                         <label><input type="checkbox" id="cb_time" value="time_checkbox">TBD</label><br> -->
 
  
   </div>
@@ -38,18 +43,18 @@
   </div>
   
   <div class="field slide-down-hide">
-   <h2>Time to add some style. Choose a background image, or upload your own </h2>
-    <%= f.label :background_img, 'Choose A Background Image'  %>
-    <%= f.file_field :background_img %>
-    <p>
+   <h2>Time to add some style. Upload a background Image </h2>
+   <!--  <%= f.label :background_img, 'Choose A Background Image'  %> -->
+    <%= f.file_field :background_img%>
+   <!-- <p>
     or choose one one of the images below:</p>
-
+ 
     <ul id="default_bg_picker" class="list-unstyled list-inline">
     <li><img src="/assets/home/wedding_thm.jpg"></li>
     <li><img src="/assets/home/corporate_thm.jpg"></li>
     <li><img src="/assets/home/meetups_thm.jpg"></li>
     <li><img src="/assets/home/birthday_thm.jpg"></li>
-    </ul>
+    </ul> -->
   </div>
 </div>
 

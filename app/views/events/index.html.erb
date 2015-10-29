@@ -10,7 +10,14 @@
 	  	<div class="image" style="background-image:url(<%= image_path(event.background_img) %>);"> </div>
 	  	<div class="details"> 
 	  	<%= link_to event.name, user_event_path(@user, event), :class => 'title'  %> 
-	  		<div class="time"><%= event.event_time.strftime("%B %d at %I:%M %p") %> </div>
+       
+	  		<div class="time">
+           <% if(event.time_display == false) %> 
+           <%= event.event_time.strftime("%B %d at %I:%M %p") %> 
+           <%else%>
+        TBD
+        <%end%> </div>
+      
 	  		<div class="location" style="display: none;"><%= event.location %> </div>
 	  		<div class="registrants"> 
 <!--	  			<%= link_to 'Invite guests', new_attendee_path(:event => event.id) %>-->
@@ -51,7 +58,9 @@
       <tr>
         <td><%= link_to event.name, user_event_path(@user, event) %></td>
         <td><%= event.description %></td>
+        <% if(event.time_display == false) %> 
         <td><%= event.event_time.strftime("%B %d at %I:%M %p") %></td>
+        <% end %>>
         <td><%= event.location %></td>
         <td><%= image_tag(event.background_img) %></td>
         <td><%= link_to 'Invite guests', new_attendee_path(:event => event.id) %></td>

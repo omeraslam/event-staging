@@ -3,6 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
+  if($('#cb_time').attr('checked'))
+    $('.time-select select').attr('disabled', true);
+  else
+    $('.time-select select').attr('disabled', false);
 
   $('form#new_event .slide-up-show input, form.edit_event .slide-up-show input').focus()
   $('#new_event, form.edit_event').validate
@@ -133,6 +137,14 @@ $(document).on 'ready page:load', ->
       $('.btn-next').hide()
     return
 
+ 
+  $('#cb_time').on 'click', (e) ->
+    if($('.time-select select').attr('disabled'))
+      $('.time-select select').attr('disabled', false);
+    else
+      $('.time-select select').attr('disabled', true);
+
+  #   return
   $('.btn-prev').on 'click', (e) ->
     e.preventDefault()
     $('.side-nav li a.active').parent().prev().find('a').click()
@@ -141,7 +153,7 @@ $(document).on 'ready page:load', ->
   $('.btn-next').on 'click', (e) ->
     e.preventDefault()
 
-    if($('.error:visible').length <= 0)
+    if($('.slide-up-show .error:visible').length <= 0)
       $('.side-nav li a.active').parent().next().find('a').click()
       $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
     checkStep()
