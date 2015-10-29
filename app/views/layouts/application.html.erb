@@ -29,7 +29,7 @@
     <nav>
    
    	<% if signed_in? %>
-       	<% if action_name != "show" and controller_name == "events" %>
+       	<% if action_name != "show" or controller_name != "events" %>
        		<a class="logo" href="/"><span>Event Create</span></a>
        	<% end %>
 
