@@ -8,10 +8,16 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
 
+
+    @image_style_array = ['/assets/home/wedding.jpg','/assets/home/corporate.jpg', '/assets/home/meetups.jpg', '/assets/home/birthday.jpg']
+
+
     @attendee = Attendee.new
 
     @user = User.find(current_user.id)
     @events = @user.events
+
+ 
     
 
 
@@ -23,9 +29,17 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-
+    image_style_array = ['wedding','corporate', 'meetups', 'birthday']
     @attendee = Attendee.new
+    if(@event.style_id?)
+      @style =  @event.style_id
+    else 
+      @style = '0'
+    end
+    @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
     respond_with(@attendees)
+
+
   end
 
   # GET /events/new
@@ -47,6 +61,7 @@ class EventsController < ApplicationController
     @user = User.find(params[:user_id])
     @event = @user.events.build(event_params)
     @event.user_id = current_user.id
+    @event.style_id = params[:style_id]
 
 
     respond_to do |format|
@@ -63,6 +78,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+    @event.style_id = params[:style_id]
+
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to user_events_path(current_user, @event), notice: 'Event was successfully updated.' }
@@ -93,6 +110,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :description, :event_time, :time_display, :location, :background_img)
+      params.require(:event).permit(:name, :description, :event_time, :time_display, :style_id, :location, :background_img)
     end
 end

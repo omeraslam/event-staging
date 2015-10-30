@@ -879,3 +879,13 @@ footer {
   font-size: inherit;
   line-height: inherit;
 }
+
+
+input[name="event[style_id]"] {
+    display: none;
+}
+
+#default_bg_picker li {
+  padding: 10px;
+  cursor: pointer;
+}

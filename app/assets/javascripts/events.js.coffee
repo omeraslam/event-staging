@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
+  
+  $('input[type=radio]:checked').parent().find('img').addClass('active')
+
   if($('#cb_time').attr('checked'))
     $('.time-select select').attr('disabled', true);
   else
@@ -169,6 +172,8 @@ $(document).on 'ready page:load', ->
     e.preventDefault()
     $('#default_bg_picker img').removeClass('active')
     $(this).addClass('active')
+    $(this).parent().find('input[type="radio"]').click()
+    #$('#style_id').val($(this).data('theme'))
   return
 
 

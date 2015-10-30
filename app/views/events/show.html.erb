@@ -3,8 +3,11 @@
 <div class="container event-container">
 
 
-
+<% if @event.background_img.present?  %>
   <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+<% else %>
+  <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@background_style, :width => 100) %>)">
+<% end %>
 
     <div class="overlay"></div>
 

@@ -43,20 +43,29 @@
   </div>
   
   <div class="field slide-down-hide">
-   <h2>Time to add some style. Upload a background Image </h2>
+   <h2>Time to add some style. Choose a background image or upload one of your own!  </h2>
    <!--  <%= f.label :background_img, 'Choose A Background Image'  %> -->
     <%= f.file_field :background_img%>
-   <!-- <p>
+   <p>
     or choose one one of the images below:</p>
  
     <ul id="default_bg_picker" class="list-unstyled list-inline">
-    <li><img src="/assets/home/wedding_thm.jpg"></li>
-    <li><img src="/assets/home/corporate_thm.jpg"></li>
-    <li><img src="/assets/home/meetups_thm.jpg"></li>
-    <li><img src="/assets/home/birthday_thm.jpg"></li>
-    </ul> -->
+    <li>
+      <%= f.radio_button :style_id, "0" %><img data-theme="1" src="/assets/home/wedding_thm.jpg"></li>
+    <li>
+      <%= f.radio_button :style_id, "1" %><img data-theme="2" src="/assets/home/corporate_thm.jpg"></li>
+    <li>
+      <%= f.radio_button :style_id, "2" %><img data-theme="3" src="/assets/home/meetups_thm.jpg"></li>
+    <li>
+      <%= f.radio_button :style_id, "3" %><img data-theme="4" src="/assets/home/birthday_thm.jpg"></li>
+    </ul> 
+
+
+
+
   </div>
 </div>
+  <%= hidden_field_tag :style_id %>
 
 
   <div class="actions">
