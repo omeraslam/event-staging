@@ -44,14 +44,8 @@
   </div>
   
   <div class="field slide-down-hide">
-   <h2>Time to add some style. Choose a background image<span class="hidden-sm"> or upload one of your own!</span> </h2>
+   <h2>Time to add some style. Choose a theme below:</h2>
    <!--  <%= f.label :background_img, 'Choose A Background Image'  %> -->
-   <div class="hidden-sm">
-   <%= image_tag(@event.background_img, :class => 'thm-size') if @event.background_img? %><br/>
-    <%= f.file_field :background_img%>
-    </div>
-   <p class="hidden-sm">
-    or choose one one of the images below:</p>
  
     <ul id="default_bg_picker" class="list-unstyled list-inline">
     <li>
