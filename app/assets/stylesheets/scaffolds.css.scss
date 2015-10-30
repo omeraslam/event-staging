@@ -1,4 +1,8 @@
 //generic styles
+//
+$brand-primary: #21afbf;
+$error-red: rgba(213, 55, 37, 0.9);
+$default-font-size: 13px;
 
 * {
   margin: 0;
@@ -29,7 +33,7 @@ body {
 
 
 p, ol, ul, td {
-  font-size: 13px;
+  font-size: $default-font-size;
   line-height: 18px;
 }
 
@@ -128,6 +132,7 @@ h2 {
 
 .container {
   padding:120px 70px;
+  display: block;
 }
 
 
@@ -354,7 +359,7 @@ input:focus {
   
 // validation error styles
 label.error {
-	background:rgba(213,55,37,.9);
+	background: $error-red;
 	font-size:12px;
 	padding:5px 10px;
 	color:#fff;
@@ -408,7 +413,24 @@ footer {
     height: 100%;
     margin-bottom: 0;
     text-align:center;
-    
+    textarea {
+      border: 1px solid #000;
+      height: 300px;
+      padding: 10px;
+      &.input-primary {
+
+      text-align:left;
+      }
+
+      &:focus {
+        border: 1px solid $brand-primary;
+      }
+
+      &.error {
+        border: 1px solid $error-red;
+
+      }
+    }
     .event-nav {
       position: fixed;
       left: 20px;
@@ -867,9 +889,10 @@ footer {
   display: inline-block;
   padding: 1.2em 3em 1.3em 1.5em;
   margin: 0;
+  margin-bottom: 20px;
 
   transition: border-color 0.2s;
-  border: 2px solid #21afbf;
+  border: 2px solid $brand-primary;
   border-radius: 5px;
 
   background: #fff;
@@ -896,9 +919,114 @@ input[name="event[style_id]"] {
   background: #fff;
   li {
   &.ui-state-focus {
-    background: #21afbf;
+    background: $brand-primary;
     color: #fff;
   }
   padding: 10px;
   }
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+  .thm-size {
+    width: 100px;
+  }
+
+@media screen and (max-width: 415px) {
+
+ .sessions, .registrations {
+
+    nav {
+
+        padding: 20px;
+
+    }
+
+      form {
+        width: 100%;
+      }
+  }
+
+
+  nav ul a {
+       padding: 10px;
+    
+  }
+
+  nav {
+    padding: 100px 20px;
+  }
+
+  .events nav {
+    padding-top: 30px;
+  }
+  .pages {
+    nav {
+      padding: 30px 20px;
+
+    }
+    .container {
+      padding: 60px 20px 40px;
+    }
+  }
+
+  #home,  {
+    .container {
+      padding-bottom: 20px;
+    }
+    h1 {
+      font-size: 4em;
+      width: 100%;
+      margin-bottom: 20px;
+
+    }
+  }
+
+  .hidden-sm {
+    display: none;
+  }
+  .container {
+
+    h1 {
+      margin: 40px 0;
+      font-size: 3em;
+      line-height: 1em;
+    }
+    padding: 120px 20px 40px;
+    height: auto;
+  }
+  .events-list .event .image {
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .event-registration {
+    .field {
+      padding: 120px 0;
+    }
+    form {
+      textarea {
+        height: 100px;
+      }
+      width: 80%;
+    }
+    padding: 0;
+
+    h2 {
+      font-size: 1.8em;
+      line-height: 1.6em;
+
+    }
+    .field label.error {
+      position: static;
+      padding: 10px 30px;
+    }
+    .description-example {
+      display: none;
+    }
+  }
+
 }
