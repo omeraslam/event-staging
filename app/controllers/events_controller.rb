@@ -10,20 +10,10 @@ class EventsController < ApplicationController
 
 
     @image_style_array = ['/assets/home/wedding.jpg','/assets/home/corporate.jpg', '/assets/home/meetups.jpg', '/assets/home/birthday.jpg']
-
-
     @attendee = Attendee.new
-
     @user = User.find(current_user.id)
     @events = @user.events
 
- 
-    
-
-
-    # @attendees = Attendee.all
-
-    #@events = Event.all
   end
 
   # GET /events/1

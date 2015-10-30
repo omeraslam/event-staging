@@ -8,10 +8,12 @@ $(document).on 'ready page:load', ->
     completer = new GmapsCompleter
         inputField: '#gmaps-input-address'
         errorField: '#gmaps-error'
+        debugOn: false
 
     completer.autoCompleteInit
+        region: "CA"
         country: "us"
-        
+
   
   $('input[type=radio]:checked').parent().find('img').addClass('active')
 
@@ -63,12 +65,6 @@ $(document).on 'ready page:load', ->
         required: 'Please enter a phone number'
 
 
-
-
-
-
-  
-
   if $('#eventPage').length != 0
     img = document.getElementById('eventPage')
     if img.currentStyle != 0
@@ -78,28 +74,30 @@ $(document).on 'ready page:load', ->
       
       sourceImage =  bi
 
-  #  oImg = document.createElement('img')
-  #  oImg.setAttribute 'src', bi
-  #  oImg.setAttribute 'width', '100px'
-  #  oImg.setAttribute 'height', '100px'
-  #  oImg.setAttribute  'crossOrigin', 'anonymous'
+    oImg = document.createElement('img')
+    oImg.setAttribute 'src', bi
+    oImg.setAttribute 'width', '100px'
+    oImg.setAttribute 'height', '100px'
+    oImg.crossOrigin = '';
+    oImg.setAttribute  'crossOrigin', 'anonymous'
 
-  #   
-  #  oImg.onload = ->
-  #    `var colorThief`
-  #    colorThief = new ColorThief
-  #    photoColor = colorThief.getColor(oImg)
-
-
-  #    $('.btn-bordered').removeClass 'hover-color'
-  #    $('.btn-bordered').hover(
-  #      (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
-  #      (ev) -> $(this).css('color', 'rgb(255,255,255)');
-  #    )
+     
+    
+   #oImg.onload = ->
+   #  `var colorThief`
+   #  colorThief = new ColorThief
+   #  photoColor = colorThief.getColor(oImg)
 
 
-  #    $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
-  #    return
+   #  $('.btn-bordered').removeClass 'hover-color'
+   #  $('.btn-bordered').hover(
+   #    (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
+   #    (ev) -> $(this).css('color', 'rgb(255,255,255)');
+   #  )
+
+
+   #   $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
+    #  return
 
 
   $('.checkmarks .yes').on 'click', (e) ->
