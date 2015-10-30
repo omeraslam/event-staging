@@ -3,6 +3,15 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
+
+  jQuery ->
+    completer = new GmapsCompleter
+        inputField: '#gmaps-input-address'
+        errorField: '#gmaps-error'
+
+    completer.autoCompleteInit
+        country: "us"
+        
   
   $('input[type=radio]:checked').parent().find('img').addClass('active')
 

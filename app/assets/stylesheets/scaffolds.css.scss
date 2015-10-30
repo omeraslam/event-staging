@@ -889,3 +889,16 @@ input[name="event[style_id]"] {
   padding: 10px;
   cursor: pointer;
 }
+
+.ui-autocomplete {
+  width: 60% !important;
+  max-width: 600px;
+  background: #fff;
+  li {
+  &.ui-state-focus {
+    background: #21afbf;
+    color: #fff;
+  }
+  padding: 10px;
+  }
+}

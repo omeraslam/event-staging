@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
+//= require gmaps-auto-complete
 //= require jquery.validate
 //= require jquery_ujs
 //= require turbolinks
