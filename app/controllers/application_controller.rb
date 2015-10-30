@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       super(options)
     else
-      redirect_to new_user_registration_path, :notice => 'if you want to add a notice'
+      redirect_to new_user_registration_path, :notice => 'Please login to create event'
       ## if you want render 404 page
       ## render :file => File.join(Rails.root, 'public/404'), :formats => [:html], :status => 404, :layout => false
     end

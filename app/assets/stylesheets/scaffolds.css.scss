@@ -110,8 +110,9 @@ h1, h2, h3 {
 
 h1 {
   font-size:66px;
-  line-height: 80px;
+  line-height: 1em;
   letter-spacing:1px;
+  margin-bottom: 40px;
 }
 
 h2 {
@@ -869,6 +870,33 @@ footer {
   100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);} 
 }
 
+ p.alert {
+      color: #000;
+    }
+
+@media screen and (max-width: 768px) {
+  #home {
+    h1 {
+      font-size: 6em;
+      line-height: 1em;
+    }
+  }
+
+   .sessions, .registrations {
+
+    nav {
+
+        padding: 20px;
+
+    }
+
+      form {
+        width: 100%;
+      }
+  }
+
+}
+
 @media screen and (max-width: 400px) {
   .event-registration {
       .actions {
@@ -936,18 +964,7 @@ input[name="event[style_id]"] {
 
 @media screen and (max-width: 415px) {
 
- .sessions, .registrations {
 
-    nav {
-
-        padding: 20px;
-
-    }
-
-      form {
-        width: 100%;
-      }
-  }
 
 
   nav ul a {
