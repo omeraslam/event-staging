@@ -23,6 +23,9 @@ body {
   padding:0;
   margin:0;
   min-height: 100%;
+ 	position:relative;
+ 	transition: top .2s ease-in-out;
+ 	top:0px;
   
 }
 
@@ -163,6 +166,8 @@ nav {
 	}
 	
 	ul.signed-in {
+		transition: top .2s ease-in-out;
+		
 		float: none;
 		position:fixed;
 		right:0;
@@ -173,11 +178,19 @@ nav {
 		a {
 			font-size:18px;
 			color:#21afbf;
+			cursor:pointer;
+			
+			&.active {
+				background: rgba(33, 175, 191, 0.8);				
+				color:#fff;
+			}
 		
 			&:hover {
 				background:#21afbf;
 				color:#fff;
 			}
+
+
 		}
 	}
 }
@@ -482,6 +495,7 @@ footer {
 }
 
 .event-page {
+		display:none;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -526,7 +540,6 @@ footer {
   }
   
   .event-description {
-  	font-family:Georgia, serif;
   	font-size:13px;
   	line-height:26px;
   
