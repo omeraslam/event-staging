@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require gmaps-auto-complete
+//= require jquery.timepicker.js
 //= require jquery.validate
 //= require jquery_ujs
 //= require turbolinks

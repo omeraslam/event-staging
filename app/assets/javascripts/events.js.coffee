@@ -4,6 +4,15 @@
 
 $(document).on 'ready page:load', ->
 
+  $('#datepairExample .time').timepicker
+    'showDuration': true
+    'timeFormat': 'g:ia'
+  $('#datepairExample .date').datepicker
+    'format': 'yyyy-m-d'
+    'autoclose': true
+  # initialize datepair
+  $('#datepairExample').datepair()
+
   jQuery ->
     completer = new GmapsCompleter
         inputField: '#gmaps-input-address'
@@ -184,6 +193,7 @@ $(document).on 'ready page:load', ->
   return
 
 
+  
 
 
 

@@ -36,6 +36,9 @@ gem 'omniauth-google'
 # Use devise for authentication
 gem 'devise'
 
+# timepicker for choosing a date range
+gem 'jquery-timepicker-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

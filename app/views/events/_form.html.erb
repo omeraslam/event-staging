@@ -18,9 +18,22 @@
 
   <div class="field slide-down-hide">
 <h2>Sounds like fun. Now, when is it?</h2> 
-<div class="time-select">
+
+<p id="datepairExample">
+  <%= f.text_field :date_start, :class => 'date start' %>
+  <%= f.text_field :time_start, :class => 'time start' %> to
+  <%= f.text_field :date_end, :class => 'date end' %>
+  <%= f.text_field :time_end, :class => 'time end' %>
+ <!--    <input type="text" class="date start" />
+    <input type="text" class="time start" /> to
+    <input type="text" class="date end" />
+    <input type="text" class="time end" /> -->
+</p>
+
+
+<!-- <div class="time-select">
 <%= f.datetime_select :event_time, :class => 'input-primary', :placeholder => 'Time', :minute_step => 15, 
-                       ampm: true %> </div> 
+                       ampm: true %> </div>  -->
 
 
     or <label>
