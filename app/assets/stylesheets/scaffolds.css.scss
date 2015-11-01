@@ -1062,3 +1062,23 @@ input[name="event[style_id]"] {
   }
 
 }
+
+  .ui-timepicker-wrapper, .ui-datepicker {
+      display: none;
+      background: #fff;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+
+  .ui-datepicker {
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+input.date, input.time {
+  width: 140px;
+}
+
+.ui-datepicker-next {
+  float: right;
+}
