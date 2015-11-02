@@ -69,11 +69,11 @@
    		
    						 <ul class="navbar-links signed-in">
    							
-   								<li> <a class="icon icon-edit-inline" href="/users/3/events/34/edit" id="event-edit"></a></li>
-   								<li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"></a> </li>
-   								<li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"></a> </li>
-   								<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"> </a></li>
-   								<li><a class="icon icon-home" href="/users/3/events"></a> </li>
+   								<li> <a class="icon icon-edit-inline" href="/users/3/events/34/edit" id="event-edit"><span>Edit details</span></a> </li>
+   								<li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"><span>Change theme </span> </a></li>
+   								<li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
+   								<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"><span>Help </span> </a></li>
+   								<li><a class="icon icon-home" href="/users/3/events"><span>Home </span></a> </li>
    							
    							</ul>
    							
@@ -89,8 +89,8 @@
    								
    								
    								<ul class="navbar-links signed-in">
-   									<li><%= link_to '', '/event-create', :class => 'icon icon-plus'  %> </li>
-   										<li><%=  link_to '', user_events_path(current_user), :class => 'icon icon-user open-menu'  %></li>
+   									<li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+   										<li><%=  link_to '<span>Profile</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-user open-menu'  %></li>
    								</ul>
    								
    								<div class="signed-in-menu">

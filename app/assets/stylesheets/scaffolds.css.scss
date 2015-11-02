@@ -179,6 +179,46 @@ nav {
 			font-size:18px;
 			color:#21afbf;
 			cursor:pointer;
+			position:relative;
+			
+			span {
+				visibility:hidden;
+				opacity:0;
+				display: block;
+		    position: absolute;
+		    background-color: #1a1a1a;
+		    color: #fff;
+		    padding: 8px;
+		    text-align: center;
+		    /* width: 200%; */
+		    font-size: 11px;
+		    margin-left: -100%;
+		    right: 0;
+		    color: #21afbf;
+				bottom:-50px;
+				-webkit-transition: all 0.3s;
+				transition: all 0.3s;
+				
+				
+				&:after {
+					bottom: 100%;
+					right: 20px;
+					border: solid transparent;
+					content: " ";
+					height: 0;
+					width: 0;
+					position: absolute;
+					pointer-events: none;
+					border-color: rgba(26, 26, 26, 0);
+					border-bottom-color: #1a1a1a;
+					border-width: 5px;
+					margin-left: -5px;
+
+				}
+		
+			}
+			
+			
 			
 			&.active {
 				background: rgba(33, 175, 191, 0.8);				
@@ -188,8 +228,16 @@ nav {
 			&:hover {
 				background:#21afbf;
 				color:#fff;
+				
+				span {
+					visibility:visible;
+					opacity:1;
+					bottom:-44px;
+					
+				
+				}
 			}
-
+			
 
 		}
 	}
