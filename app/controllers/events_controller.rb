@@ -8,8 +8,6 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
 
-
-    @image_style_array = ['/assets/brunch.jpg','/assets/nyc.jpg', '/assets/confetti.jpg', '/assets/summer.jpg','/assets/flower.jpg']
     @attendee = Attendee.new
     @user = User.find(current_user.id)
     @events = @user.events
@@ -19,7 +17,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower']
+    image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
     @attendee = Attendee.new
     if(@event.layout_id?)
       @style_id =  @event.layout_id
