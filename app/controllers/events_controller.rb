@@ -46,6 +46,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
         format.html {redirect_to user_event_path(current_user, @event)}
+        format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
       end
     end
@@ -97,11 +98,11 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+        # format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+        # format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
-        format.html { render :edit }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        # format.html { render :edit }
+        # format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
