@@ -1,7 +1,6 @@
-
-
 <div class="container event-container">
 
+<!-- <<<<<<< HEAD
 
 <% if @event.background_img.present?  %>
   <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
@@ -17,18 +16,44 @@
         TBD |
         <%end%><%= @event.location %> </div>
   
+======= -->
+  <div class="event-page visible 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+	    <div class="overlay"></div>
+	    <div class="event-info">  
+			    <div class="event-details"> <%= @event.event_time.strftime("%A, %d %b %Y %l:%M %p") %> <br> <%= @event.location %> </div>
+			     <h1> <%= @event.name %></h1>
+			    <p class="event-description"><%= @event.description %> </p>
+					<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
+		    </div>
+   </div>
+
+
+
+	<div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+	    <div class="overlay"></div>
+	    <div class="event-info">  
+			     <h1> <%= @event.name %></h1>
+				  <div class="event-details"> <%= @event.event_time.strftime("%A, %d %b %Y %l:%M %p") %> | <%= @event.location %> </div>
+			    <p class="event-description"><%= @event.description %> </p>
+			    
+					<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
+		    </div>
+ </div> 
+
+
+
+
+	<div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+	    <div class="overlay"></div>
+	    <div class="event-info">  
+				  <div class="event-time"> <%= @event.event_time.strftime("%m.%d.%Y") %> </div>
+			     <h1> <%= @event.name %> at <%= @event.location %>  </h1>
+			    <p class="event-description"><%= @event.description %> </p>
+					<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
+		    </div>
+ </div> 
+>>>>>>> origin/mark
     
-
-		<div class="share" style="display: none;"><a href="#" target="_blank" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	
-     
-     <h1> <%= @event.name %></h1>
-
-
-     <p class="event-description"><%= @event.description %> </p>
-
-		<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
-
-    </div>
 
 
 </div>
@@ -151,7 +176,11 @@ $( document ).ready(function() {
 	$("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  window.location.href ); 
 	$("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  window.location.href ); 
 	
-	
+	$(".theme").click(function() {
+	  var theme = $(this).data("theme");
+	  $(".event-container").addClass(theme);
+	  
+	});
 	
 	//startIntro();
 });
