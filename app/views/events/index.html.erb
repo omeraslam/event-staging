@@ -7,12 +7,8 @@
   <div class="events-list">
 	  <% @events.each do |event| %>
 	  <div class="event">
-      
-<% if event.background_img.present?  %>
-      <div class="image" style="background-image:url(<%= image_path(event.background_img) %>);"> </div>
-<% else %>
+
       <div class="image" style="background-image:url(<%= '/assets/' + event.layout_style + '.jpg' %>);"> </div>
-<% end %>
 
 
 	  	<div class="details"> 
