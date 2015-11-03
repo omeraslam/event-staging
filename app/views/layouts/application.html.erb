@@ -30,52 +30,7 @@
     <nav>
     
    	<% if signed_in? %>
-<!--<<<<<<< HEAD
-       	<% if action_name != "show" or controller_name != "events" %>
-       		<a class="logo" href="/"><span>Event Create</span></a>
-       	<% end %>
 
-
-       	<% if action_name == "show" and controller_name == "events" %>
-       	<ul class="event-editor"> 
-		<li> -->
-
-		<!-- <a class="icon icon-edit-inline" id="event-edit" href="#"> </a>
- -->
-<!--     <%= link_to '',edit_user_event_path(), :class => 'icon icon-edit-inline', :id => 'event-edit'  %>
-
-
-		</li>
-		<li><a class="icon icon-share" id="event-share"></a> 
-			<div class="event-share"> 
-				<input id="share-url" type="text" value="www.eventcreate.com/2" readonly onClick="this.select();"> 
-				<p> Send an email invite, or go social!  </p>
-				<a class="icon icon-email" href="" id="email-share"></a> <a class="icon icon-twitter" id="twitter-share"></a>
-			</div>
-		</li>
-		<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"> </a>
-		</li>
-</ul>
-<% end %>
-
-					<ul class="navbar-links signed-in">
-						<li><%= link_to '', '/event-create', :class => 'icon icon-plus'  %> </li>
-				 		<li><%=  link_to '', user_events_path(current_user), :class => 'icon icon-user open-menu'  %></li>
-				  </ul>
-				  
-				  <div class="signed-in-menu">
-				  	<ul>
-							<li><%=  link_to "My events", user_events_path(current_user) %> </li>
-							<li><%=  link_to "Create new event", user_events_path(current_user) %> </li>	
-							<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
-							<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>				  		
-				  	</ul>
-				  </div> 	
-				  
-				  <div class="cover"> </div>
-=======
-   	 -->
-   	
    		
    				  <% if action_name == "show" and controller_name == "events" %>
    				
@@ -276,9 +231,10 @@
 	
 	//LOAD THE THEME AND CONSTRUCT
 
-	var theme = "brunch"; 	
-	var layout = "1"; 
-	
+	var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch"; 	
+	var layout = $('#layout_id').val()? $('#layout_id').val(): "1"; 
+
+
 
 		$( document ).ready(function() {
 		  
@@ -313,12 +269,25 @@
 	  $('.event-container').addClass(theme); 
 	 	$('.event-page.' + layout).addClass('visible'); 
 	  
+	  //MAKE AJAX CALL TO SAVE
+	  saveTheme()
+
 	  return false;
 	  
-	  //MAKE AJAX CALL TO SAVE
+	
+
+
 			  
 	});
 	
+	function saveTheme() {
+	  	$.ajax({
+	  		type: 'POST',
+	  		datatype: 'json',
+	  		url: window.location.href + '/updatetheme', //testing
+	  		data: $.param({event:{layout_id: layout, layout_style: theme}})
+	  	});
+	  }
 	
 	
 	

@@ -2,14 +2,14 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show,  :edit, :update, :destroy]
   before_action :authenticate_user!, :except => [:show]
 
-  respond_to :html
+  respond_to :html, :js
 
   # GET /events
   # GET /events.json
   def index
 
 
-    @image_style_array = ['/assets/home/wedding.jpg','/assets/home/corporate.jpg', '/assets/home/meetups.jpg', '/assets/home/birthday.jpg']
+    @image_style_array = ['/assets/brunch.jpg','/assets/nyc.jpg', '/assets/confetti.jpg', '/assets/summer.jpg','/assets/flower.jpg']
     @attendee = Attendee.new
     @user = User.find(current_user.id)
     @events = @user.events
@@ -19,18 +19,39 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    image_style_array = ['wedding','corporate', 'meetups', 'birthday']
+    image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower']
     @attendee = Attendee.new
-    if(@event.style_id?)
-      @style =  @event.style_id
+    if(@event.layout_id?)
+      @style_id =  @event.layout_id
+      @style_layout =  @event.layout_style
     else 
-      @style = '0'
+      @style_id = '1'
+      @style_layout = 'brunch'
     end
-    @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
+    # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
     respond_with(@attendees)
 
 
   end
+
+  def update_theme
+
+    @user = User.find(current_user.id)
+    @event = @user.events.find(params[:id])
+
+    @event.layout_id = params[:layout_id]
+    @event.layout_style = params[:layout_style]
+
+
+    respond_to do |format|
+      if @event.update(event_params)
+        format.html {redirect_to user_event_path(current_user, @event)}
+      else
+      end
+    end
+
+  end
+
 
   # GET /events/new
   def new
@@ -57,8 +78,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to user_events_path(current_user, @event), notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: user_events_path(current_user, @event) }
+        format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully created.' }
+        format.json { render :show, status: :created, location: user_event_path(current_user, @event) }
       else
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -69,12 +90,15 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    @event.style_id = params[:style_id]
+    #@event.style_id = params[:style_id]
+
+    @event.layout_id = params[:layout_id]
+    @event.layout_style = params[:layout_style]
 
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to user_events_path(current_user, @event), notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: user_events_path(current_user, @event) }
+        format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+        format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
         format.html { render :edit }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -101,6 +125,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :description, :event_time, :time_display, :style_id, :location, :background_img)
+      params.require(:event).permit(:name, :description, :event_time, :time_display, :style_id, :layout_id, :layout_style, :location, :background_img)
     end
 end

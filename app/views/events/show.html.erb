@@ -1,5 +1,8 @@
 <div class="container event-container">
 
+  <%= hidden_field_tag 'layout_id', @style_id %>
+  <%= hidden_field_tag 'layout_style', @style_layout %>
+
 <!-- <<<<<<< HEAD
 
 <% if @event.background_img.present?  %>
@@ -17,13 +20,14 @@
         <%end%><%= @event.location %> </div>
   
 ======= -->
-  <div class="event-page visible 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+  <div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 	    <div class="overlay"></div>
 	    <div class="event-info">  
-			    <div class="event-details"> <%= @event.event_time.strftime("%A, %d %b %Y %l:%M %p") %> <br> <%= @event.location %> </div>
+			    <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %><%else%>
+        TBD<%end%><br> <%= @event.location %> </div>
 			     <h1> <%= @event.name %></h1>
 			    <p class="event-description"><%= @event.description %> </p>
-					<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
+					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 		    </div>
    </div>
 
@@ -33,10 +37,11 @@
 	    <div class="overlay"></div>
 	    <div class="event-info">  
 			     <h1> <%= @event.name %></h1>
-				  <div class="event-details"> <%= @event.event_time.strftime("%A, %d %b %Y %l:%M %p") %> | <%= @event.location %> </div>
+				  <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%else%>
+        TBD | <%end%> <%= @event.location %> </div>
 			    <p class="event-description"><%= @event.description %> </p>
 			    
-					<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
+					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 		    </div>
  </div> 
 
@@ -46,13 +51,12 @@
 	<div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 	    <div class="overlay"></div>
 	    <div class="event-info">  
-				  <div class="event-time"> <%= @event.event_time.strftime("%m.%d.%Y") %> </div>
+				  <div class="event-time"> <% if(@event.time_display == false) %>  <%= @event.event_time.strftime("%m.%d.%Y") %> <%else%> Date TBD Soon <%end%>  </div>
 			     <h1> <%= @event.name %> at <%= @event.location %>  </h1>
 			    <p class="event-description"><%= @event.description %> </p>
-					<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
+					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 		    </div>
  </div> 
->>>>>>> origin/mark
     
 
 
@@ -60,7 +64,7 @@
 
 
 
-<div id="attendee-form" >
+<div id="attendee-form" name="attendee-form" >
 
 
   <%= form_for(@attendee) do |f| %>

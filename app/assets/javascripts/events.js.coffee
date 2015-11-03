@@ -37,9 +37,9 @@ $(document).on 'ready page:load', ->
         required: true
     messages:
       'event[name]':
-        required: 'New event. Who dis?'
+        required: 'Please enter a name'
       'event[location]':
-        required: 'Where da party at?'
+        required: 'Where\'s the party at?'
       'event[description]':
         required: 'Please enter a description'
 
@@ -99,6 +99,17 @@ $(document).on 'ready page:load', ->
    #   $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
     #  return
 
+
+  scrollToAnchor = (aid) ->
+    aTag = $('div[name=\'' + aid + '\']')
+
+    console.log aTag
+    $('html,body').animate { scrollTop: aTag.offset().top }, 'slow'
+    return
+
+  $('.rsvp').on 'click', ->
+    scrollToAnchor 'attendee-form'
+    return
 
   $('.checkmarks .yes').on 'click', (e) ->
     e.preventDefault()

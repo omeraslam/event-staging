@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/terms' => 'pages#terms'
   get '/privacy' => 'pages#privacy'
 
+
   get '/attendees/:id', to: 'attendees#index'
 
 
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   end
 
 
+  post '/users/:id/events/:id/updatetheme', to: 'events#update_theme'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
