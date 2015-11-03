@@ -283,9 +283,8 @@
 	function saveTheme() {
 	  	$.ajax({
 	  		type: 'POST',
-	  		datatype: 'json',
 	  		url: window.location.href + '/updatetheme', //testing
-	  		data: $.param({event:{layout_id: layout, layout_style: theme}})
+	  		data: {event:{layout_id: layout, layout_style: theme}}
 	  	});
 	  }
 	
