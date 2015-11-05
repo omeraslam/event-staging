@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show,  :edit, :update, :destroy]
   after_filter :store_location
-  before_filter :auth_user
   before_filter :authenticate_user!, :except => [:show]
 
 
