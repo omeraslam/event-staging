@@ -3,7 +3,7 @@
   <%= hidden_field_tag 'layout_id', @style_id %>
   <%= hidden_field_tag 'layout_style', @style_layout %>
 
-<!-- <<<<<<< HEAD
+<!-- 
 
 <% if @event.background_img.present?  %>
   <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
@@ -18,13 +18,13 @@
     <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %> |    <%else%>
         TBD |
         <%end%><%= @event.location %> </div>
-  
-======= -->
+-->
   <div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 	    <div class="overlay"></div>
-	    <div class="event-info">  
-			    <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %><%else%>
+      
+          <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %><%else%>
         TBD<%end%><br> <%= @event.location %> </div>
+	    <div class="event-info">  
 			     <h1> <%= @event.name %></h1>
 			    <p class="event-description"><%= @event.description %> </p>
 					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
@@ -152,7 +152,7 @@
 							  position:'left'
 							},  
               { 
-              	element: "#event-share",
+              	element: "#event-editor-share",
                 intro: "<h4>Don't forget to share</h4><p>Easily share and market your event website via email, facebook, or twitter. Attracting attendess never got so easy. </p>",
                 position:'left'
               },    

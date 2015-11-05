@@ -12,12 +12,11 @@ Rails.application.routes.draw do
 
   get '/event-create', to: 'events#new'
 
-
   devise_for :users, :controllers => {  registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
   authenticated do
-    root :to => 'pages#home', as: :authenticated
+    root :to => 'events#index', as: :authenticated
   end
 
   root :to => 'pages#home'
@@ -31,6 +30,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :events
   end
+
 
 
   post '/users/:id/events/:id/updatetheme', to: 'events#update_theme'

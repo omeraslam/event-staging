@@ -591,20 +591,30 @@ footer {
     z-index:0;
     color:#fff;
 }
+  .event-details {
+    padding-top:10px;
+    position: relative;
+    z-index:9999;
+  }
 
 .event-info {
-  position: relative;
+  position: absolute;
   z-index: 10;
+  top: 50%;
+  left: 50%;
   //padding-top:100px;
 	text-align:center;
-  height: 80%;
+  //height: 80%;
   width:100%;
   padding:0 50px;
   max-width: 1000px;
   margin: 0 auto;
+  -moz-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 
   h1 {
-  	padding-top:140px;
+  //	padding-top:140px;
 
   }
   
@@ -619,9 +629,7 @@ footer {
   	padding-top:140px;
   }
   
-  .event-details {
-  	padding-top:10px;
-  }
+
   
   .event-description {
   	font-size:13px;

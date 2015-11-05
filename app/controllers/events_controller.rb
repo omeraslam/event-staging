@@ -1,6 +1,9 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show,  :edit, :update, :destroy]
-  before_action :authenticate_user!, :except => [:show]
+  after_filter :store_location
+  before_filter :auth_user
+  before_filter :authenticate_user!, :except => [:show]
+
 
   respond_to :html, :js
 
@@ -91,16 +94,17 @@ class EventsController < ApplicationController
   def update
     #@event.style_id = params[:style_id]
 
-    @event.layout_id = params[:layout_id]
-    @event.layout_style = params[:layout_style]
+    # @event.layout_id = params[:layout_id]
+    # @event.layout_style = params[:layout_style]
+
 
     respond_to do |format|
       if @event.update(event_params)
-        # format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
-        # format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+         format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+         format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
-        # format.html { render :edit }
-        # format.json { render json: @event.errors, status: :unprocessable_entity }
+         format.html { render :edit }
+         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
