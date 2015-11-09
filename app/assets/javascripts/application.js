@@ -14,6 +14,8 @@
 //= require jquery-ui
 //= require gmaps-auto-complete
 //= require jquery.validate
+//= require editable/jquery-editable-poshytip
+//= require editable/rails
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .

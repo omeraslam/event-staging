@@ -16,6 +16,8 @@ class EventsController < ApplicationController
 
   end
 
+
+
   # GET /events/1
   # GET /events/1.json
   def show
@@ -91,6 +93,9 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+    
+    @user = User.find(params[:user_id])
+    @event = @user.events.build(event_params)
     #@event.style_id = params[:style_id]
 
     # @event.layout_id = params[:layout_id]

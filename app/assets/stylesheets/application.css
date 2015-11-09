@@ -11,5 +11,6 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require editable/jquery-editable
  *= require_self
  */

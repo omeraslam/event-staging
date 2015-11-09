@@ -1127,3 +1127,33 @@ input[name="event[style_id]"] {
   }
 
 }
+
+
+//x-editable
+.editable-click {
+    border: 1px dashed #ccc !important;
+
+}
+.event-container.nyc .event-info {
+
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    max-width: inherit;
+    text-align: left;
+    font-weight: 600;
+
+
+.editable-input input {
+  border: none;
+  margin-bottom: 28px;
+    font-family: Helvetica;
+  background: transparent;
+  font-size: 100px;
+  line-height: 105px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+}

@@ -25,7 +25,7 @@
           <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %><%else%>
         TBD<%end%><br> <%= @event.location %> </div>
 	    <div class="event-info">  
-			     <h1> <%= @event.name %></h1>
+			    <h1 class="editable" data-pk="<%= @event.id %>"> <%= @event.name %></h1> 
 			    <p class="event-description"><%= @event.description %> </p>
 					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 		    </div>
@@ -36,7 +36,7 @@
 	<div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 	    <div class="overlay"></div>
 	    <div class="event-info">  
-			     <h1> <%= @event.name %></h1>
+			     <h1 class="editable"> <%= @event.name %></h1>
 				  <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%else%>
         TBD | <%end%> <%= @event.location %> </div>
 			    <p class="event-description"><%= @event.description %> </p>
@@ -52,7 +52,7 @@
 	    <div class="overlay"></div>
 	    <div class="event-info">  
 				  <div class="event-time"> <% if(@event.time_display == false) %>  <%= @event.event_time.strftime("%m.%d.%Y") %> <%else%> Date TBD Soon <%end%>  </div>
-			     <h1> <%= @event.name %> at <%= @event.location %>  </h1>
+			     <h1 class="editable"> <%= @event.name %> at <%= @event.location %>  </h1>
 			    <p class="event-description"><%= @event.description %> </p>
 					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 		    </div>

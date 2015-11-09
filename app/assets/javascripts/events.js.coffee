@@ -17,6 +17,14 @@ $(document).on 'ready page:load', ->
   
   $('input[type=radio]:checked').parent().find('img').addClass('active')
 
+  $.fn.editable.defaults.mode = 'inline'
+  $('.editable').editable
+    type: 'text'
+    name: 'name'
+    url: window.location.href + '/updatetheme'
+    title: 'Enter event title'
+
+
   if($('#cb_time').attr('checked'))
     $('.time-select select').attr('disabled', true);
   else
