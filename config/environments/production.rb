@@ -5,7 +5,7 @@ Rails.application.configure do
   config.cache_classes = true
 
   #force ssl on pages
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -28,6 +28,7 @@ Rails.application.configure do
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
+  # 
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
@@ -76,14 +77,15 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
 
+  config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
-  address: "smtp.gmail.com",
-  port: 587,
-  domain: ENV["GMAIL_DOMAIN"],
-  authentication: "plain",
-  enable_starttls_auto: true,
-  user_name: ENV["GMAIL_USERNAME"],
-  password: ENV["GMAIL_PASSWORD"]
+    address: 'smtp.mandrillapp.com',
+    port: 587,
+    enable_starttls_auto: true,
+    user_name: ENV['MANDRILL_USERNAME'],
+    password: ENV['MANDRILL_API_KEY'],
+    authentication: "login"
   }
 
 

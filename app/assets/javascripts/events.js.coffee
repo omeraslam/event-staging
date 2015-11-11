@@ -4,8 +4,29 @@
 
 $(document).on 'ready page:load', ->
 
-  $('#new_event').validate
-    onfocusout: true
+  jQuery ->
+    completer = new GmapsCompleter
+        inputField: '#gmaps-input-address'
+        errorField: '#gmaps-error'
+        debugOn: false
+
+    completer.autoCompleteInit
+        region: "CA"
+        country: "us"
+
+  
+  $('input[type=radio]:checked').parent().find('img').addClass('active')
+
+  if($('#cb_time').attr('checked'))
+    $('.time-select select').attr('disabled', true);
+  else
+    $('.time-select select').attr('disabled', false);
+
+  $('form#new_event .slide-up-show input, form.edit_event .slide-up-show input').focus()
+  $('#new_event, form.edit_event').validate
+    onfocusout: (element) ->
+      $(element).valid()
+      return
     debug: false
     rules:
       'event[name]':
@@ -16,9 +37,9 @@ $(document).on 'ready page:load', ->
         required: true
     messages:
       'event[name]':
-        required: 'New event. Who dis?'
+        required: 'Please enter a name'
       'event[location]':
-        required: 'Where da party at?'
+        required: 'Where\'s the party at?'
       'event[description]':
         required: 'Please enter a description'
 
@@ -44,12 +65,6 @@ $(document).on 'ready page:load', ->
         required: 'Please enter a phone number'
 
 
-
-
-
-
-  
-
   if $('#eventPage').length != 0
     img = document.getElementById('eventPage')
     if img.currentStyle != 0
@@ -59,29 +74,42 @@ $(document).on 'ready page:load', ->
       
       sourceImage =  bi
 
-  #  oImg = document.createElement('img')
-  #  oImg.setAttribute 'src', bi
-  #  oImg.setAttribute 'width', '100px'
-  #  oImg.setAttribute 'height', '100px'
-  #  oImg.setAttribute  'crossOrigin', 'anonymous'
+    oImg = document.createElement('img')
+    oImg.setAttribute 'src', bi
+    oImg.setAttribute 'width', '100px'
+    oImg.setAttribute 'height', '100px'
+    oImg.crossOrigin = '';
+    oImg.setAttribute  'crossOrigin', 'anonymous'
 
-  #   
-  #  oImg.onload = ->
-  #    `var colorThief`
-  #    colorThief = new ColorThief
-  #    photoColor = colorThief.getColor(oImg)
-
-
-  #    $('.btn-bordered').removeClass 'hover-color'
-  #    $('.btn-bordered').hover(
-  #      (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
-  #      (ev) -> $(this).css('color', 'rgb(255,255,255)');
-  #    )
+     
+    
+   #oImg.onload = ->
+   #  `var colorThief`
+   #  colorThief = new ColorThief
+   #  photoColor = colorThief.getColor(oImg)
 
 
-  #    $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
-  #    return
+   #  $('.btn-bordered').removeClass 'hover-color'
+   #  $('.btn-bordered').hover(
+   #    (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
+   #    (ev) -> $(this).css('color', 'rgb(255,255,255)');
+   #  )
 
+
+   #   $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
+    #  return
+
+
+  scrollToAnchor = (aid) ->
+    aTag = $('div[name=\'' + aid + '\']')
+
+    console.log aTag
+    $('html,body').animate { scrollTop: aTag.offset().top }, 'slow'
+    return
+
+  $('.rsvp').on 'click', ->
+    scrollToAnchor 'attendee-form'
+    return
 
   $('.checkmarks .yes').on 'click', (e) ->
     e.preventDefault()
@@ -130,6 +158,14 @@ $(document).on 'ready page:load', ->
       $('.btn-next').hide()
     return
 
+ 
+  $('#cb_time').on 'click', (e) ->
+    if($('.time-select select').attr('disabled'))
+      $('.time-select select').attr('disabled', false);
+    else
+      $('.time-select select').attr('disabled', true);
+
+  #   return
   $('.btn-prev').on 'click', (e) ->
     e.preventDefault()
     $('.side-nav li a.active').parent().prev().find('a').click()
@@ -137,7 +173,10 @@ $(document).on 'ready page:load', ->
     return
   $('.btn-next').on 'click', (e) ->
     e.preventDefault()
-    $('.side-nav li a.active').parent().next().find('a').click()
+
+    if($('.slide-up-show .error:visible').length <= 0)
+      $('.side-nav li a.active').parent().next().find('a').click()
+      $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
     checkStep()
     return
 
@@ -151,6 +190,8 @@ $(document).on 'ready page:load', ->
     e.preventDefault()
     $('#default_bg_picker img').removeClass('active')
     $(this).addClass('active')
+    $(this).parent().find('input[type="radio"]').click()
+    #$('#style_id').val($(this).data('theme'))
   return
 
 

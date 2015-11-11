@@ -1,4 +1,8 @@
 //generic styles
+//
+$brand-primary: #21afbf;
+$error-red: rgba(213, 55, 37, 0.9);
+$default-font-size: 13px;
 
 * {
   margin: 0;
@@ -32,7 +36,7 @@ body {
 
 
 p, ol, ul, td {
-  font-size: 13px;
+  font-size: $default-font-size;
   line-height: 18px;
 }
 
@@ -109,8 +113,9 @@ h1, h2, h3 {
 
 h1 {
   font-size:66px;
-  line-height: 80px;
+  line-height: 1em;
   letter-spacing:1px;
+  margin-bottom: 40px;
 }
 
 h2 {
@@ -131,6 +136,7 @@ h2 {
 
 .container {
   padding:120px 70px;
+  display: block;
 }
 
 
@@ -247,6 +253,7 @@ nav {
   display: block;
   width: 35px;
   height: 37px;
+  margin-top: 4px;
   background-image: url(event_create_logo_simple.png);
   background-size:contain;
   float:left;
@@ -415,7 +422,7 @@ input:focus {
   
 // validation error styles
 label.error {
-	background:rgba(213,55,37,.9);
+	background: $error-red;
 	font-size:12px;
 	padding:5px 10px;
 	color:#fff;
@@ -464,17 +471,46 @@ footer {
 //event creation styles
   
 .event-registration {
-    padding: 0;
+  padding: 0;
     width: 100%;
     height: 100%;
     margin-bottom: 0;
     text-align:center;
+    textarea {
+      border: 1px solid #000;
+      height: 300px;
+      padding: 10px;
+      &.input-primary {
+
+      text-align:left;
+      }
+
+      &:focus {
+        border: 1px solid $brand-primary;
+      }
+
+      &.error {
+        border: 1px solid $error-red;
+
+      }
+    }
+    .event-nav {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+    }
+    form {
+      height: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
     
     .field {
     
       width: 100%;
       display:block;
-      padding: 160px 100px 100px 100px;
+      padding: 160px 0px;
+      min-height: 560px;
       transition: all .3s ease-out;
       position: absolute;
       
@@ -555,20 +591,30 @@ footer {
     z-index:0;
     color:#fff;
 }
+  .event-details {
+    padding-top:10px;
+    position: relative;
+    z-index:9999;
+  }
 
 .event-info {
-  position: relative;
+  position: absolute;
   z-index: 10;
+  top: 50%;
+  left: 50%;
   //padding-top:100px;
 	text-align:center;
-  height: 80%;
+  //height: 80%;
   width:100%;
   padding:0 50px;
   max-width: 1000px;
   margin: 0 auto;
+  -moz-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 
   h1 {
-  	padding-top:140px;
+  //	padding-top:140px;
 
   }
   
@@ -583,9 +629,7 @@ footer {
   	padding-top:140px;
   }
   
-  .event-details {
-  	padding-top:10px;
-  }
+
   
   .event-description {
   	font-size:13px;
@@ -606,12 +650,11 @@ footer {
     //display: none;
   }
   .event-registration .actions {
-    bottom: 0;
+    bottom: 40px;
+    left: 44%;
     position: fixed;
-    padding: 40px;
-    text-align: center;
-    width: 100%;
     margin-bottom: 0;
+    z-index: 2;
   }
 
   .actions a {
@@ -708,7 +751,7 @@ footer {
   }
 }
 
-.btn {
+.btn, .carrier-wave-field input {
 		cursor:pointer;
     border: none;
     font-family: "sofia-pro",sans-serif;
@@ -745,6 +788,19 @@ footer {
     	
     }
     
+}
+
+.container.simple {
+  height: auto;
+  background: #ccc;
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
 }
 
 
@@ -882,4 +938,192 @@ footer {
   93.333333% { -webkit-transform: matrix3d(1.00042, 0, 0, 0, 0, 1.00042, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.00042, 0, 0, 0, 0, 1.00042, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   96.666667% { -webkit-transform: matrix3d(1.00056, 0, 0, 0, 0, 1.00056, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.00056, 0, 0, 0, 0, 1.00056, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);} 
+}
+
+ p.alert {
+      color: #000;
+    }
+
+@media screen and (max-width: 768px) {
+  #home {
+    h1 {
+      font-size: 6em;
+      line-height: 1em;
+    }
+  }
+
+   .sessions, .registrations {
+
+    nav {
+
+        padding: 20px;
+
+    }
+
+      form {
+        width: 100%;
+      }
+  }
+
+}
+
+@media screen and (max-width: 640px) {
+  .pages .logo {
+    background-size: cover;
+    width: 50px;
+
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .event-registration {
+      .actions {
+    left: 30%;
+  }
+
+  }
+
+}
+
+.event-registration select {
+
+  &:disabled {
+    opacity: .3;
+  }
+  outline: none;
+  font-size: 16px;
+  display: inline-block;
+  padding: 1.2em 3em 1.3em 1.5em;
+  margin: 0;
+  margin-bottom: 20px;
+
+  transition: border-color 0.2s;
+  border: 2px solid $brand-primary;
+  border-radius: 5px;
+
+  background: #fff;
+  color: #555;
+  line-height: normal;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+
+input[name="event[style_id]"] {
+    display: none;
+}
+
+#default_bg_picker li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.ui-autocomplete {
+  width: 60% !important;
+  max-width: 600px;
+  background: #fff;
+  li {
+  &.ui-state-focus {
+    background: $brand-primary;
+    color: #fff;
+  }
+  padding: 10px;
+  }
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+  .thm-size {
+    width: 100px;
+  }
+
+@media screen and (max-width: 415px) {
+
+
+
+
+  nav ul a {
+       padding: 10px;
+    
+  }
+
+  nav {
+    padding: 100px 20px;
+  }
+  .event-info {
+    padding: 0 20px;
+  }
+  .events nav {
+    padding-top: 30px;
+  }
+  .pages {
+    nav {
+      padding: 30px 20px;
+
+    }
+    .container {
+      padding: 60px 20px 40px;
+    }
+  }
+
+  #home,  {
+    .container {
+      padding-bottom: 20px;
+    }
+    h1 {
+      font-size: 4em;
+      width: 100%;
+      margin-bottom: 20px;
+
+    }
+  }
+
+  .hidden-sm {
+    display: none;
+  }
+  .container {
+
+    h1 {
+      margin: 40px 0;
+      font-size: 3em;
+      line-height: 1em;
+    }
+    padding: 120px 20px 40px;
+    height: auto;
+  }
+  .events-list .event .image {
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .event-registration {
+    .field {
+      padding: 120px 0;
+    }
+    form {
+      textarea {
+        height: 100px;
+      }
+      width: 80%;
+    }
+    padding: 0;
+
+    h2 {
+      font-size: 1.8em;
+      line-height: 1.6em;
+
+    }
+    .field label.error {
+      position: static;
+      padding: 10px 30px;
+    }
+    .description-example {
+      display: none;
+    }
+  }
+
 }

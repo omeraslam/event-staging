@@ -21,5 +21,13 @@ logs
 .env
 Procfile
 
+# Ignore mac files
+.DS_Store
+
+# Ignore ssl cert, for now
+server.csr
+server.key
+server.pass.key
+
 # Ignore application configuration
 /config/application.yml

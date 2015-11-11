@@ -1,9 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "EventCreate Team <hello@eventcreate.com>"
 
     def welcome_email(user)
         @user = user
-        @url = 'http://eventcreate-v1.herokuapp.com/event-create'
+        @url = 'http://eventcreate.com/event-create'
         mail(to: @user.email, subject: 'Welcome to EventCreate')
     end
 

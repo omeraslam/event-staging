@@ -5,7 +5,6 @@
 </head>
 <body>
   <p><%= @attendee.first_name %> <%= @attendee.last_name %> replied <%= @response %> to the event.</p>
-  <p><%= @attendee.first_name %> <%= @attendee.last_name %> added a comment:</p>
   <blockquote><%= @attendee.message %></blockquote> 
   <%= link_to 'See Event', @url %>
 </body>
