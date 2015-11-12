@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/terms' => 'pages#terms'
   get '/privacy' => 'pages#privacy'
 
+
   get '/attendees/:id', to: 'attendees#index'
 
 
@@ -11,12 +12,11 @@ Rails.application.routes.draw do
 
   get '/event-create', to: 'events#new'
 
-
   devise_for :users, :controllers => {  registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
   authenticated do
-    root :to => 'pages#home', as: :authenticated
+    root :to => 'events#index', as: :authenticated
   end
 
   root :to => 'pages#home'
@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   end
 
 
+
+  post '/users/:id/events/:id/updatetheme', to: 'events#update_theme'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

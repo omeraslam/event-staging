@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  after_action :store_location
   before_action :authenticate_user!
 
 

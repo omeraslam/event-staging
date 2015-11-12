@@ -1,7 +1,9 @@
-
-
 <div class="container event-container">
 
+  <%= hidden_field_tag 'layout_id', @style_id %>
+  <%= hidden_field_tag 'layout_style', @style_layout %>
+
+<!-- 
 
 <% if @event.background_img.present?  %>
   <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
@@ -13,29 +15,92 @@
 
     <div class="event-info">
     
-    <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %> |    <%else%>
-        TBD |
-        <%end%><%= @event.location %> </div>
-  
-    
+    <div class="event-details"> <%= @event.location %> </div>
+  -->
+  <div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+   <div class="overlay"></div>
 
-		<div class="share" style="display: none;"><a href="#" target="_blank" class="icon icon-twitter"> </a><a href="#" class="icon icon-facebook"> </a><a href="#" class="icon icon-email"> </a> </div>	
-     
-     <h1> <%= @event.name %></h1>
-
-
-     <p class="event-description"><%= @event.description %> </p>
-
-		<a href="#attendee-form" class="btn btn-bordered" id="RSVP">RSVP</a> 
-
+   <div class="event-details">
+    <% if(@event.time_display == false) %>
+      <% if(@event.date_start != '') %>
+        <%= @event.date_start.to_date.strftime("%B %d") %> 
+      <% end %>
+      <% if(@event.date_end != '') %>
+        - <%= @event.date_end.to_date.strftime("%B %d") %> 
+      <% end %>
+      <% if(@event.time_start != '') %>
+        <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+      <% end %>
+      <% if(@event.time_end != '') %>
+        - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+      <% end %>
+     <%else%>
+     TBD
+     <%end%><br> <%= @event.location %> </div>
+     <div class="event-info">  
+      <h1> <%= @event.name %></h1>
+      <p class="event-description"><%= @event.description %> </p>
+      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
     </div>
+  </div>
+
+  <div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+   <div class="overlay"></div>
+   <div class="event-info">  
+    <h1> <%= @event.name %></h1>
+    <div class="event-details"> 
+      <% if(@event.time_display == false) %> 
+        <% if(@event.date_start != '') %>
+          <%= @event.date_start.to_date.strftime("%B %d") %> 
+        <% end %>
+        <% if(@event.date_end != '') %>
+          - <%= @event.date_end.to_date.strftime("%B %d") %> 
+        <% end %>
+        <% if(@event.time_start != '') %>
+          <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+        <% end %>
+        <% if(@event.time_end != '') %>
+          - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+        <% end %>
+      <%else%>
+      TBD | 
+      <%end%>
+       <%= @event.location %>
+      </div>
+      <p class="event-description"><%= @event.description %> </p>
+
+      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
+    </div>
+  </div> 
+
+
+
+
+  <div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+   <div class="overlay"></div>
+   <div class="event-info">  
+    <div class="event-time"> 
+      <% if(@event.time_display == false) %>  
+        <% if(@event.date_start != '') %>
+          <%= @event.date_start.to_date.strftime("%m.%d.%Y") %> 
+        <% end %>
+      <%else%> 
+        Date TBD Soon 
+      <%end%>  
+    </div>
+      <h1> <%= @event.name %> at <%= @event.location %>  </h1>
+      <p class="event-description"><%= @event.description %> </p>
+      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
+    </div>
+  </div> 
+
 
 
 </div>
 
 
 
-<div id="attendee-form" >
+<div id="attendee-form" name="attendee-form" >
 
 
   <%= form_for(@attendee) do |f| %>
@@ -73,27 +138,27 @@
 
 
 
-	<div class="field">
-  <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
+  <div class="field">
+    <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
   </div>
   
- <div class="field"> 
-  <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
+  <div class="field"> 
+    <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
   </div>
 
-<div class="field">
-  <%= f.text_field :email, :class => 'input-primary', :placeholder => 'Email'  %>
-</div>
+  <div class="field">
+    <%= f.text_field :email, :class => 'input-primary', :placeholder => 'Email'  %>
+  </div>
 
 
- <div class="field" style="display: none;"> 
-  <%= f.text_field :phone_number, :class => 'input-primary', :placeholder => 'Phone Number'  %>
+  <div class="field" style="display: none;"> 
+    <%= f.text_field :phone_number, :class => 'input-primary', :placeholder => 'Phone Number'  %>
   </div>
   
 <!-- 
   <%= f.text_field :message, :class => 'input-primary input-lg', :placeholder => "Public message (i.e., I Can't Wait!)" %> -->
 
-	<br>
+  <br>
   <%= hidden_field_tag 'event_id', @event.id%>
   <%= hidden_field_tag 'user_id', @event.user_id %>
   <%= f.submit "Submit my RSVP", :class => 'btn btn-bordered hover-color' %>
@@ -109,53 +174,57 @@
 
 <script type="text/javascript">
 
-     function startIntro(){
-        var intro = introJs();
-          intro.setOptions({
-            steps: [
-              { 
-                intro: "<h3>Done! </h3> <p>Your website is now live and ready to share. It doesn't get much easier than that!</p> "
-              },
+ function startIntro(){
+  var intro = introJs();
+  intro.setOptions({
+    steps: [
+    { 
+      intro: "<h3>Done! </h3> <p>Your website is now live and ready to share. It doesn't get much easier than that!</p> "
+    },
 
-							{ 
-								element: "#event-edit",
-							  intro: "<h4>Edit away</h4><p>Need to make some final tweaks or edits? You can quickly modify your text or design. </p>",
-							  position:'left'
-							},  
-              { 
-              	element: "#event-share",
-                intro: "<h4>Don't forget to share</h4><p>Easily share and market your event website via email, facebook, or twitter. Attracting attendess never got so easy. </p>",
-                position:'left'
-              },    
-              { 
-              	element: "form",
-                intro: "<h4>Collect registrations</h4><p>Once you've shared your website, your guests can register here. That's it!</p>",
-                position:'top'
-                
-              }                     
-              
-              
-              ]
-          });
+    { 
+      element: "#event-edit",
+      intro: "<h4>Edit away</h4><p>Need to make some final tweaks or edits? You can quickly modify your text or design. </p>",
+      position:'left'
+    },  
+    { 
+     element: "#event-editor-share",
+     intro: "<h4>Don't forget to share</h4><p>Easily share and market your event website via email, facebook, or twitter. Attracting attendess never got so easy. </p>",
+     position:'left'
+   },    
+   { 
+     element: "form",
+     intro: "<h4>Collect registrations</h4><p>Once you've shared your website, your guests can register here. That's it!</p>",
+     position:'top'
 
-          intro.start();
-      }
+   }                     
+
+
+   ]
+ });
+
+  intro.start();
+}
 
 
 
 $( document ).ready(function() {
 	$("#event-share").click(function() {
-	  $(".event-share").toggle();
-	});
+   $(".event-share").toggle();
+ });
 	$("#share-url").val(window.location.href); 
 	$("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  window.location.href ); 
 	$("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  window.location.href ); 
 	
-	
+	$(".theme").click(function() {
+   var theme = $(this).data("theme");
+   $(".event-container").addClass(theme);
+
+ });
 	
 	//startIntro();
 });
 
 
- 
+
 </script>

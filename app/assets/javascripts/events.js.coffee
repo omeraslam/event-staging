@@ -8,7 +8,7 @@ $(document).on 'ready page:load', ->
     'showDuration': true
     'timeFormat': 'g:ia'
   $('#datepairExample .date').datepicker
-    'format': 'yyyy-m-d'
+    'format': 'm/d/yyyy'
     'autoclose': true
   # # initialize datepair
   $('#datepairExample').datepair()
@@ -29,9 +29,10 @@ $(document).on 'ready page:load', ->
   $('input[type=radio]:checked').parent().find('img').addClass('active')
 
   if($('#cb_time').attr('checked'))
-    $('.time-select select').attr('disabled', true);
+    $('.date, .time').attr('disabled', true);
   else
-    $('.time-select select').attr('disabled', false);
+    $('.date, .time').attr('disabled', false);
+    $('.date, .time').removeAttr('disabled');
 
   $('form#new_event .slide-up-show input, form.edit_event .slide-up-show input').focus()
   $('#new_event, form.edit_event').validate
@@ -48,9 +49,9 @@ $(document).on 'ready page:load', ->
         required: true
     messages:
       'event[name]':
-        required: 'New event. Who dis?'
+        required: 'Please enter a name'
       'event[location]':
-        required: 'Where da party at?'
+        required: 'Where\'s the party at?'
       'event[description]':
         required: 'Please enter a description'
 
@@ -111,6 +112,17 @@ $(document).on 'ready page:load', ->
     #  return
 
 
+  scrollToAnchor = (aid) ->
+    aTag = $('div[name=\'' + aid + '\']')
+
+    console.log aTag
+    $('html,body').animate { scrollTop: aTag.offset().top }, 'slow'
+    return
+
+  $('.rsvp').on 'click', ->
+    scrollToAnchor 'attendee-form'
+    return
+
   $('.checkmarks .yes').on 'click', (e) ->
     e.preventDefault()
     $('#attendee_attending_true').click()
@@ -160,10 +172,11 @@ $(document).on 'ready page:load', ->
 
  
   $('#cb_time').on 'click', (e) ->
-    if($('.time-select select').attr('disabled'))
-      $('.time-select select').attr('disabled', false);
+    if($('.date, .time').attr('disabled'))
+      $('.date, .time').attr('disabled', false)
+      $('.date, .time').removeAttr('disabled')
     else
-      $('.time-select select').attr('disabled', true);
+      $('.date, .time').attr('disabled', true);
 
   #   return
   $('.btn-prev').on 'click', (e) ->
@@ -185,6 +198,26 @@ $(document).on 'ready page:load', ->
     checkStep()
     return
 
+  #keyboard navigation on event flow
+  $(document).keyup (event) ->
+    $('.slide-up-show input').focusout()
+    key = event.which
+    switch key
+      when 37
+        # Key left.
+        $('.btn-prev').click()
+      when 38
+        # Key up.
+        console.log 'up'
+      when 39, 13
+        # Key right.
+        console.log 'right'
+        $('.btn-next').click()
+      when 40
+        # Key down.
+        console.log 'down'
+    return
+
   $('.side-nav li a').each ->
     tooltipText = $(this).data('tooltip')
     html = '<span>' + tooltipText + '</span>'
@@ -198,9 +231,3 @@ $(document).on 'ready page:load', ->
     $(this).parent().find('input[type="radio"]').click()
     #$('#style_id').val($(this).data('theme'))
   return
-
-
-  
-
-
-

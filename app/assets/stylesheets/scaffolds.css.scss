@@ -27,6 +27,9 @@ body {
   padding:0;
   margin:0;
   min-height: 100%;
+ 	position:relative;
+ 	transition: top .2s ease-in-out;
+ 	top:0px;
   
 }
 
@@ -95,12 +98,21 @@ h2 {
 
 }
 
+.input-primary {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+input.input-primary[disabled] {
+  opacity: .5;
+  border-bottom: 1px solid #ccc;
+}
+
+
 .lead {
     font-size: 28px;
     line-height:36px;
 }
-
-
 
 
 //structure
@@ -109,10 +121,6 @@ h2 {
   padding:120px 70px;
   display: block;
 }
-
-
-
-
 
 
 
@@ -137,13 +145,15 @@ nav {
 		a {
 			color: #fff;
 			font-size:13px;
-			padding:10px;
+			padding:20px;
 			display:inline-block;
 			font-weight:400;
 		}	
 	}
 	
 	ul.signed-in {
+		transition: top .2s ease-in-out;
+		
 		float: none;
 		position:fixed;
 		right:0;
@@ -155,11 +165,67 @@ nav {
 			font-size:18px;
 			color:#21afbf;
       padding:20px;
+			cursor:pointer;
+			position:relative;
+			
+			span {
+				visibility:hidden;
+				opacity:0;
+				display: block;
+		    position: absolute;
+		    background-color: #1a1a1a;
+		    color: #fff;
+		    padding: 8px;
+		    text-align: center;
+		    /* width: 200%; */
+		    font-size: 11px;
+		    margin-left: -100%;
+		    right: 0;
+		    color: #21afbf;
+				bottom:-50px;
+				-webkit-transition: all 0.3s;
+				transition: all 0.3s;
+				
+				
+				&:after {
+					bottom: 100%;
+					right: 20px;
+					border: solid transparent;
+					content: " ";
+					height: 0;
+					width: 0;
+					position: absolute;
+					pointer-events: none;
+					border-color: rgba(26, 26, 26, 0);
+					border-bottom-color: #1a1a1a;
+					border-width: 5px;
+					margin-left: -5px;
+
+				}
+		
+			}
+			
+			
+			
+			&.active {
+				background: rgba(33, 175, 191, 0.8);				
+				color:#fff;
+			}
 		
 			&:hover {
 				background:#21afbf;
 				color:#fff;
+				
+				span {
+					visibility:visible;
+					opacity:1;
+					bottom:-44px;
+					
+				
+				}
 			}
+			
+
 		}
 	}
 }
@@ -494,6 +560,7 @@ footer {
 }
 
 .event-page {
+		display:none;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -505,20 +572,30 @@ footer {
     z-index:0;
     color:#fff;
 }
+  .event-details {
+    padding-top:10px;
+    position: relative;
+    z-index:9999;
+  }
 
 .event-info {
-  position: relative;
+  position: absolute;
   z-index: 10;
+  top: 50%;
+  left: 50%;
   //padding-top:100px;
 	text-align:center;
-  height: 80%;
+  //height: 80%;
   width:100%;
   padding:0 50px;
   max-width: 1000px;
   margin: 0 auto;
+  -moz-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 
   h1 {
-  	padding-top:140px;
+  //	padding-top:140px;
 
   }
   
@@ -533,12 +610,9 @@ footer {
   	padding-top:140px;
   }
   
-  .event-details {
-  	padding-top:10px;
-  }
+
   
   .event-description {
-  	font-family:Georgia, serif;
   	font-size:13px;
   	line-height:26px;
   
@@ -669,7 +743,8 @@ footer {
     border-radius: 40px;
     transition: all .2s ease-out;
     display:inline-block;
-    
+    -webkit-appearance: none;
+
     &.btn-large {
     	padding: 16px 36px;
     	margin-top:30px;
@@ -947,6 +1022,7 @@ footer {
 }
 
 
+
 input[name="event[style_id]"] {
     display: none;
 }
@@ -990,7 +1066,9 @@ input[name="event[style_id]"] {
   nav {
     padding: 100px 20px;
   }
-
+  .event-info {
+    padding: 0 20px;
+  }
   .events nav {
     padding-top: 30px;
   }
@@ -1067,7 +1145,7 @@ input[name="event[style_id]"] {
       display: none;
       background: #fff;
       border: 1px solid #ccc;
-      width: 200px;
+      width: 300px;
     }
 
   .ui-datepicker {
@@ -1075,8 +1153,53 @@ input[name="event[style_id]"] {
     padding: 10px;
   }
 
-input.date, input.time {
+  .ui-datepicker-title {
+
+    text-align: center;
+  width: 100%;
+
+    position: absolute;
+    z-index: -1;
+    top: 5px;
+
+  }
+
+  .ui-datepicker-prev, .ui-datepicker-next {
+    display: inline-block;
+    width: 14px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-image: url('arrow.png');
+    background-repeat: no-repeat;
+    line-height: 600%;
+    overflow: hidden;
+}
+
+
+.ui-datepicker-next {
+  background-position: -10px 0px;
+  }
+
+
+  .ui-datepicker-calendar {
+    width: 100%;
+
+    td {
+      text-align: center;
+    }
+  }
+
+input.date {
   width: 140px;
+}
+
+input.time {
+  width: 100px;
+}
+
+input.date, input.time {
+  margin: 4px;
 }
 
 .ui-datepicker-next {

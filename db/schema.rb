@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101030607) do
+ActiveRecord::Schema.define(version: 20151103162935) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 20151101030607) do
     t.string   "time_start"
     t.string   "date_end"
     t.string   "time_end"
+    t.string   "layout_id"
+    t.string   "layout_style"
   end
 
   create_table "users", force: true do |t|
