@@ -124,6 +124,10 @@ h2 {
 
 }
 
+input {
+  -webkit-appearance: none;
+}
+
 .lead {
     font-size: 28px;
     line-height:36px;
@@ -726,7 +730,6 @@ footer {
     text-align: center;
     border-bottom-color: rgba(255,255,255, .4);
     transition: all .2s ease-out;
-    -webkit-appearance: none;
 
     &:focus {
       outline: none;
