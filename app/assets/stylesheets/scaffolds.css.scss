@@ -536,7 +536,13 @@ footer {
 }
 
 #default_bg_picker {
+  li {
+    width: 110px;
+    padding: 10px 2px;
+    cursor: pointer;
+  }
   img {
+    width: 100%;
     border: 2px solid transparent;
 
     &:hover, &.active {
@@ -1014,10 +1020,6 @@ input[name="event[style_id]"] {
     display: none;
 }
 
-#default_bg_picker li {
-  padding: 10px;
-  cursor: pointer;
-}
 
 .ui-autocomplete {
   width: 60% !important;

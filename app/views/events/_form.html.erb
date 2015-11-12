@@ -42,29 +42,31 @@
     <p class="description-example">Nulla sollicitudin, dui quis cursus dapibus, nulla dui facilisis enim, sit amet eleifend tortor lectus nec arcu. Mauris lobortis felis at mauris commodo, a tempor felis pharetra. Aliquam erat volutpat. Sed auctor sem eu lacinia viverra. 
      </p>
   </div>
-  <!-- 
+
   <div class="field slide-down-hide">
-   <h2>Time to add some style. Choose a theme below:</h2> -->
-   <!--  <%= f.label :background_img, 'Choose A Background Image'  %> -->
+   <h2>Time to add some style. Choose a theme below:</h2> 
+    <%= f.label :background_img, 'Choose A Background Image'  %> 
+
+    <%= f.file_field :background_img %>
  
-<!--     <ul id="default_bg_picker" class="list-unstyled list-inline">
+    <ul id="default_bg_picker" class="list-unstyled list-inline">
+    <li >
+      <%= f.radio_button :style_id,  "0" %><img data-theme="1" src="/assets/themes/brunch.jpg"></li>
+    <li >
+      <%= f.radio_button :style_id, "1" %><img data-theme="2" src="/assets/themes/nyc.jpg"></li>
     <li>
-      <%= f.radio_button :style_id,  "0" %><img data-theme="1" src="/assets/brunch.jpg"></li>
-    <li>
-      <%= f.radio_button :style_id, "1" %><img data-theme="2" src="/assets/nyc.jpg"></li>
-    <li>
-      <%= f.radio_button :style_id, "2" %><img data-theme="3" src="/assets/confetti.jpg"></li>
-    <li>
-      <%= f.radio_button :style_id, "3" %><img data-theme="4" src="/assets/summer.jpg"></li>
+      <%= f.radio_button :style_id, "2" %><img data-theme="3" src="/assets/themes/confetti.jpg"></li>
+    <li >
+      <%= f.radio_button :style_id, "3" %><img data-theme="4" src="/assets/themes/summer.jpg"></li>
       <li>
 
-      <%= f.radio_button :style_id, "3" %><img data-theme="4" src="/assets/flower.jpg"></li>
+      <%= f.radio_button :style_id, "3" %><img data-theme="4" src="/assets/themes/flower.jpg"></li>
     </ul> 
- -->
 
 
-<!-- 
-  </div> -->
+
+
+  </div> 
 </div>
 
 
