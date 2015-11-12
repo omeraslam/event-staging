@@ -24,15 +24,12 @@ $(document).on 'ready page:load', ->
 
   #$('.date').focus()
 
-  jQuery ->
-    completer = new GmapsCompleter
-        inputField: '#gmaps-input-address'
-        errorField: '#gmaps-error'
-        debugOn: false
 
-    completer.autoCompleteInit
-        region: "CA"
-        country: "us"
+
+
+
+
+
 
   
   $('input[type=radio]:checked').parent().find('img').addClass('active')

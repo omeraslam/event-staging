@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/attendees/:id', to: 'attendees#index'
 
 
+
+
   get '/dashboard', to: 'events#index'
 
   get '/event-create', to: 'events#new'
