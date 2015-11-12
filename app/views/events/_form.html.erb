@@ -20,9 +20,9 @@
 <h2>Sounds like fun. Now, when is it?</h2> 
 
 <p id="datepairExample">
-  <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'start date', :value => (@event.date_start != '')? @event.date_start.to_date.strftime("%m/%d/%Y"): '' %>
+  <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'start date', :value => ( !@event.date_start.blank? )? @event.date_start.to_date.strftime("%m/%d/%Y"): '' %>
   <%= f.text_field :time_start, :class => 'time start input-primary', :placeholder => 'start time' %> –
-  <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'end date (optional)', :value => (@event.date_end != '')? @event.date_end.to_date.strftime("%m/%d/%Y"): '' %>
+  <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'end date (optional)', :value => (!@event.date_end.blank?)? @event.date_end.to_date.strftime("%m/%d/%Y"): '' %>
   <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'end time' %>
 
 </p>

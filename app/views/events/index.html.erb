@@ -29,7 +29,7 @@
         <%= event.date_start.to_date.strftime("%B %d") %> 
       <% end %>
 
-      <% if(event.date_end != '') %>
+      <% if(event.date_end != '' && event.date_end != event.date_start) %>
         - <%= event.date_end.to_date.strftime("%B %d") %> 
       <% end %>
 
