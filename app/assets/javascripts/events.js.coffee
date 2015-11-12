@@ -4,6 +4,9 @@
 
 $(document).on 'ready page:load', ->
 
+
+
+
   jQuery ->
     completer = new GmapsCompleter
         inputField: '#gmaps-input-address'
@@ -180,6 +183,26 @@ $(document).on 'ready page:load', ->
     checkStep()
     return
 
+  #keyboard navigation on event flow
+  $(document).keyup (event) ->
+    $('.slide-up-show input').focusout()
+    key = event.which
+    switch key
+      when 37
+        # Key left.
+        $('.btn-prev').click()
+      when 38
+        # Key up.
+        console.log 'up'
+      when 39, 13
+        # Key right.
+        console.log 'right'
+        $('.btn-next').click()
+      when 40
+        # Key down.
+        console.log 'down'
+    return
+
   $('.side-nav li a').each ->
     tooltipText = $(this).data('tooltip')
     html = '<span>' + tooltipText + '</span>'
@@ -193,6 +216,9 @@ $(document).on 'ready page:load', ->
     $(this).parent().find('input[type="radio"]').click()
     #$('#style_id').val($(this).data('theme'))
   return
+
+
+
 
 
 
