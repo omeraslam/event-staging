@@ -11,7 +11,16 @@ $(document).on 'ready page:load', ->
     'format': 'm/d/yyyy'
     'autoclose': true
   # # initialize datepair
-  $('#datepairExample').datepair()
+  $('#datepairExample').datepair
+    parseDate: (input) ->
+      $(input).datepicker 'getDate'
+    updateDate: (input, dateObj) ->
+      $(input).datepicker 'setDate', dateObj
+
+
+
+
+ 
 
   #$('.date').focus()
 

@@ -1151,7 +1151,16 @@ input[name="event[style_id]"] {
   .ui-datepicker {
     border-radius: 4px;
     padding: 10px;
+    td:hover, .ui-datepicker-current-day {
+    background: $brand-primary;
+  
+       a {
+      color: #fff !important;
+    }
+
+    }
   }
+
 
   .ui-datepicker-title {
 

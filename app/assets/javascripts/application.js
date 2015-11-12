@@ -20,4 +20,7 @@
 //= require_tree .
 
 
+//= require datepair.min.js
+//= require jquery.datepair.min.js
+
 
