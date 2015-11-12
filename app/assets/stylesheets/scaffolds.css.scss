@@ -398,7 +398,6 @@ input:focus {
   font-size: 16px;
   color: #fff;
   transition: border-bottom .2s ease;
-  -webkit-appearance: none;
   
   &:focus {
   	border-bottom: 1px solid #21afbf;
@@ -727,6 +726,7 @@ footer {
     text-align: center;
     border-bottom-color: rgba(255,255,255, .4);
     transition: all .2s ease-out;
+    -webkit-appearance: none;
 
     &:focus {
       outline: none;
@@ -763,11 +763,11 @@ footer {
     border-radius: 40px;
     transition: all .2s ease-out;
     display:inline-block;
-    
+    -webkit-appearance: none;
+
     &.btn-large {
     	padding: 16px 36px;
     	margin-top:30px;
-      -webkit-appearance: none;
     	
     
     }
