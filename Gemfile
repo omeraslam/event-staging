@@ -22,6 +22,9 @@ gem 'figaro'
 #s3 set up
 #gem 'aws-sdk', '~> 2'
 
+# bitly url shortener
+gem 'bitly'
+
 #carrier wave s3 module
 gem "fog"
 

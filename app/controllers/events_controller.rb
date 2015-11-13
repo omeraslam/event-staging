@@ -132,7 +132,7 @@ class EventsController < ApplicationController
       date_format = '%m/%d/%Y'
       #offset = Date.now.strftime("%z")
       #
-      if valid[:time_display] != '1'
+      if valid[:time_display] == false
         valid[:date_start] = valid[:date_start] != '' ? Date.strptime(valid[:date_start], date_format) : valid[:date_start]
         valid[:date_end] = valid[:date_end] != '' ? Date.strptime(valid[:date_end], date_format): valid[:date_end]
       end

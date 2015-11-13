@@ -205,19 +205,22 @@ $(document).on 'ready page:load', ->
 
   #keyboard navigation on event flow
   $(document).keyup (event) ->
+
     $('.slide-up-show input').focusout()
     key = event.which
     switch key
       when 37
         # Key left.
-        $('.btn-prev').click()
+        if !$('.slide-up-show input').is(':focus')
+          $('.btn-prev').click()
       when 38
         # Key up.
         console.log 'up'
       when 39, 13
         # Key right.
         console.log 'right'
-        $('.btn-next').click()
+        if !$('.slide-up-show input').is(':focus')
+          $('.btn-next').click()
       when 40
         # Key down.
         console.log 'down'
