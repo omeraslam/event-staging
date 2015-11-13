@@ -38,12 +38,12 @@ ActiveRecord::Schema.define(version: 20151103162935) do
     t.boolean  "time_display"
     t.boolean  "location_display"
     t.string   "style_id"
+    t.string   "layout_id"
+    t.string   "layout_style"
     t.string   "date_start"
     t.string   "time_start"
     t.string   "date_end"
     t.string   "time_end"
-    t.string   "layout_id"
-    t.string   "layout_style"
   end
 
   create_table "users", force: true do |t|

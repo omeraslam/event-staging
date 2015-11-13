@@ -17,6 +17,7 @@
 public/uploads
 tmp
 logs
+eventcreate.esproj/
 
 .env
 Procfile
