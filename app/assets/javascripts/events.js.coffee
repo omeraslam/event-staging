@@ -196,11 +196,10 @@ $(document).on 'ready page:load', ->
     if($('.slide-up-show .error:visible').length <= 0)
       $('.side-nav li a.active').parent().next().find('a').click()
       setTimeout (->
-        console.log 'sup'
         if $('.slide-up-show input.date.start:visible').length <= 0
           $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
         return
-      ), 200
+      ), 400
     checkStep()
     return
 
