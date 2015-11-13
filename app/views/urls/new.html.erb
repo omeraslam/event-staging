@@ -1,0 +1,11 @@
+<h1>Urls#new</h1>
+<p>Find me in app/views/urls/new.html.erb</p>
+
+
+<h1>Create a new Bit.ly URL:</h1>
+
+<%= form_for "", url: urls_path, method: :post do |f| %>
+ <%= f.label :url %>
+ <%= f.text_field :url %>
+ <%= f.submit "Create Url" %>
+<% end %>
