@@ -1,9 +1,37 @@
+<!--START event navigation-->
+<div class="event-nav"> 
+	
+	<%= link_to ('&lt; dashboard').html_safe, attendees_path, :class => 'breadcrumb'  %> 
+
+	<div class="image">
+		<div class="image-cover"> </div>
+	</div>
+	<div class="title">Phi's Orgy </div> 
+	<div class="date">November 2, 2015 </div> 	
+	<ul> 
+		<li><a href="#"><i class="icon icon-share-window"></i> View/modify website </a> </li>		
+		<li><a href="#"><i class="icon icon-users"></i> Manage guests  </a> </li>
+		<li><a href="#"><i class="icon icon-email"></i> Send invite  </a> </li>
+	
+	</ul>
+</div>
+<!--END event navigation-->
+
+
 <div class="container">
   <% @event.each do |event| %>
-<h2>Guest List for
-<strong><%= event.name %></strong>
-</h2>
+
+<h1>Guest list</h1>
+<p class="lead">Keep track of all those event attendees.  </p>
+
 <% end %>
+
+<section> 
+	<ul> 
+		<li style="display: none;"><a href="#"><i class="icon icon-download"> </i> <span> Download list</span> </a></li>
+		<li><a href="#"><i class="icon icon-print" onclick="window.print();"> </i> <span>Print list </span></a></li>		
+	</ul>
+</section>
 
     <% if !@attendees.empty? %>
 <table>
