@@ -15,50 +15,96 @@
 
     <div class="event-info">
     
-    <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %> |    <%else%>
-        TBD |
-        <%end%><%= @event.location %> </div>
--->
+    <div class="event-details"> <%= @event.location %> </div>
+  -->
   <div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
-	    <div class="overlay"></div>
+
+   <div class="overlay"></div>
+
+   <div class="event-details">
+    <% if(@event.time_display == false) %>
+      <% if(@event.date_start != '') %>
+
+    <!--     <%= best_in_place @event, :date_start, :path => user_event_path, type: :date %>  -->
+        <%= @event.date_start.to_date.strftime("%B %d") %> 
+      <% end %>
+      <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
+        - <%= @event.date_end.to_date.strftime("%B %d") %> 
+      <% end %>
+      <% if(@event.time_start != '') %>
+
+       <!--  <%= best_in_place @event, :time_start, :path => user_event_path, type: :time %>  -->
+        <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+      <% end %>
+      <% if(@event.time_end != '') %>
+        - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+      <% end %>
+     <%else%>
+     TBD
+     <%end%><br>  <%= best_in_place @event, :location, :path => user_event_path, :class => 'location' %> </div>
+     <div class="event-info">  
+       <h1> <%= best_in_place @event, :name, :path => update_event_path %></h1> 
+      <p class="event-description"><%= best_in_place @event, :description, :path => user_event_path, type: :textarea %></p>
+      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
       
-          <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %><%else%>
-        TBD<%end%><br> <%= @event.location %> </div>
-	    <div class="event-info">  
-			    <h1 class="editable" data-pk="<%= @event.id %>"> <%= @event.name %></h1> 
-			    <p class="event-description"><%= @event.description %> </p>
-					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
-		    </div>
-   </div>
+    </div>
+    <i class="more fa fa-chevron-down"></i>
+  </div>
+
+  <div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+   <div class="overlay"></div>
+   <div class="event-info">  
+    <h1> <%= @event.name %></h1>
+    <div class="event-details"> 
+      <% if(@event.time_display == false) %> 
+        <% if(@event.date_start != '') %>
+          <%= @event.date_start.to_date.strftime("%B %d") %> 
+        <% end %>
+      <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
+          - <%= @event.date_end.to_date.strftime("%B %d") %> 
+        <% end %>
+        <% if(@event.time_start != '') %>
+          <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+        <% end %>
+        <% if(@event.time_end != '') %>
+          - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+        <% end %>
+      <%else%>
+      TBD | 
+      <%end%>
+      <span class="location"> <%= @event.location %></span>
+      </div>
+      <p class="event-description"><%= @event.description %> </p>
+
+      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
+
+    </div>
+      <i class="more fa fa-chevron-down"></i>
+  </div> 
 
 
 
-	<div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
-	    <div class="overlay"></div>
-	    <div class="event-info">  
-			     <h1 class="editable"> <%= @event.name %></h1>
-				  <div class="event-details"> <% if(@event.time_display == false) %> <%= @event.event_time.strftime("%B %d %I:%M %p") %> | <%else%>
-        TBD | <%end%> <%= @event.location %> </div>
-			    <p class="event-description"><%= @event.description %> </p>
-			    
-					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
-		    </div>
- </div> 
 
+  <div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+   <div class="overlay"></div>
+   <div class="event-info">  
+    <div class="event-time"> 
+      <% if(@event.time_display == false) %>  
+      <% if(@event.date_start != '') %>
+          <%= @event.date_start.to_date.strftime("%m.%d.%Y") %> 
+        <% end %>
 
+      <%else%> 
+        Date TBD Soon 
+      <%end%>  
+    </div>
+      <h1> <%= @event.name %> at <span class="location"> <%= @event.location %> </span> </h1>
+      <p class="event-description"><%= @event.description %> </p>
+      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 
-
-	<div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
-	    <div class="overlay"></div>
-	    <div class="event-info">  
-				  <div class="event-time"> <% if(@event.time_display == false) %>  <%= @event.event_time.strftime("%m.%d.%Y") %> <%else%> Date TBD Soon <%end%>  </div>
-			     <h1 class="editable"> <%= @event.name %> at <%= @event.location %>  </h1>
-			    <p class="event-description"><%= @event.description %> </p>
-					<a href="#" class="btn btn-bordered rsvp">RSVP</a> 
-		    </div>
- </div> 
-    
-
+    </div>
+      <i class="more fa fa-chevron-down"></i>
+  </div> 
 
 </div>
 
@@ -102,27 +148,27 @@
 
 
 
-	<div class="field">
-  <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
+  <div class="field">
+    <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
   </div>
   
- <div class="field"> 
-  <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
+  <div class="field"> 
+    <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
   </div>
 
-<div class="field">
-  <%= f.text_field :email, :class => 'input-primary', :placeholder => 'Email'  %>
-</div>
+  <div class="field">
+    <%= f.text_field :email, :class => 'input-primary', :placeholder => 'Email'  %>
+  </div>
 
 
- <div class="field" style="display: none;"> 
-  <%= f.text_field :phone_number, :class => 'input-primary', :placeholder => 'Phone Number'  %>
+  <div class="field" style="display: none;"> 
+    <%= f.text_field :phone_number, :class => 'input-primary', :placeholder => 'Phone Number'  %>
   </div>
   
 <!-- 
   <%= f.text_field :message, :class => 'input-primary input-lg', :placeholder => "Public message (i.e., I Can't Wait!)" %> -->
 
-	<br>
+  <br>
   <%= hidden_field_tag 'event_id', @event.id%>
   <%= hidden_field_tag 'user_id', @event.user_id %>
   <%= f.submit "Submit my RSVP", :class => 'btn btn-bordered hover-color' %>
@@ -136,59 +182,154 @@
 
 </div>
 
+
+
+    <div id="map"></div>
+
+<!-- 
+     <script>
+
+function initMap() {
+
+
+     var geocoder, latlng;
+     geocoder = new google.maps.Geocoder();
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    latlng = new google.maps.LatLng(lat,long);
+}
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: latlng,
+    zoom: 13
+  });
+
+  codeAddress();
+  function codeAddress() {
+    var address = document.getElementsByClassName('location')[0].innerHTML == '' ? 'Los Angeles, CA' : document.getElementsByClassName('location')[0].innerHTML;
+    geocoder.geocode( {'address': address}, function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
+
+
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setIcon(/** @type {google.maps.Icon} */({
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }));
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
+
+  // Sets a listener on a radio button to change the filter type on Places
+  // Autocomplete.
+
+}
+
+    </script>
+ -->
+
+
+
 <script type="text/javascript">
 
-     function startIntro(){
-        var intro = introJs();
-          intro.setOptions({
-            steps: [
-              { 
-                intro: "<h3>Done! </h3> <p>Your website is now live and ready to share. It doesn't get much easier than that!</p> "
-              },
+ function startIntro(){
+  var intro = introJs();
+  intro.setOptions({
+    steps: [
+    { 
+      intro: "<h3>Done! </h3> <p>Your website is now live and ready to share. It doesn't get much easier than that!</p> "
+    },
 
-							{ 
-								element: "#event-edit",
-							  intro: "<h4>Edit away</h4><p>Need to make some final tweaks or edits? You can quickly modify your text or design. </p>",
-							  position:'left'
-							},  
-              { 
-              	element: "#event-editor-share",
-                intro: "<h4>Don't forget to share</h4><p>Easily share and market your event website via email, facebook, or twitter. Attracting attendess never got so easy. </p>",
-                position:'left'
-              },    
-              { 
-              	element: "form",
-                intro: "<h4>Collect registrations</h4><p>Once you've shared your website, your guests can register here. That's it!</p>",
-                position:'top'
-                
-              }                     
-              
-              
-              ]
-          });
+    { 
+      element: "#event-edit",
+      intro: "<h4>Edit away</h4><p>Need to make some final tweaks or edits? You can quickly modify your text or design. </p>",
+      position:'left'
+    },  
+    { 
+     element: "#event-editor-share",
+     intro: "<h4>Don't forget to share</h4><p>Easily share and market your event website via email, facebook, or twitter. Attracting attendess never got so easy. </p>",
+     position:'left'
+   },    
+   { 
+     element: "form",
+     intro: "<h4>Collect registrations</h4><p>Once you've shared your website, your guests can register here. That's it!</p>",
+     position:'top'
 
-          intro.start();
-      }
+   }                     
+
+
+   ]
+ });
+
+  intro.start();
+}
 
 
 
 $( document ).ready(function() {
 	$("#event-share").click(function() {
-	  $(".event-share").toggle();
-	});
+   $(".event-share").toggle();
+ });
 	$("#share-url").val(window.location.href); 
 	$("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  window.location.href ); 
 	$("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  window.location.href ); 
 	
 	$(".theme").click(function() {
-	  var theme = $(this).data("theme");
-	  $(".event-container").addClass(theme);
-	  
-	});
+   var theme = $(this).data("theme");
+   $(".event-container").addClass(theme);
+
+ });
 	
 	//startIntro();
 });
 
 
- 
+
 </script>

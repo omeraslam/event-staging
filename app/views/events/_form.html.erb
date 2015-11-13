@@ -10,17 +10,34 @@
       </ul>
     </div>
   <% end %>
+
+
+
+
+
 <div class="event-registration">
   <div class="field slide-up-show"> 
     <h2>So what's this event called?</h2> 
     <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+
+
+
+
+
   </div>
 
   <div class="field slide-down-hide">
 <h2>Sounds like fun. Now, when is it?</h2> 
-<div class="time-select">
-<%= f.datetime_select :event_time, :class => 'input-primary', :placeholder => 'Time', :minute_step => 15, 
-                       ampm: true %> </div> 
+
+<p id="datepairExample">
+  <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'start date', :value => ( !@event.date_start.blank? )? @event.date_start.to_date.strftime("%m/%d/%Y"): '' %>
+  <%= f.text_field :time_start, :class => 'time start input-primary', :placeholder => 'start time' %> –
+  <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'end date (optional)', :value => (!@event.date_end.blank?)? @event.date_end.to_date.strftime("%m/%d/%Y"): '' %>
+  <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'end time' %>
+
+</p>
+
+
 
 
     or <label>
@@ -33,7 +50,119 @@
   <div class="field slide-down-hide">
 <h2>And where?</h2> 
 
-    <%= f.text_field :location, :class => 'input-primary', :id => 'gmaps-input-address', :placeholder => 'Location' %>
+    <%= f.text_field :location, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'Enter a Location' %>
+
+
+
+    <div id="map"></div>
+
+     <script>
+
+function initMap() {
+
+
+     var geocoder, latlng;
+     geocoder = new google.maps.Geocoder();
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    latlng = new google.maps.LatLng(lat,long);
+}
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: latlng,
+    zoom: 13,
+    disableDefaultUI: true,
+    scrollwheel: false
+
+  });
+
+  codeAddress();
+  function codeAddress() {
+    var address = document.getElementById('pac-input').value == '' ? 'Los Angeles, CA' : document.getElementById('pac-input').value;
+    geocoder.geocode( {'address': address}, function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
+
+  var input = /** @type {!HTMLInputElement} */(
+      document.getElementById('pac-input'));
+
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  //autocomplete.bindTo('bounds', map);
+
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
+
+  autocomplete.addListener('place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setIcon(/** @type {google.maps.Icon} */({
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }));
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
+
+  // Sets a listener on a radio button to change the filter type on Places
+  // Autocomplete.
+
+}
+
+    </script>
+
+
+
   </div>
   
   <div class="field slide-down-hide">

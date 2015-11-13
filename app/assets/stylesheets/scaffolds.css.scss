@@ -79,33 +79,7 @@ a {
 }
 
 
-table, td, th { 
-	vertical-align: middle; 
-	//border: none;
-  border: 1px solid #222;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  border-spacing: 0;
-}
 
-table
-{
-  margin-top: 20px;
-}
-
-td, th {
-  padding: 10px 0;
-}
-
-
-th { 
-  width: 200px;
-	//border-bottom: 1px solid #DDD; 
-}
-table img { 
-	width:100px;
-}
 
 h1, h2, h3 {
   font-weight:300;
@@ -124,12 +98,21 @@ h2 {
 
 }
 
+.input-primary {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+input.input-primary[disabled] {
+  opacity: .5;
+  border-bottom: 1px solid #ccc;
+}
+
+
 .lead {
     font-size: 28px;
     line-height:36px;
 }
-
-
 
 
 //structure
@@ -141,20 +124,17 @@ h2 {
 
 
 
-
-
-
-
 //header and nav styles
 
 
 nav {
 	padding:40px 70px 0 70px;
 	position:absolute;
-	width:100%;
+	//width:100%;
 	z-index:10;
 	
 	ul {
+
 		margin:0;
 		float: right;
 
@@ -184,6 +164,7 @@ nav {
 		a {
 			font-size:18px;
 			color:#21afbf;
+      padding:20px;
 			cursor:pointer;
 			position:relative;
 			
@@ -762,7 +743,8 @@ footer {
     border-radius: 40px;
     transition: all .2s ease-out;
     display:inline-block;
-    
+    -webkit-appearance: none;
+
     &.btn-large {
     	padding: 16px 36px;
     	margin-top:30px;
@@ -863,7 +845,37 @@ footer {
 }
 
 .attendees {
-  text-align :center;
+  
+  h2 {
+    text-align :center;
+  }
+  table, td, th { 
+    vertical-align: middle; 
+    //border: none;
+    border: 1px solid #222;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    border-spacing: 0;
+  }
+
+  table
+  {
+    margin-top: 20px;
+  }
+
+  td, th {
+    padding: 10px 0;
+  }
+
+
+  th { 
+    width: 200px;
+    //border-bottom: 1px solid #DDD; 
+  }
+  table img { 
+    width:100px;
+  }
 
   table {
     margin: 20px auto;
@@ -1008,6 +1020,7 @@ footer {
   font-size: inherit;
   line-height: inherit;
 }
+
 
 
 input[name="event[style_id]"] {
@@ -1156,4 +1169,116 @@ input[name="event[style_id]"] {
   text-transform: uppercase;
 }
 
+}
+  .ui-timepicker-wrapper, .ui-datepicker {
+      display: none;
+      background: #fff;
+      border: 1px solid #ccc;
+      width: 300px;
+    }
+
+  .ui-datepicker {
+    border-radius: 4px;
+    padding: 10px;
+    td:hover, .ui-datepicker-current-day {
+    background: $brand-primary;
+  
+       a {
+      color: #fff !important;
+    }
+
+    }
+  }
+
+
+  .ui-datepicker-title {
+
+    text-align: center;
+  width: 100%;
+
+    position: absolute;
+    z-index: -1;
+    top: 5px;
+
+  }
+
+  .ui-datepicker-prev, .ui-datepicker-next {
+    display: inline-block;
+    width: 14px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-image: url('arrow.png');
+    background-repeat: no-repeat;
+    line-height: 600%;
+    overflow: hidden;
+}
+
+
+.ui-datepicker-next {
+  background-position: -10px 0px;
+  }
+
+
+  .ui-datepicker-calendar {
+    width: 100%;
+
+    td {
+      text-align: center;
+    }
+  }
+
+input.date {
+  width: 140px;
+}
+
+input.time {
+  width: 100px;
+}
+
+input.date, input.time {
+  margin: 4px;
+}
+
+.ui-datepicker-next {
+  float: right;
+}
+
+      #map {
+        z-index:10;
+        height: 300px;
+      }
+
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.event-page .more {
+
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    font-size: 30px;
+    opacity: .6;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    transition: opacity .4s ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
 }

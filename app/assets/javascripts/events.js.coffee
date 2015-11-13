@@ -4,31 +4,43 @@
 
 $(document).on 'ready page:load', ->
 
-  jQuery ->
-    completer = new GmapsCompleter
-        inputField: '#gmaps-input-address'
-        errorField: '#gmaps-error'
-        debugOn: false
+  $('#datepairExample .time').timepicker
+    'showDuration': true
+    'timeFormat': 'g:ia'
+  $('#datepairExample .date').datepicker
+    'format': 'm/d/yyyy'
+    'autoclose': true
+  # # initialize datepair
+  $('#datepairExample').datepair
+    parseDate: (input) ->
+      $(input).datepicker 'getDate'
+    updateDate: (input, dateObj) ->
+      $(input).datepicker 'setDate', dateObj
 
-    completer.autoCompleteInit
-        region: "CA"
-        country: "us"
+  #$('.date').focus()
+
+
+
+
+
+
+
+  $(document).ready ->
+    jQuery('.best_in_place').best_in_place()
+    return
+
+
 
   
   $('input[type=radio]:checked').parent().find('img').addClass('active')
 
-  $.fn.editable.defaults.mode = 'inline'
-  $('.editable').editable
-    type: 'text'
-    name: 'name'
-    url: window.location.href + '/updatetheme'
-    title: 'Enter event title'
 
 
   if($('#cb_time').attr('checked'))
-    $('.time-select select').attr('disabled', true);
+    $('.date, .time').attr('disabled', true);
   else
-    $('.time-select select').attr('disabled', false);
+    $('.date, .time').attr('disabled', false);
+    $('.date, .time').removeAttr('disabled');
 
   $('form#new_event .slide-up-show input, form.edit_event .slide-up-show input').focus()
   $('#new_event, form.edit_event').validate
@@ -73,7 +85,9 @@ $(document).on 'ready page:load', ->
         required: 'Please enter a phone number'
 
 
+
   if $('#eventPage').length != 0
+
     img = document.getElementById('eventPage')
     if img.currentStyle != 0
       style = img.currentStyle or window.getComputedStyle(img, false)
@@ -115,7 +129,7 @@ $(document).on 'ready page:load', ->
     $('html,body').animate { scrollTop: aTag.offset().top }, 'slow'
     return
 
-  $('.rsvp').on 'click', ->
+  $('.rsvp, .more').on 'click', ->
     scrollToAnchor 'attendee-form'
     return
 
@@ -168,10 +182,11 @@ $(document).on 'ready page:load', ->
 
  
   $('#cb_time').on 'click', (e) ->
-    if($('.time-select select').attr('disabled'))
-      $('.time-select select').attr('disabled', false);
+    if($('.date, .time').attr('disabled'))
+      $('.date, .time').attr('disabled', false)
+      $('.date, .time').removeAttr('disabled')
     else
-      $('.time-select select').attr('disabled', true);
+      $('.date, .time').attr('disabled', true);
 
   #   return
   $('.btn-prev').on 'click', (e) ->
@@ -184,8 +199,35 @@ $(document).on 'ready page:load', ->
 
     if($('.slide-up-show .error:visible').length <= 0)
       $('.side-nav li a.active').parent().next().find('a').click()
-      $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
+      setTimeout (->
+        if $('.slide-up-show input.date.start:visible').length <= 0
+          $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
+        return
+      ), 400
     checkStep()
+    return
+
+  #keyboard navigation on event flow
+  $(document).keyup (event) ->
+
+    $('.slide-up-show input').focusout()
+    key = event.which
+    switch key
+      when 37
+        # Key left.
+        if !$('.slide-up-show input').is(':focus')
+          $('.btn-prev').click()
+      when 38
+        # Key up.
+        console.log 'up'
+      when 39, 13
+        # Key right.
+        console.log 'right'
+        if !$('.slide-up-show input').is(':focus')
+          $('.btn-next').click()
+      when 40
+        # Key down.
+        console.log 'down'
     return
 
   $('.side-nav li a').each ->
@@ -201,8 +243,3 @@ $(document).on 'ready page:load', ->
     $(this).parent().find('input[type="radio"]').click()
     #$('#style_id').val($(this).data('theme'))
   return
-
-
-
-
-

@@ -12,13 +12,17 @@
 //
 //= require jquery
 //= require jquery-ui
-//= require gmaps-auto-complete
+//= require jquery.timepicker.js
 //= require jquery.validate
-//= require editable/jquery-editable-poshytip
-//= require editable/rails
 //= require jquery_ujs
+//= require jquery.purr
+//= require best_in_place
+//= require best_in_place.jquery-ui
 //= require turbolinks
 //= require_tree .
 
+
+//= require datepair.min.js
+//= require jquery.datepair.min.js
 
 

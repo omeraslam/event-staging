@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
 
-  respond_to :html, :js
+  respond_to :html, :js, :json
 
   # GET /events
   # GET /events.json
@@ -50,6 +50,8 @@ class EventsController < ApplicationController
         format.html {redirect_to user_event_path(current_user, @event)}
         format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
+        format.html {render :action => 'edit'}
+        format.json {render :json => @user.errors.full_messages, :status => :unprocessable_entity}
       end
     end
 
@@ -100,6 +102,9 @@ class EventsController < ApplicationController
 
     # @event.layout_id = params[:layout_id]
     # @event.layout_style = params[:layout_style]
+    # 
+    
+   
 
 
     respond_to do |format|
@@ -132,6 +137,16 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :description, :event_time, :time_display, :style_id, :layout_id, :layout_style, :location, :background_img)
+      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id, :layout_id, :layout_style, :location, :background_img)
+
+      date_format = '%m/%d/%Y'
+      #offset = Date.now.strftime("%z")
+      #
+      if valid[:time_display] == false
+        valid[:date_start] = valid[:date_start] != '' ? Date.strptime(valid[:date_start], date_format) : valid[:date_start]
+        valid[:date_end] = valid[:date_end] != '' ? Date.strptime(valid[:date_end], date_format): valid[:date_end]
+      end
+      #valid[:time_start] = Time.strftime('1:00am', time_format)
+      return valid
     end
 end

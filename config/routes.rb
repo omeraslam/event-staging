@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :urls, only: [:new, :create]
+
   resources :attendees
 
   get '/terms' => 'pages#terms'
@@ -6,6 +9,8 @@ Rails.application.routes.draw do
 
 
   get '/attendees/:id', to: 'attendees#index'
+
+
 
 
   get '/dashboard', to: 'events#index'
@@ -31,9 +36,13 @@ Rails.application.routes.draw do
     resources :events
   end
 
+ 
 
 
-  post '/users/:id/events/:id/updatetheme', to: 'events#update_theme'
+
+
+  post '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme'
+  put '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
