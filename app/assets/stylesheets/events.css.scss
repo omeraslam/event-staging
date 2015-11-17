@@ -306,7 +306,7 @@ border-bottom:1px solid #444;
 	
 			
 		input {
-			padding: 10px;
+		padding: 10px;
 	    font-size: 14px;
 	    color: #444;
 	    width: 201px;
@@ -465,14 +465,36 @@ border-bottom:1px solid #444;
 
 	.event-page {
 		background-image:url(brunch.jpg) !important;
+	}
+
+	input, textarea {
+		width: 100%;
+		text-align: center;
+	}
+
+	.event-page, input, textarea {
+		color: #fff;
 		font-family: "brandon-grotesque",sans-serif;
 		font-style: normal;
+		text-align: center;
 		font-weight: 300;
-	
+		
+
+		.event-details {
+				input {
+					font-size: 16px;
+					width: 100%;
+					text-align: center;
+				}
+				font-weight: 400;
+				
+			
+			}
+
 	
 		.event-info {
 	
-			h1 {
+			h1, h1 span[data-bip-attribute="name"] input {
 				font-size:80px;
 			
 			}
@@ -482,19 +504,11 @@ border-bottom:1px solid #444;
 			
 			}	
 	
-			.event-details {
-				
-				font-weight: 400;
-				
-			
-			}
+
 		
-			.event-description {
-				
+			.event-description, textarea {
 				font-size:14px;
 				font-weight: 400;
-				
-			
 			}
 		
 		
@@ -515,27 +529,74 @@ border-bottom:1px solid #444;
 
 
 
+.event-container {
+	input, textarea {
+		 background: none;
+		//background: rgba(255,255,255, 0.2);
+		border:none;
+		line-height: inherit;
+		margin: 0;
+		font-style: normal;
+		padding: 0;
 
+		//border-bottom: 1px dashed #fff;
+		&:focus {
+			//outline: none;
+		}
+	}
+
+		.event-details, .event-description {
+				//display: table;
+				span {
+					//border-bottom: 1px dashed #fff;
+
+					input,textarea {
+						width: auto;
+						border: none;
+					}
+
+					
+				}
+
+				.best_in_place:focus {
+						border: none !important;
+				
+				}
+
+				input {
+				//	width: 600px;
+				}
+			}
+}
 
 .event-container.nyc {
 
 	.event-page {
 		background-image:url(nyc.jpg) !important;
-	
 	}
-
-	.event-info {
+	
+	.event-info, input, textarea {
 		font-family:Helvetica;
 		text-transform:uppercase;
 		letter-spacing:1px;
-		max-width:inherit;
+		max-width:100%;
+		width: 100%;
 		text-align:left;
 		font-weight: 600;
+		color:#fff;
 		
-			h1 {
+		.event-details input {
+			font-weight: 600;
+			font-size: 16px;
+		}
+	
+		
+			h1, h1 span[data-bip-attribute="name"] input {
+
 				font-size:100px;
 				line-height:105px;
-				font-weight: 600;			
+				font-weight: 600;
+				margin-bottom: 0;	
 			
 			}
 			
@@ -546,9 +607,10 @@ border-bottom:1px solid #444;
 			}	
 			
 			
-			.event-description {
+			.event-description, span[data-bip-attribute="description"] textarea  {
 				
 				font-size:12px;
+				padding: 0;
 			
 			}
 			
@@ -556,6 +618,9 @@ border-bottom:1px solid #444;
 	}
 
 }
+
+
+
 
 
 
@@ -571,25 +636,33 @@ border-bottom:1px solid #444;
 		
 		}
 		
-		h1 {
+		h1, h1 span input {
+			color: #fff;
 			font-size: 40px;
-	    letter-spacing: 8px;
-	    text-transform: uppercase;
-	    font-style: italic;
-	    font-family: "freight-display-pro",sans-serif;
-	    font-style: normal;
-	    font-weight: 400;
-		
+		    letter-spacing: 8px;
+		    text-transform: uppercase;
+		    font-style: italic;
+		    font-family: "freight-display-pro",sans-serif;
+		    font-style: normal;
+		    text-align: center;
+		    font-weight: 400;
 		}
 		
-		.event-details, .event-description {
-		
+		.event-details, .event-description, .event-details input, .event-description textarea {
+			color: #fff;
 			font-family: "brandon-grotesque",sans-serif;
 			font-weight: 800;
 			text-transform:uppercase;
 			font-size: 12px;
 			 letter-spacing: 1px;
+			 width: 100%;
+			 text-align: center;
 		
+		}
+
+		.event-details input {
+			width: 100%;
+			text-align: center;
 		}
 		
 
@@ -613,19 +686,32 @@ border-bottom:1px solid #444;
 
 
 .event-container.sunset {
+	input, textarea {
+	text-align: center;
+	width: 100%;
+	color: #fff;
+	}
 
 	.event-page {
 		background-image:url(sunset.jpg) !important;
 		
 	
+		.event-details input {
+			font-size: 16px;
 
+		}
+
+		.event-description textarea {
+			font-size: 12px;
+		}
 		
-		h1 {
+		h1, h1 span input {
+			font-size: 80px;
+			text-align: center;
+			color: #fff;
 			font-family: "kinescope",sans-serif;
 			font-style: normal;
 			font-weight: 400;
-		
-
 		}
 		
 		
@@ -649,8 +735,14 @@ border-bottom:1px solid #444;
 			display:none;
 		
 		}
-
-		.event-details {
+		textarea, input {
+			width: 100%;
+			text-align: center;
+			margin-bottom: 0;
+			padding: 0;
+			line-height: 10px;
+		}
+		.event-details, .event-details textarea, .event-details input {
 			color:#B53737;
 			font-family: "brandon-grotesque",sans-serif;
 			font-weight: 800;
@@ -662,7 +754,7 @@ border-bottom:1px solid #444;
 		}
 
 		
-		h1 {
+		h1, h1 span input{
 			font-family: "lush",sans-serif;
 	    font-style: normal;
 	    font-weight: 400;
@@ -698,14 +790,19 @@ border-bottom:1px solid #444;
 
 	.event-page {
 		background-image:url(flower.jpg) !important;
+
+		textarea, input {
+			width: 100%;
+			text-align: center;
+		}
 		
-		.event-time {
+		.event-time, input {
 			font-family: "freight-display-pro",sans-serif;
-		  font-weight: 400;
-		  font-size: 137px;
-		  font-style: italic;
-		  letter-spacing: 6px;
-		  padding-top:90px;
+		 	font-weight: 400;
+		 	font-size: 137px;
+		 	font-style: italic;
+		 	letter-spacing: 6px;
+		 	padding-top:90px;
 		}
 		
 		.overlay {
@@ -714,7 +811,7 @@ border-bottom:1px solid #444;
 		}
 
 			
-		h1, .event-location {
+		h1, .event-location, h1 input {
 		
 			font-family: "brandon-grotesque",sans-serif;
 			font-weight: 800;
@@ -724,6 +821,13 @@ border-bottom:1px solid #444;
 			padding:0;
 			line-height:16px;
 		
+		}
+		textarea {	
+		    font-family: "sofia-pro",sans-serif;
+		    font-weight: 300;
+		    color: #fff;
+		    font-size: 12px;
+		    padding: 0;
 		}
 		
 		.btn {

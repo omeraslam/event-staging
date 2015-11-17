@@ -26,7 +26,41 @@ $(document).on 'ready page:load', ->
 
 
   $(document).ready ->
+    $.datepicker.setDefaults
+      'dateFormat': 'yy-mm-dd'
+
     jQuery('.best_in_place').best_in_place()
+
+    $('span[data-bip-attribute="name"]').bind 'focusin', ->
+      console.log $('.visible span[data-bip-attribute="name"]').attr('data-bip-value')
+      $('.visible span[data-bip-attribute="name"] input').val $('.visible span[data-bip-attribute="name"]').attr('data-bip-value')
+      return
+
+    $('span[data-bip-attribute="description"]').bind 'focusin', ->
+      console.log $('.visible span[data-bip-attribute="description"]').attr('data-bip-value')
+      $('.visible span[data-bip-attribute="description"] textarea').val $('.visible span[data-bip-attribute="description"]').attr('data-bip-value')
+      console.log 'val' + $('.visible span[data-bip-attribute="description"] textarea').val
+      return
+
+
+    $('h1 span[data-bip-attribute="name"]').bind 'ajax:success', ->
+      $('h1 span[data-bip-attribute="name"]').text($('.visible h1 span[data-bip-attribute="name"]').text())
+      $('h1 span[data-bip-attribute="name"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="name"]').text())
+      $('h1 span[data-bip-attribute="name"]').attr('data-bip-value', $('.visible h1 span[data-bip-attribute="name"]').text())
+      return
+
+    $('span[data-bip-attribute="description"]').bind 'ajax:success', ->
+      alert $('.visible span[data-bip-attribute="description"]').text()
+      $('span[data-bip-attribute="description"]').text($('.visible span[data-bip-attribute="description"]').text())
+      $('span[data-bip-attribute="description"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="description"]').text())
+      $('span[data-bip-attribute="description"]').attr('data-bip-value', $('.visible span[data-bip-attribute="description"]').text())
+      return
+
+
+
+
+
+
     return
 
 

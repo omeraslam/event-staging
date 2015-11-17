@@ -270,7 +270,7 @@
 	function saveTheme() {
 	  	$.ajax({
 	  		type: 'POST',
-	  		url: window.location.href + '/updatetheme', //testing
+	  		url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
 	  		data: {event:{layout_id: layout, layout_style: theme}}
 	  	});
 	  }
@@ -280,13 +280,22 @@
  if(document.getElementsByClassName('event-page').length > 0 ) {
 
 
-
 var initMap;
 
 initMap = function() {
+
   var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
   geocoder = void 0;
+  geocoder = new google.maps.Geocoder;
   latlng = void 0;
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: latlng,
+    zoom: 13,
+    disableDefaultUI: true,
+    zoomControl: false,
+    scrollwheel: false
+
+  });
   getLocation = function() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
@@ -302,11 +311,10 @@ initMap = function() {
   };
   codeAddress = function() {
     var address;
-    address = document.getElementsByClassName('location')[0].innerHTML === '' ? 'Los Angeles, CA' : document.getElementsByClassName('location')[0].innerHTML;
+    address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
     geocoder.geocode({
       'address': address
     }, function(results, status) {
-      var marker;
       if (status === google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
         marker = new google.maps.Marker({
@@ -314,28 +322,70 @@ initMap = function() {
           position: results[0].geometry.location
         });
       } else {
-        alert('Geocode was not successful for the following reason: ' + status);
+        //alert('Geocode was not successful for the following reason: ' + status);
+        alert('Location not found');
       }
     });
   };
-  geocoder = new google.maps.Geocoder;
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: latlng,
-    zoom: 13,
-    disableDefaultUI: true,
-    zoomControl: false,
-    scrollwheel: false
+  // 
 
-  });
   codeAddress();
-  infowindow = new google.maps.InfoWindow;
-  marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29)
-  });
+
+
+
+
+  setMapOnAll = function(map) {
+
+    marker.setMap(null);
+
+    codeAddress();
+  }
+
+
+
+
+
+
+
+$('span[data-bip-attribute="location').bind('focusin', function() {
+
+  $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
+
+  var input = /** @type {!HTMLInputElement} */(
+      document.querySelector('.visible span[data-bip-attribute="location"] input'));
+        var autocomplete = new google.maps.places.Autocomplete(input);
+});
+// on success of address input, recalculate map position
+ $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
+
+  $('span[data-bip-attribute="location"]').text($('.visible span[data-bip-attribute="location"]').text())
+  alert($('.visible span[data-bip-attribute="location"]').text());
+
+  $('span[data-bip-attribute="location"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="location"]').text())
+  $('span[data-bip-attribute="location"]').attr('data-bip-value', $('.visible span[data-bip-attribute="location"]').text())
+
+  setMapOnAll(null);
+
+ });
+
+
+
+
 
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

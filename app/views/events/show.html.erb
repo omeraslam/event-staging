@@ -17,6 +17,7 @@
     
     <div class="event-details"> <%= @event.location %> </div>
   -->
+
   <div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
 
    <div class="overlay"></div>
@@ -24,16 +25,14 @@
    <div class="event-details">
     <% if(@event.time_display == false) %>
       <% if(@event.date_start != '') %>
-
-    <!--     <%= best_in_place @event, :date_start, :path => user_event_path, type: :date %>  -->
-        <%= @event.date_start.to_date.strftime("%B %d") %> 
+        <%= best_in_place @event, :date_start, :path => update_event_path, type: :date %> 
       <% end %>
       <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
-        - <%= @event.date_end.to_date.strftime("%B %d") %> 
+        -  <%= best_in_place @event, :date_end, :path => update_event_path, type: :date %> 
       <% end %>
       <% if(@event.time_start != '') %>
 
-       <!--  <%= best_in_place @event, :time_start, :path => user_event_path, type: :time %>  -->
+       <!--  <%= best_in_place @event, :time_start, :path => update_event_path, type: :time %>  -->
         <%= @event.time_start.to_time.strftime("%l:%M %p") %>
       <% end %>
       <% if(@event.time_end != '') %>
@@ -41,10 +40,10 @@
       <% end %>
      <%else%>
      TBD
-     <%end%><br>  <%= best_in_place @event, :location, :path => user_event_path, :class => 'location' %> </div>
+     <%end%><br>  <%= best_in_place @event, :location, :path => update_event_path, :class => 'location' %> </div>
      <div class="event-info">  
        <h1> <%= best_in_place @event, :name, :path => update_event_path %></h1> 
-      <p class="event-description"><%= best_in_place @event, :description, :path => user_event_path, type: :textarea %></p>
+      <p class="event-description"><%= best_in_place @event, :description, :path => update_event_path, type: :textarea %></p>
       <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
       
     </div>
@@ -52,9 +51,10 @@
   </div>
 
   <div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+  
    <div class="overlay"></div>
    <div class="event-info">  
-    <h1> <%= @event.name %></h1>
+    <h1> <%= best_in_place @event, :name, :path => update_event_path %></h1>
     <div class="event-details"> 
       <% if(@event.time_display == false) %> 
         <% if(@event.date_start != '') %>
@@ -72,9 +72,9 @@
       <%else%>
       TBD | 
       <%end%>
-      <span class="location"> <%= @event.location %></span>
+      <span class="location"> <%= best_in_place @event, :location, :path => update_event_path %></span>
       </div>
-      <p class="event-description"><%= @event.description %> </p>
+      <p class="event-description"><%= best_in_place @event, :description, :path => update_event_path, type: :textarea %> </p>
 
       <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 
@@ -98,8 +98,8 @@
         Date TBD Soon 
       <%end%>  
     </div>
-      <h1> <%= @event.name %> at <span class="location"> <%= @event.location %> </span> </h1>
-      <p class="event-description"><%= @event.description %> </p>
+      <h1> <%= best_in_place @event, :name, :path => update_event_path %> at <span class="location"> <%= best_in_place @event, :location, :path => update_event_path %> </span> </h1>
+      <p class="event-description"><%= best_in_place @event, :description, :path => update_event_path, type: :textarea %> </p>
       <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 
     </div>
