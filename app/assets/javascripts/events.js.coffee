@@ -8,6 +8,9 @@ $(document).on 'ready page:load', ->
     'showDuration': true
     'timeFormat': 'g:ia'
   $('#datepairExample .date').datepicker
+    onSelect: (dateText) ->
+      $('.date').focusout()
+      return
     'format': 'm/d/yyyy'
     'autoclose': true
   # # initialize datepair
@@ -26,34 +29,32 @@ $(document).on 'ready page:load', ->
 
 
   $(document).ready ->
-    $.datepicker.setDefaults
-      'dateFormat': 'yy-mm-dd'
+    #$.datepicker.setDefaults
+     # 'dateFormat': 'yy-mm-dd'
+    if $('.signed-in').length > 0
+      jQuery('.best_in_place').best_in_place()
 
-    jQuery('.best_in_place').best_in_place()
+      $('span[data-bip-attribute="name"]').bind 'focusin', ->
+        $('.visible span[data-bip-attribute="name"] input').val $('.visible span[data-bip-attribute="name"]').attr('data-bip-value')
+        return
 
-    $('span[data-bip-attribute="name"]').bind 'focusin', ->
-      console.log $('.visible span[data-bip-attribute="name"]').attr('data-bip-value')
-      $('.visible span[data-bip-attribute="name"] input').val $('.visible span[data-bip-attribute="name"]').attr('data-bip-value')
-      return
-
-    $('span[data-bip-attribute="description"]').bind 'focusin', ->
-      console.log $('.visible span[data-bip-attribute="description"]').attr('data-bip-value')
-      $('.visible span[data-bip-attribute="description"] textarea').val $('.visible span[data-bip-attribute="description"]').attr('data-bip-value')
-      console.log 'val' + $('.visible span[data-bip-attribute="description"] textarea').val
-      return
+      $('span[data-bip-attribute="description"]').bind 'focusin', ->
+        $('.visible span[data-bip-attribute="description"] textarea').val $('.visible span[data-bip-attribute="description"]').attr('data-bip-value')
+        return
 
 
-    $('h1 span[data-bip-attribute="name"]').bind 'ajax:success', ->
-      $('h1 span[data-bip-attribute="name"]').text($('.visible h1 span[data-bip-attribute="name"]').text())
-      $('h1 span[data-bip-attribute="name"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="name"]').text())
-      $('h1 span[data-bip-attribute="name"]').attr('data-bip-value', $('.visible h1 span[data-bip-attribute="name"]').text())
-      return
+      $('h1 span[data-bip-attribute="name"]').bind 'ajax:success', ->
+        $('h1 span[data-bip-attribute="name"]').text($('.visible h1 span[data-bip-attribute="name"]').text())
+        $('h1 span[data-bip-attribute="name"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="name"]').text())
+        $('h1 span[data-bip-attribute="name"]').attr('data-bip-value', $('.visible h1 span[data-bip-attribute="name"]').text())
+        return
 
-    $('span[data-bip-attribute="description"]').bind 'ajax:success', ->
-      alert $('.visible span[data-bip-attribute="description"]').text()
-      $('span[data-bip-attribute="description"]').text($('.visible span[data-bip-attribute="description"]').text())
-      $('span[data-bip-attribute="description"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="description"]').text())
-      $('span[data-bip-attribute="description"]').attr('data-bip-value', $('.visible span[data-bip-attribute="description"]').text())
+      $('span[data-bip-attribute="description"]').bind 'ajax:success', ->
+        
+        $('span[data-bip-attribute="description"]').text($('.visible span[data-bip-attribute="description"]').text())
+        $('span[data-bip-attribute="description"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="description"]').text())
+        $('span[data-bip-attribute="description"]').attr('data-bip-value', $('.visible span[data-bip-attribute="description"]').text())
+        return
       return
 
 
@@ -84,6 +85,13 @@ $(document).on 'ready page:load', ->
     debug: false
     rules:
       'event[name]':
+        required: true
+
+      'event[date_start]':
+        required: true
+      'event[time_start]':
+        required: true
+      'event[time_end]':
         required: true
       'event[location]':
         required: true
@@ -159,7 +167,6 @@ $(document).on 'ready page:load', ->
   scrollToAnchor = (aid) ->
     aTag = $('div[name=\'' + aid + '\']')
 
-    console.log aTag
     $('html,body').animate { scrollTop: aTag.offset().top }, 'slow'
     return
 
@@ -214,11 +221,15 @@ $(document).on 'ready page:load', ->
       $('.btn-next').hide()
     return
 
+  $('.ui-datepicker-calendar tbody td a').on 'click', (e) ->
+    $('.date').focusout()
+    return
  
   $('#cb_time').on 'click', (e) ->
     if($('.date, .time').attr('disabled'))
       $('.date, .time').attr('disabled', false)
       $('.date, .time').removeAttr('disabled')
+      $('.date.start').focus()
     else
       $('.date, .time').attr('disabled', true);
 
@@ -251,17 +262,10 @@ $(document).on 'ready page:load', ->
         # Key left.
         if !$('.slide-up-show input').is(':focus')
           $('.btn-prev').click()
-      when 38
-        # Key up.
-        console.log 'up'
       when 39, 13
         # Key right.
-        console.log 'right'
         if !$('.slide-up-show input').is(':focus')
           $('.btn-next').click()
-      when 40
-        # Key down.
-        console.log 'down'
     return
 
   $('.side-nav li a').each ->

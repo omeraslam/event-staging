@@ -97,7 +97,7 @@ class EventsController < ApplicationController
   def update
     
     @user = User.find(params[:user_id])
-    @event = @user.events.build(event_params)
+    @event = @user.events.find(params[:id])
     #@event.style_id = params[:style_id]
 
     # @event.layout_id = params[:layout_id]
@@ -144,8 +144,7 @@ class EventsController < ApplicationController
 
       date_format = '%m/%d/%Y'
       #offset = Date.now.strftime("%z")
-      #
-      if valid[:time_display] == false
+      if !valid[:date_start].nil?
         valid[:date_start] = valid[:date_start] != '' ? Date.strptime(valid[:date_start], date_format) : valid[:date_start]
         valid[:date_end] = valid[:date_end] != '' ? Date.strptime(valid[:date_end], date_format): valid[:date_end]
       end

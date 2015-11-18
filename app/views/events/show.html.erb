@@ -23,27 +23,40 @@
    <div class="overlay"></div>
 
    <div class="event-details">
-    <% if(@event.time_display == false) %>
+    <% if(@event.time_display == false || !@event.date_start.nil? || !@event.date_start.blank? ) %>
       <% if(@event.date_start != '') %>
-        <%= best_in_place @event, :date_start, :path => update_event_path, type: :date %> 
+         <%= @event.date_start.to_date.strftime("%B") %> 
+
+         <%= @event.date_start.to_date.strftime("%e") %><% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>,<% end %>
+        <% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>
+         <%= @event.date_start.to_date.strftime("%Y") %> 
+         <% end %>
       <% end %>
       <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
-        -  <%= best_in_place @event, :date_end, :path => update_event_path, type: :date %> 
-      <% end %>
-      <% if(@event.time_start != '') %>
+        -   
 
-       <!--  <%= best_in_place @event, :time_start, :path => update_event_path, type: :time %>  -->
+        <% if(@event.date_end.to_date.strftime("%B") != @event.date_start.to_date.strftime("%B")) %>
+          <%= @event.date_end.to_date.strftime("%B") %> 
+         <%end %>
+
+         <%= @event.date_end.to_date.strftime("%e, ") %>
+
+         <%= @event.date_end.to_date.strftime("%Y") %> 
+
+
+      <% end %>
+      <% if(@event.time_start != '') %> | 
         <%= @event.time_start.to_time.strftime("%l:%M %p") %>
       <% end %>
-      <% if(@event.time_end != '') %>
+      <% if(@event.time_end != '' && ( @event.time_end != @event.time_start  )) %>
         - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
       <% end %>
      <%else%>
      TBD
-     <%end%><br>  <%= best_in_place @event, :location, :path => update_event_path, :class => 'location' %> </div>
+     <%end%><br>  <%= best_in_place @event, :location, :url => update_event_path, :class => 'location' %> </div>
      <div class="event-info">  
-       <h1> <%= best_in_place @event, :name, :path => update_event_path %></h1> 
-      <p class="event-description"><%= best_in_place @event, :description, :path => update_event_path, type: :textarea %></p>
+       <h1> <%= best_in_place @event, :name, :url => update_event_path %></h1> 
+      <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %></p>
       <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
       
     </div>
@@ -54,7 +67,7 @@
   
    <div class="overlay"></div>
    <div class="event-info">  
-    <h1> <%= best_in_place @event, :name, :path => update_event_path %></h1>
+    <h1> <%= best_in_place @event, :name, :url => update_event_path %></h1>
     <div class="event-details"> 
       <% if(@event.time_display == false) %> 
         <% if(@event.date_start != '') %>
@@ -72,9 +85,9 @@
       <%else%>
       TBD | 
       <%end%>
-      <span class="location"> <%= best_in_place @event, :location, :path => update_event_path %></span>
+      <span class="location"> <%= best_in_place @event, :location, :url => update_event_path %></span>
       </div>
-      <p class="event-description"><%= best_in_place @event, :description, :path => update_event_path, type: :textarea %> </p>
+      <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %> </p>
 
       <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 
@@ -98,8 +111,8 @@
         Date TBD Soon 
       <%end%>  
     </div>
-      <h1> <%= best_in_place @event, :name, :path => update_event_path %> at <span class="location"> <%= best_in_place @event, :location, :path => update_event_path %> </span> </h1>
-      <p class="event-description"><%= best_in_place @event, :description, :path => update_event_path, type: :textarea %> </p>
+      <h1> <%= best_in_place @event, :name, :url => update_event_path %> at <span class="location"> <%= best_in_place @event, :location, :url => update_event_path %> </span> </h1>
+      <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %> </p>
       <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 
     </div>
@@ -185,97 +198,6 @@
 
 
     <div id="map"></div>
-
-<!-- 
-     <script>
-
-function initMap() {
-
-
-     var geocoder, latlng;
-     geocoder = new google.maps.Geocoder();
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-function showPosition(position) {
-    var lat = position.coords.latitude;
-    var long = position.coords.longitude;
-    latlng = new google.maps.LatLng(lat,long);
-}
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: latlng,
-    zoom: 13
-  });
-
-  codeAddress();
-  function codeAddress() {
-    var address = document.getElementsByClassName('location')[0].innerHTML == '' ? 'Los Angeles, CA' : document.getElementsByClassName('location')[0].innerHTML;
-    geocoder.geocode( {'address': address}, function(results, status) {
-      if(status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  }
-
-
-
-  var infowindow = new google.maps.InfoWindow();
-  var marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29)
-  });
-
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);  // Why 17? Because it looks good.
-    }
-    marker.setIcon(/** @type {google.maps.Icon} */({
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(35, 35)
-    }));
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
-
-    var address = '';
-    if (place.address_components) {
-      address = [
-        (place.address_components[0] && place.address_components[0].short_name || ''),
-        (place.address_components[1] && place.address_components[1].short_name || ''),
-        (place.address_components[2] && place.address_components[2].short_name || '')
-      ].join(' ');
-    }
-
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-    infowindow.open(map, marker);
-  });
-
-  // Sets a listener on a radio button to change the filter type on Places
-  // Autocomplete.
-
-}
-
-    </script>
- -->
-
-
 
 <script type="text/javascript">
 

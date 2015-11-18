@@ -326,46 +326,31 @@ initMap = function() {
     codeAddress();
   }
 
+if($('.signed-in').length > 0) {
 
+  $('span[data-bip-attribute="location').bind('focusin', function() {
 
+    $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
 
+    var input = /** @type {!HTMLInputElement} */(
+        document.querySelector('.visible span[data-bip-attribute="location"] input'));
+          var autocomplete = new google.maps.places.Autocomplete(input);
+  });
+  // on success of address input, recalculate map position
+   $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
 
+    $('span[data-bip-attribute="location"]').text($('.visible span[data-bip-attribute="location"]').text())
 
+    $('span[data-bip-attribute="location"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="location"]').text())
+    $('span[data-bip-attribute="location"]').attr('data-bip-value', $('.visible span[data-bip-attribute="location"]').text())
 
-$('span[data-bip-attribute="location').bind('focusin', function() {
+    setMapOnAll(null);
 
-  $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
+   });
 
-  var input = /** @type {!HTMLInputElement} */(
-      document.querySelector('.visible span[data-bip-attribute="location"] input'));
-        var autocomplete = new google.maps.places.Autocomplete(input);
-});
-// on success of address input, recalculate map position
- $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
-
-  $('span[data-bip-attribute="location"]').text($('.visible span[data-bip-attribute="location"]').text())
-  alert($('.visible span[data-bip-attribute="location"]').text());
-
-  $('span[data-bip-attribute="location"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="location"]').text())
-  $('span[data-bip-attribute="location"]').attr('data-bip-value', $('.visible span[data-bip-attribute="location"]').text())
-
-  setMapOnAll(null);
-
- });
-
-
-
-
-
+ }
 
 };
-
-
-
-
-
-
-
 
 
 
