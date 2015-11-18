@@ -23,12 +23,9 @@ class EventsController < ApplicationController
   def show
     image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
     @attendee = Attendee.new
-    if(@event.layout_id?)
-      @style_id =  @event.layout_id
-      @style_layout =  @event.layout_style
-    else 
-      @style_id = '1'
-      @style_layout = 'brunch'
+    if(!@event.layout_id?)
+       @event.layout_id = '1'
+       @event.layout_style = 'brunch'
     end
     # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
     respond_with(@attendees)
@@ -41,17 +38,30 @@ class EventsController < ApplicationController
     @user = User.find(current_user.id)
     @event = @user.events.find(params[:id])
 
-    @event.layout_id = params[:layout_id]
-    @event.layout_style = params[:layout_style]
+    # @event.layout_id = params[:layout_id]
+    # @event.layout_style = params[:layout_style]
+
+
+
+
+    # respond_to do |format|
+    #   if @event.update(event_params)
+    #     format.html {redirect_to user_event_path(current_user, @event)}
+    #     format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+    #   else
+    #     format.html {render :action => 'edit'}
+    #     format.json {render :json => @user.errors.full_messages, :status => :unprocessable_entity}
+    #   end
+    # end
 
 
     respond_to do |format|
       if @event.update(event_params)
-        format.html {redirect_to user_event_path(current_user, @event)}
-        format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+         format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+         format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
-        format.html {render :action => 'edit'}
-        format.json {render :json => @user.errors.full_messages, :status => :unprocessable_entity}
+         format.html { render :edit }
+         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
 
@@ -81,6 +91,8 @@ class EventsController < ApplicationController
     @event.style_id = params[:style_id]
 
 
+
+
     respond_to do |format|
       if @event.save
         format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully created.' }
@@ -100,8 +112,8 @@ class EventsController < ApplicationController
     @event = @user.events.find(params[:id])
     #@event.style_id = params[:style_id]
 
-    # @event.layout_id = params[:layout_id]
-    # @event.layout_style = params[:layout_style]
+     @event.layout_id = '2'
+     @event.layout_style = 'nyc'
     # 
     
    
@@ -140,7 +152,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id, :layout_id, :layout_style, :location, :background_img)
+      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id,:layout_id, :layout_style, :location, :background_img)
 
       date_format = '%m/%d/%Y'
       #offset = Date.now.strftime("%z")

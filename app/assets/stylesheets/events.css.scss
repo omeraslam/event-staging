@@ -794,16 +794,21 @@ border-bottom:1px solid #444;
 		textarea, input {
 			width: 100%;
 			text-align: center;
+			color: #fff;
 		}
 		
 		.event-time, input {
 			font-family: "freight-display-pro",sans-serif;
 		 	font-weight: 400;
 		 	font-size: 137px;
-		 	font-style: italic;
 		 	letter-spacing: 6px;
 		 	padding-top:90px;
 		}
+		.event-time {
+
+		 	font-style: italic;
+		}
+
 		
 		.overlay {
 			opacity:.2;

@@ -237,9 +237,10 @@
 		$('.event-page.' + layout).removeClass('visible'); 
 			
 			$(this).addClass('active'); 
-			
 	   layout = $(this).data('layout'); 
 	   theme = $(this).data('theme'); 
+
+      console.log('layout value: '+ layout + ' || layout style: '+ theme);
 	  
 	  $('.event-container').addClass(theme); 
 	 	$('.event-page.' + layout).addClass('visible'); 
@@ -257,7 +258,9 @@
 	  		type: 'POST',
 	  		url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
 	  		data: {event:{layout_id: layout, layout_style: theme}}
-	  	});
+	  	}).done(function(data){
+        console.log(data);
+      });
 	  }
 		
 	</script>
