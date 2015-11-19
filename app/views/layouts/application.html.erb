@@ -25,104 +25,104 @@
 
 <!--<body <%= current_root_class %> >-->
 <body class="<%= controller.controller_name %>">
-    <nav>
+  <nav>
     
-   	<% if signed_in? %>
+    <% if signed_in? %>
 
-   		
-   				  <% if action_name == "show" and controller_name == "events" %>
-   				
-   		
-   						<div class="event-editor-container"> 
-   		
-   			       		<div class="event-editor-share">
-   				       		<a href="#" id="twitter-share" target="_blank">Share on Twitter  <i class="icon icon-twitter"> </i> </a>        	
-   									<a href="#" id="email-share">Send email invite <i class="icon icon-email"> </i>  </a>        	
-   									<a href="#">Share the link   <input id="share-url" type="text" value="www.eventcreate.com/2" readonly onClick="this.select();"> 
-   									  </a>   
-   								</div>
-   								
-   								
-   						<!--START THE THEMES-->
-   								<div class="event-editor-design" >
-   									<a href="#" class="theme" data-layout="1" data-theme="brunch" id="brunch"><img src="/assets/themes/brunch.jpg"  >
-   									Get together 
-   									</a>	
-   									<a href="#"  class="theme" data-layout="2" data-theme="nyc" id="nyc"><img src="/assets/themes/nyc.jpg">
-   									NYC Party 							
-   									</a>   
-   									<a  class="theme" href="#"  data-layout="2" data-theme="confetti" id="confetti"><img src="/assets/themes/confetti.jpg"  >
-   									Elegant Affiar 
-   									</a> 
-   									
-   									 <a class="theme" href="#" data-layout="1" data-theme="sunset" id="sunset"><img src="/assets/themes/summer.jpg"  >   Summer celebration </a>	
-   									 
-   									 <a href="#" class="theme" href="#" data-layout="2" data-theme="linen" id="linen"><img src="/assets/themes/linen.jpg"> State dinner  </a>   
-   									 
-   									 
-   									<a href="#" class="theme" href="#" data-layout="3" data-theme="flower" id="flower"><img src="/assets/themes/flower.jpg"> Anniversary party  </a>	     	
-   							</div>
-   		       	</div>
-   		
-   		
-   						 <ul class="navbar-links signed-in">
-   							
-   								<li> <%= link_to '<span>Edit details</span>'.html_safe, edit_user_event_path, :class => 'icon icon-edit-inline', :id => 'event-edit'  %></li>
-   								<li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"><span>Change theme </span> </a></li>
-   								<li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
-   								<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"><span>Help </span> </a></li>
-   								<li>
-<%= link_to '<span>Home</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-home' %>
-
-   									<!-- <a class="icon icon-home" href="/users/3/events"><span>Home </span></a> --> </li>
-   							
-   							</ul>
-   							
-   							
-   							
-   					<% end %>
-   						
-   					
-   	
-   				  <% if action_name != "show" or controller_name != "events" %>
-   				
-   						     <a class="logo" href="/"><span>Event Create</span></a>
-   								
-   								
-   								<ul class="navbar-links signed-in">
-   									<li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
-   										<li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %></li>
-   								</ul>
-   								
-   								<div class="signed-in-menu">
-   									<ul>
-   										<li><%=  link_to "My events", '/dashboard' %> </li>
-   										<li><%=  link_to "Create new event", '/event-create' %> </li>	
-   										<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
-   										<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>				  		
-   									</ul>
-   								</div> 	
-   	
-   				<% end %>
-   						
-   					  
-<!--				  <div class="cover"> </div>-->
-
-					
+    
+    <% if action_name == "show" and controller_name == "events" %>
+    
+    
+    <div class="event-editor-container"> 
+     
+     <div class="event-editor-share">
+      <a href="#" id="twitter-share" target="_blank">Share on Twitter  <i class="icon icon-twitter"> </i> </a>        	
+      <a href="#" id="email-share">Send email invite <i class="icon icon-email"> </i>  </a>        	
+      <a href="#">Share the link   <input id="share-url" type="text" value="www.eventcreate.com/2" readonly onClick="this.select();"> 
+      </a>   
+    </div>
+    
+    
+    <!--START THE THEMES-->
+    <div class="event-editor-design" >
+      <a href="#" class="theme" data-layout="1" data-theme="brunch" id="brunch"><img src="/assets/themes/brunch.jpg"  >
+        Get together 
+      </a>	
+      <a href="#"  class="theme" data-layout="2" data-theme="nyc" id="nyc"><img src="/assets/themes/nyc.jpg">
+        NYC Party 							
+      </a>   
+      <a  class="theme" href="#"  data-layout="2" data-theme="confetti" id="confetti"><img src="/assets/themes/confetti.jpg"  >
+        Elegant Affiar 
+      </a> 
+      
+      <a class="theme" href="#" data-layout="1" data-theme="sunset" id="sunset"><img src="/assets/themes/summer.jpg"  >   Summer celebration </a>	
+      
+      <a href="#" class="theme" href="#" data-layout="2" data-theme="linen" id="linen"><img src="/assets/themes/linen.jpg"> State dinner  </a>   
+      
+      
+      <a href="#" class="theme" href="#" data-layout="3" data-theme="flower" id="flower"><img src="/assets/themes/flower.jpg"> Anniversary party  </a>	     	
+    </div>
+  </div>
   
-		<% else %>
-		
-       	<% if action_name != "show" and controller_name != "events" %>
-	       <a class="logo" href="/"><span>Event Create</span></a>
-					<ul class="navbar-links">
-						<li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
-						<li><%= link_to 'Create event', '/event-create', :class => 'btn'  %> </li>
-					</ul>
-		<% end %>
-		
-		<% end %>
+  
+  <ul class="navbar-links signed-in">
+    
+   <li> <%= link_to '<span>Edit details</span>'.html_safe, edit_user_event_path, :class => 'icon icon-edit-inline', :id => 'event-edit'  %></li>
+   <li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"><span>Change theme </span> </a></li>
+   <li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
+   <li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"><span>Help </span> </a></li>
+   <li>
+    <%= link_to '<span>Home</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-home' %>
 
-		</nav>
+    <!-- <a class="icon icon-home" href="/users/3/events"><span>Home </span></a> --> </li>
+    
+  </ul>
+  
+  
+  
+  <% end %>
+  
+  
+  
+  <% if action_name != "show" or controller_name != "events" %>
+  
+  <a class="logo" href="/"><span>Event Create</span></a>
+  
+  
+  <ul class="navbar-links signed-in">
+    <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+    <li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %></li>
+  </ul>
+  
+  <div class="signed-in-menu">
+    <ul>
+     <li><%=  link_to "My events", '/dashboard' %> </li>
+     <li><%=  link_to "Create new event", '/event-create' %> </li>	
+     <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+     <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>				  		
+   </ul>
+ </div> 	
+ 
+ <% end %>
+ 
+ 
+ <!--				  <div class="cover"> </div>-->
+
+ 
+ 
+ <% else %>
+ 
+ <% if action_name != "show" and controller_name != "events" %>
+ <a class="logo" href="/"><span>Event Create</span></a>
+ <ul class="navbar-links">
+  <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
+  <li><%= link_to 'Create event', '/event-create', :class => 'btn'  %> </li>
+</ul>
+<% end %>
+
+<% end %>
+
+</nav>
 
 
 <% if alert %>
@@ -133,78 +133,78 @@
 
 
 <footer>
-&copy; 2015 EventCreate. All rights reserved.
+  &copy; 2015 EventCreate. All rights reserved.
 </footer>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-64644710-1', 'auto');
-  ga('send', 'pageview');
+ga('create', 'UA-64644710-1', 'auto');
+ga('send', 'pageview');
 
 
-	$('.toggleEditorPanel').click(function() {
+$('.toggleEditorPanel').click(function() {
 	
-		var target = $(this).attr("id");
-		var linkActive = $("." + target).hasClass('active');		
-		var panelOpen = $('body').hasClass('editor-open');
-		
-		
-		if (linkActive == false && panelOpen == false) {
-	  	$('body').addClass('editor-open'); 
-	  	
-	  	$(this).addClass('active')
-	  	$("." + target).addClass('active')
-	  	
-	  	$("." + target + " a").each(function(i) {
-	  		$(this).delay((i++) * 50).fadeTo(100, 1); 
-	  	});
-	  	
-		
-		}
-		else if (linkActive == false && panelOpen == true) {
-				
-				
-				$('.toggleEditorPanel').removeClass('active');
-			 $(this).addClass('active');
-		
-		
-			$('.event-editor-container .active a').each(function(i) {
-				$(this).delay((i++) * 50).fadeTo(100, 0); 
-			});
-			
-			$('.event-editor-container .active').removeClass('active');
-			
-			$("." + target).addClass('active');		
-			
-			$("." + target + " a").each(function(i) {
-				$(this).delay((i++) * 50).fadeTo(100, 1); 
-			});	
-			
-		}
-		else if (linkActive == true && panelOpen == true) {
-		
-		
-			$(this).removeClass('active')
-			
-			$('body').removeClass('editor-open'); 			
-			$('.event-editor-container .active a').each(function(i) {
-				$(this).delay((i++) * 50).fadeTo(100, 0); 
-			});
-			
-			$('.event-editor-container .active').removeClass('active');
-			
-		
-		}	
-		
+  var target = $(this).attr("id");
+  var linkActive = $("." + target).hasClass('active');		
+  var panelOpen = $('body').hasClass('editor-open');
+  
+  
+  if (linkActive == false && panelOpen == false) {
+    $('body').addClass('editor-open'); 
+    
+    $(this).addClass('active')
+    $("." + target).addClass('active')
+    
+    $("." + target + " a").each(function(i) {
+     $(this).delay((i++) * 50).fadeTo(100, 1); 
+   });
+    
+    
+  }
+  else if (linkActive == false && panelOpen == true) {
+    
+    
+    $('.toggleEditorPanel').removeClass('active');
+    $(this).addClass('active');
+    
+    
+    $('.event-editor-container .active a').each(function(i) {
+      $(this).delay((i++) * 50).fadeTo(100, 0); 
+    });
+    
+    $('.event-editor-container .active').removeClass('active');
+    
+    $("." + target).addClass('active');		
+    
+    $("." + target + " a").each(function(i) {
+      $(this).delay((i++) * 50).fadeTo(100, 1); 
+    });	
+    
+  }
+  else if (linkActive == true && panelOpen == true) {
+    
+    
+   $(this).removeClass('active')
+   
+   $('body').removeClass('editor-open'); 			
+   $('.event-editor-container .active a').each(function(i) {
+    $(this).delay((i++) * 50).fadeTo(100, 0); 
+  });
+   
+   $('.event-editor-container .active').removeClass('active');
+   
+   
+ }	
+ 
 
-	});
-	
-	
+});
+
+
 	//LOAD THE THEME AND CONSTRUCT
 
 	var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch"; 	
@@ -212,109 +212,109 @@
 
 
 
-		$( document ).ready(function() {
-		  
-		 $('.theme.active').removeClass("active");
-		 $('.event-container').removeClass(theme); 
-		 $('.event-page.' + layout).removeClass('visible'); 
-		 	
-		 $('.theme#' + theme).addClass("active");
+  $( document ).ready(function() {
+    
+   $('.theme.active').removeClass("active");
+   $('.event-container').removeClass(theme); 
+   $('.event-page.' + layout).removeClass('visible'); 
+   
+   $('.theme#' + theme).addClass("active");
 
-		 
-		 $('.event-container').addClass(theme); 
-		 	$('.event-page.' + layout).addClass('visible');    
-		    
-		    
-		    
-		});
+   
+   $('.event-container').addClass(theme); 
+   $('.event-page.' + layout).addClass('visible');    
+   
+   
+   
+ });
 
-	
-	$('.theme').click(function() {
-		
-		$('.theme.active').removeClass("active");
-		
-		$('.event-container').removeClass(theme); 
-		$('.event-page.' + layout).removeClass('visible'); 
-			
-			$(this).addClass('active'); 
-	   layout = $(this).data('layout'); 
-	   theme = $(this).data('theme'); 
+  
+  $('.theme').click(function() {
+    
+    $('.theme.active').removeClass("active");
+    
+    $('.event-container').removeClass(theme); 
+    $('.event-page.' + layout).removeClass('visible'); 
+    
+    $(this).addClass('active'); 
+    layout = $(this).data('layout'); 
+    theme = $(this).data('theme'); 
 
-      console.log('layout value: '+ layout + ' || layout style: '+ theme);
-	  
-	  $('.event-container').addClass(theme); 
-	 	$('.event-page.' + layout).addClass('visible'); 
-	  
+    console.log('layout value: '+ layout + ' || layout style: '+ theme);
+    
+    $('.event-container').addClass(theme); 
+    $('.event-page.' + layout).addClass('visible'); 
+    
 	  //MAKE AJAX CALL TO SAVE
 	  saveTheme()
 
 	  return false;
-	  		  
+   
 	});
-	
+  
 
-	function saveTheme() {
-	  	$.ajax({
-	  		type: 'POST',
+  function saveTheme() {
+    $.ajax({
+     type: 'POST',
 	  		url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
 	  		data: {event:{layout_id: layout, layout_style: theme}}
 	  	}).done(function(data){
         console.log(data);
       });
 	  }
-		
-	</script>
-<script>
- if(document.getElementsByClassName('event-page').length > 0 ) {
+    
+   </script>
+   <script>
+   if(document.getElementsByClassName('event-page').length > 0 ) {
 
 
-var initMap;
+    var initMap;
 
-initMap = function() {
+    initMap = function() {
 
-  var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
-  geocoder = void 0;
-  geocoder = new google.maps.Geocoder;
-  latlng = void 0;
-    map = new google.maps.Map(document.getElementById('map'), {
-    center: latlng,
-    zoom: 13,
-    disableDefaultUI: true,
-    zoomControl: false,
-    scrollwheel: false
+      var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
+      geocoder = void 0;
+      geocoder = new google.maps.Geocoder;
+      latlng = void 0;
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: latlng,
+        zoom: 13,
+        disableDefaultUI: true,
+        zoomControl: false,
+        scrollwheel: false
 
-  });
-  getLocation = function() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      x.innerHTML = 'Geolocation is not supported by this browser.';
-    }
-  };
-  showPosition = function(position) {
-    var lat, long;
-    lat = position.coords.latitude;
-    long = position.coords.longitude;
-    latlng = new google.maps.LatLng(lat, long);
-  };
-  codeAddress = function() {
-    var address;
-    address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
-    geocoder.geocode({
-      'address': address
-    }, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-      } else {
+      });
+      getLocation = function() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = 'Geolocation is not supported by this browser.';
+        }
+      };
+      showPosition = function(position) {
+        var lat, long;
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        latlng = new google.maps.LatLng(lat, long);
+      };
+      codeAddress = function() {
+        var address;
+        address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
+        geocoder.geocode({
+          'address': address
+        }, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+          } else {
         //alert('Geocode was not successful for the following reason: ' + status);
         alert('Location not found');
       }
     });
-  };
+      };
   // 
 
   codeAddress();
@@ -329,18 +329,18 @@ initMap = function() {
     codeAddress();
   }
 
-if($('.signed-in').length > 0) {
+  if($('.signed-in').length > 0) {
 
-  $('span[data-bip-attribute="location').bind('focusin', function() {
+    $('span[data-bip-attribute="location').bind('focusin', function() {
 
-    $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
+      $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
 
-    var input = /** @type {!HTMLInputElement} */(
+      var input = /** @type {!HTMLInputElement} */(
         document.querySelector('.visible span[data-bip-attribute="location"] input'));
-          var autocomplete = new google.maps.places.Autocomplete(input);
-  });
+      var autocomplete = new google.maps.places.Autocomplete(input);
+    });
   // on success of address input, recalculate map position
-   $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
+  $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
 
     $('span[data-bip-attribute="location"]').text($('.visible span[data-bip-attribute="location"]').text())
 
@@ -349,9 +349,9 @@ if($('.signed-in').length > 0) {
 
     setMapOnAll(null);
 
-   });
+  });
 
- }
+}
 
 };
 
@@ -364,8 +364,8 @@ if($('.signed-in').length > 0) {
 
 </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap"
-        async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap"
+async defer></script>
 
 </body>
 </html>
