@@ -1,10 +1,52 @@
+<!--START event navigation-->
+<div class="event-nav"> 
+	
+	<%= link_to ('&lt; dashboard').html_safe, attendees_path, :class => 'breadcrumb'  %> 
+
+	<div class="image">
+		<div class="image-cover"> </div>
+	</div>
+	<div class="title">Phi's Orgy </div> 
+	<div class="date">November 2, 2015 </div> 	
+	<ul> 
+		<li><a href="#"><i class="icon icon-share-window"></i> View/modify website </a> </li>		
+		<li><a href="#"><i class="icon icon-users"></i> Guest List  </a> </li>
+		<li><a href="#"><i class="icon icon-email"></i> Send invite  </a> </li>
+	
+	</ul>
+</div>
+<!--END event navigation-->
+
+
+
+
+
 <div class="container">
 
-<h1>Invite guests!</h1>
+<h1>Send an email</h1>
+<p class="lead">You got a kick-ass event coming up. Now, spread the word. </p>
 
-<%= render 'form' %>
+<section> 
+	<h4 style="display: none;">Choose email type </h4>
+	<ul> 
+		<li><a href="#" class=""><i class="icon icon-email"> </i> <span> Invitation</span> </a></li>
+		<li><a href="#"><i class="icon icon-flag"> </i> <span>Reminder </span></a></li>	
+		<li><a href="#"><i class="icon icon-settings"> </i> <span>Custom</span></a></li>	
+	
+	</ul>
+</section>
 
-<%= link_to 'Back', attendees_path %>    
+
+<section> 
+	<h4>Select recipients </h4>
+	<p> You don't have any guests yet. Get on that, bro. <br> <a href="#">Let's add some guests.</a>  </p>
+	
+</section>
+
+
+
+<!--<%= render 'form' %>
+<%= link_to 'Back', attendees_path %>    -->
 
 </div>
 
