@@ -83,7 +83,7 @@
         <% if(@event.time_start != '') %>
           <%= @event.time_start.to_time.strftime("%l:%M %p") %>
         <% end %>
-        <% if(@event.time_end != '') %>
+        <% if(@event.time_end != ''  && ( @event.time_end != @event.time_start  )) %>
           - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
         <% end %>
       <%else%>

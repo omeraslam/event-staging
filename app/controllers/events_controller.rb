@@ -114,8 +114,6 @@ class EventsController < ApplicationController
     @event = @user.events.find(params[:id])
     #@event.style_id = params[:style_id]
 
-     @event.layout_id = '2'
-     @event.layout_style = 'nyc'
     # 
     
    

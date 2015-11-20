@@ -482,7 +482,7 @@ footer {
     
       width: 100%;
       display:block;
-      padding: 160px 0px;
+      padding: 160px 0px 0;
       min-height: 560px;
       transition: all .3s ease-out;
       position: absolute;
@@ -724,6 +724,10 @@ footer {
   }
 }
 
+#btn-create {
+  display: none;
+}
+
 .btn, .carrier-wave-field input {
 		cursor:pointer;
     border: none;
@@ -780,6 +784,7 @@ footer {
 
 .sessions, .registrations {
 	background-image:url(registration2.jpg);
+  background-size: cover;
 
 	h1, h2, p {
 		color:#fff;
@@ -1016,7 +1021,10 @@ input[name="event[style_id]"] {
 @media screen and (max-width: 415px) {
 
 
+.sessions, .registrations {
 
+  background-size: initial;
+}
 
   nav ul a {
        padding: 10px;
