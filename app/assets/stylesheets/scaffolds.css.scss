@@ -479,6 +479,7 @@ footer {
       position: fixed;
       left: 20px;
       bottom: 20px;
+      float: left
     }
     form {
       height: 100%;
@@ -775,6 +776,7 @@ footer {
 .container.simple {
   height: auto;
   background: #ccc;
+  min-height: 100%;
 
   h1 {
     font-size: 40px;
@@ -784,38 +786,6 @@ footer {
     font-size: 24px;
   }
 }
-
-
-//
-//
-//.checkmarks {
-//  bottom: 0;
-//  position: absolute;
-//  width: 100%;
-//  z-index:1;
-//  text-align: center;
-//  ul {
-//    margin: 0;
-//    li {
-//    margin: 10px 10px 20px;
-//    padding: 30px;
-//    width:50px;
-//    height:50px;
-//    font-size: 40px;
-//    border: 2px solid #fff;
-//    border-radius:50%;
-//    opacity: .6;
-//    transition: opacity .2s ease-in-out;
-//
-//    &:hover {
-//      opacity: 1;
-//    }
-//    }
-//
-//  }
-//}
-//
-
 
 
 .sessions, .registrations {
@@ -845,6 +815,8 @@ footer {
 }
 
 .attendees {
+
+
   
   h2 {
     text-align :center;
@@ -1217,10 +1189,10 @@ input.date, input.time {
   float: right;
 }
 
-      #map {
-        z-index:10;
-        height: 300px;
-      }
+#map {
+  z-index:10;
+  height: 300px;
+}
 
 
 .pac-container {

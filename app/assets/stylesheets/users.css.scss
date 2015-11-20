@@ -4,9 +4,7 @@
 
 
 .event-nav {
-	position:fixed;
-	left:0; 
-	top:0; 
+	float: left;
 	height:100%;
 	width:300px;
 	background:#222;
@@ -88,7 +86,8 @@
 	color:#444;
 	
 	.container {
-		padding: 120px 70px 120px 360px;
+		float: left;
+		//padding: 120px 70px 120px 360px;
 	
 	}
 	
@@ -182,4 +181,8 @@
 	}
 
 
+}
+
+.dashboard {
+	float: left;
 }
