@@ -22,6 +22,9 @@ gem 'figaro'
 #s3 set up
 #gem 'aws-sdk', '~> 2'
 
+# bitly url shortener
+gem 'bitly'
+
 #carrier wave s3 module
 gem "fog"
 
@@ -36,12 +39,17 @@ gem 'omniauth-google'
 # Use devise for authentication
 gem 'devise'
 
+# timepicker for choosing a date range
+gem 'jquery-timepicker-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+
+#gem 'x-editable-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -49,8 +57,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Use jquery-ui rails
 gem 'jquery-ui-rails'
-# Use google maps autocomplete
-gem 'gmaps-autocomplete-rails'
+
+gem 'best_in_place', '~> 3.0.1'
+
 # Use jquery validation
 gem 'jquery-validation-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

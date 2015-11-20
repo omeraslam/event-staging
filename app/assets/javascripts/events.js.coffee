@@ -4,23 +4,78 @@
 
 $(document).on 'ready page:load', ->
 
-  jQuery ->
-    completer = new GmapsCompleter
-        inputField: '#gmaps-input-address'
-        errorField: '#gmaps-error'
-        debugOn: false
+  $('#datepairExample .time').timepicker
+    'showDuration': true
+    'timeFormat': 'g:ia'
+  $('#datepairExample .date').datepicker
+    onSelect: (dateText) ->
+      $('.date').focusout()
+      return
+    'format': 'm/d/yyyy'
+    'autoclose': true
+  # # initialize datepair
+  $('#datepairExample').datepair
+    parseDate: (input) ->
+      $(input).datepicker 'getDate'
+    updateDate: (input, dateObj) ->
+      $(input).datepicker 'setDate', dateObj
 
-    completer.autoCompleteInit
-        region: "CA"
-        country: "us"
+  #$('.date').focus()
+
+
+
+
+
+
+
+  $(document).ready ->
+    #$.datepicker.setDefaults
+     # 'dateFormat': 'yy-mm-dd'
+    if $('.signed-in').length > 0 && $('#event-edit').length > 0
+      jQuery('.best_in_place').best_in_place()
+
+      $('span[data-bip-attribute="name"]').bind 'focusin', ->
+        $('.visible span[data-bip-attribute="name"] input').val $('.visible span[data-bip-attribute="name"]').attr('data-bip-value')
+        return
+
+      $('span[data-bip-attribute="description"]').bind 'focusin', ->
+        $('.visible span[data-bip-attribute="description"] textarea').val $('.visible span[data-bip-attribute="description"]').attr('data-bip-value')
+        return
+
+
+      $('h1 span[data-bip-attribute="name"]').bind 'ajax:success', ->
+        $('h1 span[data-bip-attribute="name"]').text($('.visible h1 span[data-bip-attribute="name"]').text())
+        $('h1 span[data-bip-attribute="name"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="name"]').text())
+        $('h1 span[data-bip-attribute="name"]').attr('data-bip-value', $('.visible h1 span[data-bip-attribute="name"]').text())
+        return
+
+      $('span[data-bip-attribute="description"]').bind 'ajax:success', ->
+        
+        $('span[data-bip-attribute="description"]').text($('.visible span[data-bip-attribute="description"]').text())
+        $('span[data-bip-attribute="description"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="description"]').text())
+        $('span[data-bip-attribute="description"]').attr('data-bip-value', $('.visible span[data-bip-attribute="description"]').text())
+        return
+      return
+
+
+
+
+
+
+    return
+
+
 
   
   $('input[type=radio]:checked').parent().find('img').addClass('active')
 
+
+
   if($('#cb_time').attr('checked'))
-    $('.time-select select').attr('disabled', true);
+    $('.date, .time').attr('disabled', true);
   else
-    $('.time-select select').attr('disabled', false);
+    $('.date, .time').attr('disabled', false);
+    $('.date, .time').removeAttr('disabled');
 
   $('form#new_event .slide-up-show input, form.edit_event .slide-up-show input').focus()
   $('#new_event, form.edit_event').validate
@@ -30,6 +85,13 @@ $(document).on 'ready page:load', ->
     debug: false
     rules:
       'event[name]':
+        required: true
+
+      'event[date_start]':
+        required: true
+      'event[time_start]':
+        required: true
+      'event[time_end]':
         required: true
       'event[location]':
         required: true
@@ -65,7 +127,9 @@ $(document).on 'ready page:load', ->
         required: 'Please enter a phone number'
 
 
+
   if $('#eventPage').length != 0
+
     img = document.getElementById('eventPage')
     if img.currentStyle != 0
       style = img.currentStyle or window.getComputedStyle(img, false)
@@ -103,11 +167,10 @@ $(document).on 'ready page:load', ->
   scrollToAnchor = (aid) ->
     aTag = $('div[name=\'' + aid + '\']')
 
-    console.log aTag
     $('html,body').animate { scrollTop: aTag.offset().top }, 'slow'
     return
 
-  $('.rsvp').on 'click', ->
+  $('.rsvp, .more').on 'click', ->
     scrollToAnchor 'attendee-form'
     return
 
@@ -158,12 +221,17 @@ $(document).on 'ready page:load', ->
       $('.btn-next').hide()
     return
 
+  $('.ui-datepicker-calendar tbody td a').on 'click', (e) ->
+    $('.date').focusout()
+    return
  
   $('#cb_time').on 'click', (e) ->
-    if($('.time-select select').attr('disabled'))
-      $('.time-select select').attr('disabled', false);
+    if($('.date, .time').attr('disabled'))
+      $('.date, .time').attr('disabled', false)
+      $('.date, .time').removeAttr('disabled')
+      $('.date.start').focus()
     else
-      $('.time-select select').attr('disabled', true);
+      $('.date, .time').attr('disabled', true);
 
   #   return
   $('.btn-prev').on 'click', (e) ->
@@ -176,8 +244,28 @@ $(document).on 'ready page:load', ->
 
     if($('.slide-up-show .error:visible').length <= 0)
       $('.side-nav li a.active').parent().next().find('a').click()
-      $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
+      setTimeout (->
+        if $('.slide-up-show input.date.start:visible').length <= 0
+          $('form#new_event .slide-up-show input, form#new_event .slide-up-show textarea, form.edit_event .slide-up-show input, form.edit_event .slide-up-show textarea').focus()
+        return
+      ), 400
     checkStep()
+    return
+
+  #keyboard navigation on event flow
+  $(document).keyup (event) ->
+
+    $('.slide-up-show input').focusout()
+    key = event.which
+    switch key
+      when 37
+        # Key left.
+        if !$('.slide-up-show input').is(':focus')
+          $('.btn-prev').click()
+      when 39, 13
+        # Key right.
+        if !$('.slide-up-show input').is(':focus')
+          $('.btn-next').click()
     return
 
   $('.side-nav li a').each ->
@@ -193,8 +281,3 @@ $(document).on 'ready page:load', ->
     $(this).parent().find('input[type="radio"]').click()
     #$('#style_id').val($(this).data('theme'))
   return
-
-
-
-
-

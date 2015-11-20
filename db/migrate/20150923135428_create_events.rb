@@ -3,7 +3,6 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.string :name
       t.string :description
-      t.string :time
       t.string :location
       t.string :background_img
 

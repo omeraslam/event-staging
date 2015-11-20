@@ -6,7 +6,8 @@
 
 
 .pages {
-	background:#1a1a1a;
+	background:#fff;
+	color:#222;
 	
 	
 	.logo {
@@ -24,44 +25,88 @@
 
 
 #home {
-		-webkit-background-size: cover;
-		 -moz-background-size: cover;
-		 -o-background-size: cover;
-		 background-size: cover;
-		 background-repeat:no-repeat;
-    background-image: url(home/3.jpg);
+
     
     h1 {
-    		font-size:10em;
-            line-height: .8em;
-    		text-align:left;
-    		color:#fff;
-    		margin:40px 0 80px;
-    		letter-spacing:1px;  
+    	font-size:240px;
+      line-height: .8em;
+    	text-align:left;
+    	margin:40px 0 20px;
+    	letter-spacing:1px; 
+    	font-weight:bold;
+    	
+    }
+
+
+		h2 {
+			font-size:40px;
+		  line-height: .8em;
+			margin:80px 0 40px;
+			letter-spacing:1px; 
+			font-weight:bold;
+			
+		}
+    
+    .lead {
+    	font-size:20px;
+    
+    
     }
     
-    ul.features {
-    	font-size:20px;
-    	line-height:34px;
+    .container {
+    	height:auto;
+    	-webkit-background-size: cover;
+    	 -moz-background-size: cover;
+    	 -o-background-size: cover;
+    	 background-size: cover;
+    	 background-repeat:no-repeat;
+    	background-image: url(home/3.jpg);
     	color:#fff;
-    	
-    	li {
-    	}
+    	padding-bottom:200px;
     
+    }
     
-    	a {
-    		opacity:.5;
-    		color:#fff;
-    		display:inline-block;
-    	}
-
-			a:hover {
-				opacity:1;
-				color:#21afbf;
-			}
-    
-    }    
+  
 }
+
+
+.example {
+	
+	text-align:center;
+	min-height:400px;
+	margin: 0 auto;
+	width: 80%;
+
+	.screen {
+	
+		width:80%;
+		margin:0 auto;
+		padding-top:40px;
+	
+		img {
+			
+			width:100%;
+			height:auto;
+		
+		}
+	
+	
+	
+	}
+
+
+}
+
+.footer {
+	text-align:center;
+	font-size:12px;
+	color:#999;
+	margin:50px 0 30px;
+
+}
+
+
+
 
 
 

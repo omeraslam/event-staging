@@ -29,11 +29,8 @@ body {
   min-height: 100%;
  	position:relative;
  	transition: top .2s ease-in-out;
- 	top:0px;
-  
+ 	top:0px;  
 }
-
-
 
 p, ol, ul, td {
   font-size: $default-font-size;
@@ -56,55 +53,24 @@ pre {
   font-size: 11px;
 }
 
-
 a {
-  color: #21afbf;
+  color: $brand-primary;
   text-decoration: none;
   transition: all .4s ease;  
   background: none;
   
   &:hover {
-  	color: darken(#21afbf, 10%);
+  	color: darken($brand-primary, 10%);
   }
   &:visited {
   	//color: #21afbf;
   }
-  
   
 }
 
 .small {	
 	font-size:13px;
 	
-}
-
-
-table, td, th { 
-	vertical-align: middle; 
-	//border: none;
-  border: 1px solid #222;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  border-spacing: 0;
-}
-
-table
-{
-  margin-top: 20px;
-}
-
-td, th {
-  padding: 10px 0;
-}
-
-
-th { 
-  width: 200px;
-	//border-bottom: 1px solid #DDD; 
-}
-table img { 
-	width:100px;
 }
 
 h1, h2, h3 {
@@ -124,12 +90,21 @@ h2 {
 
 }
 
+.input-primary {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+input.input-primary[disabled] {
+  opacity: .5;
+  border-bottom: 1px solid #ccc;
+}
+
+
 .lead {
     font-size: 28px;
     line-height:36px;
 }
-
-
 
 
 //structure
@@ -138,10 +113,6 @@ h2 {
   padding:120px 70px;
   display: block;
 }
-
-
-
-
 
 
 
@@ -155,6 +126,7 @@ nav {
 	z-index:10;
 	
 	ul {
+
 		margin:0;
 		float: right;
 
@@ -184,6 +156,7 @@ nav {
 		a {
 			font-size:18px;
 			color:#21afbf;
+      padding:20px;
 			cursor:pointer;
 			position:relative;
 			
@@ -509,7 +482,7 @@ footer {
     
       width: 100%;
       display:block;
-      padding: 160px 0px;
+      padding: 160px 0px 0;
       min-height: 560px;
       transition: all .3s ease-out;
       position: absolute;
@@ -757,6 +730,10 @@ footer {
   }
 }
 
+#btn-create {
+  display: none;
+}
+
 .btn, .carrier-wave-field input {
 		cursor:pointer;
     border: none;
@@ -768,7 +745,8 @@ footer {
     border-radius: 40px;
     transition: all .2s ease-out;
     display:inline-block;
-    
+    -webkit-appearance: none;
+
     &.btn-large {
     	padding: 16px 36px;
     	margin-top:30px;
@@ -810,40 +788,9 @@ footer {
 }
 
 
-//
-//
-//.checkmarks {
-//  bottom: 0;
-//  position: absolute;
-//  width: 100%;
-//  z-index:1;
-//  text-align: center;
-//  ul {
-//    margin: 0;
-//    li {
-//    margin: 10px 10px 20px;
-//    padding: 30px;
-//    width:50px;
-//    height:50px;
-//    font-size: 40px;
-//    border: 2px solid #fff;
-//    border-radius:50%;
-//    opacity: .6;
-//    transition: opacity .2s ease-in-out;
-//
-//    &:hover {
-//      opacity: 1;
-//    }
-//    }
-//
-//  }
-//}
-//
-
-
-
 .sessions, .registrations {
 	background-image:url(registration2.jpg);
+  background-size: cover;
 
 	h1, h2, p {
 		color:#fff;
@@ -869,7 +816,37 @@ footer {
 }
 
 .attendees {
-  text-align :center;
+  
+  h2 {
+    text-align :center;
+  }
+  table, td, th { 
+    vertical-align: middle; 
+    //border: none;
+    border: 1px solid #222;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    border-spacing: 0;
+  }
+
+  table
+  {
+    margin-top: 20px;
+  }
+
+  td, th {
+    padding: 10px 0;
+  }
+
+
+  th { 
+    width: 200px;
+    //border-bottom: 1px solid #DDD; 
+  }
+  table img { 
+    width:100px;
+  }
 
   table {
     margin: 20px auto;
@@ -1016,6 +993,7 @@ footer {
 }
 
 
+
 input[name="event[style_id]"] {
     display: none;
 }
@@ -1045,7 +1023,10 @@ input[name="event[style_id]"] {
 @media screen and (max-width: 415px) {
 
 
+.sessions, .registrations {
 
+  background-size: initial;
+}
 
   nav ul a {
        padding: 10px;
@@ -1128,4 +1109,120 @@ input[name="event[style_id]"] {
     }
   }
 
+}
+
+
+
+
+  .ui-timepicker-wrapper, .ui-datepicker {
+      display: none;
+      background: #fff;
+      border: 1px solid #ccc;
+      width: 300px;
+    }
+
+  .ui-datepicker {
+    border-radius: 4px;
+    padding: 10px;
+    td:hover, .ui-datepicker-current-day {
+    background: $brand-primary;
+  
+       a {
+      color: #fff !important;
+    }
+
+    }
+  }
+
+
+  .ui-datepicker-title {
+
+    text-align: center;
+  width: 100%;
+
+    position: absolute;
+    z-index: -1;
+    top: 5px;
+
+  }
+
+  .ui-datepicker-prev, .ui-datepicker-next {
+    display: inline-block;
+    width: 14px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-image: url('arrow.png');
+    background-repeat: no-repeat;
+    line-height: 600%;
+    overflow: hidden;
+}
+
+
+.ui-datepicker-next {
+  background-position: -10px 0px;
+  }
+
+
+  .ui-datepicker-calendar {
+    width: 100%;
+
+    td {
+      text-align: center;
+    }
+  }
+
+input.date {
+  width: 140px;
+}
+
+input.time {
+  width: 100px;
+}
+
+input.date, input.time {
+  margin: 4px;
+}
+
+.ui-datepicker-next {
+  float: right;
+}
+
+      #map {
+        z-index:10;
+        height: 300px;
+      }
+
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.event-page .more {
+
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    font-size: 30px;
+    opacity: .6;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    transition: opacity .4s ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
 }
