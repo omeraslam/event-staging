@@ -29,11 +29,8 @@ body {
   min-height: 100%;
  	position:relative;
  	transition: top .2s ease-in-out;
- 	top:0px;
-  
+ 	top:0px;  
 }
-
-
 
 p, ol, ul, td {
   font-size: $default-font-size;
@@ -56,20 +53,18 @@ pre {
   font-size: 11px;
 }
 
-
 a {
-  color: #21afbf;
+  color: $brand-primary;
   text-decoration: none;
   transition: all .4s ease;  
   background: none;
   
   &:hover {
-  	color: darken(#21afbf, 10%);
+  	color: darken($brand-primary, 10%);
   }
   &:visited {
   	//color: #21afbf;
   }
-  
   
 }
 
@@ -77,9 +72,6 @@ a {
 	font-size:13px;
 	
 }
-
-
-
 
 h1, h2, h3 {
   font-weight:300;
@@ -784,38 +776,6 @@ footer {
     font-size: 24px;
   }
 }
-
-
-//
-//
-//.checkmarks {
-//  bottom: 0;
-//  position: absolute;
-//  width: 100%;
-//  z-index:1;
-//  text-align: center;
-//  ul {
-//    margin: 0;
-//    li {
-//    margin: 10px 10px 20px;
-//    padding: 30px;
-//    width:50px;
-//    height:50px;
-//    font-size: 40px;
-//    border: 2px solid #fff;
-//    border-radius:50%;
-//    opacity: .6;
-//    transition: opacity .2s ease-in-out;
-//
-//    &:hover {
-//      opacity: 1;
-//    }
-//    }
-//
-//  }
-//}
-//
-
 
 
 .sessions, .registrations {
