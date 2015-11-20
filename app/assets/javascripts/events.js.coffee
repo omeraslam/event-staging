@@ -31,7 +31,7 @@ $(document).on 'ready page:load', ->
   $(document).ready ->
     #$.datepicker.setDefaults
      # 'dateFormat': 'yy-mm-dd'
-    if $('.signed-in').length > 0
+    if $('.signed-in').length > 0 && $('#event-edit').length > 0
       jQuery('.best_in_place').best_in_place()
 
       $('span[data-bip-attribute="name"]').bind 'focusin', ->

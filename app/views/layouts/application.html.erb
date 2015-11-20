@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Event Create</title>
 
-  <meta name="description" content="">
+  <title><%= title %></title>
+  <meta name="keywords" content="<%= meta_keywords %>" /> 
+  <meta name="description" content="<%= meta_description %>" />
+
   <meta name="google-site-verification" content="N3as54yWdnHGj6rqX9tI8Ba8niZb8dRYxQqfrqhmFis" />
   <meta name="viewport" content="width=device-width">
 
@@ -19,6 +21,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
 
   <script src=""></script>
 </head>
@@ -66,15 +69,18 @@
    		
    		
    						 <ul class="navbar-links signed-in">
-   							
+                
+                <% if current_user.id == @user.id %>
    								<li> <%= link_to '<span>Edit details</span>'.html_safe, edit_user_event_path, :class => 'icon icon-edit-inline', :id => 'event-edit'  %></li>
    								<li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"><span>Change theme </span> </a></li>
    								<li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
    								<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"><span>Help </span> </a></li>
-   								<li>
-<%= link_to '<span>Home</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-home' %>
 
-   									<!-- <a class="icon icon-home" href="/users/3/events"><span>Home </span></a> --> </li>
+              <% end %>
+
+
+
+   								<li><%= link_to '<span>Home</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-home' %></li>
    							
    							</ul>
    							
@@ -329,7 +335,7 @@ initMap = function() {
     codeAddress();
   }
 
-if($('.signed-in').length > 0) {
+if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
 
   $('span[data-bip-attribute="location').bind('focusin', function() {
 
