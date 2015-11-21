@@ -203,37 +203,125 @@ border-bottom:1px solid #444;
 	
 .editor-open .event-editor-container {
 
-	top:0;
+	bottom:0;
 
 }	
 	
 
 .editor-open nav ul.signed-in {
 
-	top:120px;
+	//top:120px;
 
 }	
 
 
 .editor-open {
 	position:relative;
-	top:120px;
+	//top:120px;
 
 }		
 
-	
-.event-editor-container	{
-	transition: top .2s ease-in-out;
+
+.event-editor-container {
+
+	position:relative;
+	transition: bottom .2s ease-in-out;
 	position:fixed;
-	top:-120px;
+	bottom:-120px;
 	left:0;
 	width:100%;
+
+}
+
+
+.event-editor-controls {
+	color:#fff;
+	font-size:12px;
+	width:100%;
+	border-top:1px solid #333;
+	background:rgba(26, 26, 26,.8);
+	
+	&:after {
+		content: "";
+	 	display: table;
+	 	clear: both;
+	
+	}
+	
+	.tabs {
+	
+		float:left;
+
+		.tab {
+			padding: 12px 30px;
+			cursor:pointer;
+			display:inline-block;
+			
+			&:hover {
+				background:#21afbf;
+				color:#fff;
+			}
+		
+			&.active {
+				background:rgba(26, 26, 26,1);
+				color:#fff;
+			}
+		
+		}
+	
+	}
+	
+	.actions {
+		float:right;
+	
+		a {
+			padding: 12px 30px;
+			cursor:pointer;
+			display:inline-block;
+			
+			&#save {
+				color:#fff;
+				background:rgba(33, 175, 191,1);
+			
+			} 
+
+
+			&#close {
+				padding:12px 10px;
+
+			
+			} 		  
+		  &.secondary {
+		  	background:rgba(33, 175, 191,.8);
+		  
+		  }
+			
+			&:hover {
+				background:#21afbf;
+				color:#fff;
+			}
+		}	
+		
+		
+	}
+	
+	
+}
+	
+	
+
+	
+.event-editor	{
+
 	background:#1a1a1a;
 	height:120px;
 	overflow:hidden;
-	-webkit-box-shadow: inset 0px -8px 37px -5px rgba(0,0,0,0.6);
-	-moz-box-shadow: inset 0px -8px 37px -5px rgba(0,0,0,0.6);
-	box-shadow: inset 0px -8px 37px -5px rgba(0,0,0,0.6);
+	//-webkit-box-shadow: inset 0px 8px 37px -5px rgba(0,0,0,0.6);
+	//-moz-box-shadow: inset 0px 8px 37px -5px rgba(0,0,0,0.6);
+	//box-shadow: inset 0px 8px 37px -5px rgba(0,0,0,0.6);
+	width:100%;
+	
+	
 	
 	
 	.event-editor-design {
@@ -270,6 +358,65 @@ border-bottom:1px solid #444;
 		}
 	
 	} 
+	
+	
+	
+	.event-editor-background {
+		
+		//display:none;
+		
+		a {
+			opacity:1;
+			width:20%;
+
+			
+			.image {
+			
+				min-height:70px;
+				height:70px;
+				height:70px;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+				
+			
+			}
+			img {
+				width:100%;
+				height:auto;
+			
+			
+			}
+			
+			
+			&.upload {
+			
+			
+			
+			}
+		
+		}
+		
+		
+		
+		
+		&.active {
+				display:block;
+			
+		}		
+	
+		.upload {
+			border:1px dotted #21afbf;
+			display:block;
+			width:100%;
+			height:70px;
+		
+		}
+	
+	}
+	
+	
 	
 	
 	

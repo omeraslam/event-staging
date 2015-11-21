@@ -36,54 +36,64 @@
    				  <% if action_name == "show" and controller_name == "events" %>
    				
    		
-   						<div class="event-editor-container"> 
-   		
-   			       		<div class="event-editor-share">
-   				       		<a href="#" id="twitter-share" target="_blank">Share on Twitter  <i class="icon icon-twitter"> </i> </a>        	
-   									<a href="#" id="email-share">Send email invite <i class="icon icon-email"> </i>  </a>        	
-   									<a href="#">Share the link   <input id="share-url" type="text" value="www.eventcreate.com/2" readonly onClick="this.select();"> 
-   									  </a>   
-   								</div>
-   								
-   								
-   						<!--START THE THEMES-->
-   								<div class="event-editor-design" >
-   									<a href="#" class="theme" data-layout="1" data-theme="brunch" id="brunch"><img src="/assets/themes/brunch.jpg"  >
-   									Get together 
-   									</a>	
-   									<a href="#"  class="theme" data-layout="2" data-theme="nyc" id="nyc"><img src="/assets/themes/nyc.jpg">
-   									NYC Party 							
-   									</a>   
-   									<a  class="theme" href="#"  data-layout="2" data-theme="confetti" id="confetti"><img src="/assets/themes/confetti.jpg"  >
-   									Elegant Affiar 
-   									</a> 
-   									
-   									 <a class="theme" href="#" data-layout="1" data-theme="sunset" id="sunset"><img src="/assets/themes/summer.jpg"  >   Summer celebration </a>	
-   									 
-   									 <a href="#" class="theme" href="#" data-layout="2" data-theme="linen" id="linen"><img src="/assets/themes/linen.jpg"> State dinner  </a>   
-   									 
-   									 
-   									<a href="#" class="theme" href="#" data-layout="3" data-theme="flower" id="flower"><img src="/assets/themes/flower.jpg"> Anniversary party  </a>	     	
-   							</div>
-   		       	</div>
+   						
+   		       	
+   		       	
+   		       	
+   		       	
+   		       	
+   		       	
+   		       	
    		
    		
    						 <ul class="navbar-links signed-in">
-                
-                <% if current_user.id == @user.id %>
-   								<li> <%= link_to '<span>Edit details</span>'.html_safe, edit_user_event_path, :class => 'icon icon-edit-inline', :id => 'event-edit'  %></li>
-   								<li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"><span>Change theme </span> </a></li>
+
+   							
+   								<!-- <% if current_user.id == @user.id %>
+                  <li> <%= link_to '<span>Edit details</span>'.html_safe, edit_user_event_path, :class => 'icon icon-edit-inline', :id => 'event-edit'  %></li>
+   								<li><a class="icon icon-edit-website toggleEditorPanel" id="event-editor-design"><span>Change theme </span> </a></li>
+   								  <li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"><span>Change background  </span> </a></li>
+
    								<li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
    								<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"><span>Help </span> </a></li>
+
 
               <% end %>
 
 
 
    								<li><%= link_to '<span>Home</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-home' %></li>
+
+								  <li><a class="icon icon-hamburger toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
+								-->
+								
+   								<li style="display: none;">
+	   								<a class="icon icon-settings">	</a>
+	   								
+	   									<ul>
+												<li><a class="icon icon-edit-website toggleEditorPanel" id="event-editor-design">Change theme  <span>Change theme </span> </a></li>
+													  <li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"> Modify background   <span>Change background  </span> </a></li>
+													<li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"> Share event<span>Share </span></a> </li>
+													<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();">Help<span>Help </span> </a></li>
+													<li>
+									  		
+	   									</ul>
+	   								
+	    								
+	   								
+	   							
+
+   								</li>
+								
+								
+									<li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %>
+									</li>
    							
    							</ul>
    							
+   							
+   				   							
+   						   							
    							
    							
    					<% end %>
@@ -98,6 +108,7 @@
    								<ul class="navbar-links signed-in">
    									<li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
    										<li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %></li>
+   										
    								</ul>
    								
    								<div class="signed-in-menu">

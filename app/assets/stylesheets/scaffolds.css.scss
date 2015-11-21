@@ -152,6 +152,55 @@ nav {
 		top:0;
 		z-index:10;
 		background:#1a1a1a;
+		
+		li {
+			position:relative;
+		
+		}
+		
+	  ul {
+	  	float:none;
+	  	position:absolute;
+	  	right:0;
+	  	width:100px;
+	  	background:#fff;
+	  	opacity:0;
+	  	visibility:hidden;
+	  	
+  			li {
+  				display:block;
+  					
+  				a {
+  					display:block;
+  					padding:12px 20px;
+  					color:#1a1a1a;
+  					
+  					&:hover {
+  						background:#21afbf;
+  						color:#fff;
+  					}
+  				}	
+  	
+  			}
+	  	
+	  }
+	
+
+		
+		&:hover {
+		
+			ul {
+				opacity:1;
+				visibility:visible;
+				width:300px;
+				//-webkit-animation: anim-jelly 0.8s linear forwards;
+				 //animation: anim-jelly 0.8s linear forwards;
+			}
+		}
+		
+		
+	
+		
 	
 		a {
 			font-size:18px;
@@ -207,6 +256,7 @@ nav {
 			&:hover {
 				background:#21afbf;
 				color:#fff;
+				
 				
 				span {
 					visibility:visible;
