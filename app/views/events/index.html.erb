@@ -1,11 +1,7 @@
 <% title "Manage Events" %>
 <div class="container dashboard">
-
-
-
   <h1>Manage your events</h1>
-  
-  <div class="events-list">
+    <div class="events-list">
 	  <% @events.each do |event| %>
 	  <div class="event">
      <% if(event.layout_style?) 
@@ -14,70 +10,45 @@
           @style_bg = '/assets/brunch.jpg'
         end
      %>
-      <div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
-
-
-	  	<div class="details"> 
-	  	<%= link_to event.name, user_event_path(@user, event), :class => 'title'  %> 
-       
-	  		<div class="time">
-           <% if(event.time_display == false) %> 
-
-
-
-
-      <% if(event.date_start != '') %>
-        <%= event.date_start.to_date.strftime("%B %d") %> 
-      <% end %>
-
-      <% if(event.date_end != '' && event.date_end != event.date_start) %>
-        - <%= event.date_end.to_date.strftime("%B %d") %> 
-      <% end %>
-
-      <% if(event.time_start != '') %>
-        <%= event.time_start.to_time.strftime("%l:%M %p") %>
-      <% end %>
-
-      <% if(event.time_end != '') %>
-        - <%= event.time_end.to_time.strftime("%l:%M %p") %> 
-      <% end %>
-
-           <%else%>
-        TBD
-        <%end%> 
+     <% if(event.show_custom == true)
+          @style_bg = event.background_img
+        end
+     %>
+  <div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
+    <div class="details"> 
+	  	  <%= link_to event.name, user_event_path(@user, event), :class => 'title'  %>    
+	  	<div class="time">
+          <% if(event.time_display == false) %> 
+            <% if(event.date_start != '') %>
+              <%= event.date_start.to_date.strftime("%B %d") %> 
+            <% end %>
+            <% if(event.date_end != '' && event.date_end != event.date_start) %>
+              - <%= event.date_end.to_date.strftime("%B %d") %> 
+            <% end %>
+            <% if(event.time_start != '') %>
+              <%= event.time_start.to_time.strftime("%l:%M %p") %>
+            <% end %>
+            <% if(event.time_end != '') %>
+              - <%= event.time_end.to_time.strftime("%l:%M %p") %> 
+            <% end %>
+          <%else%>
+              TBD
+          <%end%> 
       </div>
-      
-	  		<div class="location" style="display: none;"><%= event.location %> </div>
+	  	<div class="location" style="display: none;"><%= event.location %> </div>
 	  		<div class="registrants"> 
-<!--	  			<%= link_to 'Invite guests', new_attendee_path(:event => event.id) %>-->
 	  		 <i class="icon icon-users"> </i>	<%= link_to 'View Guest List', attendees_path(:event => event.id)%>	  		
 	  		</div>
-	  	<div class="actions"> 
-	  	<!--	  			<%= link_to 'Invite guests', new_attendee_path(:event => event.id) %>-->
-	  		  			<%= link_to 'Edit event', edit_user_event_path(@user, event) %>
-	  		  		<%= link_to 'Delete event', user_event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %>
-	  		  		
-	  		  		</div>
-	  	
-	  	
-	  	
-	  	</div>
-	  
-
+	  	  <div class="actions"> 
+	  		  	<%= link_to 'Edit event', edit_user_event_path(@user, event) %>
+	  		  	<%= link_to 'Delete event', user_event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %>
+	  		</div>
+      </div>
 		</div>	  
 		<% end %>
   </div>
-  
-  
 
-  </table>
-
-
-  <%= link_to 'New Event', '/event-create', :class => 'btn btn-primary'  %>
-
-
-
-<div class="clearfix"></div>
-
+   <%= link_to 'New Event', '/event-create', :class => 'btn btn-primary'  %>
+  <div class="clearfix"></div>
 </div>
 
