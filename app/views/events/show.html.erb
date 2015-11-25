@@ -8,6 +8,8 @@
 
   <%= hidden_field_tag 'layout_id', @event.layout_id %>
   <%= hidden_field_tag 'layout_style', @event.layout_style %>
+  <%= hidden_field_tag 'show_custom', @event.show_custom %>
+  <%= hidden_field_tag 'bg', @event.background_img %>
 
 <!-- 
 
@@ -286,7 +288,6 @@
     <%= form_for @event, url: user_event_path(@user, @event), :html => {:id => "background_form"} do |f| %>
     
 
-    <%= hidden_field_tag 'show_custom', @event.show_custom %>
     <label for="custom-file-input" class="file-label">Upload Your Own</label>
     <%= f.file_field :background_img, :id => 'custom-file-input' %> 
 

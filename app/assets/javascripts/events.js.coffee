@@ -56,7 +56,6 @@ $(document).on 'ready page:load', ->
         data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
         return
 
-
   if $('#show_custom').val() == 'false' || $('#show_custom').val() == ''
     $('a.default').addClass('highlight')
 
@@ -64,8 +63,8 @@ $(document).on 'ready page:load', ->
     $('.event-page').css 'cssText', ''
   else
     $('a#custom-image').addClass('highlight')
-    newimage = $('a#custom-image').find('> div').css('background-image')
-    $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
+    newimage = $('#bg').val()
+    $('.event-page').css 'cssText', 'background-image: url('+ newimage + ') !important'
 
   $('.event-editor-design a').on 'click', (e) ->
     e.preventDefault()

@@ -18,8 +18,6 @@ class EventsController < ApplicationController
 
   end
 
-
-
   # GET /events/1
   # GET /events/1.json
   def show
