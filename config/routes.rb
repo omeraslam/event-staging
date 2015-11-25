@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get '/attendees/:id', to: 'attendees#index'
 
-  get '/dashboard', to: 'events#index'
+  get '/dashboard', to: 'events#index', :as => :dashboard
 
   get '/event-create', to: 'events#new'
 
@@ -29,17 +29,19 @@ Rails.application.routes.draw do
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session_path
   end
+  resources :users
+  resources :events
 
-  resources :users do
-    resources :events
-  end
+  # resources :users do
+  #   resources :events
+  # end
 
  
 
 
 
 
-  post '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
+  post '/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
   put '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

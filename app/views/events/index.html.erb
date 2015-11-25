@@ -16,7 +16,7 @@
      %>
   <div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
     <div class="details"> 
-	  	  <%= link_to event.name, user_event_path(@user, event), :class => 'title'  %>    
+	  	  <%= link_to event.name, event_path(event), :class => 'title'  %>    
 	  	<div class="time">
           <% if(event.time_display == false) %> 
             <% if(event.date_start != '') %>
@@ -40,8 +40,8 @@
 	  		 <i class="icon icon-users"> </i>	<%= link_to 'View Guest List', attendees_path(:event => event.id)%>	  		
 	  		</div>
 	  	  <div class="actions"> 
-	  		  	<%= link_to 'Edit event', edit_user_event_path(@user, event) %>
-	  		  	<%= link_to 'Delete event', user_event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %>
+	  		  	<%= link_to 'Edit event', edit_event_path(@user, event) %>
+	  		  	<%= link_to 'Delete event', event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %>
 	  		</div>
       </div>
 		</div>	  

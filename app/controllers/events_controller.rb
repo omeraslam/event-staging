@@ -26,9 +26,6 @@ class EventsController < ApplicationController
     # else
     #   format.json { render :show }
     # end
-    @user = User.find(params[:user_id])
-    @event = @user.events.find(params[:id])
-
 
     image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
     @attendee = Attendee.new
@@ -38,8 +35,12 @@ class EventsController < ApplicationController
        @event.layout_id = '1'
        @event.layout_style = 'brunch'
     end
-    # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
-    respond_with(@attendees, @event)
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @event}
+    end
+
 
     # if @event.save
 
@@ -53,7 +54,7 @@ class EventsController < ApplicationController
   def update_theme
 
     @user = User.find(current_user.id)
-    @event = @user.events.find(params[:id])
+    @event = @user.events.find_by_slug(params[:id])
 
     # @event.layout_id = params[:layout_id]
     # @event.layout_style = params[:layout_style]
@@ -63,8 +64,8 @@ class EventsController < ApplicationController
 
     # respond_to do |format|
     #   if @event.update(event_params)
-    #     format.html {redirect_to user_event_path(current_user, @event)}
-    #     format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+    #     format.html {redirect_to event_path(current_user, @event)}
+    #     format.json { render :show, status: :ok, location: event_path(current_user, @event) }
     #   else
     #     format.html {render :action => 'edit'}
     #     format.json {render :json => @user.errors.full_messages, :status => :unprocessable_entity}
@@ -74,8 +75,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update(event_params)
-         #format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
-         format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+         #format.html { redirect_to event_path(current_user, @event), notice: 'Event was successfully updated.' }
+         format.json { render :show, status: :ok, location: event_path(current_user, @event) }
       else
          format.html { render :edit }
          format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -102,7 +103,7 @@ class EventsController < ApplicationController
   def create
 
 
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user)
     @event = @user.events.build(event_params)
     @event.user_id = current_user.id
     @event.style_id = params[:style_id]
@@ -112,8 +113,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: user_event_path(current_user, @event) }
+        format.html { redirect_to event_path(current_user, @event), notice: 'Event was successfully created.' }
+        format.json { render :show, status: :created, location: event_path(current_user, @event) }
       else
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -126,7 +127,7 @@ class EventsController < ApplicationController
   def update
     
     @user = User.find(params[:user_id])
-    @event = @user.events.find(params[:id])
+    @event = @user.events.find_by_slug(params[:id])
     #@event.style_id = params[:style_id]
 
     # 
@@ -136,9 +137,9 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update(event_params)
-         format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+         format.html { redirect_to event_path, notice: 'Event was successfully updated.' }
          format.js
-         format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+         format.json { render :show, status: :ok, location: event_path(current_user, @event) }
       else
          format.html { render :edit }
          format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -151,7 +152,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to user_events_path, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to events_path, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -161,8 +162,8 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @user = User.find(params[:user_id])
-      @event = @user.events.find(params[:id])
+      #@user = User.find(params[:user_id])
+      @event = Event.find_by_slug(params[:id])
     end
 
 

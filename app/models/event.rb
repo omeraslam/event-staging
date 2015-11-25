@@ -6,4 +6,11 @@ class Event < ActiveRecord::Base
         #    self.date_start.to_date.strftime('%B %d')
         # end
 
+        validates_presence_of :slug
+
+       
+
+        def to_param
+        	slug
+        end
 end

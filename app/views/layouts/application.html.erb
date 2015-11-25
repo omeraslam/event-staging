@@ -38,8 +38,8 @@
    						 <ul class="navbar-links signed-in">
 
    							
-   								<!-- <% if current_user.id == @user.id %>
-                  <li> <%= link_to '<span>Edit details</span>'.html_safe, edit_user_event_path, :class => 'icon icon-edit-inline', :id => 'event-edit'  %></li>
+   								<!-- <ruby if current user == user id >
+                  <li> <%= link_to '<span>Edit details</span>'.html_safe, edit_event_path, :class => 'icon icon-edit-inline', :id => 'event-edit'  %></li>
    								<li><a class="icon icon-edit-website toggleEditorPanel" id="event-editor-design"><span>Change theme </span> </a></li>
    								  <li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"><span>Change background  </span> </a></li>
 
@@ -47,11 +47,11 @@
    								<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();"><span>Help </span> </a></li>
 
 
-              <% end %>
+              <ruby end>
 
             -->
 
-   								<li><%= link_to '<span>Home</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-home' %></li>
+   								<li><%= link_to '<span>Home</span>'.html_safe, dashboard_path, :class => 'icon icon-home' %></li>
 <!--
 								  <li><a class="icon icon-hamburger toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
 								-->
