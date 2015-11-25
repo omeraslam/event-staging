@@ -22,7 +22,7 @@ $(document).on 'ready page:load', ->
       newimage = $('#custom-image').find('> div').css('background-image')
       $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
       #$('.event-page').css('cssText', 'background-image: url(' + $('.upload').attr('style') + ') !important;')
-      #console.log JSON.stringify(data)
+
 
 
 
@@ -48,14 +48,12 @@ $(document).on 'ready page:load', ->
 
       $('.event-editor-background a').removeClass 'highlight'
       $(this).addClass 'highlight'
-      #alert 'default highlight is selected: ' + $('.default.highlight').length
       newimage = $(this).find('> div').css('background-image')
       $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
       $.ajax(
         type: 'POST'
         url: String(window.location.href).replace('#', '') + '/updatetheme'
         data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
-        console.log data
         return
 
 

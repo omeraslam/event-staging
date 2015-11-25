@@ -28,7 +28,6 @@ class EventsController < ApplicationController
     # else
     #   format.json { render :show }
     # end
-
     @user = User.find(params[:user_id])
     @event = @user.events.find(params[:id])
 

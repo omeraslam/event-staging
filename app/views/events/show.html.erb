@@ -280,15 +280,15 @@
 
 
   <div class="image"></div></a>	
-  <a href="#" id="custom-image"><div class="upload" style="background-image:url('<%= @event.background_img%>')">  Upload Your Own Image </div> 
+  <a href="#" id="custom-image"><div class="upload" style="background-image:url('<%= @event.background_img%>')">  </div> 
     <div style="display:none;" ><%= image_tag(@event.background_img, id: 'image_color', crossOrigin: 'anonymous')  %></div>
 
     <%= form_for @event, url: user_event_path(@user, @event), :html => {:id => "background_form"} do |f| %>
     
 
     <%= hidden_field_tag 'show_custom', @event.show_custom %>
-    
-    <%= f.file_field :background_img, :id => 'hello' %> 
+    <label for="custom-file-input" class="file-label">Upload Your Own</label>
+    <%= f.file_field :background_img, :id => 'custom-file-input' %> 
 
 
     <% end %> 
