@@ -42,12 +42,14 @@ gem 'devise'
 # timepicker for choosing a date range
 gem 'jquery-timepicker-rails'
 
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+ 
 
 #gem 'x-editable-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -57,6 +59,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Use jquery-ui rails
 gem 'jquery-ui-rails'
+
+gem 'jquery-fileupload-rails'
 
 gem 'best_in_place', '~> 3.0.1'
 

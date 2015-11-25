@@ -34,18 +34,7 @@
 
    		
    				  <% if action_name == "show" and controller_name == "events" %>
-   				
-   		
-   						
-   		       	
-   		       	
-   		       	
-   		       	
-   		       	
-   		       	
-   		       	
-   		
-   		
+   		     
    						 <ul class="navbar-links signed-in">
 
    							
@@ -60,10 +49,10 @@
 
               <% end %>
 
-
+            -->
 
    								<li><%= link_to '<span>Home</span>'.html_safe, user_events_path(current_user), :class => 'icon icon-home' %></li>
-
+<!--
 								  <li><a class="icon icon-hamburger toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
 								-->
 								
@@ -86,8 +75,8 @@
    								</li>
 								
 								
-									<li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %>
-									</li>
+					<!-- 				<li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %>
+									</li> -->
    							
    							</ul>
    							
@@ -164,121 +153,6 @@
   ga('send', 'pageview');
 
 
-	$('.toggleEditorPanel').click(function() {
-	
-		var target = $(this).attr("id");
-		var linkActive = $("." + target).hasClass('active');		
-		var panelOpen = $('body').hasClass('editor-open');
-		
-		
-		if (linkActive == false && panelOpen == false) {
-	  	$('body').addClass('editor-open'); 
-	  	
-	  	$(this).addClass('active')
-	  	$("." + target).addClass('active')
-	  	
-	  	$("." + target + " a").each(function(i) {
-	  		$(this).delay((i++) * 50).fadeTo(100, 1); 
-	  	});
-	  	
-		
-		}
-		else if (linkActive == false && panelOpen == true) {
-				
-				
-				$('.toggleEditorPanel').removeClass('active');
-			 $(this).addClass('active');
-		
-		
-			$('.event-editor-container .active a').each(function(i) {
-				$(this).delay((i++) * 50).fadeTo(100, 0); 
-			});
-			
-			$('.event-editor-container .active').removeClass('active');
-			
-			$("." + target).addClass('active');		
-			
-			$("." + target + " a").each(function(i) {
-				$(this).delay((i++) * 50).fadeTo(100, 1); 
-			});	
-			
-		}
-		else if (linkActive == true && panelOpen == true) {
-		
-		
-			$(this).removeClass('active')
-			
-			$('body').removeClass('editor-open'); 			
-			$('.event-editor-container .active a').each(function(i) {
-				$(this).delay((i++) * 50).fadeTo(100, 0); 
-			});
-			
-			$('.event-editor-container .active').removeClass('active');
-			
-		
-		}	
-		
-
-	});
-	
-	
-	//LOAD THE THEME AND CONSTRUCT
-
-	var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch"; 	
-	var layout = $('#layout_id').val()? $('#layout_id').val(): "1"; 
-
-
-
-		$( document ).ready(function() {
-		  
-		 $('.theme.active').removeClass("active");
-		 $('.event-container').removeClass(theme); 
-		 $('.event-page.' + layout).removeClass('visible'); 
-		 	
-		 $('.theme#' + theme).addClass("active");
-
-		 
-		 $('.event-container').addClass(theme); 
-		 	$('.event-page.' + layout).addClass('visible');    
-		    
-		    
-		    
-		});
-
-	
-	$('.theme').click(function() {
-		
-		$('.theme.active').removeClass("active");
-		
-		$('.event-container').removeClass(theme); 
-		$('.event-page.' + layout).removeClass('visible'); 
-			
-			$(this).addClass('active'); 
-	   layout = $(this).data('layout'); 
-	   theme = $(this).data('theme'); 
-
-      console.log('layout value: '+ layout + ' || layout style: '+ theme);
-	  
-	  $('.event-container').addClass(theme); 
-	 	$('.event-page.' + layout).addClass('visible'); 
-	  
-	  //MAKE AJAX CALL TO SAVE
-	  saveTheme()
-
-	  return false;
-	  		  
-	});
-	
-
-	function saveTheme() {
-	  	$.ajax({
-	  		type: 'POST',
-	  		url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
-	  		data: {event:{layout_id: layout, layout_style: theme}}
-	  	}).done(function(data){
-        console.log(data);
-      });
-	  }
 		
 	</script>
 <script>
@@ -346,7 +220,7 @@ initMap = function() {
     codeAddress();
   }
 
-if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
+if($('.signed-in').length > 0 && $('.event-editor-container').length > 0) {
 
   $('span[data-bip-attribute="location').bind('focusin', function() {
 
@@ -371,10 +245,6 @@ if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
  }
 
 };
-
-
-
-
 
 
 }

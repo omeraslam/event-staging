@@ -4,6 +4,28 @@
 
 $(document).on 'ready page:load', ->
 
+
+  $('#background_form').fileupload
+    dataType: "script"
+    add: (e, data) ->
+      data.context = $(tmpl("template-upload", data.files[0]))
+      $('#background_form .uploader').remove()
+      $('#background_form').append(data.context)
+      data.submit()
+    progress: (e, data) ->
+      if data.context
+        progress = parseInt(data.loaded/data.total *100, 10);
+        data.context.find('.bar').css('width', progress + '%')
+    done: (e, data) -> 
+      $('#background_form .uploader .progress').remove();
+
+      newimage = $('#custom-image').find('> div').css('background-image')
+      $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
+      #$('.event-page').css('cssText', 'background-image: url(' + $('.upload').attr('style') + ') !important;')
+      #console.log JSON.stringify(data)
+
+
+
   $('#datepairExample .time').timepicker
     'showDuration': true
     'timeFormat': 'g:ia'
@@ -20,7 +42,46 @@ $(document).on 'ready page:load', ->
     updateDate: (input, dateObj) ->
       $(input).datepicker 'setDate', dateObj
 
-  #$('.date').focus()
+
+  $('.event-editor-background a').on 'click', (e) ->
+    #e.preventDefault()
+
+      $('.event-editor-background a').removeClass 'highlight'
+      $(this).addClass 'highlight'
+      #alert 'default highlight is selected: ' + $('.default.highlight').length
+      newimage = $(this).find('> div').css('background-image')
+      $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
+      $.ajax(
+        type: 'POST'
+        url: String(window.location.href).replace('#', '') + '/updatetheme'
+        data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
+        console.log data
+        return
+
+
+  if $('#show_custom').val() == 'false' || $('#show_custom').val() == ''
+    $('a.default').addClass('highlight')
+
+    newimage = $('a.default').find('> div').css('background-image')
+    $('.event-page').css 'cssText', ''
+  else
+    $('a#custom-image').addClass('highlight')
+    newimage = $('a#custom-image').find('> div').css('background-image')
+    $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
+
+  $('.event-editor-design a').on 'click', (e) ->
+    e.preventDefault()
+    $('.event-editor-design a').removeClass 'highlight'
+    $(this).addClass 'highlight'
+
+    # newimage = $(this).find('> div').css('background-image')
+    # $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
+
+    return
+
+
+
+
 
 
 
@@ -31,7 +92,7 @@ $(document).on 'ready page:load', ->
   $(document).ready ->
     #$.datepicker.setDefaults
      # 'dateFormat': 'yy-mm-dd'
-    if $('.signed-in').length > 0 && $('#event-edit').length > 0
+    if $('.signed-in').length > 0 && $('.event-editor-container').length > 0
       jQuery('.best_in_place').best_in_place()
 
       $('span[data-bip-attribute="name"]').bind 'focusin', ->
@@ -63,7 +124,6 @@ $(document).on 'ready page:load', ->
 
 
     return
-
 
 
   
@@ -128,40 +188,39 @@ $(document).on 'ready page:load', ->
 
 
 
-  if $('#eventPage').length != 0
+  #if $('#image_color').length != 0
 
-    img = document.getElementById('eventPage')
-    if img.currentStyle != 0
-      style = img.currentStyle or window.getComputedStyle(img, false)
-      bi = style.backgroundImage.slice(4, -1)
-      bi = style.backgroundImage.slice(4, -1).replace(/"/g, '')
+    # img = document.getElementById('image_color')
+    # # if img.currentStyle != 0
+    # #   style = img.currentStyle or window.getComputedStyle(img, false)
+    # #   bi = style.backgroundImage.slice(4, -1)
+    # #   bi = style.backgroundImage.slice(4, -1).replace(/"/g, '')
       
-      sourceImage =  bi
+    # bi = $('#image_color').attr('src')
 
-    oImg = document.createElement('img')
-    oImg.setAttribute 'src', bi
-    oImg.setAttribute 'width', '100px'
-    oImg.setAttribute 'height', '100px'
-    oImg.crossOrigin = '';
-    oImg.setAttribute  'crossOrigin', 'anonymous'
+    # sourceImage =  bi
 
-     
+    # oImg = document.createElement('img')
+    # oImg.setAttribute 'src', bi
+    # oImg.setAttribute 'width', '100px'
+    # oImg.setAttribute 'height', '100px'
+    # oImg.crossOrigin = '';
+    # oImg.setAttribute  'crossOrigin', 'anonymous'
+
     
-   #oImg.onload = ->
-   #  `var colorThief`
-   #  colorThief = new ColorThief
-   #  photoColor = colorThief.getColor(oImg)
+    # img.onload = ->
+    #   colorThief = new ColorThief
+    #   photoColor = colorThief.getColor(img)
+
+    #   $('.btn-bordered').removeClass 'hover-color'
+    #   $('.btn-bordered').hover(
+    #     (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
+    #     (ev) -> $(this).css('color', 'rgb(255,255,255)');
+    #   )
 
 
-   #  $('.btn-bordered').removeClass 'hover-color'
-   #  $('.btn-bordered').hover(
-   #    (ev) -> $(this).css('color', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')');
-   #    (ev) -> $(this).css('color', 'rgb(255,255,255)');
-   #  )
-
-
-   #   $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
-    #  return
+    #   $('#attendee-form').css 'backgroundColor', 'rgb(' + photoColor[0] + ',' + photoColor[1] + ',' + photoColor[2] + ')'
+    #   return
 
 
   scrollToAnchor = (aid) ->

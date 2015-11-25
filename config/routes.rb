@@ -9,11 +9,7 @@ Rails.application.routes.draw do
   
   get '/about' => 'pages#about'
 
-
   get '/attendees/:id', to: 'attendees#index'
-
-
-
 
   get '/dashboard', to: 'events#index'
 
