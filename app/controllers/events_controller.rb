@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show,  :edit, :update, :destroy]
+  before_action :set_event, only: [ :edit, :destroy]
   after_filter :store_location
   before_filter :authenticate_user!, :except => [:show]
 
@@ -14,7 +14,7 @@ class EventsController < ApplicationController
 
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = @user.events
+    @events = Event.where(:user_id => current_user.id).all
 
   end
 
@@ -27,14 +27,16 @@ class EventsController < ApplicationController
     #   format.json { render :show }
     # end
 
+    @event = Event.find_by_slug(params[:slug])
+
     image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
     @attendee = Attendee.new
 
   
-    if(!@event.layout_id?)
-       @event.layout_id = '1'
-       @event.layout_style = 'brunch'
-    end
+    # if(!@event.layout_id?)
+    #    @event.layout_id = '1'
+    #    @event.layout_style = 'brunch'
+    # end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -54,29 +56,13 @@ class EventsController < ApplicationController
   def update_theme
 
     @user = User.find(current_user.id)
-    @event = @user.events.find_by_slug(params[:id])
-
-    # @event.layout_id = params[:layout_id]
-    # @event.layout_style = params[:layout_style]
-
-
-
-
-    # respond_to do |format|
-    #   if @event.update(event_params)
-    #     format.html {redirect_to event_path(current_user, @event)}
-    #     format.json { render :show, status: :ok, location: event_path(current_user, @event) }
-    #   else
-    #     format.html {render :action => 'edit'}
-    #     format.json {render :json => @user.errors.full_messages, :status => :unprocessable_entity}
-    #   end
-    # end
+    @event = Event.find_by_slug(params[:slug])
 
 
     respond_to do |format|
       if @event.update(event_params)
          #format.html { redirect_to event_path(current_user, @event), notice: 'Event was successfully updated.' }
-         format.json { render :show, status: :ok, location: event_path(current_user, @event) }
+         format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
          format.html { render :edit }
          format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -89,7 +75,7 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @user = User.find(current_user.id)
-    @event = @user.events.build
+    @event = Event.all.build
   end
 
   # GET /events/1/edit
@@ -104,16 +90,20 @@ class EventsController < ApplicationController
 
 
     @user = User.find(current_user)
-    @event = @user.events.build(event_params)
+    @event = Event.all.build(event_params)
     @event.user_id = current_user.id
     @event.style_id = params[:style_id]
+
+    @event.layout_id = '1'
+    @event.layout_style = 'brunch'
+    @event.slug = @event.name.downcase.gsub(" ", "-")
 
 
 
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to event_path(current_user, @event), notice: 'Event was successfully created.' }
+        format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: event_path(current_user, @event) }
       else
         format.html { render :new }
@@ -127,7 +117,7 @@ class EventsController < ApplicationController
   def update
     
     @user = User.find(params[:user_id])
-    @event = @user.events.find_by_slug(params[:id])
+    @event = Event.find_by_slug(params[:slug])
     #@event.style_id = params[:style_id]
 
     # 
@@ -139,7 +129,7 @@ class EventsController < ApplicationController
       if @event.update(event_params)
          format.html { redirect_to event_path, notice: 'Event was successfully updated.' }
          format.js
-         format.json { render :show, status: :ok, location: event_path(current_user, @event) }
+         format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
          format.html { render :edit }
          format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -163,13 +153,13 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       #@user = User.find(params[:user_id])
-      @event = Event.find_by_slug(params[:id])
+      @event = Event.find(params[:id])
     end
 
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id,:layout_id, :layout_style, :location, :background_img, :show_custom)
+      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id,:layout_id, :layout_style, :location, :background_img, :show_custom, :slug)
 
       date_format = '%m/%d/%Y'
       #offset = Date.now.strftime("%z")

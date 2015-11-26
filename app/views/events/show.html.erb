@@ -208,8 +208,7 @@
 
 <div id="map"></div>
 
-
-<% if signed_in? && current_user.id == @event.user_id %>
+<% if signed_in? && current_user.id.to_i == @event.user_id.to_i %>
 
 <div class="event-editor-container"> 
 
@@ -285,7 +284,7 @@
   <a href="#" id="custom-image"><div class="upload" style="background-image:url('<%= @event.background_img%>')">  </div> 
     <div style="display:none;" ><%= image_tag(@event.background_img, id: 'image_color', crossOrigin: 'anonymous')  %></div>
 
-    <%= form_for @event, url: user_event_path(@user, @event), :html => {:id => "background_form"} do |f| %>
+    <%= form_for @event, url: event_path(@event), :html => {:id => "background_form"} do |f| %>
     
 
     <label for="custom-file-input" class="file-label">Upload Your Own</label>

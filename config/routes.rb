@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :events
+  get '/:slug' => 'events#show', :as => :slugger
 
   # resources :users do
   #   resources :events
@@ -41,8 +42,8 @@ Rails.application.routes.draw do
 
 
 
-  post '/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
-  put '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme'
+  post '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
+  put '/:slug/updatetheme', to: 'events#update_theme'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

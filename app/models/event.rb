@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-        belongs_to :user
+        #belongs_to :user
         mount_uploader :background_img, PictureUploader
         
         # def format_date

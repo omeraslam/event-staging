@@ -14,8 +14,8 @@
 <%= render 'form' %>
 
 <div class="event-nav">
-	<%= link_to 'Show', user_events_path(current_user, @event) %> |
-<%= link_to 'Back', user_events_path(current_user) %>
+	<%= link_to 'Show', slugger_path(@event.slug) %> |
+<%= link_to 'Back', dashboard_path %>
 </div>
 
 
