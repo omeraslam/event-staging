@@ -34,6 +34,53 @@
     
     <% if signed_in? %>
 
+		
+<!--		@rich, maybe this should be "dashboard" controller-->
+    <% if (action_name == "index" and controller_name == "events") or  (action_name == "index" and controller_name == "attendees") %>
+	
+	
+	
+		<div class="dashboard-header">
+		
+				<div class="quick-find-container">
+					<i class="icon icon-search"> </i> <input type="text" placeholder="quick find my events" id="tags"> 	
+				</div>
+				
+				<ul>				
+				  <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+				  <li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %></li>
+				</ul>
+		
+		</div>
+		
+		<div class="event-nav"> 
+		  
+			<a class="logo" href="/"><span>Event Create</span></a>
+		
+		  <ul> 
+		  	<li><a href="/"> Upcoming events</a></li>
+				<li><a href="/"> Past events</a></li>
+					  
+		  	<li><%= link_to 'Create new event'.html_safe, '/event-create' %> </li>
+		  			  
+		  </ul>
+		
+		</div>
+		
+		
+		
+
+
+
+
+
+
+
+  	<% end %>
+<!--		end "dashboard" controller-->
+
+
+
     
     <% if action_name == "show" and controller_name == "events" %>
     
@@ -91,13 +138,13 @@
   
   <% if action_name != "show" or controller_name != "events" %>
   
-  <a class="logo" href="/"><span>Event Create</span></a>
+<!--  <a class="logo" href="/"><span>Event Create</span></a>-->
   
   
-  <ul class="navbar-links signed-in">
+<!--  <ul class="navbar-links signed-in">
     <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
     <li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %></li>
-  </ul>
+  </ul>-->
   
   <div class="signed-in-menu">
     <ul>
@@ -150,6 +197,40 @@
 
 ga('create', 'UA-64644710-1', 'auto');
 ga('send', 'pageview');
+
+
+
+
+
+
+
+
+
+
+
+
+$(function() {
+var source = [ { target: "/",
+                 value: "Mark's Birthday"
+               },
+               { target: "/",
+                 value: "Mark and Jess Anniversary Party"
+               }
+ ];
+   $( "#tags" ).autocomplete({
+     source: source,
+     minLength: 0,
+     select: function( event, ui ) { 
+          window.location.href = ui.item.target;
+     }
+   }).focus(function(){            
+        $(this).autocomplete("search");
+    });
+ });
+
+
+
+
 
 
 $('.toggleEditorPanel').click(function() {
@@ -367,7 +448,15 @@ $('.toggleEditorPanel').click(function() {
 
 }
 
+
+
 </script>
+
+
+
+
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap"
 async defer></script>

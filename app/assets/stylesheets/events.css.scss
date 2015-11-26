@@ -4,10 +4,8 @@
 
 .events-list {
 	.event {
-		background:#fff;	
 		clear:both;
-		margin:20px 0;
-		padding:20px;
+		margin:44px 0;
 		box-sizing:border-box;
 		
 		.image {
@@ -22,7 +20,7 @@
 		
 		.title {
 			font-size:30px;		
-		
+			font-weight:400;
 		}
 		
 		.registrants {

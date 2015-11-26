@@ -3,73 +3,89 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-.event-nav {
-	float: left;
-	height:100%;
-	width:300px;
-	background:#222;
-	padding: 160px 20px 0 70px;
-	color:#fff;
+.quick-find-container {
+	display: inline-block;
+	position:relative;
+	line-height:18px;
+	margin-top: 7px;
 	
-	.breadcrumb {
-		font-size:10px;
-		letter-spacing:1px;
-		font-weight:800;
-		text-transform:uppercase;
-		margin-bottom:30px;
-		display:inline-block;
-	}
-	
-	.image {
-		display:none;
-		width: 150px;
-		height: 100px;
-		background-size: cover;
-		background-image: url(/assets/flower.jpg);
-		position:relative;
-		text-align:center;
-	
-		.image-cover {
-			position:absolute;
-			top:0;
-			left:0;
-			width:100%;
-			height:100%;
-			background:rgba(0,0,0,.5);
-		
+		input {
+			padding: 10px 147px 10px 30px;
+			position:relative;
+			border:none;
+			outline:none;
+			background:none;
+			border-bottom:1px solid #fff;
+			color:#fff;
+			
+			
 		}
 		
-	
-	}
-	
-	.title {
-		font-size:18px;
-		margin-top:6px;
-	}
+		::-webkit-input-placeholder {
+		   color: #fff;
+		}
+		
+		:-moz-placeholder { /* Firefox 18- */
+		   color: #fff;  
+		}
+		
+		::-moz-placeholder {  /* Firefox 19+ */
+		   color: #fff;  
+		}
+		
+		:-ms-input-placeholder {  
+		   color: #fff;  
+		}
+		
+		i {
+			position:absolute;
+			left:0;
+			top:6px;
+			font-size:20px;
+		
+		}
+ 
+}
 
-	.date {
-		font-size:12px;
+.event-nav {
+	position:fixed;
+	height:100%;
+	width:180px;
+	background:#222;
+	padding: 60px 0;
+	color:#fff;
+	top: 0;
+	left: 0;
+	    
+	.logo {
+		float:none;
+		margin:0 auto;
+	
 	}
 	
 	ul {	
-	
+		float:none;
 		margin-top:40px;
 	
 		li {
-			margin:10px 0;
-		
-			.image {
-				background-image: url(/assets/flower.jpg);
-				width: 190px;
-				height: 130px;
-				background-size:cover;
+			margin:5px 0;
+			display:block;
 			
-			}
+
 		
 			a {
-				font-size:16px;
+				font-size:12px;
+				padding: 10px 15px;
+				display:block;
+				opacity:.4;
 				
-			
+				&:hover {
+					opacity:1;
+				}
+				
+				i {
+					margin-right:5px;
+				}
 			
 			}
 		
@@ -80,34 +96,35 @@
 }
 
 
-.attendees {
+.dashboard, .attendees {
 
-	background:#fff;
+	background:#efefef;
 	color:#444;
 	
 	.container {
-		float: left;
-		//padding: 120px 70px 120px 360px;
+		padding: 120px 70px 70px 280px;
 	
 	}
 	
 	h1 {
-		font-family: "Whitney SSm A", "Whitney SSm B";
+		//font-family: "Whitney SSm A", "Whitney SSm B";
 		font-style: normal;
 		font-weight: 700;
 		margin:0;
-		text-transform:lowercase;
+		font-size:40px;
+		color:#555;
 	
 	}
 	
 	.lead {
-		font-size:26px;
+		font-size:23px;
+			color:#555;
 	
 	}
 	
 	section {
 	
-		border-top:1px solid #efefef;
+		border-top:1px solid #DCDCDC;
 		margin:40px 0;
 		
 		h4 {
@@ -115,7 +132,7 @@
 			margin: 5px 0 20px 0;
 			font-size:14px;
 			font-weight:400;
-		
+			color:#bbb;
 		}
 		
 		p {
@@ -184,5 +201,219 @@
 }
 
 .dashboard {
-	float: left;
+	padding: 120px 70px 70px 250px;
+	background:#fff;
+	
+}
+
+
+.dashboard-header {
+	top: 0;
+  left: 0;
+	position:fixed;
+	color:#fff;
+	background:#21afbf;
+	padding-left:250px;
+	width:100%;
+}
+
+.dashboard-container {
+	padding:20px 30px 20px 270px;
+
+
+
+}
+
+
+.event-header {
+
+	background:#fff;
+
+	padding-top:130px;
+
+	.event-meta {
+		width:80%;
+		float:left;
+		
+		.thumb {
+			width:120px;
+			height:100px;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			float:left;
+			position:relative;
+			display:block;
+			margin-right:20px;
+			
+			
+			.thumb-cover{
+				background:rgba(0,0,0,.2);
+				position:absolute;
+				width:100%;
+				height:100%;
+			}
+			
+			.thumb-action {
+				line-height:100px;
+				font-size:30px;
+				position:relative;
+				text-align:center;
+				transition: all .2s ease-in-out;
+				color:#fff;
+			}
+			
+			
+			&:hover {
+				.thumb-action {
+					-ms-transform: scale(1.2); 
+					 -webkit-transform: scale(1.2); 
+					 transform: scale(1.2);
+				}
+				
+			
+			
+			
+			}
+		
+		}
+	
+	}
+	
+	
+	
+	.event-status {
+		width:14%;
+		float:right;
+		text-align:right;
+	
+		.status {
+			font-size:14px;
+			padding:4px 8px;
+			border-radius:10px;
+			background:#22bdaf;
+			color:#fff;
+			display:inline-block;
+			margin-bottom:10px;
+		}
+		
+		.status-date {
+		
+			color:#999;
+			font-size:12px;
+		
+		}
+	
+	
+	}
+
+
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+		
+	}
+
+
+}
+
+
+
+.event-actions {
+	background:#efefef;
+	padding-bottom:100px;
+
+}
+
+
+
+
+.event-navigation {
+
+	background:#fff;
+	padding-top:100px;
+	padding-bottom:0;
+
+	ul {
+	
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	
+	
+	}
+
+
+	ul li {
+		
+		float:left;
+		display:block;
+		
+		a {
+			cursor:pointer;
+			font-weight:700;
+			font-size:12px;
+			text-transform:uppercase;
+			letter-spacing:1px;
+			color:#888;
+			display:block;
+			padding:10px 30px;
+			
+			&.active {
+				color:#21afbf;
+				border-bottom:2px solid;
+			
+			}
+
+			&:hover {
+				//color:#21afbf;
+				border-bottom:2px solid;
+			
+			}
+		
+		}
+
+		
+	}
+	
+
+	
+}
+
+
+
+
+
+.ui-dialog {
+	background:#fff;
+	z-index:999;
+	box-shadow:1px 1px 4px rgba(0,0,0,.1);
+	
+	
+
+}
+
+
+.remodal {
+	text-align:left;
+	max-width:500px;
+	
+	h2 {
+		text-align:left;
+	
+	}
+	
+	textarea {
+		width:100%;
+		
+	}
+
+}
+
+.remodal-overlay {
+    background: rgba(12, 12, 12, 0.9);
 }
