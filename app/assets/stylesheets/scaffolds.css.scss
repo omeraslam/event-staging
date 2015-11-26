@@ -1276,3 +1276,21 @@ input.date, input.time {
       opacity: 1;
     }
 }
+.alert.error {
+    border-radius: 6px;
+    h2 {
+      margin:0;
+      padding:0;
+      line-height: 1.4em;
+    }
+    ul {
+      margin-bottom: 6px;
+    }
+    li {
+      list-style-type: disc;
+      color: #fff;
+    }
+      background:red;
+   
+
+}
