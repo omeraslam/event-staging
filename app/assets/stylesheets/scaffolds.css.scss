@@ -280,6 +280,7 @@ nav {
   background-image: url(event_create_logo_simple.png);
   background-size:contain;
   float:left;
+  position:relative;
   
   span {
   	text-indent:-9999px; position:absolute;
@@ -312,7 +313,7 @@ nav.menu-open .cover {
 nav .signed-in-menu {
 	position: fixed;
   right: 0;
-  top:0;
+  top:61px;
   background-color: #fff;
   z-index:8;
   width:0;
@@ -320,10 +321,11 @@ nav .signed-in-menu {
   visibility:hidden;
   -webkit-transition: width 0.3s, height 0.3s;
   transition: width 0.3s, height 0.3s;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   
   ul {
   	float:none;
-  	margin:60px 0 20px;
+  	margin:20px 0;
   }
 
 	li {
@@ -521,6 +523,7 @@ footer {
       position: fixed;
       left: 20px;
       bottom: 20px;
+      float: left
     }
     form {
       height: 100%;
@@ -804,6 +807,13 @@ footer {
     
     }
     
+    &.btn-small {
+    	padding: 8px 16px;
+			font-size:11px;    	
+    
+    }
+    
+    
     
     &:hover {
        background-color: lighten(#21afbf, 10%);
@@ -827,6 +837,7 @@ footer {
 .container.simple {
   height: auto;
   background: #ccc;
+  min-height: 100%;
 
   h1 {
     font-size: 40px;
@@ -861,11 +872,13 @@ footer {
 }
 
 .events, .attendees {
-	background:#EFEFEF;
+	background:#fff;
 	color:#1a1a1a;
 }
 
 .attendees {
+
+
   
   h2 {
     text-align :center;
@@ -873,11 +886,11 @@ footer {
   table, td, th { 
     vertical-align: middle; 
     //border: none;
-    border: 1px solid #222;
     padding: 0;
     margin: 0;
-    text-align: center;
+    text-align: left;
     border-spacing: 0;
+    width:100%;
   }
 
   table
@@ -886,7 +899,14 @@ footer {
   }
 
   td, th {
-    padding: 10px 0;
+    padding: 12px 0;
+    font-weight: 400;
+    color: #888;
+  }
+  
+  td {
+  	width:25%;
+  	border-top:1px solid #DCDCDC;
   }
 
 
@@ -898,9 +918,7 @@ footer {
     width:100px;
   }
 
-  table {
-    margin: 20px auto;
-  }
+	
 }
 
 
@@ -1238,10 +1256,10 @@ input.date, input.time {
   float: right;
 }
 
-      #map {
-        z-index:10;
-        height: 300px;
-      }
+#map {
+  z-index:10;
+  height: 300px;
+}
 
 
 .pac-container {
@@ -1276,3 +1294,17 @@ input.date, input.time {
       opacity: 1;
     }
 }
+
+.ui-autocomplete {
+
+	z-index:99999999;
+	max-width: 300px;
+	background: #fff;
+	box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+	
+	li {
+		cursor:pointer;
+	
+	}
+}
+

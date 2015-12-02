@@ -1,3 +1,419 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.quick-find-container {
+	display: inline-block;
+	position:relative;
+	line-height:18px;
+	margin-top: 7px;
+	
+		input {
+			padding: 10px 147px 10px 30px;
+			position:relative;
+			border:none;
+			outline:none;
+			background:none;
+			border-bottom:1px solid #fff;
+			color:#fff;
+			
+			
+		}
+		
+		::-webkit-input-placeholder {
+		   color: #fff;
+		}
+		
+		:-moz-placeholder { /* Firefox 18- */
+		   color: #fff;  
+		}
+		
+		::-moz-placeholder {  /* Firefox 19+ */
+		   color: #fff;  
+		}
+		
+		:-ms-input-placeholder {  
+		   color: #fff;  
+		}
+		
+		i {
+			position:absolute;
+			left:0;
+			top:6px;
+			font-size:20px;
+		
+		}
+ 
+}
+
+.event-nav {
+	position:fixed;
+	height:100%;
+	width:180px;
+	background:#222;
+	padding: 60px 0;
+	color:#fff;
+	top: 0;
+	left: 0;
+	    
+	.logo {
+		float:none;
+		margin:0 auto;
+	
+	}
+	
+	ul {	
+		float:none;
+		margin-top:40px;
+	
+		li {
+			margin:5px 0;
+			display:block;
+			
+
+		
+			a {
+				font-size:12px;
+				padding: 10px 15px;
+				display:block;
+				opacity:.4;
+				
+				&:hover {
+					opacity:1;
+				}
+				
+				i {
+					margin-right:5px;
+				}
+			
+			}
+		
+		}
+	
+	}
+
+}
+
+
+.dashboard, .attendees {
+
+	background:#efefef;
+	color:#444;
+	
+	.container {
+		padding: 120px 70px 70px 280px;
+	
+	}
+	
+	h1 {
+		//font-family: "Whitney SSm A", "Whitney SSm B";
+		font-style: normal;
+		font-weight: 700;
+		margin:0;
+		font-size:40px;
+		color:#555;
+	
+	}
+	
+	.lead {
+		font-size:23px;
+			color:#555;
+	
+	}
+	
+	section {
+	
+		border-top:1px solid #DCDCDC;
+		margin:40px 0;
+		
+		h4 {
+		
+			margin: 5px 0 20px 0;
+			font-size:14px;
+			font-weight:400;
+			color:#bbb;
+		}
+		
+		p {
+			margin:26px 0;
+			font-size:15px;
+		
+		}
+	
+		ul {
+		
+			li {
+				display:inline-block;
+				float:left;	
+				
+				a {
+				
+					display:block;
+					text-align:center;
+					padding:20px 50px;		
+					cursor:pointer;
+					text-transform:lowercase;
+					
+					span {
+						font-size:19px;
+						display:block;
+						margin-top:10px;
+					
+					
+					}
+				
+					i {
+						display:block;
+						font-size:74px;		
+						line-height:60px;
+					}
+					
+					&:hover {
+						color:#fff;
+						background:#21afbf;
+					
+					}
+					
+					&.active {
+						color:#fff;
+						background:#21afbf;
+					
+					}
+					
+				}
+
+			}
+
+		}
+		
+		&:after {
+			content: "";
+		  display: table;
+		  clear: both;
+		}
+
+	
+	
+	}
+
+
+}
+
+.dashboard {
+	padding: 120px 70px 70px 250px;
+	background:#fff;
+	
+}
+
+
+.dashboard-header {
+	top: 0;
+  left: 0;
+	position:fixed;
+	color:#fff;
+	background:#21afbf;
+	padding-left:250px;
+	width:100%;
+}
+
+.dashboard-container {
+	padding:20px 30px 20px 270px;
+
+
+
+}
+
+
+.event-header {
+
+	background:#fff;
+
+	padding-top:130px;
+
+	.event-meta {
+		width:80%;
+		float:left;
+		
+		.thumb {
+			width:120px;
+			height:100px;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			float:left;
+			position:relative;
+			display:block;
+			margin-right:20px;
+			
+			
+			.thumb-cover{
+				background:rgba(0,0,0,.2);
+				position:absolute;
+				width:100%;
+				height:100%;
+			}
+			
+			.thumb-action {
+				line-height:100px;
+				font-size:30px;
+				position:relative;
+				text-align:center;
+				transition: all .2s ease-in-out;
+				color:#fff;
+			}
+			
+			
+			&:hover {
+				.thumb-action {
+					-ms-transform: scale(1.2); 
+					 -webkit-transform: scale(1.2); 
+					 transform: scale(1.2);
+				}
+				
+			
+			
+			
+			}
+		
+		}
+	
+	}
+	
+	
+	
+	.event-status {
+		width:14%;
+		float:right;
+		text-align:right;
+	
+		.status {
+			font-size:14px;
+			padding:4px 8px;
+			border-radius:10px;
+			background:#22bdaf;
+			color:#fff;
+			display:inline-block;
+			margin-bottom:10px;
+		}
+		
+		.status-date {
+		
+			color:#999;
+			font-size:12px;
+		
+		}
+	
+	
+	}
+
+
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+		
+	}
+
+
+}
+
+
+
+.event-actions {
+	background:#efefef;
+	padding-bottom:100px;
+
+}
+
+
+
+
+.event-navigation {
+
+	background:#fff;
+	padding-top:100px;
+	padding-bottom:0;
+
+	ul {
+	
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	
+	
+	}
+
+
+	ul li {
+		
+		float:left;
+		display:block;
+		
+		a {
+			cursor:pointer;
+			font-weight:700;
+			font-size:12px;
+			text-transform:uppercase;
+			letter-spacing:1px;
+			color:#888;
+			display:block;
+			padding:10px 30px;
+			
+			&.active {
+				color:#21afbf;
+				border-bottom:2px solid;
+			
+			}
+
+			&:hover {
+				//color:#21afbf;
+				border-bottom:2px solid;
+			
+			}
+		
+		}
+
+		
+	}
+	
+
+	
+}
+
+
+
+
+
+.ui-dialog {
+	background:#fff;
+	z-index:999;
+	box-shadow:1px 1px 4px rgba(0,0,0,.1);
+	
+	
+
+}
+
+
+.remodal {
+	text-align:left;
+	max-width:500px;
+	
+	h2 {
+		text-align:left;
+	
+	}
+	
+	textarea {
+		width:100%;
+		
+	}
+
+}
+
+.remodal-overlay {
+    background: rgba(12, 12, 12, 0.9);
+}
