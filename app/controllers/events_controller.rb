@@ -89,6 +89,7 @@ class EventsController < ApplicationController
   def new
     @user = User.find(current_user.id)
     @event = @user.events.build
+
   end
 
   # GET /events/1/edit
@@ -106,6 +107,8 @@ class EventsController < ApplicationController
     @event = @user.events.build(event_params)
     @event.user_id = current_user.id
     @event.style_id = params[:style_id]
+    @event.layout_style = 'brunch'
+    @event.layout_id = 1
 
 
 

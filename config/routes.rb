@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'dashboard/index'
+
+  get 'dashboard/event'
+
+  get 'dashboard/past'
+
   resources :urls, only: [:new, :create]
 
   resources :attendees
@@ -19,7 +25,7 @@ Rails.application.routes.draw do
 
 
   authenticated do
-    root :to => 'events#index', as: :authenticated
+    root :to => 'dashboard#index', as: :authenticated
   end
 
   root :to => 'pages#home'
