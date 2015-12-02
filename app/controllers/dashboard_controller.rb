@@ -7,13 +7,13 @@ class DashboardController < ApplicationController
   def index
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = @user.events.where("time_end > ?", Time.now.beginning_of_day)
+    @events = @user.events.where("date_end > ?", Time.now.beginning_of_day)
   end
 
   def past
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = @user.events.where("time_end < ?", Time.now.beginning_of_day)
+    @events = @user.events.where("date_end < ?", Time.now.beginning_of_day)
   end
 
 
