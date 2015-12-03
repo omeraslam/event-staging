@@ -320,6 +320,7 @@ $(document).on 'ready page:load', ->
           $('.btn-prev').click()
       when 39, 13
         # Key right.
+        console.log 'hello'
         if !$('.slide-up-show input').is(':focus')
           $('.btn-next').click()
     return
