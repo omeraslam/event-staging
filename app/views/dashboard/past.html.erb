@@ -48,7 +48,7 @@
 		  	
 		  	
 		  	<div class="actions"> 
-		  		<%= link_to 'Edit event', edit_user_event_path(@user, event) %>
+		  		<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
 		  		<%= link_to 'Delete event', user_event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %>
 		  	</div>
 		  	

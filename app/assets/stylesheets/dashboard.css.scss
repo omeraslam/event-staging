@@ -6,4 +6,13 @@
 .dashboard {
 	padding: 0;
 	margin: 0;
+
+	.form-element {
+		position: relative;
+	}
+	label.error {
+		top: 8px;
+		right: 0;
+	}
 }
+
