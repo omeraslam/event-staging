@@ -28,6 +28,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.10)
     best_in_place (3.0.3)
@@ -57,6 +58,12 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_invitable (1.5.3)
+      actionmailer (>= 3.2.6, < 5)
+      devise (>= 3.2.0)
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.6.0)
@@ -208,6 +215,10 @@ GEM
       thor (~> 0.14)
     json (1.8.3)
     jwt (1.5.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     libv8 (3.16.14.11)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -332,6 +343,8 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.0.0)
   devise
+  devise_invitable
+  email_spec
   figaro
   fog
   foreman
@@ -342,6 +355,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   jquery-validation-rails
+  letter_opener
   mandrill-api
   omniauth
   omniauth-facebook

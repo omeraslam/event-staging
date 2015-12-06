@@ -78,14 +78,6 @@ $(document).on 'ready page:load', ->
 
 
 
-
-
-
-
-
-
-
-
   $(document).ready ->
     #$.datepicker.setDefaults
      # 'dateFormat': 'yy-mm-dd'

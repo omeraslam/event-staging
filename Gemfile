@@ -39,6 +39,15 @@ gem 'omniauth-google'
 # Use devise for authentication
 gem 'devise'
 
+gem 'devise_invitable'
+
+group :development, :test do
+
+	gem 'letter_opener'
+	gem 'email_spec'
+end
+
+
 # timepicker for choosing a date range
 gem 'jquery-timepicker-rails'
 
