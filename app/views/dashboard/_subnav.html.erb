@@ -124,8 +124,8 @@
   <% end %>
       <%= f.text_field :email, :class => '', :placeholder => 'Email'  %>
       <%= hidden_field_tag 'event_id', @event.id%>
-      <%= hidden_field_tag 'user_id', @event.user_id %>
-      <%= f.submit "Add guests", :class => 'btn btn-bordered hover-color' %>
+      <%= hidden_field_tag 'user_id', @event.user_id %> <br/>
+      <%= f.submit "Add guests", :class => 'btn btn-primary' %>
   <% end %>
 
 
