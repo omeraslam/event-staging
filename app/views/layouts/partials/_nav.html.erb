@@ -124,8 +124,10 @@
         <% if action_name != "show" and controller_name != "events" %>
          <a class="logo" href="/"><span>Event Create</span></a>
           <ul class="navbar-links">
+	          <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
+	
             <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
-            <li><%= link_to 'Create event', '/event-create', :class => 'btn'  %> </li>
+            <li><%= link_to 'Sign up free', '/event-create', :class => 'btn'  %> </li>
           </ul>
         <% end %>
 

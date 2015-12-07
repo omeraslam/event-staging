@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get '/privacy' => 'pages#privacy'
   
   get '/about' => 'pages#about'
+  get '/pricing' => 'pages#pricing'
+
 
   get '/attendees/:id', to: 'attendees#index'
 
