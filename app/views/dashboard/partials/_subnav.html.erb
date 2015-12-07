@@ -97,7 +97,7 @@
             <h4>Edit event details </h4>
 
             <!-- start event form -->
-            <%= render 'form' %>
+            <%= render 'dashboard/partials/form' %>
         </section>
     </div>
 
@@ -139,27 +139,56 @@ $(document).ready(function(){
     });
 
 
-    switch($('.owl-item.active > div').attr('data-hash')) {
-        case 'invites':
-        $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
-        break;
-        case 'settings':
-        $('.event-sub-nav-trigger[data-target="2"]').addClass('active');
-        break;
-        default:
-        $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
-        break;
+    owl.on('changed.owl.carousel', function(event) {
+        var slug = (window.location.href).split('#')[1];
+        highlightNavItem(slug);
+    });
+
+    function highlightNavItem(slug) {
+        $('.event-sub-nav-trigger.active').removeClass('active');
+
+        switch(slug) {
+            case 'invites':
+                $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
+            break;
+            case 'settings':
+                $('.event-sub-nav-trigger[data-target="2"]').addClass('active');
+            break;
+            default:
+                $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
+            break;
+        }
+
     }
+
+    var slug = (window.location.href).split('profile#')[1];
+    highlightNavItem(slug)
 
 
     $('.event-sub-nav-trigger').click(function(){
         
         var dest = parseInt($(this).data('target'));
-        $('.event-sub-nav-trigger.active').removeClass('active');
-        $(this).addClass('active');
+
+        var url = window.location.href;
+        var n = url.indexOf('#');
+        url = url.substring(0, n != -1 ? n : url.length);
+        var slug = 'attendees';
+        switch(dest) {
+            case 1:
+            slug = 'invites'
+            break;
+            case 2:
+            slug = 'settings'
+            break;
+            default: 
+            slug = 'attendees';
+            break;
+        }
+        window.location.href = url + '#'+slug
         owl.trigger('to.owl.carousel', [dest])
 
     });
+    
 
 
 });

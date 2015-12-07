@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
   get 'dashboard/index'
-
   get 'dashboard/event'
-
   get 'dashboard/past'
+  get 'dashboard/profile'
 
   resources :urls, only: [:new, :create]
 
