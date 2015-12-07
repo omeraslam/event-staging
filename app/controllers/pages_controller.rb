@@ -15,6 +15,10 @@ class PagesController < ApplicationController
   def about
   end
 
+	
+	def pricing
+	end
+
   def error404
   end
 end
