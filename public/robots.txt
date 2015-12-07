@@ -3,3 +3,4 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
 # Disallow: /
+SITEMAP: http://www.eventcreate.com/sitemap.xml.gz

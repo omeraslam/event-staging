@@ -303,6 +303,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sitemap_generator (5.1.0)
+      builder
     spring (1.4.0)
     sprockets (2.12.4)
       hike (~> 1.2)
@@ -366,6 +368,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  sitemap_generator
   spring
   sqlite3
   therubyracer

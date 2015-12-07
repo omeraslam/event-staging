@@ -19,6 +19,8 @@ gem 'mandrill-api'
 #manage environment variables
 gem 'figaro'
 
+gem 'sitemap_generator'
+
 #s3 set up
 #gem 'aws-sdk', '~> 2'
 
