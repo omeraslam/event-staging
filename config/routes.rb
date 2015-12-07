@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     resources :events
   end
 
+  post '/attendees/invite', to: 'attendees#invite'
  
 
 
