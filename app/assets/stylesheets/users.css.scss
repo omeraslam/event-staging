@@ -356,6 +356,14 @@
 			color:#888;
 			display:block;
 			padding:10px 30px;
+
+			sup {
+			    background: #000;
+			    color: #fff;
+			    padding: 1px 4px;
+			    font-size: 8px;
+			    border-radius: 2px;
+			}
 			
 			&.active {
 				color:#21afbf;
