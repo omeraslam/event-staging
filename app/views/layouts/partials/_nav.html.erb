@@ -12,6 +12,8 @@
                 
                 <ul>        
                   <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+                   <li><a class="open-upgrade"><i class="icon icon-flag"> </i><span>Upgrade now </span> </a>  </li>
+                  
                   <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_profile_path, :class => 'icon icon-user open-menu'  %></li>
                 </ul>
             
@@ -99,6 +101,8 @@
             
             <ul class="navbar-links signed-in">
               <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+            
+              
                 <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_profile_path, :class => 'icon icon-user open-menu'  %></li>
                 
             </ul>
