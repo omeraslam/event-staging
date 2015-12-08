@@ -55,6 +55,7 @@
         <% end %>
 
 
+
     </div>
     
     
@@ -63,9 +64,9 @@
 
         <section> 
             <h4>Choose email type </h4>
-            <ul> 
-                <li><a href="#"><i class="icon icon-flag"> </i> <span>Save the Date </span></a></li>    
-                <li><a href="#" class=""><i class="icon icon-email"> </i> <span> Invitation</span> </a></li>
+            <ul id="mail_type"> 
+                <li><a href="#" data-id="2"><i class="icon icon-flag"> </i> <span>Save the Date </span></a></li>    
+                <li><a href="#" data-id="1" class=""><i class="icon icon-email"> </i> <span> Invitation</span> </a></li>
                 
             </ul>
         </section>
@@ -105,10 +106,13 @@
 <!--END event subnav-->
 
 
-<!--add user modal-->
+<!--add user modaadd-user-modall-->
 <div id="add-user-modal">
     <button data-remodal-action="close" class="remodal-close"></button>
     <h2>Add attendees</h2>
+     <p>
+        Add your attendee email addresses (comma separated or with line breaks). 
+    </p>
 
       <%= form_for(Attendee.new, url: attendees_invite_path) do |f| %>
   <% if Attendee.new.errors.any? %>
@@ -122,17 +126,16 @@
     </ul>
   </div>
   <% end %>
-      <%= f.text_field :email, :class => '', :placeholder => 'Email'  %>
+      <%= f.text_area :email , :class => '', :placeholder => 'Email', rows: '4' %>
       <%= hidden_field_tag 'event_id', @event.id%>
+      <%= hidden_field_tag 'event_type', @type_id%>
       <%= hidden_field_tag 'user_id', @event.user_id %> <br/>
       <%= f.submit "Add guests", :class => 'btn btn-primary' %>
   <% end %>
 
 
 
-   <!--  <p>
-        Add your attendee email addresses (comma separated or with line breaks). 
-    </p>
+   <!-- 
     <textarea rows="4"></textarea>
 
 
@@ -150,6 +153,13 @@ $(document).ready(function(){
     var inst = $('#add-user-modal').remodal();
     $('.openModal').click(function(){
         inst.open();
+    });
+
+    $('#mail_type a').on('click', function(e) {
+        e.preventDefault();
+        $('#mail_type a').removeClass('active');
+        $(this).addClass('active');
+        $('#event_type').val($(this).data('id'));
     });
 
     //init the owl carousel plugin  

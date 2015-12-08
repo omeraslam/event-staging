@@ -31,6 +31,7 @@ class AttendeesController < ApplicationController
     @current_user = User.find(params[:user_id])
     @attendee.user_id = params[:user_id]
     @event = Event.find_by id: params[:event_id]
+    @event_type = params[:event_type].nil? ? '1' : params[:event_type]
 
     @attendee.event_id =  @event.id.to_s
     @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
@@ -44,13 +45,14 @@ class AttendeesController < ApplicationController
         #if not equal to host
          if @attendee.id.to_s != @event.user_id.to_s
            #send guest rsvpd emails
-           
-           #UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
-           #UserMailer.rsvp_update(@current_user, @attendee, @event_url).deliver unless @attendee.invalid?
+           if @event_type == '1'
+             UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+            else
+             UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+           end
          else
            #send invitations sent emails
            #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
-           #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
          end
         
         format.html { redirect_to :back }

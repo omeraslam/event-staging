@@ -32,8 +32,18 @@ class UserMailer < ActionMailer::Base
         @attendee = attendee
         @event = event
         @url = eventurl
-        mail(to: @user.email, subject: "You've been invited!")
+        mail(to: @attendee.email, subject: "You've been invited!")
     end
+
+    def guest_save_date_sent(user, attendee, event, eventurl)
+        @user = user
+        @attendee = attendee
+        @event = event
+        @url = eventurl
+        mail(to: @attendee.email, subject: "Save The Date!")
+    end
+
+
     def invitation_sent(user, attendee, event, eventurl)
         @user = user
         @attendee = attendee
