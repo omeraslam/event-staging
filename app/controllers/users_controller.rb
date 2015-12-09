@@ -5,7 +5,65 @@ class UsersController < ApplicationController
   after_action :store_location
   before_action :authenticate_user!
 
+  def charge_card
 
+    @user = current_user
+    @user.premium = true
+
+
+    Stripe.api_key = "sk_test_mqAqte5NAiYcu3yPuTmmAL0N"
+
+     # Get the credit card details submitted by the form
+    token = params[:stripeToken]
+
+
+    logger.debug "charge it to the game: #{token}"
+
+    # Create a Customer
+    customer = Stripe::Customer.create(
+      :source => token,
+      :email => current_user.email,
+      :description => 'Test User'
+    )
+
+    # Charge the Customer instead of the card
+    Stripe::Charge.create(
+        :amount => 700, # in cents
+        :currency => "usd",
+        :customer => customer.id
+    )
+
+    @user.customer_id = customer.id
+    @user.update(user_params)
+
+    # respond_to do |format|
+    #   if @user.update(user_params)
+    #      format.html { redirect_to user_event_path(current_user, @event), notice: 'You are now a premium member.' }
+    #      #format.js
+    #      #format.json { render json: status: :ok}
+    #      #format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+    #   else
+    #      format.html { redirect_to user_event_path(current_user, @event), notice: "Sorry your family is poor." }
+    #      format.json { render json: @event.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+    # # YOUR CODE: Save the customer ID and other info in a database for later!
+
+    # # YOUR CODE: When it's time to charge the customer again, retrieve the customer ID!
+
+    # Stripe::Charge.create(
+    #   :amount   => 1500, # $15.00 this time
+    #   :currency => "usd",
+    #   :customer => customer_id # Previously stored, then retrieved
+    # )
+    
+  end
+
+
+    def user_params
+      params.require(:user).permit(:premium)
+    end
 
 
   # # GET /users/1

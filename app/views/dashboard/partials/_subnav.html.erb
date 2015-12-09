@@ -19,19 +19,18 @@
 
 <!--start event subnav-->
 <div class="event-actions dashboard-container owl-carousel">
+
+
     <!--start attendee section-->
     <div data-hash="attendees">
-
-    Number of Yes replies: <%= @attendee_count %>
-    Total guests: <%= @attendees.count() %>
         
         <% if !@attendees.empty? %>
-        <table style="text-align: left;">
+        <table>
             <thead>
                 <tr>
+                    <th>Name</th>
                     <th>Email Address</th>
                     <th>Will attend</th>  
-                    <th>Guest Actions</th>  
                     <th><a  class="btn btn-small openModal">add attendees </a></th>            
 
                 </tr>
@@ -40,17 +39,11 @@
             <tbody>
                 <% @attendees.each do |attendee| %>
                 <tr>
+                    <td><%= attendee.first_name %> <%= attendee.last_name %></td>
                     <td><%= attendee.email %></td>
                     <% if (attendee.user_id) == current_user.id.to_s %>
-                    <td> <%= attendee.attending? ? 'yes' : 'not yet replied' %></td>
-                    <td>
-                    
-                  <!--   <%=form_for(attendee) do |f| %>
-                        <%= hidden_field_tag 'attendee[attending]' , true %>
-                        <%= f.submit 'submit' %>
-                    <% end %> -->
-                       <%= link_to 'Edit', edit_attendee_path(attendee) %> | 
-                     <%= link_to 'Delete', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td> <%= attendee.attending %></td>
+                    <td><%= link_to 'Edit', edit_attendee_path(attendee) %> | <%= link_to 'Delete attendee', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                     <% end %>
                 </tr>
                 <% end %>
@@ -62,7 +55,6 @@
         <% end %>
 
 
-
     </div>
     
     
@@ -71,9 +63,9 @@
 
         <section> 
             <h4>Choose email type </h4>
-            <ul id="mail_type"> 
-               <!--  <li><a href="#" data-id="2" class="active"><i class="icon icon-flag"> </i> <span>Save the Date </span></a></li>    --> 
-                <li><a href="#" data-id="1" class="active"><i class="icon icon-email"> </i> <span> Invitation</span> </a></li>
+            <ul> 
+                <li><a href="#"><i class="icon icon-flag"> </i> <span>Save the Date </span></a></li>    
+                <li><a href="#" class=""><i class="icon icon-email"> </i> <span> Invitation</span> </a></li>
                 
             </ul>
         </section>
@@ -81,41 +73,9 @@
 
         <section> 
             <h4>Select recipients </h4>
-
-
-             <% if !@attendees.empty? %>
-        <table style="text-align: left;">
-            <thead>
-                <tr>
-                    <th>Email Address</th>
-                    <th>Will attend</th>  
-                    <th>Send Invite?</th>  
-                    <th><a  class="btn btn-small openModal">add attendees </a></th>            
-
-                </tr>
-            </thead>
-
-            <tbody>
-                <% @attendees.each do |attendee| %>
-                <tr>
-                    <td><%= attendee.email %></td>
-                    <% if (attendee.user_id) == current_user.id.to_s %>
-                    <td> <%= attendee.attending? ? 'yes' : 'not yet replied' %></td>
-                    <td>
-                    
-                    <% end %>
-                </tr>
-                <% end %>
-            </tbody>
-        </table>
-        
-        <% else %>
             <p> 
                 You don't have any guests yet. Get on that! <br> <a class="openModal">Let's add some attendees.</a>  
             </p>
-        <% end %>
-
-        
 
 
 
@@ -126,13 +86,8 @@
 
         </section>
 
-    <%= form_for :attendee,  url: attendees_send_invite_path,  :html => { :id => "send_invite" }  do |f| %>
+        <button class="btn btn-large">Send email </button>
 
-        <%= hidden_field_tag 'event_id', @event.id%>
-        <%= hidden_field_tag 'event_type2','1' %>
-        <%= hidden_field_tag 'user_id', @event.user_id %> <br/>
-        <%= f.submit 'Send email', class: 'btn btn-large' %>
-    <% end %>
     </div>
 
     <!--start invite section-->
@@ -142,7 +97,7 @@
             <h4>Edit event details </h4>
 
             <!-- start event form -->
-            <%= render 'form' %>
+            <%= render 'dashboard/partials/form' %>
         </section>
     </div>
 
@@ -150,13 +105,10 @@
 <!--END event subnav-->
 
 
-<!--add user modaadd-user-modall-->
+<!--add user modal-->
 <div id="add-user-modal">
     <button data-remodal-action="close" class="remodal-close"></button>
     <h2>Add attendees</h2>
-     <p>
-        Add your attendee email addresses (comma separated or with line breaks). 
-    </p>
 
       <%= form_for(Attendee.new, url: attendees_invite_path) do |f| %>
   <% if Attendee.new.errors.any? %>
@@ -170,16 +122,17 @@
     </ul>
   </div>
   <% end %>
-      <%= f.text_area :email , :class => '', :placeholder => 'Email', rows: '4' %>
+      <%= f.text_field :email, :class => '', :placeholder => 'Email'  %>
       <%= hidden_field_tag 'event_id', @event.id%>
-      <%= hidden_field_tag 'event_type', '1'%>
       <%= hidden_field_tag 'user_id', @event.user_id %> <br/>
       <%= f.submit "Add guests", :class => 'btn btn-primary' %>
   <% end %>
 
 
 
-   <!-- 
+   <!--  <p>
+        Add your attendee email addresses (comma separated or with line breaks). 
+    </p>
     <textarea rows="4"></textarea>
 
 
@@ -199,16 +152,8 @@ $(document).ready(function(){
         inst.open();
     });
 
-    $('#mail_type a').on('click', function(e) {
-        e.preventDefault();
-        $('#mail_type a').removeClass('active');
-        $(this).addClass('active');
-        $('#event_type, #event_type2').val($(this).data('id'));
-
-    });
-
     //init the owl carousel plugin  
-    var owl = $(".owl-carousel").owlCarousel({
+    var owl = $(".event-actions.owl-carousel").owlCarousel({
         items:1,
         autoHeight : true,
         URLhashListener:true,
@@ -216,27 +161,56 @@ $(document).ready(function(){
     });
 
 
-    switch($('.owl-item.active > div').attr('data-hash')) {
-        case 'invites':
-        $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
-        break;
-        case 'settings':
-        $('.event-sub-nav-trigger[data-target="2"]').addClass('active');
-        break;
-        default:
-        $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
-        break;
+    owl.on('changed.owl.carousel', function(event) {
+        var slug = (window.location.href).split('#')[1];
+        highlightNavItem(slug);
+    });
+
+    function highlightNavItem(slug) {
+        $('.event-sub-nav-trigger.active').removeClass('active');
+
+        switch(slug) {
+            case 'invites':
+                $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
+            break;
+            case 'settings':
+                $('.event-sub-nav-trigger[data-target="2"]').addClass('active');
+            break;
+            default:
+                $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
+            break;
+        }
+
     }
+
+    var slug = (window.location.href).split('profile#')[1];
+    highlightNavItem(slug)
 
 
     $('.event-sub-nav-trigger').click(function(){
         
         var dest = parseInt($(this).data('target'));
-        $('.event-sub-nav-trigger.active').removeClass('active');
-        $(this).addClass('active');
+
+        var url = window.location.href;
+        var n = url.indexOf('#');
+        url = url.substring(0, n != -1 ? n : url.length);
+        var slug = 'attendees';
+        switch(dest) {
+            case 1:
+            slug = 'invites'
+            break;
+            case 2:
+            slug = 'settings'
+            break;
+            default: 
+            slug = 'attendees';
+            break;
+        }
+        window.location.href = url + '#'+slug
         owl.trigger('to.owl.carousel', [dest])
 
     });
+    
 
 
 });

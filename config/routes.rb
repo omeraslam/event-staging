@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
   get 'dashboard/index'
-
   get 'dashboard/event'
-
   get 'dashboard/past'
+  get 'dashboard/profile'
 
   resources :urls, only: [:new, :create]
 
@@ -27,7 +26,7 @@ Rails.application.routes.draw do
 
 
   authenticated do
-    root :to => 'dashboard#index', as: :authenticated
+    #root :to => 'dashboard#index', as: :authenticated
   end
 
   root :to => 'pages#home'
@@ -46,7 +45,7 @@ Rails.application.routes.draw do
  
 
 
-
+  post '/users/:user_id/charge-card', to: 'users#charge_card', :as => :user_charge
 
   post '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
   put '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme'
