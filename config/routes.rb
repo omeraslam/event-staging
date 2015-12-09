@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   end
 
   post '/attendees/invite', to: 'attendees#invite'
+  put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
+
+  post '/attendees/send-invite', to: 'attendees#send_invite'
  
 
 

@@ -51,4 +51,6 @@ class UserMailer < ActionMailer::Base
         @url = eventurl
         mail(to: @user.email, subject: "Your invitation has been sent")
     end
+
+  
 end

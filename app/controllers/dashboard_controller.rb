@@ -33,8 +33,11 @@ class DashboardController < ApplicationController
 
 
   def event
-     @attendees = Attendee.all
-     #@attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+     #@attendees = Attendee.all
+     @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+     @attendee = Attendee.new
+     @attendee_count = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event], attending: true).count()
+
      @event = Event.find_by id: params[:event]
      #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
     respond_with(@attendees, @event)

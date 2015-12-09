@@ -7,6 +7,7 @@
   <h1>Hello <%= @attendee.first_name %>! </h1>
   <p>You've been invited to <%= @event.name %>, hosted by <%= @user.email %> on <%= @event.date_start.to_date.strftime("%B %e, %Y") %>. Check out the details of the event here:</p>
   <p>
+
     <%= link_to 'View your event', @url %>
   </p>
 </body>

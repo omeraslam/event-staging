@@ -17,7 +17,7 @@
 	      
 	      <div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
 				<div class="details"> 
-		  		
+		  		<%= event.id %>
 		  		<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
 	       
 		  		<div class="time">

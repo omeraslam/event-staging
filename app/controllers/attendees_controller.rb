@@ -13,6 +13,7 @@ class AttendeesController < ApplicationController
   end
 
   def show
+
     respond_with(@attendee)
   end
 
@@ -27,89 +28,167 @@ class AttendeesController < ApplicationController
 
   def invite
 
-    @attendee = Attendee.new(attendee_params)
-    @current_user = User.find(params[:user_id])
-    @attendee.user_id = params[:user_id]
-    @event = Event.find_by id: params[:event_id]
-    @event_type = params[:event_type].nil? ? '1' : params[:event_type]
+    logger.debug "Emails from form hash: #{attendee_params[:email]}"
+    @emails = attendee_params[:email].gsub(/\s+/, "")
+    @invalid_addresses = []
+    @valid_addresses = []
 
-    @attendee.event_id =  @event.id.to_s
-    @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
-
-
-
-    #@attendee.save
-
-    respond_to do |format|
-      if @attendee.save
-        #if not equal to host
-         if @attendee.id.to_s != @event.user_id.to_s
-           #send guest rsvpd emails
-           if @event_type == '1'
-             UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-            else
-             UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-           end
-         else
-           #send invitations sent emails
-           #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
-         end
-        
-        format.html { redirect_to :back }
-        format.json { render :show, status: :created, location: :back }
-        #send invite email to them now, thank you and sign up with hash
-        #
-      else
-        format.html { render :new }
-        format.json { render json: @attendee.errors, status: :unprocessable_entity }
+    @emails.split(",").each do |address|
+      if valid_email?(address, params[:event_id])
+        @valid_addresses.push(address)
+      else 
+        @invalid_addresses.push(address)
       end
     end
 
-    #redirect_to :back
-    #respond_with(@attendee)
+    # @attendee = Attendee.new(attendee_params)
+     @current_user = User.find(params[:user_id])
+     @attendee_user_id = params[:user_id]
+     @event = Event.find_by id: params[:event_id]
+     @event_type = params[:event_type].nil? ? '1' : params[:event_type]
+
+     @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+
+      @valid_addresses.each do |attendee_address|
+        logger.debug "emails to save: #{attendee_address}"
+        @attendee = Attendee.new
+        @attendee.email = attendee_address
+        @attendee.user_id = @attendee_user_id
+        @attendee.event_id = @event.id.to_s
+        @attendee.attending = false
+           if @attendee.save
+
+          #   if @attendee.id.to_s != @event.user_id.to_s
+          #     #send guest rsvpd emails
+          #     if @event_type == '1'
+          #       UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+          #     else
+          #       UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+          #     end
+          #   else
+          #      #send invitations sent emails
+          #      #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+          #   end
+
+
+           else
+
+           end
+
+      end
+
+    redirect_to dashboard_event_path(:event => @event.id) + '#invites'
+
+  end
+
+  def send_invite
+      @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event_id])
+
+
+
+      @attendee_user_id = params[:user_id]
+      @event = Event.find_by id: params[:event_id]
+      @event_type = params[:event_type2].nil? ? '1' : params[:event_type2]
+
+    
+
+        logger.debug "event type to send: #{@event_type}"
+
+        logger.debug "event to send: #{@event}"
+        logger.debug "attendee user id to send: #{@attendee_user_id}"
+
+       @attendees.each do |attendee|
+
+
+        logger.debug "attendees to send: #{attendee.email}"
+          @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  current_user.id.to_s + '/events/' +  @event.id.to_s + '?invited=true&amp;uid='+ attendee.id.to_s
+
+          if attendee.id.to_s != @event.user_id.to_s
+            #send guest rsvpd emails
+            if @event_type == '1'
+              UserMailer.guest_invitation_sent(current_user, attendee, @event, @event_url).deliver unless attendee.invalid?
+            else
+              UserMailer.guest_save_date_sent(current_user, attendee, @event, @event_url).deliver unless attendee.invalid?
+            end
+          else
+             #send invitations sent emails
+             #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+          end
+
+
+       end
+
+      redirect_to dashboard_event_path(:event => @event.id) + '#invites'
+  end
+
+  def reply
+
+    @attendee = Attendee.find(params[:id])
+     @attendee.attending = true
+    logger.debug "emails to save: #{@attendee}"
+     @attendee.update(attendee_params)
+    logger.debug "emails to save: #{@attendee.attending}"
+
+    # @attendee.attending = true
+    # @attendee.update(attendee_params)
+
+    # respond_with user_event_path
   end
 
 
 
   def create
-
-    @attendee = Attendee.new(attendee_params)
-    @current_user = User.find(params[:user_id])
-    @attendee.user_id = params[:user_id]
-    @event = Event.find_by id: params[:event_id]
-
-    @attendee.event_id =  @event.id.to_s
-    @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+    @attendee_user_id = params[:attendee_user_id]
 
 
 
-    #@attendee.save
+    if !@attendee_user_id.blank?
+      @attendee = Attendee.find(params[:attendee_user_id])
+      @attendee.update(attendee_params)
+      @event = Event.find_by id: params[:event_id]
+      logger.debug "emails to save: #{@attendee.email}"
+      
+    else
+      @attendee = Attendee.new(attendee_params)
+      @current_user = User.find(params[:user_id])
+      @attendee.user_id = params[:user_id]
+      @event = Event.find_by id: params[:event_id]
 
-    respond_to do |format|
-      if @attendee.save
-        #if not equal to host
-         if @attendee.id.to_s != @event.user_id.to_s
-           #send guest rsvpd emails
-           UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
-           UserMailer.rsvp_update(@current_user, @attendee, @event_url).deliver unless @attendee.invalid?
-         else
-           #send invitations sent emails
-           #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
-           #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-         end
-        
-        format.html { redirect_to :back }
-        format.json { render :show, status: :created, location: :back }
-        #send invite email to them now, thank you and sign up with hash
-        #
-      else
-        format.html { render :new }
-        format.json { render json: @attendee.errors, status: :unprocessable_entity }
+      @attendee.event_id =  @event.id.to_s
+      @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+
+
+
+      #@attendee.save
+
+      respond_to do |format|
+        if @attendee.save
+          #if not equal to host
+           if @attendee.id.to_s != @event.user_id.to_s
+             #send guest rsvpd emails
+             UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
+             UserMailer.rsvp_update(@current_user, @attendee, @event_url).deliver unless @attendee.invalid?
+           else
+             #send invitations sent emails
+             #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+             #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+           end
+          
+          format.html { redirect_to :back }
+          format.json { render :show, status: :created, location: :back }
+          #send invite email to them now, thank you and sign up with hash
+          #
+        else
+          format.html { render :new }
+          format.json { render json: @attendee.errors, status: :unprocessable_entity }
+        end
       end
     end
+    logger.debug "emails to save: #{current_user}"
+    logger.debug "emails to save: #{@event}"
+    redirect_to user_event_path(current_user, @event)
+      #respond_with(@attendee)
 
-    #redirect_to :back
-    #respond_with(@attendee)
   end
 
   def update
@@ -129,6 +208,15 @@ class AttendeesController < ApplicationController
     end
 
     def attendee_params
-      params.require(:attendee).permit(:first_name, :last_name, :email, :phone_number, :message, :attending)
+      params.require(:attendee).permit(:attending, :email, :first_name, :last_name)
+      #params.require(:attendee).permit(:first_name, :last_name, :email, :phone_number, :message, :attending)
     end
+
+    def valid_email?(email, event_id)
+      email_valid_check = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+      email.present? &&
+       (email =~ email_valid_check) &&
+       Attendee.find_by(email: email, event_id: event_id).nil?
+    end
+
 end
