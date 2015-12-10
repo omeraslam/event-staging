@@ -46,6 +46,8 @@ Rails.application.routes.draw do
 
 
   post '/users/:user_id/charge-card', to: 'users#charge_card', :as => :user_charge
+  put '/users/:user_id/cancel-subscription', to: 'users#cancel_subscription', :as => :cancel_subcription
+
 
   post '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
   put '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme'

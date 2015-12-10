@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 .quick-find-container {
 	display: inline-block;
 	position:relative;
@@ -417,8 +416,11 @@
 
 }
 
-
+.remodal-wrapper {
+	display: none;
+}
 #upgrade-modal {
+	//display: none;
 	padding:0;
 	text-align:center;
 	

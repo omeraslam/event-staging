@@ -11,7 +11,8 @@ class UsersController < ApplicationController
     @user.premium = true
 
 
-    Stripe.api_key = "sk_test_mqAqte5NAiYcu3yPuTmmAL0N"
+    Stripe.api_key = ENV['STRIPE_API_KEY']
+
 
      # Get the credit card details submitted by the form
     token = params[:stripeToken]
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
     # Create a Customer
     customer = Stripe::Customer.create(
       :source => token,
+      :plan => 'premium',
       :email => current_user.email,
       :description => 'Test User'
     )
@@ -58,6 +60,18 @@ class UsersController < ApplicationController
     #   :customer => customer_id # Previously stored, then retrieved
     # )
     
+  end
+
+  def cancel_subscription
+
+     logger.debug "customer id: #{@cu.id}"
+     logger.debug "subscription id: #{@cu.subscriptions.data[0].id}"
+
+    customer = Stripe::Customer.retrieve(@cu.id)
+    customer.subscriptions.retrieve(@cu.subscriptions.data[0].id).delete
+    # 
+    redirect_to dashboard_profile_path + '#billing'
+
   end
 
 

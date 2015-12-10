@@ -12,7 +12,7 @@
                 
                 <ul>        
 
-                  <% if current_user.premium != true %>
+                  <% if @is_premium != 'active' %>
                   <li><%= link_to '<span>New event</span>'.html_safe, '#', :class => 'icon icon-plus open-upgrade'  %> </li>
                    <li><a class="open-upgrade"><i class="icon icon-flag"> </i><span>Upgrade now </span> </a>  </li>
               
@@ -21,6 +21,16 @@
                   <% end %>
                   <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_profile_path, :class => 'icon icon-user open-menu'  %></li>
                 </ul>
+
+                <div class="signed-in-menu">
+              <ul>
+
+                <li><%=  link_to "My events", dashboard_index_path %> </li>
+                <li><%=  link_to "Create new event", '/event-create' %> </li> 
+                <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
+                <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
+              </ul>
+            </div>  
             
             </div>
             
@@ -35,7 +45,7 @@
 
                     
 
-                  <% if current_user.premium != true %>
+                  <% if @is_premium != 'active' %>
                 <li><%= link_to 'Create new event'.html_safe, '#', class: 'open-upgrade' %> </li>
                       
 
@@ -129,9 +139,6 @@
     
     <% end %>
               
-              
-<!--          <div class="cover"> </div>-->
-
           
     <!-- not signed in -->
     <% else %>

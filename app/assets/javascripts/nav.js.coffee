@@ -12,7 +12,7 @@ $(document).on 'ready page:load', ->
 #    ), ->
 #      $(images[$(this).index() - 1]).fadeOut 50
 #      return
-  if $('.dashboard').length <= 0 
+  #if $('.dashboard').length <= 0 
       $('.open-menu, .cover').click (e) ->
         $('nav').toggleClass 'menu-open'
         e.preventDefault()

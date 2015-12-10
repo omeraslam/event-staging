@@ -21,6 +21,9 @@
 //= require best_in_place
 //= require best_in_place.jquery-ui
 //= require nav
+//= require vendor/owl.carousel.min
+//= require vendor/remodal
+//= require jquery.payment
 //= require turbolinks
  
 

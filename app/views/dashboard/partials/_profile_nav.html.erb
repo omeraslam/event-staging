@@ -46,7 +46,19 @@
         <section> 
             <h4>Credit Card Information </h4>
             
-            some credit card form
+
+           <% if !@cu.subscriptions.data[0].nil? %> 
+
+           <p>Credit Card: **** **** **** ****<%= @cu.sources.data[0].last4 %></p>
+           <p> Current period end: <%= @cu.subscriptions.data[0].current_period_end %></p>
+           <p> Current plan type end: <%= @cu.subscriptions.data[0].plan.name %></p>
+           <p> Current plan type end: $<%= @cu.subscriptions.data[0].plan.amount.to_i/100%>/<%= @cu.subscriptions.data[0].plan.interval%></p>
+           <p> Current plan status: <%= @cu.subscriptions.data[0].status %></p>
+           <%= link_to 'Cancel Subscription', cancel_subcription_path(current_user), method: :put %>
+           <% else %>
+
+                   <a class="open-upgrade">Upgrade now </a> 
+            <% end %>
         </section>
 
 

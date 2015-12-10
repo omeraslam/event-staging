@@ -37,8 +37,11 @@
   
   <%= render 'layouts/partials/nav' %>
   <%= render 'layouts/partials/alert' %>
-  
+
+
+<% if signed_in? && @is_premium != 'active'  %>
   <%= render 'partials/upgrademodal' %>
+<% end %>
   <%= yield %>
 
 

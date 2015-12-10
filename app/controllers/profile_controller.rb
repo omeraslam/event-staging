@@ -40,6 +40,8 @@ class ProfileController < ApplicationController
   end
 
   def profile
+
+
     
   end
 
