@@ -75,8 +75,20 @@ class UsersController < ApplicationController
   end
 
 
+  def update_password
+    @user = User.find(current_user.id)
+    if @user.update(user_params)
+      # Sign in the user by passing validation in case their password changed
+      sign_in @user, :bypass => true
+      redirect_to dashboard_profile_path + '#members'
+    else
+      render dashboard_profile_path + '#members'
+    end
+  end
+
+  private
     def user_params
-      params.require(:user).permit(:premium)
+        params.require(:user).permit(:premium,:password, :password_confirmation, :email)
     end
 
 

@@ -41,6 +41,12 @@ Rails.application.routes.draw do
     resources :events
   end
 
+  resource :user, only: [:edit] do
+    collection do
+      patch 'update_password'
+    end
+  end
+
   post '/attendees/invite', to: 'attendees#invite'
  
 

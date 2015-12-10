@@ -44,6 +44,10 @@ class DashboardController < ApplicationController
 
      #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
     respond_with(@attendees, @event)
+  end
+
+
+  def dashboard_delete
 
 
 
@@ -51,7 +55,7 @@ class DashboardController < ApplicationController
 
   def profile
 
-
+    @user = current_user
     
 
 
