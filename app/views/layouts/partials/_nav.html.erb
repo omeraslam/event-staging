@@ -100,18 +100,13 @@
                 
                 </ul>
                 
-                
-                          
-                              
-                
-                
     <% end %>
-              
             
      <!-- if not event pages or show page -->
-    <% if controller_name !="dashboard" && controller_name !="attendees" &&  (controller_name != "events" && action_name != 'show') %>
-   
-             <a class="logo" href="/"><span>Event Create</span></a>
+    <% if controller_name !="dashboard" && controller_name !="attendees" &&  (controller_name != "events" || action_name != 'show') %>
+            <a class="logo" href="/">
+              <span>Event Create</span>
+            </a>
             
             
             <ul class="navbar-links signed-in">
@@ -124,6 +119,7 @@
             
             <div class="signed-in-menu">
               <ul>
+
                 <li><%=  link_to "My events", dashboard_index_path %> </li>
                 <li><%=  link_to "Create new event", '/event-create' %> </li> 
                 <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
