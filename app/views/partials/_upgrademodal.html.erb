@@ -101,7 +101,8 @@
 				<div class="input-group input-group-centered" id="success">
 					<p> Thank you. Your account is now premium!</p>
 					<p> We've sent a receipt to <%=current_user.email%> </p>
-					<button type="submit" class="btn btn-large" data-remodal-action="confirm" class="remodal-confirm">Great! Let's make some events!</button>
+                    <%= link_to "Great! Let's make some events!",event_create_path, class: "btn btn-primary" %>
+                 
 				</div>
 			</div>    
 					

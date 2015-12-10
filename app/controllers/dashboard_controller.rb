@@ -28,6 +28,8 @@ class DashboardController < ApplicationController
   def past
     @attendee = Attendee.new
     @user = User.find(current_user.id)
+
+    @upcoming_events = @user.events.where("date_end > ?", Time.now.beginning_of_day)
     @events = @user.events.where("date_end < ?", Time.now.beginning_of_day)
   end
 

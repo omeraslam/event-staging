@@ -2,6 +2,7 @@
     
 
     <% if signed_in? %>    
+
 <!--    @rich, maybe this should be "dashboard" controller-->
   <% if (controller_name == "dashboard") or  (action_name == "index" and controller_name == "attendees") %>
             <div class="dashboard-header">
@@ -12,21 +13,27 @@
                 
                 <ul>        
 
-                  <% if @is_premium != 'active' %>
+                  <% if @is_premium != 'active' &&  @disable_create %>
                   <li><%= link_to '<span>New event</span>'.html_safe, '#', :class => 'icon icon-plus open-upgrade'  %> </li>
                    <li><a class="open-upgrade"><i class="icon icon-flag"> </i><span>Upgrade now </span> </a>  </li>
               
                   <% else %>
-    <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+                  <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
                   <% end %>
                   <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_profile_path, :class => 'icon icon-user open-menu'  %></li>
                 </ul>
 
                 <div class="signed-in-menu">
               <ul>
-
+                
                 <li><%=  link_to "My events", dashboard_index_path %> </li>
-                <li><%=  link_to "Create new event", '/event-create' %> </li> 
+                
+                  <% if @is_premium != 'active' &&  @disable_create %>
+                  <li><%=  link_to "Create new event", '#', :class => 'open-upgrade' %> </li> 
+                <% else %>
+                  <li><%=  link_to "Create new event", '/event-create' %> </li> 
+
+                <% end %>
                 <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
                 <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
               </ul>
@@ -45,12 +52,11 @@
 
                     
 
-                  <% if @is_premium != 'active' %>
-                <li><%= link_to 'Create new event'.html_safe, '#', class: 'open-upgrade' %> </li>
-                      
-
+                  
+                  <% if @is_premium != 'active' &&  @disable_create %>
+                    <li><%= link_to 'Create new event'.html_safe, '#', class: 'open-upgrade' %> </li>  
                   <% else %>
-                <li><%= link_to 'Create new event'.html_safe, '/event-create' %> </li>
+                    <li><%= link_to 'Create new event'.html_safe, '/event-create' %> </li>
                   <% end %>
 
 
@@ -120,7 +126,12 @@
             
             
             <ul class="navbar-links signed-in">
-              <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+
+              <% if @is_premium != 'active' &&  @disable_create %>
+              <li><%= link_to '<span>New event</span>'.html_safe, '#', :class => 'icon icon-plus open-upgrade'  %> </li>
+              <% else %>
+               <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+              <% end %>
             
               
                 <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_profile_path, :class => 'icon icon-user open-menu'  %></li>
@@ -131,7 +142,13 @@
               <ul>
 
                 <li><%=  link_to "My events", dashboard_index_path %> </li>
+
+              <% if @is_premium != 'active' &&  @disable_create %>
+                <li><%=  link_to "Create new event", '#', :class => 'open-upgrade' %> </li> 
+              <% else %>
                 <li><%=  link_to "Create new event", '/event-create' %> </li> 
+                
+              <% end %>
                 <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
                 <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
               </ul>

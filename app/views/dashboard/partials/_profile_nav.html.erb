@@ -50,7 +50,7 @@
            <% if !@cu.subscriptions.data[0].nil? %> 
 
            <p>Credit Card: **** **** **** ****<%= @cu.sources.data[0].last4 %></p>
-           <p> Current period end: <%= @cu.subscriptions.data[0].current_period_end %></p>
+           <p> Current period end: <%= Time.at(@cu.subscriptions.data[0].current_period_end).to_date.strftime('%B %d, %Y') %></p>
            <p> Current plan type end: <%= @cu.subscriptions.data[0].plan.name %></p>
            <p> Current plan type end: $<%= @cu.subscriptions.data[0].plan.amount.to_i/100%>/<%= @cu.subscriptions.data[0].plan.interval%></p>
            <p> Current plan status: <%= @cu.subscriptions.data[0].status %></p>
@@ -62,7 +62,6 @@
         </section>
 
 
-        <button class="btn btn-large">Update</button>
 
     </div>
 

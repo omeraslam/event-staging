@@ -5,8 +5,11 @@
 		<div id="intro">
 		 	<h1>create beautiful event websites and invites</h1>
 		 	<p>EventCreate is the easiest way to create dazzling event websites for conferences, parties or any occasion  </p>
+		 	<% if @is_premium != 'active' && @disable_create %>
+				<%= link_to 'Create my event website', '#', :class => 'btn btn-large open-upgrade'  %> 
+			<% else %>
 				<%= link_to 'Create my event website', '/event-create', :class => 'btn btn-large'  %> 
-		 	
+		 	<% end %>
 		 	
 		 	
 		 	<div class="examples">

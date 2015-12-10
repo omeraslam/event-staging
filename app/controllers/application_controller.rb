@@ -34,7 +34,16 @@ def check_member_type
     Stripe.api_key = ENV['STRIPE_API_KEY']
     @cu = Stripe::Customer.retrieve(current_user.customer_id)
 
+    logger.debug "app level customer id: #{@cu.id}"
+
     @is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
+    @count_events = Event.find(current_user.id)
+    @disable_create = current_user.events.count > 1
+
+    logger.debug "app level customer id: #{@disable_create}"
+
+
+
 
   end 
 end

@@ -25,7 +25,6 @@ $(document).ready(function(){
     $('.cc-cvc').payment('formatCardCVC');
 
       function stripeResponseHandler(status, response) {
-        alert('help')
         var $form = $('#payment-form');
 
         if (response.error) {
