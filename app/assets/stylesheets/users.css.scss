@@ -661,3 +661,58 @@
 
 
 
+
+
+#event-creation-modal {
+
+	max-width:800px;
+	text-align:center;
+	
+	h2 {
+		text-align:center;
+	
+	}
+	
+	.next-steps {
+	
+		.next-step-container {
+		
+			width:33%;
+			float:left;
+	
+			.next-step {
+				padding:20px;
+				
+				&:hover {
+					background:#21afbf;
+					color:#fff;
+					
+					
+				}
+			
+				i {
+					font-size:80px;
+					line-height:80px;
+				}
+				
+				p {
+					color:#444;
+					font-size:12px;
+					line-height:20px;
+				}
+				
+			}
+		
+		}
+		
+	
+	
+	}
+
+
+
+
+
+}
+
+
