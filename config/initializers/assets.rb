@@ -5,4 +5,12 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+Rails.application.config.assets.precompile += %w( editable/loading.gif )
+Rails.application.config.assets.precompile += %w( editable/clear.png )
+Rails.application.config.assets.precompile += %w( events.js )
+Rails.application.config.assets.precompile += %w( dashboard.js )
+Rails.application.config.assets.precompile += %w( registrations.js )
+Rails.application.config.assets.precompile += %w( pages.js )
+Rails.application.config.assets.precompile += %w( sessions.js )
+
 # Rails.application.config.assets.precompile += %w( search.js )

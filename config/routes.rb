@@ -1,17 +1,22 @@
 Rails.application.routes.draw do
 
+  get 'dashboard/index'
+  get 'dashboard/event'
+  get 'dashboard/past'
+  get 'dashboard/profile'
+
   resources :urls, only: [:new, :create]
 
   resources :attendees
 
   get '/terms' => 'pages#terms'
   get '/privacy' => 'pages#privacy'
+  
+  get '/about' => 'pages#about'
+  get '/pricing' => 'pages#pricing'
 
 
   get '/attendees/:id', to: 'attendees#index'
-
-
-
 
   get '/dashboard', to: 'events#index'
 
@@ -21,7 +26,7 @@ Rails.application.routes.draw do
 
 
   authenticated do
-    root :to => 'events#index', as: :authenticated
+    #root :to => 'dashboard#index', as: :authenticated
   end
 
   root :to => 'pages#home'
@@ -36,13 +41,22 @@ Rails.application.routes.draw do
     resources :events
   end
 
+  resource :user, only: [:edit] do
+    collection do
+      patch 'update_password'
+    end
+  end
+
+  post '/attendees/invite', to: 'attendees#invite'
  
 
 
+  post '/users/:user_id/charge-card', to: 'users#charge_card', :as => :user_charge
+  put '/users/:user_id/cancel-subscription', to: 'users#cancel_subscription', :as => :cancel_subcription
 
 
-  post '/users/:id/events/:id/updatetheme', to: 'events#update_theme'
-
+  post '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
+  put '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

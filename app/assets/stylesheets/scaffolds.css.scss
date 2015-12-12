@@ -29,11 +29,8 @@ body {
   min-height: 100%;
  	position:relative;
  	transition: top .2s ease-in-out;
- 	top:0px;
-  
+ 	top:0px;  
 }
-
-
 
 p, ol, ul, td {
   font-size: $default-font-size;
@@ -56,20 +53,18 @@ pre {
   font-size: 11px;
 }
 
-
 a {
-  color: #21afbf;
+  color: $brand-primary;
   text-decoration: none;
   transition: all .4s ease;  
   background: none;
   
   &:hover {
-  	color: darken(#21afbf, 10%);
+  	color: darken($brand-primary, 10%);
   }
   &:visited {
   	//color: #21afbf;
   }
-  
   
 }
 
@@ -78,11 +73,8 @@ a {
 	
 }
 
-
-
-
 h1, h2, h3 {
-  font-weight:300;
+  font-weight:400;
 }
 
 h1 {
@@ -160,6 +152,55 @@ nav {
 		top:0;
 		z-index:10;
 		background:#1a1a1a;
+		
+		li {
+			position:relative;
+		
+		}
+		
+	  ul {
+	  	float:none;
+	  	position:absolute;
+	  	right:0;
+	  	width:100px;
+	  	background:#fff;
+	  	opacity:0;
+	  	visibility:hidden;
+	  	
+  			li {
+  				display:block;
+  					
+  				a {
+  					display:block;
+  					padding:12px 20px;
+  					color:#1a1a1a;
+  					
+  					&:hover {
+  						background:#21afbf;
+  						color:#fff;
+  					}
+  				}	
+  	
+  			}
+	  	
+	  }
+	
+
+		
+		&:hover {
+		
+			ul {
+				opacity:1;
+				visibility:visible;
+				width:300px;
+				//-webkit-animation: anim-jelly 0.8s linear forwards;
+				 //animation: anim-jelly 0.8s linear forwards;
+			}
+		}
+		
+		
+	
+		
 	
 		a {
 			font-size:18px;
@@ -216,6 +257,7 @@ nav {
 				background:#21afbf;
 				color:#fff;
 				
+				
 				span {
 					visibility:visible;
 					opacity:1;
@@ -238,6 +280,7 @@ nav {
   background-image: url(event_create_logo_simple.png);
   background-size:contain;
   float:left;
+  position:relative;
   
   span {
   	text-indent:-9999px; position:absolute;
@@ -270,7 +313,7 @@ nav.menu-open .cover {
 nav .signed-in-menu {
 	position: fixed;
   right: 0;
-  top:0;
+  top:61px;
   background-color: #fff;
   z-index:8;
   width:0;
@@ -278,10 +321,11 @@ nav .signed-in-menu {
   visibility:hidden;
   -webkit-transition: width 0.3s, height 0.3s;
   transition: width 0.3s, height 0.3s;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   
   ul {
   	float:none;
-  	margin:60px 0 20px;
+  	margin:20px 0;
   }
 
 	li {
@@ -479,6 +523,7 @@ footer {
       position: fixed;
       left: 20px;
       bottom: 20px;
+      float: left
     }
     form {
       height: 100%;
@@ -490,7 +535,7 @@ footer {
     
       width: 100%;
       display:block;
-      padding: 160px 0px;
+      padding: 160px 0px 0;
       min-height: 560px;
       transition: all .3s ease-out;
       position: absolute;
@@ -517,7 +562,13 @@ footer {
 }
 
 #default_bg_picker {
+  li {
+    width: 110px;
+    padding: 10px 2px;
+    cursor: pointer;
+  }
   img {
+    width: 100%;
     border: 2px solid transparent;
 
     &:hover, &.active {
@@ -732,6 +783,10 @@ footer {
   }
 }
 
+#btn-create {
+  display: none;
+}
+
 .btn, .carrier-wave-field input {
 		cursor:pointer;
     border: none;
@@ -751,6 +806,13 @@ footer {
     	
     
     }
+    
+    &.btn-small {
+    	padding: 8px 16px;
+			font-size:11px;    	
+    
+    }
+    
     
     
     &:hover {
@@ -775,6 +837,7 @@ footer {
 .container.simple {
   height: auto;
   background: #ccc;
+  min-height: 100%;
 
   h1 {
     font-size: 40px;
@@ -786,40 +849,9 @@ footer {
 }
 
 
-//
-//
-//.checkmarks {
-//  bottom: 0;
-//  position: absolute;
-//  width: 100%;
-//  z-index:1;
-//  text-align: center;
-//  ul {
-//    margin: 0;
-//    li {
-//    margin: 10px 10px 20px;
-//    padding: 30px;
-//    width:50px;
-//    height:50px;
-//    font-size: 40px;
-//    border: 2px solid #fff;
-//    border-radius:50%;
-//    opacity: .6;
-//    transition: opacity .2s ease-in-out;
-//
-//    &:hover {
-//      opacity: 1;
-//    }
-//    }
-//
-//  }
-//}
-//
-
-
-
 .sessions, .registrations {
 	background-image:url(registration2.jpg);
+  background-size: cover;
 
 	h1, h2, p {
 		color:#fff;
@@ -840,11 +872,13 @@ footer {
 }
 
 .events, .attendees {
-	background:#EFEFEF;
+	background:#fff;
 	color:#1a1a1a;
 }
 
 .attendees {
+
+
   
   h2 {
     text-align :center;
@@ -852,11 +886,11 @@ footer {
   table, td, th { 
     vertical-align: middle; 
     //border: none;
-    border: 1px solid #222;
     padding: 0;
     margin: 0;
-    text-align: center;
+    text-align: left;
     border-spacing: 0;
+    width:100%;
   }
 
   table
@@ -865,7 +899,14 @@ footer {
   }
 
   td, th {
-    padding: 10px 0;
+    padding: 12px 0;
+    font-weight: 400;
+    color: #888;
+  }
+  
+  td {
+  	width:25%;
+  	border-top:1px solid #DCDCDC;
   }
 
 
@@ -877,9 +918,7 @@ footer {
     width:100px;
   }
 
-  table {
-    margin: 20px auto;
-  }
+	
 }
 
 
@@ -1027,10 +1066,6 @@ input[name="event[style_id]"] {
     display: none;
 }
 
-#default_bg_picker li {
-  padding: 10px;
-  cursor: pointer;
-}
 
 .ui-autocomplete {
   width: 60% !important;
@@ -1056,7 +1091,10 @@ input[name="event[style_id]"] {
 @media screen and (max-width: 415px) {
 
 
+.sessions, .registrations {
 
+  background-size: initial;
+}
 
   nav ul a {
        padding: 10px;
@@ -1141,6 +1179,9 @@ input[name="event[style_id]"] {
 
 }
 
+
+
+
   .ui-timepicker-wrapper, .ui-datepicker {
       display: none;
       background: #fff;
@@ -1215,10 +1256,10 @@ input.date, input.time {
   float: right;
 }
 
-      #map {
-        z-index:10;
-        height: 300px;
-      }
+#map {
+  z-index:10;
+  height: 300px;
+}
 
 
 .pac-container {
@@ -1235,5 +1276,35 @@ input.date, input.time {
   font-family: Roboto;
   font-size: 13px;
   font-weight: 300;
+}
+
+.event-page .more {
+
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    font-size: 30px;
+    opacity: .6;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    transition: opacity .4s ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
+}
+
+.ui-autocomplete {
+
+	z-index:99999999;
+	max-width: 300px;
+	background: #fff;
+	box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+	
+	li {
+		cursor:pointer;
+	
+	}
 }
 

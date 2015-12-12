@@ -1,7 +1,15 @@
+<% title @event.name %>
+<% meta_description 'Create stunning websites in seconds.' %>
+
+
+
+
 <div class="container event-container">
 
-  <%= hidden_field_tag 'layout_id', @style_id %>
-  <%= hidden_field_tag 'layout_style', @style_layout %>
+  <%= hidden_field_tag 'layout_id', @event.layout_id %>
+  <%= hidden_field_tag 'layout_style', @event.layout_style %>
+  <%= hidden_field_tag 'show_custom', @event.show_custom %>
+  <%= hidden_field_tag 'bg', @event.background_img %>
 
 <!-- 
 
@@ -17,85 +25,108 @@
     
     <div class="event-details"> <%= @event.location %> </div>
   -->
+
+
   <div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+
    <div class="overlay"></div>
 
    <div class="event-details">
-    <% if(@event.time_display == false) %>
-      <% if(@event.date_start != '') %>
-        <%= @event.date_start.to_date.strftime("%B %d") %> 
-      <% end %>
-      <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
-        - <%= @event.date_end.to_date.strftime("%B %d") %> 
-      <% end %>
-      <% if(@event.time_start != '') %>
-        <%= @event.time_start.to_time.strftime("%l:%M %p") %>
-      <% end %>
-      <% if(@event.time_end != '') %>
-        - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
-      <% end %>
-     <%else%>
-     TBD
-     <%end%><br> <span class="location"><%= @event.location %></span> </div>
-     <div class="event-info">  
-      <h1> <%= @event.name %></h1>
-      <p class="event-description"><%= @event.description %> </p>
-      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
-    </div>
-  </div>
+    <% if(@event.time_display == false || !@event.date_start.nil? || !@event.date_start.blank? ) %>
+    <% if(@event.date_start != '') %>
+    <%= @event.date_start.to_date.strftime("%B") %> 
 
-  <div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+    <%= @event.date_start.to_date.strftime("%e") %><% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>,<% end %>
+    <% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>
+    <%= @event.date_start.to_date.strftime("%Y") %> 
+    <% end %>
+    <% end %>
+    <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
+    -   
+
+    <% if(@event.date_end.to_date.strftime("%B") != @event.date_start.to_date.strftime("%B")) %>
+    <%= @event.date_end.to_date.strftime("%B") %> 
+    <%end %>
+
+    <%= @event.date_end.to_date.strftime("%e, ") %>
+
+    <%= @event.date_end.to_date.strftime("%Y") %> 
+
+
+    <% end %>
+    <% if(@event.time_start != '') %> | 
+    <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+    <% end %>
+    <% if(@event.time_end != '' && ( @event.time_end != @event.time_start  )) %>
+    - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+    <% end %>
+    <%else%>
+    TBD
+    <%end%><br>  <%= best_in_place @event, :location, :url => update_event_path, :class => 'location' %> </div>
+    <div class="event-info">  
+     <h1> <%= best_in_place @event, :name, :url => update_event_path %></h1> 
+     <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %></p>
+     <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
+
+   </div>
+   <i class="more fa fa-chevron-down"></i>
+ </div>
+
+ <div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+
    <div class="overlay"></div>
    <div class="event-info">  
-    <h1> <%= @event.name %></h1>
+    <h1> <%= best_in_place @event, :name, :url => update_event_path %></h1>
     <div class="event-details"> 
       <% if(@event.time_display == false) %> 
-        <% if(@event.date_start != '') %>
-          <%= @event.date_start.to_date.strftime("%B %d") %> 
-        <% end %>
+      <% if(@event.date_start != '') %>
+      <%= @event.date_start.to_date.strftime("%B %d") %> 
+      <% end %>
       <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
-          - <%= @event.date_end.to_date.strftime("%B %d") %> 
-        <% end %>
-        <% if(@event.time_start != '') %>
-          <%= @event.time_start.to_time.strftime("%l:%M %p") %>
-        <% end %>
-        <% if(@event.time_end != '') %>
-          - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
-        <% end %>
+      - <%= @event.date_end.to_date.strftime("%B %d") %> 
+      <% end %>
+      <% if(@event.time_start != '') %>
+      <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+      <% end %>
+      <% if(@event.time_end != ''  && ( @event.time_end != @event.time_start  )) %>
+      - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+      <% end %>
       <%else%>
       TBD | 
       <%end%>
-      <span class="location"> <%= @event.location %></span>
-      </div>
-      <p class="event-description"><%= @event.description %> </p>
-
-      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
+      <span class="location"> <%= best_in_place @event, :location, :url => update_event_path %></span>
     </div>
-  </div> 
+    <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %> </p>
+
+    <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
+
+  </div>
+  <i class="more fa fa-chevron-down"></i>
+</div> 
 
 
 
 
-  <div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
-   <div class="overlay"></div>
-   <div class="event-info">  
-    <div class="event-time"> 
-      <% if(@event.time_display == false) %>  
-      <% if(@event.date_start != '') %>
-          <%= @event.date_start.to_date.strftime("%m.%d.%Y") %> 
-        <% end %>
+<div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+ <div class="overlay"></div>
+ <div class="event-info">  
+  <div class="event-time"> 
+    <% if(@event.time_display == false) %>  
+    <% if(@event.date_start != '') %>
+    <%= @event.date_start.to_date.strftime("%m.%d.%Y") %> 
+    <% end %>
 
-      <%else%> 
-        Date TBD Soon 
-      <%end%>  
-    </div>
-      <h1> <%= @event.name %> at <span class="location"> <%= @event.location %> </span> </h1>
-      <p class="event-description"><%= @event.description %> </p>
-      <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
-    </div>
-  </div> 
+    <%else%> 
+    Date TBD Soon 
+    <%end%>  
+  </div>
+  <h1> <%= best_in_place @event, :name, :url => update_event_path %> at <span class="location"> <%= best_in_place @event, :location, :url => update_event_path %> </span> </h1>
+  <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %> </p>
+  <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
 
-
+</div>
+<i class="more fa fa-chevron-down"></i>
+</div> 
 
 </div>
 
@@ -175,102 +206,17 @@
 
 
 
-    <div id="map"></div>
-
-<!-- 
-     <script>
-
-function initMap() {
+<div id="map"></div>
 
 
-     var geocoder, latlng;
-     geocoder = new google.maps.Geocoder();
+<%= render 'editor' %>
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-function showPosition(position) {
-    var lat = position.coords.latitude;
-    var long = position.coords.longitude;
-    latlng = new google.maps.LatLng(lat,long);
-}
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: latlng,
-    zoom: 13
-  });
-
-  codeAddress();
-  function codeAddress() {
-    var address = document.getElementsByClassName('location')[0].innerHTML == '' ? 'Los Angeles, CA' : document.getElementsByClassName('location')[0].innerHTML;
-    geocoder.geocode( {'address': address}, function(results, status) {
-      if(status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  }
-
-
-
-  var infowindow = new google.maps.InfoWindow();
-  var marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29)
-  });
-
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);  // Why 17? Because it looks good.
-    }
-    marker.setIcon(/** @type {google.maps.Icon} */({
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(35, 35)
-    }));
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
-
-    var address = '';
-    if (place.address_components) {
-      address = [
-        (place.address_components[0] && place.address_components[0].short_name || ''),
-        (place.address_components[1] && place.address_components[1].short_name || ''),
-        (place.address_components[2] && place.address_components[2].short_name || '')
-      ].join(' ');
-    }
-
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-    infowindow.open(map, marker);
-  });
-
-  // Sets a listener on a radio button to change the filter type on Places
-  // Autocomplete.
-
-}
-
-    </script>
- -->
 
 
 
 <script type="text/javascript">
 
- function startIntro(){
+function startIntro(){
   var intro = introJs();
   intro.setOptions({
     steps: [
@@ -305,22 +251,151 @@ function showPosition(position) {
 
 
 $( document ).ready(function() {
-	$("#event-share").click(function() {
+  $('.event-editor-background .image').removeClass().addClass('image '+ $('#layout_style').val());
+
+  $("#event-share").click(function() {
    $(".event-share").toggle();
  });
-	$("#share-url").val(window.location.href); 
-	$("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  window.location.href ); 
-	$("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  window.location.href ); 
-	
-	$(".theme").click(function() {
+  $("#share-url").val(window.location.href); 
+  $("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  window.location.href ); 
+  $("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  window.location.href ); 
+
+  $(".theme").click(function() {
    var theme = $(this).data("theme");
    $(".event-container").addClass(theme);
+   if($('.event-editor-background > a.default.highlight').length > 0) {
+    $('.event-page').css('background-image', '')
+  }
+
+  $('.event-editor-background .image').removeClass().addClass('image '+theme);
+
+});
+
+	//startIntro();
+
+
+
+
+
+
+  $('.toggleEditorPanel').click(function() {
+
+    var target = $(this).attr("id");
+    var linkActive = $("." + target).hasClass('active');    
+    var panelOpen = $('body').hasClass('editor-open');
+
+    
+    if (linkActive == false && panelOpen == false) {
+      $('body').addClass('editor-open'); 
+      
+      $(this).addClass('active')
+      $("." + target).addClass('active')
+      
+      $("." + target + " a").each(function(i) {
+        $(this).delay((i++) * 50).fadeTo(100, 1); 
+      });
+      
+
+    }
+    else if (linkActive == false && panelOpen == true) {
+      console.log('link active false');
+
+      $('.toggleEditorPanel').removeClass('active');
+      $(this).addClass('active');
+
+
+      $('.event-editor-container .active a').each(function(i) {
+        $(this).delay((i++) * 50).fadeTo(100, 0); 
+      });
+      
+      $('.event-editor-container .active').removeClass('active');
+      
+      $("." + target).addClass('active');   
+      
+      $("." + target + " a").each(function(i) {
+       $(this).delay((i++) * 50).fadeTo(100, 1); 
+     }); 
+      
+    }
+    else if (linkActive == true && panelOpen == true) {
+     console.log('link active true');
+
+     $(this).removeClass('active')
+
+     $('body').removeClass('editor-open');       
+     $('.event-editor-container .active a').each(function(i) {
+      $(this).delay((i++) * 50).fadeTo(100, 0); 
+    });
+
+     $('.event-editor-container .active').removeClass('active');
+
+
+   } 
+
 
  });
-	
-	//startIntro();
-});
+
+
+  //LOAD THE THEME AND CONSTRUCT
+
+  var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch";   
+  var layout = $('#layout_id').val()? $('#layout_id').val(): "1"; 
+
+
+
+
+  $('.theme.active').removeClass("active");
+  $('.event-container').removeClass(theme); 
+  $('.event-page.' + layout).removeClass('visible'); 
+
+  $('.theme#' + theme).addClass("active");
+
+
+  $('.event-container').addClass(theme); 
+  $('.event-page.' + layout).addClass('visible');    
+
+
+
+
+
+  
+  $('.theme').click(function() {
+
+    $('.theme.active').removeClass("active");
+    
+    $('.event-container').removeClass(theme); 
+    $('.event-page.' + layout).removeClass('visible'); 
+
+    $(this).addClass('active'); 
+    layout = $(this).data('layout'); 
+    theme = $(this).data('theme'); 
+
+    console.log('layout value: '+ layout + ' || layout style: '+ theme);
+    
+    $('.event-container').addClass(theme); 
+    $('.event-page.' + layout).addClass('visible'); 
+    
+    //MAKE AJAX CALL TO SAVE
+    saveTheme()
+
+    return false;
+
+  });
+  
+
+  function saveTheme() {
+    $.ajax({
+      type: 'POST',
+        url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
+        data: {event:{layout_id: layout, layout_style: theme}}
+      }).done(function(data){
+        console.log(data);
+      });
+    }
+
+  });
 
 
 
 </script>
+

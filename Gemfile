@@ -19,6 +19,10 @@ gem 'mandrill-api'
 #manage environment variables
 gem 'figaro'
 
+gem 'stripe'
+
+gem 'sitemap_generator'
+
 #s3 set up
 #gem 'aws-sdk', '~> 2'
 
@@ -39,8 +43,18 @@ gem 'omniauth-google'
 # Use devise for authentication
 gem 'devise'
 
+gem 'devise_invitable'
+
+group :development, :test do
+
+	gem 'letter_opener'
+	gem 'email_spec'
+end
+
+
 # timepicker for choosing a date range
 gem 'jquery-timepicker-rails'
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -48,6 +62,9 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+ 
+
+#gem 'x-editable-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -55,6 +72,11 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Use jquery-ui rails
 gem 'jquery-ui-rails'
+
+gem 'jquery-fileupload-rails'
+
+gem 'best_in_place', '~> 3.0.1'
+
 # Use jquery validation
 gem 'jquery-validation-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

@@ -1,44 +1,52 @@
-<div class="container">
-  <% @event.each do |event| %>
-<h2>Guest List for
-<strong><%= event.name %></strong>
-</h2>
-<% end %>
 
-    <% if !@attendees.empty? %>
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th><!-- 
-      <th colspan="3"></th> -->
-    </tr>
-  </thead>
+<!--START event navigation-->
 
-  <tbody>
-    <% @attendees.each do |attendee| %>
-      <tr>
-        <td><%= attendee.first_name %></td>
-        <td><%= attendee.last_name %></td>
-        <td><%= attendee.email %></td>
-        <% if (attendee.user_id) == current_user.id.to_s %>
-   <!--      <td><%= link_to 'Show', attendee %></td>
-     
-        <td><%= link_to 'Edit', edit_attendee_path(attendee) %></td>
-        <td><%= link_to 'Destroy', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
-         <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="event-header dashboard-container"> 
 
-    <% else %>
-       No guests!
-    <% end %>
+	<div class="event-meta"> 
+	  <% @style_bg = '/assets/' + @event.layout_style.to_s + '.jpg' %>
+		
+		<!-- <a href="#" class="thumb" style="background-image:url(<%= @style_bg %>);"> 
+			<div class="thumb-cover"> </div> 
+			<div class="thumb-action"><i class="icon icon-share-window"> </i> </div> 
+		</a> -->
 
-</div><!-- 
-<br>
+		
+		<%= link_to user_event_path(@event.user_id, @event), :class => 'thumb', :style => "background-image:url(" + @style_bg + ");",  :target => '_blank'  do %>
+			<div class="thumb-cover"> </div> 
+			<div class="thumb-action"><i class="icon icon-share-window"> </i> </div> 
+		<% end %>
 
-<%= link_to 'New Attendee', new_attendee_path %>
- -->
+
+		<h1> 	<%= @event.name  %> </h1>
+		<p class="lead">
+			<%= @event.date_start.to_date.strftime("%B %d") %>
+		</p>
+	</div>
+	
+	<div class="event-status"> 
+		<div class="status" style="display: none;">Live </div>
+		<div class="status-date" style="display: none;">Event last updated November 1, 2015 </div>
+	</div>
+
+</div>
+
+
+
+<div class="event-navigation dashboard-container"> 
+		<ul>
+			<li> <a  class="active event-sub-nav-trigger" data-target="0">  attendees </a> </li>		
+			<li> <a  class=" event-sub-nav-trigger" data-target="1" >  emails </a> </li>
+			<li>  
+			
+
+		<%= link_to user_event_path(@event.user_id, @event),  :target => '_blank'  do %>
+			website <i class="icon icon-share-window"> </i>
+		<% end %>
+
+
+			</li>			
+		</ul>
+</div>
+
+<%= render 'subnav' %>

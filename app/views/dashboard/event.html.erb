@@ -1,0 +1,34 @@
+
+<!--START event navigation-->
+
+<div class="event-header dashboard-container"> 
+
+	<div class="event-meta"> 
+		<% @style_bg = '/assets/' + @event.layout_style.to_s + '.jpg' %>
+		
+		<!-- <a href="#" class="thumb" style="background-image:url(<%= @style_bg %>);"> 
+			<div class="thumb-cover"> </div> 
+			<div class="thumb-action"><i class="icon icon-share-window"> </i> </div> 
+		</a> -->
+
+		
+		<%= link_to user_event_path(current_user, @event), :class => 'thumb', :style => "background-image:url(" + @style_bg + ");",  :target => '_blank'  do %>
+		<div class="thumb-cover"> </div> 
+		<div class="thumb-action"><i class="icon icon-share-window"> </i> </div> 
+		<% end %>
+
+
+		<h1> 	<%= @event.name  %> </h1>
+		<p class="lead">
+			<%= @event.date_start.to_date.strftime("%B %d") %>
+		</p>
+	</div>
+	
+	<div class="event-status"> 
+		<div class="status" style="display: none;">Live </div>
+		<div class="status-date" style="display: none;">Event last updated November 1, 2015 </div>
+	</div>
+
+</div>
+
+<%= render 'dashboard/partials/subnav' %>

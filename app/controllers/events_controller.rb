@@ -4,11 +4,13 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
 
-  respond_to :html, :js
+  respond_to :html, :js, :json
 
   # GET /events
   # GET /events.json
   def index
+
+
 
     @attendee = Attendee.new
     @user = User.find(current_user.id)
@@ -19,17 +21,31 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    # if @current_user.blank?
+    #   format.html { render :show }
+    # else
+    #   format.json { render :show }
+    # end
+    @user = User.find(params[:user_id])
+    @event = @user.events.find(params[:id])
+
+
     image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
     @attendee = Attendee.new
-    if(@event.layout_id?)
-      @style_id =  @event.layout_id
-      @style_layout =  @event.layout_style
-    else 
-      @style_id = '1'
-      @style_layout = 'brunch'
+
+  
+    if(!@event.layout_id?)
+       @event.layout_id = '1'
+       @event.layout_style = 'brunch'
     end
     # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
-    respond_with(@attendees)
+    respond_with(@attendees, @event)
+
+    # if @event.save
+
+    # else 
+
+    # end
 
 
   end
@@ -39,15 +55,30 @@ class EventsController < ApplicationController
     @user = User.find(current_user.id)
     @event = @user.events.find(params[:id])
 
-    @event.layout_id = params[:layout_id]
-    @event.layout_style = params[:layout_style]
+    # @event.layout_id = params[:layout_id]
+    # @event.layout_style = params[:layout_style]
+
+
+
+
+    # respond_to do |format|
+    #   if @event.update(event_params)
+    #     format.html {redirect_to user_event_path(current_user, @event)}
+    #     format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+    #   else
+    #     format.html {render :action => 'edit'}
+    #     format.json {render :json => @user.errors.full_messages, :status => :unprocessable_entity}
+    #   end
+    # end
 
 
     respond_to do |format|
       if @event.update(event_params)
-        format.html {redirect_to user_event_path(current_user, @event)}
-        format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+         #format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+         format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
+         format.html { render :edit }
+         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
 
@@ -56,8 +87,17 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @user = User.find(current_user.id)
-    @event = @user.events.build
+
+    if @is_premium != 'active' &&  @disable_create
+      redirect_to pricing_path
+    else 
+
+      @user = User.find(current_user.id)
+      @event = @user.events.build
+      
+    end 
+
+
   end
 
   # GET /events/1/edit
@@ -75,6 +115,10 @@ class EventsController < ApplicationController
     @event = @user.events.build(event_params)
     @event.user_id = current_user.id
     @event.style_id = params[:style_id]
+    @event.layout_style = 'brunch'
+    @event.layout_id = 1
+
+
 
 
     respond_to do |format|
@@ -91,15 +135,20 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+    
+    @user = User.find(params[:user_id])
+    @event = @user.events.find(params[:id])
     #@event.style_id = params[:style_id]
 
-    # @event.layout_id = params[:layout_id]
-    # @event.layout_style = params[:layout_style]
+    # 
+    
+   
 
 
     respond_to do |format|
       if @event.update(event_params)
          format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+         format.js
          format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
       else
          format.html { render :edit }
@@ -113,10 +162,12 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to user_events_path, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to dashboard_index_path, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -125,14 +176,14 @@ class EventsController < ApplicationController
       @event = @user.events.find(params[:id])
     end
 
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id, :layout_id, :layout_style, :location, :background_img)
+      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id,:layout_id, :layout_style, :location, :background_img, :show_custom)
 
       date_format = '%m/%d/%Y'
       #offset = Date.now.strftime("%z")
-      #
-      if valid[:time_display] == false
+      if !valid[:date_start].nil?
         valid[:date_start] = valid[:date_start] != '' ? Date.strptime(valid[:date_start], date_format) : valid[:date_start]
         valid[:date_end] = valid[:date_end] != '' ? Date.strptime(valid[:date_end], date_format): valid[:date_end]
       end
