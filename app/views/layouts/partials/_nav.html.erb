@@ -7,9 +7,11 @@
   <% if (controller_name == "dashboard") or  (action_name == "index" and controller_name == "attendees") %>
             <div class="dashboard-header">
             
+                  <% if @is_premium == 'active'  %>
                 <div class="quick-find-container">
                   <i class="icon icon-search"> </i> <input type="text" placeholder="quick find my events" id="tags">  
                 </div>
+                <% end %>
                 
                 <ul>        
 

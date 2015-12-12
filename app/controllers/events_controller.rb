@@ -87,8 +87,16 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @user = User.find(current_user.id)
-    @event = @user.events.build
+
+    if @is_premium != 'active' &&  @disable_create
+      redirect_to pricing_path
+    else 
+
+      @user = User.find(current_user.id)
+      @event = @user.events.build
+      
+    end 
+
 
   end
 
@@ -154,7 +162,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to user_events_path, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to dashboard_index_path, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
