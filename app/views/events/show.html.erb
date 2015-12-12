@@ -256,9 +256,9 @@ $( document ).ready(function() {
   $("#event-share").click(function() {
    $(".event-share").toggle();
  });
-  $("#share-url").val(window.location.href); 
-  $("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  window.location.href ); 
-  $("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  window.location.href ); 
+  //$("#share-url").val(window.location.href); 
+  $("#email-share").attr("href", "mailto:?subject=Join me at my event&body=Join me at my event. Register now at " +  $('#share-url').val() ); 
+  $("#twitter-share").attr("href", "http://twitter.com/home?status=Join me at my event. Register now at " +  $('#share-url').val() ); 
 
   $(".theme").click(function() {
    var theme = $(this).data("theme");

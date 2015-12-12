@@ -39,6 +39,15 @@ class EventsController < ApplicationController
        @event.layout_style = 'brunch'
     end
     # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
+
+
+    client = Bitly.client
+
+    @url = 'http://eventcreate.com/' + user_event_path(current_user, @event)
+
+    logger.debug "charge it to the game: #{@url}"
+    @bitly = client.shorten(@url)
+
     respond_with(@attendees, @event)
 
     # if @event.save
@@ -120,16 +129,12 @@ class EventsController < ApplicationController
 
 
 
+    # client = Bitly.client
+    # @url = client.shorten(params[:url])
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: user_event_path(current_user, @event) }
-      else
-        format.html { render :new }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
-    end
+
+
+
   end
 
   # PATCH/PUT /events/1
