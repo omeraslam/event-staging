@@ -2,8 +2,8 @@
 
 <div class="event-navigation dashboard-container"> 
     <ul>
-        <li> <a  class="event-sub-nav-trigger" data-target="0">  attendees </a> </li>       
-        <li> <a  class=" event-sub-nav-trigger" data-target="1" >  emails </a> </li>
+        <li> <a  class="event-sub-nav-trigger" data-target="0">  attendees  </a> </li>       
+        <li> <a  class=" event-sub-nav-trigger" data-target="1" >  emails <sup>beta</sup> </a> </li>
         <li> <a  class=" event-sub-nav-trigger" data-target="2" >  settings </a> </li>
         <li>  
             
@@ -110,12 +110,34 @@
     <button data-remodal-action="close" class="remodal-close"></button>
     <h2>Add attendees</h2>
 
-    <p>
+      <%= form_for(Attendee.new, url: attendees_invite_path) do |f| %>
+  <% if Attendee.new.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(Attendee.new.errors.count, "error") %> prohibited this attendee from being saved:</h2>
+
+    <ul>
+      <% Attendee.new.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+      <%= f.text_field :email, :class => '', :placeholder => 'Email'  %>
+      <%= hidden_field_tag 'event_id', @event.id%>
+      <%= hidden_field_tag 'user_id', @event.user_id %> <br/>
+      <%= f.submit "Add guests", :class => 'btn btn-primary' %>
+  <% end %>
+
+
+
+   <!--  <p>
         Add your attendee email addresses (comma separated or with line breaks). 
     </p>
     <textarea rows="4"></textarea>
 
-    <button class="btn btn-large" data-remodal-action="confirm" class="remodal-confirm">Add attendees</button>
+
+
+    <button class="btn btn-large" data-remodal-action="confirm" class="remodal-confirm">Add attendees</button> -->
 </div>
 
 

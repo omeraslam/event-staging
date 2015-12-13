@@ -876,7 +876,7 @@ footer {
 	color:#1a1a1a;
 }
 
-.attendees {
+.attendees, .dashboard {
 
 
   
@@ -901,6 +901,7 @@ footer {
   td, th {
     padding: 12px 0;
     font-weight: 400;
+    min-width: 120px;
     color: #888;
   }
   

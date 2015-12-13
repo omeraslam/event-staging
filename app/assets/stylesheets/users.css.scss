@@ -2,13 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 .quick-find-container {
 	display: inline-block;
 	position:relative;
 	line-height:18px;
 	margin-top: 7px;
-	
+
 		input {
 			padding: 10px 147px 10px 30px;
 			position:relative;
@@ -355,6 +354,14 @@
 			color:#888;
 			display:block;
 			padding:10px 30px;
+
+			sup {
+			    background: #000;
+			    color: #fff;
+			    padding: 1px 4px;
+			    font-size: 8px;
+			    border-radius: 2px;
+			}
 			
 			&.active {
 				color:#21afbf;
@@ -405,12 +412,13 @@
 		
 	}
 
-	
-
 }
 
-
+.remodal-wrapper {
+	display: none;
+}
 #upgrade-modal {
+	//display: none;
 	padding:0;
 	text-align:center;
 	
@@ -606,7 +614,7 @@
 				color:#888;
 				margin:2px 0;
 			}
-			
+
 			#lock {
 				position: absolute;
 				top: 29px;
@@ -644,65 +652,8 @@
 	
 	}
 	
-
-
-
-}
-
-
-
-
-
-#event-creation-modal {
-
-	max-width:800px;
-	text-align:center;
-	
-	h2 {
-		text-align:center;
-	
-	}
-	
-	.next-steps {
-	
-		.next-step-container {
-		
-			width:33%;
-			float:left;
-	
-			.next-step {
-				padding:20px;
-				
-				&:hover {
-					background:#21afbf;
-					color:#fff;
-					
-					
-				}
-			
-				i {
-					font-size:80px;
-					line-height:80px;
-				}
-				
-				p {
-					color:#444;
-					font-size:12px;
-					line-height:20px;
-				}
-				
-			}
-		
-		}
-		
-	
-	
+	form {
+		width: 100%;
 	}
 
-
-
-
-
 }
-
-

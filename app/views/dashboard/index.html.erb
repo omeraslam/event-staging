@@ -1,67 +1,74 @@
 <% title "Manage Events" %>
 <div class="container dashboard">
 
-  <h1>my events</h1>
-  <p class="lead"><% if @events.empty? %>
-  	You have no upcoming events
-  	<% else  %>
-  You're in the right place. Manage your events here.
-  <% end %> </p> 
-  <div class="events-list">
+	<h1>upcoming events</h1>
+	<p class="lead"><% if @events.empty? %>
+		You have no upcoming events
+		<% else  %>
+		You're in the right place. Manage your events here.
+		<% end %> </p> 
+		<div class="events-list">
 
-  	
-	  
-	  <% @events.each do |event| %>
-	  
-		  <div class="event">
-		  
-	     <% if(event.layout_style?) 
-	          @style_bg = '/assets/' + event.layout_style.to_s + '.jpg'
-	        else
-	          @style_bg = '/assets/brunch.jpg'
-	        end
-	     %>
-	      
-	      <div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
+
+			<% @event_num=0 %>
+			<%  @events.each do |event| %>
+			<div class="event">
+
+				<% if(event.layout_style?) 
+					@style_bg = '/assets/' + event.layout_style.to_s + '.jpg'
+				else
+					@style_bg = '/assets/brunch.jpg'
+				end
+				%>
+
+				<div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
 				<div class="details"> 
-		  		
-		  		<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
-	       
-		  		<div class="time">
-	          <% if(event.time_display == false) %> 
-			      <% if(event.date_start != '') %>
-			        <%= event.date_start.to_date.strftime("%B %d") %> 
-			      <% end %>
-			
-			      <% if(event.date_end != '' && event.date_end != event.date_start) %>
-			        - <%= event.date_end.to_date.strftime("%B %d") %> 
-			      <% end %>
-			
-			      <% if(event.time_start != '') %>
-			        <%= event.time_start.to_time.strftime("%l:%M %p") %>
-			      <% end %>
-			
-			      <% if(event.time_end != '') %>
-			        - <%= event.time_end.to_time.strftime("%l:%M %p") %> 
-			      <% end %>
-						<%else%>
-			      TBD
-			      <%end%> 
-	      </div>
-	      
-		  	<div class="registrants"> 
-					<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, user_event_path(@user, event), :target => '_blank' %>	  		
-		  	</div>
-		  	
-		  	
-		  	<div class="actions"> 
-		  		<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
-		  		<%= link_to 'Delete event', user_event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %>
-		  	</div>
-		  	
 
-		  	</div>
-			</div>	  
-		<% end %>
-  </div>
- </div>
+					<% if @is_premium != 'active' && @event_num >= 1 %>
+					<div class="title"><%= event.name %></div>
+					<% else %>
+
+					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
+					
+					<% end %>
+					<div class="time">
+						<% if(event.time_display == false) %> 
+						<% if(event.date_start != '') %>
+						<%= event.date_start.to_date.strftime("%B %d") %> 
+						<% end %>
+
+						<% if(event.date_end != '' && event.date_end != event.date_start) %>
+						- <%= event.date_end.to_date.strftime("%B %d") %> 
+						<% end %>
+
+						<% if(event.time_start != '') %>
+						<%= event.time_start.to_time.strftime("%l:%M %p") %>
+						<% end %>
+
+						<% if(event.time_end != '') %>
+						- <%= event.time_end.to_time.strftime("%l:%M %p") %> 
+						<% end %>
+						<%else%>
+						TBD
+						<%end%> 
+					</div>
+
+					<% if @is_premium == 'active' || @event_num == 0 %>
+					<div class="registrants"> 
+						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, user_event_path(@user, event), :target => '_blank' %>	  		
+					</div>
+
+
+					<div class="actions"> 
+						<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
+						<%= link_to 'Delete event', user_event_path(@user, event), method: :delete, data: { confirm: 'Are you sure?' } %>
+					</div>
+					<% end %>
+
+				</div>
+			</div>	
+			<% @event_num = 1 %>
+
+			<% end %>
+		</div>
+	</div>

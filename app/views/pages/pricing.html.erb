@@ -8,7 +8,10 @@
     
     <div class="plans"> 
     
-			<a class="plan-container"> 
+
+
+			<%= link_to new_user_registration_path, :class => 'plan-container'  do %>
+
 				<div class="plan">
 					<h2>Basic </h2>
 					<div class="price">Free</div>
@@ -20,12 +23,12 @@
 						<li>Powerful event anayltics</li>
 						<li>24/7 customer support </li>
 					</ul> 
-					<div class="btn">Choose plan </div>      				   
+					<div class="btn">Choose plan</div>      				   
 				</div>
-			</a>
+			<% end %>
     
 			    	
-			<a class="plan-container"> 
+			<%= link_to new_user_registration_path, :class => 'plan-container'  do %>
 				<div class="plan">
 					<h2>Premium </h2>
 					<div class="price">$7/mo</div>
@@ -41,10 +44,10 @@
 					</ul> 
 					<div class="btn">Choose plan </div>      				   
 				</div>
-			</a>
+			<% end %>
 			    	
 			
-			<a class="plan-container"> 
+			<%= link_to new_user_registration_path, :class => 'plan-container'  do %>
 				<div class="plan">
 					<h2>Pro </h2>
 					<div class="price">$19/mo</div>
@@ -60,7 +63,7 @@
 					</ul> 
 					<div class="btn">Choose plan </div>      				   
 				</div>
-			</a>
+			<% end %>
     	
     </div>
     

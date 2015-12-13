@@ -16,13 +16,12 @@
     <!--start attendee section-->
     <div data-hash="profile">
         
-       some member profile stats form
 
         <!-- profile settings form  -->
 
         <!-- still need to bind data // CURRENTLY NOT WORKING -->
 
-        <%= form_for(current_user) do |f| %>
+<!--         <%= form_for(current_user) do |f| %>
 
         <%= f.email_field :email %> <br/>
         <%= f.password_field :password %><br/>
@@ -33,9 +32,23 @@
         
 
 
+        <% end %> -->
+
+
+        <%= form_for(@user, :url => { :action => "update_password", :controller => "users" } ) do |f| %>
+          <div class="field">
+            <%= f.password_field :password, :autocomplete => "off", :placeholder => 'Password', :class => 'input-lg input-primary'   %>
+          </div>
+
+          <div class="field">
+            <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :class => 'input-lg input-primary' %>
+          </div>
+          <div class="action_container">
+            <%= f.submit 'Update', class: 'btn btn-primary' %>
+          </div>
         <% end %>
 
-        <%= link_to 'cancel my account', class: 'btn btn-primary' %>
+      <!--   <%= link_to 'cancel my account', user_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-primary' %> -->
 
     </div>
     
@@ -46,11 +59,22 @@
         <section> 
             <h4>Credit Card Information </h4>
             
-            some credit card form
+
+           <% if !@cu.subscriptions.data[0].nil? %> 
+
+           <p>Credit Card: **** **** **** ****<%= @cu.sources.data[0].last4 %></p>
+           <p> Current period end: <%= Time.at(@cu.subscriptions.data[0].current_period_end).to_date.strftime('%B %d, %Y') %></p>
+           <p> Current plan type end: <%= @cu.subscriptions.data[0].plan.name %></p>
+           <p> Current plan type end: $<%= @cu.subscriptions.data[0].plan.amount.to_i/100%>/<%= @cu.subscriptions.data[0].plan.interval%></p>
+           <p> Current plan status: <%= @cu.subscriptions.data[0].status %></p>
+           <%= link_to 'Cancel Subscription', cancel_subcription_path(current_user), method: :put %>
+           <% else %>
+
+                   <a class="open-upgrade">Upgrade now </a> 
+            <% end %>
         </section>
 
 
-        <button class="btn btn-large">Update</button>
 
     </div>
 

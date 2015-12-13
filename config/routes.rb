@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
 
   authenticated do
-    root :to => 'dashboard#index', as: :authenticated
+    #root :to => 'dashboard#index', as: :authenticated
   end
 
   root :to => 'pages#home'
@@ -41,9 +41,21 @@ Rails.application.routes.draw do
     resources :events
   end
 
+  resource :user, only: [:edit] do
+    collection do
+      patch 'update_password'
+    end
+  end
+
+  post '/attendees/invite', to: 'attendees#invite'
+  put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
+
+  post '/attendees/send-invite', to: 'attendees#send_invite'
  
 
 
+  post '/users/:user_id/charge-card', to: 'users#charge_card', :as => :user_charge
+  put '/users/:user_id/cancel-subscription', to: 'users#cancel_subscription', :as => :cancel_subcription
 
 
   post '/users/:user_id/events/:id/updatetheme', to: 'events#update_theme', :as => :update_event
