@@ -7,7 +7,7 @@ class AttendeesController < ApplicationController
 
     @attendees = Attendee.all
      @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
-     @event = Event.where(id:params[:event])
+     @event = Event.find_by id: params[:event]
      #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
     respond_with(@attendees, @event)
   end
@@ -24,6 +24,50 @@ class AttendeesController < ApplicationController
 
   def edit
   end
+
+  def invite
+
+    @attendee = Attendee.new(attendee_params)
+    @current_user = User.find(params[:user_id])
+    @attendee.user_id = params[:user_id]
+    @event = Event.find_by id: params[:event_id]
+
+    @attendee.event_id =  @event.id.to_s
+    @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+
+
+
+    #@attendee.save
+
+    respond_to do |format|
+      if @attendee.save
+        #if not equal to host
+         if @attendee.id.to_s != @event.user_id.to_s
+           #send guest rsvpd emails
+           
+           #UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
+           #UserMailer.rsvp_update(@current_user, @attendee, @event_url).deliver unless @attendee.invalid?
+         else
+           #send invitations sent emails
+           #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+           #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+         end
+        
+        format.html { redirect_to :back }
+        format.json { render :show, status: :created, location: :back }
+        #send invite email to them now, thank you and sign up with hash
+        #
+      else
+        format.html { render :new }
+        format.json { render json: @attendee.errors, status: :unprocessable_entity }
+      end
+    end
+
+    #redirect_to :back
+    #respond_with(@attendee)
+  end
+
+
 
   def create
 

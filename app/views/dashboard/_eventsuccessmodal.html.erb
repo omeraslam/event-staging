@@ -1,0 +1,60 @@
+<!--upgrade modal-->
+<div id="event-creation-modal">
+
+	    <button data-remodal-action="close" class="remodal-close"></button>
+	    
+	    <h2>And you're done!</h2>
+	    <p>  
+	      That was easy! I hope you weren't expecting more work.
+	    </p>
+	    
+	    <div class="next-steps">
+	    	<a href="#" class="next-step-container"> 
+	    		<div class="next-step">
+		    		<i class="icon icon-line-computer"></i>
+		    		<h3>Preview your sites</h3> 
+		    		<p>Proin mattis ac mi vel aliquet. Morbi quis bibendum odio. In at auctor massa. Mauris molestie mattis ullamcorper.</p>
+	    		</div>
+	    	</a>
+					    	
+				<a href="#" class="next-step-container"> 
+					<div class="next-step">
+						<i class="icon icon-line-email"></i>
+						<h3>Send invites</h3> 
+						<p>Proin mattis ac mi vel aliquet. Morbi quis bibendum odio. In at auctor massa. Mauris molestie mattis ullamcorper.</p>
+					</div>
+				</a>  	
+				
+				<a href="#" class="next-step-container"> 
+					<div class="next-step">
+						<i class="icon icon-line-announcement"></i>
+						<h3>Go social</h3> 
+						<p>Proin mattis ac mi vel aliquet. Morbi quis bibendum odio. In at auctor massa. Mauris molestie mattis ullamcorper.</p>
+					</div>
+				</a>
+					    
+    </div>
+   		
+</div>
+<!-- END modal -->
+
+
+
+<script>
+
+$(document).ready(function(){
+
+			
+			
+		//modal
+    var eventModal = $('#event-creation-modal').remodal();
+    $('.open-event').click(function(){
+        eventModal.open();
+    });
+    
+    eventModal.open();
+
+});
+
+
+</script>

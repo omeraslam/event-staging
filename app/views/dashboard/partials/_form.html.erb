@@ -1,0 +1,182 @@
+
+<%= form_for [@event] do |f| %>
+  <% if @event.errors.any? %>
+    <div class="alert error">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+
+<div class="event-registration">
+    <h5>Title</h5> 
+  <div class="form-element"> 
+    <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+  </div>
+
+<h5>Event Date/Time</h5> 
+
+  <div class="form-element">
+<p id="datepairExample">
+  <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'start date', :value => ( !@event.date_start.blank? )? @event.date_start.to_date.strftime("%m/%d/%Y"): Date.current().to_date.strftime("%m/%d/%Y") %>
+  <%= f.text_field :time_start, :class => 'time start input-primary', :placeholder => 'start time', :value => ( !@event.time_start.blank? )? @event.time_start.to_time.strftime("%l:%M %p"):  Time.current().to_time.strftime("%l:%M %p") %> –
+  <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'end date (optional)', :value => (!@event.date_end.blank?)? @event.date_end.to_date.strftime("%m/%d/%Y"): Date.current().to_date.strftime("%m/%d/%Y") %>
+  <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'end time', :value => ( !@event.time_end.blank? )? @event.time_end.to_time.strftime("%l:%M %p"):  Time.current().to_time.strftime("%l:%M %p") %>
+
+</p>
+
+
+
+
+    or <label>
+    <%= f.check_box :time_display, :id => 'cb_time' %>TBD</label>
+<!-- 
+                         <label><input type="checkbox" id="cb_time" value="time_checkbox">TBD</label><br> -->
+
+ 
+  </div>
+<h5>Event Location</h5> 
+
+  <div class="form-element">
+    <%= f.text_field :location, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'Enter a Location' %>
+
+
+
+    <div id="map"></div>
+
+     <script>
+
+function initMap() {
+
+
+     var geocoder, latlng;
+     geocoder = new google.maps.Geocoder();
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    latlng = new google.maps.LatLng(lat,long);
+}
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: latlng,
+    zoom: 13,
+    disableDefaultUI: true,
+    scrollwheel: false
+
+  });
+
+  codeAddress();
+  function codeAddress() {
+    var address = document.getElementById('pac-input').value == '' ? 'Los Angeles, CA' : document.getElementById('pac-input').value;
+    geocoder.geocode( {'address': address}, function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
+
+  var input = /** @type {!HTMLInputElement} */(
+      document.getElementById('pac-input'));
+
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  //autocomplete.bindTo('bounds', map);
+
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
+
+  autocomplete.addListener('place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setIcon(/** @type {google.maps.Icon} */({
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }));
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
+
+  // Sets a listener on a radio button to change the filter type on Places
+  // Autocomplete.
+
+}
+
+    </script>
+
+
+
+  </div>
+  
+    <h5>Event Description</h5> 
+    
+  <div class="form-element">
+    <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+
+  </div>
+
+
+</div>
+
+
+
+    <%= f.submit "Update Event", :class => 'btn btn-large' %>
+ 
+<% end %>
+
+
+<!-- event form end -->
+

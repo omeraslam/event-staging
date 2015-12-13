@@ -5,7 +5,91 @@ class UsersController < ApplicationController
   after_action :store_location
   before_action :authenticate_user!
 
+  def charge_card
 
+    @user = current_user
+    @user.premium = true
+
+
+    Stripe.api_key = ENV['STRIPE_API_KEY']
+
+
+     # Get the credit card details submitted by the form
+    token = params[:stripeToken]
+
+
+    logger.debug "charge it to the game: #{token}"
+
+    # Create a Customer
+    customer = Stripe::Customer.create(
+      :source => token,
+      :plan => 'premium',
+      :email => current_user.email,
+      :description => 'Test User'
+    )
+
+    # Charge the Customer instead of the card
+    Stripe::Charge.create(
+        :amount => 700, # in cents
+        :currency => "usd",
+        :customer => customer.id
+    )
+
+    @user.customer_id = customer.id
+    @user.update(user_params)
+
+    # respond_to do |format|
+    #   if @user.update(user_params)
+    #      format.html { redirect_to user_event_path(current_user, @event), notice: 'You are now a premium member.' }
+    #      #format.js
+    #      #format.json { render json: status: :ok}
+    #      #format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+    #   else
+    #      format.html { redirect_to user_event_path(current_user, @event), notice: "Sorry your family is poor." }
+    #      format.json { render json: @event.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+    # # YOUR CODE: Save the customer ID and other info in a database for later!
+
+    # # YOUR CODE: When it's time to charge the customer again, retrieve the customer ID!
+
+    # Stripe::Charge.create(
+    #   :amount   => 1500, # $15.00 this time
+    #   :currency => "usd",
+    #   :customer => customer_id # Previously stored, then retrieved
+    # )
+    
+  end
+
+  def cancel_subscription
+
+     logger.debug "customer id: #{@cu.id}"
+     logger.debug "subscription id: #{@cu.subscriptions.data[0].id}"
+
+    customer = Stripe::Customer.retrieve(@cu.id)
+    customer.subscriptions.retrieve(@cu.subscriptions.data[0].id).delete
+    # 
+    redirect_to dashboard_profile_path + '#billing'
+
+  end
+
+
+  def update_password
+    @user = User.find(current_user.id)
+    if @user.update(user_params)
+      # Sign in the user by passing validation in case their password changed
+      sign_in @user, :bypass => true
+      redirect_to dashboard_profile_path + '#members'
+    else
+      render dashboard_profile_path + '#members'
+    end
+  end
+
+  private
+    def user_params
+        params.require(:user).permit(:premium,:password, :password_confirmation, :email)
+    end
 
 
   # # GET /users/1

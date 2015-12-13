@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [ :edit, :destroy]
+  before_action :set_event, only: [ :edit]
   after_filter :store_location
   before_filter :authenticate_user!, :except => [:show]
 
@@ -26,23 +26,24 @@ class EventsController < ApplicationController
     # else
     #   format.json { render :show }
     # end
-
     @event = Event.find_by_slug(params[:slug])
+
+    @user = User.find(@event.user_id)
 
     image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
     @attendee = Attendee.new
 
-  
-    # if(!@event.layout_id?)
-    #    @event.layout_id = '1'
-    #    @event.layout_style = 'brunch'
-    # end
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @event}
-    end
 
+
+    client = Bitly.client
+
+    @url = 'http://eventcreate.com/' + event_path(current_user, @event)
+
+    logger.debug "charge it to the game: #{@url}"
+    @bitly = client.shorten(@url)
+
+    respond_with(@attendees, @event)
 
     # if @event.save
 
@@ -74,8 +75,16 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @user = User.find(current_user.id)
-    @event = Event.all.build
+
+    if @is_premium != 'active' &&  @disable_create
+      redirect_to pricing_path
+    else 
+
+      @user = User.find(current_user.id)
+      @event = Event.all.build
+      
+    end 
+
   end
 
   # GET /events/1/edit
@@ -93,12 +102,17 @@ class EventsController < ApplicationController
     @event = Event.all.build(event_params)
     @event.user_id = current_user.id
     @event.style_id = params[:style_id]
+    @event.layout_style = 'brunch'
+    @event.layout_id = 1
+
+
+
+    # client = Bitly.client
+    # @url = client.shorten(params[:url])
 
     @event.layout_id = '1'
     @event.layout_style = 'brunch'
     @event.slug = @event.name.downcase.gsub(" ", "-")
-
-
 
 
     respond_to do |format|
@@ -140,9 +154,11 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+    @event = Event.find_by_slug(params[:id])
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_path, notice: 'Event was successfully destroyed.' }
+
+      format.html { redirect_to dashboard_index_path, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

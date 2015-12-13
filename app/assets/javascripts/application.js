@@ -20,11 +20,14 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require best_in_place
 //= require best_in_place.jquery-ui
+//= require nav
+//= require vendor/owl.carousel.min
+//= require vendor/remodal
+//= require jquery.payment
 //= require turbolinks
-//= require_tree .
+ 
 
-
-//= require datepair.min.js
-//= require jquery.datepair.min.js
+//= require vendor/datepair.min.js
+//= require vendor/jquery.datepair.min.js
 
 

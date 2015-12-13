@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <title><%= title %></title>
   <meta name="keywords" content="<%= meta_keywords %>" /> 
   <meta name="description" content="<%= meta_description %>" />
@@ -13,188 +12,132 @@
   <script src="//use.typekit.net/lkw3rge.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
   <!-- end load typekit font -->
+  
+  <!-- load typography.com -->
+  <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6635554/696128/css/fonts.css" />
+  <!-- end load typography.com -->
+  
 
   <!-- load fontawesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <!-- end fontawesome -->
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', controller_name, 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
-
-  <script src=""></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript">
+  // This identifies your website in the createToken call below
+    Stripe.setPublishableKey('pk_test_oG4ZLOai3M04d6IefMwBdbbP');
+    // ...
+  </script>
 </head>
 
-<!--<body <%= current_root_class %> >-->
 <body class="<%= controller.controller_name %>">
-    <nav>
-    
-   	<% if signed_in? %>
 
-   		
-   				  <% if action_name == "show" and controller_name == "events" %>
-   		     
-   						 <ul class="navbar-links signed-in">
-
-   							
-   	
-
-   								<li><%= link_to '<span>Home</span>'.html_safe, dashboard_path, :class => 'icon icon-home' %></li>
-<!--
-								  <li><a class="icon icon-hamburger toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
-								-->
-								
-   								<li style="display: none;">
-	   								<a class="icon icon-settings">	</a>
-	   								
-	   									<ul>
-												<li><a class="icon icon-edit-website toggleEditorPanel" id="event-editor-design">Change theme  <span>Change theme </span> </a></li>
-													  <li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"> Modify background   <span>Change background  </span> </a></li>
-													<li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"> Share event<span>Share </span></a> </li>
-													<li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();">Help<span>Help </span> </a></li>
-													<li>
-									  		
-	   									</ul>
-	   								
-	    								
-	   								
-	   							
-
-   								</li>
-								
-								
-					<!-- 				<li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %>
-									</li> -->
-   							
-   							</ul>
-   							
-   							
-   				   							
-   						   							
-   							
-   							
-   					<% end %>
-   						
-   					
-   	
-   				  <% if action_name != "show" or controller_name != "events" %>
-   				
-   						     <a class="logo" href="/"><span>Event Create</span></a>
-   								
-   								
-   								<ul class="navbar-links signed-in">
-   									<li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
-   										<li><%=  link_to '<span>Profile</span>'.html_safe, '/dashboard', :class => 'icon icon-user open-menu'  %></li>
-   										
-   								</ul>
-   								
-   								<div class="signed-in-menu">
-   									<ul>
-   										<li><%=  link_to "My events", '/dashboard' %> </li>
-   										<li><%=  link_to "Create new event", '/event-create' %> </li>	
-   										<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
-   										<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>				  		
-   									</ul>
-   								</div> 	
-   	
-   				<% end %>
-   						
-   					  
-<!--				  <div class="cover"> </div>-->
-
-					
   
-		<% else %>
-		
-       	<% if action_name != "show" and controller_name != "events" %>
-	       <a class="logo" href="/"><span>Event Create</span></a>
-					<ul class="navbar-links">
-						<li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
-						<li><%= link_to 'Create event', '/event-create', :class => 'btn'  %> </li>
-					</ul>
-		<% end %>
-		
-		<% end %>
-
-		</nav>
+  <%= render 'layouts/partials/nav' %>
+  <%= render 'layouts/partials/alert' %>
 
 
-<% if alert %>
-<p class="alert alert-danger"><%= alert %></p>
+<% if signed_in? && @is_premium != 'active'  %>
+  <%= render 'partials/upgrademodal' %>
 <% end %>
-
-<%= yield %>
+  <%= yield %>
 
 
 <footer>
-&copy; 2015 EventCreate. All rights reserved.
+  &copy; 2015 EventCreate. All rights reserved.
 </footer>
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-64644710-1', 'auto');
-  ga('send', 'pageview');
-
-
-		
-	</script>
-<script>
- if(document.getElementsByClassName('event-page').length > 0 ) {
+<!-- google analytics code -->
+  <script src="/assets/vendor/google-analytics.js"></script>
+<!-- end google analytics code -->
+   
+   <script>
+   if(document.getElementsByClassName('event-page').length > 0 ) {
 
 
-var initMap;
+    var initMap;
 
-initMap = function() {
+    initMap = function() {
 
-  var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
-  geocoder = void 0;
-  geocoder = new google.maps.Geocoder;
-  latlng = void 0;
-    map = new google.maps.Map(document.getElementById('map'), {
-    center: latlng,
-    zoom: 13,
-    disableDefaultUI: true,
-    zoomControl: false,
-    scrollwheel: false
+      var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
+      geocoder = void 0;
+      geocoder = new google.maps.Geocoder;
+      latlng = void 0;
+      var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: latlng,
+        zoom: 13,
+        disableDefaultUI: true,
+        zoomControl: false,
+        scrollwheel: false,
+        backgroundColor: 'none'
 
-  });
-  getLocation = function() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      x.innerHTML = 'Geolocation is not supported by this browser.';
-    }
-  };
-  showPosition = function(position) {
-    var lat, long;
-    lat = position.coords.latitude;
-    long = position.coords.longitude;
-    latlng = new google.maps.LatLng(lat, long);
-  };
-  codeAddress = function() {
-    var address;
-    address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
-    geocoder.geocode({
-      'address': address
-    }, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-      } else {
+      });
+
+      getLocation = function() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = 'Geolocation is not supported by this browser.';
+        }
+      };
+      showPosition = function(position) {
+        var lat, long;
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        latlng = new google.maps.LatLng(lat, long);
+      };
+      codeAddress = function() {
+        var address;
+
+        var styles = [
+          {
+            stylers: [
+              { hue: "#00ffe6" },
+              { saturation: -20 }
+            ]
+          },{
+            featureType: "road",
+            elementType: "geometry",
+            stylers: [
+              { lightness: 100 },
+              { visibility: "simplified" }
+            ]
+          },{
+            featureType: "road",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
+
+        address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
+        geocoder.geocode({
+          'address': address
+        }, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            map.setOptions({styles: styles});
+            map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location,
+              //icon: iconBase + 'schools_maps.png'
+            });
+
+
+          } else {
         //alert('Geocode was not successful for the following reason: ' + status);
         alert('Location not found');
       }
     });
-  };
+      };
   // 
 
   codeAddress();
@@ -209,18 +152,18 @@ initMap = function() {
     codeAddress();
   }
 
-if($('.signed-in').length > 0 && $('.event-editor-container').length > 0) {
+if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
 
-  $('span[data-bip-attribute="location').bind('focusin', function() {
+    $('span[data-bip-attribute="location').bind('focusin', function() {
 
-    $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
+      $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
 
-    var input = /** @type {!HTMLInputElement} */(
+      var input = /** @type {!HTMLInputElement} */(
         document.querySelector('.visible span[data-bip-attribute="location"] input'));
-          var autocomplete = new google.maps.places.Autocomplete(input);
-  });
+      var autocomplete = new google.maps.places.Autocomplete(input);
+    });
   // on success of address input, recalculate map position
-   $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
+  $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
 
     $('span[data-bip-attribute="location"]').text($('.visible span[data-bip-attribute="location"]').text())
 
@@ -229,9 +172,9 @@ if($('.signed-in').length > 0 && $('.event-editor-container').length > 0) {
 
     setMapOnAll(null);
 
-   });
+  });
 
- }
+}
 
 };
 
@@ -240,8 +183,15 @@ if($('.signed-in').length > 0 && $('.event-editor-container').length > 0) {
 
 </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap"
-        async defer></script>
+
+
+
+
+<!-- load google map file only on dashboard edit event page and on event pages -->
+<% if controller_name == "events" || ( action_name == 'event' && controller_name == 'dashboard') %>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap" async defer></script>
+<% end %>
+<!-- end load google map -->
 
 </body>
 </html>

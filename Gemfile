@@ -19,6 +19,10 @@ gem 'mandrill-api'
 #manage environment variables
 gem 'figaro'
 
+gem 'stripe'
+
+gem 'sitemap_generator'
+
 #s3 set up
 #gem 'aws-sdk', '~> 2'
 
@@ -38,6 +42,15 @@ gem 'omniauth-twitter'
 gem 'omniauth-google'
 # Use devise for authentication
 gem 'devise'
+
+gem 'devise_invitable'
+
+group :development, :test do
+
+	gem 'letter_opener'
+	gem 'email_spec'
+end
+
 
 # timepicker for choosing a date range
 gem 'jquery-timepicker-rails'

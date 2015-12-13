@@ -3,9 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   after_filter :store_location
+  before_action :check_member_type
   
 
   helper :all
+
+
 
 
 
@@ -25,6 +28,26 @@ class ApplicationController < ActionController::Base
 
 end
 
+def check_member_type
+  if user_signed_in?
+
+    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+    @cu = Stripe::Customer.retrieve(current_user.customer_id)
+
+    logger.debug "app level customer id: #{@cu.id}"
+
+    @is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
+    @count_events = Event.where(user_id: current_user.id)
+    if !@count_events.empty?
+      @disable_create = @count_events.count > 1
+      logger.debug "app level customer id: #{@disable_create}"
+    end
+
+
+
+
+  end 
+end
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -43,28 +66,6 @@ end
     session[:previous_url] || root_path
   end
 
-
-
-
-
-#def current_root_class
-#  'class=pages' if controller_name == "pages"
-#  
-#end 
-
-
-def current_root_class
-	case controller_name
-		when 'pages'
-			 'class=pages'
-		when 'registrations'
-			 'class=registration'
-		when 'events'
-			 'class=events'
-		else 
-			 'class=standard'
-		end
-end 
 
 
 

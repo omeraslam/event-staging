@@ -1,0 +1,170 @@
+
+
+<div class="event-navigation dashboard-container"> 
+    <ul>
+        <li> <a  class="event-sub-nav-trigger" data-target="0">  member details </a> </li>       
+        <li> <a  class=" event-sub-nav-trigger" data-target="1" >  billing information </a> </li>
+        <li> <a  class=" event-sub-nav-trigger" data-target="2" >  host stats </a> </li>
+              
+    </ul>
+</div>
+
+<!--start event subnav-->
+<div class="event-actions dashboard-container owl-carousel">
+
+
+    <!--start attendee section-->
+    <div data-hash="profile">
+        
+
+        <!-- profile settings form  -->
+
+        <!-- still need to bind data // CURRENTLY NOT WORKING -->
+
+<!--         <%= form_for(current_user) do |f| %>
+
+        <%= f.email_field :email %> <br/>
+        <%= f.password_field :password %><br/>
+        <%= f.password_field :password_confirmation %><br/>
+        <%= f.password_field :current_password%><br/>
+
+        <%= f.submit 'Update', class: 'btn btn-primary' %>
+        
+
+
+        <% end %> -->
+
+
+        <%= form_for(@user, :url => { :action => "update_password", :controller => "users" } ) do |f| %>
+          <div class="field">
+            <%= f.password_field :password, :autocomplete => "off", :placeholder => 'Password', :class => 'input-lg input-primary'   %>
+          </div>
+
+          <div class="field">
+            <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :class => 'input-lg input-primary' %>
+          </div>
+          <div class="action_container">
+            <%= f.submit 'Update', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+
+      <!--   <%= link_to 'cancel my account', user_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-primary' %> -->
+
+    </div>
+    
+    
+    <!--start invite section-->
+    <div data-hash="billing">
+
+        <section> 
+            <h4>Credit Card Information </h4>
+            
+
+           <% if !@cu.subscriptions.data[0].nil? %> 
+
+           <p>Credit Card: **** **** **** ****<%= @cu.sources.data[0].last4 %></p>
+           <p> Current period end: <%= Time.at(@cu.subscriptions.data[0].current_period_end).to_date.strftime('%B %d, %Y') %></p>
+           <p> Current plan type end: <%= @cu.subscriptions.data[0].plan.name %></p>
+           <p> Current plan type end: $<%= @cu.subscriptions.data[0].plan.amount.to_i/100%>/<%= @cu.subscriptions.data[0].plan.interval%></p>
+           <p> Current plan status: <%= @cu.subscriptions.data[0].status %></p>
+           <%= link_to 'Cancel Subscription', cancel_subcription_path(current_user), method: :put %>
+           <% else %>
+
+                   <a class="open-upgrade">Upgrade now </a> 
+            <% end %>
+        </section>
+
+
+
+    </div>
+
+    <!--start invite section-->
+    <div data-hash="stats">
+
+        <section> 
+            <h4>Badges</h4>
+
+            random stats or badges as a host for gamification
+
+        </section>
+    </div>
+
+</div>  
+<!--END event subnav-->
+
+
+
+
+
+<script>
+
+$(document).ready(function(){
+
+    //init the remodal plugin. we have to init using js to avoid owl carousel conflict 
+    var inst = $('#add-user-modal').remodal();
+    $('.openModal').click(function(){
+        inst.open();
+    });
+
+    //init the owl carousel plugin  
+    var owl = $(".owl-carousel").owlCarousel({
+        items:1,
+        autoHeight : true,
+        URLhashListener:true,
+        startPosition: 'URLHash'   
+    });
+
+    owl.on('changed.owl.carousel', function(event) {
+        var slug = (window.location.href).split('profile#')[1];
+        highlightNavItem(slug);
+    });
+
+    function highlightNavItem(slug) {
+
+        $('.event-sub-nav-trigger.active').removeClass('active');
+        switch(slug) {
+            case 'billing':
+            $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
+            break;
+            case 'stats':
+            $('.event-sub-nav-trigger[data-target="2"]').addClass('active');
+            break;
+            default:
+            $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
+            break;
+        }
+
+    }
+
+    var slug = (window.location.href).split('profile#')[1];
+    highlightNavItem(slug)
+
+
+
+    $('.event-sub-nav-trigger').click(function(){
+        
+        var dest = parseInt($(this).data('target'));
+
+        var url = window.location.href;
+        var n = url.indexOf('#');
+        url = url.substring(0, n != -1 ? n : url.length);
+        var slug = 'members';
+        switch(dest) {
+            case 1:
+            slug = 'billing'
+            break;
+            case 2:
+            slug = 'stats'
+            break;
+            default: 
+            slug = 'members';
+            break;
+        }
+        window.location.href = url + '#'+slug
+        owl.trigger('to.owl.carousel', [dest])
+
+    });
+
+
+});
+</script>
