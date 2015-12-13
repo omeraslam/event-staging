@@ -24,11 +24,12 @@
 				<div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
 				<div class="details"> 
 
-					<% if @event_num == 0 %>
-					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
+					<% if @is_premium != 'active' && @event_num >= 1 %>
+					<div class="title"><%= event.name %></div>
 					<% else %>
 
-					<div class="title"><%= event.name %></div>
+					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
+					
 					<% end %>
 					<div class="time">
 						<% if(event.time_display == false) %> 
@@ -52,7 +53,7 @@
 						<%end%> 
 					</div>
 
-					<% if @event_num == 0 %>
+					<% if @is_premium == 'active' || @event_num == 0 %>
 					<div class="registrants"> 
 						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, user_event_path(@user, event), :target => '_blank' %>	  		
 					</div>

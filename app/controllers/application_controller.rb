@@ -35,8 +35,11 @@ def check_member_type
     @cu = Stripe::Customer.retrieve(current_user.customer_id)
     logger.debug "app level customer id: #{@cu.id}"
     @is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
-    @count_events = Event.find(current_user.id)
-    @disable_create = current_user.events.count > 1
+
+    logger.debug "current user: #{current_user}"
+
+    @count_events = Event.where(:user_id => current_user.id)
+    @disable_create = current_user.events.count > 1 && @is_premium != 'active'
     logger.debug "app level customer id: #{@disable_create}"
   end 
 end
