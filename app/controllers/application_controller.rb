@@ -29,18 +29,25 @@ class ApplicationController < ActionController::Base
 end
 
 def check_member_type
+
   if user_signed_in?
 
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-    @cu = Stripe::Customer.retrieve(current_user.customer_id)
-    logger.debug "app level customer id: #{@cu.id}"
-    @is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
+    if !current_user.customer_id.nil?
+      @cu = Stripe::Customer.retrieve(current_user.customer_id)
+      logger.debug "app level customer id: #{@cu.id}"
+      @is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
 
-    logger.debug "current user: #{current_user}"
+      logger.debug "current user: #{current_user}"
 
-    @count_events = Event.where(:user_id => current_user.id)
-    @disable_create = current_user.events.count > 1 && @is_premium != 'active'
-    logger.debug "app level customer id: #{@disable_create}"
+      @count_events = Event.where(:user_id => current_user.id)
+      @disable_create = current_user.events.count > 0 && @is_premium != 'active'
+      logger.debug "app level customer id: #{@disable_create}"
+    else
+      @cu = ''
+      @is_premium = false
+      @disable_create = current_user.events.count > 0
+    end
   end 
 end
 
