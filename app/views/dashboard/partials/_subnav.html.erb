@@ -23,6 +23,13 @@
 
     <!--start attendee section-->
     <div data-hash="attendees">
+
+
+
+    <%= link_to 'Download', dashboard_event_path(:event => @event.id, :format => :csv) %>
+    <%= link_to 'Print', dashboard_print_path(:event => @event.id) %>
+
+
         
         <% if !@attendees.empty? %>
         <table>

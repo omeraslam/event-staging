@@ -18,6 +18,12 @@ $(document).ready(function(){
         upgradeModal.open();
     });
     
+
+    var contactModal = $('#contact-modal').remodal();
+    $('.open-contact').click(function(){
+        contactModal.open();
+    });
+
     //stripe jquery validate plugin https://github.com/stripe/jquery.payment
       
     $('.cc-number').payment('formatCardNumber');

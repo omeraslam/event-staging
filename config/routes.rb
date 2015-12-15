@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'dashboard/event'
   get 'dashboard/past'
   get 'dashboard/profile'
+  get 'dashboard/print'
 
   resources :urls, only: [:new, :create]
 
