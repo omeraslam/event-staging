@@ -96,7 +96,7 @@
 
 .dashboard, .attendees {
 
-	background:#efefef;
+	background:#fff;
 	color:#444;
 	
 	.container {
@@ -200,18 +200,12 @@
 
 
 .dashboard-header {
-	top: 0;
-  left: 0;
-	position:fixed;
-	color:#fff;
-	background:#21afbf;
-	padding-left:250px;
-	width:100%;
+
 }
 
 .dashboard-container {
-	padding:20px 30px 20px 270px;
-
+	//padding:20px 30px 20px 270px;
+	padding:0 40px;
 
 
 }
@@ -219,15 +213,16 @@
 
 .event-header {
 
-	background:#fff;
+	background:#F5F5F5;
 
 	padding-top:130px;
 
 	.event-meta {
-		width:80%;
+		width:60%;
 		float:left;
 		
 		.thumb {
+			display:none;
 			width:120px;
 			height:100px;
 			-webkit-background-size: cover;
@@ -236,7 +231,6 @@
 			background-size: cover;
 			float:left;
 			position:relative;
-			display:block;
 			margin-right:20px;
 			
 			
@@ -276,7 +270,7 @@
 	
 	
 	.event-status {
-		width:14%;
+		width:40%;
 		float:right;
 		text-align:right;
 	
@@ -314,7 +308,7 @@
 
 
 .event-actions {
-	background:#efefef;
+	background:#fff;
 	padding-bottom:100px;
 
 }
@@ -324,7 +318,7 @@
 
 .event-navigation {
 
-	background:#fff;
+	background:#F5F5F5;
 	padding-top:100px;
 	padding-bottom:0;
 
@@ -351,7 +345,7 @@
 			font-size:12px;
 			text-transform:uppercase;
 			letter-spacing:1px;
-			color:#888;
+			color:#555;
 			display:block;
 			padding:10px 30px;
 

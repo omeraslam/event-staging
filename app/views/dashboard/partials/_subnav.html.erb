@@ -3,17 +3,8 @@
 <div class="event-navigation dashboard-container"> 
     <ul>
         <li> <a  class="event-sub-nav-trigger" data-target="0">  attendees  </a> </li>       
-        <li> <a  class=" event-sub-nav-trigger" data-target="1" >  emails <sup>beta</sup> </a> </li>
-        <li> <a  class=" event-sub-nav-trigger" data-target="2" >  settings </a> </li>
-        <li>  
-            
-
-            <%= link_to user_event_path(@event.user_id, @event),  :target => '_blank'  do %>
-            website <i class="icon icon-share-window"> </i>
-            <% end %>
-
-
-        </li>           
+        <li> <a  class=" event-sub-nav-trigger" data-target="1" >  emails  </a> </li>
+        <li> <a  class=" event-sub-nav-trigger" data-target="2" >  settings </a> </li>          
     </ul>
 </div>
 

@@ -1,6 +1,6 @@
+<%= eventurl = "www.eventcreate.com" + (url_for user_event_path(@event.user_id, @event)) %>
 
 <!--START event navigation-->
-
 <div class="event-header dashboard-container"> 
 
 	<div class="event-meta"> 
@@ -20,13 +20,21 @@
 
 		<h1> 	<%= @event.name  %> </h1>
 		<p class="lead">
-			<%= @event.date_start.to_date.strftime("%B %d") %>
+			<%= @event.date_start.to_date.strftime("%B %d") %> | Status: <span> Live </span>
 		</p>
 	</div>
 	
 	<div class="event-status"> 
-		<div class="status" style="display: none;">Live </div>
-		<div class="status-date" style="display: none;">Event last updated November 1, 2015 </div>
+		<div class="event-share">
+			<a class="btn" href="<%= eventurl %>" target="_blank"> view my website</a> 
+
+			<a class="circle" id="facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%= eventurl %>" target="_blank"><i class="icon icon-facebook"></i> </a> 
+			<a class="circle" id="twitter" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= eventurl %>" target="_blank"><i class="icon icon-twitter"></i> </a> 
+		</div>
+		<div class="event-link"><i class="icon icon-link"></i> <input type="text" value="<%= eventurl %>"  /> </div>
+		
+			
+
 	</div>
 
 </div>
