@@ -11,7 +11,9 @@
   <%= hidden_field_tag 'show_custom', @event.show_custom %>
   <%= hidden_field_tag 'bg', @event.background_img %>
 
+  <!-- contact host button -->
   <a href="#" class="open-contact">Contact Host</a>
+  <!-- end contact host button -->
 
 <!-- 
 
@@ -216,6 +218,10 @@
 
 <%= render 'editor' %>
 
+  <!-- contact host modal found at app/views/partials/_contact_host.html.erb -->
+<%= render 'partials/contact_host' %>
+  <!-- end contact host modal -->
+
 
 
 
@@ -278,7 +284,11 @@ $( document ).ready(function() {
 
 	//startIntro();
 
-
+    //contact host modal
+    var contactModal = $('#contact-modal').remodal();
+    $('.open-contact').click(function(){
+        contactModal.open();
+    });
 
 
 

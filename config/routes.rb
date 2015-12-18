@@ -52,6 +52,9 @@ Rails.application.routes.draw do
   put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
 
   post '/attendees/send-invite', to: 'attendees#send_invite'
+
+
+  post '/users/:user_id/events/:id/contact-host', to: 'events#contact_host', :as => :contact_host
  
 
 
