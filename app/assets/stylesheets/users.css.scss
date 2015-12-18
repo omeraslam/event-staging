@@ -105,13 +105,23 @@ $brand-primary: #21afbf;
 
 		}
 
-		h1 {
+	
+	h1 {
 		//font-family: "Whitney SSm A", "Whitney SSm B";
-		font-style: normal;
-		font-weight: 700;
-		margin:0;
-		font-size:40px;
-		color:#555;
+		// font-style: normal;
+		// font-weight: 700;
+		// margin:0;
+		// font-size:40px;
+		// color:#555;
+
+		// background:#fff;
+		// color:#444;
+	
+	.container {
+		padding: 120px 70px 70px 280px;
+	
+	}
+	
 
 	}
 	
@@ -200,19 +210,19 @@ $brand-primary: #21afbf;
 }
 
 
-.dashboard-header {
-	top: 0;
-	left: 0;
-	position:fixed;
-	color:#fff;
-	background:#21afbf;
-	padding-left:250px;
-	width:100%;
-}
+// .dashboard-header {
+// 	top: 0;
+// 	left: 0;
+// 	position:fixed;
+// 	color:#fff;
+// 	background:#21afbf;
+// 	padding-left:250px;
+// 	width:100%;
+// }
 
 .dashboard-container {
-	padding:20px 30px 20px 270px;
-
+	//padding:20px 30px 20px 270px;
+	padding:0 40px;
 
 
 }
@@ -220,15 +230,16 @@ $brand-primary: #21afbf;
 
 .event-header {
 
-	background:#fff;
+	background:#F5F5F5;
 
 	padding-top:130px;
 
 	.event-meta {
-		width:80%;
+		width:60%;
 		float:left;
 		
 		.thumb {
+			display:none;
 			width:120px;
 			height:100px;
 			-webkit-background-size: cover;
@@ -237,7 +248,6 @@ $brand-primary: #21afbf;
 			background-size: cover;
 			float:left;
 			position:relative;
-			display:block;
 			margin-right:20px;
 			
 			
@@ -277,7 +287,7 @@ $brand-primary: #21afbf;
 	
 	
 	.event-status {
-		width:14%;
+		width:40%;
 		float:right;
 		text-align:right;
 
@@ -315,7 +325,7 @@ $brand-primary: #21afbf;
 
 
 .event-actions {
-	background:#efefef;
+	background:#fff;
 	padding-bottom:100px;
 
 }
@@ -325,7 +335,7 @@ $brand-primary: #21afbf;
 
 .event-navigation {
 
-	background:#fff;
+	background:#F5F5F5;
 	padding-top:100px;
 	padding-bottom:0;
 
@@ -352,7 +362,7 @@ $brand-primary: #21afbf;
 			font-size:12px;
 			text-transform:uppercase;
 			letter-spacing:1px;
-			color:#888;
+			color:#555;
 			display:block;
 			padding:10px 30px;
 
@@ -646,15 +656,12 @@ $brand-primary: #21afbf;
 				border:1px solid red;
 
 			}
-			
-
 		}
 
 		input.btn-primary {
 			background: $brand-primary;
 			&:hover {
 				background: lighten($brand-primary, 10%);
-
 			}
 		}
 
@@ -665,8 +672,4 @@ $brand-primary: #21afbf;
 		width: 100%;
 	}
 
-}
-
-a.open-upgrade {
-	cursor:pointer;
 }

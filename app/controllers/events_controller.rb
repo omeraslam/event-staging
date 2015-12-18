@@ -122,9 +122,15 @@ class EventsController < ApplicationController
     @event.layout_style = 'brunch'
     @event.layout_id = 1
 
+    if @user.events.count >= 0
+      str = '?first=true'
+    else
+      str = ''
+    end
+
     respond_to do |format|
       if @event.save
-        format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully created.' }
+        format.html { redirect_to user_event_path(current_user, @event) + str, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: user_event_path(current_user, @event) }
       else
         format.html { render :new }

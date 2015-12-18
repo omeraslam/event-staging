@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
   def index
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = @user.events.where("date_end > ?", Time.now.beginning_of_day)
+    @events = @user.events.all
 
 
     respond_with(@attendee, @user, @events)
