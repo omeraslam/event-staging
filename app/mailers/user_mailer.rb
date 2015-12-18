@@ -19,6 +19,14 @@ class UserMailer < ActionMailer::Base
         mail(to: @user.email, subject: 'Your invitation has been sent')
     end
 
+    def contact_host(user, guest_name, message, event)
+        @user = user
+        @event = event
+        @name = guest_name
+        @message = message
+        mail(to: @user.email, subject: 'You have a message from your guest')
+    end
+
     def rsvp_update(user, attendee, eventurl)
         @user = user
         @response = (attendee.attending)? 'yes' : 'no'

@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  layout nil
+  layout 'application', :except => :print
 
 
   before_filter :authenticate_user!
@@ -35,18 +37,37 @@ class DashboardController < ApplicationController
 
 
   def event
-     #@attendees = Attendee.all
-     @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
-     @attendee = Attendee.new
-     @attendee_count = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event], attending: true).count()
 
-     @event = Event.find_by id: params[:event]
+    #@import = Attendee::Import.new
 
 
+    #@attendees = Attendee.all
+    @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+
+    @attendee = Attendee.new
+    @attendee_count = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event], attending: true).count()
+
+    @event = Event.find_by id: params[:event]
 
 
-     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
-    respond_with(@attendees, @event)
+
+
+    #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
+    logger.debug "ATTENDEE LIST IS: #{@attendees}"
+    respond_to do |format|
+      format.html
+      format.csv { send_data @attendees.to_csv }
+    end
+    #respond_with(@attendees, @event)
+  end
+
+  def print
+
+    @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+    @event = Event.find_by id: params[:event]
+    render :layout => false
+ 
+
   end
 
 

@@ -26,6 +26,10 @@
     Number of Yes replies: <%= @attendee_count %>
     Total guests: <%= @attendees.count() %>
         
+    <a href="">Download</a>
+    <a href="">Print</a>
+
+    <%link_to 'Download', dashboard_event_path(@event) + '.csv' %>
         <% if !@attendees.empty? %>
         <table style="text-align: left;">
             <thead>

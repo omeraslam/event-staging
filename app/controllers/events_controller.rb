@@ -9,9 +9,6 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-
-
-
     @attendee = Attendee.new
     @user = User.find(current_user.id)
     @events = @user.events
@@ -33,11 +30,11 @@ class EventsController < ApplicationController
     image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
     @attendee = Attendee.new
 
-  
+
     if(!@event.layout_id?)
-       @event.layout_id = '1'
-       @event.layout_style = 'brunch'
-    end
+     @event.layout_id = '1'
+     @event.layout_style = 'brunch'
+   end
     # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
     respond_with(@attendees, @event)
 
@@ -50,10 +47,25 @@ class EventsController < ApplicationController
 
   end
 
+  def contact_host
+    @guest_name = params[:name]
+    @message = params[:message]
+    @event = Event.find_by(params[:id])
+
+    UserMailer.contact_host(current_user, @guest_name, @message, @event).deliver
+
+    respond_with(current_user, @event)
+    # respond_to do |format|
+
+    #   format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+    # end
+  end
+
   def update_theme
 
     @user = User.find(current_user.id)
     @event = @user.events.find(params[:id])
+
 
     # @event.layout_id = params[:layout_id]
     # @event.layout_style = params[:layout_style]
@@ -76,13 +88,13 @@ class EventsController < ApplicationController
       if @event.update(event_params)
          #format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
          format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
-      else
+       else
          format.html { render :edit }
          format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
-    end
+       end
+     end
 
-  end
+   end
 
 
   # GET /events/new
@@ -94,7 +106,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    
+
   end
 
   # POST /events
@@ -110,9 +122,6 @@ class EventsController < ApplicationController
     @event.layout_style = 'brunch'
     @event.layout_id = 1
 
-
-
-
     respond_to do |format|
       if @event.save
         format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully created.' }
@@ -127,27 +136,21 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    
+
     @user = User.find(params[:user_id])
     @event = @user.events.find(params[:id])
     #@event.style_id = params[:style_id]
-
-    # 
-    
-   
-
-
     respond_to do |format|
       if @event.update(event_params)
-         format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
-         format.js
-         format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
-      else
-         format.html { render :edit }
-         format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+       format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
+       format.js
+       format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
+     else
+       format.html { render :edit }
+       format.json { render json: @event.errors, status: :unprocessable_entity }
+     end
+   end
+ end
 
   # DELETE /events/1
   # DELETE /events/1.json
@@ -182,4 +185,4 @@ class EventsController < ApplicationController
       #valid[:time_start] = Time.strftime('1:00am', time_format)
       return valid
     end
-end
+  end
