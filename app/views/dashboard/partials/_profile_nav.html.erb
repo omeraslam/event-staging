@@ -60,7 +60,7 @@
             <h4>Credit Card Information </h4>
             
 
-           <% if !@cu.subscriptions.data[0].nil? %> 
+           <% if @cu != '' && !@cu.subscriptions.data[0].nil? %> 
 
            <p>Credit Card: **** **** **** ****<%= @cu.sources.data[0].last4 %></p>
            <p> Current period end: <%= Time.at(@cu.subscriptions.data[0].current_period_end).to_date.strftime('%B %d, %Y') %></p>

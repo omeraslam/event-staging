@@ -17,7 +17,8 @@ $(document).ready(function(){
     $('.open-upgrade').click(function(){
         upgradeModal.open();
     });
-    
+
+
     //stripe jquery validate plugin https://github.com/stripe/jquery.payment
       
     $('.cc-number').payment('formatCardNumber');

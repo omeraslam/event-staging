@@ -799,6 +799,7 @@ footer {
     transition: all .2s ease-out;
     display:inline-block;
     -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
 
     &.btn-large {
     	padding: 16px 36px;
@@ -876,7 +877,7 @@ footer {
 	color:#1a1a1a;
 }
 
-.attendees {
+.attendees, .dashboard {
 
 
   
@@ -901,6 +902,7 @@ footer {
   td, th {
     padding: 12px 0;
     font-weight: 400;
+    min-width: 120px;
     color: #888;
   }
   

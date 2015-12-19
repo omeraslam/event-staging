@@ -19,12 +19,16 @@
 
 <!--start event subnav-->
 <div class="event-actions dashboard-container owl-carousel">
+
     <!--start attendee section-->
     <div data-hash="attendees">
 
     Number of Yes replies: <%= @attendee_count %>
     Total guests: <%= @attendees.count() %>
         
+   
+
+    <%link_to 'Download', dashboard_event_path(@event) + '.csv' %>
         <% if !@attendees.empty? %>
         <table style="text-align: left;">
             <thead>

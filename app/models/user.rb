@@ -5,7 +5,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook]
-  after_create :send_welcome_email 
+  after_create :send_welcome_email
+
+  include Gravtastic
+  gravtastic
 
   private
 

@@ -19,6 +19,14 @@ class UserMailer < ActionMailer::Base
         mail(to: @user.email, subject: 'Your invitation has been sent')
     end
 
+    def contact_host(user, guest_name, message, event)
+        @user = user
+        @event = event
+        @name = guest_name
+        @message = message
+        mail(to: @user.email, subject: 'You have a message from your guest')
+    end
+
     def rsvp_update(user, attendee, eventurl)
         @user = user
         @response = (attendee.attending)? 'yes' : 'no'
@@ -32,8 +40,18 @@ class UserMailer < ActionMailer::Base
         @attendee = attendee
         @event = event
         @url = eventurl
-        mail(to: @user.email, subject: "You've been invited!")
+        mail(to: @attendee.email, subject: "You've been invited!")
     end
+
+    def guest_save_date_sent(user, attendee, event, eventurl)
+        @user = user
+        @attendee = attendee
+        @event = event
+        @url = eventurl
+        mail(to: @attendee.email, subject: "Save The Date!")
+    end
+
+
     def invitation_sent(user, attendee, event, eventurl)
         @user = user
         @attendee = attendee
@@ -41,4 +59,6 @@ class UserMailer < ActionMailer::Base
         @url = eventurl
         mail(to: @user.email, subject: "Your invitation has been sent")
     end
+
+  
 end

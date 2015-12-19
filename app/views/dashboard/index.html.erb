@@ -24,11 +24,12 @@
 				<div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
 				<div class="details"> 
 
-					<% if @event_num == 0 %>
-					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
+					<% if @is_premium != 'active' && @event_num >= 1 %>
+					<div class="title"><%= event.name %></div>
 					<% else %>
 
-					<div class="title"><%= event.name %></div>
+					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
+					
 					<% end %>
 					<div class="time">
 						<% if(event.time_display == false) %> 
@@ -52,15 +53,15 @@
 						<%end%> 
 					</div>
 
-					<% if @event_num == 0 %>
+					<% if @is_premium == 'active' || @event_num == 0 %>
 					<div class="registrants"> 
-						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, event_path(@user, event), :target => '_blank' %>	  		
+						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, slugger_path(event.slug), :target => '_blank' %>	  		
 					</div>
 
 
 					<div class="actions"> 
 						<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
-						<%= link_to 'Delete event', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %>
+						<%= link_to 'Delete event', slugger_path(event.slug), method: :delete, data: { confirm: 'Are you sure?' } %>
 					</div>
 					<% end %>
 
@@ -71,3 +72,5 @@
 			<% end %>
 		</div>
 	</div>
+
+<!-- 	<% render 'eventsuccessmodal' %> add equal after % to print render  -->

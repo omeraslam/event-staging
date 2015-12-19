@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'dashboard/event'
   get 'dashboard/past'
   get 'dashboard/profile'
+  get 'dashboard/print'
 
   resources :urls, only: [:new, :create]
 
@@ -51,6 +52,12 @@ Rails.application.routes.draw do
   end
 
   post '/attendees/invite', to: 'attendees#invite'
+  put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
+
+  post '/attendees/send-invite', to: 'attendees#send_invite'
+
+
+  post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
  
 
 

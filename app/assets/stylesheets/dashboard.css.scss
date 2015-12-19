@@ -3,6 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+$brand-primary: #21afbf;
+$error-red: rgba(213, 55, 37, 0.9);
+$default-font-size: 13px;
+
+
 .dashboard {
 	padding: 0;
 	margin: 0;
@@ -14,5 +19,122 @@
 		top: 8px;
 		right: 0;
 	}
+}
+
+
+
+.dashboard-header {
+	
+	position:absolute;
+	top:0;
+	left:0;
+	background:#fff;
+	border-bottom:1px solid #ccc;
+	width:100%;
+	color:#888;
+	
+	.logo {
+		width:23px;
+		height:25px;
+		margin:12px 20px 0 20px;
+		padding:0;
+		
+	}
+	
+	a {
+		color:#555;
+		font-weight:600;
+		padding:16px;
+		font-size:12px;
+		
+
+	}
+
+	.left {
+		float:left;
+	}
+	
+	.right {
+		float:right;
+	}
+
+
+}
+
+.event-meta {
+
+	h1 {
+		font-size:48px !important;
+
+	}
+
+	p.lead {
+		font-size:14px;
+	
+		span {
+			color:$brand-primary;
+		}	
+	}
+
+}
+
+
+
+.event-status {
+
+	margin-top:12px;
+
+	a.btn {
+		line-height:38px;
+		padding:0 26px;
+		height:38px;
+		margin-right:10px;
+		font-weight: 600;
+		font-size: 12px;
+		
+	}
+
+	a.circle {
+		background:$brand-primary;
+		width:38px;
+		height:38px;
+		color:#fff;
+		line-height:38px;
+		text-align:center;
+		display:inline-block;
+		border-radius:50%;
+		
+		&#facebook {
+			background:#3b5998;
+		}
+
+		&#twitter {
+			background:#00aced;
+		}
+	
+	}
+	
+	.event-link  {
+		margin-top:14px;
+		position:relative;
+		display:inline-block;
+	
+		input {
+			border:none;
+			padding:10px 14px 10px 30px;	
+			color:#444;
+		}
+		
+		i {
+			position:absolute;
+			top:7px;
+			left:6px;
+		
+		}
+	
+	
+	}
+
+
 }
 

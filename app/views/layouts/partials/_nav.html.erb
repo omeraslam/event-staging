@@ -1,29 +1,48 @@
   <nav>
     
-
     <% if signed_in? %>    
 
 <!--    @rich, maybe this should be "dashboard" controller-->
   <% if (controller_name == "dashboard") or  (action_name == "index" and controller_name == "attendees") %>
             <div class="dashboard-header">
             
+
+            		<div class="left"> 
+            			<a class="logo" href="/"><span>Event Create</span></a>
+            			<ul> 
+            				<li><li><%=  link_to 'Upcoming events', dashboard_index_path  %></li>
+            				</li>
+            				<li><a href="#">My contacts </a></li>
+            			</ul>
+            		</div>
+
+
+								<div class="right"> 
+									<ul> 
+										
+										<% if @is_premium != 'active' &&  @disable_create %>
+										  <li><%= link_to "<i class='icon icon-plus'></i> Create new event".html_safe, '#', class: 'open-upgrade' %> </li>  
+										<% else %>
+										  <li><%= link_to "<i class='icon icon-plus'></i> Create new event".html_safe, '/event-create' %> </li>
+										<% end %>
+										
+										
+										<li><%=  link_to "<i class='icon icon-user'></i> Profile".html_safe, dashboard_profile_path, :class => 'open-menu'  %></li>
+									
+									</ul>
+								</div>            		
+            		
+            		
+            
                   <% if @is_premium == 'active'  %>
                 <div class="quick-find-container">
+                <div style="display: none;" class="quick-find-container">
+
                   <i class="icon icon-search"> </i> <input type="text" placeholder="quick find my events" id="tags">  
                 </div>
                 <% end %>
                 
-                <ul>        
-
-                  <% if @is_premium != 'active' &&  @disable_create %>
-                  <li><%= link_to '<span>New event</span>'.html_safe, '#', :class => 'icon icon-plus open-upgrade'  %> </li>
-                   <li><a class="open-upgrade"><i class="icon icon-flag"> </i><span>Upgrade now </span> </a>  </li>
-              
-                  <% else %>
-                  <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
-                  <% end %>
-                  <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_profile_path, :class => 'icon icon-user open-menu'  %></li>
-                </ul>
+   
 
                 <div class="signed-in-menu">
               <ul>
@@ -43,7 +62,7 @@
             
             </div>
             
-            <div class="event-nav"> 
+            <!--<div class="event-nav" style="display: none;"> 
               
               <a class="logo" href="/"><span>Event Create</span></a>
             
@@ -64,7 +83,7 @@
 
               </ul>
             
-            </div>
+            </div>-->
     
     <% end %>
 <!--    end "dashboard" controller-->

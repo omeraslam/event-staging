@@ -11,8 +11,6 @@ class UsersController < ApplicationController
     @user.premium = true
 
 
-    Stripe.api_key = ENV['STRIPE_API_KEY']
-
 
      # Get the credit card details submitted by the form
     token = params[:stripeToken]

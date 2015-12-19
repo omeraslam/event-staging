@@ -11,6 +11,10 @@
   <%= hidden_field_tag 'show_custom', @event.show_custom %>
   <%= hidden_field_tag 'bg', @event.background_img %>
 
+  <!-- contact host button -->
+  <a href="#" class="open-contact">Contact Host</a>
+  <!-- end contact host button -->
+
 <!-- 
 
 <% if @event.background_img.present?  %>
@@ -183,6 +187,8 @@
   </div>
 
 
+
+
   <div class="field" style="display: none;"> 
     <%= f.text_field :phone_number, :class => 'input-primary', :placeholder => 'Phone Number'  %>
   </div>
@@ -191,6 +197,7 @@
   <%= f.text_field :message, :class => 'input-primary input-lg', :placeholder => "Public message (i.e., I Can't Wait!)" %> -->
 
   <br>
+  <%= hidden_field_tag 'attendee_user_id', @attendee.id%>
   <%= hidden_field_tag 'event_id', @event.id%>
   <%= hidden_field_tag 'user_id', @event.user_id %>
   <%= f.submit "Submit my RSVP", :class => 'btn btn-bordered hover-color' %>
@@ -210,6 +217,10 @@
 
 
 <%= render 'editor' %>
+
+  <!-- contact host modal found at app/views/partials/_contact_host.html.erb -->
+<%= render 'partials/contact_host' %>
+  <!-- end contact host modal -->
 
 
 
@@ -273,7 +284,11 @@ $( document ).ready(function() {
 
 	//startIntro();
 
-
+    //contact host modal
+    var contactModal = $('#contact-modal').remodal();
+    $('.open-contact').click(function(){
+        contactModal.open();
+    });
 
 
 
@@ -355,7 +370,15 @@ $( document ).ready(function() {
   $('.event-page.' + layout).addClass('visible');    
 
 
+  var query = window.location.href.split('?invited=');
+  var query2 = window.location.href.split('uid=');
 
+  if(query[1].indexOf('true') == 0) {
+    $('#attendee_first_name, #attendee_last_name, #attendee_email').remove();
+    $('#attendee_user_id').val()
+  }
+
+  $('#attendee_user_id').val(query2[1]);
 
 
   
