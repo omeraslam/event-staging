@@ -2,264 +2,119 @@
 <% meta_description 'Create stunning websites in seconds.' %>
 
 
-
-
-<div class="container event-container">
+<div class="event-container">
 
   <%= hidden_field_tag 'layout_id', @event.layout_id %>
   <%= hidden_field_tag 'layout_style', @event.layout_style %>
   <%= hidden_field_tag 'show_custom', @event.show_custom %>
   <%= hidden_field_tag 'bg', @event.background_img %>
 
-  <!-- contact host button -->
-  <a href="#" class="open-contact">Contact Host</a>
-  <!-- end contact host button -->
+	<div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+	  <div class="overlay"></div>
+		<div class="header"> 
+				<div class="event-share">
+					<a href="#"><i class="icon icon-facebook-1"> </i> </a>
+					<a href="#"><i class="icon icon-twitter-2"> </i> </a>
+					<a href="#"><i class="icon icon-gplus"> </i> </a>
+				</div>
+	     <h1> <%= best_in_place @event, :name, :url => update_event_path %></h1> 
+	     <a class="btn btn-bordered rsvp open-registration">Register Now</a> 
+		</div>
+    <div class="inline-image" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)"> </div>
 
-<!-- 
-
-<% if @event.background_img.present?  %>
-  <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
-<% else %>
-  <div id="eventPage" class="event-page" style="background-image: url(<%= image_path(@background_style, :width => 100) %>)">
-<% end %>
-
-    <div class="overlay"></div>
-
-    <div class="event-info">
-    
-    <div class="event-details"> <%= @event.location %> </div>
-  -->
-
-
-  <div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
-
-   <div class="overlay"></div>
-
-   <div class="event-details">
-    <% if(@event.time_display == false || !@event.date_start.nil? || !@event.date_start.blank? ) %>
-    <% if(@event.date_start != '') %>
-    <%= @event.date_start.to_date.strftime("%B") %> 
-
-    <%= @event.date_start.to_date.strftime("%e") %><% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>,<% end %>
-    <% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>
-    <%= @event.date_start.to_date.strftime("%Y") %> 
-    <% end %>
-    <% end %>
-    <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
-    -   
-
-    <% if(@event.date_end.to_date.strftime("%B") != @event.date_start.to_date.strftime("%B")) %>
-    <%= @event.date_end.to_date.strftime("%B") %> 
-    <%end %>
-
-    <%= @event.date_end.to_date.strftime("%e, ") %>
-
-    <%= @event.date_end.to_date.strftime("%Y") %> 
-
-
-    <% end %>
-    <% if(@event.time_start != '') %> | 
-    <%= @event.time_start.to_time.strftime("%l:%M %p") %>
-    <% end %>
-    <% if(@event.time_end != '' && ( @event.time_end != @event.time_start  )) %>
-    - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
-    <% end %>
-    <%else%>
-    TBD
-    <%end%><br>  <%= best_in_place @event, :location, :url => update_event_path, :class => 'location' %> </div>
-    <div class="event-info">  
-     <h1> <%= best_in_place @event, :name, :url => update_event_path %></h1> 
-     <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %></p>
-     <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
-
-   </div>
-   <i class="more fa fa-chevron-down"></i>
- </div>
-
- <div class="event-page 2" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
-
-   <div class="overlay"></div>
-   <div class="event-info">  
-    <h1> <%= best_in_place @event, :name, :url => update_event_path %></h1>
-    <div class="event-details"> 
-      <% if(@event.time_display == false) %> 
-      <% if(@event.date_start != '') %>
-      <%= @event.date_start.to_date.strftime("%B %d") %> 
-      <% end %>
-      <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
-      - <%= @event.date_end.to_date.strftime("%B %d") %> 
-      <% end %>
-      <% if(@event.time_start != '') %>
-      <%= @event.time_start.to_time.strftime("%l:%M %p") %>
-      <% end %>
-      <% if(@event.time_end != ''  && ( @event.time_end != @event.time_start  )) %>
-      - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
-      <% end %>
-      <%else%>
-      TBD | 
-      <%end%>
-      <span class="location"> <%= best_in_place @event, :location, :url => update_event_path %></span>
-    </div>
-    <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %> </p>
-
-    <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
-
-  </div>
-  <i class="more fa fa-chevron-down"></i>
-</div> 
-
-
-
-
-<div class="event-page 3" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
- <div class="overlay"></div>
- <div class="event-info">  
-  <div class="event-time"> 
-    <% if(@event.time_display == false) %>  
-    <% if(@event.date_start != '') %>
-    <%= @event.date_start.to_date.strftime("%m.%d.%Y") %> 
-    <% end %>
-
-    <%else%> 
-    Date TBD Soon 
-    <%end%>  
-  </div>
-  <h1> <%= best_in_place @event, :name, :url => update_event_path %> at <span class="location"> <%= best_in_place @event, :location, :url => update_event_path %> </span> </h1>
-  <p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %> </p>
-  <a href="#" class="btn btn-bordered rsvp">RSVP</a> 
+	  </div>
 
 </div>
-<i class="more fa fa-chevron-down"></i>
-</div> 
+ 
+ 
 
+
+
+<div class="event-body"> 
+
+	<div class="event-meta-container"> 
+		<div class="event-meta">
+			<i class="icon icon-calendar"></i>
+			
+			
+			    <% if(@event.time_display == false || !@event.date_start.nil? || !@event.date_start.blank? ) %>
+			    <% if(@event.date_start != '') %>
+			    <%= @event.date_start.to_date.strftime("%B") %> 
+			
+			    <%= @event.date_start.to_date.strftime("%e") %><% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>,<% end %>
+			    <% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>
+			    <%= @event.date_start.to_date.strftime("%Y") %> 
+			    <% end %>
+			    <% end %>
+			    <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
+			    -   
+			
+			    <% if(@event.date_end.to_date.strftime("%B") != @event.date_start.to_date.strftime("%B")) %>
+			    <%= @event.date_end.to_date.strftime("%B") %> 
+			    <%end %>
+			
+			    <%= @event.date_end.to_date.strftime("%e, ") %>
+			
+			    <%= @event.date_end.to_date.strftime("%Y") %> 
+			
+			
+			    <% end %>
+			    <% if(@event.time_start != '') %> | 
+			    <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+			    <% end %>
+			    <% if(@event.time_end != '' && ( @event.time_end != @event.time_start  )) %>
+			    - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+			    <% end %>
+			    <%else%>
+			    TBD
+			    <%end%>
+			
+			
+			
+			
+		</div>
+		<div class="event-meta">
+			<i class="icon icon-location"></i>
+			<%= @event.location %>
+		</div>		
+	</div>
+
+	<div class="event-description">
+  	<p class="event-description"><%= best_in_place @event, :description, :url => update_event_path, as: :textarea %> </p>
+	</div>	
+	
+	
+	<div class="event-action-container">
+		<a class="btn btn-large open-registration">Register Now</a>
+		<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
+	</div>
+	
+</div>	
+
+
+<div class="map-container">
+	<div id="map"></div>
+	<a class="map-cover" href="http://maps.google.com/?q=<%= @event.location %>" target="_blank"> </a>
 </div>
 
 
-
-<div id="attendee-form" name="attendee-form" >
-
-
-  <%= form_for(@attendee) do |f| %>
-  <% if @attendee.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>
-
-    <ul>
-      <% @attendee.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
-
-
-
-  <div style="display: none;">
-
-
-    <ul class="list-inline list-unstyled">
-      <li class="input-md">
-
-        <%= f.radio_button :attending, true, :checked => true %>
-        <%= f.label :attending, "I'm in!", :value => "true"  %>
-      </li>
-      <li class="input-md">
-
-        <%= f.radio_button :attending, false %>
-        <%= f.label :attending, "Sorry, I can't make it", :value => "false" %>
-      </li>
-    </ul>
-  </div>
-
-
-
-
-  <div class="field">
-    <%= f.text_field :first_name, :class => 'input-primary input-md', :placeholder => 'First Name' %>
-  </div>
-  
-  <div class="field"> 
-    <%= f.text_field :last_name, :class => 'input-primary input-md', :placeholder => 'Last Name' %>
-  </div>
-
-  <div class="field">
-    <%= f.text_field :email, :class => 'input-primary', :placeholder => 'Email'  %>
-  </div>
-
-
-
-
-  <div class="field" style="display: none;"> 
-    <%= f.text_field :phone_number, :class => 'input-primary', :placeholder => 'Phone Number'  %>
-  </div>
-  
-<!-- 
-  <%= f.text_field :message, :class => 'input-primary input-lg', :placeholder => "Public message (i.e., I Can't Wait!)" %> -->
-
-  <br>
-  <%= hidden_field_tag 'attendee_user_id', @attendee.id%>
-  <%= hidden_field_tag 'event_id', @event.id%>
-  <%= hidden_field_tag 'user_id', @event.user_id %>
-  <%= f.submit "Submit my RSVP", :class => 'btn btn-bordered hover-color' %>
-  <% end %>
-
-
-
-
-
-</div>
-
+<div class="credit"> 
+	<div>made with</div> 
+	<a href="#"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
 </div>
 
 
-
-<div id="map"></div>
 
 
 <%= render 'editor' %>
+<%= render 'events/partials/contact_form' %>
+<%= render 'events/partials/rsvp_form' %>
 
-  <!-- contact host modal found at app/views/partials/_contact_host.html.erb -->
-<%= render 'partials/contact_host' %>
-  <!-- end contact host modal -->
 
 
 
 
 <script type="text/javascript">
-
-function startIntro(){
-  var intro = introJs();
-  intro.setOptions({
-    steps: [
-    { 
-      intro: "<h3>Done! </h3> <p>Your website is now live and ready to share. It doesn't get much easier than that!</p> "
-    },
-
-    { 
-      element: "#event-edit",
-      intro: "<h4>Edit away</h4><p>Need to make some final tweaks or edits? You can quickly modify your text or design. </p>",
-      position:'left'
-    },  
-    { 
-     element: "#event-editor-share",
-     intro: "<h4>Don't forget to share</h4><p>Easily share and market your event website via email, facebook, or twitter. Attracting attendess never got so easy. </p>",
-     position:'left'
-   },    
-   { 
-     element: "form",
-     intro: "<h4>Collect registrations</h4><p>Once you've shared your website, your guests can register here. That's it!</p>",
-     position:'top'
-
-   }                     
-
-
-   ]
- });
-
-  intro.start();
-}
-
-
 
 $( document ).ready(function() {
   $('.event-editor-background .image').removeClass().addClass('image '+ $('#layout_style').val());
@@ -287,8 +142,16 @@ $( document ).ready(function() {
     //contact host modal
     var contactModal = $('#contact-modal').remodal();
     $('.open-contact').click(function(){
-        contactModal.open();
+    	contactModal.open();
     });
+
+		//contact host modal
+		var registrationModal = $('#attendee-form').remodal({hashTracking:false});
+		$('.open-registration').click(function(){
+			registrationModal.open();
+		});
+
+
 
 
 
@@ -370,15 +233,15 @@ $( document ).ready(function() {
   $('.event-page.' + layout).addClass('visible');    
 
 
-  var query = window.location.href.split('?invited=');
-  var query2 = window.location.href.split('uid=');
-
-  if(query[1].indexOf('true') == 0) {
-    $('#attendee_first_name, #attendee_last_name, #attendee_email').remove();
-    $('#attendee_user_id').val()
-  }
-
-  $('#attendee_user_id').val(query2[1]);
+//  var query = window.location.href.split('?invited=');
+//  var query2 = window.location.href.split('uid=');
+//
+//  if(query[1].indexOf('true') == 0) {
+//    $('#attendee_first_name, #attendee_last_name, #attendee_email').remove();
+//    $('#attendee_user_id').val()
+//  }
+//
+//  $('#attendee_user_id').val(query2[1]);
 
 
   
@@ -387,7 +250,7 @@ $( document ).ready(function() {
     $('.theme.active').removeClass("active");
     
     $('.event-container').removeClass(theme); 
-    $('.event-page.' + layout).removeClass('visible'); 
+    //$('.event-page.' + layout).removeClass('visible'); 
 
     $(this).addClass('active'); 
     layout = $(this).data('layout'); 
@@ -396,7 +259,7 @@ $( document ).ready(function() {
     console.log('layout value: '+ layout + ' || layout style: '+ theme);
     
     $('.event-container').addClass(theme); 
-    $('.event-page.' + layout).addClass('visible'); 
+    //$('.event-page.' + layout).addClass('visible'); 
     
     //MAKE AJAX CALL TO SAVE
     saveTheme()

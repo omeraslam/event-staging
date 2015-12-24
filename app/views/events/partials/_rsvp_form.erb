@@ -1,0 +1,64 @@
+
+<div id="attendee-form" name="attendee-form" >
+
+	<div class="modal-header modal-header-light">
+		    <button data-remodal-action="close" class="remodal-close"></button>
+		    <i class="icon icon-line-email" style="display: none;"> </i>
+		    <h2>Register</h2>
+		    <p>Nullam tristique a risus ut vulputate. Praesent eu orci sapien. Sed euismod sed leo at tincidunt. Mauris cursus dolor justo, vel maximus arcu laoreet a.</p>
+		  
+	</div>
+
+
+	<div class="modal-body">
+	
+  <%= form_for(@attendee) do |f| %>
+  <% if @attendee.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>
+
+    <ul>
+      <% @attendee.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+
+
+  
+
+
+	<div class="input-group">
+		<div class="input-group-inline">
+			<label>First name:</label>
+			<%= f.text_field :first_name, :class => 'input input-large', :placeholder => 'First Name' %>
+		</div>
+		<div class="input-group-inline">
+			<label>Last name:</label>
+			<%= f.text_field :last_name, :class => 'input input-large', :placeholder => 'Last Name' %>
+		</div>
+	</div>
+	
+	
+	<div class="input-group">
+		<label>Email Address:</label>
+		 <%= f.text_field :email, :class => 'input input-large', :placeholder => 'Email'  %>
+		 <p>We'll send you a confirmation of your RSVP.  </p>
+	</div>
+
+
+  <%= hidden_field_tag 'attendee_user_id', @attendee.id%>
+  <%= hidden_field_tag 'event_id', @event.id%>
+  <%= hidden_field_tag 'user_id', @event.user_id %>
+  
+  
+  
+  <%= f.submit "Register Now", :class => 'btn' %>
+  
+  <% end %>
+  
+  </div>
+
+</div>
