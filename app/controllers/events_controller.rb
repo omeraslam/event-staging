@@ -18,30 +18,36 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+
     @event = Event.find_by_slug(params[:slug])
-    logger.debug "#{@event}"
-    @user = User.find(@event.user_id)
 
-    image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
-    @attendee = Attendee.new
+    if @event.published == false
+      redirect_to root_path
+    else  
+      logger.debug "#{@event}"
+      @user = User.find(@event.user_id)
 
-
-
-    client = Bitly.client
-
-    @url = 'http://eventcreate.com/' + event_path(current_user, @event)
-
-    logger.debug "charge it to the game: #{@url}"
-    @bitly = client.shorten(@url)
+      image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
+      @attendee = Attendee.new
 
 
-    if(!@event.layout_id?)
-      @event.layout_id = '1'
-      @event.layout_style = 'brunch'
+
+      client = Bitly.client
+
+      @url = 'http://eventcreate.com/' + event_path(current_user, @event)
+
+      logger.debug "charge it to the game: #{@url}"
+      @bitly = client.shorten(@url)
+
+
+      if(!@event.layout_id?)
+        @event.layout_id = '1'
+        @event.layout_style = 'brunch'
+      end
+      # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
+
+      respond_with(@attendees, @event)
     end
-    # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
-
-    respond_with(@attendees, @event)
 
     # if @event.save
 
