@@ -43,18 +43,18 @@ $(document).on 'ready page:load', ->
       $(input).datepicker 'setDate', dateObj
 
 
-  $('.event-editor-background a').on 'click', (e) ->
-    #e.preventDefault()
+  # $('.event-editor-background a').on 'click', (e) ->
+  #   #e.preventDefault()
 
-      $('.event-editor-background a').removeClass 'highlight'
-      $(this).addClass 'highlight'
-      newimage = $(this).find('> div').css('background-image')
-      $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
-      $.ajax(
-        type: 'POST'
-        url: String(window.location.href).replace('#', '') + '/updatetheme'
-        data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
-        return
+  #     $('.event-editor-background a').removeClass 'highlight'
+  #     $(this).addClass 'highlight'
+  #     newimage = $(this).find('> div').css('background-image')
+  #     $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
+  #     $.ajax(
+  #       type: 'POST'
+  #       url: String(window.location.href).replace('#', '') + '/updatetheme'
+  #       data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
+  #       return
 
   if $('#show_custom').val() == 'false' || $('#show_custom').val() == ''
     $('a.default').addClass('highlight')

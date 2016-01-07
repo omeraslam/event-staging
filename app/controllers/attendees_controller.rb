@@ -129,10 +129,7 @@ class AttendeesController < ApplicationController
      @attendee.update(attendee_params)
     logger.debug "emails to save: #{@attendee.attending}"
 
-    # @attendee.attending = true
-    # @attendee.update(attendee_params)
-
-    # respond_with user_event_path
+   
   end
 
 
@@ -174,7 +171,7 @@ class AttendeesController < ApplicationController
              #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
            end
           
-          format.html { redirect_to :back }
+          format.html { redirect_to slugger_path(:slug => @event.slug) }
           format.json { render :show, status: :created, location: :back }
           #send invite email to them now, thank you and sign up with hash
           #
@@ -186,7 +183,7 @@ class AttendeesController < ApplicationController
     end
     logger.debug "emails to save: #{current_user}"
     logger.debug "emails to save: #{@event}"
-    redirect_to user_event_path(current_user, @event)
+    #redirect_to event_path(:id => @event.id)
       #respond_with(@attendee)
 
   end

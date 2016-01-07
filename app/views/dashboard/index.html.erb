@@ -13,9 +13,9 @@
 			<div class="event">
 
 				<% if(event.layout_style?) 
-					@style_bg = '/assets/' + event.layout_style.to_s + '.jpg'
+					@style_bg = '/assets/themes/' + event.layout_style.to_s + '_thumb.jpg'
 				else
-					@style_bg = '/assets/brunch.jpg'
+					@style_bg = '/assets/themes/cityscape_thumb.jpg'
 				end
 				%>
 
@@ -59,7 +59,7 @@
 
 					<div class="actions"> 
 						<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
-						<%= link_to 'Delete event', slugger_path(event.slug), method: :delete, data: { confirm: 'Are you sure?' } %>
+						<%= link_to 'Delete event', event_path(:id => event.id) , method: :delete, data: { confirm: 'Are you sure?' } %>
 					</div>
 					<% end %>
 

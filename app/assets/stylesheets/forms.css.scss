@@ -1,0 +1,82 @@
+//form styles
+
+
+form {
+
+	width:100%;
+
+}
+
+.input-group {
+	margin-bottom:20px;
+	clear:both;
+	position:relative;
+	clear:both;
+	
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	
+	}
+	
+	.input-group-inline {
+		float:left;
+		position:relative;
+		
+		&#cvv {
+			margin-left:30px;
+			
+			input {
+				width:100px;
+			}
+		}
+	}
+	
+
+
+	label {
+		font-weight:400;
+		margin:0 0 20px;
+		font-size:12px;
+		color:#444;
+		display:block;
+		margin:0 0 2px 0;
+		
+		&.error {
+		
+		    bottom: -10px;
+		    color: #fff;
+		    top: inherit;
+		    /* display: none !important; */
+		    z-index: 99;
+		
+		
+		
+		}
+		
+		
+	}			
+}
+
+
+.input {
+	display:inline-block;
+	background:#efefef;
+	font-size:18px;
+	line-height:26px;
+	width:140px;
+	padding:14px 8px;
+	outline:none;
+	border:1px solid #fff;
+	
+	&.input-large {
+		width:100%;
+
+	}
+	
+	&.invalid {
+		border:1px solid red;
+
+	}
+}

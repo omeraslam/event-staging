@@ -36,17 +36,6 @@ class UsersController < ApplicationController
     @user.customer_id = customer.id
     @user.update(user_params)
 
-    # respond_to do |format|
-    #   if @user.update(user_params)
-    #      format.html { redirect_to user_event_path(current_user, @event), notice: 'You are now a premium member.' }
-    #      #format.js
-    #      #format.json { render json: status: :ok}
-    #      #format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
-    #   else
-    #      format.html { redirect_to user_event_path(current_user, @event), notice: "Sorry your family is poor." }
-    #      format.json { render json: @event.errors, status: :unprocessable_entity }
-    #   end
-    # end
 
     # # YOUR CODE: Save the customer ID and other info in a database for later!
 

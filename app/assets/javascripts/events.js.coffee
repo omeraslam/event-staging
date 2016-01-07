@@ -52,7 +52,7 @@ $(document).on 'ready page:load', ->
       $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
       $.ajax(
         type: 'POST'
-        url: String(window.location.href).replace('#', '') + '/updatetheme'
+        url: '//' + String(window.location.host)+ '/events/'+ $('#event_id').val() + '/updatetheme'
         data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
         return
 

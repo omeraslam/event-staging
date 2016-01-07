@@ -1,9 +1,10 @@
 <!--upgrade modal-->
 <div id="contact-modal">
-		<div class="modal-header">
+		<div class="modal-header modal-header-light">
 	    <button data-remodal-action="close" class="remodal-close"></button>
 	    <i class="icon icon-line-email"> </i>
 	    <h2>Contact Host</h2>
+	    <p>Send the event host a message or a question about the event.</p>
 	  
     </div>
     
@@ -11,29 +12,27 @@
 		
 		<div class="modal-body">
 		
-    <div class="upgrade-owl owl-carousel"> 
 
 		
 
 	   
 	   
 	   	<!-- payment form -->
-	    <div class="owl-item"> 
 	
 				<%= form_tag(controller: 'events', action: 'contact_host', method: 'post') do %>
 		
 		    	<div class="input-group">
-		    		<label>Your name:</label>
-				<%= text_field_tag(:name, '', class: 'input-large', placeholder: 'Name') %>
+		    		<label>Email Address:</label>
+				<%= text_field_tag(:name, '', class: 'input input-large', placeholder: 'email@email.com') %>
 			</div>
 
 		    	<div class="input-group">
 		    		<label>Your Message:</label>
-				<%= text_area_tag(:message, '', class: 'input-large', placeholder: 'Message')  %>
+				<%= text_area_tag(:message, '', class: 'input input-large', placeholder: 'Hey there. Can I bring a guest?')  %>
 			</div>
 
 		    	<div class="input-group">
-				<%= submit_tag('Send', class: 'btn btn-large btn-primary') %>
+				<%= submit_tag('Send', class: 'btn btn-primary') %>
 			</div>
 				<% end %>
 	
@@ -62,22 +61,10 @@
 			    </div> 
 			     
 	    	</form> -->
-	    </div>
 
 
-			<!-- success form -->
-			<div class="owl-item"> 
-				<div class="input-group input-group-centered" id="success">
-					<p> Thank you. Your account is now premium!</p>
-					<p> We've sent a receipt to <%=current_user.email%> </p>
-                    <%= link_to "Great! Let's make some events!",event_create_path, class: "btn btn-primary" %>
-                 
-				</div>
-			</div>    
 					
 	
-		</div>
-		<!-- END upgrade carousel -->
 		 
 		 
 		</div> 

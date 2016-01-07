@@ -11,16 +11,7 @@ class ProfileController < ApplicationController
 
 
     respond_with(@attendee, @user, @events)
-    # respond_to do |format|
-    #   format.json 
-      # if @event.update(event_params)
-      #    #format.html { redirect_to user_event_path(current_user, @event), notice: 'Event was successfully updated.' }
-      #    format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
-      # else
-      #    format.html { render :edit }
-      #    format.json { render json: @event.errors, status: :unprocessable_entity }
-      # end
-    # end
+
 
 
   end

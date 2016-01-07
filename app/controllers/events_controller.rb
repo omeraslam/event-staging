@@ -21,13 +21,13 @@ class EventsController < ApplicationController
 
     @event = Event.find_by_slug(params[:slug])
 
-    if @event.published == false
+    if @event.published == false && current_user.id.to_i != @event.user_id.to_i
       redirect_to root_path
     else  
       logger.debug "#{@event}"
       @user = User.find(@event.user_id)
 
-      image_style_array = ['brunch','nyc', 'confetti', 'summer', 'flower', 'linen']
+      image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
       @attendee = Attendee.new
 
 
@@ -36,15 +36,13 @@ class EventsController < ApplicationController
 
       @url = 'http://eventcreate.com/' + event_path(current_user, @event)
 
-      logger.debug "charge it to the game: #{@url}"
       @bitly = client.shorten(@url)
 
 
       if(!@event.layout_id?)
         @event.layout_id = '1'
-        @event.layout_style = 'brunch'
+        @event.layout_style = 'cityscape'
       end
-      # @background_style = 'home/'+ image_style_array[@style.to_i] +'.jpg'
 
       respond_with(@attendees, @event)
     end
@@ -66,33 +64,15 @@ class EventsController < ApplicationController
     UserMailer.contact_host(current_user, @guest_name, @message, @event).deliver
 
     respond_with(@event, :location => slugger_url)
-    # respond_to do |format|
 
-    #   format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
-    # end
   end
 
   def update_theme
 
     @user = User.find(current_user.id)
-    @event = Event.find_by_slug(params[:id])
+    @event = Event.find(params[:id])
 
 
-    # @event.layout_id = params[:layout_id]
-    # @event.layout_style = params[:layout_style]
-
-
-
-
-    # respond_to do |format|
-    #   if @event.update(event_params)
-    #     format.html {redirect_to user_event_path(current_user, @event)}
-    #     format.json { render :show, status: :ok, location: user_event_path(current_user, @event) }
-    #   else
-    #     format.html {render :action => 'edit'}
-    #     format.json {render :json => @user.errors.full_messages, :status => :unprocessable_entity}
-    #   end
-    # end
 
 
     respond_to do |format|
@@ -141,11 +121,8 @@ class EventsController < ApplicationController
     @event.layout_id = 1
 
 
-    # client = Bitly.client
-    # @url = client.shorten(params[:url])
-
     @event.layout_id = '1'
-    @event.layout_style = 'brunch'
+    @event.layout_style = 'cityscape'
     @event.slug = @event.name.downcase.gsub(" ", "-")
 
 
@@ -173,11 +150,11 @@ class EventsController < ApplicationController
   def update
 
     @user = User.find(params[:user_id])
-    @event = Event.find_by_slug(params[:slug])
+    @event = Event.find(params[:id])
     #@event.style_id = params[:style_id]
     respond_to do |format|
       if @event.update(event_params)
-         format.html { redirect_to event_path, notice: 'Event was successfully updated.' }
+         format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
          format.js
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
@@ -191,7 +168,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    @event = Event.find_by_slug(params[:id])
+    @event = Event.find(params[:id])
     @event.destroy
     respond_to do |format|
 
