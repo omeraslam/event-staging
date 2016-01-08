@@ -20,32 +20,33 @@ class EventsController < ApplicationController
   def show
 
     @event = Event.find_by_slug(params[:slug])
+    
+      if @event.published == false && !signed_in?
+        #&& current_user.id.to_i != @event.user_id.to_i
+        redirect_to root_path
+      else  
+        logger.debug "#{@event}"
+        @user = User.find(@event.user_id)
 
-    if @event.published == false && current_user.id.to_i != @event.user_id.to_i
-      redirect_to root_path
-    else  
-      logger.debug "#{@event}"
-      @user = User.find(@event.user_id)
-
-      image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
-      @attendee = Attendee.new
-
-
-
-      client = Bitly.client
-
-      @url = 'http://eventcreate.com/' + event_path(current_user, @event)
-
-      @bitly = client.shorten(@url)
+        image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
+        @attendee = Attendee.new
 
 
-      if(!@event.layout_id?)
-        @event.layout_id = '1'
-        @event.layout_style = 'cityscape'
+
+        client = Bitly.client
+
+        @url = 'http://eventcreate.com/' + event_path(current_user, @event)
+
+        @bitly = client.shorten(@url)
+
+
+        if(!@event.layout_id?)
+          @event.layout_id = '1'
+          @event.layout_style = 'cityscape'
+        end
+
+        respond_with(@attendees, @event)
       end
-
-      respond_with(@attendees, @event)
-    end
 
     # if @event.save
 
@@ -149,12 +150,13 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
 
-    @user = User.find(params[:user_id])
-    @event = Event.find(params[:id])
+    #@user = User.find(params[:user_id])
+    @event = Event.find_by_slug(params[:id])
     #@event.style_id = params[:style_id]
     respond_to do |format|
       if @event.update(event_params)
-         format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
+         #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
+         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', notic: 'Event was successfully updated.'}
          format.js
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
@@ -189,7 +191,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id,:layout_id, :layout_style, :location, :background_img, :show_custom, :slug)
+      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id,:layout_id, :layout_style, :location, :background_img, :show_custom, :slug, :published)
 
       date_format = '%m/%d/%Y'
       #offset = Date.now.strftime("%z")

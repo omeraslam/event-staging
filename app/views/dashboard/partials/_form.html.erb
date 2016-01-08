@@ -1,5 +1,5 @@
 
-<%= form_for [@event] do |f| %>
+ <%= form_for(@event, url: event_path(@event)) do |f| %>
   <% if @event.errors.any? %>
     <div class="alert error">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -167,6 +167,10 @@ function showPosition(position) {
     <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
 
   </div>
+
+  <h5>Status</h5>
+
+  <%= f.select(:published, [['true', true],['false', false]]) %>
 
 
 </div>
