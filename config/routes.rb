@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :themes
+
   get 'dashboard/index'
   get 'dashboard/event'
   get 'dashboard/past'

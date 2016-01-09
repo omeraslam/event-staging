@@ -13,5 +13,6 @@ Rails.application.config.assets.precompile += %w( registrations.js )
 Rails.application.config.assets.precompile += %w( pages.js )
 Rails.application.config.assets.precompile += %w( sessions.js )
 Rails.application.config.assets.precompile += %w( urls.js )
+Rails.application.config.assets.precompile += %w( themes.js )
 
 # Rails.application.config.assets.precompile += %w( search.js )

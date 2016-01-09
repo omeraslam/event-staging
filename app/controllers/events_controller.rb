@@ -103,6 +103,8 @@ class EventsController < ApplicationController
       
     end 
 
+    @themes = Theme.all
+
   end
 
   # GET /events/1/edit

@@ -20,56 +20,18 @@
 
 <div class="event-registration">
   <div class="field slide-up-show">
-    
-    <h2>Choose a theme</h2>    
-<ul class="list-inline theme-chooser">
-  <li>
-    <%= f.label :layout_style_cityscape, 'cityscape' do %>
-    <img src="assets/themes/cityscape_thumb.jpg" />
-    <% end %>
-    <%= f.radio_button :layout_style, 'cityscape' %>
+    <h2>Choose a theme</h2> 
 
-    </li> 
-
-  <li>
-    <%= f.label :layout_style_getloud, 'getloud' do %>
-      <img src="assets/themes/getloud_thumb.jpg" />
-    <% end %>
-    <%= f.radio_button :layout_style, 'getloud' %>
-    </li>
-
-  <li>
-    <%= f.label :layout_style_epic, 'epic' do %>
-    <img src="assets/themes/epic_thumb.jpg" />
-    <% end %>
-<%= f.radio_button :layout_style, 'epic' %>
-    </li>
-  <li>
-    <%= f.label :layout_style_gallery, 'gallery' do %>
-    <img src="assets/themes/gallery_thumb.jpg" />
-    <% end %>
-<%= f.radio_button :layout_style, 'gallery' %>
-    </li>
-  <li>
-    <%= f.label :layout_style_celebrate, 'celebrate' do %>
-    <img src="assets/themes/celebrate_thumb.jpg" />
-    <% end %>
-    <%= f.radio_button :layout_style, 'celebrate' %></li>
-  <li>
-    <%= f.label :layout_style_minimalist, 'minimalist' do %>
-    <img src="assets/themes/minimalist_thumb.jpg" />
-    <% end %>
-    <%= f.radio_button :layout_style, 'minimalist' %>
-    </li> 
-</ul>
-
-
-
-
-
-
-
-
+    <ul class="list-inline theme-chooser">
+        <% @themes.each do |theme| %>
+          <li>
+            <%= f.label 'layout_style_'+ theme.slug ,  theme.slug do %>
+              <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
+            <% end %>
+            <%= f.radio_button :layout_style,   theme.slug %>
+          </li>
+        <% end %>  
+    </ul>
   </div>
   <div class="field slide-down-hide"> 
 
