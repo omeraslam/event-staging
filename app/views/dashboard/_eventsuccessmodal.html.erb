@@ -51,9 +51,10 @@ $(document).ready(function(){
     $('.open-event').click(function(){
         eventModal.open();
     });
-    
-    eventModal.open();
-
+   // alert(String(window.location.href).indexOf('?first=true'));
+    if(window.location.href.indexOf('?first=true') > -1) {
+    		eventModal.open();
+       }
 });
 
 

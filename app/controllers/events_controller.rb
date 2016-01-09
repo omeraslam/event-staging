@@ -136,7 +136,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to slugger_path(@event.slug) + str, notice: 'Event was successfully created.' }
+        format.html { redirect_to dashboard_event_path(:event => @event.id) + str, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: event_path(current_user, @event) }
       else
         format.html { render :new }
@@ -155,7 +155,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
          #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
-         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', notic: 'Event was successfully updated.'}
+         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', notice: 'Event was successfully updated.'}
          format.js
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
