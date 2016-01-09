@@ -40,7 +40,7 @@ class EventsController < ApplicationController
         @bitly = client.shorten(@url)
 
 
-        if(!@event.layout_id?)
+        if(!@event.layout_style?)
           @event.layout_id = '1'
           @event.layout_style = 'cityscape'
         end
@@ -71,7 +71,7 @@ class EventsController < ApplicationController
   def update_theme
 
     @user = User.find(current_user.id)
-    @event = Event.find(params[:id])
+    @event = Event.find_by_slug(params[:slug])
 
 
 
@@ -79,6 +79,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
         #format.html { redirect_to event_path(current_user, @event), notice: 'Event was successfully updated.' }
+        format.js
         format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
 
@@ -119,11 +120,7 @@ class EventsController < ApplicationController
     @event = Event.all.build(event_params)
     @event.user_id = current_user.id
     @event.style_id = params[:style_id]
-    @event.layout_id = 1
-
-
     @event.layout_id = '1'
-    @event.layout_style = 'cityscape'
     @event.slug = @event.name.downcase.gsub(" ", "-")
 
 
@@ -161,6 +158,7 @@ class EventsController < ApplicationController
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
          format.html { render :edit }
+         format.js
          format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

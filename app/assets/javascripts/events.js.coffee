@@ -21,7 +21,6 @@ $(document).on 'ready page:load', ->
 
       newimage = $('#custom-image').find('> div').css('background-image')
       $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
-      #$('.event-page').css('cssText', 'background-image: url(' + $('.upload').attr('style') + ') !important;')
 
 
 
@@ -45,20 +44,18 @@ $(document).on 'ready page:load', ->
 
   $('.event-editor-background a').on 'click', (e) ->
     #e.preventDefault()
-
       $('.event-editor-background a').removeClass 'highlight'
       $(this).addClass 'highlight'
       newimage = $(this).find('> div').css('background-image')
-      $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
+      $('.event-page').css 'cssText', 'background-image: '+ newimage.replace('_thumb', '_bg') + ' !important'
       $.ajax(
         type: 'POST'
-        url: '//' + String(window.location.host)+ '/events/'+ $('#event_id').val() + '/updatetheme'
+        url: '//' + String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme'
         data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
         return
 
   if $('#show_custom').val() == 'false' || $('#show_custom').val() == ''
     $('a.default').addClass('highlight')
-
     newimage = $('a.default').find('> div').css('background-image')
     $('.event-page').css 'cssText', ''
   else

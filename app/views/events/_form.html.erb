@@ -1,6 +1,7 @@
 <%= form_for [@event] do |f| %>
 <%= f.hidden_field :layout_id %>
 <%= f.hidden_field :layout_style %>
+
   <% if @event.errors.any? %>
     <div class="alert error">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -18,14 +19,64 @@
 
 
 <div class="event-registration">
-  <div class="field slide-up-show"> 
+  <div class="field slide-up-show">
+    
+    <h2>Choose a theme</h2>    
+<ul class="list-inline theme-chooser">
+  <li>
+    <%= f.label :layout_style_cityscape, 'cityscape' do %>
+    <img src="assets/themes/cityscape_thumb.jpg" />
+    <% end %>
+    <%= f.radio_button :layout_style, 'cityscape' %>
+
+    </li> 
+
+  <li>
+    <%= f.label :layout_style_getloud, 'getloud' do %>
+      <img src="assets/themes/getloud_thumb.jpg" />
+    <% end %>
+    <%= f.radio_button :layout_style, 'getloud' %>
+    </li>
+
+  <li>
+    <%= f.label :layout_style_epic, 'epic' do %>
+    <img src="assets/themes/epic_thumb.jpg" />
+    <% end %>
+<%= f.radio_button :layout_style, 'epic' %>
+    </li>
+  <li>
+    <%= f.label :layout_style_gallery, 'gallery' do %>
+    <img src="assets/themes/gallery_thumb.jpg" />
+    <% end %>
+<%= f.radio_button :layout_style, 'gallery' %>
+    </li>
+  <li>
+    <%= f.label :layout_style_celebrate, 'celebrate' do %>
+    <img src="assets/themes/celebrate_thumb.jpg" />
+    <% end %>
+    <%= f.radio_button :layout_style, 'celebrate' %></li>
+  <li>
+    <%= f.label :layout_style_minimalist, 'minimalist' do %>
+    <img src="assets/themes/minimalist_thumb.jpg" />
+    <% end %>
+    <%= f.radio_button :layout_style, 'minimalist' %>
+    </li> 
+</ul>
+
+
+
+
+
+
+
+
+  </div>
+  <div class="field slide-down-hide"> 
+
+
+
     <h2>So what's this event called?</h2> 
     <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
-
-
-
-
-
   </div>
 
   <div class="field slide-down-hide">

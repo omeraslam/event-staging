@@ -379,6 +379,7 @@ border-bottom:1px solid #444;
 				-moz-background-size: cover;
 				-o-background-size: cover;
 				background-size: cover;
+    			background-position: 50% 50%;
 				
 			
 			}
@@ -1235,32 +1236,32 @@ border-bottom:1px solid #444;
     }
 
 
-    .nyc.image {
-		background-image:url(nyc.jpg) !important;
+    .celebrate.image {
+		background-image:url(themes/celebrate_thumb.jpg) !important;
 	
     }
 
-    .brunch.image {
-		background-image:url(brunch.jpg) !important;
+    .cityscape.image {
+		background-image:url(themes/cityscape_thumb.jpg) !important;
 	
     }
 
-    .linen.image {
-		background-image:url(linen.jpg) !important;
+    .epic.image {
+		background-image:url(themes/epic_thumb.jpg) !important;
 
     }
 
-    .flower.image {
+    .gallery.image {
 
-		background-image:url(flower.jpg) !important;
+		background-image:url(themes/gallery_thumb.jpg) !important;
     }
 
-    .sunset.image {
-		background-image:url(sunset.jpg) !important;
+    .minimalist.image {
+		background-image:url(themes/minimalist_thumb.jpg) !important;
 
     }
-    .confetti.image {
-		background-image:url(confetti.jpg) !important;
+    .getloud.image {
+		background-image:url(themes/getloud_thumb.jpg) !important;
 
     }
 }
@@ -1626,6 +1627,18 @@ border-bottom:1px solid #444;
 	}
 
 
+
+}
+
+.theme-chooser {
+	li {
+		width: 30%; margin-right: 20px; margin-bottom: 20px;
+	img {
+		width: 100%;
+		border: 1px solid #000;
+	}
+
+	}
 
 }
 
