@@ -15,9 +15,6 @@ $default-font-size: 13px;
 }
 
 
-html,body {
-	height:100%;
-}
 
 body {
   background-color: #1a1a1a;   
@@ -89,15 +86,6 @@ h2 {
 
 }
 
-.input-primary {
-  -webkit-appearance: none;
-  border-radius: 0;
-}
-
-input.input-primary[disabled] {
-  opacity: .5;
-  border-bottom: 1px solid #ccc;
-}
 
 
 .lead {
@@ -398,73 +386,13 @@ nav.menu-open .signed-in-menu {
 
 
 
-//forms
-  
-form {
-	width:60%;
-	max-width:600px;
 
-}
-
-input:focus {
-  outline: none;
-}
-
-.input-primary {
-  font-family: "sofia-pro",sans-serif;
-  font-weight: 100;
-  background: none;
-  border: none;
-  border-bottom: 1px solid #fff;
-  margin-bottom: 20px;
-  width: 100%;
-  height: 46px;
-  font-size: 16px;
-  color: #fff;
-  transition: border-bottom .2s ease;
-  
-  &:focus {
-  	border-bottom: 1px solid #21afbf;
-  }
-  
-  &.error {
-  	border-bottom: 1px solid #d53725;
-  	
-  
-  }
-}
-
-
-.field_with_errors .input-primary {
-   border-bottom: 1px solid red;
-}
-
-.field {
-	position:relative;
-	display:inline;
-}
-  
-// validation error styles
-label.error {
-	background: $error-red;
-	font-size:12px;
-	padding:5px 10px;
-	color:#fff;
-	border-radius:10px;
-	-webkit-animation: anim-jelly 0.8s linear forwards;
-	animation: anim-jelly 0.8s linear forwards;
-	position: absolute;
-	top: -5px;
-	right: -40px;
-}
 
   
   
   
   // home 
-  #home, .container {
-    height: 100%;
-  }
+
   #home .container {
     position: relative;
     z-index: 1;
@@ -774,27 +702,6 @@ footer {
 }
 
 
-.sessions, .registrations {
-	background-image:url(registration2.jpg);
-  background-size: cover;
-
-	h1, h2, p {
-		color:#fff;
-	
-	}
-	
-	
-	h2 {
-		margin:20px 0 40px;
-	
-	}
-	
-
-	
-	p {
-	}
-	
-}
 
 .events, .attendees {
 	background:#fff;

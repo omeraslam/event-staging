@@ -7,6 +7,41 @@ form {
 
 }
 
+
+
+.input-primary {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+input.input-primary[disabled] {
+  opacity: .5;
+}
+
+
+
+input, .input {
+	display:inline-block;
+	background:#efefef;
+	font-size:18px;
+	line-height:26px;
+	width:140px;
+	padding:14px 8px;
+	outline:none;
+	border:1px solid #fff;
+	
+	&.input-large {
+		width:100%;
+
+	}
+	
+	&.invalid {
+		border:1px solid red;
+
+	}
+}
+
+
 .input-group {
 	margin-bottom:20px;
 	clear:both;
@@ -60,23 +95,3 @@ form {
 }
 
 
-.input {
-	display:inline-block;
-	background:#efefef;
-	font-size:18px;
-	line-height:26px;
-	width:140px;
-	padding:14px 8px;
-	outline:none;
-	border:1px solid #fff;
-	
-	&.input-large {
-		width:100%;
-
-	}
-	
-	&.invalid {
-		border:1px solid red;
-
-	}
-}

@@ -1,0 +1,29 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+//vendor
+@import "vendor/owl.carousel.css.scss";
+@import "vendor/remodal-default-theme.css.scss";
+@import "vendor/remodal.css.scss";
+
+
+//variables and core
+@import "styles/variables.scss";
+@import "styles/scaffolds.scss";
+
+
+//elements
+@import "styles/forms.scss";
+@import "styles/modals.scss";
+
+
+//by page - TO CLEAN  UP
+@import "styles/events.scss";
+@import "styles/dashboard.scss";
+@import "styles/users.scss";
+@import "styles/pages.scss";
+@import "styles/logins.scss";
+
+
