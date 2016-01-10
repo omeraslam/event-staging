@@ -25,7 +25,6 @@ class EventsController < ApplicationController
         #&& current_user.id.to_i != @event.user_id.to_i
         redirect_to root_path
       else  
-        logger.debug "#{@event}"
         @user = User.find(@event.user_id)
 
         image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
@@ -78,13 +77,14 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update(event_params)
-        #format.html { redirect_to event_path(current_user, @event), notice: 'Event was successfully updated.' }
+        format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
         format.js
         format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
 
-        format.html { render :edit }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        logger.debug "no save"
+        #format.html { render :edit }
+        #format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
 

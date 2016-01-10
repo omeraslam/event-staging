@@ -1,7 +1,6 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
 
-
 <div class="event-container">
 
   <%= hidden_field_tag 'layout_id', @event.layout_id %>
@@ -27,10 +26,6 @@
 
 </div>
  
- 
-
-
-
 <div class="event-body"> 
 
 	<div class="event-meta-container"> 
@@ -69,57 +64,36 @@
 			    <%else%>
 			    TBD
 			    <%end%>
-			
-			
-			
-			
 		</div>
 		<div class="event-meta">
 			<i class="icon icon-location"></i>
 			<%= @event.location %>
 		</div>		
 	</div>
-
 	<div class="event-description">
   	<p class="event-description"><%= best_in_place @event, :description, :url => update_event_path(@event), as: :textarea %> </p>
 	</div>	
-	
-	
 	<div class="event-action-container">
 		<a class="btn btn-large open-registration">Register Now</a>
 		<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
 	</div>
-	
 </div>	
-
-
 <div class="map-container">
 	<div id="map"></div>
 	<a class="map-cover" href="http://maps.google.com/?q=<%= @event.location %>" target="_blank"> </a>
 </div>
-
-
 <div class="credit"> 
 	<div>made with</div> 
 	<a href="#"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
 </div>
-
-
-
-
 <%= render 'editor' %>
 <%= render 'events/partials/contact_form' %>
 <%= render 'events/partials/rsvp_form' %>
-
-
-
-
 
 <script type="text/javascript">
 
 $( document ).ready(function() {
   $('.event-editor-background .image').removeClass().addClass('image '+ $('#layout_style').val());
-
   $("#event-share").click(function() {
    $(".event-share").toggle();
  });
@@ -221,8 +195,6 @@ $( document ).ready(function() {
   var layout = $('#layout_id').val()? $('#layout_id').val(): "1"; 
 
 
-
-
   $('.theme.active').removeClass("active");
   $('.event-container').removeClass(theme); 
   $('.event-page.' + layout).removeClass('visible'); 
@@ -233,52 +205,53 @@ $( document ).ready(function() {
   $('.event-container').addClass(theme); 
   $('.event-page.' + layout).addClass('visible');    
 
-
-//  var query = window.location.href.split('?invited=');
-//  var query2 = window.location.href.split('uid=');
-//
-//  if(query[1].indexOf('true') == 0) {
-//    $('#attendee_first_name, #attendee_last_name, #attendee_email').remove();
-//    $('#attendee_user_id').val()
-//  }
-//
-//  $('#attendee_user_id').val(query2[1]);
-
-
   
   $('.theme').click(function() {
+
 
     $('.theme.active').removeClass("active");
     
     $('.event-container').removeClass(theme); 
-    //$('.event-page.' + layout).removeClass('visible'); 
 
     $(this).addClass('active'); 
     layout = $(this).data('layout'); 
     theme = $(this).data('theme'); 
 
-    console.log('layout value: '+ layout + ' || layout style: '+ theme);
+
+    if($('#layout_style').val() !== theme) {
+      $('.save-btn').show();
+    }
     
     $('.event-container').addClass(theme); 
-    //$('.event-page.' + layout).addClass('visible'); 
-    
-    //MAKE AJAX CALL TO SAVE
-   // saveTheme()
 
     return false;
 
   });
+
+  // save button 
+  $('#save').click(function(e) {
+    saveTheme();
+  });
+
+  //warning before leave page
+  window.onbeforeunload = function(e) {
+    if($('#layout_style').val() !== theme) {
+      return 'You have unsaved pages. Do you want to leave this page without saving?';
+    }
+  };
   
 
-  //function saveTheme() {
-    // $.ajax({
-    //   type: 'POST',
-    //     url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
-    //     data: {event:{layout_id: layout, layout_style: theme}}
-    //   }).done(function(data){
-    //     console.log(data);
-    //   });
-    // }
+  function saveTheme() {
+    $.ajax({
+      type: 'POST',
+        url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
+        data: {event:{layout_id: layout, layout_style: theme}}
+      }).done(function(data){
+        console.log(data);
+
+        $('#layout_style').val(theme);
+      });
+    }
 
   });
 
