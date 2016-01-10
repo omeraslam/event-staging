@@ -17,8 +17,16 @@
 					<a href="#"><i class="icon icon-twitter-2"> </i> </a>
 					<a href="#"><i class="icon icon-gplus"> </i> </a>
 				</div>
+
+
 	     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
-	     <a class="btn btn-bordered rsvp open-registration">Register Now</a> 
+      <!-- close registration if event start time has past -->      
+      <% if(Time.now.utc.strftime( "%H%M%S%N" ) > @event.time_start.to_time.utc.strftime( "%H%M%S%N" ) &&  DateTime.now.to_date == @event.date_start.to_date) %> 
+        <div class="btn btn-bordered rsvp open-registration">Registration Closed</div> 
+      <%  else  %>
+        <a class="btn btn-bordered rsvp open-registration">Register Now</a>
+      <% end %>
+      <!-- registration button end -->
 		</div>
     <div class="inline-image" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)"> </div>
 
