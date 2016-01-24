@@ -67,7 +67,8 @@ Rails.application.routes.draw do
   put '/users/:user_id/cancel-subscription', to: 'users#cancel_subscription', :as => :cancel_subcription
 
 
-  post '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
+  patch '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
+
   put '/:slug/updatetheme', to: 'events#update_theme'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

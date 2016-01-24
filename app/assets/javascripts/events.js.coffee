@@ -50,7 +50,7 @@ $(document).on 'ready page:load', ->
       $('.event-page').css 'cssText', 'background-image: '+ newimage.replace('_thumb', '_bg') + ' !important'
       $.ajax(
         type: 'POST'
-        url: '//' + String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme'
+        url: '' + String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme'
         data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
         return
 
