@@ -20,10 +20,17 @@
 
 
 //by page - TO CLEAN  UP
-@import "styles/events.scss";
 @import "styles/dashboard.scss";
 @import "styles/users.scss";
 @import "styles/pages.scss";
 @import "styles/logins.scss";
 
+
+
+@import "styles/event_creation.scss";
+
+@import "styles/event_show.scss";
+@import "styles/event_show_editor.scss";
+
+@import "styles/event_themes.scss";
 

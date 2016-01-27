@@ -20,7 +20,8 @@ input.input-primary[disabled] {
 
 
 
-input, .input {
+input, .input, textarea {
+	font-family: "Avenir",sans-serif;
 	display:inline-block;
 	background:#efefef;
 	font-size:18px;
@@ -58,6 +59,7 @@ input, .input {
 	.input-group-inline {
 		float:left;
 		position:relative;
+		width:50%;
 		
 		&#cvv {
 			margin-left:30px;
@@ -67,31 +69,90 @@ input, .input {
 			}
 		}
 	}
+
+
+	p {
+		margin-bottom:0;
+	}
 	
 
-
 	label {
-		font-weight:400;
+		font-weight:600;
 		margin:0 0 20px;
 		font-size:12px;
 		color:#444;
 		display:block;
+		text-align:left;
 		margin:0 0 2px 0;
 		
 		&.error {
 		
-		    bottom: -10px;
 		    color: #fff;
-		    top: inherit;
-		    /* display: none !important; */
 		    z-index: 99;
-		
-		
+		    background:$error-purple;
+		    padding:5px;
+		    display:inline-block;
+		    position:relative;
+		    margin-top:5px;
+
+		    &:after {
+		    	bottom: 100%;
+				left: 14%;
+				border: solid transparent;
+				content: " ";
+				height: 0;
+				width: 0;
+				position: absolute;
+				pointer-events: none;
+				border-color: rgba(136, 183, 213, 0);
+				border-bottom-color: $error-purple;
+				border-width: 5px;
+				margin-left: -5px;
+
+		    }
 		
 		}
 		
 		
-	}			
+	}	
+
+
+
+	&.input-group-dark {
+
+  		label {
+  			color:#fff;
+  		}
+
+  		input, textarea {
+  			background:rgba(255,255,255,.1);
+  			width:100%;
+  			color:#fff;
+  			border:1px solid rgba(255,255,255,.1);
+
+  			&:focus {
+       			border: 1px solid $brand-primary;
+      		}
+
+  		}
+
+
+
+	}
+
+
 }
 
 
+
+input.date {
+  //width: 140px;
+}
+
+input.time {
+  //width: 100px;
+}
+
+input.date, input.time {
+  //margin: 4px;
+}
