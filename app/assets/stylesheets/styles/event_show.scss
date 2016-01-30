@@ -1,0 +1,243 @@
+
+
+
+//event show page
+
+
+.event-container {
+}
+
+.event-page {
+		display:none;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index:0;
+    color:#fff;
+    text-align:center;
+    position:relative;
+    
+    .overlay {
+      background: #000;
+      width: 100%;
+      height: 100%;
+      opacity: .6;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .header {
+    	position:relative;
+    	padding: 200px 20px;
+    	
+    	.event-share {
+    		position:relative;
+    		z-index:999;
+    			
+    		a {
+    			color:#fff;
+    		
+    		}	
+    		
+    	}
+    
+    }
+
+    .inline-image {
+    	display: none;
+    }	
+
+}
+
+
+.event-body {
+
+	width:60%;
+	margin:0 auto;
+	padding:60px 0;
+	
+
+	.event-meta-container {
+	
+		text-align:center;
+		margin-bottom: 62px;
+	
+		&:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+		
+		.event-meta {
+			width:50%;
+			float:left;
+			
+			i {
+				display:block;
+				font-size:40px;
+			
+			}
+		
+		}
+		
+	}
+	
+	
+	.event-action-container {
+		text-align:center;
+		margin:50px 0;
+		
+		a.btn {
+			border:1px solid #222;
+			background:transparent;
+			color:#222;
+			margin: 0 12px;
+			
+			&:hover {
+				background:#222;
+				color:#fff;
+			
+			}
+		
+		}
+	
+	}
+		
+	
+}
+
+
+
+
+
+.map-container {
+	position:relative;
+	
+	#map {
+	  z-index:10;
+	  height: 400px;
+	}
+	
+	a.map-cover {
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		z-index:11;	
+	
+	}
+
+}
+
+
+
+
+
+
+
+.credit {
+
+	text-align:center;
+	color:#889;
+	padding:50px 10px 70px;
+	font-family: Georgia;
+	font-style: italic;
+	font-size: 10px;
+		
+	a {
+		margin-top:8px;
+		display:inline-block;
+		width:200px;
+		
+			img {
+				width:100%;
+				height:auto;
+			}
+	
+	}
+
+}
+
+
+
+
+
+
+
+
+.event-container {
+	input, textarea {
+		 background: none;
+		//background: rgba(255,255,255, 0.2);
+		border:none;
+		line-height: inherit;
+		margin: 0;
+		font-style: normal;
+		padding: 0;
+
+		//border-bottom: 1px dashed #fff;
+		&:focus {
+			//outline: none;
+		}
+	}
+
+		.event-details, .event-description {
+				//display: table;
+				span {
+					//border-bottom: 1px dashed #fff;
+
+					input,textarea {
+						width: auto;
+						border: none;
+					}
+
+					
+				}
+
+				.best_in_place:focus {
+						border: none !important;
+				
+				}
+
+				input {
+				//	width: 600px;
+				}
+			}
+}
+
+
+
+
+
+
+
+.save-btn {
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+
+//start the themes 
+
+.theme.active {
+	background:rgba(255,255,255,.05);
+
+}
+
+.event-page.visible {
+	display:block;
+
+}
+
+
+
+
