@@ -12,6 +12,11 @@ $default-font-size: 13px;
 	padding: 0;
 	margin: 0;
 
+	form {
+		max-width:500px;
+
+	}
+
 	.form-element {
 		position: relative;
 	}
