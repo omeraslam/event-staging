@@ -29,10 +29,27 @@ $brand-primary: #21afbf;
 	padding:0 !important;
 	text-align:center;
 	
+	.remodal-close {
+		color:$brand-secondary;
+
+	}
+
 	.modal-header {
-		background:#21afbf;
+		background:$brand-primary;
 		color:#fff;
 		padding:30px 50px;
+
+		.btn {
+			border:1px solid;
+			margin-top:20px;
+
+		}
+
+		.inline-link {
+			display:block;
+			color:#fff;
+			margin-top:10px;
+		}
 		
 		&.modal-header-light {
 			background: #fff;
@@ -242,5 +259,13 @@ $brand-primary: #21afbf;
 	form {
 		width: 100%;
 	}
+
+}
+
+
+//exceptions
+
+#event-creation-modal .modal-body {
+	text-align:center;
 
 }
