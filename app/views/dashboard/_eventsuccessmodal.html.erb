@@ -13,7 +13,7 @@
 
 
 	    <div class="modal-body">
-		  	<%= link_to 'Check out my event website', slugger_path(@event), class: 'btn', target: '_blank' %>
+		  	<%= link_to 'Check out my event website', slugger_path(:slug => @event.slug) , class: 'btn', target: '_blank' %>
 		    <p><a href="#" data-remodal-action="close">Or, return my event dashboard</a> </p>
 	    </div>
 
