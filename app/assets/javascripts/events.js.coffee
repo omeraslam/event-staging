@@ -103,12 +103,6 @@ $(document).on 'ready page:load', ->
         $('span[data-bip-attribute="description"]').attr('data-bip-value', $('.visible span[data-bip-attribute="description"]').text())
         return
       return
-
-
-
-
-
-
     return
 
 

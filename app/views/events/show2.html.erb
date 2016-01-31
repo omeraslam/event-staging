@@ -40,19 +40,35 @@
 		<div class="event-meta">
 			<i class="icon icon-calendar"></i>
 			
-			 <% if(@event.time_start != '') %>
-		
+			
+			    <% if(@event.time_display == false || !@event.date_start.nil? || !@event.date_start.blank? ) %>
+			    <% if(@event.date_start != '') %>
 			    <%= @event.date_start.to_date.strftime("%B") %> 
-		
 			
-			    <%= @event.date_start.to_date.strftime("%e, ") %>
-			
+			    <%= @event.date_start.to_date.strftime("%e") %><% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>,<% end %>
+			    <% if(@event.date_end.to_date.strftime("%Y") != @event.date_start.to_date.strftime("%Y") || @event.date_end == @event.date_start ) %>
 			    <%= @event.date_start.to_date.strftime("%Y") %> 
+			    <% end %>
+			    <% end %>
+			    <% if(@event.date_end != '' && @event.date_end != @event.date_start) %>
+			    -   
+			
+			    <% if(@event.date_end.to_date.strftime("%B") != @event.date_start.to_date.strftime("%B")) %>
+			    <%= @event.date_end.to_date.strftime("%B") %> 
+			    <%end %>
+			
+			    <%= @event.date_end.to_date.strftime("%e, ") %>
+			
+			    <%= @event.date_end.to_date.strftime("%Y") %> 
 			
 			
-  			    <% if(@event.time_start != '') %> | 
-  			     <%= @event.time_start.to_time.strftime("%l:%M %p") %>
-  			    <% end %>
+			    <% end %>
+			    <% if(@event.time_start != '') %> | 
+			    <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+			    <% end %>
+			    <% if(@event.time_end != '' && ( @event.time_end != @event.time_start  )) %>
+			    - <%= @event.time_end.to_time.strftime("%l:%M %p") %> 
+			    <% end %>
 			    <%else%>
 			    TBD
 			    <%end%>

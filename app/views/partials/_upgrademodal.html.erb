@@ -73,36 +73,25 @@
 			    		<label>Expiration (month/year)</label>
 			    		<input placeholder="12 / 2018" class="input cc-exp" type="text" >	
 			    	</div>
-
-
-
-			    	
 			    	<div class="input-group-inline" id="cvv"> 
 			    		<label>CVV</label>
 			    		<input class="input cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
 			    	</div>
-			    		
 			    </div>	
-			    
-			    
 		    	<div class="input-group">
 			      <button class="btn btn-large" >Upgrade my account now</button>
 			      <p><i class="icon icon-raw-lock"></i>Secured with 256-bit encryption </p>
 			    </div> 
-			     
-			      <p>By upgrading your account, you agree to the <a href="/terms" target="_blank"> terms and conditions</a>. </p>
+				<p>By upgrading your account, you agree to the <a href="/terms" target="_blank"> terms and conditions</a>. </p>
 			      <input type="hidden" id="user_premium" name="user[premium]" val="true" />
 	    	</form>
 	    </div>
-
-
 			<!-- success form -->
 			<div class="owl-item"> 
 				<div class="input-group input-group-centered" id="success">
 					<p> Thank you. Your account is now premium!</p>
 					<p> We've sent a receipt to <%=current_user.email%> </p>
                     <%= link_to "Great! Let's make some events!",event_create_path, class: "btn btn-primary" %>
-                 
 				</div>
 			</div>    
 					

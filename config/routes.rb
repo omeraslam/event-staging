@@ -68,6 +68,7 @@ Rails.application.routes.draw do
 
 
   patch '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
+  post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
 
   put '/:slug/updatetheme', to: 'events#update_theme'
   # The priority is based upon order of creation: first created -> highest priority.

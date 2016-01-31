@@ -228,10 +228,11 @@ $(document).ready(function() {
         }
     });
     $(".btn-next").click(function(e) {
+      
+        e.preventDefault();
         if (validator.element("#event_name")) {
             owl.trigger('next.owl.carousel');
         }
-        e.preventDefault();
     });
     $(".btn-prev").click(function(e) {
         owl.trigger('prev.owl.carousel');

@@ -12,6 +12,8 @@ class EventsController < ApplicationController
     @attendee = Attendee.new
     @user = User.find(current_user.id)
     @events = Event.where(:user_id => current_user.id).all
+    
+    @themes = Theme.all
 
   end
 
@@ -46,6 +48,9 @@ class EventsController < ApplicationController
 
         respond_with(@attendees, @event)
       end
+
+
+    @themes = Theme.all
 
     # if @event.save
 
