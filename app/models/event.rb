@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
         #    self.date_start.to_date.strftime('%B %d')
         # end
 
-        validates_presence_of :slug, :description, :name, :location, :time_start, :date_start
+        validates_presence_of :slug, :name
 
        
 

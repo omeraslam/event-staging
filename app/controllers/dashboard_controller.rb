@@ -28,7 +28,7 @@ class DashboardController < ApplicationController
 
     #@import = Attendee::Import.new
 
-
+    @themes = Theme.all
     #@attendees = Attendee.all
     @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
 

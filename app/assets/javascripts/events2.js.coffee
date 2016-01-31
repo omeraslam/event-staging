@@ -133,23 +133,10 @@ $(document).on 'ready page:load', ->
       'event[name]':
         required: true
 
-      'event[date_start]':
-        required: true
-      'event[time_start]':
-        required: true
-      'event[time_end]':
-        required: true
-      'event[location]':
-        required: true
-      'event[description]':
-        required: true
+     
     messages:
       'event[name]':
         required: 'Please enter a name'
-      'event[location]':
-        required: 'Where\'s the party at?'
-      'event[description]':
-        required: 'Please enter a description'
 
   $('#new_attendee').validate
     debug: false

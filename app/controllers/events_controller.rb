@@ -12,7 +12,7 @@ class EventsController < ApplicationController
     @attendee = Attendee.new
     @user = User.find(current_user.id)
     @events = Event.where(:user_id => current_user.id).all
-    
+
     @themes = Theme.all
 
   end
@@ -99,6 +99,9 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
 
+
+    @themes = Theme.all
+
     if @is_premium != 'active' &&  @disable_create
       redirect_to pricing_path
     else 
@@ -122,6 +125,8 @@ class EventsController < ApplicationController
   # 
   def create
 
+
+    @themes = Theme.all
 
     @user = User.find(current_user)
     @event = Event.all.build(event_params)
@@ -196,15 +201,9 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :description, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display, :style_id,:layout_id, :layout_style, :location, :background_img, :show_custom, :slug, :published)
+      valid = params.require(:event).permit(:name,  :event_time, :date_start, :date_end, :time_end, :time_display, :style_id,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :published)
 
       date_format = '%m/%d/%Y'
-      #offset = Date.now.strftime("%z")
-      if !valid[:date_start].nil?
-        valid[:date_start] = valid[:date_start] != '' ? Date.strptime(valid[:date_start], date_format) : valid[:date_start]
-        valid[:date_end] = valid[:date_end] != '' ? Date.strptime(valid[:date_end], date_format): valid[:date_end]
-      end
-      #valid[:time_start] = Time.strftime('1:00am', time_format)
       return valid
     end
   end
