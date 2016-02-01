@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get '/terms' => 'pages#terms'
   get '/privacy' => 'pages#privacy'
+
+  get '/events/calendar'  => 'events#calendar'
   
   get '/about' => 'pages#about'
   get '/pricing' => 'pages#pricing'
@@ -42,6 +44,8 @@ Rails.application.routes.draw do
   resources :users
   resources :events
   get '/:slug' => 'events#show', :as => :slugger
+
+  get '/:slug/calendar' => 'events#calendar', :as => :calendar_create
 
   # resources :users do
   #   resources :events

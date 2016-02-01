@@ -189,6 +189,17 @@ class EventsController < ApplicationController
     end
   end
 
+  def calendar
+    @event = Event.find_by_slug(params[:slug])
+
+      logger.debug "Emails from form hash: #{@event}"  
+
+
+    respond_to do |format|
+      format.ics { render :text => @event.to_ics(params[:outlook] ? true : false) }
+    end
+  end
+
 
 
   private

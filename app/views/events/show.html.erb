@@ -1,6 +1,12 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
 
+
+
+
+
+
+
 <div class="event-container">
 
   <%= hidden_field_tag 'layout_id', @event.layout_id %>
@@ -36,6 +42,7 @@
  
 <div class="event-body"> 
 
+<%=link_to 'calendar', calendar_create_path %>
 	<div class="event-meta-container"> 
 		<div class="event-meta">
 			<i class="icon icon-calendar"></i>
