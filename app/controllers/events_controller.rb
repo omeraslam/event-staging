@@ -1,7 +1,10 @@
+
+
 class EventsController < ApplicationController
   before_action :set_event, only: [ :edit]
   after_filter :store_location
   before_filter :authenticate_user!, :except => [:show]
+  require 'icalendar'
 
 
   respond_to :html, :js, :json
@@ -22,6 +25,8 @@ class EventsController < ApplicationController
   def show
 
     @event = Event.find_by_slug(params[:slug])
+
+      logger.debug "time is: #{@event.date_start}"
     
       if @event.published == false && !signed_in?
         #&& current_user.id.to_i != @event.user_id.to_i
@@ -189,15 +194,33 @@ class EventsController < ApplicationController
     end
   end
 
-  def calendar
+  def export_events
     @event = Event.find_by_slug(params[:slug])
 
-      logger.debug "Emails from form hash: #{@event}"  
+    #   logger.debug "Emails from form hash: #{@event}"  
 
 
-    respond_to do |format|
-      format.ics { render :text => @event.to_ics(params[:outlook] ? true : false) }
-    end
+    # respond_to do |format|
+    #   format.ics { render :text => @event.to_ics(params[:outlook] ? true : false) }
+    # end
+
+   #   @event = Event.find(params[:id])
+    @calendar = Icalendar::Calendar.new
+    event = Icalendar::Event.new
+
+    d = date_start 
+    event.start = @event.date_start.strftime("%Y%m%dT%H%M%S")
+    #event.end = @event.dt_time.strftime("%Y%m%dT%H%M%S")
+    #event.summary = @event.summary
+    event.description = @event.description
+    event.location = @event.location
+    @calendar.add_event(event)
+    @calendar.publish
+    headers['Content-Type'] = "text/calendar; charset=UTF-8"
+    render :layout => false, :text => @calendar.to_ical
+
+
+
   end
 
 

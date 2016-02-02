@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   resources :events
   get '/:slug' => 'events#show', :as => :slugger
 
-  get '/:slug/calendar' => 'events#calendar', :as => :calendar_create
+  get '/:slug/export' => 'events#export_events', :as => :export_events
 
   # resources :users do
   #   resources :events
