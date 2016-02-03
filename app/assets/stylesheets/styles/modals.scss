@@ -24,6 +24,12 @@ $brand-primary: #21afbf;
 	display: none;
 }
 
+.remodal-overlay {
+	
+	background:rgba(26, 26, 26, 0.82);
+}
+
+
 .remodal {
 	//display: none;
 	padding:0 !important;
@@ -73,6 +79,12 @@ $brand-primary: #21afbf;
 			font-weight:400;
 			font-size:26px;
 			margin-bottom:4px;
+
+		}
+
+		p a {
+			color:#fff;
+			text-decoration:underline;
 
 		}
 		
@@ -267,5 +279,16 @@ $brand-primary: #21afbf;
 
 #event-creation-modal .modal-body {
 	text-align:center;
+
+}
+
+.dashboard .remodal#email-invite-modal {
+	max-width:800px !important;
+
+	.modal-body {
+
+		width:100%;
+
+	}
 
 }
