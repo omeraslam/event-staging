@@ -41,8 +41,6 @@
 </div>
  
 <div class="event-body"> 
-
-<%=link_to 'calendar', export_events_path %>
 	<div class="event-meta-container"> 
 		<div class="event-meta">
 			<i class="icon icon-calendar"></i>
@@ -57,16 +55,27 @@
 			    <%= @event.date_start.to_date.strftime("%Y") %> 
 			
 			
-  			    <% if(@event.time_start != '' && !@event.time_start.nil?) %> | 
+  			    <% if(@event.time_start != '' && !@event.time_start.nil?) %> <br> 
   			     <%= @event.time_start.to_time.strftime("%l:%M %p") %>
   			    <% end %>
 			    <%else%>
 			    TBD
 			    <%end%>
+
+          <div class="event-meta-actions">  
+            <%=link_to 'Add to calendar', export_events_path %>  
+          </div>    
+
 		</div>
 		<div class="event-meta">
 			<i class="icon icon-location"></i>
+      {EVENT LOCATION NAME} <br>
 			<%= @event.location %>
+
+      <div class="event-meta-actions">
+          <a href="http://maps.google.com/?q=<%= @event.location %>" target="_blank">Get Directions </a>  
+      </div>
+
 		</div>		
 	</div>
 	<div class="event-description">
@@ -83,7 +92,7 @@
 </div>
 <div class="credit"> 
 	<div>made with</div> 
-	<a href="#"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
+	<a href="http://www.eventcreate.com/"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
 </div>
 <%= render 'editor' %>
 <%= render 'events/partials/contact_form' %>
