@@ -1,16 +1,14 @@
-// Place all the styles related to the Dashboard controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-
-$brand-primary: #21afbf;
-$error-red: rgba(213, 55, 37, 0.9);
-$default-font-size: 13px;
 
 
 .dashboard {
 	padding: 0;
 	margin: 0;
+	background:#fff;
+
+	.container {
+		padding:0 50px;
+
+	}
 
 	form {
 		max-width:500px;
@@ -33,10 +31,10 @@ $default-font-size: 13px;
 	position:absolute;
 	top:0;
 	left:0;
-	background:#fff;
-	border-bottom:1px solid #ccc;
+	background:$brand-secondary;
 	width:100%;
-	color:#888;
+	color:#fff;
+
 	
 	.logo {
 		width:23px;
@@ -47,10 +45,21 @@ $default-font-size: 13px;
 	}
 	
 	a {
-		color:#555;
+		color:#fff;
 		font-weight:600;
 		padding:16px;
-		font-size:12px;
+		font-size:9px;
+		opacity:.8;
+		text-transform:uppercase;
+		letter-spacing:2px;
+		font-weight:800;
+
+		&:hover {
+
+			color:$brand-primary;
+			opacity:1;
+
+		}
 		
 
 	}
@@ -66,10 +75,20 @@ $default-font-size: 13px;
 
 }
 
+
+.event-header {
+	
+	background:$brand-secondary;
+	color:#fff;
+}
+
+
+
 .event-meta {
 
 	h1 {
 		font-size:48px !important;
+		margin:0;
 
 	}
 
@@ -87,47 +106,25 @@ $default-font-size: 13px;
 
 .event-status {
 
-	margin-top:12px;
 
-	a.btn {
-		line-height:38px;
-		padding:0 26px;
-		height:38px;
-		margin-right:10px;
-		font-weight: 600;
-		font-size: 12px;
-		
-	}
 
 	a.circle {
-		background:$brand-primary;
-		width:38px;
-		height:38px;
-		color:#fff;
-		line-height:38px;
-		text-align:center;
-		display:inline-block;
-		border-radius:50%;
-		
-		&#facebook {
-			background:#3b5998;
-		}
+	    background: rgba(33, 175, 191, 0.11);
+	    margin-top: 14px;
+	    margin-right: 4px;
 
-		&#twitter {
-			background:#00aced;
-		}
-	
+	    &:hover {
+	    	background-color: lighten(#21afbf, 10%);
+	    }
 	}
-	
+
+
 	.event-link  {
+		display:none;
 		margin-top:14px;
-		position:relative;
-		display:inline-block;
 	
 		input {
-			border:none;
 			padding:10px 14px 10px 30px;	
-			color:#444;
 		}
 		
 		i {

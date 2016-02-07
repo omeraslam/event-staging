@@ -3,228 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $brand-primary: #21afbf;
 
-.quick-find-container {
-	display: inline-block;
-	position:relative;
-	line-height:18px;
-	margin-top: 7px;
-
-	input {
-		padding: 10px 147px 10px 30px;
-		position:relative;
-		border:none;
-		outline:none;
-		background:none;
-		border-bottom:1px solid #fff;
-		color:#fff;
-
-	}
-
-	::-webkit-input-placeholder {
-		color: #fff;
-	}
-
-		:-moz-placeholder { /* Firefox 18- */
-			color: #fff;  
-		}
-		
-		::-moz-placeholder {  /* Firefox 19+ */
-			color: #fff;  
-		}
-		
-		:-ms-input-placeholder {  
-			color: #fff;  
-		}
-		
-		i {
-			position:absolute;
-			left:0;
-			top:6px;
-			font-size:20px;
-
-		}
-
-	}
-
-	.event-nav {
-		position:fixed;
-		height:100%;
-		width:180px;
-		background:#222;
-		padding: 60px 0;
-		color:#fff;
-		top: 0;
-		left: 0;
-
-		.logo {
-			float:none;
-			margin:0 auto;
-
-		}
-
-		ul {	
-			float:none;
-			margin-top:40px;
-
-			li {
-				margin:5px 0;
-				display:block;
 
 
 
-				a {
-					font-size:12px;
-					padding: 10px 15px;
-					display:block;
-					opacity:.4;
-
-					&:hover {
-						opacity:1;
-					}
-
-					i {
-						margin-right:5px;
-					}
-
-				}
-
-			}
-
-		}
-
-	}
+.dashboard .event-header {
 
 
-	.dashboard, .attendees {
-
-		background:#fff;
-		color:#444;
-
-		.container {
-			padding: 120px 70px 70px 280px;
-
-		}
-
-	
-	h1 {
-
-		//font-family: "Whitney SSm A", "Whitney SSm B";
-		// font-style: normal;
-		// font-weight: 700;
-		// margin:0;
-		// font-size:40px;
-		// color:#555;
-
-		// background:#fff;
-		// color:#444;
-	
-	.container {
-		padding: 120px 70px 70px 280px;
-	
-	}
-	
-
-	}
-	
-	.lead {
-		font-size:23px;
-		color:#555;
-
-	}
-	
-	section {
-
-		border-top:1px solid #DCDCDC;
-		margin:40px 0;
-		
-		h4 {
-
-			margin: 5px 0 20px 0;
-			font-size:14px;
-			font-weight:400;
-			color:#bbb;
-		}
-		
-		p {
-			margin:26px 0;
-			font-size:15px;
-
-		}
-
-		ul {
-
-			li {
-				display:inline-block;
-				float:left;	
-				
-				a {
-
-					display:block;
-					text-align:center;
-					padding:20px 50px;		
-					cursor:pointer;
-					text-transform:lowercase;
-					
-					span {
-						font-size:19px;
-						display:block;
-						margin-top:10px;
-
-
-					}
-
-					i {
-						display:block;
-						font-size:74px;		
-						line-height:60px;
-					}
-					
-					&:hover {
-						color:#fff;
-						background:#21afbf;
-
-					}
-					
-					&.active {
-						color:#fff;
-						background:#21afbf;
-
-					}
-					
-				}
-
-			}
-
-		}
-		
-		&:after {
-			content: "";
-			display: table;
-			clear: both;
-		}
-
-
-
-	}
-
-
-}
-
-
-
-.dashboard-container {
-	//padding:20px 30px 20px 270px;
-	padding:0 40px;
-
-
-}
-
-
-.event-header {
-
-	background:#F5F5F5;
-
-	padding-top:130px;
+	padding-top:90px;
 
 	.event-meta {
 		width:60%;
@@ -327,9 +112,9 @@ $brand-primary: #21afbf;
 
 .event-navigation {
 
-	background:#F5F5F5;
-	padding-top:100px;
+	padding-top:50px;
 	padding-bottom:0;
+	clear:both;
 
 	ul {
 
@@ -354,9 +139,11 @@ $brand-primary: #21afbf;
 			font-size:12px;
 			text-transform:uppercase;
 			letter-spacing:1px;
-			color:#555;
+			color:#fff;
 			display:block;
 			padding:10px 30px;
+			background:$brand-primary;
+
 
 			sup {
 				background: #000;
@@ -367,14 +154,12 @@ $brand-primary: #21afbf;
 			}
 			
 			&.active {
-				color:#21afbf;
-				border-bottom:2px solid;
-
+				color:$brand-secondary;
+				background:#fff;	
 			}
 
 			&:hover {
 				//color:#21afbf;
-				border-bottom:2px solid;
 
 			}
 

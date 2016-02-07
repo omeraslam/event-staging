@@ -10,9 +10,11 @@
             		<div class="left"> 
             			<a class="logo" href="/"><span>Event Create</span></a>
             			<ul> 
+
             				<li><li><%=  link_to 'Upcoming events', {:controller => 'dashboard', :action => 'index'}  %></li>
+
             				</li>
-            				<li><a href="#">My contacts </a></li>
+            				<li><a href="#"> Contacts </a></li>
             			</ul>
             		</div>
 
@@ -21,9 +23,9 @@
 									<ul> 
 										
 										<% if @is_premium != 'active' &&  @disable_create %>
-										  <li><%= link_to "<i class='icon icon-plus'></i> Create new event".html_safe, '#', class: 'open-upgrade' %> </li>  
+										  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, '#', class: 'open-upgrade' %> </li>  
 										<% else %>
-										  <li><%= link_to "<i class='icon icon-plus'></i> Create new event".html_safe, '/event-create' %> </li>
+										  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, '/event-create' %> </li>
 										<% end %>
 										
 										

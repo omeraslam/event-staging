@@ -1,0 +1,87 @@
+<!--upgrade modal-->
+<div id="email-invite-modal">
+
+	    <button data-remodal-action="close" class="remodal-close"></button>
+	    
+
+	    <div class="modal-header">
+	    	<i class="icon icon-line-email"> </i>
+		    <h2>New email invitation</h2>
+		    <p>  
+		      Want a peak at the design? <a href="#">Preview  email</a> | <a href="#">Send me a test</a>
+		    </p>
+	    </div>
+
+
+	    <div class="modal-body">
+
+	    	<form>
+
+	    	<table> 
+		    	<tr> 
+		    		<th>First Name </th>
+		    		<th>Last Name </th>
+		    		<th>Email Address </th>
+		    		<th class="row-actions"> </th>
+
+		    	</tr>			
+		    	<tr> 
+		    		<td>mark </td>
+		    		<td>bsuhy </td>
+		    		<td>mark@aol.cm </td>
+		    		<td class="row-actions"><a href="#">edit</a> <a href="#">delete</a> </td>
+
+		    	</tr>	
+
+		    	<tr> 
+		    		<td><input type="text" placeholder="First Name"> </td>
+		    		<td><input type="text" placeholder="Last Name"> </td>
+		    		<td><input type="text" placeholder="Email Address"> </td>
+		    		<td class="row-actions"> <a class="circle" href="#"><i class="icon icon-plus"></i></a></td>
+
+		    	</tr>	
+
+	    	</table>
+
+
+
+	    	<div class="input-group">
+	    		<a href="#" class="btn"> Send email to 1 guest</a>
+	    	</div>	
+
+	    	<p>
+	    		You can also import contacts from: <a href="#">Facebook</a>, <a href="#"> Gmail</a>, or by <a href="#">uploading a CSV/Text file</a>
+	    	</p>
+
+	    	</form>	
+
+
+
+
+
+	    </div>
+
+
+</div>
+<!-- END modal -->
+
+
+
+<script>
+
+$(document).ready(function(){
+
+			
+			
+		//modal
+    var emailModal = $('#email-invite-modal').remodal();
+	//emailModal.open();
+
+    $('.send-email').click(function(){
+        emailModal.open();
+    });
+
+});
+
+
+</script>

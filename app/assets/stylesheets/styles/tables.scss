@@ -1,0 +1,58 @@
+//generic styles
+//
+
+
+
+
+.attendees, .dashboard {
+
+
+  h2 {
+    text-align :center;
+  }
+  table, td, th { 
+    vertical-align: middle; 
+    //border: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    border-spacing: 0;
+    width:100%;
+  }
+
+  td.row-actions, th.row-actions {
+    text-align:center;
+
+  }
+
+
+  td, th {
+    padding: 12px 0;
+    font-weight: 400;
+    min-width: 120px;
+    color: #888;
+  }
+  
+  td {
+  	width:25%;
+  	border-top:1px solid #DCDCDC;
+  }
+
+
+  th { 
+    width: 200px;
+    //border-bottom: 1px solid #DDD; 
+  }
+  table img { 
+    width:100px;
+  }
+
+	
+}
+
+
+.table-actions {
+  
+  text-align:right;
+
+}
