@@ -10,7 +10,7 @@
             		<div class="left"> 
             			<a class="logo" href="/"><span>Event Create</span></a>
             			<ul> 
-            				<li><li><%=  link_to 'Upcoming events', dashboard_index_path  %></li>
+            				<li><li><%=  link_to 'Upcoming events', {:controller => 'dashboard', :action => 'index'}  %></li>
             				</li>
             				<li><a href="#">My contacts </a></li>
             			</ul>
@@ -47,7 +47,7 @@
                 <div class="signed-in-menu">
               <ul>
                 
-                <li><%=  link_to "My events", dashboard_index_path %> </li>
+                <li><%=  link_to "My events", {:controller => 'dashboard', :action => 'index'} %> </li>
                 
                   <% if @is_premium != 'active' &&  @disable_create %>
                   <li><%=  link_to "Create new event", '#', :class => 'open-upgrade' %> </li> 
@@ -67,7 +67,7 @@
               <a class="logo" href="/"><span>Event Create</span></a>
             
               <ul> 
-                <li><%=  link_to 'Upcoming events', dashboard_index_path  %></li>
+                <li><%=  link_to 'Upcoming events', {:controller => 'dashboard', :action => 'index'}  %></li>
                 <li><%=  link_to 'Past events', dashboard_past_path  %></li>
                     
 
@@ -97,7 +97,7 @@
                 
               
 
-                  <li style="display: none;"><%= link_to '<span>Home</span>'.html_safe, dashboard_index_path, :class => 'icon icon-home' %></li>
+                  <li style="display: none;"><%= link_to '<span>Home</span>'.html_safe, {:controller => 'dashboard', :action => 'index'}, :class => 'icon icon-home' %></li>
 <!--
                   <li><a class="icon icon-hamburger toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
                 -->
@@ -121,7 +121,7 @@
                   </li>
                 
                 
-          <!--        <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_index_path, :class => 'icon icon-user open-menu'  %>
+          <!--        <li><%=  link_to '<span>Profile</span>'.html_safe, {:controller => 'dashboard', :action => 'index'}, :class => 'icon icon-user open-menu'  %>
                   </li> -->
                 
                 </ul>
@@ -144,14 +144,14 @@
               <% end %>
             
               
-                <li><%=  link_to '<span>Profile</span>'.html_safe, dashboard_profile_path, :class => 'icon icon-user open-menu'  %></li>
+                <li><%=  link_to '<span>Profile</span>'.html_safe, {:controller => 'dashboard', :action => 'profile'}, :class => 'icon icon-user open-menu'  %></li>
                 
             </ul>
             
             <div class="signed-in-menu">
               <ul>
 
-                <li><%=  link_to "My events", dashboard_index_path %> </li>
+                <li><%=  link_to "My events", {:controller => 'dashboard', :action => 'index'} %> </li>
 
               <% if @is_premium != 'active' &&  @disable_create %>
                 <li><%=  link_to "Create new event", '#', :class => 'open-upgrade' %> </li> 
@@ -159,7 +159,7 @@
                 <li><%=  link_to "Create new event", '/event-create' %> </li> 
                 
               <% end %>
-                <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
+                <li><%= link_to 'Edit profile', {:controller => 'dashboard', :action => 'profile'}, :class => 'navbar-link' %> </li>
                 <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
               </ul>
             </div>  

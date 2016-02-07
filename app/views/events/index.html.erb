@@ -5,9 +5,9 @@
 	  <% @events.each do |event| %>
 	  <div class="event">
      <% if(event.layout_style?) 
-          @style_bg = '/assets/' + event.layout_style.to_s + '.jpg'
+          @style_bg = '/assets/themes/' + event.layout_style.to_s + '_thumb.jpg'
         else
-          @style_bg = '/assets/brunch.jpg'
+          @style_bg = '/assets/themes/cityscape_thumb.jpg'
         end
      %>
      <% if(event.show_custom == true)

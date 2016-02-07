@@ -151,7 +151,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to dashboard_event_path(:event => @event.id) + str, notice: 'Event was successfully created.' }
+        format.html { redirect_to controller: 'dashboard', action: 'index', event: @event.id, first: true, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: event_path(current_user, @event) }
       else
         format.html { render :new }

@@ -58,48 +58,48 @@
 <!-- end google analytics code -->
    
    <script>
-   if(document.getElementsByClassName('event-page').length > 0 ) {
+   //if(document.getElementsByClassName('event-page').length > 0 ) {
 
 
-    var initMap;
+    // var initMap;
 
-    initMap = function() {
+    // initMap = function() {
 
-      var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
-      geocoder = void 0;
-      geocoder = new google.maps.Geocoder;
-      latlng = void 0;
-      var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    //   var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
+    //   geocoder = void 0;
+    //   geocoder = new google.maps.Geocoder;
+    //   latlng = void 0;
+    //   var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: latlng,
-        zoom: 13,
-        disableDefaultUI: true,
-        zoomControl: false,
-        scrollwheel: false,
-        backgroundColor: 'none'
+    //   map = new google.maps.Map(document.getElementById('map'), {
+    //     center: latlng,
+    //     zoom: 13,
+    //     disableDefaultUI: true,
+    //     zoomControl: false,
+    //     scrollwheel: false,
+    //     backgroundColor: 'none'
 
-      });
+    //   });
 
-      getLocation = function() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-          x.innerHTML = 'Geolocation is not supported by this browser.';
-        }
-      };
-      showPosition = function(position) {
-        var lat, long;
-        lat = position.coords.latitude;
-        long = position.coords.longitude;
-        latlng = new google.maps.LatLng(lat, long);
-      };
-      codeAddress = function() {
-        var address;
+    //   getLocation = function() {
+    //     if (navigator.geolocation) {
+    //       navigator.geolocation.getCurrentPosition(showPosition);
+    //     } else {
+    //       x.innerHTML = 'Geolocation is not supported by this browser.';
+    //     }
+    //   };
+    //   showPosition = function(position) {
+    //     var lat, long;
+    //     lat = position.coords.latitude;
+    //     long = position.coords.longitude;
+    //     latlng = new google.maps.LatLng(lat, long);
+    //   };
+    //   codeAddress = function() {
+    //     var address;
 
-        var styles = [
-         {"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"administrative.province","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#e3e3e3"}]},{"featureType":"landscape.natural","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"color":"#cccccc"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"transit.station.airport","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"transit.station.airport","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#FFFFFF"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"off"}]}
-         ];
+    //     var styles = [
+    //      {"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"administrative.province","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#e3e3e3"}]},{"featureType":"landscape.natural","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"color":"#cccccc"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"transit.station.airport","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"transit.station.airport","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#FFFFFF"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"off"}]}
+    //      ];
         
 //        var styles = [
 //          {
@@ -123,68 +123,68 @@
 //          }
 //        ];
 
-        address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
-        geocoder.geocode({
-          'address': address
-        }, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            map.setOptions({styles: styles});
-            map.setCenter(results[0].geometry.location);
-            marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location,
-              //icon: iconBase + 'schools_maps.png'
-            });
+//         address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
+//         geocoder.geocode({
+//           'address': address
+//         }, function(results, status) {
+//           if (status === google.maps.GeocoderStatus.OK) {
+//             map.setOptions({styles: styles});
+//             map.setCenter(results[0].geometry.location);
+//             marker = new google.maps.Marker({
+//               map: map,
+//               position: results[0].geometry.location,
+//               //icon: iconBase + 'schools_maps.png'
+//             });
 
 
-          } else {
-        //alert('Geocode was not successful for the following reason: ' + status);
-        alert('Location not found');
-      }
-    });
-      };
-  // 
+//           } else {
+//         //alert('Geocode was not successful for the following reason: ' + status);
+//         alert('Location not found');
+//       }
+//     });
+//       };
+//   // 
 
-  codeAddress();
-
-
+//   codeAddress();
 
 
-  setMapOnAll = function(map) {
-
-    marker.setMap(null);
-
-    codeAddress();
-  }
-
-if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
-
-    $('span[data-bip-attribute="location').bind('focusin', function() {
-
-      $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
-
-      var input = /** @type {!HTMLInputElement} */(
-        document.querySelector('.visible span[data-bip-attribute="location"] input'));
-      var autocomplete = new google.maps.places.Autocomplete(input);
-    });
-  // on success of address input, recalculate map position
-  $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
-
-    $('span[data-bip-attribute="location"]').text($('.visible span[data-bip-attribute="location"]').text())
-
-    $('span[data-bip-attribute="location"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="location"]').text())
-    $('span[data-bip-attribute="location"]').attr('data-bip-value', $('.visible span[data-bip-attribute="location"]').text())
-
-    setMapOnAll(null);
-
-  });
-
-}
-
-};
 
 
-}
+//   setMapOnAll = function(map) {
+
+//     marker.setMap(null);
+
+//     codeAddress();
+//   }
+
+// if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
+
+//     $('span[data-bip-attribute="location').bind('focusin', function() {
+
+//       $('.visible span[data-bip-attribute="location"] input').val($('.visible span[data-bip-attribute="location"]').attr('data-bip-value'));
+
+//       var input = /** @type {!HTMLInputElement} */(
+//         document.querySelector('.visible span[data-bip-attribute="location"] input'));
+//       var autocomplete = new google.maps.places.Autocomplete(input);
+//     });
+//   // on success of address input, recalculate map position
+//   $('span[data-bip-attribute="location"] ').bind('ajax:success', function(){
+
+//     $('span[data-bip-attribute="location"]').text($('.visible span[data-bip-attribute="location"]').text())
+
+//     $('span[data-bip-attribute="location"]').attr('data-bip-original-content', $('.visible span[data-bip-attribute="location"]').text())
+//     $('span[data-bip-attribute="location"]').attr('data-bip-value', $('.visible span[data-bip-attribute="location"]').text())
+
+//     setMapOnAll(null);
+
+//   });
+
+// }
+
+// };
+
+
+// }
 
 </script>
 
@@ -194,7 +194,7 @@ if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
 
 <!-- load google map file only on dashboard edit event page and on event pages -->
 <% if controller_name == "events" || ( action_name == 'event' && controller_name == 'dashboard') %>
-  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap" async defer></script>
+<!--   <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap" async defer></script> -->
 <% end %>
 <!-- end load google map -->
 

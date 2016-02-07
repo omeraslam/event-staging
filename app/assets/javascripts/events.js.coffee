@@ -25,21 +25,30 @@ $(document).on 'ready page:load', ->
 
 
 
-  $('#datepairExample .time').timepicker
-    'showDuration': true
-    'timeFormat': 'g:ia'
-  $('#datepairExample .date').datepicker
-    onSelect: (dateText) ->
-      $('.date').focusout()
-      return
-    'format': 'm/d/yyyy'
-    'autoclose': true
-  # # initialize datepair
-  $('#datepairExample').datepair
-    parseDate: (input) ->
-      $(input).datepicker 'getDate'
-    updateDate: (input, dateObj) ->
-      $(input).datepicker 'setDate', dateObj
+
+  testInt = setInterval((->
+    if $('.time.start').is(':visible')
+      clearInterval testInt
+      #initialize date time
+      $('#datepairExample .time.start').timepicker
+        'showDuration': true
+        'timeFormat': 'g:ia'
+      $('#datepairExample .date').datepicker
+          onSelect: (dateText) ->
+            $('.date').focusout()
+            return
+          'format': 'm/d/yyyy'
+          'autoclose': true
+        # # initialize datepair
+      $('#datepairExample').datepair
+        parseDate: (input) ->
+          $(input).datepicker 'getDate'
+        updateDate: (input, dateObj) ->
+          $(input).datepicker 'setDate', dateObj
+
+
+    return
+  ), 1000)
 
 
   $('.event-editor-background a').on 'click', (e) ->
