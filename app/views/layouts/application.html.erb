@@ -64,7 +64,6 @@
 
 <!-- load google map file only on dashboard edit event page and on event pages -->
 <% if controller_name == "events" &&  action_name == 'show' %>
-  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap" async defer></script>
 
      
    <script>
@@ -74,7 +73,6 @@
     var initMap;
 
     initMap = function() {
-
       var address, codeAddress, geocoder, getLocation, infowindow, latlng, map, marker, showPosition;
       geocoder = void 0;
       geocoder = new google.maps.Geocoder;
@@ -132,8 +130,7 @@
            ]
          }
        ];
-
-        address = $('.visible.event-page .location').text() === '' ? 'Los Angeles, CA' : $('.visible.event-page .location').text();
+        address = $('.event-meta .location').text() === '' ? 'Los Angeles, CA' : $('.event-meta .location').text();
         geocoder.geocode({
           'address': address
         }, function(results, status) {
@@ -197,6 +194,8 @@ if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
 }
 
 </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initMap" async defer></script>
 <% end %>
 <!-- end load google map -->
 
