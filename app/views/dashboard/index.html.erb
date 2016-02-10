@@ -30,7 +30,7 @@
 					
 					<% end %>
 					<div class="time">
-						<% if(event.date_start != '') %>
+						<% if(event.date_start != '' && !event.date_start.nil?) %>
 						<%= event.date_start.to_date.strftime("%B %d") %> 
 					
 						<% if(event.date_end != '' && event.date_end != event.date_start) %>
