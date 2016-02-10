@@ -1,5 +1,5 @@
 {
-   "themes":[
+   "themes"[
       {
          "name":"Cityscape",
          "slug":"cityscape",
