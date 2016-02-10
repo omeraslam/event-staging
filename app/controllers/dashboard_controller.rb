@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
   def index
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = Event.where(:user_id => current_user.id).all
+    @events = Event.where(:user_id => current_user.id.to_s).all
 
 
     respond_with(@attendee, @user, @events)
@@ -19,8 +19,8 @@ class DashboardController < ApplicationController
     @attendee = Attendee.new
     @user = User.find(current_user.id)
 
-    @upcoming_events  = Event.where(user_id: current_user.id).where("date_end > ?", Time.now.beginning_of_day)
-    @events = Event.where(user_id: current_user.id).where("date_end < ?", Time.now.beginning_of_day)
+    @upcoming_events  = Event.where(user_id: current_user.id.to_s).where("date_end > ?", Time.now.beginning_of_day)
+    @events = Event.where(user_id: current_user.id.to_s).where("date_end < ?", Time.now.beginning_of_day)
   end
 
 

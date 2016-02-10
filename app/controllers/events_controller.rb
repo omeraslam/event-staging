@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   def index
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = Event.where(:user_id => current_user.id).all
+    @events = Event.where(:user_id => current_user.id.to_s).all
 
     @themes = Theme.all
 
@@ -143,7 +143,7 @@ class EventsController < ApplicationController
 
 
 
-    if Event.where(:user_id => current_user.id).count >= 0
+    if Event.where(:user_id => current_user.id.to_s).count >= 0
       str = '?first=true'
     else
       str = ''
