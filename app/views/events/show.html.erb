@@ -18,10 +18,18 @@
 	  <div class="overlay"></div>
 		<div class="header"> 
 				<div class="event-share">
-					<a href="#"><i class="icon icon-facebook-1"> </i> </a>
-					<a href="#"><i class="icon icon-twitter-2"> </i> </a>
+
+      
+					<a href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>"><i class="icon icon-facebook-1"> </i> </a>
+					<a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>"><i class="icon icon-twitter-2"> </i> </a>
 					<a href="#"><i class="icon icon-gplus"> </i> </a>
 				</div>
+
+
+
+
+
+
 
 
 	     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
@@ -70,7 +78,7 @@
 			<i class="icon icon-location"></i>
       <%= @event.location_name %> <br>
 			<span class="location"><%= @event.location %></span>
-
+      
       <div class="event-meta-actions">
           <a href="http://maps.google.com/?q=<%= @event.location %>" target="_blank">Get Directions </a>  
       </div>

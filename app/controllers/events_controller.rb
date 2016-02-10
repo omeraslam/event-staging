@@ -41,8 +41,8 @@ class EventsController < ApplicationController
 
         client = Bitly.client
 
-        @url = 'http://eventcreate.com/' + event_path(current_user, @event)
-
+        @url = 'http://eventcreate.com/' + event_path( @event)
+       logger.debug "#{@url}"
         @bitly = client.shorten(@url)
 
 
