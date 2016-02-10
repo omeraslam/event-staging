@@ -32,7 +32,7 @@ $(document).on 'ready page:load', ->
     onSelect: (dateText) ->
       $('.date').focusout()
       return
-    'format': 'm/d/yyyy'
+    'format': 'dd/mm/yyyy'
     'autoclose': true
   # # initialize datepair
   $('#datepairExample').datepair

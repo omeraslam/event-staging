@@ -45,7 +45,7 @@
 		<div class="event-meta">
 			<i class="icon icon-calendar"></i>
 			
-			 <% if(@event.date_start != '' && @event.date_start.nil?) %>
+			 <% if(@event.date_start != '' && !@event.date_start.nil?) %>
 		
 			    <%= @event.date_start.to_date.strftime("%B") %> 
 		
@@ -86,7 +86,7 @@
 		<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
 	</div>
 </div>	
-<div class="map-container">
+<div class="map-container" <% (@event.location.nil? || @event.location == '' || @event.location.empty? )? 'style="background:#222;"': '' %> >
 	<div id="map"></div>
 	<a class="map-cover" href="http://maps.google.com/?q=<%= @event.location %>" target="_blank"> </a>
 </div>
