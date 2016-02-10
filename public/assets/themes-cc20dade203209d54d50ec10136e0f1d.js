@@ -1,0 +1,1 @@
+"themes"[{name:"The Minimalist",slug:"minimalist",active:"true"}];

@@ -235,9 +235,13 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name,  :event_time, :date_start, :date_end, :time_end, :time_display,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :location, :location_name, :description, :published)
+      valid = params.require(:event).permit(:name,  :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :location, :location_name, :description, :published)
 
       date_format = '%m/%d/%Y'
+      if !valid[:date_start].nil?
+        valid[:date_start] = valid[:date_start] != '' ? Date.strptime(valid[:date_start], date_format) : valid[:date_start]
+        valid[:date_end] = valid[:date_end] != '' ? Date.strptime(valid[:date_end], date_format): valid[:date_end]
+      end
       return valid
     end
   end
