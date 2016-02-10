@@ -28,7 +28,7 @@
   <div class="input-group" id="datepairExample">
     <div class="input-group-inline">
       <label> Date</label>
-      <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date' %>
+      <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :value => @event.date_start.to_time.strftime("%m/%d/%Y") %>
     </div>
 
     <div class="input-group-inline">
