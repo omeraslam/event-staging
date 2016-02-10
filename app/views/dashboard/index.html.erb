@@ -30,20 +30,18 @@
 					
 					<% end %>
 					<div class="time">
-						<% if(event.time_display == false) %> 
 						<% if(event.date_start != '') %>
 						<%= event.date_start.to_date.strftime("%B %d") %> 
-						<% end %>
-
+					
 						<% if(event.date_end != '' && event.date_end != event.date_start) %>
 						- <%= event.date_end.to_date.strftime("%B %d") %> 
 						<% end %>
 
-						<% if(event.time_start != '') %>
+						<% if(!event.time_start.nil?) %>
 						<%= event.time_start.to_time.strftime("%l:%M %p") %>
 						<% end %>
 
-						<% if(event.time_end != '') %>
+						<% if(!event.time_end.nil? && event.time_end != '') %>
 						- <%= event.time_end.to_time.strftime("%l:%M %p") %> 
 						<% end %>
 						<%else%>

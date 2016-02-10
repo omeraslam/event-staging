@@ -26,7 +26,7 @@
         <% @themes.each do |theme| %>
           <li>
             <%= f.label 'layout_style_'+ theme.slug ,  theme.slug do %>
-              <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
+              <img src="/assets/themes/<%= theme.slug %>_thumb.jpg" />
             <% end %>
             <%= f.radio_button :layout_style,   theme.slug %>
           </li>

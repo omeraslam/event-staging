@@ -2,11 +2,11 @@ Rails.application.routes.draw do
 
   resources :themes
 
-  # get 'dashboard/index'
-  # get 'dashboard/event'
-  # get 'dashboard/past'
-  # get 'dashboard/profile'
-  # get 'dashboard/print'
+  get 'dashboard/index'
+  get 'dashboard/event'
+  get 'dashboard/past'
+  get 'dashboard/profile'
+  get 'dashboard/print'
 
 
   resources :urls, only: [:new, :create]
@@ -132,5 +132,5 @@ Rails.application.routes.draw do
   #   end
   #   
   
-  match ':controller(/:action(/:id))', :via => :get
+  #match ':controller(/:action(/:id))', :via => :get
 end

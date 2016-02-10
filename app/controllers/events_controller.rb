@@ -123,6 +123,8 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
 
+    @themes = Theme.all
+
   end
 
   # POST /events
@@ -136,7 +138,6 @@ class EventsController < ApplicationController
     @user = User.find(current_user)
     @event = Event.all.build(event_params)
     @event.user_id = current_user.id
-    @event.style_id = params[:style_id]
     @event.layout_id = '1'
     @event.slug = @event.name.downcase.gsub(" ", "-")
 
@@ -166,7 +167,6 @@ class EventsController < ApplicationController
 
     #@user = User.find(params[:user_id])
     @event = Event.find_by_slug(params[:id])
-    #@event.style_id = params[:style_id]
     respond_to do |format|
       if @event.update(event_params)
          #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
@@ -189,7 +189,7 @@ class EventsController < ApplicationController
     @event.destroy
     respond_to do |format|
 
-      format.html { redirect_to dashboard_index_path, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to controller: 'dashboard', action: 'index', notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -235,7 +235,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name,  :event_time, :date_start, :date_end, :time_end, :time_display, :style_id,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :published)
+      valid = params.require(:event).permit(:name,  :event_time, :date_start, :date_end, :time_end, :time_display,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :location, :location_name, :description, :published)
 
       date_format = '%m/%d/%Y'
       return valid

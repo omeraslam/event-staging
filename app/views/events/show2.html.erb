@@ -252,7 +252,7 @@ $( document ).ready(function() {
   function saveTheme() {
     $.ajax({
       type: 'POST',
-        url: String(window.location.href).replace('#', '') + '/updatetheme', //testing
+        url: String(window.location.href).replace('#', '') + '/updatetheme_post', //testing
         data: {event:{layout_id: layout, layout_style: theme}}
       }).done(function(data){
         console.log(data);

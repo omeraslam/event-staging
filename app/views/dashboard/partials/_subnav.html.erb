@@ -13,16 +13,9 @@
 
     </div>
 
-
-
-
     <!--start attendee section-->
     <div data-hash="attendees">
-
-
-
-        
-        <% if !@attendees.empty? %>
+    <% if !@attendees.empty? %>
         <table>
             <thead>
                 <tr>
@@ -144,7 +137,10 @@ $(document).ready(function(){
         $('.event-sub-nav-trigger.active').removeClass('active');
 
         switch(slug) {
-            case 'invites':
+            case 'activity':
+                $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
+            break;
+            case 'attendees':
                 $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
             break;
             case 'settings':
@@ -161,25 +157,33 @@ $(document).ready(function(){
     highlightNavItem(slug)
 
 
-    $('.event-sub-nav-trigger').click(function(){
+    $('.event-sub-nav-trigger').click(function(e){
+        e.preventDefault();
         
         var dest = parseInt($(this).data('target'));
+        $('.event-sub-nav-trigger').removeClass('active');
 
         var url = window.location.href;
         var n = url.indexOf('#');
         url = url.substring(0, n != -1 ? n : url.length);
-        var slug = 'attendees';
+        var slug = 'activity';
+        console.log('dest'+ dest)
         switch(dest) {
+            case 0:
+            slug = 'activity';
+            break;
             case 1:
-            slug = 'invites'
+            slug = 'attendees'
             break;
             case 2:
             slug = 'settings'
             break;
             default: 
-            slug = 'attendees';
+            slug = 'activity';
             break;
         }
+        console.log($(this).data('target'));
+       // $(this).addClass('active');
         window.location.href = url + '#'+slug
         owl.trigger('to.owl.carousel', [dest])
 
