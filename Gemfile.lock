@@ -366,7 +366,6 @@ DEPENDENCIES
   email_spec
   figaro
   fog
-  fog-aliyun
   foreman
   gravtastic
   icalendar
