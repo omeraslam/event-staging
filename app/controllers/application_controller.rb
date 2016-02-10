@@ -45,7 +45,7 @@ def check_member_type
     # else
       @cu = ''
       @is_premium = false
-      @disable_create = @count_events.count > 0
+    #  @disable_create = @count_events.count > 0
     #end
   end 
 end
