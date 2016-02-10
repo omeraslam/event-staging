@@ -34,7 +34,7 @@ gem 'bitly'
 
 #carrier wave s3 module
 gem "fog"
-gem 'fog-aliyun', '~> 0.1.0'
+gem 'fog-aliyun'
 
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
