@@ -208,10 +208,10 @@ class EventsController < ApplicationController
     @calendar = Icalendar::Calendar.new
     event = Icalendar::Event.new
 
-    d = date_start 
-    event.start = @event.date_start.strftime("%Y%m%dT%H%M%S")
+    #d = date_start 
+    event.dtstart = @event.date_start.to_date.strftime("%Y%m%dT%H%M%S")
     #event.end = @event.dt_time.strftime("%Y%m%dT%H%M%S")
-    #event.summary = @event.summary
+    event.summary = @event.name
     event.description = @event.description
     event.location = @event.location
     @calendar.add_event(event)
