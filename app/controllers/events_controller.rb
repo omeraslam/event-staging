@@ -25,13 +25,11 @@ class EventsController < ApplicationController
   def show
 
     @event = Event.find_by_slug(params[:slug])
-
-      logger.debug "time is: #{@event.date_start}"
     
-      if @event.published == false && !signed_in?
+    if @event.published == false && !signed_in?
         #&& current_user.id.to_i != @event.user_id.to_i
         redirect_to root_path
-      else  
+    else  
         @user = User.find(@event.user_id)
 
         image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
@@ -40,9 +38,7 @@ class EventsController < ApplicationController
 
 
         client = Bitly.client
-
-        @url = 'http://eventcreate.com/' + event_path( @event)
-       logger.debug "#{@url}"
+        @url = 'http://eventcreate.com' + slugger_path( @event)
         @bitly = client.shorten(@url)
 
 
@@ -52,17 +48,9 @@ class EventsController < ApplicationController
         end
 
         respond_with(@attendees, @event)
-      end
-
+    end
 
     @themes = Theme.all
-
-    # if @event.save
-
-    # else 
-
-    # end
-
 
   end
 
@@ -197,18 +185,9 @@ class EventsController < ApplicationController
   def export_events
     @event = Event.find_by_slug(params[:slug])
 
-    #   logger.debug "Emails from form hash: #{@event}"  
-
-
-    # respond_to do |format|
-    #   format.ics { render :text => @event.to_ics(params[:outlook] ? true : false) }
-    # end
-
-   #   @event = Event.find(params[:id])
     @calendar = Icalendar::Calendar.new
     event = Icalendar::Event.new
 
-    #d = date_start 
     event.dtstart = @event.date_start.to_date.strftime("%Y%m%dT%H%M%S")
     #event.end = @event.dt_time.strftime("%Y%m%dT%H%M%S")
     event.summary = @event.name

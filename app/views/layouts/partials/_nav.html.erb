@@ -1,8 +1,9 @@
 <% if signed_in? %>    
-  <nav>
+ 
       
   <!--    @rich, maybe this should be "dashboard" controller-->
     <% if (controller_name == "dashboard") or  (action_name == "index" and controller_name == "attendees") %>
+     <nav>
               <div class="dashboard-header">
               
 
@@ -85,7 +86,7 @@
                 </ul>
               
               </div>-->
-      
+        </nav>  
       <% end %>
   <!--    end "dashboard" controller-->
 
@@ -93,7 +94,7 @@
         <!-- if event show page -->
       <% if action_name == "show" and controller_name == "events" %>
              
-                 <ul class="navbar-links signed-in">
+   <!--  <nav>             <ul class="navbar-links signed-in">
 
                   
                 
@@ -103,7 +104,7 @@
                     <li><a class="icon icon-hamburger toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
                   -->
                   
-                    <li style="display: none;">
+        <!--             <li style="display: none;">
                       <a class="icon icon-settings">  </a>
                       
                         <ul>
@@ -120,17 +121,18 @@
                     
 
                     </li>
-                  
+                   -->
                   
             <!--        <li><%=  link_to '<span>Profile</span>'.html_safe, {:controller => 'dashboard', :action => 'index'}, :class => 'icon icon-user open-menu'  %>
                     </li> -->
                   
-                  </ul>
+                  <!-- </ul> </nav>-->
                   
       <% end %>
               
        <!-- if not event pages or show page -->
       <% if controller_name !="dashboard" && controller_name !="attendees" &&  (controller_name != "events" || action_name != 'show') %>
+          <nav>
               <a class="logo" href="/">
                 <span>Event Create</span>
               </a>
@@ -163,10 +165,11 @@
                   <li><%= link_to 'Edit profile', {:controller => 'dashboard', :action => 'profile'}, :class => 'navbar-link' %> </li>
                   <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
                 </ul>
-              </div>  
+              </div> 
+            </nav> 
       
       <% end %>
-  </nav>        
+      
           
     <!-- not signed in -->
 <% else %>
@@ -180,7 +183,7 @@
         <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
         <li><%= link_to 'Sign up free', '/event-create', :class => 'btn'  %> </li>
       </ul>
-      
+
   </nav>
     <% end %>
 <% end %>
