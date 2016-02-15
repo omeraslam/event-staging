@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'dashboard/past'
   get 'dashboard/profile'
   get 'dashboard/print'
+  get 'dashboard/contacts'
 
 
   resources :urls, only: [:new, :create]

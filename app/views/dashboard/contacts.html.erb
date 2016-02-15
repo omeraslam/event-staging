@@ -1,0 +1,26 @@
+<% title "Contact List" %>
+<div class="container">
+
+<h1>Full Contact List</h1>
+	<table>
+		<thead>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Most Recent Event</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+			<%  @contacts.each do |item| %>
+				<tr>
+					<td><%= item.first_name %> <%= item.last_name %></td>
+					<td><%= item.email %></td>
+					<td>Most Recent Event Goes Here</td>
+					<td>Send Message | Do Something | Do Something Else</td>
+					
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	
+</div>

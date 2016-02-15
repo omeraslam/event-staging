@@ -15,6 +15,11 @@ class DashboardController < ApplicationController
     respond_with(@attendee, @user, @events)
   end
 
+  def contacts
+    @contacts = Attendee.all
+
+  end
+
   def past
     @attendee = Attendee.new
     @user = User.find(current_user.id)
