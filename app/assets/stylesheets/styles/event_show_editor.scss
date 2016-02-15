@@ -101,11 +101,13 @@
 
 
 .event-editor-controls {
+
+	background:$brand-secondary; 
 	color:#fff;
 	font-size:12px;
 	width:100%;
 	border-top:1px solid #333;
-	background:rgba(26, 26, 26,.8);
+
 	
 	&:after {
 		content: "";
@@ -113,41 +115,90 @@
 	 	clear: both;
 	
 	}
+
+	a.circle {
+		margin: 14px 4px;
+		background:transparent;
+
+			&.active {
+				background:darken($brand-primary, 20%);
+				color:#fff;
+			}
+		
+
+			&:hover {
+				background:$brand-primary;
+				color:#fff;
+			}
+
+	}
 	
 	.tabs {
 	
 		float:left;
 
-		.tab {
-			padding: 12px 30px;
-			cursor:pointer;
-			display:inline-block;
-			
-			&:hover {
-				background:#21afbf;
-				color:#fff;
+
+		.logo {
+			width: 23px;
+	    	height: 25px;
+	    	margin: 18px 12px 0 20px;
+	    	padding: 0;
+		}
+
+		a.tab {
+
+			color: #fff;
+    		line-height: 38px;
+    		display: inline-block;
+    		margin: 14px 10px;
+
+    		i {
+			   	font-size: 20px;
+			    position: relative;
+			    top: 4px;
+    		}
+
+    		&.active {
+				color:$brand-primary;
 			}
 		
-			&.active {
-				background:rgba(26, 26, 26,1);
-				color:#fff;
+
+			&:hover {
+				color:$brand-primary;
 			}
+
 		
 		}
+
+		.view-switcher {
+			padding: 14px 20px;
+			display:inline-block;
+			background:rgba(255,255,255,.1);
+	  		color:#fff;
+  			border:1px solid rgba(255,255,255,.1);
+  			float: left;
+    		margin: 12px;
+
+    		color: #fff;
+		    font-size: 9px;
+		    text-transform: uppercase;
+		    letter-spacing: 2px;
+		    font-weight: 800;
+
+		}
+
 	
 	}
 	
 	.actions {
 		float:right;
+
 	
 		a {
-			padding: 12px 30px;
-			cursor:pointer;
-			display:inline-block;
+			
 			
 			&#save {
-				color:#fff;
-				background:rgba(33, 175, 191,1);
+				margin: 10px;
 			
 			} 
 
@@ -161,11 +212,7 @@
 		  	background:rgba(33, 175, 191,.8);
 		  
 		  }
-			
-			&:hover {
-				background:#21afbf;
-				color:#fff;
-			}
+
 		}	
 		
 		
@@ -179,7 +226,7 @@
 	
 .event-editor	{
 
-	background:#1a1a1a;
+	background:$brand-secondary;
 	height:120px;
 	overflow:hidden;
 	//-webkit-box-shadow: inset 0px 8px 37px -5px rgba(0,0,0,0.6);
