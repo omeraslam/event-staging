@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   
   get '/about' => 'pages#about'
   get '/pricing' => 'pages#pricing'
+  get '/pay' => 'pages#payments'
 
 
   get '/attendees/:id', to: 'attendees#index'
