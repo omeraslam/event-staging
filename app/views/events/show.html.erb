@@ -41,7 +41,6 @@
       <% end %>
       <!-- registration button end -->
 		</div>
-    <div class="inline-image" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)"> </div>
 
 	  </div>
 
@@ -93,10 +92,13 @@
 		<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
 	</div>
 </div>	
-<div class="map-container" <% (@event.location.nil? || @event.location == '' || @event.location.empty? )? 'style="background:#222;"': '' %> >
+
+<% if(!@event.location.nil? || @event.location != '' || !@event.location.empty? ) %>
+<div class="map-container" >
 	<div id="map"></div>
 	<a class="map-cover" href="http://maps.google.com/?q=<%= @event.location %>" target="_blank"> </a>
 </div>
+<% end %>
 <div class="credit"> 
 	<div>made with</div> 
 	<a href="http://www.eventcreate.com/"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>

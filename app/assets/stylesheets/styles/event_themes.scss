@@ -4,6 +4,8 @@
 
 	.event-page {
 		background-image:url(brunch.jpg) !important;
+
+
 	}
 
 	input, textarea {
@@ -358,14 +360,19 @@
 
 }
 
+.event-page {
+	background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
 .event-container.getloud {
 	overflow: hidden;
-
 	font-family: "futura-pt",sans-serif;
 	
 
 	.event-page {
-		background:#f14b6a;
+		background-color:#f14b6a;
 		font-weight: 700;
 		text-align:left;
 		
@@ -422,11 +429,6 @@
 	}
 
 }
-
-
-
-
-
 
 //Epic
 .event-container.epic {
@@ -595,23 +597,29 @@
 	}
 }
 
-
-
 .event-container.minimalist {
 
 	font-family: "freight-display-pro",sans-serif;
 	font-style: normal;
 	font-weight: 400;
 
+	height: 540px;
+	background-color:#fff !important;
+
 
 	.event-page {
 		background-image:url(themes/minimalist_bg.jpg);
 
-		background:#fff !important;
 		color: #444;
+		
+		margin: 110px auto;
+    	height: 100%;
+    	width: 60%;
+    	background-size: cover;
 
 		.header {
 			padding:50px 0 30px;
+			top: -150px; //position title text above the image
 
 			.btn {
 				color: #555;
@@ -646,17 +654,13 @@
 		}
 	}
 
-	.inline-image {
-		background-image:url(themes/minimalist_bg.jpg) !important;
-		background-position: 50%;
-		display: block;
-		height:500px;
-		margin:0 auto;
-		width: 50%;
-	}
-
-
 
 }
 
+
+.event-page {
+	    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
 

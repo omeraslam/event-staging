@@ -9,10 +9,6 @@ class ApplicationController < ActionController::Base
   helper :all
 
 
-
-
-
-
  # protected
  #  def authenticate_user!(options={})
  #    if user_signed_in?

@@ -95,14 +95,14 @@ class EventsController < ApplicationController
 
     @themes = Theme.all
 
-    if @is_premium != 'active' &&  @disable_create
-      redirect_to pricing_path
-    else 
+    # if @is_premium != 'active' &&  @disable_create
+    #   redirect_to pricing_path
+    # else 
 
       @user = User.find(current_user.id)
       @event = Event.all.build
       
-    end 
+   # end 
 
     @themes = Theme.all
 
@@ -197,12 +197,7 @@ class EventsController < ApplicationController
     @calendar.publish
     headers['Content-Type'] = "text/calendar; charset=UTF-8"
     render :layout => false, :text => @calendar.to_ical
-
-
-
   end
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

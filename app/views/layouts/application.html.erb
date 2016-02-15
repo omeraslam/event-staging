@@ -146,7 +146,8 @@
 
           } else {
         //alert('Geocode was not successful for the following reason: ' + status);
-        alert('Location not found');
+        //if address not found, remove map
+        $('#map').remove();
       }
     });
       };
