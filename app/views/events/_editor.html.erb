@@ -8,14 +8,32 @@
  <div class="event-editor-controls" >
 
   <div class="tabs">
-   <a class="tab toggleEditorPanel" id="event-editor-design" ><i class="icon icon-edit-website"> </i> Change Theme </a>
-   <a class="tab toggleEditorPanel" ><i class="icon icon-image"> </i> Modify background Image </a> 
-   <a class="tab toggleEditorPanel"  id="event-editor-share"><i class="icon icon-share"> </i> Share </a> 
+
+  <a class="logo"> </a>
+
+
+   <div class="view-switcher">Previewing website  <i style="display:none;" class="icon icon-arrow-down"> </i> </div>
+
+   <a class="tab toggleEditorPanel " id="event-editor-design" ><i class="icon icon-image"> </i> <span> Change Theme </span></a>
+   <a class="tab toggleEditorPanel " ><i class="icon icon-camera"> </i> <span> Modify background Image  </span></a> 
  </div>
 
 
+
+
+ <div class="actions" > 
+   
+    <a class="circle send-email" style="display:none;" ><i class="icon icon-email"></i> </a> 
+      <a class="circle" style="display:none;"><i class="icon icon-link"></i> </a> 
+
+      <a class="circle" href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>" target="_blank"><i class="icon icon-facebook"></i> </a> 
+      <a class="circle" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>" target="_blank"><i class="icon icon-twitter"></i> </a> 
+
+
+ </div>
+
  <div class="actions save-btn" > 
-   <a id="save" > save changes </a>        
+   <a class="btn" id="save" > save changes </a>        
  </div>
 
 
