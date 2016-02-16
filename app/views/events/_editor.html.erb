@@ -24,7 +24,7 @@
  <div class="actions" > 
    
     <a class="circle send-email" style="display:none;" ><i class="icon icon-email"></i> </a> 
-      <a class="circle" style="display:none;"><i class="icon icon-link"></i> </a> 
+      <a class="circle open-link-modal"><i class="icon icon-link"></i> </a> 
 
       <a class="circle" href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>" target="_blank"><i class="icon icon-facebook"></i> </a> 
       <a class="circle" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>" target="_blank"><i class="icon icon-twitter"></i> </a> 
@@ -152,5 +152,9 @@
 
 
 </div>
+
+
+<%= render 'partials/linkmodal' %>
+
 
 <% end %>

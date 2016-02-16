@@ -1,0 +1,65 @@
+<!--link modal-->
+<div id="link-modal">
+
+	    <button data-remodal-action="close" class="remodal-close"></button>
+	    
+
+	    <div class="modal-header modal-header-light">
+	    	<i class="icon icon-line-share"> </i>
+		    <h2>Sharing is caring</h2>
+		    <p>  
+		      You're event is live, so it's time to spread the word! Here's the permanent link to your event website:
+		    </p>
+	    </div>
+
+
+	    <div class="modal-body">
+
+	    	<div class="input-group"> 
+	    		<input type="text" value="http://eventcreate.com/<%= @event.slug %>" disabled>
+	    		<textarea style="z-index:0;position:fixed;top:-99999px; left:-99999px;" id="clipboard">http://eventcreate.com/<%= @event.slug %> </textarea>
+	    		<p> <a id="copy-to-clipboard"> Copy this link to my clipboard</a>  </p>
+	    	</div>
+
+	    </div>
+
+
+</div>
+<!-- END modal -->
+
+
+
+<script>
+
+$(document).ready(function(){
+			
+	//modal
+    var linkModal = $('#link-modal').remodal();
+
+	
+    $('.open-link-modal').click(function(){
+        linkModal.open();
+
+    });
+
+
+     $('#copy-to-clipboard').click(function(e){
+
+     	$('#clipboard').select();
+
+       	try {
+		    var successful = document.execCommand('copy');
+		    var msg = successful ? 'Copied!' : 'Can&#8217;t be copied. Sorry.';
+		    $(this).text(msg);
+		} catch (err) {
+		    $(this).text("Can&#8217;t be copied. Sorry.");
+		}
+		
+		e.preventDefault();
+    });
+
+
+      
+});
+
+</script>
