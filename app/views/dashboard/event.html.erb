@@ -20,9 +20,9 @@
 
 		<h1> 	<%= @event.name  %> </h1>
 		<p class="lead">
-			<% if @event.date_start.nil? %>
-			<%= @event.date_start.to_date.strftime("%B %d") %> | Status:  <span> <%= @event.published == false ? 'Draft' : 'Live'%> </span>
-			<% end %>
+			<% if (!@event.date_start.nil? && @event.date_start != '')%>
+			<%= @event.date_start.to_date.strftime("%B %d") %> | <% end %>Status:  <span> <%= @event.published == false ? 'Draft' : 'Live'%> </span>
+			
 		</p>
 	</div>
 	
