@@ -5,7 +5,8 @@ $error-red: rgba(213, 55, 37, 0.9);
 $error-purple: #a91d61;
 $brand-secondary: #262B31;
 
-$brand-gray: #E5E7E8;
+$brand-gray: lighten($brand-secondary, 76%);
+$brand-dark-gray: lighten($brand-secondary, 50%);
 
 
 $default-font-size: 13px;
