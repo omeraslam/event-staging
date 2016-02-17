@@ -19,8 +19,6 @@ class PagesController < ApplicationController
 	def pricing
 	end
 
-  def payments
-  end
 
   def error404
   end

@@ -73,9 +73,14 @@ class DashboardController < ApplicationController
   def profile
 
     @user = current_user
-    
+
+
 
 
   end
+
+
+    def upgrade
+    end
 
 end
