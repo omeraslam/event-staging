@@ -1,21 +1,6 @@
-<div class="event-header dashboard-container"> 
-	<div class="event-meta"> 
+<div class="container"> 
 
-		<!-- thumb for eventual profile image -->
-		<div class="thumb">
-			<div class="thumb-cover"> </div> 
-			<div class="thumb-action"></i> </div> 
-		</div>
-		<!-- end profile thumb -->
 
-		<!-- member info header -->
-		<h1><%= current_user.email %> </h1>
-		<p class="lead">
-			Member since: <%= current_user.created_at.to_date.strftime("%B %Y") %>
-		</p>
-		<!-- member info header end  -->
-	</div>
+	<%= render 'dashboard/partials/profile_nav' %>
 </div>
 
-<!-- profile subnav partial -->
-<%= render 'dashboard/partials/profile_nav' %>

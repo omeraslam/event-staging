@@ -34,18 +34,30 @@
 
         <% end %> -->
 
+        <div class="input-group"> 
+            <label>Email Address</label>
+            <h4> <%= current_user.email %></h4>
+        </div>
+     
+        <hr>
 
+        
         <%= form_for(@user, :url => { :action => "update_password", :controller => "users" } ) do |f| %>
-          <div class="field">
-            <%= f.password_field :password, :autocomplete => "off", :placeholder => 'Password', :class => 'input-lg input-primary'   %>
+
+          <div class="input-group">
+            <label>New password</label>
+            <%= f.password_field :password, :autocomplete => "off", :placeholder => 'Your new password' %>
           </div>
 
-          <div class="field">
-            <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :class => 'input-lg input-primary' %>
+          <div class="input-group">
+            <label> Confirm new password </label>
+            <%= f.password_field :password_confirmation, :placeholder => 'Your new password, one more time' %>
           </div>
-          <div class="action_container">
-            <%= f.submit 'Update', class: 'btn btn-primary' %>
+
+          <div class="input-group">
+            <%= f.submit 'Change my password', class: 'btn' %>
           </div>
+
         <% end %>
 
       <!--   <%= link_to 'cancel my account', user_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-primary' %> -->
