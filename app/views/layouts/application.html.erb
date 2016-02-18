@@ -37,7 +37,7 @@
   </script>
 </head>
 
-<body class="<%= controller.controller_name == 'events' && controller.action_name == 'show'? 'event-show' : controller.controller_name %>">
+<body class="<%= controller.controller_name == 'events' && controller.action_name == 'show'? 'event-show' : controller.controller_name %>  <%= controller.action_name %> ">
 
   
   <%= render 'layouts/partials/nav' %>

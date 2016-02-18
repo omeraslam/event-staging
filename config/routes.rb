@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'dashboard/profile'
   get 'dashboard/print'
   get 'dashboard/contacts'
+  get 'dashboard/upgrade'
+  get 'dashboard/thankyou'
 
 
   resources :urls, only: [:new, :create]
@@ -21,7 +23,6 @@ Rails.application.routes.draw do
   
   get '/about' => 'pages#about'
   get '/pricing' => 'pages#pricing'
-  get '/pay' => 'pages#payments'
 
 
   get '/attendees/:id', to: 'attendees#index'

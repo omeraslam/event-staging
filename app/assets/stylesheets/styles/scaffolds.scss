@@ -92,6 +92,9 @@ h2 {
 
 }
 
+hr {
+  margin:40px 0;
+}
 
 .icon {
   
@@ -598,6 +601,10 @@ footer {
   }
 }
 
+button {
+  font-family: "Avenir",sans-serif;
+}
+
 #btn-create {
   display: none;
 }
@@ -627,6 +634,8 @@ footer {
 			font-size:11px;    	
     
     }
+
+
     
     
     
@@ -645,6 +654,10 @@ footer {
     	}
     	
     	
+    }
+
+    &.btn-disabled {
+      background:#808080;
     }
     
 }

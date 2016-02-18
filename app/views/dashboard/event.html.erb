@@ -31,7 +31,7 @@
 			<%= link_to 'view my website', slugger_path(@event), class: 'btn', target: '_blank' %>
 			<br>
 			<a class="circle send-email" ><i class="icon icon-email"></i> </a> 
-			<a class="circle"><i class="icon icon-link"></i> </a> 
+			<a class="circle open-link-modal"><i class="icon icon-link"></i> </a> 
 
 			<a class="circle" href="https://www.facebook.com/sharer/sharer.php?u=<%= eventurl %>" target="_blank"><i class="icon icon-facebook"></i> </a> 
 			<a class="circle" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= eventurl %>" target="_blank"><i class="icon icon-twitter"></i> </a> 
@@ -57,4 +57,5 @@
 <%= render 'dashboard/partials/subnav' %>
 <%= render 'dashboard/eventsuccessmodal' %>
 <%= render 'dashboard/emailmodal' %>
+<%= render 'partials/linkmodal' %>
 

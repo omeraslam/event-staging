@@ -1,0 +1,181 @@
+<div class="container"> 
+
+
+<div class="upgrade-carousel owl-carousel">
+
+	<div class="plans owl-item">
+
+
+		<div class="plan disabled">
+			<h3>Basic </h3>
+			<p class="price">Free</p>
+			<ul class="features"> 
+				<li>1 event </li>					
+				<li>50 registrations </li>		
+			</ul> 
+			<ul class="secondary-features"> 
+				<li class="disabled">Custom branding </li>
+				<li class="disabled">White labelled domain</li>
+				<li class="disabled">Sell tickets/accept payments</li>
+				<li class="disabled">Priority customer support </li>	
+			</ul>
+			<a class="btn btn-disabled">Current plan</a>      				   
+		</div>
+
+
+
+		<div class="plan" data-description="Premium Plan: $7/month. Cancel anytime.">
+			<h3>Premium </h3>
+			<p class="price">$7/mo<br>Cancel anytime</p>
+			<ul class="features"> 
+				<li>3 events </li>					
+				<li>500 registrations </li>		
+			</ul> 
+			<ul class="secondary-features"> 
+				<li>Custom branding </li>
+				<li>White labelled domain</li>
+				<li class="disabled">Sell tickets/accept payments</li>
+				<li class="disabled">Priority customer support </li>	
+			</ul>
+			<a class="btn">Choose plan</a>      				   
+		</div>
+
+
+
+		<div class="plan" data-description="Pro Plan: $29/month. Cancel anytime.">
+			<h3>Pro </h3>
+			<p class="price">$29/mo<br>Cancel anytime</p>
+			<ul class="features"> 
+				<li>Unlimited events </li>					
+				<li>5,000 registrations </li>		
+			</ul> 
+			<ul class="secondary-features"> 
+				<li>Custom branding </li>
+				<li>White labelled domain</li>
+				<li>Sell tickets/accept payments</li>
+				<li>Priority customer support </li>	
+			</ul>
+			<a class="btn">Choose plan</a>      				   
+		</div>
+
+
+
+		<div class="plan" data-description="Enterprise Plan: $69/month. Cancel anytime.">
+			<h3>Enterprise </h3>
+			<p class="price">$69/mo<br>Cancel anytime</p>
+			<ul class="features"> 
+				<li>Unlimited events </li>					
+				<li>15,000 registrations </li>		
+			</ul> 
+			<ul class="secondary-features"> 
+				<li>Custom branding </li>
+				<li>White labelled domain</li>
+				<li>Sell tickets/accept payments</li>
+				<li>Priority customer support </li>	
+			</ul>
+			<a class="btn">Choose plan</a>      				   
+		</div>
+
+		
+	</div>
+
+
+
+	<div class="payment owl-item">
+
+		
+
+		<div class="payment-selection">
+
+			<a id="back-to-plans"> <i class="icon icon-arrow-left"></i> back </a>	
+			<span id="selected-plan"> Enterprise Plan: $69.00/month. Cancel anytime. </span>
+
+
+	 	</div>
+
+
+		<form action="/users/<%= current_user.id%>/charge-card" method="POST" id="payment-form">
+		    	
+		    	<div class="be-validation">
+		    	</div>
+		    	
+		    	<div class="input-group">
+		    		<label>Credit card number</label>
+		    		<input  type="text" id="cc" placeholder="5555 5555 5555 5555" class="input input-large cc-number" >
+		    		<p>Visa, Mastercard and American Express card accepted.</p>
+		    		<div id="lock"><i class="icon icon-raw-lock"></i> </div>
+		    	</div>
+		    	
+		    	<div class="input-group">
+			    	
+			    	<div class="input-group-inline">	 
+			    		<label>Expiration Date (month/year)</label>
+			    		<input placeholder="12 / 2018" class="input cc-exp" type="text" >	
+			    	</div>
+			    	<div class="input-group-inline" id="cvv"> 
+			    		<label>CVV</label>
+			    		<input class="input cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
+			    	</div>
+			    </div>	
+		    	<div class="input-group">
+			      <button class="btn" >Upgrade  now</button>
+			      <p><i class="icon icon-raw-lock"></i>Secured with 256-bit encryption </p>
+			    </div> 
+				<p>By upgrading your account, you agree to the <a href="/terms" target="_blank"> terms and conditions</a>. </p>
+			      <input type="hidden" id="user_premium" name="user[premium]" val="true" />
+	    </form>
+
+
+
+	</div>
+
+
+</div>
+</div>
+
+
+
+
+<script>
+
+$(document).ready(function(){
+
+
+
+
+
+    //init the owl carousel plugin  
+    var upgradeOwl = $(".upgrade-carousel.owl-carousel").owlCarousel({
+        items:1,
+        autoHeight : true,
+        mouseDrag:false,
+        touchDrag:false,
+        freeDrag:false,
+        pullDrag:false
+    });
+
+    $( ".plan" ).not(".disabled").click(function() {
+  		$("#selected-plan").text($(this).data("description"));
+
+  		//ADD HOOK TO CHANGE PLAN
+
+    	upgradeOwl.trigger('next.owl.carousel');
+
+	});
+
+
+    $( "#back-to-plans" ).click(function() {
+    	upgradeOwl.trigger('prev.owl.carousel');
+
+	});
+
+	
+
+
+    
+
+
+});
+</script>
+<script type="text/javascript" src="/assets/payment-modal.js"></script>
+
