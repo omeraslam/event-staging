@@ -2,17 +2,17 @@
 <%= f.hidden_field :layout_id %>
 <%= f.hidden_field :layout_style %>
 
-  <% if @event.errors.any? %>
-    <div class="alert error">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<% if @event.errors.any? %>
+<div class="alert error">
+  <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-      <ul>
-      <% @event.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @event.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
 
 <div class="owl-carousel">
@@ -23,16 +23,16 @@
 
     <div class="container">
 
-        <div class="event-registration-header">
-          <h2> What's the event? </h2>
-          <p>  Name your event. Is it the Napa Wine Festival or Bob's Birthday Bash? Be bold, and concise.  </p>
-        </div>
-    
-        <div class="input-group input-group-dark">
-            <label>Event Title: </label>
-          <%= f.text_field :name, :class => 'input-primary', :placeholder => 'ie Denver International Wine Festival', :tabindex => "-1" %>
-        </div>
-        
+      <div class="event-registration-header">
+        <h2> What's the event? </h2>
+        <p>  Name your event. Is it the Napa Wine Festival or Bob's Birthday Bash? Be bold, and concise.  </p>
+      </div>
+      
+      <div class="input-group input-group-dark">
+        <label>Event Title: </label>
+        <%= f.text_field :name, :class => 'input-primary', :placeholder => 'ie Denver International Wine Festival', :tabindex => "-1" %>
+      </div>
+      
 
     </div>   
 
@@ -44,23 +44,23 @@
 
 
     <div class="event-registration-header">
-        <h2> Select your theme </h2>
-        <p> Now, time to give your event some style. </p>
+      <h2> Select your theme </h2>
+      <p> Now, time to give your event some style. </p>
     </div>
     
 
     <div class="list-inline themes">
-        <% @themes.each do |theme| %>
-          <a class="theme">
-            <%= f.radio_button :layout_style, theme.slug,  :class => 'theme-radio'%>
-            <div class="theme-thumb">
-              <i class="icon icon-check"> </i>
-              <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
-              <div class="thumb-cover"></div>
-            </div>  
-            <h3> <%= theme.slug %> </h3>
-          </a>
-        <% end %>  
+      <% @themes.each do |theme| %>
+      <a class="theme">
+        <%= f.radio_button :layout_style, theme.slug,  :class => 'theme-radio'%>
+        <div class="theme-thumb">
+          <i class="icon icon-check"> </i>
+          <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
+          <div class="thumb-cover"></div>
+        </div>  
+        <h3> <%= theme.slug %> </h3>
+      </a>
+      <% end %>  
     </div>  
 
 
@@ -79,58 +79,58 @@
 
 
 
-    <div class="input-group input-group-dark" id="datepairExample">
-      <div class="input-group-inline">
-        <label> Date</label>
-        <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1" %>
-        <p> <a id="showEndDates">+ add end date </a> </p>
+      <div class="input-group input-group-dark" id="datepairExample">
+        <div class="input-group-inline">
+          <label> Date</label>
+          <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1" %>
+          <p> <a id="showEndDates">+ add end date </a> </p>
+        </div>
+
+        <div class="input-group-inline">
+          <label> Time</label>
+          <%= f.text_field :time_start, :class => 'time start input-primary', :placeholder => 'Time' %> 
+        </div>
       </div>
 
-      <div class="input-group-inline">
-        <label> Time</label>
-        <%= f.text_field :time_start, :class => 'time start input-primary', :placeholder => 'Time' %> 
+
+      <div class="input-group input-group-dark datePairEndDates" id="datepairExample">
+        <div class="input-group-inline">
+          <label> End Date</label>
+          <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
+        </div>
+
+        <div class="input-group-inline">
+          <label> End Time</label>
+          <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
+        </div>
       </div>
-    </div>
-
-
-    <div class="input-group input-group-dark datePairEndDates" id="datepairExample">
-      <div class="input-group-inline">
-        <label> End Date</label>
-        <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
-      </div>
-
-      <div class="input-group-inline">
-        <label> End Time</label>
-        <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
-      </div>
-    </div>
 
 
 
-    <div class="input-group input-group-dark">
-      <div class="input-group-inline">
-        <label> Location Name</label>
+      <div class="input-group input-group-dark">
+        <div class="input-group-inline">
+          <label> Location Name</label>
           <%= f.text_field :location_name,  :placeholder => 'ie Hilton Hotel' %>
-        <!-- <input type="text" placeholder="ie Hilton Hotel"> -->
-      </div>  
-      <div class="input-group-inline">
-        <label> Location Address</label>
-        <%= f.text_field :location, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
-      </div>  
-    </div> 
+          <!-- <input type="text" placeholder="ie Hilton Hotel"> -->
+        </div>  
+        <div class="input-group-inline">
+          <label> Location Address</label>
+          <%= f.text_field :location, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
+        </div>  
+      </div> 
 
-    <div style="display:none;" id="map"></div>
+      <div style="display:none;" id="map"></div>
 
 
-    <div class="input-group input-group-dark">
-      <label>Description </label>
-      <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+      <div class="input-group input-group-dark">
+        <label>Description </label>
+        <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+      </div>
+      
+
     </div>
-   
 
   </div>
-
-</div>
 
 
 
@@ -139,8 +139,8 @@
 
 
     <div class="event-registration-header">
-        <h2> <i class='icon icon-loader'></i></h2>
-        <p> building your kick ass event website </p>
+      <h2> <i class='icon icon-loader'></i></h2>
+      <p> building your kick ass event website </p>
     </div>
 
 
@@ -152,11 +152,11 @@
 
 <div class="event-creation-navigation-container">
   <a class="btn-prev event-creation-navigation event-creation-prev " href=""><i class="icon icon-arrow-left"> </i> back</a>
-      <%# f.submit "Create Event", :class => 'btn event-creation-navigation event-creation-prev', :id => 'btn-create' %>
+  <%# f.submit "Create Event", :class => 'btn event-creation-navigation event-creation-prev', :id => 'btn-create' %>
   <a class="btn-next event-creation-navigation event-creation-next btn" href="">Next <i class="icon icon-arrow-right"> </i></a>
   <div class="event-creation-help">
-       <a href="#">help</a>  <a href="#">cancel</a> 
-  </div>
+   <a href="#">help</a>  <a href="#">cancel</a> 
+ </div>
 </div>
 
 
@@ -166,96 +166,97 @@
 <script>
 
 var eventCreationStates = [{
-    'btnCopy': 'Next: Choose theme',
+  'btnCopy': 'Next: Choose theme',
 }, {
-    'btnCopy': 'Next: Add details',
+  'btnCopy': 'Next: Add details',
 }, {
-    'btnCopy': 'Finish',
+  'btnCopy': 'Finish',
 }, {
-    'btnCopy': '',
+  'btnCopy': '',
 }];
 
 $(document).ready(function() {
 
-    var validator = $("#new_event").validate({
-        rules: {
-            name: "required",
-            "event[name]": {
-                required: true
-            }
-        }
-    });
-    var owl = $('.owl-carousel');
-    owl.on('initialized.owl.carousel', function(e) {
-        console.log("total: " + e.item.count)
-        console.log("current: " + e.item.index)
-        var count = e.item.count;
-        var index = e.item.index;
+  var validator = $("#new_event").validate({
+    rules: {
+      name: "required",
+      "event[name]": {
+        required: true
+      }
+    }
+  });
+  var owl = $('.owl-carousel');
+  owl.on('initialized.owl.carousel', function(e) {
+    console.log("total: " + e.item.count)
+    console.log("current: " + e.item.index)
+    var count = e.item.count;
+    var index = e.item.index;
         //update the button copy
         $(".btn-next").html(eventCreationStates[index].btnCopy +
-            ' <i class="icon icon-arrow-right"> </i>');
+          ' <i class="icon icon-arrow-right"> </i>');
         //animate percetage bar
         $('.percent span').animate({
-            'width': ((index + 1) / count) * 100 + '%'
+          'width': ((index + 1) / count) * 100 + '%'
         }, 250);
         $(".theme:eq(0)").addClass("selected").find(".theme-radio").prop('checked', true);        
-    });
-    owl.owlCarousel({  
-        mouseDrag:false,
-        touchDrag:false,
-        freeDrag:false,
-        pullDrag:false,
-        "items": 1,
-        autoHeight: true
-    });
-    owl.on('changed.owl.carousel', function(e) {
-        console.log("total: " + e.item.count)
-        console.log("current: " + e.item.index)
-        var count = e.item.count;
-        var index = e.item.index;
+      });
+  owl.owlCarousel({  
+    mouseDrag:false,
+    touchDrag:false,
+    freeDrag:false,
+    pullDrag:false,
+    "items": 1,
+    autoHeight: true
+  });
+  owl.on('changed.owl.carousel', function(e) {
+    console.log("total: " + e.item.count)
+    console.log("current: " + e.item.index)
+    var count = e.item.count;
+    var index = e.item.index;
         //update the button copy
         $(".btn-next").html(eventCreationStates[index].btnCopy +
-            ' <i class="icon icon-arrow-right"> </i>');
+          ' <i class="icon icon-arrow-right"> </i>');
         //animate percetage bar
         $('.percent span').animate({
-            'width': ((index + 1) / count) * 100 + '%'
+          'width': ((index + 1) / count) * 100 + '%'
         }, 250);
         if ((index + 1) == count) {
-            $('body').addClass('event-creation-loading');
-            setTimeout(function(){
-              $('#new_event').submit();
-            }, 1000);
-            
+          $('body').addClass('event-creation-loading');
+          setTimeout(function(){
+            $('#new_event').submit();
+          }, 1000);
+          
         }
-    });
-    $(".btn-next").click(function(e) {
-      
-        e.preventDefault();
-        if (validator.element("#event_name")) {
-            owl.trigger('next.owl.carousel');
-        }
-    });
-    $(".btn-prev").click(function(e) {
-        owl.trigger('prev.owl.carousel');
-        e.preventDefault();
-    });
-    $("#showEndDates").click(function() {
-        $(this).parent("p").slideUp();
-        $(".datePairEndDates").slideDown();
-    });
-    $(".theme").click(function() {
-        $(".theme").removeClass("selected");
-        $(this).addClass("selected");
-        $(this).find(".theme-radio").prop('checked', true);
-    });
+      });
+  $(".btn-next").click(function(e) {
+    
+    e.preventDefault();
+    if (validator.element("#event_name")) {
+      owl.trigger('next.owl.carousel');
+    }
+  });
+  $(".btn-prev").click(function(e) {
+    owl.trigger('prev.owl.carousel');
+    e.preventDefault();
+  });
+  $("#showEndDates").click(function() {
+    $(this).parent("p").slideUp();
+    $(".datePairEndDates").slideDown();
+  });
+  $(".theme").click(function() {
+    $(".theme").removeClass("selected");
+    $(this).addClass("selected");
+    $(this).find(".theme-radio").prop('checked', true);
+  });
 });
 
 $('input, textarea').attr('tabindex', '-1');
 
+  //add functionality for tabbing through fields
 
-    </script>
+  </script>
 
-<% end %>
+  <% end %>
 
 
 
