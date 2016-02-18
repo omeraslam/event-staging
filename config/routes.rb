@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'dashboard/print'
   get 'dashboard/contacts'
   get 'dashboard/upgrade'
-
+  get 'dashboard/thankyou'
 
 
   resources :urls, only: [:new, :create]

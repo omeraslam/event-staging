@@ -1,10 +1,11 @@
-body.profile, body.upgrade {
+body.profile, body.upgrade, body.thankyou  {
 	background:$brand-gray;
 }
 
 
 .profile .container, 
-.upgrade .container {
+.upgrade .container,
+.thankyou .container {
 	max-width:1000px;
 	margin:0 auto;
 	padding:80px 0 0;
@@ -139,4 +140,16 @@ body.profile, body.upgrade {
 	}
 
 
+}
+
+
+.thankyou .container {
+	padding:100px 40px;
+	text-align:center;
+
+	p {
+		max-width:400px;
+		margin:20px auto 30px auto;
+		text-align:left;
+	}
 }

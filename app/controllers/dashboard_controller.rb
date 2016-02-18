@@ -80,7 +80,11 @@ class DashboardController < ApplicationController
   end
 
 
-    def upgrade
-    end
+  def upgrade
+  end
+
+
+  def thankyou
+  end
 
 end
