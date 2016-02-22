@@ -37,7 +37,7 @@
 						- <%= event.date_end.to_date.strftime("%B %d") %> 
 						<% end %>
 
-						<% if(!event.time_start.nil?) %>
+						<% if(!event.time_start.nil? && event.time_start != '') %>
 						<%= event.time_start.to_time.strftime("%l:%M %p") %>
 						<% end %>
 
@@ -52,6 +52,9 @@
 <!-- if @is_premium == 'active' || @event_num == 0 -->
 
 					<div class="registrants"> 
+
+
+						
 						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, slugger_path(event.slug), :target => '_blank' %>	  		
 					</div>
 

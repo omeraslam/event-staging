@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   end
 
 
-  get '', to: 'events#show', constraints: {subdomain: /.+/}
+  #get '', to: 'events#show', constraints: {subdomain: /.+/}
 
   root :to => 'pages#home'
 

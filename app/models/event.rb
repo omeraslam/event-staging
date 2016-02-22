@@ -7,12 +7,22 @@ class Event < ActiveRecord::Base
         # end
 
         validates_presence_of :slug, :name
+        extend FriendlyId
+        friendly_id :slug_candidates, use: :slugged
+
+        def slug_candidates
+          [
+            :name,
+            [:name, :user_id],
+            [:name, :id, :user_id]
+          ]
+        end
 
        
 
-        def to_param
-        	slug
-        end
+        # def to_param
+        # 	slug
+        # end
 
         require 'icalendar'
         include Icalendar

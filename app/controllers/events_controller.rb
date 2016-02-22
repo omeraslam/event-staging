@@ -128,10 +128,7 @@ class EventsController < ApplicationController
     @event = Event.all.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
-    @event.slug = @event.name.downcase.gsub(" ", "-")
-    @event.slug = @event.slug.gsub(/\W/, '')
-
-
+    #@event.slug = @event.name.downcase.gsub(" ", "-")
 
 
 
