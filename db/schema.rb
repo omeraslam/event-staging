@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209015601) do
+ActiveRecord::Schema.define(version: 20160221032128) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160209015601) do
     t.string   "slug"
     t.boolean  "published",      default: false
     t.string   "location_name"
+    t.string   "subdomain"
   end
 
   create_table "themes", force: true do |t|

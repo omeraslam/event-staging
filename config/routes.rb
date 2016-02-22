@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     #root :to => 'dashboard#index', as: :authenticated
   end
 
+
+  get '', to: 'events#show', constraints: {subdomain: /.+/}
+
   root :to => 'pages#home'
 
   # resources :users
@@ -79,6 +82,7 @@ Rails.application.routes.draw do
   post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
 
   put '/:slug/updatetheme', to: 'events#update_theme'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

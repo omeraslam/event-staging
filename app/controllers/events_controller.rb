@@ -25,11 +25,12 @@ class EventsController < ApplicationController
   def show
 
     @event = Event.find_by_slug(params[:slug])
-    
-    if @event.published == false && !signed_in?
-        #&& current_user.id.to_i != @event.user_id.to_i
-        redirect_to root_path
-    else  
+    #@event = Event.where('id' => 70)
+    #@event = Event.find(request.subdomain)
+    # if @event.published == false && !signed_in?
+    #     #&& current_user.id.to_i != @event.user_id.to_i
+    #     redirect_to root_path
+    # else  
         @user = User.find(@event.user_id)
 
         image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
@@ -48,7 +49,7 @@ class EventsController < ApplicationController
         end
 
         respond_with(@attendees, @event)
-    end
+    #end
 
     @themes = Theme.all
 
