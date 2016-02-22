@@ -27,22 +27,78 @@ end
 def check_member_type
   if user_signed_in?
 
-    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-    @count_events = Event.where(:user_id => current_user.id.to_s)
-    if !current_user.customer_id.nil?
-      @cu = Stripe::Customer.retrieve(current_user.customer_id)
-      logger.debug "app level customer id: #{@cu.id}"
-      @is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
+    # check if membership is active
 
-      logger.debug "current user: #{current_user}"
 
-      @disable_create = @count_events.count > 0 && @is_premium != 'active'
-      logger.debug "app level customer id: #{@disable_create}"
+
+    member_type = current_user.plan_type
+    case member_type
+    when 'basic'
+      @event_limit = 1
+      event_registration_limit = 50
+    when 'premium'
+      @event_limit = 3
+      event_registration_limit = 500
+    when 'pro'
+      @event_limit = nil
+      event_registration_limit = 5000
+
+    when 'enterprise'
+      @event_limit = nil
+      event_registration_limit = 15000
     else
-      @cu = ''
-      @is_premium = false
-      @disable_create = @count_events.count > 0
+      @event_limit = 1
+      event_registration_limit = 50
     end
+
+    logger.debug "Num events is: #{@event_limit}"
+    logger.debug "Num registrations is: #{event_registration_limit}"
+
+
+    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+    @count_events = Event.where(:user_id => current_user.id.to_s).count
+
+    if @count_events < @event_limit
+      @disable_create = false
+
+    else 
+      @disable_create = true
+
+    end
+
+
+    logger.debug "Disable create is: #{@disable_create}"
+
+    @cu = ''
+    @is_premium = false
+
+    # else if membership not active
+
+
+    # end
+
+
+
+    # if !current_user.customer_id.nil?
+    #   @cu = Stripe::Customer.retrieve(current_user.customer_id)
+    #   logger.debug "app level customer id: #{@cu.id}"
+    #   @is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
+
+    #   logger.debug "current user: #{current_user}"
+
+    #   @disable_create = @count_events.count > 0 && @is_premium != 'active'
+    #   logger.debug "app level customer id: #{@disable_create}"
+    # else
+    #   @cu = ''
+    #   @is_premium = false
+    #   @disable_create = @count_events.count > 0
+    # end
+
+
+
+
+
+
   end 
 end
 

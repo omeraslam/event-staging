@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
 
     def welcome_email(user)
         @user = user
-        @url = 'http://eventcreate.com/event-create'
+        @url = 'http://eventcreate.com/create'
         mail(to: @user.email, subject: 'Welcome to EventCreate')
     end
 

@@ -7,11 +7,11 @@
 
 
 
-    <div data-hash="activity">
+<!--     <div data-hash="activity">
         <h2>activity goes here </h2>
       
 
-    </div>
+    </div> -->
 
     <!--start attendee section-->
     <div data-hash="attendees">
@@ -137,9 +137,9 @@ $(document).ready(function(){
         $('.event-sub-nav-trigger.active').removeClass('active');
 
         switch(slug) {
-            case 'activity':
-                $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
-            break;
+            // case 'activity':
+            //     $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
+            // break;
             case 'attendees':
                 $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
             break;
@@ -147,7 +147,7 @@ $(document).ready(function(){
                 $('.event-sub-nav-trigger[data-target="2"]').addClass('active');
             break;
             default:
-                $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
+                $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
             break;
         }
 
@@ -167,11 +167,11 @@ $(document).ready(function(){
         var n = url.indexOf('#');
         url = url.substring(0, n != -1 ? n : url.length);
         var slug = 'activity';
-        console.log('dest'+ dest)
+        var slug = 'attendees';
         switch(dest) {
-            case 0:
-            slug = 'activity';
-            break;
+            // case 0:
+            // slug = 'activity';
+            // break;
             case 1:
             slug = 'attendees'
             break;
@@ -179,7 +179,7 @@ $(document).ready(function(){
             slug = 'settings'
             break;
             default: 
-            slug = 'activity';
+            //slug = 'activity';
             break;
         }
         console.log($(this).data('target'));
