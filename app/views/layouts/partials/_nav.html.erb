@@ -22,11 +22,11 @@
   								<div class="right"> 
   									<ul> 
   						
-  			<!-- 						if 	@is_premium !== active && @disable_create -->
-  		<!-- 								  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, '#', class: 'open-upgrade' %> </li>   -->
-  										<!-- else  -->
+  			 						<% if @is_premium != 'active' && @disable_create %>
+  		 								  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
+  									<% else %>
   										  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, create_path %> </li>
-  						<!-- 				end  -->
+  						      <%	end %>
   										
   										
   										<li><%=  link_to "<i class='icon icon-user'></i> Profile".html_safe, dashboard_profile_path, :class => 'open-menu'  %></li>

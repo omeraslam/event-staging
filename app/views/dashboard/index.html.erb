@@ -7,10 +7,13 @@
 		<% else  %>
 		You're in the right place. Manage your events here.
 		<% end %> </p> 
+		<% if @is_premium != 'active' && @count_events.to_i >= @event_limit.to_i %>
+			<p class="alert">Your current plan is limited to <%= @event_limit %> events. Please <%= link_to 'upgrade', upgrade_path %> to get full access. </p>
+		<% end %>
 		<div class="events-list">
 			<% @event_num=0 %>
 			<%  @events.each do |event| %>
-			<div class="event">
+			<div class="event <%= (@is_premium != 'active' && @event_num.to_i >= @event_limit.to_i )? 'inactive': 'active' %>">
 
 				<% if(event.layout_style?) 
 					@style_bg = '/assets/themes/' + event.layout_style.to_s + '_thumb.jpg'
@@ -21,14 +24,12 @@
 
 				<div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
 				<div class="details"> 
-<!-- if @is_premium != 'active' && @event_num >= 1 -->
-				<!-- 	<div class="title"><%= event.name %></div> -->
-					<!-- else -->
-				
-
+				<% if @is_premium != 'active' && @event_num.to_i  >= @event_limit.to_i %>
+					<div class="title"><%= event.name %></div> 
+					<% else %>
 					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
 					
-				<!--  end -->
+				<% end %>
 					<div class="time">
 						<% if(event.date_start != '' && !event.date_start.nil?) %>
 						<%= event.date_start.to_date.strftime("%B %d") %> 
@@ -49,25 +50,23 @@
 						<%end%> 
 					</div>
 
-<!-- if @is_premium == 'active' || @event_num == 0 -->
+				<% if @is_premium == 'active' || @event_num.to_i < @event_limit.to_i %>
 
 					<div class="registrants"> 
 
-
-						
 						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, slugger_path(event.slug), :target => '_blank' %>	  		
 					</div>
-
 
 					<div class="actions"> 
 						<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
 						<%= link_to 'Delete event', event_path(:id => event.id) , method: :delete, data: { confirm: 'Are you sure?' } %>
 					</div>
-					<!-- end -->
+
+				<% end %>
 
 				</div>
 			</div>	
-			<% @event_num = 1 %>
+			<% @event_num += 1 %>
 
 			<% end %>
 		</div>

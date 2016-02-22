@@ -14,6 +14,10 @@
 		clear:both;
 		margin:44px 0;
 		box-sizing:border-box;
+
+		&.inactive {
+			opacity: .3;
+		}
 		
 		.image {
 			width:200px;
