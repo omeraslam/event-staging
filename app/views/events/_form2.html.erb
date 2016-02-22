@@ -142,20 +142,15 @@
       <h2> <i class='icon icon-loader'></i></h2>
       <p> building your kick ass event website </p>
     </div>
-
-
   </div>
-
-
 </div>
-
-
 <div class="event-creation-navigation-container">
   <a class="btn-prev event-creation-navigation event-creation-prev " href=""><i class="icon icon-arrow-left"> </i> back</a>
   <%# f.submit "Create Event", :class => 'btn event-creation-navigation event-creation-prev', :id => 'btn-create' %>
   <a class="btn-next event-creation-navigation event-creation-next btn" href="">Next <i class="icon icon-arrow-right"> </i></a>
   <div class="event-creation-help">
-   <a href="#">help</a>  <a href="#">cancel</a> 
+    <%= link_to 'help', '//eventcreate.zendesk.com' %>
+    <%= link_to 'cancel', dashboard_index_path %> <!-- replace with last page -->
  </div>
 </div>
 

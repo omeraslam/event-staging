@@ -121,7 +121,6 @@ class EventsController < ApplicationController
   # 
   def create
 
-
     @themes = Theme.all
 
     @user = User.find(current_user)

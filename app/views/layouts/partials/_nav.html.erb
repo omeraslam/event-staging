@@ -1,7 +1,6 @@
 <% if signed_in? %>    
  
       
-  <!--    @rich, maybe this should be "dashboard" controller-->
     <% if (controller_name == "dashboard") or  (action_name == "index" and controller_name == "attendees") %>
      <nav>
               <div class="dashboard-header">
@@ -26,7 +25,7 @@
   			<!-- 						if 	@is_premium !== active && @disable_create -->
   		<!-- 								  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, '#', class: 'open-upgrade' %> </li>   -->
   										<!-- else  -->
-  										  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, '/event-create' %> </li>
+  										  <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, create_path %> </li>
   						<!-- 				end  -->
   										
   										
@@ -51,12 +50,12 @@
                 <ul>
                   
                   <li><%=  link_to "My events", {:controller => 'dashboard', :action => 'index'} %> </li>
-                  <!-- if @is_premium != 'active' &&  @disable_create -->
+                  <% if @is_premium != 'active' &&  @disable_create %>
                     
-                   <!--  <li><%=  link_to "Create new event", '#', :class => 'open-upgrade' %> </li>  -->
-                  <!-- else -->
-                    <li><%=  link_to "Create new event", '/event-create' %> </li> 
-                  <!-- end -->
+                   <li><%=  link_to "Create new event", upgrade_path, :class => 'open-upgrade' %> </li>
+                  <% else %>
+                    <li><%=  link_to "Create new event", create_path %> </li> 
+                  <% end %>
                   <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
                   <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
                 </ul>
@@ -141,9 +140,9 @@
               <ul class="navbar-links signed-in">
 
                 <% if @is_premium != 'active' &&  @disable_create %>
-                <li><%= link_to '<span>New event</span>'.html_safe, '#', :class => 'icon icon-plus open-upgrade'  %> </li>
+                <li><%= link_to '<span>New event</span>'.html_safe, upgrade_path, :class => 'icon icon-plus open-upgrade'  %> </li>
                 <% else %>
-                 <li><%= link_to '<span>New event</span>'.html_safe, '/event-create', :class => 'icon icon-plus'  %> </li>
+                 <li><%= link_to '<span>New event</span>'.html_safe, create_path, :class => 'icon icon-plus'  %> </li>
                 <% end %>
               
                 
@@ -157,9 +156,9 @@
                   <li><%=  link_to "My events", {:controller => 'dashboard', :action => 'index'} %> </li>
 
                 <% if @is_premium != 'active' &&  @disable_create %>
-                  <li><%=  link_to "Create new event", '#', :class => 'open-upgrade' %> </li> 
+                  <li><%=  link_to "Create new event", upgrade_path, :class => 'open-upgrade' %> </li> 
                 <% else %>
-                  <li><%=  link_to "Create new event", '/event-create' %> </li> 
+                  <li><%=  link_to "Create new event", create_path %> </li> 
                   
                 <% end %>
                   <li><%= link_to 'Edit profile', {:controller => 'dashboard', :action => 'profile'}, :class => 'navbar-link' %> </li>
@@ -181,7 +180,7 @@
         <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
 
         <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
-        <li><%= link_to 'Sign up free', '/event-create', :class => 'btn'  %> </li>
+        <li><%= link_to 'Sign up free', create_path, :class => 'btn'  %> </li>
       </ul>
 
   </nav>

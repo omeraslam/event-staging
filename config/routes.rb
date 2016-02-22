@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get 'dashboard/profile'
   get 'dashboard/print'
   get 'dashboard/contacts'
-  get 'dashboard/upgrade'
   get 'dashboard/thankyou'
 
 
@@ -22,14 +21,14 @@ Rails.application.routes.draw do
   get '/events/calendar'  => 'events#calendar'
   
   get '/about' => 'pages#about'
-  get '/pricing' => 'pages#pricing'
+  get '/upgrade' => 'dashboard#upgrade', :as => :upgrade
 
 
   get '/attendees/:id', to: 'attendees#index'
 
   get '/dashboard', to: 'events#index', :as => :dashboard
 
-  get '/event-create', to: 'events#new'
+  get '/create', to: 'events#new', :as => :create
 
   devise_for :users, :controllers => {  registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
 
