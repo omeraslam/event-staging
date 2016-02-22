@@ -172,6 +172,7 @@ var eventCreationStates = [{
 
 $(document).ready(function() {
 
+
   var validator = $("#new_event").validate({
     rules: {
       name: "required",
@@ -203,9 +204,10 @@ $(document).ready(function() {
     "items": 1,
     autoHeight: true
   });
+
+
   owl.on('changed.owl.carousel', function(e) {
-    console.log("total: " + e.item.count)
-    console.log("current: " + e.item.index)
+
     var count = e.item.count;
     var index = e.item.index;
         //update the button copy
@@ -215,6 +217,13 @@ $(document).ready(function() {
         $('.percent span').animate({
           'width': ((index + 1) / count) * 100 + '%'
         }, 250);
+        
+        if(index == 0) {
+          $('.event-creation-prev').hide();
+        } else {
+          $('.event-creation-prev').show();
+        }
+
         if ((index + 1) == count) {
           $('body').addClass('event-creation-loading');
           setTimeout(function(){
@@ -228,10 +237,13 @@ $(document).ready(function() {
     e.preventDefault();
     if (validator.element("#event_name")) {
       owl.trigger('next.owl.carousel');
+
+    
     }
   });
   $(".btn-prev").click(function(e) {
     owl.trigger('prev.owl.carousel');
+  
     e.preventDefault();
   });
   $("#showEndDates").click(function() {
@@ -243,6 +255,8 @@ $(document).ready(function() {
     $(this).addClass("selected");
     $(this).find(".theme-radio").prop('checked', true);
   });
+
+
 });
 
 $('input, textarea').attr('tabindex', '-1');
