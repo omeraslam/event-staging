@@ -25,19 +25,14 @@
 					<a href="#"><i class="icon icon-gplus"> </i> </a>
 				</div>
 
-
-
-
-
-
-
-
 	     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
       <!-- close registration if event start time has past -->      
-      <% if(@event.time_start.nil? || (Time.now.utc.strftime( "%H%M%S%N" ) > @event.time_start.to_time.utc.strftime( "%H%M%S%N" ) &&  DateTime.now.to_date == @event.date_start.to_date)) %> 
+      <% if (@event.time_start.nil?) %>
+       <% if(Time.now.utc.strftime( "%H%M%S%N" ) > @event.time_start.to_time.utc.strftime( "%H%M%S%N" ) &&  DateTime.now.to_date == @event.date_start.to_date) %> 
         <div class="btn btn-bordered rsvp open-registration">Registration Closed</div> 
       <%  else  %>
         <a class="btn btn-bordered rsvp open-registration">Register Now</a>
+      <% end %>
       <% end %>
       <!-- registration button end -->
 		</div>
