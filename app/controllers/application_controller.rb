@@ -40,11 +40,11 @@ def check_member_type
       @event_limit = 3
       event_registration_limit = 500
     when 'pro'
-      @event_limit = nil
+      @event_limit = 1000
       event_registration_limit = 5000
 
     when 'enterprise'
-      @event_limit = nil
+      @event_limit = 1000
       event_registration_limit = 15000
     else
       @event_limit = 1

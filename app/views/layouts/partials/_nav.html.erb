@@ -3,9 +3,10 @@
       
     <% if (controller_name == "dashboard") or  (action_name == "index" and controller_name == "attendees") %>
      <nav>
-              <div class="dashboard-header">
-              
 
+
+
+          <div class="dashboard-header">
               		<div class="left"> 
               			<a class="logo" href="/"><span>Event Create</span></a>
               			<ul> 
@@ -90,55 +91,19 @@
   <!--    end "dashboard" controller-->
 
 
-        <!-- if event show page -->
-      <% if action_name == "show" and controller_name == "events" %>
-             
-   <!--  <nav>             <ul class="navbar-links signed-in">
-
-                  
-                
-
-                    <li style="display: none;"><%= link_to '<span>Home</span>'.html_safe, {:controller => 'dashboard', :action => 'index'}, :class => 'icon icon-home' %></li>
-  <!--
-                    <li><a class="icon icon-hamburger toggleEditorPanel" id="event-editor-share"><span>Share </span></a> </li>
-                  -->
-                  
-        <!--             <li style="display: none;">
-                      <a class="icon icon-settings">  </a>
-                      
-                        <ul>
-                          <li><a class="icon icon-edit-website toggleEditorPanel" id="event-editor-design">Change theme  <span>Change theme </span> </a></li>
-                              <li><a class="icon icon-image toggleEditorPanel" id="event-editor-design"> Modify background   <span>Change background  </span> </a></li>
-                            <li><a class="icon icon-share toggleEditorPanel" id="event-editor-share"> Share event<span>Share </span></a> </li>
-                            <li><a class="icon icon-questions"  href="javascript:void(0);" onclick="startIntro();">Help<span>Help </span> </a></li>
-                            <li>
-                          
-                        </ul>
-                      
-                        
-                      
-                    
-
-                    </li>
-                   -->
-                  
-            <!--        <li><%=  link_to '<span>Profile</span>'.html_safe, {:controller => 'dashboard', :action => 'index'}, :class => 'icon icon-user open-menu'  %>
-                    </li> -->
-                  
-                  <!-- </ul> </nav>-->
-                  
-      <% end %>
+ 
               
        <!-- if not event pages or show page -->
       <% if controller_name !="dashboard" && controller_name !="attendees" &&  (controller_name != "events" || action_name != 'show') %>
+
+
+   
+
           <nav>
               <a class="logo" href="/">
                 <span>Event Create</span>
               </a>
-              
-              
               <ul class="navbar-links signed-in">
-
                 <% if @is_premium != 'active' &&  @disable_create %>
                 <li><%= link_to '<span>New event</span>'.html_safe, upgrade_path, :class => 'icon icon-plus open-upgrade'  %> </li>
                 <% else %>
@@ -170,21 +135,20 @@
       <% end %>
       
           
-    <!-- not signed in -->
-<% else %>
+      <!-- not signed in -->
+  <% else %>
+  
+    <nav>
+         <a class="logo" href="/"><span>Event Create</span></a>
+          <ul class="navbar-links">
+            <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
     <% if action_name != "show" and controller_name != "events"  and controller_name != "sessions" and controller_name != "registrations"  and controller_name != "passwords"  %>
-
-  <nav>
-     <a class="logo" href="/"><span>Event Create</span></a>
-      <ul class="navbar-links">
-        <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
-
-        <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
-        <li><%= link_to 'Sign up free', create_path, :class => 'btn'  %> </li>
-      </ul>
-
-  </nav>
+            <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
+            <li><%= link_to 'Sign up free', create_path, :class => 'btn'  %> </li>
     <% end %>
+          </ul>
+
+      </nav>
 <% end %>
 
 
