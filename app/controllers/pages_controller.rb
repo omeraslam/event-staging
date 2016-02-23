@@ -27,6 +27,9 @@ class PagesController < ApplicationController
   end
 
   def explore
+
+       @themes = Theme.all
+       
   end
 
 
