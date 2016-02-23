@@ -1,0 +1,39 @@
+<div id="home"> 
+
+
+	<div id="intro-container">
+
+
+
+
+		<div id="intro">
+		 	<h1> themes</h1>
+		 	<p>checkout the themes </p>
+		 	
+	 	</div>
+ 	</div>
+ 	 
+
+ 	 
+ 	 
+ 	
+ 	 
+ 	     <div class="list-inline themes">
+      <% @themes.each do |theme| %>
+      <a class="theme">
+        
+        <div class="theme-thumb">
+          <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
+          <div class="thumb-cover"></div>
+        </div>  
+        <h3> <%= theme.slug %> </h3>
+      </a>
+      <% end %>  
+    </div>  
+
+
+
+ 	 
+ 	 <div class="footer"> <a href="/"> Features </a> | <a href="/pricing"> Pricing </a> | <a href="http://blog.eventcreate.com/">Blog</a> |  <a href="/terms">Terms and Conditions</a> &copy; EventCreate 2015. </div>
+ 	 	
+</div>
