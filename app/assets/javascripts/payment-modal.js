@@ -38,7 +38,6 @@ $(document).ready(function(){
 
           var plantype = $('#plan_type').val();
 
-          alert('planType: '+ plantype);
           // Insert the token into the form so it gets submitted to the server
           $form.append($('<input type="hidden" name="stripeToken" />').val(token));
           // and submit
