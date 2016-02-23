@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   after_action :store_location
   before_action :authenticate_user!
 
+  respond_to :html, :js, :json
+
   def charge_card
 
     @user = current_user
@@ -14,28 +16,47 @@ class UsersController < ApplicationController
 
      # Get the credit card details submitted by the form
     token = params[:stripeToken]
+    plan_type = params[:planType]
+
+
+    stripePlan = Stripe::Plan.retrieve(plan_type)
+
+
+    charge_amount = stripePlan.amount
+    currency_type = stripePlan.currency
+
 
 
     logger.debug "charge it to the game: #{token}"
 
-    # Create a Customer
-    customer = Stripe::Customer.create(
-      :source => token,
-      :plan => 'premium',
-      :email => current_user.email,
-      :description => 'Test User'
-    )
+    if @user.customer_id.nil?
+
+      # Create a Customer
+      customer = Stripe::Customer.create(
+        :source => token,
+        :plan => plan_type,
+        :email => current_user.email,
+        :description => 'Test User'
+      )
+
+      @user.customer_id = customer.id
+    end 
 
     # Charge the Customer instead of the card
     Stripe::Charge.create(
-        :amount => 700, # in cents
-        :currency => "usd",
-        :customer => customer.id
+        :amount => charge_amount, # in cents
+        :currency => currency_type,
+        :customer => @user.customer_id
     )
 
-    @user.customer_id = customer.id
-    @user.update(user_params)
+    @user.plan_type = plan_type
 
+ 
+    if @user.update(user_params)
+        render :js => "window.location = '/dashboard/thankyou'"  #hack
+    else
+        logger.debug "no set user to premium"
+    end
 
     # # YOUR CODE: Save the customer ID and other info in a database for later!
 

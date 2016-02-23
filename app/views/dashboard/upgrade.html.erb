@@ -1,12 +1,12 @@
 <div class="container"> 
 
-
+	<input type="hidden" id="current_plan" name="current_plan" val="<%= current_user.plan_type %>" />
 <div class="upgrade-carousel owl-carousel">
-
+	
 	<div class="plans owl-item">
 
 
-		<div class="plan disabled">
+		<div class="plan" data-type="basic">
 			<h3>Basic </h3>
 			<p class="price">Free</p>
 			<ul class="features"> 
@@ -19,12 +19,12 @@
 				<li class="disabled">Sell tickets/accept payments</li>
 				<li class="disabled">Priority customer support </li>	
 			</ul>
-			<a class="btn btn-disabled">Current plan</a>      				   
+			<a class="btn">Current plan</a>      				   
 		</div>
 
 
 
-		<div class="plan" data-description="Premium Plan: $7/month. Cancel anytime.">
+		<div class="plan" data-type="premium" data-description="Premium Plan: $7/month. Cancel anytime.">
 			<h3>Premium </h3>
 			<p class="price">$7/mo<br>Cancel anytime</p>
 			<ul class="features"> 
@@ -42,7 +42,7 @@
 
 
 
-		<div class="plan" data-description="Pro Plan: $29/month. Cancel anytime.">
+		<div class="plan" data-type="pro" data-description="Pro Plan: $29/month. Cancel anytime.">
 			<h3>Pro </h3>
 			<p class="price">$29/mo<br>Cancel anytime</p>
 			<ul class="features"> 
@@ -60,7 +60,7 @@
 
 
 
-		<div class="plan" data-description="Enterprise Plan: $69/month. Cancel anytime.">
+		<div class="plan" data-type="enterprise" data-description="Enterprise Plan: $69/month. Cancel anytime.">
 			<h3>Enterprise </h3>
 			<p class="price">$69/mo<br>Cancel anytime</p>
 			<ul class="features"> 
@@ -123,6 +123,7 @@
 			    </div> 
 				<p>By upgrading your account, you agree to the <a href="/terms" target="_blank"> terms and conditions</a>. </p>
 			      <input type="hidden" id="user_premium" name="user[premium]" val="true" />
+			      <input type="hidden" id="plan_type" name="plan_type" val="basic" />
 	    </form>
 
 
@@ -154,8 +155,15 @@ $(document).ready(function(){
         pullDrag:false
     });
 
+	var test = $('.plans plan').find('[data-type="'+ $('#current_plan').attr('val') +'"]');
+
+    $('.plans').find('[data-type="'+ $('#current_plan').attr('val') +'"]').addClass('disabled').find('.btn').addClass('btn-disabled')
+    //$(test).find('btn').addClass('btn-disabled')
+
     $( ".plan" ).not(".disabled").click(function() {
   		$("#selected-plan").text($(this).data("description"));
+  		$('#plan_type').val($(this).data('type'));
+
 
   		//ADD HOOK TO CHANGE PLAN
 

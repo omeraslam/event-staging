@@ -35,13 +35,17 @@ $(document).ready(function(){
         } else {
           // response contains id and card, which contains additional card details
           var token = response.id;
+
+          var plantype = $('#plan_type').val();
+
+          alert('planType: '+ plantype);
           // Insert the token into the form so it gets submitted to the server
           $form.append($('<input type="hidden" name="stripeToken" />').val(token));
           // and submit
           $.ajax({
           type: "POST",
           url: $form.attr('action'),
-          data: {stripeToken: token, user: {premium: true} },
+          data: {stripeToken: token, planType: plantype,  user: {premium: true} },
           success: function() {
           }
         });

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'dashboard/profile'
   get 'dashboard/print'
   get 'dashboard/contacts'
-  get 'dashboard/thankyou'
+  get 'dashboard/thankyou',  to: 'dashboard#thankyou', :as => :thankyou
 
 
   resources :urls, only: [:new, :create]
