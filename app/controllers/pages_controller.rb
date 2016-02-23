@@ -22,4 +22,12 @@ class PagesController < ApplicationController
 
   def error404
   end
+
+  def features
+  end
+
+  def explore
+  end
+
+
 end

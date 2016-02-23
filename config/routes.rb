@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   get '/terms' => 'pages#terms'
   get '/privacy' => 'pages#privacy'
   get '/pricing' => 'pages#pricing'
+  get '/features' => 'pages#features'
+  get '/explore' => 'pages#explore'
+
+
 
   get '/events/calendar'  => 'events#calendar'
   
