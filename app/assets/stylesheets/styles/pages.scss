@@ -9,15 +9,18 @@
 	background:#fff;
 	color:#222;
 	
-	
-	.logo {
-	  display: block;
-	  width: 250px;
-	  height: 37px;
-	  background-image: url(event_create_logo.png);
-	  background-repeat: no-repeat;
-	  background-size:contain;
+	&.home {
+		.logo {
+		  display: block;
+		  width: 250px;
+		  height: 37px;
+		  background-image: url(event_create_logo.png);
+		  background-repeat: no-repeat;
+		  background-size:contain;
+		}
+
 	}
+
 	
 	
 	
