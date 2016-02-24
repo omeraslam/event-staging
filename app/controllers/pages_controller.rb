@@ -26,6 +26,10 @@ class PagesController < ApplicationController
   def features
   end
 
+
+  def contact
+  end
+
   def explore
 
        @themes = Theme.all
