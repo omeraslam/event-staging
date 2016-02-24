@@ -19,11 +19,11 @@
 @import "styles/modals.scss";
 @import "styles/tables.scss";
 
+
 //by page - TO CLEAN  UP
 @import "styles/dashboard.scss";
 @import "styles/dashboard_profile.scss";
 @import "styles/users.scss";
-@import "styles/pages.scss";
 @import "styles/logins.scss";
 
 
@@ -35,3 +35,7 @@
 
 @import "styles/event_themes.scss";
 
+
+//pages
+@import "styles/device_mocks.scss";
+@import "styles/pages.scss";

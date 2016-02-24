@@ -1,84 +1,99 @@
-
-<div id="pricing">
-    <div id="center">
-        <h1>Pricing </h1>
-        <div class="lead"> We offer three tiers to help you get the most out of your events.</div>
-    </div>
-    
-    
-    <div class="plans"> 
-    
+<div class="hero" id="pricing">
+ 	<div class="hero-content">
+		<h1> simple pricing </h1>
+		<p>Fusce nec lacus lorem. Nulla et aliquam tortor, id sodales nibh. Praesent dignissim nec diam a accumsan. Etiam feugiat dui id tortor aliquam sollicitudin. </p>	 	
+	</div>
+</div>	
 
 
-			<%= link_to new_user_registration_path, :class => 'plan-container'  do %>
 
-				<div class="plan">
-					<h2>Basic </h2>
-					<div class="price">Free</div>
-					<ul class="features"> 
-						<li>1 event website </li>					
-					</ul> 
-					<ul class="secondary-features"> 
-						<li>Custom, mobile-friendly templates </li>
-						<li>Powerful event anayltics</li>
-						<li>24/7 customer support </li>
-					</ul> 
-					<div class="btn">Choose plan</div>      				   
-				</div>
-			<% end %>
-    
-			    	
-			<%= link_to new_user_registration_path, :class => 'plan-container'  do %>
-				<div class="plan">
-					<h2>Premium </h2>
-					<div class="price">$7/mo</div>
-					<ul class="features"> 
-						<li>Unlimited event websites </li>
-						<li>Unlimited email invites</li>
-						<li></li>						
-					</ul> 
-					<ul class="secondary-features"> 
-						<li>Custom, mobile-friendly templates </li>
-						<li>Powerful event analytics</li>
-						<li>24/7 customer support </li>
-					</ul> 
-					<div class="btn">Choose plan </div>      				   
-				</div>
-			<% end %>
-			    	
-			
-			<%= link_to new_user_registration_path, :class => 'plan-container'  do %>
-				<div class="plan">
-					<h2>Pro </h2>
-					<div class="price">$19/mo</div>
-					<ul class="features"> 
-					<li>Unlimited event websites </li>
-					<li>Unlimited email invites</li>
-					<li>Paid events</li>											
-					</ul> 
-					<ul class="secondary-features"> 
-						<li>Custom, mobile-friendly templates </li>
-						<li>Powerful event analytics</li>
-						<li>24/7 customer support </li>
-					</ul> 
-					<div class="btn">Choose plan </div>      				   
-				</div>
-			<% end %>
-    	
-    </div>
-    
-    
-    
-    
-    
+
+<div class="plans"> 
+	<div class="plan ">
+		<h3>Basic </h3>
+		<p class="price">Free</p>
+		<ul class="features"> 
+			<li>1 event </li>					
+			<li>50 registrations </li>		
+		</ul> 
+		<ul class="secondary-features"> 
+			<li class="disabled">Custom branding </li>
+			<li class="disabled">White labelled domain</li>
+			<li class="disabled">Sell tickets/accept payments</li>
+			<li class="disabled">Priority customer support </li>	
+		</ul>
+		<a class="btn">Current plan</a>      				   
+	</div>
+
+
+
+	<div class="plan" data-description="Premium Plan: $7/month. Cancel anytime.">
+		<h3>Premium </h3>
+		<p class="price">$7/mo<br>Cancel anytime</p>
+		<ul class="features"> 
+			<li>3 events </li>					
+			<li>500 registrations </li>		
+		</ul> 
+		<ul class="secondary-features"> 
+			<li>Custom branding </li>
+			<li>White labelled domain</li>
+			<li class="disabled">Sell tickets/accept payments</li>
+			<li class="disabled">Priority customer support </li>	
+		</ul>
+		<a class="btn">Choose plan</a>      				   
+	</div>
+
+
+
+	<div class="plan" data-description="Pro Plan: $29/month. Cancel anytime.">
+		<h3>Pro </h3>
+		<p class="price">$29/mo<br>Cancel anytime</p>
+		<ul class="features"> 
+			<li>Unlimited events </li>					
+			<li>5,000 registrations </li>		
+		</ul> 
+		<ul class="secondary-features"> 
+			<li>Custom branding </li>
+			<li>White labelled domain</li>
+			<li>Sell tickets/accept payments</li>
+			<li>Priority customer support </li>	
+		</ul>
+		<a class="btn">Choose plan</a>      				   
+	</div>
+
+
+
+	<div class="plan" data-description="Enterprise Plan: $69/month. Cancel anytime.">
+		<h3>Enterprise </h3>
+		<p class="price">$69/mo<br>Cancel anytime</p>
+		<ul class="features"> 
+			<li>Unlimited events </li>					
+			<li>15,000 registrations </li>		
+		</ul> 
+		<ul class="secondary-features"> 
+			<li>Custom branding </li>
+			<li>White labelled domain</li>
+			<li>Sell tickets/accept payments</li>
+			<li>Priority customer support </li>	
+		</ul>
+		<a class="btn">Choose plan</a>      				   
+	</div>
+
 </div>
+    
+    
+
+    
+    
+    
+    
+    
 
 
 
 
 <div class="faq"> 
 
-	<h2>Frequently Asked Questions</h2>
 	<div class="questions"> 
 		<div class="question">
 			<h3>Do you offer a free trial?</h3>

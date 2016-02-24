@@ -1,256 +1,83 @@
-// Place all the styles related to the pages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-.widgets {height: 100%}
-
-
 .pages {
 	background:#fff;
 	color:#222;
-	
-	&.home {
-		.logo {
-		  display: block;
-		  width: 250px;
-		  height: 37px;
-		  background-image: url(event_create_logo.png);
-		  background-repeat: no-repeat;
-		  background-size:contain;
-		}
 
+	h1 {
+		font-size: 30px;
+	    line-height: 40px;
+	    margin: 0 0 10px 0;
 	}
 
+	h2 {
+		font-size: 20px;
+	    line-height: 34px;
+	    margin: 0;
+	}
 	
-	
-	
+	.logo {
+	  display: block;
+	  width: 250px;
+	  height: 37px;
+	  background-image: url(event_create_logo.png);
+	  background-repeat: no-repeat;
+	  background-size:contain;
+	}	
 }
 
 
-#home {
 
+
+
+
+.hero {
+	background:$brand-secondary;
 	color:#fff;
-	
-    
-    h1 {
-    	font-weight:400;
-    	margin-bottom:14px;   	
-    }
-
-
-		h2 {
-			font-size:40px;
-		  line-height: .8em;
-			margin:80px 0 40px;
-			letter-spacing:1px; 
-			font-weight:bold;
-			
-		}
-    
-    .lead {
-    	font-size:20px;
-    
-    
-    }
-    
-    
-  
-}
-
-
-#intro-container {
-	background:#22262f;
-	color:#fff;
-
-	
-}
-
-#intro {
-	text-align:center;
-	padding:140px 0 100px 0;
-	height:860px;
 	overflow:hidden;
-	width:80%;
-	margin:0 auto;
-	
-	.btn {
-		margin:20px 0 60px;
-	
+	background:url(home/1.jpg);
+
+	.hero-content {
+		padding:180px 50px 80px 50px;
+		text-align:center;
+		max-width:600px;
+		margin: 0 auto;
+
 	}
-	
-	p {
-		font-size:16px;
-	
+
+	&#pricing {
+		background:url(home/2.jpg);
+		background-size:cover;
+		background-position:0% 100%;
+
 	}
-	
+
 }
 
 
 
 
-.examples {
+
+.screens-container {
 	position:relative;
-	width:74%;
+	width:70%;
+	left:10%;
+	float:right;
+	margin-top:140px;
+}
+
+
+.hero#product-features {
+	.screens {
+	position:relative;
+	width:70%;
 	margin:0 auto;
-	
-}
+	float:none;
+	left:0;
 
-
-
-.screen {
-
-	position:absolute;
-	width:100%;
-	margin:0 auto;
-	background:#f6f6f8;
-	
-	.screen-nav {
-		height: 14px;
-		width: 100%;
-		border-bottom: 1px solid #e0e5e9;
-		background: #f6f6f8;
-		padding-left: 8px;
-		padding-top: 3px;		
-		
-		.button {
-			width: 6px;
-			height: 6px;
-			background: #e0e5e9;
-			-khtml-border-radius: 3px;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			border-radius: 3px;
-			float: left;
-			margin-right: 4px;
-		
-		}
-		
-	}
-	
-
-	img {
-		width:100%;
-		height:auto;
-		padding:6px;
-	}
-	
-}	
-
-
-.phone {
-	width: 206px;
-  height: 504px;
-  background: #fff;
-  margin: 0;
-  padding: 38px 6px 0 6px;
-  border: 2px solid #e0e5e9;
-  -khtml-border-radius: 26px 26px 0 0;
-  -moz-border-radius: 26px 26px 0 0;
-  -webkit-border-radius: 26px 26px 0 0;
-  border-radius: 26px 26px 0 0;
-  position: absolute;
-  z-index: 2;
-  right:-70px;
-  top:150px;
-  
-  img {
-  	width:100%;
-  
-  }
-
-
-	.details {
-	
-		.camera {
-			width: 8px;
-			height: 8px;
-			-khtml-border-radius: 4px;
-			-moz-border-radius: 4px;
-			-webkit-border-radius: 4px;
-	    border-radius: 4px;
-	    background: #e0e5e9;
-	    position: absolute;
-	    top: 15px;
-	    left: 78px;
-		}
-	
-	
-		.speaker {
-		
-			width: 32px;
-	    height: 6px;
-	    -khtml-border-radius: 3px;
-	    -moz-border-radius: 3px;
-	    -webkit-border-radius: 3px;
-	    border-radius: 3px;
-	    background: #e0e5e9;
-	    position: absolute;
-	    top: 16px;
-	    right: 78px;
-	
-		
-		
-		}
-	
-	
-	
-	}
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#testimonial {
-	background:#f8f8f8;
-	text-align:center;
-	padding:42px 0;
-	
-	img {
-		width:80%;
-	
-	}
-
-}
-
-
-
-.example {
-	
-	text-align:center;
-	min-height:400px;
-	margin: 0 auto;
-	width: 80%;
 
 	.screen {
-	
-		width:80%;
-		margin:0 auto;
-		margin-top:40px;
-	
-		img {
-			
-			width:100%;
-			height:auto;
-		
-		}
-	
-	
-	
+		position:relative;
 	}
-
+}
 
 }
 
@@ -259,53 +86,87 @@
 
 
 
-#features {
+
+.hero#home {
 	
-	width:80%;
-	margin: auto;
-	color:#fff;
-	
-	.feature {
-		width:50%;
+	.hero-content {
+		width:40%;
+		text-align:left;
+		margin:0;
+		padding:220px 50px 160px 50px;
+	}
+
+
+	.screens-container {
+		position:relative;
+		width:70%;
+		left:10%;
+		float:right;
+		margin-top:140px;
+
+		.screen {
+			position:absolute;
+		}
+
+		.phone {
+			position: absolute;
+			z-index: 2;
+			right:18%;
+			top:150px;
+		}
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+.product-feature-container {
+
+	clear:both;
+	overflow:hidden;
+
+	.product-feature {
+		width:33.333333%;
+		padding:50px;
+		position:relative;
 		float:left;
 		text-align:center;
-		
-		
-		.description {
-			padding:40px;
-			color:#555;
-			
-			i {
-				font-size:60px;
-				color: #21afbf;
-			}
-		
-			h4 {
-				font-weight:600;
-				font-size:30px;
-			
-			}
-			
-			p {
-				font-size: 14px;
-			  line-height: 22px;
-			
-			}
-		
+
+		i {
+    		font-size: 35px;
+    		color: #999;
+    		display:none;
+		}
+
+		img {
+			width:100%;
+		}
+
+		a {
+			display:inline-block;
+			margin-top:6px;
 		}
 
 	}
-	
-	&:after {
-		content: "";
-		display: table;
-		clear: both;
-	
-	
-	}
-	
 
+	.product-feature-left {
+		width:50%;
+		text-align:left;
+	}
+
+	.product-feature-right {
+		width:50%;
+		text-align:left;
+	}
 }
+
 
 
 
@@ -326,103 +187,21 @@
 
 //start the pricing
 
-
-#pricing {
-
-	background:#313b4a;
-	color:#fff;
-	padding:140px 0 100px 0;
-	
-	h1 {
-		text-align:center;
-		margin-bottom:10px;
-	
-	}
-	
-	.lead {
-		text-align:center;
-	
-	}
-	
-	.plans {
-		padding-top:40px;
-		text-align:center;
-		width:90%;
-		margin: 0 auto;
-		
-		
-		.plan-container {
-			width:33.3333333%;
-			float:left;
-		
-		
-		
-			.plan {
-				padding:30px;
-				margin:10px;
-				display:block;
-				color:#fff;
-				background:rgba(255,255,255,.05);
-				cursor:pointer;
-				
-				
-				&:hover {
-					background:rgba(255,255,255,.1);
-				}
-				
-				h2 {
-					border-bottom:1px solid rgba(255,255,255,.1);
-					padding-bottom:10px;
-				
-				}
-				
-				.price {
-					color:#21afbf;
-					margin:12px 0 20px;
-					font-weight:400;
-					font-size:22px;
-
-				}
-				
-				ul.features {
-					min-height:120px;
-					font-size:16px;
-					
-					li {
-						margin:10px 0;
-					
-					}
-				}
-				
-				ul.secondary-features {
-					margin-top:20px;
-					opacity:.6;
-				
-				
-				}
-				
-				.btn {
-					margin-top:40px;
-				
-				
-				}
-				
-			}
-		
-		
-		}
-		
-
-		
-		
-		&:after {
-			content: "";
-			display: table;
-			clear: both;
-			
-		}	
+.pricing .plans {
+	h3 {
+		font-weight:400;
+		text-transform:lowercase;
 	}
 }
+
+
+
+
+
+
+
+
+
 
 .faq {
 	text-align:center;

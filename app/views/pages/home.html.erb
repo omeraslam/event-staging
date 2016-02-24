@@ -1,91 +1,65 @@
-<div id="home"> 
+<div class="hero" id="home">
 
-
-	<div id="intro-container">
-		<div id="intro">
-		 	<h1>create beautiful event websites and invites</h1>
-		 	<p>EventCreate is the easiest way to create dazzling event websites for conferences, parties or any occasion  </p>
-		 	<% if @is_premium != 'active' && @disable_create %>
-				<%= link_to 'Create my event website', upgrade_path, :class => 'btn btn-large open-upgrade'  %> 
-			<% else %>
-				<%= link_to 'Create my event website', create_path, :class => 'btn btn-large'  %> 
-		 	<% end %>
-		 	
-		 	
-		 	<div class="examples">
-			 	<div class="screen"> 
-			 		<div class="screen-nav">
-			 			<div class="button"></div>
-			 			<div class="button"></div>
-			 			<div class="button"></div>
-			 		</div>
-			 		<img src="/assets/home/sample.jpg" 	  />	
-			 	</div>	
-			 	
-			 	
-			 	<div class="phone"> 
-			 	
-			 		<div class="details">
-			 			<div class="camera"></div>
-			 			<div class="speaker"></div>
-			 		</div>
-		
-		
-					<img src="/assets/home/sample_mobile.jpg" 	  />	
-					
-			 	</div>
-		 	</div>
+ 	<div class="screens-container">
+	 	<div class="screen"> 
+	 		<div class="screen-nav">
+	 			<div class="button"></div>
+	 			<div class="button"></div>
+	 			<div class="button"></div>
+	 		</div>
+	 		<img src="/assets/home/sample.jpg" />	
+	 	</div>	
+	 	<div class="phone"> 
+	 		<div class="details">
+	 			<div class="camera"></div>
+	 			<div class="speaker"></div>
+	 		</div>
+			<img src="/assets/home/sample_mobile.jpg" />	
 	 	</div>
  	</div>
- 	 
- 	 
- 	 <div id="testimonial" style="display: none;">
- 	 		<img src="/assets/home/testimonial.jpg" />	
- 	 </div> 
- 	 
- 	 
- 	 <div id="features" > 
- 	 	
- 	 		<div class="feature">
- 	 			<div class="description">
- 	 				<i class="icon icon-line-image"> </i>
- 	 				<h4>Pick a theme </h4>
- 	 				<p>Hosting a conference? A fundraiser? Or maybe just a get together for friends? Choose from a variety of custom event website themes handcrafted by EventCreate's award-winning design team. Themes are 100% responsive and mobile-friendly, developed with the latest HTML, CSS and Javascript to work seamlessly across any device and any browser. </p>
- 	 			</div>
- 	 		</div>
 
-			<div class="feature">
-				<div class="description">
-					<i class="icon icon-line-computer"> </i>
-					<h4>Build your site </h4>
-					<p>No user guides necessary! Build your site in less than 30 seconds with EventCreate's proprietary, easy-to-use website builder that walks you through each section quickly and easily. You can also customize your theme at anytime to make the website 100% yours. Go crazy!</p>
-				</div>
-			</div>
-			
-				<div class="feature" style="clear: both;">
-					<div class="description">
-						<i class="icon icon-line-email"> </i>
-						<h4>Send out invites </h4>
-						<p>You created your website; now it's time to share it! With EventCreate, you can send unlimited, custom email invitations to your guests. Too soon for invitations? Send a save the date. Event over? Send a thank you email to your attendees.</p>
-					</div>
-				</div>
-				
-				
-					<div class="feature">
-						<div class="description">
-							<i class="icon icon-line-chart"> </i>
-							<h4>Track your guests </h4>
-							<p>Who's coming? Who hasn't RSVP'ed? Who can I invite to my next event? We got you covered. EventCreate allows you to easily track and manage your attendees. When you're ready for your next event, we'll show you data on who normally attends, who doesn't, and when's the best time to invite guests.   </p>
-						</div>
-					</div>
-			
 
- 	 		
- 	 		
- 	 </div>
+ 	<div class="hero-content hero-content-left">
+		<h1> beautiful event websites and invites</h1>
+		<p>EventCreate is the easiest way to create dazzling event websites for conferences, parties or any occasion  </p>
+	 	<% if @is_premium != 'active' && @disable_create %>
+			<%= link_to 'Try for free now &rarr;'.html_safe, upgrade_path, :class => 'btn btn-large open-upgrade'  %> 
+		<% else %>
+			<%= link_to 'Try for free now &rarr;'.html_safe, create_path, :class => 'btn btn-large'  %> 
+	 	<% end %>	 	 	
+	</div>
+
+
+</div>
+
+
+
+<div class="product-feature-container">
+
+	<div class="product-feature">
+		<i class="icon icon-line-computer"> </i>
+		<h2>enterprise level  software </h2>
+		<p>Beautiful websites and invites built on enterprise-level event management software, so all the tools you need are fully-baked in. <br> <a href="#"> Learn more</a> </p>	
+	</div>
+
+	<div class="product-feature">
+		<i class="icon icon-line-chart"> </i>
+		<h2>  0% processing fees </h2>
+		<p>Selling tickets, or collecting payments? EventCreate has zero processing fees. Zero. It's that simple.  <br> <a href="#"> Learn more</a></p>	
+	</div>
+
+	<div class="product-feature">
+		<i class="icon icon-line-email"> </i>
+		<h2> 24/7 customer support</h2>
+		<p>Award-winning customer support is available 24/7 to answer questions and help make your event a success.<br> <a href="#"> Learn more</a> </p>	
+	</div>
+
+</div>
+
+
+
  	 
  	  
  	 
  	 <div class="footer"> <a href="/"> Features </a> | <a href="/pricing"> Pricing </a> | <a href="http://blog.eventcreate.com/">Blog</a> |  <a href="/terms">Terms and Conditions</a> &copy; EventCreate 2015. </div>
  	 	
-</div>
