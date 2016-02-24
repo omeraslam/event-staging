@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/pricing' => 'pages#pricing'
   get '/features' => 'pages#features'
   get '/explore' => 'pages#explore'
+  get '/contact' => 'pages#contact'
 
 
 
