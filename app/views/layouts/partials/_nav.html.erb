@@ -1,4 +1,4 @@
-<% if signed_in? && action_name != 'home' %>    
+<% if signed_in? && action_name != 'home' && (controller_name != 'events' && action_name != 'show') && controller_name != 'pages' %>    
   <nav>
     <div class="dashboard-header">
       <div class="left"> 
@@ -53,8 +53,7 @@
       <ul class="navbar-links">
         <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
         <% if signed_in? %>
-          <li><%= link_to "Sign in", dashboard_index_path, :class => 'navbar-link'  %></li>
-          <li><%= link_to 'Sign up free', dashboard_index_path, :class => 'btn'  %> </li>
+          <li><%= link_to 'My Account', dashboard_index_path, :class => 'btn'  %> </li>
         <% else %>
           <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>
           <li><%= link_to 'Sign up free', create_path, :class => 'btn'  %> </li>
