@@ -54,14 +54,14 @@ $(document).ready(function(){
 
      
      $('#payment-form').submit(function(e){
-
+      
+       e.preventDefault();
       var $form = $(this);
       //disable submit button to prevent repeated clicks
       $form.find('button').prop('disabled', true);
 
 
        
-       e.preventDefault();
        $('input').removeClass('invalid');
          
        var cardType = $.payment.cardType($('.cc-number').val());

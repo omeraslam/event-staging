@@ -7,29 +7,23 @@ class UsersController < ApplicationController
 
   respond_to :html, :js, :json
 
+
   def charge_card
 
     @user = current_user
     @user.premium = true
 
-
-
-     # Get the credit card details submitted by the form
+    # Get the credit card details submitted by the form
     token = params[:stripeToken]
     plan_type = params[:planType]
 
-
-    stripePlan = Stripe::Plan.retrieve(plan_type)
-
-
-    charge_amount = stripePlan.amount
-    currency_type = stripePlan.currency
-
-
-
     logger.debug "charge it to the game: #{token}"
 
-    if @user.customer_id.nil?
+    logger.debug "sup dude #{@user.customer_id.nil?}"
+
+    if @user.customer_id.nil? 
+
+      logger.debug "customer being created"
 
       # Create a Customer
       customer = Stripe::Customer.create(
@@ -40,20 +34,18 @@ class UsersController < ApplicationController
       )
 
       @user.customer_id = customer.id
+    else
+
+      customer = Stripe::Customer.retrieve(@user.customer_id)
+
     end 
 
-    # Charge the Customer instead of the card
-    Stripe::Charge.create(
-        :amount => charge_amount, # in cents
-        :currency => currency_type,
-        :customer => @user.customer_id
-    )
-
+    @user.subscription_id = customer.subscriptions.data[0].id
     @user.plan_type = plan_type
 
  
     if @user.update(user_params)
-        render :js => "window.location = '/dashboard/thankyou'"  #hack
+        render :js => "window.location = '/thank-you'"  #hack
     else
         logger.debug "no set user to premium"
     end
@@ -70,15 +62,63 @@ class UsersController < ApplicationController
     
   end
 
+  def update_subscription
+
+    @user = current_user
+    plan_type = params[:planType]
+
+
+    customer = Stripe::Customer.retrieve(@user.customer_id)
+
+    if(!@user.subscription_id.nil?)
+    # if customer id has subscription id
+      subscription = customer.subscriptions.retrieve(@user.subscription_id)
+      subscription.plan = plan_type
+      subscription.save
+    else 
+    # else create new one
+      subscription = customer.subscriptions.create({:plan => plan_type})
+      @user.subscription_id = subscription.id
+    end
+
+
+
+
+
+    
+    @user.plan_type = plan_type
+
+
+    if @user.update(user_params)
+        render :js => "window.location = '/thank-you'"  #hack
+    else
+        logger.debug "no plan updated"
+    end
+
+  end
+
   def cancel_subscription
 
-     logger.debug "customer id: #{@cu.id}"
-     logger.debug "subscription id: #{@cu.subscriptions.data[0].id}"
 
-    customer = Stripe::Customer.retrieve(@cu.id)
-    customer.subscriptions.retrieve(@cu.subscriptions.data[0].id).delete
+    @user = current_user
+
+    customer = Stripe::Customer.retrieve(@user.customer_id)
+
+    logger.debug "sub id: #{customer.subscriptions}"
+    customer.subscriptions.retrieve(customer.subscriptions.data[0].id).delete
+
+    @user.plan_type = nil
+    @user.subscription_id = nil
     # 
-    redirect_to dashboard_profile_path + '#billing'
+    
+    if @user.update(user_params)
+      render :js => "window.location = '/dashboard/index'"  #hack
+      
+    else
+      logger.debug "plan not canceled"
+    end
+
+    #set subscription id to nil
 
   end
 
@@ -96,7 +136,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-        params.require(:user).permit(:premium,:password, :password_confirmation, :email)
+        params.require(:user).permit(:premium,:password, :password_confirmation, :email, :subscription_id, :plan_type)
     end
 
 

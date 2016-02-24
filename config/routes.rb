@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
 
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
+
   resources :themes
 
+  #dashboard routes
   get 'dashboard/index'
   get 'dashboard/event'
-  get 'dashboard/past'
+  #get 'dashboard/past'
   get 'dashboard/profile'
   get 'dashboard/print'
   get 'dashboard/contacts'
-  get 'dashboard/thankyou',  to: 'dashboard#thankyou', :as => :thankyou
+
+  #payment routes
+  get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
+  get '/upgrade' => 'payments#upgrade', :as => :upgrade
+  get '/cancel' => 'payments#cancel', :as => :cancel
+
+
 
 
   resources :urls, only: [:new, :create]
@@ -26,12 +36,11 @@ Rails.application.routes.draw do
   get '/events/calendar'  => 'events#calendar'
   
   get '/about' => 'pages#about'
-  get '/upgrade' => 'dashboard#upgrade', :as => :upgrade
 
 
   get '/attendees/:id', to: 'attendees#index'
 
-  get '/dashboard', to: 'events#index', :as => :dashboard
+  # get '/dashboard', to: 'events#index', :as => :dashboard
 
   get '/create', to: 'events#new', :as => :create
 
@@ -42,7 +51,6 @@ Rails.application.routes.draw do
     #root :to => 'dashboard#index', as: :authenticated
   end
 
-
   #get '', to: 'events#show', constraints: {subdomain: /.+/}
 
   root :to => 'pages#home'
@@ -52,6 +60,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session_path
   end
+  
   resources :users
   resources :events
   get '/:slug' => 'events#show', :as => :slugger
@@ -79,7 +88,8 @@ Rails.application.routes.draw do
 
 
   post '/users/:user_id/charge-card', to: 'users#charge_card', :as => :user_charge
-  put '/users/:user_id/cancel-subscription', to: 'users#cancel_subscription', :as => :cancel_subcription
+  post '/users/:user_id/update-subscription', to: 'users#update_subscription', :as => :update_subscription
+  post '/users/:user_id/cancel-subscription', to: 'users#cancel_subscription', :as => :cancel_subscription
 
 
   patch '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
@@ -87,17 +97,8 @@ Rails.application.routes.draw do
 
   put '/:slug/updatetheme', to: 'events#update_theme'
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

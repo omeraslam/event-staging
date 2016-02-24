@@ -1,0 +1,35 @@
+<div class="container"> 
+
+	<h2> Are you sure? </h2>
+	<p> Canceling your subscription will limit access to your guests, events and registrations.</p>
+
+	<%= link_to 'No, take me back!', dashboard_index_path, :class => 'btn' %><br/>
+    <a href="#" class="small cancel-btn">Continue to cancel</a>
+</div>
+
+
+<script>
+
+$(document).ready(function(){
+
+$('.cancel-btn').on('click', function(e) {
+    e.preventDefault();
+
+        $.ajax({
+              type: "POST",
+              url: "/users/14/cancel-subscription", // need variable for user_id
+              data: {user: {premium: true}},
+              success: function() {
+                console.log('successful submit');
+              }
+            });
+
+});
+
+
+
+
+});
+
+
+</script>

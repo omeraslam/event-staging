@@ -1,12 +1,14 @@
 <div class="container"> 
 
 	<input type="hidden" id="current_plan" name="current_plan" val="<%= current_user.plan_type %>" />
+	<input type="hidden" id="valid_customer" name="valid_customer" val="<%= current_user.premium %>" />
+	<input type="hidden" id="cuid" name="cuid" val="<%= current_user.id %>" />
 <div class="upgrade-carousel owl-carousel">
 	
 	<div class="plans owl-item">
 
 
-		<div class="plan" data-type="basic">
+		<div class="plan" data-type="basic" data-description="Basic Plan: Free">
 			<h3>Basic </h3>
 			<p class="price">Free</p>
 			<ul class="features"> 
@@ -19,7 +21,7 @@
 				<li class="disabled">Sell tickets/accept payments</li>
 				<li class="disabled">Priority customer support </li>	
 			</ul>
-			<a class="btn">Choose plan</a>      				   
+			<%= link_to 'Choose plan', cancel_path, :class => 'btn' %>    				   
 		</div>
 
 
@@ -142,9 +144,6 @@
 $(document).ready(function(){
 
 
-
-
-
     //init the owl carousel plugin  
     var upgradeOwl = $(".upgrade-carousel.owl-carousel").owlCarousel({
         items:1,
@@ -155,19 +154,57 @@ $(document).ready(function(){
         pullDrag:false
     });
 
-	var test = $('.plans plan').find('[data-type="'+ $('#current_plan').attr('val') +'"]');
 
-    $('.plans').find('[data-type="'+ $('#current_plan').attr('val') +'"]').addClass('disabled').find('.btn').addClass('btn-disabled')
+    // highlight plan selected, if none exists, highlight free
+	if($('#current_plan').attr('val') != '' && $('#current_plan').attr('val') != 'basic') {
+		$('.plans').find('[data-type="'+ $('#current_plan').attr('val') +'"]').addClass('disabled').find('.btn').addClass('btn-disabled').text('Current Plan')
+
+	} else {
+		$('.plans').find('[data-type="basic"]').addClass('disabled').find('.btn').addClass('btn-disabled').text('Current Plan')
+	}
+
+
     //$(test).find('btn').addClass('btn-disabled')
 
     $( ".plan" ).not(".disabled").click(function() {
   		$("#selected-plan").text($(this).data("description"));
   		$('#plan_type').val($(this).data('type'));
 
-
   		//ADD HOOK TO CHANGE PLAN
+  		//if customer did not exist, then go to card form
+  		if( $('#valid_customer').val == 'false') {
+    		upgradeOwl.trigger('next.owl.carousel');
+  		} else {
+    		// else update plan call
+    	
+    	 	if($(this).data("type") != 'basic') {
 
-    	upgradeOwl.trigger('next.owl.carousel');
+    	 		$.ajax({
+				  type: "POST",
+				  url: "/users/"+ $('#cuid').attr('val') +"/update-subscription", // need variable for user_id
+				  data: {planType : $(this).data("type"), user: {premium: true}},
+				  success: function() {
+				  	console.log('successful submit');
+				  }
+				});
+
+    	 	} 
+
+    // 	 	else {
+
+    // 	 		$.ajax({
+				//   type: "POST",
+				//   url: "/users/"+ $('#cuid').attr('val') +"/update-subscription", // need variable for user_id
+				//   data: {planType : $(this).data("type"), user: {premium: true}},
+				//   success: function() {
+				//   	console.log('successful submit');
+				//   }
+				// });
+
+    // 	 	}	
+	    		
+  		}
+    	
 
 	});
 
