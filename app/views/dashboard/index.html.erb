@@ -8,7 +8,8 @@
 		You're in the right place. Manage your events here.
 		<% end %> </p> 
 		<% if @is_premium != 'active' && @count_events.to_i >= @event_limit.to_i %>
-			<p class="alert">Your current plan is limited to <%= @event_limit %> events. Please <%= link_to 'upgrade', upgrade_path %> to get full access. </p>
+			<p class="alert">Your current plan is limited to <%= pluralize(@event_limit, 'event') %>.
+			. Please <%= link_to 'upgrade', upgrade_path %> to get full access. </p>
 		<% end %>
 		<div class="events-list">
 			<% @event_num=0 %>

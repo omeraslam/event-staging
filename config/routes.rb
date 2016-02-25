@@ -78,6 +78,9 @@ Rails.application.routes.draw do
     end
   end
 
+
+  post '/attendees/send-preview', to: 'attendees#send_preview', :as => :send_preview
+
   post '/attendees/invite', to: 'attendees#invite'
   put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
 

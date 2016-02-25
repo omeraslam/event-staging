@@ -1,7 +1,7 @@
 class AttendeesController < ApplicationController
   before_action :set_attendee, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html 
 
   def index
 
@@ -24,6 +24,27 @@ class AttendeesController < ApplicationController
   end
 
   def edit
+  end
+
+  def send_preview
+
+     @current_user = current_user
+     @attendee_user_id = current_user.id
+     @event = Event.find_by id: params[:event_id]
+     @event_type = params[:event_type].nil? ? '1' : params[:event_type]
+
+     @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+
+      if @event_type == '1'
+        UserMailer.guest_invitation_sent(current_user, current_user, @event, @event_url).deliver unless @current_user.invalid?
+      else
+        UserMailer.guest_save_date_sent(current_user, current_user, @event, @event_url).deliver unless @current_user.invalid?
+      end
+
+      ## on success flash a notice message that it's been sent, js.erb file
+      flash[:notice] = 'Preview email sent' 
+      redirect_to dashboard_event_path(:event => @event.id)
+      ## replace this, instead of page refresh
   end
 
   def invite
@@ -58,17 +79,17 @@ class AttendeesController < ApplicationController
         @attendee.attending = false
            if @attendee.save
 
-          #   if @attendee.id.to_s != @event.user_id.to_s
-          #     #send guest rsvpd emails
-          #     if @event_type == '1'
-          #       UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-          #     else
-          #       UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-          #     end
-          #   else
-          #      #send invitations sent emails
-          #      #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
-          #   end
+            if @attendee.id.to_s != @event.user_id.to_s
+              #send guest rsvpd emails
+              if @event_type == '1'
+                UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+              else
+                UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+              end
+            else
+               #send invitations sent emails
+               #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+            end
 
 
            else
@@ -90,12 +111,6 @@ class AttendeesController < ApplicationController
       @event = Event.find_by id: params[:event_id]
       @event_type = params[:event_type2].nil? ? '1' : params[:event_type2]
 
-    
-
-        logger.debug "event type to send: #{@event_type}"
-
-        logger.debug "event to send: #{@event}"
-        logger.debug "attendee user id to send: #{@attendee_user_id}"
 
        @attendees.each do |attendee|
 

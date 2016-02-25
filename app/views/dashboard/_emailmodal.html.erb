@@ -8,7 +8,8 @@
 	    	<i class="icon icon-line-email"> </i>
 		    <h2>New email invitation</h2>
 		    <p>  
-		      Want a peak at the design? <a href="#">Preview  email</a> | <a href="#">Send me a test</a>
+		      Want a peek at the design? <%= link_to 'Preview email', slugger_path(@event) + '#email' %> | 
+		      <%= link_to 'Send me a test', send_preview_path(:event_id => @event.id), :method => 'POST' %>
 		    </p>
 	    </div>
 

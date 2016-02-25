@@ -104,7 +104,7 @@
 
 			<tr>
 			<td class="intro-copy intro-copy-left" style="font-size: 11px;color: #999;padding: 10px 0;">You are invited to <%= @event.name %> </td>	
-			<td class="intro-copy intro-copy-right" style="font-size: 11px;color: #999;padding: 10px 0;text-align: right;"><a href="http://www.eventcreate.com/<%= @event.slug %>" style="color: #21afbf;"> View event website </a></td>			
+			<td class="intro-copy intro-copy-right" style="font-size: 11px;color: #999;padding: 10px 0;text-align: right;"><a href="https://www.eventcreate.com/<%= @event.slug %>" style="color: #21afbf;"> View event website </a></td>			
 			</tr>
 
 		</table>
@@ -134,10 +134,10 @@
 
 			<tr>
 			<!-- START background image/ intro cell -->	
-      		<td class="event-title" background="http://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg" bgcolor="#21afbf" valign="top" style="padding-top: 100px;padding-bottom: 100px;text-align: center;font-size: 50px;line-height: 50px;color: #fff;">
+      		<td class="event-title" background="https://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg" bgcolor="#21afbf" valign="top" style="padding-top: 100px;padding-bottom: 100px;text-align: center;font-size: 50px;line-height: 50px;color: #fff;">
 			  <!--[if gte mso 9]>
 			  <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" >
-			    <v:fill type="tile" src="http://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg"  %>" color="#7bceeb" />
+			    <v:fill type="tile" src="https://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg"  %>" color="#7bceeb" />
 			    <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
 			  <![endif]-->
 			  <div>
@@ -146,7 +146,7 @@
 	  			<%= @event.name %>
 
 	  			<!-- START button -->	
-	  			<div><a href="http://www.eventcreate.com/<%= @event.slug %>" style="background-color:transpa;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Register now</a>
+	  			<div><a href="https://www.eventcreate.com/<%= @event.slug %>" style="background-color:transpa;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Register now</a>
 				</div>
 	  			<!-- END button -->	
 
@@ -165,7 +165,7 @@
 
 			<tr>
 				<td colspan="2" class="event-meta" style="text-align: center;padding: 50px 0 10px 0;">
-					<img src="http://www.eventcreate.com/assets/email/cal.png" style="width: 22px;"><br>
+					<img src="https://www.eventcreate.com/assets/emails/cal.png" style="width: 22px;"><br>
 					
 					 <% if(@event.date_start != '' && !@event.date_start.nil?) %>
 		
@@ -180,7 +180,7 @@
 					  	Date/Time TBD
 					    <%end%>
 
-					<br> <%=link_to 'Add to calendar', export_events_path %>  
+					<br> <%=link_to 'Add to calendar', 'https://www.eventcreate.com' + export_events_path(@event) %>  
 				</td>	
 			</tr>	
 
@@ -188,9 +188,15 @@
 
 			<tr>
 				<td colspan="2" class="event-meta" style="text-align: center;padding: 50px 0 10px 0;">
-				<img src="http://www.eventcreate.com/assets/email/loc.png" style="width: 22px;"><br>
-					<%= @event.location_name %> <%= @event.location %>
+
+				<% if (!@event.location_name.nil? && !@event.location_name.blank?) || (!@event.location.nil? && !@event.location.blank?) %>
+					<img src="https://www.eventcreate.com/assets/emails/loc.png" style="width: 22px;"><br>
+				<% end %>
+					<%= @event.location_name %> 
+					<% if !@event.location.nil? && !@event.location.blank? %>
+					<%= @event.location %>
 					<br> <a href="http://maps.google.com/?q=<%= @event.location %>" style="color: #21afbf;"> View map </a>
+					<% end %>
 				</td>	
 			</tr>	
 
@@ -201,7 +207,7 @@
 			<tr>
 				<td colspan="2" class="event-description" style="padding: 40px 40px 10px 40px;font-size: 14px;color: #444;">
 
-				<%= truncate(@event.description, length: 500, separator: ' ') { link_to "read more", "http://www.eventcreate.com/@event.slug" } %>
+				<%= truncate(@event.description, length: 500, separator: ' ') { link_to "read more", "https://www.eventcreate.com/@event.slug" } %>
 
 				
 				</td>	
@@ -213,7 +219,7 @@
 
 
 				<!-- START button -->	
-	  			<div><a href="http://www.eventcreate.com/<%= @event.slug %>" style="background-color:#21afbf;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Register now</a>
+	  			<div><a href="https://www.eventcreate.com/<%= @event.slug %>" style="background-color:#21afbf;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Register now</a>
 				</div>
 	  			<!-- END button -->	
 
@@ -253,7 +259,7 @@
 			<tr>
 			<td class="footer-description" style="padding: 50px 0;font-size: 11px;font-style: italic;color: #888;text-align: center;"> 
 
-				This email  was sent via <a href="http://www.eventcreate.com" style="color: #21afbf;">EventCreate</a>, the easist way to create stunning event websites and invites. To ensure you receive all email, please add events@eventcreate.com to your address book. You may <a href="#" style="color: #21afbf;">block this person</a> from sending you EventCreate invitations, or click <a href="#" style="color: #21afbf;">here</a>  to stop receiving all emails from EventCreate, including invitations.
+				This email  was sent via <a href="https://www.eventcreate.com" style="color: #21afbf;">EventCreate</a>, the easist way to create stunning event websites and invites. To ensure you receive all email, please add events@eventcreate.com to your address book. You may <a href="#" style="color: #21afbf;">block this person</a> from sending you EventCreate invitations, or click <a href="#" style="color: #21afbf;">here</a>  to stop receiving all emails from EventCreate, including invitations.
 
 
 			</td>	
@@ -263,7 +269,7 @@
 			<tr>
 			<td class="footer-logo" style="text-align: center;padding: 0 0 60px 0;"> 
 
-				<a href="http://www.eventcreate.com" style="color: #21afbf;"><img src="http://www.eventcreate.com/assets/email/eventcreate_logo.png" style="width: 160px;opacity: .7;"></a>
+				<a href="https://www.eventcreate.com" style="color: #21afbf;"><img src="https://www.eventcreate.com/assets/emails/eventcreate_logo.png" style="width: 160px;opacity: .7;"></a>
 
 			</td>	
 			</tr>

@@ -55,6 +55,7 @@ class EventsController < ApplicationController
 
   end
 
+  # send contact an email
   def contact_host
     @guest_name = params[:name]
     @message = params[:message]
@@ -96,14 +97,14 @@ class EventsController < ApplicationController
 
     @themes = Theme.all
 
-    # if @is_premium != 'active' &&  @disable_create
-    #   redirect_to pricing_path
-    # else 
+    if @is_premium != 'active' &&  @disable_create
+       redirect_to pricing_path
+    else 
 
       @user = User.find(current_user.id)
       @event = Event.all.build
       
-   # end 
+    end 
 
     @themes = Theme.all
 
