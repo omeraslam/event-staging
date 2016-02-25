@@ -43,6 +43,12 @@ p {
 	margin:8px 0 12px;
 }
 
+p.small {
+  font-size:10px;
+  line-height:14px;
+  opacity:.6;
+}
+
 ul, li {
   margin:0;
   padding:0;
@@ -635,7 +641,9 @@ button {
     
     }
 
-
+    &.btn-obvious {
+      background-color:$brand-orange;
+    }
     
     
     

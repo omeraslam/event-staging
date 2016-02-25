@@ -14,10 +14,6 @@
 		max-width:500px;
 	}
 
-	h1 {
-		padding-top: 100px;
-	}
-
 	.form-element {
 		position: relative;
 	}
@@ -79,15 +75,20 @@
 }
 
 
+
+
 .event-header {
 	
 	background:$brand-secondary;
 	color:#fff;
+	padding-top:120px;
 }
 
 
 
 .event-meta {
+	margin-bottom: 30px;
+
 
 	h1 {
 		font-size:48px !important;
@@ -96,7 +97,7 @@
 	}
 
 	p.lead {
-		font-size:14px;
+		font-size:18px;
 	
 		span {
 			color:$brand-primary;
@@ -142,4 +143,20 @@
 
 
 }
+
+
+.empty {
+	
+	padding:100px 20px; 
+	margin:0 auto;
+	width:100%;
+	max-width:700px;
+	text-align:center;
+
+	h2 {
+		opacity:.5;
+		margin-bottom:20px;	
+	}
+}
+
 
