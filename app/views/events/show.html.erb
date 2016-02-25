@@ -96,6 +96,7 @@
 <%= render 'editor' %>
 <%= render 'events/partials/contact_form' %>
 <%= render 'events/partials/rsvp_form' %>
+<%= render 'events/partials/confirmation_form' %>
 
 
 
@@ -153,6 +154,11 @@ $( document ).ready(function() {
 		});
 
 
+
+  //confirmation  modal
+  var confirmationModal = $('#attendee-confirmation-form').remodal();
+    
+    
 
 
 
