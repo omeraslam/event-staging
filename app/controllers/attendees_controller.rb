@@ -1,7 +1,7 @@
 class AttendeesController < ApplicationController
   before_action :set_attendee, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html 
+  respond_to :html, :js 
 
   def index
 
@@ -47,6 +47,60 @@ class AttendeesController < ApplicationController
       ## replace this, instead of page refresh
   end
 
+
+  def batch_invite
+
+    @event = Event.find_by id: params[:event_id]
+  
+    guest_list = params[:attendees]
+
+    @event_type = '1'
+    logger.debug "#{guest_list}"
+
+    guest_list.each do |guest_item|
+        logger.debug "emails to save: #{guest_item}"
+        @attendee = Attendee.new
+        @attendee.first_name = guest_item[1]["first_name"]
+        @attendee.last_name = guest_item[1]["last_name"]
+        @attendee.email = guest_item[1]["email_address"]
+        @attendee.user_id = params[:user_id]
+        @attendee.event_id = params[:event_id]
+        @attendee.attending = false
+
+
+        if @attendee.save
+
+          if @attendee.id.to_s != @event.user_id.to_s
+              #send guest rsvpd emails
+              if @event_type == '1'
+                UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+              else
+                UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+              end
+          else
+               #send invitations sent emails
+               #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+          end
+
+
+        else
+
+        end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to dashboard_event_path(:event => @event.id) + '#invites' }
+    end
+
+  end
+      
+      
+
+
+
+
+
+
   def invite
 
     logger.debug "Emails from form hash: #{attendee_params[:email]}"
@@ -77,7 +131,7 @@ class AttendeesController < ApplicationController
         @attendee.user_id = @attendee_user_id
         @attendee.event_id = @event.id.to_s
         @attendee.attending = false
-           if @attendee.save
+          if @attendee.save
 
             if @attendee.id.to_s != @event.user_id.to_s
               #send guest rsvpd emails
@@ -90,15 +144,15 @@ class AttendeesController < ApplicationController
                #send invitations sent emails
                #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
             end
+          else
 
-
-           else
-
-           end
+          end
 
       end
 
-    redirect_to dashboard_event_path(:event => @event.id) + '#invites'
+      respond_to do |format|
+          format.html { redirect_to dashboard_event_path(:event => @event.id) + '#invites' }
+      end
 
   end
 

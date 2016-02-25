@@ -17,10 +17,6 @@ class UsersController < ApplicationController
     token = params[:stripeToken]
     plan_type = params[:planType]
 
-    logger.debug "charge it to the game: #{token}"
-
-    logger.debug "sup dude #{@user.customer_id.nil?}"
-
     if @user.customer_id.nil? 
 
       logger.debug "customer being created"
@@ -49,16 +45,6 @@ class UsersController < ApplicationController
     else
         logger.debug "no set user to premium"
     end
-
-    # # YOUR CODE: Save the customer ID and other info in a database for later!
-
-    # # YOUR CODE: When it's time to charge the customer again, retrieve the customer ID!
-
-    # Stripe::Charge.create(
-    #   :amount   => 1500, # $15.00 this time
-    #   :currency => "usd",
-    #   :customer => customer_id # Previously stored, then retrieved
-    # )
     
   end
 
@@ -80,11 +66,6 @@ class UsersController < ApplicationController
       subscription = customer.subscriptions.create({:plan => plan_type})
       @user.subscription_id = subscription.id
     end
-
-
-
-
-
     
     @user.plan_type = plan_type
 
@@ -113,15 +94,11 @@ class UsersController < ApplicationController
     
     if @user.update(user_params)
       render :js => "window.location = '/dashboard/index'"  #hack
-      
     else
       logger.debug "plan not canceled"
     end
-
-    #set subscription id to nil
-
+    
   end
-
 
   def update_password
     @user = User.find(current_user.id)

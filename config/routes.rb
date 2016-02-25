@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get '/contact' => 'pages#contact'
 
 
+  get '/dashboard' => 'dashboard#index'
+
 
   get '/events/calendar'  => 'events#calendar'
   
@@ -85,6 +87,7 @@ Rails.application.routes.draw do
   put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
 
   post '/attendees/send-invite', to: 'attendees#send_invite'
+  post '/attendees/batch-invite', to: 'attendees#batch_invite'
 
 
   post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host

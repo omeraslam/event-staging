@@ -13,53 +13,54 @@
 		    </p>
 	    </div>
 
-
 	    <div class="modal-body">
-
-	    	<form>
+	    <%= form_for @attendee, :url => {:action => "batch_invite", :controller => 'attendees' }, :method => "post" do |f| %>
 
 	    	<table> 
+	    	<thead>
+	    		
 		    	<tr> 
 		    		<th>First Name </th>
 		    		<th>Last Name </th>
 		    		<th>Email Address </th>
 		    		<th class="row-actions"> </th>
+		    	</tr>
 
-		    	</tr>			
-		    	<tr> 
+	    	</thead>
+		    	<tbody>			
+		 <!--    	<tr> 
 		    		<td>mark </td>
 		    		<td>bsuhy </td>
 		    		<td>mark@aol.cm </td>
 		    		<td class="row-actions"><a href="#">edit</a> <a href="#">delete</a> </td>
-
-		    	</tr>	
+		    	</tr> -->	
 
 		    	<tr> 
-		    		<td><input type="text" placeholder="First Name"> </td>
-		    		<td><input type="text" placeholder="Last Name"> </td>
-		    		<td><input type="text" placeholder="Email Address"> </td>
+		    		<td><input type="text" placeholder="First Name" name="attendee[first_name]"> </td>
+		    		<td><input type="text" placeholder="Last Name" name="attendee[last_name]"> </td>
+		    		<td><input type="text" placeholder="Email Address" name="attendee[email_address]"> </td>
 		    		<td class="row-actions"> <a class="circle" href="#"><i class="icon icon-plus"></i></a></td>
 
-		    	</tr>	
+		    	</tr>
+		    	</tbody>	
 
 	    	</table>
+
+	    	
+  			<%= hidden_field_tag 'event_id', @event.id %>
+  			<%= hidden_field_tag 'user_id', current_user.id %>
 
 
 
 	    	<div class="input-group">
-	    		<a href="#" class="btn"> Send email to 1 guest</a>
+	    		<input type="submit" class="btn" value="Send email to 1 guest" />
+	    		<!-- <a href="#" class="btn"> Send email to 1 guest</a> -->
 	    	</div>	
 
 	    	<p>
 	    		You can also import contacts from: <a href="#">Facebook</a>, <a href="#"> Gmail</a>, or by <a href="#">uploading a CSV/Text file</a>
 	    	</p>
-
-	    	</form>	
-
-
-
-
-
+	    <% end %>	
 	    </div>
 
 
@@ -71,16 +72,91 @@
 <script>
 
 $(document).ready(function(){
-
-			
-			
-		//modal
+	
+	//modal
     var emailModal = $('#email-invite-modal').remodal();
 	//emailModal.open();
 
     $('.send-email').click(function(){
         emailModal.open();
     });
+
+    $('tbody .row-actions a').on('click', function() {
+    	//current input values get placed into a uneditable row
+    	var current_fname = $('input[name="attendee[first_name]"]').val();
+    	var current_lname = $('input[name="attendee[last_name]"]').val();
+    	var current_email = $('input[name="attendee[email_address]"]').val();
+
+    	var rowHTML = '<tr><td>'+ current_fname +'</td><td>'+ current_lname +'</td><td>'+ current_email +'</td><td class="row-actions"> edit | delete </td></tr>';
+    	$(rowHTML).insertBefore($('table tbody tr:last-child'));
+    	//$('table tbody tr:last-child').insertAfter(rowHTML);
+    	
+    	// form values are then cleared
+    	$('input[name="attendee[first_name]"]').val('');
+    	$('input[name="attendee[last_name]"]').val('');
+    	$('input[name="attendee[email_address]"]').val('');
+
+    	// change guest count on button
+    	//alert($('#email-invite-modal tbody tr').length - 1);
+    	var pluralize_guest = ($('#email-invite-modal tbody tr').length - 1 > 1)?' guests':' guest';
+    	$('#email-invite-modal .btn').val('Send email to '+ ($('#email-invite-modal table tbody tr').length - 1) + pluralize_guest);
+    });
+
+	//when modal form submit
+	$('#email-invite-modal input[type="submit"]').on('click', function(e) {
+		e.preventDefault();
+
+		//scan all rows
+		//make guest row into a guest object
+		//var attendees = {[], [], []}
+		//call form action and pass in data object of guests to be parsed
+		//
+		//
+		//
+		//
+		 var columns = [
+            'first_name',
+            'last_name',
+            'email_address'
+        ];
+
+        var tableObject = $('#email-invite-modal tbody tr').map(function (i) {
+        	if(i< ($('#email-invite-modal tbody tr').length-1)) {
+	        	var row = {};
+	            $(this).find('td').each(function (i) {
+	            	if(i< 3){ //if i is less than number of inputs for guest
+
+	                var rowName = columns[i];
+	                row[rowName] = $(this).text();
+	            	}
+	            });
+
+	            return row;
+
+        	}
+         
+        }).get();
+
+        console.log(tableObject);
+
+
+        $.ajax({
+		  type: "POST",
+		  url: $('#email-invite-modal form#new_attendee').attr('action'),
+		  data: {attendees: tableObject, event_id: $('#event_id').val(), user_id: $('#user_id').val()},
+		  success: function(){
+		  	console.log('submit success');
+		  }
+		});
+		
+	});
+
+    //
+    //
+    
+    // ajax email attendee submit
+    // 
+    // pass object with structure that view can read
 
 });
 
