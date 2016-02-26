@@ -8,7 +8,7 @@
 	    	<i class="icon icon-line-email"> </i>
 		    <h2>New email invitation</h2>
 		    <p>  
-		      Want a peek at the design? <%= link_to 'Preview email', slugger_path(@event) + '#email' %> | 
+		      Want a peek at the design? <%= link_to 'Preview email', slugger_path(@event) + '#email', :target => '_blank' %> | 
 		      <%= link_to 'Send me a test', send_preview_path(:event_id => @event.id), :method => 'POST' %>
 		    </p>
 	    </div>
@@ -28,18 +28,13 @@
 
 	    	</thead>
 		    	<tbody>			
-		 <!--    	<tr> 
-		    		<td>mark </td>
-		    		<td>bsuhy </td>
-		    		<td>mark@aol.cm </td>
-		    		<td class="row-actions"><a href="#">edit</a> <a href="#">delete</a> </td>
-		    	</tr> -->	
+
 
 		    	<tr> 
 		    		<td><input type="text" placeholder="First Name" name="attendee[first_name]"> </td>
 		    		<td><input type="text" placeholder="Last Name" name="attendee[last_name]"> </td>
 		    		<td><input type="text" placeholder="Email Address" name="attendee[email_address]"> </td>
-		    		<td class="row-actions"> <a class="circle" href="#"><i class="icon icon-plus"></i></a></td>
+		    		<td class="row-actions"> <a class="circle add-btn" href="#"><i class="icon icon-plus"></i></a></td>
 
 		    	</tr>
 		    	</tbody>	
@@ -58,7 +53,7 @@
 	    	</div>	
 
 	    	<p>
-	    		You can also import contacts from: <a href="#">Facebook</a>, <a href="#"> Gmail</a>, or by <a href="#">uploading a CSV/Text file</a>
+	    		You can also import contacts <!-- from:  <a href="#">Facebook</a> , <a href="#"> Gmail</a>, or--> by <a href="#">uploading a CSV/Text file</a>
 	    	</p>
 	    <% end %>	
 	    </div>
@@ -73,13 +68,15 @@
 
 $(document).ready(function(){
 
-	  $.ajax({
-		  type: "GET",
-		  url: '//graph.facebook.com/v2.5/3401175/friendlists',
-		  success: function(resp){
-		  	console.log('submit success: '+ resp);
-		  }
-		});
+	$("#email-invite-modal form").validate();
+
+	 //  $.ajax({
+		//   type: "GET",
+		//   url: '//graph.facebook.com/v2.5/3401175/friendlists',
+		//   success: function(resp){
+		//   	console.log('submit success: '+ resp);
+		//   }
+		// });
 
 
 	
@@ -91,26 +88,53 @@ $(document).ready(function(){
         emailModal.open();
     });
 
-    $('tbody .row-actions a').on('click', function() {
+    $('tbody .row-actions a.add-btn').on('click', function(e) {
+    	e.preventDefault();
     	//current input values get placed into a uneditable row
     	var current_fname = $('input[name="attendee[first_name]"]').val();
     	var current_lname = $('input[name="attendee[last_name]"]').val();
     	var current_email = $('input[name="attendee[email_address]"]').val();
 
-    	var rowHTML = '<tr><td>'+ current_fname +'</td><td>'+ current_lname +'</td><td>'+ current_email +'</td><td class="row-actions">  </td></tr>';
+    	var rowHTML = '<tr><td>'+ current_fname +'</td><td>'+ current_lname +'</td><td>'+ current_email +'</td><td class="row-actions">  <a class="delete-btn" href="">remove</a>  </td></tr>';
     	$(rowHTML).insertBefore($('table tbody tr:last-child'));
-    	//$('table tbody tr:last-child').insertAfter(rowHTML);
+
+    	// $('.edit-btn').on('click', function() {
+
+    	// });
+    	$('.delete-btn').off('click');
+    	$('.delete-btn').on('click', function(e) {
+    		e.preventDefault();
+    		console.log('delete button pressed')
+    		$(this).closest('tr').toggleClass('disabled');
+    		updateSendButton();
+    	});
+   
     	
     	// form values are then cleared
     	$('input[name="attendee[first_name]"]').val('');
     	$('input[name="attendee[last_name]"]').val('');
     	$('input[name="attendee[email_address]"]').val('');
 
-    	// change guest count on button
-    	//alert($('#email-invite-modal tbody tr').length - 1);
-    	var pluralize_guest = ($('#email-invite-modal tbody tr').length - 1 > 1)?' guests':' guest';
-    	$('#email-invite-modal .btn').val('Send email to '+ ($('#email-invite-modal table tbody tr').length - 1) + pluralize_guest);
+ 		updateSendButton();
     });
+
+	function updateSendButton() {
+		if($('#email-invite-modal tbody tr:not(.disabled)').length == 1) {
+			$('#email-invite-modal .btn').hide();
+		} else {
+			$('#email-invite-modal .btn').show();
+		}
+
+
+		   	// change guest count on button
+    	var pluralize_guest = ($('#email-invite-modal tbody tr:not(.disabled)').length - 1 > 1)?' guests':' guest';
+    	$('#email-invite-modal .btn').val('Send email to '+ ($('#email-invite-modal table tbody tr:not(.disabled)').length - 1) + pluralize_guest);
+
+	}
+
+
+
+	
 
 	//when modal form submit
 	$('#email-invite-modal input[type="submit"]').on('click', function(e) {
@@ -118,11 +142,8 @@ $(document).ready(function(){
 
 		//scan all rows
 		//make guest row into a guest object
-		//var attendees = {[], [], []}
 		//call form action and pass in data object of guests to be parsed
-		//
-		//
-		//
+	
 		//
 		 var columns = [
             'first_name',
@@ -130,8 +151,9 @@ $(document).ready(function(){
             'email_address'
         ];
 
-        var tableObject = $('#email-invite-modal tbody tr').map(function (i) {
-        	if(i< ($('#email-invite-modal tbody tr').length-1)) {
+        var tableObject = $('#email-invite-modal tbody tr:not(.disabled)').map(function (i) {
+        	console.log('i: '+ i);
+        	if(i< ($('#email-invite-modal tbody tr:not(.disabled)').length-1)) {
 	        	var row = {};
 	            $(this).find('td').each(function (i) {
 	            	if(i< 3){ //if i is less than number of inputs for guest
@@ -142,13 +164,10 @@ $(document).ready(function(){
 	            });
 
 	            return row;
-
         	}
-         
         }).get();
 
         console.log(tableObject);
-
 
         $.ajax({
 		  type: "POST",

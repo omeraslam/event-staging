@@ -22,8 +22,10 @@
 
   td.row-actions, th.row-actions {
     text-align:center;
-
+    text-decoration: none;
   }
+
+
 
 
   td, th {
@@ -48,6 +50,17 @@
   }
 
 	
+}
+
+table {
+  tr.disabled td{
+    text-decoration: line-through;
+
+    td.row-actions {
+    text-decoration: none;
+
+    }
+  }
 }
 
 
