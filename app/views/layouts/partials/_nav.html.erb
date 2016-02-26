@@ -17,9 +17,17 @@
           <% else %>
             <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, create_path %> </li>
           <%	end %>
-          <li><%=  link_to "<i class='icon icon-user'></i> Profile".html_safe, dashboard_profile_path, :class => 'open-menu'  %></li>
+          <li>
+          <% if current_user.image? %>
+              <%= link_to image_tag(current_user['image'].to_s) + " Profile".html_safe, dashboard_profile_path, :class => 'open-menu'  %>
+          
+          <% else %>
+            <%=  link_to "<i class='icon icon-user'></i> Profile".html_safe, dashboard_profile_path, :class => 'open-menu'  %>
+          <% end %>
+          </li>
         </ul>
-      </div>            		
+      </div>     
+
 
 
       <% if @is_premium == 'active'  %>

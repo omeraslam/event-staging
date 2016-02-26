@@ -48,6 +48,8 @@ gem 'devise'
 
 gem 'devise_invitable'
 
+gem "koala"
+
 group :development, :test do
 
 	gem 'letter_opener'

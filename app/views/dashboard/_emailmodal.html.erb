@@ -72,6 +72,16 @@
 <script>
 
 $(document).ready(function(){
+
+	  $.ajax({
+		  type: "GET",
+		  url: '//graph.facebook.com/v2.5/3401175/friendlists',
+		  success: function(resp){
+		  	console.log('submit success: '+ resp);
+		  }
+		});
+
+
 	
 	//modal
     var emailModal = $('#email-invite-modal').remodal();
@@ -87,7 +97,7 @@ $(document).ready(function(){
     	var current_lname = $('input[name="attendee[last_name]"]').val();
     	var current_email = $('input[name="attendee[email_address]"]').val();
 
-    	var rowHTML = '<tr><td>'+ current_fname +'</td><td>'+ current_lname +'</td><td>'+ current_email +'</td><td class="row-actions"> edit | delete </td></tr>';
+    	var rowHTML = '<tr><td>'+ current_fname +'</td><td>'+ current_lname +'</td><td>'+ current_email +'</td><td class="row-actions">  </td></tr>';
     	$(rowHTML).insertBefore($('table tbody tr:last-child'));
     	//$('table tbody tr:last-child').insertAfter(rowHTML);
     	
@@ -148,6 +158,7 @@ $(document).ready(function(){
 		  	console.log('submit success');
 		  }
 		});
+
 		
 	});
 

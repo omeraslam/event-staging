@@ -1,5 +1,4 @@
 <% title "Manage Events" %>
-
 <div class="event-header container"> 
 
 	<div class="event-meta"> 
@@ -53,6 +52,10 @@
 					@style_bg = '/assets/themes/cityscape_thumb.jpg'
 				end
 				%>
+
+				<% if(event.background_img != '') 
+					@style_bg = event.background_img
+				 end %>
 
 				<div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
 				<div class="details"> 

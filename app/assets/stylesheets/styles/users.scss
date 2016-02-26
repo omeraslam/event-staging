@@ -176,7 +176,13 @@ $brand-primary: #21afbf;
 	
 }
 
-
+.open-menu {
+	img {
+		width: 25px;
+		border-radius: 50%;
+   		vertical-align: middle;
+	}
+}
 
 .ui-dialog {
 	background:#fff;
