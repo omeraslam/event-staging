@@ -72,7 +72,18 @@
           <a href="http://maps.google.com/?q=<%= @event.location %>" target="_blank">Get Directions </a>  
       </div>
 
-		</div>		
+		</div>
+
+    <div class="event-meta">
+      <i class="icon icon-user"></i>
+      Hosted by <br>
+      <%= @event.location_name %> 
+      <div class="event-meta-actions">
+          <a class="open-contact" >Contact host </a>  
+      </div>
+
+    </div>  
+
 	</div>
 	<div class="event-description">
   	<p class="event-description"><%= best_in_place @event, :description, :url => update_event_path(@event), as: :textarea %> </p>
@@ -143,8 +154,9 @@ $( document ).ready(function() {
 
     //contact host modal
     var contactModal = $('#contact-modal').remodal();
-    $('.open-contact').click(function(){
+    $('.open-contact').click(function(e){
     	contactModal.open();
+      e.preventDefault;
     });
 
 		//contact host modal
