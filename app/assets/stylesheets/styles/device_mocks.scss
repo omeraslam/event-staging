@@ -100,6 +100,10 @@
     -moz-border-radius: 12px 12px 0 0;
     -webkit-border-radius: 12px 12px 0 0;
     border-radius: 12px 12px 0 0;
+
+    border-radius: 12px;
+    padding: 50px 8px 50px 8px;
+
     position:relative;
     z-index: 0;
 
@@ -114,8 +118,9 @@
 		    border-radius: 4px;
 		    background: #e0e5e9;
 		    position: absolute;
-		    left: 133px;
+		    left: 50%;
 		    top: 11px;
+		    margin-left:-4px;
     	}
 
     	.speaker {
@@ -127,7 +132,8 @@
 		    border-radius: 3px;
 		    background: #e0e5e9;
 		    position: absolute;
-		    left: 121px;
+		    left: 50%;
+		    margin-left:-16px;
 		    top: 28px;
     	}
     }

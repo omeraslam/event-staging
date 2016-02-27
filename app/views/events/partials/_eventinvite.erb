@@ -1,0 +1,213 @@
+
+
+
+<div class="show-view invite-container">
+
+
+	<div class="tablet">
+
+		<div class="details">
+			<div class="camera"></div>
+			<div class="speaker"></div>
+		</div>
+
+
+		<div class="tablet-content">
+
+		<!-- START intro wrapper table -->
+		 <table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+			<tr> 
+			<td class="bg">
+
+
+				<!-- START intro table -->
+				<table  class="content-wrapper intro" cellpadding="0" cellspacing="0" border="0" align="center" width="100%"> 
+
+					<tr>
+					<td class="intro-copy intro-copy-left">You are invited to <%= @event.name %> </td>	
+					<td class="intro-copy intro-copy-right"><a href="https://www.eventcreate.com/<%= @event.slug %>"> View event website </a></td>			
+					</tr>
+
+				</table>
+				<!-- END intro  table -->
+
+
+			</td>	
+			</tr>
+
+
+		</table>
+		<!-- END intro wrapper table -->
+
+
+
+
+		<!-- START content wrapper table -->
+		 <table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+			<tr> 
+			<td class="bg">
+
+				
+				<!-- START content table -->	
+				<table class="content-wrapper content" cellpadding="0" cellspacing="0" border="0" align="center" width="100%">
+
+
+					<tr>
+					<!-- START background image/ intro cell -->	
+		      		<td class="event-title" background="https://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg" bgcolor="#21afbf" valign="top">
+					  <!--[if gte mso 9]>
+					  <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" >
+					    <v:fill type="tile" src="https://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg"  %>" color="#7bceeb" />
+					    <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+					  <![endif]-->
+					  <div>
+
+
+			  			<%= @event.name %>
+
+			  			<!-- START button -->	
+			  			<div><a href="https://www.eventcreate.com/<%= @event.slug %>"
+						style="background-color:transpa;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Register now</a>
+						</div>
+			  			<!-- END button -->	
+
+
+
+					  </div>
+					  <!--[if gte mso 9]>
+					    </v:textbox>
+					  </v:rect>
+					  <![endif]-->
+					</td>
+					<!-- END background image/ intro cell -->	
+					</tr>
+
+
+
+					<tr>
+						<td colspan="2" class="event-meta">
+							<img src="https://www.eventcreate.com/assets/email/cal.png" /><br>
+							
+							 <% if(@event.date_start != '' && !@event.date_start.nil?) %>
+				
+							    <%= @event.date_start.to_date.strftime("%B") %> 
+								<%= @event.date_start.to_date.strftime("%e, ") %>
+								<%= @event.date_start.to_date.strftime("%Y") %> 
+							
+								<% if(@event.time_start != '' && !@event.time_start.nil?) %> 
+				  			     <%= @event.time_start.to_time.strftime("%l:%M %p") %>
+				  			    <% end %>
+							    <%else%>
+							  	Date/Time TBD
+							    <%end%>
+
+							<br> <%=link_to 'Add to calendar', export_events_path %>  
+						</td>	
+					</tr>	
+
+
+
+					<tr>
+						<td colspan="2" class="event-meta">
+						<img src="https://www.eventcreate.com/assets/email/loc.png" /><br>
+							<%= @event.location_name %> <%= @event.location %>
+							<br> <a href="https://maps.google.com/?q=<%= @event.location %>"> View map </a>
+						</td>	
+					</tr>	
+
+
+
+
+
+					<tr>
+						<td colspan="2" class="event-description">
+
+						<%= truncate(@event.description, length: 500, separator: ' ') { link_to "read more", "https://www.eventcreate.com/@event.slug" } %>
+
+						
+						</td>	
+					</tr>	
+
+
+					<tr>
+					<td colspan="2" class="cta">
+
+
+						<!-- START button -->	
+			  			<div><a href="https://www.eventcreate.com/<%= @event.slug %>"
+						style="background-color:#21afbf;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Register now</a>
+						</div>
+			  			<!-- END button -->	
+
+
+					</td>	
+					</tr>
+
+			
+
+
+				</table>
+				<!-- END content table -->	
+
+
+			</td>	
+			</tr>
+
+
+		</table>
+		<!-- END wrapper table -->
+
+
+
+
+
+
+		<!-- START footer wrapper table -->
+		 <table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+			<tr> 
+			<td class="bg">
+
+
+				<!-- START footer table -->
+				<table  class="content-wrapper" cellpadding="0" cellspacing="0" border="0" align="center" width="100%"> 
+
+					<tr>
+					<td class="footer-description"> 
+
+						This email  was sent via <a href="https://www.eventcreate.com">EventCreate</a>, the easist way to create stunning event websites and invites. To ensure you receive all email, please add events@eventcreate.com to your address book. You may <a href="#">block this person</a> from sending you EventCreate invitations, or click <a href="#">here</a>  to stop receiving all emails from EventCreate, including invitations.
+
+
+					</td>	
+					</tr>
+
+
+					<tr>
+					<td class="footer-logo"> 
+
+						<a href="https://www.eventcreate.com"><img src="https://www.eventcreate.com/assets/email/eventcreate_logo.png" /></a>
+
+					</td>	
+					</tr>
+
+
+				</table>
+				<!-- END footer  table -->
+
+
+			</td>	
+			</tr>
+
+
+		</table>
+		<!-- END footer wrapper table -->
+
+		</div>
+
+
+
+	</div>
+
+</div>

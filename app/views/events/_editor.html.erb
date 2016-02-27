@@ -1,8 +1,74 @@
+<nav>
+   <div class="dashboard-header">
+      <div class="left"> 
+        <a class="logo" href="/"><span>Event Create</span></a>
+        <ul> 
+            <li class="dropdown"><a class="open-dropdown" id="view-switch">Previewing website <i class="icon icon-arrow-down"></i> </a>
+                
+                <ul class="dropdown-menu">
+                    <li><a id="view-invite"><i class="icon icon-email"> </i>  Switch to invite view <p>Preview your email invitation </p></a> </li>
+                    <li><a id="view-website"><i class="icon icon-bolt"> </i>  Switch to website view <p>Preview your event website  </p></a> </li>
+                    <li><a href="dashboard/event?event=<%= @event.id %>"> <i class="icon icon-home"> </i> Event dashboard <p> event guest list and analytics</p></a> </li>  
+                </ul>
+
+            </li>
+        </ul>
+      </div>
 
 
-<% if signed_in? && current_user.id == @user.id %>
+      <div class="right"> 
+        <ul> 
+          <li> <a class="large-icon send-email" style="display:none;" ><i class="icon icon-email"></i> </a> </li>
+          <li> <a class="large-icon open-link-modal"><i class="icon icon-link"></i> </a>  </li>
+          <li> <a class="large-icon" href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>" target="_blank"><i class="icon icon-facebook"></i> </a>  </li>         
+          <li><a class="large-icon" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>" target="_blank"><i class="icon icon-twitter"></i> </a>  </li>
+        </ul>
+      </div>     
 
-<div class="event-editor-container"> 
+
+
+      <% if @is_premium == 'active'  %>
+        <div class="quick-find-container">
+          <div style="display: none;" class="quick-find-container">
+          <i class="icon icon-search"> </i> <input type="text" placeholder="quick find my events" id="tags">  
+          </div>
+        </div>
+      <% end %>
+
+      <div class="signed-in-menu">
+        <ul>
+
+          <li><%=  link_to "My events", {:controller => 'dashboard', :action => 'index'} %> </li>
+          <% if @is_premium != 'active' &&  @disable_create %>
+
+          <li><%=  link_to "Create new event", upgrade_path, :class => 'open-upgrade' %> </li>
+          <% else %>
+          <li><%=  link_to "Create new event", create_path %> </li> 
+          <% end %>
+          <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
+        </ul>
+      </div>  
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="event-editor-container" style="display:none;"> 
 
  <!--START CONTROLS-->
  <div class="event-editor-controls" >
@@ -11,9 +77,15 @@
 
 
   <%= link_to '',root_path, :class => 'logo' %>
-   <div class="view-switcher">Previewing website  <i style="display:none;" class="icon icon-arrow-down"> </i> </div>
-   <a class="tab toggleEditorPanel " id="event-editor-design" ><i class="icon icon-image"> </i> <span> Change Theme </span></a>
-   <a class="tab toggleEditorPanel " ><i class="icon icon-camera"> </i> <span> Modify background Image  </span></a> 
+    <div class="view-switcher">
+   <div id="view-switch">   Previewing website  <i class="icon icon-arrow-down"> </i> </div>
+
+
+
+
+   </div>
+   <a class="tab toggleEditorPanel" id="event-editor-design" ><i class="icon icon-image"> </i> <span> Change Theme </span></a>
+   <a class="tab toggleEditorPanel" ><i class="icon icon-camera"> </i> <span> Modify background Image  </span></a> 
  </div>
 
 
@@ -21,11 +93,7 @@
 
  <div class="actions" > 
    
-    <a class="circle send-email" style="display:none;" ><i class="icon icon-email"></i> </a> 
-      <a class="circle open-link-modal"><i class="icon icon-link"></i> </a> 
-
-      <a class="circle" href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>" target="_blank"><i class="icon icon-facebook"></i> </a> 
-      <a class="circle" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>" target="_blank"><i class="icon icon-twitter"></i> </a> 
+   
 
 
  </div>
@@ -150,9 +218,3 @@
 
 
 </div>
-
-
-<%= render 'partials/linkmodal' %>
-
-
-<% end %>
