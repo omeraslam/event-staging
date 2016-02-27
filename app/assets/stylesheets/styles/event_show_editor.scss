@@ -1,6 +1,45 @@
 
+.event-show.show  .dashboard-header {
+	position:fixed;
+	top:0;
+	left:0;
+	box-shadow: 2px 2px 8px rgba(0,0,0,.4);
 
-//MOVE THIS TO DASHBOARD EVENTUALLY
+}
+
+body.invite-view {
+	background:$brand-gray;
+}
+
+.event-show.show .tablet {
+	margin:0 auto;
+	margin-top:100px;
+	width:500px;
+	box-shadow:2px 2px 10px rgba(0,0,0,.2);
+	height:auto;
+
+	.tablet-content {
+		height:520px;
+		overflow:scroll;
+	}
+
+}
+
+
+
+.show-view.website-container {
+	
+
+
+}
+
+.show-view.invite-container {
+	
+	display:none;
+
+}
+
+
 
 .events nav {
 	
@@ -184,10 +223,26 @@
     		margin: 12px;
 
     		color: #fff;
-		    font-size: 9px;
-		    text-transform: uppercase;
-		    letter-spacing: 2px;
-		    font-weight: 800;
+
+    		//fix this later	
+		    font-size: 12px;
+		    font-weight: 600;
+		    position:relative;
+		    cursor:pointer;
+
+
+    		&:hover {
+    			background:$brand-primary;
+    			color:#fff;
+    		}	
+
+
+
+
+
+
+
+
 
 		}
 
