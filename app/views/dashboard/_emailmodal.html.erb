@@ -52,9 +52,9 @@
 	    		<!-- <a href="#" class="btn"> Send email to 1 guest</a> -->
 	    	</div>	
 
-	    	<p>
-	    		You can also import contacts <!-- from:  <a href="#">Facebook</a> , <a href="#"> Gmail</a>, or--> by <a href="#">uploading a CSV/Text file</a>
-	    	</p>
+	    <!-- 	<p>
+	    		You can also import contacts --> <!-- from:  <a href="#">Facebook</a> , <a href="#"> Gmail</a>, or--> <!-- by <a href="#">uploading a CSV/Text file</a>
+	    	</p> -->
 	    <% end %>	
 	    </div>
 
@@ -129,21 +129,16 @@ $(document).ready(function(){
 		   	// change guest count on button
     	var pluralize_guest = ($('#email-invite-modal tbody tr:not(.disabled)').length - 1 > 1)?' guests':' guest';
     	$('#email-invite-modal .btn').val('Send email to '+ ($('#email-invite-modal table tbody tr:not(.disabled)').length - 1) + pluralize_guest);
-
 	}
 
-
-
-	
 
 	//when modal form submit
 	$('#email-invite-modal input[type="submit"]').on('click', function(e) {
 		e.preventDefault();
-
 		//scan all rows
 		//make guest row into a guest object
 		//call form action and pass in data object of guests to be parsed
-	
+		
 		//
 		 var columns = [
             'first_name',
