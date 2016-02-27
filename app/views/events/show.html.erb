@@ -73,16 +73,18 @@
       </div>
 
 		</div>
-
+ event host: <%= @event.host_name %>
+    <% if(!@event.host_name.nil? || !@event.host_name.blank?) %>
     <div class="event-meta">
       <i class="icon icon-user"></i>
       Hosted by <br>
-      <%= @event.location_name %> 
+      <%= @event.host_name %> 
       <div class="event-meta-actions">
           <a class="open-contact" >Contact host </a>  
       </div>
 
-    </div>  
+    </div>
+    <% end %> 
 
 	</div>
 	<div class="event-description">

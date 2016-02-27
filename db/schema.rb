@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224013902) do
+ActiveRecord::Schema.define(version: 20160226233301) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160224013902) do
     t.string   "location_name"
     t.string   "subdomain"
     t.string   "slug"
+    t.string   "host_name"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
