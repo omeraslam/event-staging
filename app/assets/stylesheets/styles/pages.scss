@@ -23,6 +23,13 @@
 	  background-repeat: no-repeat;
 	  background-size:contain;
 	}	
+
+	.container {
+		width:100%;
+		padding:40px 20px;
+		margin:0 auto;
+		max-width:1000px;
+	}
 }
 
 
@@ -31,7 +38,6 @@
 	background:$brand-secondary;
 	color:#fff;
 	overflow:hidden;
-	background:url(home/1.jpg);
 
 	.hero-content {
 		padding:180px 50px 80px 50px;
@@ -40,6 +46,12 @@
 		margin: 0 auto;
 
 	}
+
+	&#home {
+		background:url(home/1.jpg);
+
+	}	
+
 
 	&#pricing {
 		background:url(home/2.jpg);
