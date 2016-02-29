@@ -26,30 +26,6 @@
         </ul>
       </div>     
 
-
-
-      <% if @is_premium == 'active'  %>
-        <div class="quick-find-container">
-          <div style="display: none;" class="quick-find-container">
-          <i class="icon icon-search"> </i> <input type="text" placeholder="quick find my events" id="tags">  
-          </div>
-        </div>
-      <% end %>
-
-      <div class="signed-in-menu">
-        <ul>
-
-          <li><%=  link_to "My events", {:controller => 'dashboard', :action => 'index'} %> </li>
-          <% if @is_premium != 'active' &&  @disable_create %>
-
-          <li><%=  link_to "Create new event", upgrade_path, :class => 'open-upgrade' %> </li>
-          <% else %>
-          <li><%=  link_to "Create new event", create_path %> </li> 
-          <% end %>
-          <li><%= link_to 'Edit profile', dashboard_profile_path, :class => 'navbar-link' %> </li>
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>              
-        </ul>
-      </div>  
     </div>
 </nav>
 
@@ -69,35 +45,15 @@
 
 
 
-<div class="event-editor-container" style="display:none;"> 
+<div class="event-editor-container"> 
 
  <!--START CONTROLS-->
  <div class="event-editor-controls" >
-
   <div class="tabs">
-
-
-  <%= link_to '',root_path, :class => 'logo' %>
-    <div class="view-switcher">
-   <div id="view-switch">   Previewing website  <i class="icon icon-arrow-down"> </i> </div>
-
-
-
-
-   </div>
    <a class="tab toggleEditorPanel" id="event-editor-design" ><i class="icon icon-image"> </i> <span> Change Theme </span></a>
    <a class="tab toggleEditorPanel" ><i class="icon icon-camera"> </i> <span> Modify background Image  </span></a> 
  </div>
 
-
-
-
- <div class="actions" > 
-   
-   
-
-
- </div>
 
  <div class="actions save-btn" > 
    <a class="btn" id="save" > save changes </a>        

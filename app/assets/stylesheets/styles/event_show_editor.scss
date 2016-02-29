@@ -21,6 +21,7 @@ body.invite-view {
 	.tablet-content {
 		height:520px;
 		overflow:scroll;
+		border:1px solid $brand-gray;
 	}
 
 }
@@ -145,11 +146,11 @@ body.invite-view {
 
 .event-editor-controls {
 
-	background:$brand-secondary; 
+	//background:$brand-secondary; 
 	color:#fff;
 	font-size:12px;
 	width:100%;
-	border-top:1px solid #333;
+	//border-top:1px solid #333;
 
 	
 	&:after {
@@ -179,21 +180,19 @@ body.invite-view {
 	.tabs {
 	
 		float:left;
-
-
-		.logo {
-			width: 23px;
-	    	height: 25px;
-	    	margin: 18px 12px 0 20px;
-	    	padding: 0;
-		}
+		margin-left:10px;
+		margin-bottom:5px;
+		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
 
 		a.tab {
 
 			color: #fff;
     		line-height: 38px;
     		display: inline-block;
-    		margin: 14px 10px;
+    		//margin: 14px 10px;
+			background:$brand-secondary;
+			padding:10px 20px;
+			float:left;
 
     		i {
 			   	font-size: 20px;
@@ -210,6 +209,9 @@ body.invite-view {
 				color:$brand-primary;
 			}
 
+			span {
+				display:none;
+			}
 		
 		}
 
