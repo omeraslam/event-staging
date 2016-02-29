@@ -8,23 +8,23 @@
   <meta name="google-site-verification" content="N3as54yWdnHGj6rqX9tI8Ba8niZb8dRYxQqfrqhmFis" />
   <meta name="viewport" content="width=device-width">
 
-  <!-- load typekit font -->
-  <script src="//use.typekit.net/lkw3rge.js"></script>
-  <script>try{Typekit.load();}catch(e){}</script>
-  <!-- end load typekit font -->
-  
-  <!-- load typography.com -->
-  <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6635554/696128/css/fonts.css" />
-  <!-- end load typography.com -->
-  
-   <!-- load fontastic -->
-  <link href="https://file.myfontastic.com/pkgs5MVBFuxd633NvmeuK3/icons.css" rel="stylesheet">
-   <!-- end fontastic -->
-  
+  <!-- load fonts.com -->
+  <script type="text/javascript" src="http://fast.fonts.net/jsapi/bf60a8d1-1e05-4ef0-bc32-3edaef6da022.js"></script>
 
-  <!-- load fontawesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <!-- end fontawesome -->
+   <!-- load fontastic -->
+  <link href="https://file.myfontastic.com/pkgs5MVBFuxd633NvmeuK3/icons.css" rel="stylesheet">  
+
+
+  <% if controller_name == "events" &&  action_name == 'show' %>
+
+    <!-- load typekit font -->
+    <script src="//use.typekit.net/lkw3rge.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    
+    <!-- load typography.com -->
+    <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6635554/696128/css/fonts.css" />
+
+  <% end %>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', controller_name, 'data-turbolinks-track' => true %>
@@ -63,7 +63,15 @@
 
 <script src="/assets/jquery.validate.js"></script>
 <script src="/assets/vendor/notify.js"></script>
-<script src="/assets/vendor/olark.js"></script>
+
+
+<% if controller_name == "pages" %>
+
+  <script src="/assets/vendor/olark.js"></script>
+
+<% end %>
+
+
 
 
 
