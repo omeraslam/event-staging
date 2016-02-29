@@ -156,7 +156,7 @@
   <a class="btn-next event-creation-navigation event-creation-next btn" href="">Next <i class="icon icon-arrow-right"> </i></a>
   <div class="event-creation-help">
     <%= link_to 'help', '//eventcreate.zendesk.com' %>
-    <%= link_to 'cancel', dashboard_index_path %> <!-- replace with last page -->
+    <%= link_to 'cancel', dashboard_index_path, :data => {:confirm => 'Are you sure you want to cancel?'} %> <!-- replace with last page -->
  </div>
 </div>
 

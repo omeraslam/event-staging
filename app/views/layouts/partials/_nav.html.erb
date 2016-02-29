@@ -4,7 +4,7 @@
       <div class="left"> 
         <a class="logo" href="/"><span>Event Create</span></a>
         <ul> 
-            <li><%=  link_to 'My events', {:controller => 'dashboard', :action => 'index'}  %></li>
+            <li><%=  link_to 'My Events', {:controller => 'dashboard', :action => 'index'}  %></li>
             <li><%= link_to 'Contacts', {:controller => 'dashboard', :action => 'contacts'} %></li>
         </ul>
       </div>
@@ -13,11 +13,18 @@
       <div class="right"> 
         <ul> 
           <% if @is_premium != 'active' && @disable_create %>
-            <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
+            <li><%= link_to "<i class='icon icon-plus'></i> New Event".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
           <% else %>
-            <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, create_path %> </li>
+            <li><%= link_to "<i class='icon icon-plus'></i> New Event".html_safe, create_path %> </li>
           <%	end %>
           <li>
+
+
+          <% if @is_premium != 'active' %>
+            <li><%= link_to "<i class='icon icon-bolt'></i> Upgrade".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
+          <% end %>
+
+
           <% if current_user.image? %>
               <%= link_to image_tag(current_user['image'].to_s) + " Profile".html_safe, dashboard_profile_path, :class => 'open-menu'  %>
           
@@ -58,9 +65,14 @@
 <% else %>
     <% if action_name != "show" and controller_name != "events"  and controller_name != "sessions" and controller_name != "registrations"  and controller_name != "passwords"  %>
   <nav>
-      <a class="logo" href="/"><span>Event Create</span></a>
+
+      <%= link_to "<span>EventCreate </span>".html_safe, "/", :class => "logo", :"data-no-turbolink" => true %>
+
       <ul class="navbar-links">
-        <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
+
+        <li><%= link_to "Features", "/", :"data-no-turbolink" => true %></li>
+        <li><%= link_to "Pricing", "/pricing", :"data-no-turbolink" => true %></li>
+
         <% if signed_in? %>
           <li><%= link_to 'My Account', dashboard_index_path, :class => 'btn'  %> </li>
         <% else %>
