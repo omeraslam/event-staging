@@ -103,6 +103,9 @@
 
 $(document).ready(function(){
 
+    var  slug = (window.location.href).split('#')[1];
+    highlightNavItem(slug);
+
     //init the remodal plugin. we have to init using js to avoid owl carousel conflict 
     var inst = $('#add-user-modal').remodal();
     $('.openModal').click(function(){
@@ -119,13 +122,13 @@ $(document).ready(function(){
 
 
     owl.on('changed.owl.carousel', function(event) {
-        var slug = (window.location.href).split('#')[1];
+        slug = (window.location.href).split('#')[1];
         highlightNavItem(slug);
     });
 
     function highlightNavItem(slug) {
         $('.event-sub-nav-trigger.active').removeClass('active');
-
+       
         switch(slug) {
             // case 'activity':
             //     $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
@@ -142,9 +145,6 @@ $(document).ready(function(){
         }
 
     }
-
-    var slug = (window.location.href).split('profile#')[1];
-    highlightNavItem(slug)
 
 
     $('.event-sub-nav-trigger').click(function(e){
@@ -172,8 +172,8 @@ $(document).ready(function(){
             //slug = 'activity';
             break;
         }
-        console.log($(this).data('target'));
-       // $(this).addClass('active');
+
+        $(this).addClass('active');
         window.location.href = url + '#'+slug
         owl.trigger('to.owl.carousel', [dest])
 
