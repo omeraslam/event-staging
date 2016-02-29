@@ -11,6 +11,8 @@ class DashboardController < ApplicationController
     @user = User.find(current_user.id)
     @events = Event.where(:user_id => current_user.id.to_s).all
 
+    @dir = true
+
 
     respond_with(@attendee, @user, @events)
   end

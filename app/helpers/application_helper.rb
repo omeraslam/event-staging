@@ -25,5 +25,21 @@ module ApplicationHelper
 	      content_for?(:meta_description) ? content_for(:meta_description) : APP_CONFIG['meta_description']
 	    end
 	end
+
+	def background_checker(event = nil, dir = true)
+		if dir == true
+			subdir = '/assets/themes/'
+		else 
+			subdir = '/themes/'
+		end
+
+		if(event.layout_style? && !event.show_custom) 
+			@style_bg = subdir + event.layout_style.to_s + '_thumb.jpg'
+		elsif(!event.background_img.nil?)
+			@style_bg = event.background_img 
+		else
+			@style_bg = subdir+ 'cityscape_thumb.jpg'
+		end
+	end
  
 end

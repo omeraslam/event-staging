@@ -45,18 +45,9 @@
 			<% @event_num=0 %>
 			<%  @events.each do |event| %>
 			<div class="event <%= (@is_premium != 'active' && @event_num.to_i >= @event_limit.to_i )? 'inactive': 'active' %>">
-				<% if(event.layout_style? && !event.show_custom) 
-					@style_bg = '/assets/themes/' + event.layout_style.to_s + '_thumb.jpg'
-				elsif(!event.background_img.nil?)
-					@style_bg = event.background_img 
-				else
-					@style_bg = '/assets/themes/cityscape_thumb.jpg'
-				end
-				%>
 
-				
 
-				<div class="image" style="background-image:url(<%= @style_bg %>);"> </div>
+				<div class="image" style="background-image:url(<%= background_checker(event, true) %>);"> </div>
 				<div class="details"> 
 				<% if @is_premium != 'active' && @event_num.to_i  >= @event_limit.to_i %>
 					<div class="title"><%= event.name %></div> 

@@ -7,7 +7,7 @@
 	  <%= hidden_field_tag 'show_custom', @event.show_custom %>
 	  <%= hidden_field_tag 'bg', @event.background_img %>
 
-		<div class="event-page 1" style="background-image: url(<%= image_path(@event.background_img, :width => 100) if @event.background_img.present?  %>)">
+		<div class="event-page 1" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %>)">
 		  <div class="overlay"></div>
 			<div class="header"> 
 					<div class="event-share">
