@@ -48,3 +48,31 @@
   <a href="#"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
   <p> ©2016 EventCreate. All Rights Reserved. </p>
 </div>
+
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+
+  var validator = $("#new_user").validate({
+    rules: {
+      name: "required",
+      "user[email]": {
+        required: true
+      },
+      "user[password]": {
+        required: true
+      }
+
+    },
+    messages : {
+      "user[email]": 'Please enter your email',
+      "user[password]": 'Please enter your password'
+    }
+  });
+
+
+
+});
+
+</script>
