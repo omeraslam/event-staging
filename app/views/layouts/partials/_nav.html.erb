@@ -65,9 +65,14 @@
 <% else %>
     <% if action_name != "show" and controller_name != "events"  and controller_name != "sessions" and controller_name != "registrations"  and controller_name != "passwords"  %>
   <nav>
-      <a class="logo" href="/"><span>Event Create</span></a>
+
+      <%= link_to "<span>EventCreate </span>".html_safe, "/", :class => "logo", :"data-no-turbolink" => true %>
+
       <ul class="navbar-links">
-        <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
+
+        <li><%= link_to "Features", "/", :"data-no-turbolink" => true %></li>
+        <li><%= link_to "Pricing", "/pricing", :"data-no-turbolink" => true %></li>
+
         <% if signed_in? %>
           <li><%= link_to 'My Account', dashboard_index_path, :class => 'btn'  %> </li>
         <% else %>
