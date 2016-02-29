@@ -4,7 +4,7 @@
       <div class="left"> 
         <a class="logo" href="/"><span>Event Create</span></a>
         <ul> 
-            <li><%=  link_to 'My events', {:controller => 'dashboard', :action => 'index'}  %></li>
+            <li><%=  link_to 'My Events', {:controller => 'dashboard', :action => 'index'}  %></li>
             <li><%= link_to 'Contacts', {:controller => 'dashboard', :action => 'contacts'} %></li>
         </ul>
       </div>
@@ -13,11 +13,18 @@
       <div class="right"> 
         <ul> 
           <% if @is_premium != 'active' && @disable_create %>
-            <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
+            <li><%= link_to "<i class='icon icon-plus'></i> New Event".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
           <% else %>
-            <li><%= link_to "<i class='icon icon-plus'></i> new event".html_safe, create_path %> </li>
+            <li><%= link_to "<i class='icon icon-plus'></i> New Event".html_safe, create_path %> </li>
           <%	end %>
           <li>
+
+
+          <% if @is_premium != 'active' %>
+            <li><%= link_to "<i class='icon icon-bolt'></i> Upgrade".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
+          <% end %>
+
+
           <% if current_user.image? %>
               <%= link_to image_tag(current_user['image'].to_s) + " Profile".html_safe, dashboard_profile_path, :class => 'open-menu'  %>
           
