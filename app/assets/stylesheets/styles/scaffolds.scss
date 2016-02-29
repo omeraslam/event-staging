@@ -997,7 +997,16 @@ input[name="event[style_id]"] {
     }
 
     .ui-timepicker-wrapper {
-      top: 340px !important;
+      color: #000;
+     // top: 340px !important;
+      width: 100%;
+      height: 140px;
+      overflow: auto;
+    }
+
+    .ui-timepicker-list li {
+      padding: 4px;
+      font-size: 14px;
     }
 
     // div.ui-timepicker-wrapper:nth-child(even){

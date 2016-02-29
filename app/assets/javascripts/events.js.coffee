@@ -33,11 +33,11 @@ $(document).on 'ready page:load', ->
       $('#datepairExample .time.start').timepicker
         'showDuration': true
         'timeFormat': 'g:ia'
-        #appendTo: '.start-time'
+        appendTo: '.start-time'
       $('#datepairExample .time.end').timepicker
         'showDuration': true
         'timeFormat': 'g:ia'
-        #appendTo: '.end-time'
+        appendTo: '.end-time'
       $('#datepairExample .date').datepicker
           onSelect: (dateText) ->
             $('.date').focusout()
