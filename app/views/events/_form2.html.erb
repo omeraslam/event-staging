@@ -86,7 +86,7 @@
           <p> <a id="showEndDates">+ add end date </a> </p>
         </div>
 
-        <div class="input-group-inline">
+        <div class="input-group-inline start-time">
           <label> Time</label>
           <%= f.text_field :time_start, :class => 'time start input-primary', :placeholder => 'Time' %> 
         </div>
@@ -99,7 +99,7 @@
           <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
         </div>
 
-        <div class="input-group-inline">
+        <div class="input-group-inline end-time">
           <label> End Time</label>
           <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
         </div>
@@ -265,7 +265,7 @@ $(document).ready(function() {
 
 });
 
-$('input, textarea').attr('tabindex', '-1');
+//$('input, textarea').attr('tabindex', '-1');
 
   //add functionality for tabbing through fields
 

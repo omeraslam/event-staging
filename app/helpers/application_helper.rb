@@ -59,7 +59,6 @@ module ApplicationHelper
 					str2 = event.time_start.to_time.strftime("%l:%M %p")
 				end
 			end
-
 		
 			if(!event.date_end.nil? && event.date_end != '')
 				str2 = event.date_end.to_date.strftime(" - %B ") + event.date_end.to_date.strftime("%e, ") + event.date_end.to_date.strftime("%Y")

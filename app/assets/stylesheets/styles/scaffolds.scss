@@ -982,7 +982,11 @@ input[name="event[style_id]"] {
 }
 
 
-
+.ui-timepicker-selected {
+  background: $brand-primary;
+  color: #fff;
+  cursor: pointer;
+}
 
   .ui-timepicker-wrapper, .ui-datepicker {
       display: none;
@@ -991,6 +995,14 @@ input[name="event[style_id]"] {
       width: 300px;
       z-index: 999;
     }
+
+    .ui-timepicker-wrapper {
+      top: 340px !important;
+    }
+
+    // div.ui-timepicker-wrapper:nth-child(even){
+    //   top: 435px !important;
+    // }
 
   .ui-datepicker {
     border-radius: 4px;
