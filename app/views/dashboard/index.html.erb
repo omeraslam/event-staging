@@ -56,23 +56,9 @@
 					
 				<% end %>
 					<div class="time">
-						<% if(event.date_start != '' && !event.date_start.nil?) %>
-						<%= event.date_start.to_date.strftime("%B %d") %> 
-					
-						<% if(event.date_end != '' && event.date_end != event.date_start) %>
-						- <%= event.date_end.to_date.strftime("%B %d") %> 
-						<% end %>
+						
+						<%= show_proper_date(event, false) %>
 
-						<% if(!event.time_start.nil? && event.time_start != '') %>
-						<%= event.time_start.to_time.strftime("%l:%M %p") %>
-						<% end %>
-
-						<% if(!event.time_end.nil? && event.time_end != '') %>
-						- <%= event.time_end.to_time.strftime("%l:%M %p") %> 
-						<% end %>
-						<%else%>
-						TBD
-						<%end%> 
 					</div>
 
 				<% if @is_premium == 'active' || @event_num.to_i < @event_limit.to_i %>

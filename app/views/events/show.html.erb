@@ -1,22 +1,21 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
 <div class="show-container">
-  
-<%= render 'events/partials/eventwebsite' %>
+    
+  <%= render 'events/partials/eventwebsite' %>
 
-<% if signed_in? && current_user.id == @user.id %>
-  <%= render 'events/partials/eventinvite' %>
-  <%= render 'editor' %>
-  <%= render 'partials/fullpage_loader' %>
-  <%= render 'partials/linkmodal' %>
-<% end %>
+  <% if signed_in? && current_user.id == @user.id %>
+    <%= render 'events/partials/eventinvite' %>
+    <%= render 'editor' %>
+    <%= render 'partials/fullpage_loader' %>
+    <%= render 'partials/linkmodal' %>
+  <% end %>
 
-<%= render 'events/partials/contact_form' %>
-<%= render 'events/partials/rsvp_form' %><!-- 
-<%= render 'events/partials/confirmation_form' %> -->
+  <%= render 'events/partials/contact_form' %>
+  <%= render 'events/partials/rsvp_form' %><!-- 
+  <%= render 'events/partials/confirmation_form' %> -->
 
-<%= render 'dashboard/eventsuccessmodal' %>
-
+  <%= render 'dashboard/eventsuccessmodal' %>
 
 </div>
 
@@ -44,12 +43,6 @@ $( document ).ready(function() {
       "attendee[email]": 'Please enter your email'
     }
   });
-
-
-
-
-
-
 
   $('.event-editor-background .image').removeClass().addClass('image '+ $('#layout_style').val());
   $("#event-share").click(function() {
@@ -253,8 +246,6 @@ $( document ).ready(function() {
     }
 
   });
-
-
 
 </script>
 

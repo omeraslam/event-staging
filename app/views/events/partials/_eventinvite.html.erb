@@ -55,22 +55,8 @@
 					<div class="event-meta">
 						<i class="icon icon-calendar"></i>
 						
-						 <% if(@event.date_start != '' && !@event.date_start.nil?) %>
-					
-						    <%= @event.date_start.to_date.strftime("%B") %> 
-					
 						
-						    <%= @event.date_start.to_date.strftime("%e, ") %>
-						
-						    <%= @event.date_start.to_date.strftime("%Y") %> 
-						
-						
-			  			    <% if(@event.time_start != '' && !@event.time_start.nil?) %> <br> 
-			  			     <%= @event.time_start.to_time.strftime("%l:%M %p") %>
-			  			    <% end %>
-						    <%else%>
-						    TBD
-						    <%end%>
+						<%= show_proper_date(@event, true) %>
 
 			          <div class="event-meta-actions">  
 			            <%=link_to 'Add to calendar', export_events_path %>  

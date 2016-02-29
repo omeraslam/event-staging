@@ -41,5 +41,43 @@ module ApplicationHelper
 			@style_bg = subdir+ 'cityscape_thumb.jpg'
 		end
 	end
+
+
+	def show_proper_date(event = nil, layout = true)
+		logger.debug "#{event.date_start}"
+
+		#if date null
+		if(event.date_start.nil? || event.date_start == '' )
+			str = 'TBD'
+			
+		else
+			str = event.date_start.to_date.strftime("%B ") + event.date_start.to_date.strftime("%e, ") + event.date_start.to_date.strftime("%Y")
+			if(event.time_start != '' && !event.time_start.nil?)
+				if(!event.date_end.nil? && event.date_end != '')
+					str += event.time_start.to_time.strftime(", %l:%M %p")
+				else
+					str2 = event.time_start.to_time.strftime("%l:%M %p")
+				end
+			end
+
+		
+			if(!event.date_end.nil? && event.date_end != '')
+				str2 = event.date_end.to_date.strftime(" - %B ") + event.date_end.to_date.strftime("%e, ") + event.date_end.to_date.strftime("%Y")
+			end
+
+			if(event.time_end != '' && !event.time_end.nil?)
+				str2 += (!event.date_end.nil? && event.date_end != '')? ', ': ' - '
+				str2 += event.time_end.to_time.strftime("%l:%M %p")
+			end
+
+			if layout
+				content_tag(:div, str)  + content_tag(:div, str2)
+			else
+				content_tag(:div, str+ str2)
+			end 
+
+		end
+
+	end
  
 end
