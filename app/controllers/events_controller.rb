@@ -1,5 +1,4 @@
 
-
 class EventsController < ApplicationController
   before_action :set_event, only: [ :edit]
   after_filter :store_location
@@ -163,7 +162,7 @@ class EventsController < ApplicationController
          format.js
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
-         format.html { render :edit }
+         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings' }
          format.js
          format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -210,13 +209,18 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name,  :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name)
+
 
       date_format = '%m/%d/%Y'
       if !valid[:date_start].nil?
         valid[:date_start] = valid[:date_start] != '' ? Date.strptime(valid[:date_start], date_format) : valid[:date_start]
         valid[:date_end] = valid[:date_end] != '' ? Date.strptime(valid[:date_end], date_format): valid[:date_end]
       end
+
+      # if !valid[:name].nil? || !valid[:name].blank?
+      #   valid = false
+      # end
       return valid
     end
   end
