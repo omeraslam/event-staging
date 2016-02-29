@@ -20,7 +20,7 @@ class AttendeesController < ApplicationController
   def new
     @attendee = Attendee.new
     @attendee.event_id = Event.find_by id: params[:event_id]
-    respond_with(@attendee)
+    #respond_with(@attendee)
   end
 
   def edit
@@ -224,6 +224,10 @@ class AttendeesController < ApplicationController
       @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
 
 
+      client = Bitly.client
+      @url = 'http://eventcreate.com' + slugger_path( @event)
+      @bitly = client.shorten(@url)
+
 
       #@attendee.save
 
@@ -240,7 +244,8 @@ class AttendeesController < ApplicationController
              #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
            end
           
-          format.html { redirect_to slugger_path(:slug => @event.slug) }
+          format.html { redirect_to slugger_path(:slug => @event.slug), notice: 'Person was successfully created.' }
+          format.js   { render action: 'confirmation', status: :created, location: slugger_path(:slug => @event.slug) }
           format.json { render :show, status: :created, location: :back }
           #send invite email to them now, thank you and sign up with hash
           #

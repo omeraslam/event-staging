@@ -12,7 +12,7 @@
 
 	<div class="modal-body">
 	
-  <%= form_for(@attendee) do |f| %>
+  <%= form_for(@attendee, remote: true, html: {role: :form, 'data-model' => 'attendee'}) do |f| %>
   <% if @attendee.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>

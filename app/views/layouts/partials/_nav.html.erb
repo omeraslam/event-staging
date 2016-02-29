@@ -56,8 +56,8 @@
   </nav>  
 <!-- not signed in -->
 <% else %>
-  <nav>
     <% if action_name != "show" and controller_name != "events"  and controller_name != "sessions" and controller_name != "registrations"  and controller_name != "passwords"  %>
+  <nav>
       <a class="logo" href="/"><span>Event Create</span></a>
       <ul class="navbar-links">
         <li><a href="/">Features</a><a href="/pricing">Pricing</a></li>
@@ -69,8 +69,8 @@
         <% end %>
 
       </ul>
-    <% end %>
   </nav>
+    <% end %>
 <% end %>
 
 

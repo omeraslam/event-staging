@@ -1,5 +1,7 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
+<div class="show-container">
+  
 <%= render 'events/partials/eventwebsite' %>
 
 <% if signed_in? && current_user.id == @user.id %>
@@ -10,12 +12,13 @@
 <% end %>
 
 <%= render 'events/partials/contact_form' %>
-<%= render 'events/partials/rsvp_form' %>
-<%= render 'events/partials/confirmation_form' %>
+<%= render 'events/partials/rsvp_form' %><!-- 
+<%= render 'events/partials/confirmation_form' %> -->
 
 <%= render 'dashboard/eventsuccessmodal' %>
 
 
+</div>
 
 <script type="text/javascript">
 
@@ -49,7 +52,7 @@ $( document ).ready(function() {
       e.preventDefault;
     });
 
-		//contact host modal
+		//registration modal
 		var registrationModal = $('#attendee-form').remodal({hashTracking:false});
 		$('.open-registration').click(function(){
 			registrationModal.open();

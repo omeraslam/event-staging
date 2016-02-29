@@ -1,0 +1,7 @@
+var confirmationModal = $('#attendee-confirmation-form').remodal({hashTracking:false});
+
+$('.show-container').append("<%= j render partial: '/events/partials/confirmation_form', locals: {person: @person } %>");
+
+var confirmationModal = $('#attendee-confirmation-form').remodal({hashTracking:false});
+confirmationModal.open();
+
