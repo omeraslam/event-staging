@@ -21,6 +21,7 @@ $.extend( $.fn, {
 	// http://jqueryvalidation.org/validate/
 	validate: function( options ) {
 
+
 		// If nothing is selected, return nothing; can't chain anyway
 		if ( !this.length ) {
 			if ( options && options.debug && window.console ) {

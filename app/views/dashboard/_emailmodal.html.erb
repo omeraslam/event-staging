@@ -31,9 +31,9 @@
 
 
 		    	<tr> 
-		    		<td><input type="text" placeholder="First Name" name="attendee[first_name]"> </td>
-		    		<td><input type="text" placeholder="Last Name" name="attendee[last_name]"> </td>
-		    		<td><input type="text" placeholder="Email Address" name="attendee[email_address]"> </td>
+		    		<td class="input-group"><input type="text" placeholder="First Name" name="attendee[first_name]"> </td>
+		    		<td class="input-group"><input type="text" placeholder="Last Name" name="attendee[last_name]"> </td>
+		    		<td class="input-group"><input type="text" placeholder="Email Address" name="attendee[email_address]"> </td>
 		    		<td class="row-actions"> <a class="circle add-btn" href="#"><i class="icon icon-plus"></i></a></td>
 
 		    	</tr>
@@ -68,15 +68,7 @@
 
 $(document).ready(function(){
 
-	$("#email-invite-modal form").validate();
 
-	 //  $.ajax({
-		//   type: "GET",
-		//   url: '//graph.facebook.com/v2.5/3401175/friendlists',
-		//   success: function(resp){
-		//   	console.log('submit success: '+ resp);
-		//   }
-		// });
 
 
 	
@@ -90,6 +82,38 @@ $(document).ready(function(){
 
     $('tbody .row-actions a.add-btn').on('click', function(e) {
     	e.preventDefault();
+
+
+    //temp validation
+    
+    $('#email-invite-modal .error').remove();
+
+    if($('input[name="attendee[first_name]"]').val() == '') {
+        var formerror = ' <label id="attendee[first_name]-error" class="error" for="attendee[first_name]">Please enter your first name</label>';
+        $(formerror).insertAfter($('input[name="attendee[first_name]"]'));
+        return false;
+    }
+
+    if($('input[name="attendee[last_name]"]').val() == '') {
+        var formerror = ' <label id="attendee[last_name]-error" class="error" for="attendee[last_name]">Please enter your last name</label>';
+        $(formerror).insertAfter($('input[name="attendee[last_name]"]'));
+          return false;
+    }
+
+    if($('input[name="attendee[email_address]"]').val() == '') {
+        var formerror = ' <label id="attendee[email_address]-error" class="error" for="attendee[email_address]">Please enter your email</label>';
+        $(formerror).insertAfter($('input[name="attendee[email_address]"]'));
+          return false;
+    }
+
+
+    if(validateEmail($('input[name="attendee[email_address]"]').val()) == false) {
+        var formerror = ' <label id="attendee[email_address]-error" class="error" for="attendee[email_address]">Please enter a valid email</label>';
+        $(formerror).insertAfter($('input[name="attendee[email_address]"]'));
+          return false;
+    }
+    // END TEMP VALIDATION
+
     	//current input values get placed into a uneditable row
     	var current_fname = $('input[name="attendee[first_name]"]').val();
     	var current_lname = $('input[name="attendee[last_name]"]').val();
@@ -118,6 +142,12 @@ $(document).ready(function(){
  		updateSendButton();
     });
 
+
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
 	function updateSendButton() {
 		if($('#email-invite-modal tbody tr:not(.disabled)').length == 1) {
 			$('#email-invite-modal .btn').hide();
@@ -131,47 +161,54 @@ $(document).ready(function(){
     	$('#email-invite-modal .btn').val('Send email to '+ ($('#email-invite-modal table tbody tr:not(.disabled)').length - 1) + pluralize_guest);
 	}
 
-
-	//when modal form submit
+   
+    //
 	$('#email-invite-modal input[type="submit"]').on('click', function(e) {
 		e.preventDefault();
 		//scan all rows
 		//make guest row into a guest object
 		//call form action and pass in data object of guests to be parsed
 		
-		//
-		 var columns = [
-            'first_name',
-            'last_name',
-            'email_address'
-        ];
+		
+        if($('#email-invite-modal tbody tr:not(.disabled)').length > 1) {
 
-        var tableObject = $('#email-invite-modal tbody tr:not(.disabled)').map(function (i) {
-        	console.log('i: '+ i);
-        	if(i< ($('#email-invite-modal tbody tr:not(.disabled)').length-1)) {
-	        	var row = {};
-	            $(this).find('td').each(function (i) {
-	            	if(i< 3){ //if i is less than number of inputs for guest
+       
 
-	                var rowName = columns[i];
-	                row[rowName] = $(this).text();
-	            	}
-	            });
 
-	            return row;
-        	}
-        }).get();
 
-        console.log(tableObject);
+    		 var columns = [
+                'first_name',
+                'last_name',
+                'email_address'
+            ];
 
-        $.ajax({
-		  type: "POST",
-		  url: $('#email-invite-modal form#new_attendee').attr('action'),
-		  data: {attendees: tableObject, event_id: $('#event_id').val(), user_id: $('#user_id').val()},
-		  success: function(){
-		  	console.log('submit success');
-		  }
-		});
+            var tableObject = $('#email-invite-modal tbody tr:not(.disabled)').map(function (i) {
+            	console.log('i: '+ i);
+            	if(i< ($('#email-invite-modal tbody tr:not(.disabled)').length-1)) {
+    	        	var row = {};
+    	            $(this).find('td').each(function (i) {
+    	            	if(i< 3){ //if i is less than number of inputs for guest
+
+    	                var rowName = columns[i];
+    	                row[rowName] = $(this).text();
+    	            	}
+    	            });
+
+    	            return row;
+            	}
+            }).get();
+
+
+            $.ajax({
+    		  type: "POST",
+    		  url: $('#email-invite-modal form#new_attendee').attr('action'),
+    		  data: {attendees: tableObject, event_id: $('#event_id').val(), user_id: $('#user_id').val()},
+    		  success: function(){
+    		  	console.log('submit success');
+    		  }
+    		});
+
+        }
 
 		
 	});

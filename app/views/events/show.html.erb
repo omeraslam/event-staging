@@ -23,6 +23,34 @@
 <script type="text/javascript">
 
 $( document ).ready(function() {
+
+  var validator = $("#new_attendee").validate({
+    rules: {
+      name: "required",
+      "attendee[first_name]": {
+        required: true
+      },
+      "attendee[last_name]": {
+        required: true
+      },
+      "attendee[email]": {
+        required: true
+      } 
+
+    },
+    messages : {
+      "attendee[first_name]": 'Please enter your first name',
+      "attendee[last_name]": 'Please enter your last name',
+      "attendee[email]": 'Please enter your email'
+    }
+  });
+
+
+
+
+
+
+
   $('.event-editor-background .image').removeClass().addClass('image '+ $('#layout_style').val());
   $("#event-share").click(function() {
    $(".event-share").toggle();
