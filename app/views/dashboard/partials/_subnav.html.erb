@@ -43,7 +43,10 @@
         </table>
         
         <% else %>
-        Oh no! You don't have any attendees yet. <a class="send-email">Let's add some</a> so you can keep track of your guests and send them invitations.   
+        <div class="empty">
+            <h2>No attendees here, just yet. You might want to send an invite! </h2>
+            <a class="btn send-email">Send an invite </a>
+        </div>
         <% end %>
 
 
@@ -56,8 +59,6 @@
     <div data-hash="settings">
 
         <section> 
-            <h4>Edit event details </h4>
-
             <!-- start event form -->
             <%= render 'dashboard/partials/form' %>
         </section>

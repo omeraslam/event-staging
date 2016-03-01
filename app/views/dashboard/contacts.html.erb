@@ -1,12 +1,22 @@
 <% title "Contact List" %>
+<div class="event-header container"> 
+
+	<div class="event-meta"> 
+		<h1>my contacts<sup>beta</sup> </h1>
+		<p class="lead">Track your attendees, manage  contacts, and start building a community you can count on.
+		</p>
+	</div>
+
+</div>
+
+
+
 <div class="container">
 
-<h1>Full Contact List</h1>
 	<table>
 		<thead>
 			<th>Name</th>
 			<th>Email</th>
-			<th>Most Recent Event</th>
 			<th>Actions</th>
 		</thead>
 		<tbody>
@@ -14,8 +24,7 @@
 				<tr>
 					<td><%= item.first_name %> <%= item.last_name %></td>
 					<td><%= item.email %></td>
-					<td>Most Recent Event Goes Here</td>
-					<td>Send Message | Do Something | Do Something Else</td>
+					<td><a href="mailto:<%= item.email %>">Send Message</a></td>
 				</tr>
 			<% end %>
 		</tbody>

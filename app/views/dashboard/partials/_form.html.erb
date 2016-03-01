@@ -63,23 +63,24 @@
   </div> 
 
   
-    <h5>Event Description</h5> 
     
-  <div class="form-element">
+  <div class="input-group">
+    <label>Event Description</label>
     <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
-
   </div>
 
-  <h5>Status</h5>
 
-  <%= f.select(:published, [['true', true],['false', false]]) %>
+  <div class="input-group">
+    <label>Event Status</label>
+    <%= f.select(:published, [['Live', true],['Draft', false]]) %>
+    <p> You can switch your event to "Draft" status to disable registration</p>
+  </div>
 
-  <%= link_to 'Edit Theme', slugger_path(:slug => @event.slug) %> 
+  <%= f.submit "Update Event", :class => 'btn btn-large' %>
+
+
 </div>
 
-
-
-    <%= f.submit "Update Event", :class => 'btn btn-large' %>
  
 <% end %>
 
