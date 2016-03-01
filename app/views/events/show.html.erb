@@ -1,6 +1,6 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
-<div class="show-container">
+<div class="show-container <%= (current_user.id == @user.id)? 'user' : '' %>">
     
 
 
@@ -12,14 +12,11 @@
   <%= render 'editor' %>
   <%= render 'partials/fullpage_loader' %>
   <%= render 'partials/linkmodal' %>
+
+<%= render 'dashboard/emailmodal' %>
 <% end %>
 
-  <% if signed_in? && current_user.id == @user.id %>
-    <%= render 'events/partials/eventinvite' %>
-    <%= render 'editor' %>
-    <%= render 'partials/fullpage_loader' %>
-    <%= render 'partials/linkmodal' %>
-  <% end %>
+
 
   <%= render 'events/partials/contact_form' %>
   <%= render 'events/partials/rsvp_form' %><!-- 
@@ -208,7 +205,7 @@ $( document ).ready(function() {
   $('.event-container').addClass(theme); 
   $('.event-page.' + layout).addClass('visible');    
 
-  
+
   $('.theme').click(function() {
 
 
@@ -221,7 +218,8 @@ $( document ).ready(function() {
     theme = $(this).data('theme'); 
 
 
-    if($('#layout_style').val() !== theme) {
+
+    if($('#layout_style').val() !== theme   ) {
       $('.save-btn').show();
     }
     
@@ -233,6 +231,7 @@ $( document ).ready(function() {
 
   // save button 
   $('#save').click(function(e) {
+    e.preventDefault();
     saveTheme();
   });
 
@@ -256,6 +255,14 @@ $( document ).ready(function() {
     }
 
   });
+
+    var emailInviteModal = $('#email-invite-modal').remodal();
+  
+    $('.open-link-modal').click(function(){
+      //  linkModal.open();
+        emailInviteModal.open();
+
+    });
 
 </script>
 

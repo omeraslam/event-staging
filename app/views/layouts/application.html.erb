@@ -40,8 +40,8 @@
  
 
 
-<body class="<%= controller.controller_name == 'events' && controller.action_name == 'show'? 'event-show' : controller.controller_name %>  <%= controller.action_name %> 
-<%= (signed_in? && current_user.id == @user.id) ? 'logged-in' : '' %>">
+<body class="<%= controller.controller_name == 'events' && controller.action_name == 'show'? 'event-show' : controller.controller_name %>  <%= controller.action_name %> <%= (signed_in?) ? 'logged-in' : '' %> 
+">
 
   
   <%= render 'layouts/partials/nav' %>
@@ -54,7 +54,6 @@
 <footer>
   &copy; 2015 EventCreate. All rights reserved.
 </footer>
-
 
 
 <!-- google analytics code -->

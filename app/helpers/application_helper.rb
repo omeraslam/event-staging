@@ -1,4 +1,5 @@
 module ApplicationHelper
+
 	#set site title
 	def title(title = nil)
 		if title.present?

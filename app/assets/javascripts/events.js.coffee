@@ -56,10 +56,20 @@ $(document).on 'ready page:load', ->
   ), 1000)
 
 
+  initButton = $('.event-editor-background a.highlight').hasClass('default')
+
   $('.event-editor-background a').on 'click', (e) ->
     #e.preventDefault()
+
+  
+
+
       $('.event-editor-background a').removeClass 'highlight'
       $(this).addClass 'highlight'
+      if(initButton ==  $(this).hasClass('default') ) 
+        $('.save-btn').show()
+      #return
+
       newimage = $(this).find('> div').css('background-image')
       $('.event-page').css 'cssText', 'background-image: '+ newimage.replace('_thumb', '_bg') + ' !important'
       $.ajax(
