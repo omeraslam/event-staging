@@ -36,7 +36,7 @@
 	 
 	<div class="event-body"> 
 		<div class="event-meta-container"> 
-			<div class="event-meta">
+			<div class="event-meta col">
 				<i class="icon icon-calendar"></i>
 				<%= show_proper_date(@event, true) %>
 	          <div class="event-meta-actions">  
@@ -44,7 +44,7 @@
 	          </div>    
 
 			</div>
-			<div class="event-meta">
+			<div class="event-meta col">
 				<i class="icon icon-location"></i>
 	      		<%= @event.location_name %> <br>
 				<span class="location"><%= @event.location %></span>
@@ -55,7 +55,7 @@
 
 			</div>
     	<% if(!@event.host_name.blank?) %>
-		    <div class="event-meta">
+		    <div class="event-meta col">
 		      <i class="icon icon-user"></i>
 		      Hosted by <br>
 		      <%= @event.host_name %> 
