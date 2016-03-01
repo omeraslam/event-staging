@@ -1,6 +1,10 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
-<div class="show-container">
+
+<% if signed_in? && current_user.id == @user.id %>
+<div class="show-container logged-in">
+<% end %>
+
   
 <%= render 'events/partials/eventwebsite' %>
 
