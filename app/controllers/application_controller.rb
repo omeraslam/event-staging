@@ -69,7 +69,7 @@ def check_member_type
     logger.debug "Disable create is: #{@disable_create}"
 
     @cu = ''
-    @is_premium = false
+    @is_premium = current_user.premium
 
     # else if membership not active
 
