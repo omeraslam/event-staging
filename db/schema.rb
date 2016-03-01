@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226233301) do
+ActiveRecord::Schema.define(version: 20160301202505) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160226233301) do
 
   create_table "events", force: true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description",    limit: 255
     t.string   "location"
     t.string   "background_img"
     t.datetime "created_at"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20160226233301) do
     t.string   "layout_id"
     t.string   "layout_style"
     t.boolean  "show_custom"
-    t.boolean  "published",      default: false
+    t.boolean  "published",                  default: false
     t.string   "location_name"
     t.string   "subdomain"
     t.string   "slug"
