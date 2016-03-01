@@ -216,6 +216,8 @@ $(document).ready(function() {
 
     var count = e.item.count;
     var index = e.item.index;
+
+    console.log(count)
         //update the button copy
         $(".btn-next").html(eventCreationStates[index].btnCopy +
           ' <i class="icon icon-arrow-right"> </i>');
@@ -228,6 +230,13 @@ $(document).ready(function() {
           $('.event-creation-prev').hide();
         } else {
           $('.event-creation-prev').show();
+        }
+
+        if(index == 2) {
+
+          $('input, textarea').attr('tabindex', '1');
+        } else {
+          $('input, textarea').attr('tabindex', '-1');
         }
 
         if ((index + 1) == count) {
@@ -265,7 +274,7 @@ $(document).ready(function() {
 
 });
 
-$('input, textarea').attr('tabindex', '-1');
+          $('input, textarea').attr('tabindex', '-1');
 
   //add functionality for tabbing through fields
 

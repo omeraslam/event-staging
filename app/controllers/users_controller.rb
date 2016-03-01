@@ -11,7 +11,6 @@ class UsersController < ApplicationController
   def charge_card
 
     @user = current_user
-    @user.premium = true
 
     # Get the credit card details submitted by the form
     token = params[:stripeToken]
@@ -28,6 +27,8 @@ class UsersController < ApplicationController
         :email => current_user.email,
         :description => 'Test User'
       )
+
+      @user.premium = true
 
       @user.customer_id = customer.id
     else
@@ -52,6 +53,8 @@ class UsersController < ApplicationController
 
     @user = current_user
     plan_type = params[:planType]
+    
+    @user.premium = true
 
 
     customer = Stripe::Customer.retrieve(@user.customer_id)
