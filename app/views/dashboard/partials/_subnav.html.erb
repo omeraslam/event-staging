@@ -17,7 +17,15 @@
                     <th>Name</th>
                     <th>Email Address</th>
                     <th>Will attend</th>  
-                    <th><a  class="btn btn-small send-email">add attendees </a>
+                    <th>
+
+
+                    <% if @count_registrations >= @event_registration_limit %>
+                        <%= link_to 'add attendees', upgrade_path, :class => 'btn btn-small' %>
+                    <% else %>
+                        <a  class="btn btn-small send-email">add attendees </a>
+                    <% end %>  
+
         <%= link_to 'Download', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %>
         <%= link_to 'Print', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
                     </th>            

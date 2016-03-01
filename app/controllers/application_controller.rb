@@ -34,31 +34,35 @@ def check_member_type
     member_type = current_user.plan_type
     case member_type
     when 'basic'
-      @event_limit = 1
-      event_registration_limit = 50
+      @event_limit = ENV['BASIC_EVENT_LIMIT'].to_i
+      @event_registration_limit = ENV['BASIC_REGISTRATION_LIMIT'].to_i
     when 'premium'
-      @event_limit = 3
-      event_registration_limit = 500
+      @event_limit = ENV['PREMIUM_EVENT_LIMIT'].to_i
+      @event_registration_limit = ENV['PREMIUM_REGISTRATION_LIMIT'].to_i
     when 'pro'
-      @event_limit = 1000
-      event_registration_limit = 5000
+      @event_limit = ENV['PRO_EVENT_LIMIT'].to_i
+      @event_registration_limit = ENV['PRO_REGISTRATION_LIMIT'].to_i
 
     when 'enterprise'
-      @event_limit = 1000
-      event_registration_limit = 15000
+      @event_limit = ENV['ENTERPRISE_EVENT_LIMIT'].to_i
+      @event_registration_limit = ENV['ENTERPRISE_REGISTRATION_LIMIT'].to_i
     else
-      @event_limit = 1
-      event_registration_limit = 50
+      @event_limit = ENV['BASIC_EVENT_LIMIT'].to_i
+      @event_registration_limit = ENV['BASIC_REGISTRATION_LIMIT'].to_i
     end
 
-    logger.debug "Num events is: #{@event_limit}"
-    logger.debug "Num registrations is: #{event_registration_limit}"
+
+
+    logger.debug "sup"
+
+    logger.debug "sdfasdfds: #{ENV['BASIC_EVENT_LIMIT']}"
 
 
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     @count_events = Event.where(:user_id => current_user.id.to_s).count
+    @count_registrations = Attendee.where(:user_id => current_user.id.to_s).count
 
-    if @count_events < @event_limit
+    if @count_events < @event_limit && @count_registrations   < @event_registration_limit
       @disable_create = false
 
     else 

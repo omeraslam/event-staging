@@ -50,20 +50,20 @@ class AttendeesController < ApplicationController
 
   def batch_invite
 
-  
+    
 
     @event = Event.find_by id: params[:event_id]
     
     guest_list = params[:attendees]
 
     @event_type = '1'
-    # logger.debug "#{guest_list}"
+    logger.debug "#{guest_list}"
     # 
     @event_url = 'http://www.google.com'
 
 
 
-  logger.debug "#{ENV['GMAIL_DOMAIN']}"
+    logger.debug "#{ENV['GMAIL_DOMAIN']}"
 
     guest_list.each do |guest_item|
         logger.debug "emails to save: #{guest_item}"
@@ -74,26 +74,43 @@ class AttendeesController < ApplicationController
         @attendee.user_id = params[:user_id]
         @attendee.event_id = params[:event_id]
         @attendee.attending = false
+      
+        logger.debug "#{@attendee.user_id} annndddd #{@attendee.email} "
+
+        if Attendee.where("user_id = :user_id AND email = :email",
+          {user_id: @attendee.user_id.to_s, email: @attendee.email}).present?
+
+            logger.debug "user exists"
+
+            #user already exists error message
 
 
-        if @attendee.save
-
-          if @attendee.id.to_s != @event.user_id.to_s
-              #send guest rsvpd emails
-              if @event_type == '1'
-                UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-              else
-                UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-              end
-          else
-               #send invitations sent emails
-               #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
-          end
-
-
+          # ...
         else
+           
+            logger.debug "save new user"
 
+            if @attendee.save
+
+              if @attendee.id.to_s != @event.user_id.to_s
+                  #send guest rsvpd emails
+                  if @event_type == '1'
+                    UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+                  else
+                    UserMailer.guest_save_date_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+                  end
+              else
+                   #send invitations sent emails
+                   #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+              end
+
+
+            else
+
+            end
         end
+
+
     end
 
     respond_to do |format|

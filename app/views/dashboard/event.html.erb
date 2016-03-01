@@ -30,7 +30,15 @@
 		<div class="event-share">
 			<%= link_to 'view my website', slugger_path(@event), class: 'btn', target: '_blank' %>
 			<br>
-			<a class="circle send-email" ><i class="icon icon-email"></i> </a> 
+
+
+   			<% if @count_registrations >= @event_registration_limit %>  
+				<%= link_to ('<i class="icon icon-email"></i>').html_safe, upgrade_path, :class => 'circle'  %> 
+            <% else %>            
+				<a class="circle send-email" ><i class="icon icon-email"></i> </a> 
+            <% end %>  
+
+
 			<a class="circle open-link-modal"><i class="icon icon-link"></i> </a> 
 
 			<a class="circle" href="https://www.facebook.com/sharer/sharer.php?u=<%= eventurl %>" target="_blank"><i class="icon icon-facebook"></i> </a> 

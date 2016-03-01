@@ -90,6 +90,7 @@ class UsersController < ApplicationController
 
     @user.plan_type = nil
     @user.subscription_id = nil
+    @user.customer_id = nil
     # 
     
     if @user.update(user_params)

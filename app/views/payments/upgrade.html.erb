@@ -163,14 +163,16 @@ $(document).ready(function(){
 		$('.plans').find('[data-type="basic"]').addClass('disabled').find('.btn').addClass('btn-disabled').text('Current Plan')
 	}
 
+
     $( ".plan" ).not(".disabled").click(function() {
   		$("#selected-plan").text($(this).data("description"));
   		$('#plan_type').val($(this).data('type'));
 
   		//ADD HOOK TO CHANGE PLAN
   		//if customer did not exist, then go to card form
-  		console.log($('#valid_customer').val() == false);
-  		if( $('#valid_customer').val() == false) {
+  		console.log($('#valid_customer').attr('val') == false);
+ 
+  		if( $('#valid_customer').attr('val') == false) {
     		upgradeOwl.trigger('next.owl.carousel');
   		} else {
     		// else update plan call

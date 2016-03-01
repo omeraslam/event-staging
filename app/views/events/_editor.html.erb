@@ -19,7 +19,13 @@
 
       <div class="right"> 
         <ul> 
-          <li> <a class="large-icon send-email" style="display:none;" ><i class="icon icon-email"></i> </a> </li>
+          <li>
+            <% if @count_registrations >= @event_registration_limit %>  
+        <%= link_to ('<i class="icon icon-email"></i>').html_safe, upgrade_path, :class => 'large-icon'  %> 
+            <% else %>            
+        <a class="large-icon send-email" ><i class="icon icon-email"></i> </a> 
+            <% end %>  </li>
+
           <li> <a class="large-icon open-link-modal"><i class="icon icon-link"></i> </a>  </li>
           <li> <a class="large-icon" href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>" target="_blank"><i class="icon icon-facebook"></i> </a>  </li>         
           <li><a class="large-icon" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>" target="_blank"><i class="icon icon-twitter"></i> </a>  </li>
