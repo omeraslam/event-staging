@@ -53,11 +53,6 @@ def check_member_type
 
 
 
-    logger.debug "sup"
-
-    logger.debug "sdfasdfds: #{ENV['BASIC_EVENT_LIMIT']}"
-
-
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     @count_events = Event.where(:user_id => current_user.id.to_s).count
     @count_registrations = Attendee.where(:user_id => current_user.id.to_s).count
