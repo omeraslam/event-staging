@@ -1,6 +1,6 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
-<div class="show-container <%= (current_user.id == @user.id)? 'user' : '' %>">
+<div class="show-container <%= (signed_in? && current_user.id == @user.id)? 'user' : '' %>">
     
 
 

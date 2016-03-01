@@ -30,7 +30,7 @@ class EventsController < ApplicationController
     #     #&& current_user.id.to_i != @event.user_id.to_i
     #     redirect_to root_path
     # else  
-        @user = User.find(@event.user_id)
+    @user = User.find(@event.user_id)
 
         image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
         @attendee = Attendee.new

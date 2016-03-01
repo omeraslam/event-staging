@@ -68,12 +68,20 @@
     <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
   </div>
 
+  <div class="input-group">
+    <label>Custom URL</label>
+      <%= f.text_field :slug, :class => 'input-primary', :placeholder => 'custom-event-url' %>
+  </div>
 
   <div class="input-group">
     <label>Event Status</label>
     <%= f.select(:published, [['Live', true],['Draft', false]]) %>
     <p> You can switch your event to "Draft" status to disable registration</p>
   </div>
+
+
+
+
 
   <%= f.submit "Update Event", :class => 'btn btn-large' %>
 
