@@ -83,6 +83,8 @@ class UsersController < ApplicationController
 
     @user = current_user
 
+    @user.premium = false
+
     customer = Stripe::Customer.retrieve(@user.customer_id)
 
     logger.debug "sub id: #{customer.subscriptions}"

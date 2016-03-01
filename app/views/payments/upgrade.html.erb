@@ -170,9 +170,7 @@ $(document).ready(function(){
 
   		//ADD HOOK TO CHANGE PLAN
   		//if customer did not exist, then go to card form
-  		console.log($('#valid_customer').attr('val') == false);
- 
-  		if( $('#valid_customer').attr('val') == false) {
+  		if( $('#valid_customer').attr('val') == 'false') {
     		upgradeOwl.trigger('next.owl.carousel');
   		} else {
     		// else update plan call
