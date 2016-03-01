@@ -2,7 +2,17 @@
 <% meta_description 'Create stunning websites in seconds.' %>
 <div class="show-container">
     
-  <%= render 'events/partials/eventwebsite' %>
+
+
+  
+<%= render 'events/partials/eventwebsite' %>
+
+<% if signed_in? && current_user.id == @user.id %>
+  <%= render 'events/partials/eventinvite' %>
+  <%= render 'editor' %>
+  <%= render 'partials/fullpage_loader' %>
+  <%= render 'partials/linkmodal' %>
+<% end %>
 
   <% if signed_in? && current_user.id == @user.id %>
     <%= render 'events/partials/eventinvite' %>
