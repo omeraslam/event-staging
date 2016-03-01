@@ -28,12 +28,12 @@ class AttendeesController < ApplicationController
 
   def send_preview
 
-     @current_user = current_user
-     @attendee_user_id = current_user.id
-     @event = Event.find_by id: params[:event_id]
-     @event_type = params[:event_type].nil? ? '1' : params[:event_type]
+    @current_user = current_user
+    @attendee_user_id = current_user.id
+    @event = Event.find_by id: params[:event_id]
+    @event_type = params[:event_type].nil? ? '1' : params[:event_type]
 
-     @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+    @event_url = 'https://eventcreate.com/' +  @event.slug
 
       if @event_type == '1'
         UserMailer.guest_invitation_sent(current_user, current_user, @event, @event_url).deliver unless @current_user.invalid?
@@ -50,12 +50,20 @@ class AttendeesController < ApplicationController
 
   def batch_invite
 
-    @event = Event.find_by id: params[:event_id]
   
+
+    @event = Event.find_by id: params[:event_id]
+    
     guest_list = params[:attendees]
 
     @event_type = '1'
-    logger.debug "#{guest_list}"
+    # logger.debug "#{guest_list}"
+    # 
+    @event_url = 'http://www.google.com'
+
+
+
+  logger.debug "#{ENV['GMAIL_DOMAIN']}"
 
     guest_list.each do |guest_item|
         logger.debug "emails to save: #{guest_item}"
@@ -89,12 +97,14 @@ class AttendeesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to dashboard_event_path(:event => @event.id) + '#invites' }
+      #format.html { redirect_to dashboard_event_path(:event => @event.id) + '#invites' }
+      format.js   { render action: 'invitation-sent', status: :created, location: dashboard_event_path(:event => @event.id) + '#invites' }    
     end
 
   end
       
       
+
 
 
 
@@ -122,7 +132,7 @@ class AttendeesController < ApplicationController
      @event = Event.find_by id: params[:event_id]
      @event_type = params[:event_type].nil? ? '1' : params[:event_type]
 
-     @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+      @event_url = 'http://eventcreate.com/' +  @event.slug
 
       @valid_addresses.each do |attendee_address|
         logger.debug "emails to save: #{attendee_address}"
@@ -166,26 +176,26 @@ class AttendeesController < ApplicationController
       @event_type = params[:event_type2].nil? ? '1' : params[:event_type2]
 
 
-       @attendees.each do |attendee|
+      @attendees.each do |attendee|
 
 
         logger.debug "attendees to send: #{attendee.email}"
-          @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  current_user.id.to_s + '/events/' +  @event.id.to_s + '?invited=true&amp;uid='+ attendee.id.to_s
+        @event_url = 'http://eventcreate.com/' +  @event.slug + '?invited=true&amp;uid='+ attendee.id.to_s
 
-          if attendee.id.to_s != @event.user_id.to_s
-            #send guest rsvpd emails
-            if @event_type == '1'
-              UserMailer.guest_invitation_sent(current_user, attendee, @event, @event_url).deliver unless attendee.invalid?
-            else
-              UserMailer.guest_save_date_sent(current_user, attendee, @event, @event_url).deliver unless attendee.invalid?
-            end
+        if attendee.id.to_s != @event.user_id.to_s
+          #send guest rsvpd emails
+          if @event_type == '1'
+            UserMailer.guest_invitation_sent(current_user, attendee, @event, @event_url).deliver unless attendee.invalid?
           else
-             #send invitations sent emails
-             #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+            UserMailer.guest_save_date_sent(current_user, attendee, @event, @event_url).deliver unless attendee.invalid?
           end
+        else
+           #send invitations sent emails
+           #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+        end
 
 
-       end
+      end
 
       redirect_to dashboard_event_path(:event => @event.id) + '#invites'
   end
@@ -221,7 +231,7 @@ class AttendeesController < ApplicationController
       @event = Event.find_by id: params[:event_id]
 
       @attendee.event_id =  @event.id.to_s
-      @event_url = 'http://'+ ENV['SITE_NAME'] +'/users/' +  @current_user.id.to_s + '/events/' +  @event.id.to_s
+      @event_url = 'http://eventcreate.com/' +  @event.slug
 
 
       client = Bitly.client

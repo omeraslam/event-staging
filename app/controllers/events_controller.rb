@@ -159,7 +159,7 @@ class EventsController < ApplicationController
       if @event.update(event_params)
          #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
          format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', notice: 'Event was successfully updated.'}
-         format.js
+         format.js   { render action: 'event-success', status: :created, location: dashboard_event_path(:event => @event.id) }
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
          format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings' }
@@ -168,6 +168,9 @@ class EventsController < ApplicationController
       end
     end
   end
+
+
+
 
 
   # DELETE /events/1
