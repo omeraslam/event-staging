@@ -36,9 +36,9 @@
                     <th>Email Address</th>
                     <th>Will attend</th>  
                     <th>Guest Actions</th>  
-               
+
                     <% if @count_registrations >= @event_registration_limit %>
-                                            <th><%= link_to upgrade_path, 'add attendees', :class => 'btn btn-small' %>
+                        <th><%= link_to upgrade_path, 'add attendees', :class => 'btn btn-small' %>
 </th>
                     
                     <% else %>

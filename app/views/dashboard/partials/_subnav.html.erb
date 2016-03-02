@@ -157,6 +157,7 @@ $(document).ready(function(){
 
 
     $('.event-sub-nav-trigger').click(function(e){
+
         e.preventDefault();
         
         var dest = parseInt($(this).data('target'));
@@ -181,10 +182,8 @@ $(document).ready(function(){
             //slug = 'activity';
             break;
         }
-
         $(this).addClass('active');
         window.location.href = url + '#'+slug
-        owl.trigger('to.owl.carousel', [dest])
 
     });
     

@@ -1,6 +1,6 @@
 <% title @event.name %>
 <% meta_description 'Create stunning websites in seconds.' %>
-<div class="show-container <%= (current_user.id == @user.id)? 'user' : '' %>">
+<div class="show-container <%= (signed_in? && current_user.id == @user.id)? 'user' : '' %>">
     
 
 
@@ -241,12 +241,11 @@ $( document ).ready(function() {
       return 'You have unsaved pages. Do you want to leave this page without saving?';
     }
   };
-  
 
   function saveTheme() {
     $.ajax({
       type: 'POST',
-        url: String(window.location.href).replace('#', '') + '/updatetheme_post', //testing
+        url: String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post', //testing
         data: {event:{layout_id: layout, layout_style: theme}}
       }).done(function(data){
         console.log(data);

@@ -53,11 +53,6 @@ def check_member_type
 
 
 
-    logger.debug "sup"
-
-    logger.debug "sdfasdfds: #{ENV['BASIC_EVENT_LIMIT']}"
-
-
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     @count_events = Event.where(:user_id => current_user.id.to_s).count
     @count_registrations = Attendee.where(:user_id => current_user.id.to_s).count
@@ -74,7 +69,11 @@ def check_member_type
     logger.debug "Disable create is: #{@disable_create}"
 
     @cu = ''
-    @is_premium = false
+    logger.debug "PREMIUM IS: #{current_user.premium}"
+    @is_premium = current_user.premium? ? 'active': ''
+
+
+    logger.debug "@is_premium IS: #{@is_premium}"
 
     # else if membership not active
 

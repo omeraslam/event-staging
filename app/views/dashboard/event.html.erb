@@ -22,15 +22,18 @@
 		<p class="lead">
 			<% if (!@event.date_start.nil? && @event.date_start != '')%>
 			<%= @event.date_start.to_date.strftime("%B %d") %> | <% end %>Status:  <span> <%= @event.published == false ? 'Draft' : 'Live'%> </span>
+
 			
 		</p>
+
+		<p>Number of registered guests: <%= @count_registrations %></p>
+		<p>Current plan of registration limit: <%= @event_registration_limit %></p>
 	</div>
 	
 	<div class="event-status"> 
 		<div class="event-share">
 			<%= link_to 'view my website', slugger_path(@event), class: 'btn', target: '_blank' %>
 			<br>
-
 
    			<% if @count_registrations >= @event_registration_limit %>  
 				<%= link_to ('<i class="icon icon-email"></i>').html_safe, upgrade_path, :class => 'circle'  %> 
