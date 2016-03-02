@@ -73,14 +73,16 @@
 	  	<p class="event-description"><%= best_in_place @event, :description, :url => update_event_path(@event), as: :textarea %> </p>
 		</div>	
 		<div class="event-action-container">
-
-			<% if Date.today < @event.date_start.to_date %>
-			
-			<a class="btn btn-large open-registration">Register Now</a>
+			<% if  (@event.date_start.nil? &&  @event.date_start.blank? ) %>
+				<% if Date.today < @event.date_start.to_date  %>
+					<a class="btn btn-large open-registration">Register Now</a>
+				<% else %>
+					<div class="btn btn-large btn-disabled">Registration closed</div>
+				<% end %>
 			<% else %>
-			<div class="btn btn-large btn-disabled">Registration closed</div>
-
+					<a class="btn btn-large open-registration">Register Now</a>
 			<% end %>
+		
 			<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
 		</div>
 	</div>	
