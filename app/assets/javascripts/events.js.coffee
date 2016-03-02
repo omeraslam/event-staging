@@ -72,7 +72,6 @@ $(document).on 'ready page:load', ->
       newimage = $(this).find('> div').css('background-image')
       $('.event-page').css 'cssText', 'background-image: '+ newimage.replace('_thumb', '_bg') + ' !important'
 
-      alert String(window.location.href).replace('?first=true', '')
       $.ajax(
         type: 'POST'
         url: '' + String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post'

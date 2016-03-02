@@ -39,9 +39,10 @@
 			<div class="event-meta col">
 				<i class="icon icon-calendar"></i>
 				<%= show_proper_date(@event, true) %>
+
 	          <div class="event-meta-actions">  
 	            <%=link_to 'Add to calendar', export_events_path %>  
-	          </div>    
+	          </div>  
 
 			</div>
 			<div class="event-meta col">
@@ -72,7 +73,14 @@
 	  	<p class="event-description"><%= best_in_place @event, :description, :url => update_event_path(@event), as: :textarea %> </p>
 		</div>	
 		<div class="event-action-container">
+
+			<% if Date.today < @event.date_start.to_date %>
+			
 			<a class="btn btn-large open-registration">Register Now</a>
+			<% else %>
+			<div class="btn btn-large btn-disabled">Registration closed</div>
+
+			<% end %>
 			<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
 		</div>
 	</div>	

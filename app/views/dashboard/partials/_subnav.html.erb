@@ -37,7 +37,7 @@
                     <td><%= attendee.first_name %> <%= attendee.last_name %></td>
                     <td><%= attendee.email %></td>
                     <% if (attendee.user_id) == current_user.id.to_s %>
-                    <td> <%= attendee.attending %></td>
+                    <td> <%= show_attendance(attendee) %></td>
                     <td><%= link_to 'Edit', edit_attendee_path(attendee) %> | <%= link_to 'Delete attendee', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                     <% end %>
                 </tr>

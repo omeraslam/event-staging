@@ -99,11 +99,11 @@
 								<% if(@event.time_start != '' && !@event.time_start.nil?) %> 
 				  			     <%= @event.time_start.to_time.strftime("%l:%M %p") %>
 				  			    <% end %>
+								<br> <%=link_to 'Add to calendar', export_events_path %>  
 							    <%else%>
 							  	Date/Time TBD
 							    <%end%>
 
-							<br> <%=link_to 'Add to calendar', export_events_path %>  
 						</td>	
 					</tr>	
 

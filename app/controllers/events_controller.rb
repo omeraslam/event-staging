@@ -2,7 +2,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [ :edit]
   after_filter :store_location
-  before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user!, :except => [:show, :export_events, :contact_host]
   require 'icalendar'
 
 
@@ -25,44 +25,54 @@ class EventsController < ApplicationController
 
 
 
+
     @event = Event.find_by_slug(params[:slug])
-    #@event = Event.where('id' => 70)
-    #@event = Event.find(request.subdomain)
-    if @event.published == false && !signed_in?
-        #&& current_user.id.to_i != @event.user_id.to_i
-        redirect_to root_path
-    else  
-      @user = User.find(@event.user_id)
 
-        image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
-        @attendee = Attendee.new
+    if !@event
+
+      render_404
+    else 
+
+       #@event = Event.where('id' => 70)
+      #@event = Event.find(request.subdomain)
+      if @event.published == false && !signed_in?
+          #&& current_user.id.to_i != @event.user_id.to_i
+          redirect_to root_path
+      else  
+        @user = User.find(@event.user_id)
+
+          image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
+          @attendee = Attendee.new
 
 
 
-        client = Bitly.client
-        @url = 'http://eventcreate.com' + slugger_path( @event)
-        @bitly = client.shorten(@url)
+          client = Bitly.client
+          @url = 'http://eventcreate.com' + slugger_path( @event)
+          @bitly = client.shorten(@url)
 
 
-        if(!@event.layout_style?)
-          @event.layout_id = '1'
-          @event.layout_style = 'cityscape'
-        end
+          if(!@event.layout_style?)
+            @event.layout_id = '1'
+            @event.layout_style = 'cityscape'
+          end
 
-        respond_with(@attendees, @event)
+          respond_with(@attendees, @event)
+      end
+
+      @themes = Theme.all
+
     end
-
-    @themes = Theme.all
+   
 
   end
 
   # send contact an email
   def contact_host
-    @guest_name = params[:name]
+    @email = params[:name]
     @message = params[:message]
     @event = Event.find_by_slug(params[:slug])
 
-    UserMailer.contact_host(current_user, @guest_name, @message, @event).deliver
+    UserMailer.contact_host(@email, @message, @event).deliver
 
     respond_with(@event, :location => slugger_url)
 
@@ -188,20 +198,27 @@ class EventsController < ApplicationController
   end
 
   def export_events
-    @event = Event.find_by_slug(params[:slug])
 
-    @calendar = Icalendar::Calendar.new
-    event = Icalendar::Event.new
+     logger.debug "what up duddee"
+     @event = Event.find_by_slug(params[:slug])
 
-    event.dtstart = @event.date_start.to_date.strftime("%Y%m%dT%H%M%S")
-    #event.end = @event.dt_time.strftime("%Y%m%dT%H%M%S")
-    event.summary = @event.name
-    event.description = @event.description
-    event.location = @event.location
-    @calendar.add_event(event)
-    @calendar.publish
-    headers['Content-Type'] = "text/calendar; charset=UTF-8"
-    render :layout => false, :text => @calendar.to_ical
+     @calendar = Icalendar::Calendar.new
+     event = Icalendar::Event.new
+     event.dtstart = @event.date_start.to_date.strftime("%Y%m%d") + @event.time_start.to_time.strftime("T%H%M%S")
+
+    
+     logger.debug "event dtstart #{@event.date_start.to_date.strftime("%Y%m%d") + @event.time_start.to_time.strftime("T%H%M%S")}"
+     logger.debug "event dtend #{@event.date_end.nil?}"
+     logger.debug "event time #{@event.time_end.to_time}"
+     event.dtend = ((!@event.date_end.blank?) ? @event.date_end.to_date.strftime("%Y%m%d"): @event.date_start.to_date.strftime("%Y%m%d") ) + (@event.time_end.nil? ? 'T00000': @event.time_end.to_time.strftime("T%H%M%S"))
+     logger.debug "event dtend #{event.dtend}"
+     event.summary = @event.name
+     event.description = @event.description
+     event.location = @event.location
+     @calendar.add_event(event)
+     @calendar.publish
+     headers['Content-Type'] = "text/calendar; charset=UTF-8"
+     render :layout => false, :text => @calendar.to_ical
   end
 
   private

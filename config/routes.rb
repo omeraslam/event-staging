@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get '/features' => 'pages#features'
   get '/explore' => 'pages#explore'
   get '/contact' => 'pages#contact'
+  #sget '/error404.html' => 'pages#error404', :as => :error_path
 
 
   get '/dashboard' => 'dashboard#index'
@@ -55,6 +56,8 @@ Rails.application.routes.draw do
   end
 
 
+
+
   root :to => 'pages#home'
 
   #get '', to: 'events#show', constraints: {subdomain: /.+/}
@@ -71,6 +74,8 @@ Rails.application.routes.draw do
   get '/:slug' => 'events#show', :as => :slugger
 
   get '/:slug/export' => 'events#export_events', :as => :export_events
+
+
 
   # resources :users do
   #   resources :events
