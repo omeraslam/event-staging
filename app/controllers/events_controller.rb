@@ -161,6 +161,19 @@ class EventsController < ApplicationController
     end
   end
 
+  def check_slug
+
+    @event_exists = Event.exists?( slug: params[:slug])
+
+    if @event_exists
+      flash[:notice] = 'Task was successfully created.' 
+    end
+
+    respond_with(@event)
+
+
+  end
+
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
@@ -174,9 +187,12 @@ class EventsController < ApplicationController
          format.js   { render action: 'event-success', status: :created, location: dashboard_event_path(:event => @event.id) }
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
-         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings' }
-         format.js
-         format.json { render json: @event.errors, status: :unprocessable_entity }
+        #  format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings' }
+
+        # # added:
+        format.js   { render json: @event.errors, status: :unprocessable_entity }
+        format.js { render action: 'event-fail', status: :created, location: dashboard_event_path(:event => @event.id) }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -199,7 +215,6 @@ class EventsController < ApplicationController
 
   def export_events
 
-     logger.debug "what up duddee"
      @event = Event.find_by_slug(params[:slug])
 
      @calendar = Icalendar::Calendar.new

@@ -1,6 +1,7 @@
 
  <%= form_for(@event, remote: true, url: event_path(@event)) do |f| %>
   <% if @event.errors.any? %>
+
     <div class="alert error">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
@@ -155,6 +156,31 @@
 
 
 
+
+// $('#event_slug').focusout(function() {
+//   $.getJSON('/check-slug', { slug: $('#event_slug').val() }, function(data) {
+//     // The data should tell you if its unique or not, you do something
+//     // here depending on response 
+//     alert(JSON.stringify(data));
+//   });
+// });
+// 
+// 
+// # New Client
+$(".edit_event").on("ajax:success", function(e, data, status, xhr) {
+
+}).on("ajax:error", function(e, data, status, xhr) {
+  alert('ajax error');
+
+var alertHTML = '<label id="event_slug-error" class="error" for="event_slug">Custom url name has already been taken. Please choose another</label>';
+
+  $(alertHTML).insertAfter($('#event_slug'));
+
+
+
+
+  // return $("#step-clients form").render_form_errors('client', data.responseJSON);
+});
 
 
 

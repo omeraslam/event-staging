@@ -1,10 +1,16 @@
 class UserMailer < ActionMailer::Base
+  include Devise::Mailers::Helpers
   default from: "EventCreate Team <hello@eventcreate.com>"
 
     def welcome_email(user)
         @user = user
         @url = 'https://eventcreate.com/create'
         mail(to: @user.email, subject: 'Welcome to EventCreate')
+    end
+
+    def reset_password_instructions(record, token, opts={})
+      @token = token
+      devise_mail(record, :reset_password_instructions, opts)
     end
 
     def welcome_attendee(attendee, eventurl)

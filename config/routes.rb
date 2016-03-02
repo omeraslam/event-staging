@@ -97,6 +97,8 @@ Rails.application.routes.draw do
   post '/attendees/batch-invite', to: 'attendees#batch_invite'
 
 
+  post '/events/check-slug', to: 'events#check_slug'
+
   post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
  
 
