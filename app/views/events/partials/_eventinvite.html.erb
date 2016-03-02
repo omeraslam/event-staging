@@ -36,13 +36,11 @@
 
 				     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
 			      <!-- close registration if event start time has past -->      
-			      <% if (@event.time_start.nil? && @event.time_start != '') %>
-			       <% if(Time.now.utc.strftime( "%H%M%S%N" ) > @event.time_start.to_time.utc.strftime( "%H%M%S%N" ) &&  DateTime.now.to_date == @event.date_start.to_date) %> 
-			        <div class="btn btn-bordered rsvp open-registration">Registration Closed</div> 
-			      <%  else  %>
-			        <a class="btn btn-bordered rsvp open-registration">Register Now</a>
-			      <% end %>
-			      <% end %>
+		
+
+			
+
+
 			      <!-- registration button end -->
 					</div>
 
@@ -102,7 +100,13 @@
 			  	<p class="event-description"><%= best_in_place @event, :description, :url => update_event_path(@event), as: :textarea %> </p>
 				</div>	
 				<div class="event-action-container">
-					<a class="btn btn-large open-registration">Register Now</a>
+							<% if Date.today < @event.date_start.to_date %>
+			
+			<a class="btn btn-large open-registration">Register Now</a>
+			<% else %>
+			<div class="btn btn-large btn-disabled">Registration closed</div>
+
+			<% end %>
 					<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
 				</div>
 			</div>	
