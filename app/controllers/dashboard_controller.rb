@@ -18,7 +18,7 @@ class DashboardController < ApplicationController
   end
 
   def contacts
-    @contacts = Attendee.where('user_id' => current_user.id).all
+    @contacts = Attendee.where('user_id' => current_user.id.to_s).all
 
   end
 
