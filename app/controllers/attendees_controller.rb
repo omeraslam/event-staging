@@ -115,7 +115,7 @@ class AttendeesController < ApplicationController
     end
 
     respond_to do |format|
-      #format.html { redirect_to dashboard_event_path(:event => @event.id) + '#invites' }
+      #format.html { redirect_to dashboard_event_path(:event => @event.id) + '#invites', notice: 'Invitations sent' }
       format.js   { render action: 'invitation-sent', status: :created, location: dashboard_event_path(:event => @event.id) + '#invites' }    
     end
 

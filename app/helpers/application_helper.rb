@@ -89,5 +89,17 @@ module ApplicationHelper
 
 	end
 
+	def check_registration_status
+		#if number of attendees for event > event registration limit for user
+			# don't allow users to register/close registration
+		# else
+			#if past registration date and time
+				# close registration
+			# else
+				# open registration
+			# end
+		# end
+	end
+
  
 end
