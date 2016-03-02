@@ -76,8 +76,18 @@ module ApplicationHelper
 				content_tag(:div, str+ str2)
 			end 
 
+
 		end
 
+
+
 	end
+
+	def show_attendance(attendee)
+
+		@reply = !attendee.attending.blank? ? (attendee.attending ? 'yes': 'no') : 'not yet replied'
+
+	end
+
  
 end

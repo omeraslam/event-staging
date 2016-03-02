@@ -105,6 +105,10 @@ def check_member_type
   end 
 end
 
+def render_404
+  render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+end
+
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
     return unless request.get? 

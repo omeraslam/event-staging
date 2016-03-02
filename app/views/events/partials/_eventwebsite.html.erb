@@ -39,9 +39,12 @@
 			<div class="event-meta">
 				<i class="icon icon-calendar"></i>
 				<%= show_proper_date(@event, true) %>
+
+			<% if @date_present %>
 	          <div class="event-meta-actions">  
 	            <%=link_to 'Add to calendar', export_events_path %>  
-	          </div>    
+	          </div>  
+	        <% end %>  
 
 			</div>
 			<div class="event-meta">
