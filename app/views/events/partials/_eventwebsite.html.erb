@@ -58,16 +58,17 @@
 	          </div>  
 
 			</div>
+	      <% if( @event.location != '' ) %>
 			<div class="event-meta col">
 				<i class="icon icon-location"></i>
 	      		<%= @event.location_name %> <br>
 				<span class="location"><%= @event.location %></span>
-	      
 	      <div class="event-meta-actions">
 	          <a href="http://maps.google.com/?q=<%= @event.location %>" target="_blank">Get Directions </a>  
 	      </div>
-
 			</div>
+	      <% end %>
+
     	<% if(!@event.host_name.blank?) %>
 		    <div class="event-meta col">
 		      <i class="icon icon-user"></i>
@@ -103,7 +104,7 @@
 		</div>
 	</div>	
 
-	<% if(!@event.location.nil? || @event.location != '' || !@event.location.empty? ) %>
+	      <% if( @event.location != '' ) %>
 	<div class="map-container" >
 		<div id="map"></div>
 		<a class="map-cover" href="http://maps.google.com/?q=<%= @event.location %>" target="_blank"> </a>
