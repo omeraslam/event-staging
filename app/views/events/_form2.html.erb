@@ -44,23 +44,26 @@
 
 
     <div class="event-registration-header">
-      <h2> Select your theme </h2>
+      <h2>What type of event is it?</h2>
       <p> Now, time to give your event some style. </p>
     </div>
     
 
     <div class="list-inline themes">
-      <% @themes.each do |theme| %>
+
+
+    <% @themes.each do |theme| %>
       <a class="theme">
-        <%= f.radio_button :layout_style, theme.slug,  :class => 'theme-radio'%>
+        <% f.radio_button :layout_style, theme.layout_type,  :class => 'theme-radio'%>
         <div class="theme-thumb">
-          <i class="icon icon-check"> </i>
+          <i class="icon icon-<%= theme.icon %>"> </i>
           <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
           <div class="thumb-cover"></div>
         </div>  
-        <h3> <%= theme.slug %> </h3>
-      </a>
+        <h3> <%= theme.name %> </h3>
+      </a> 
       <% end %>  
+
     </div>  
 
 

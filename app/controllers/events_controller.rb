@@ -41,7 +41,7 @@ class EventsController < ApplicationController
       else  
         @user = User.find(@event.user_id)
 
-          image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
+          image_style_array = ['wedding','concert', 'gala', 'party', 'sport', 'other']
           @attendee = Attendee.new
 
 
@@ -53,7 +53,7 @@ class EventsController < ApplicationController
 
           if(!@event.layout_style?)
             @event.layout_id = '1'
-            @event.layout_style = 'cityscape'
+            @event.layout_style = 'default'
           end
 
           respond_with(@attendees, @event)

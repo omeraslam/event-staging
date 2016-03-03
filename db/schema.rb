@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301202505) do
+ActiveRecord::Schema.define(version: 20160303194606) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -69,6 +69,11 @@ ActiveRecord::Schema.define(version: 20160301202505) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "font_type"
+    t.string   "bg_opacity"
+    t.string   "bg_color"
+    t.string   "layout_type"
+    t.string   "icon"
   end
 
   create_table "users", force: true do |t|

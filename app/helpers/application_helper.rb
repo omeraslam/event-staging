@@ -40,7 +40,7 @@ module ApplicationHelper
 		elsif(!event.background_img.nil?)
 			@style_bg = event.background_img 
 		else
-			@style_bg = subdir+ 'cityscape_thumb.jpg'
+			@style_bg = subdir+ 'wedding_thumb.jpg'
 		end
 	end
 

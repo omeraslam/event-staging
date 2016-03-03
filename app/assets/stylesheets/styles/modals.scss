@@ -284,7 +284,7 @@ $brand-primary: #21afbf;
 
 }
 
-.remodal#email-invite-modal {
+.remodal#email-invite-modal, .remodal#image-search-modal {
 	max-width:800px !important;
 
 	.modal-body {
@@ -298,3 +298,10 @@ $brand-primary: #21afbf;
 	}
 
 }
+
+.image-results li {
+	margin: 10px;
+	vertical-align: middle;
+}
+
+

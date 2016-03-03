@@ -8,6 +8,10 @@
 @import "vendor/remodal-default-theme.css.scss";
 @import "vendor/remodal.css.scss";
 
+@import "vendor/minicolors.css.scss";
+@import "vendor/icons.css.scss";
+
+
 
 //variables and core
 @import "styles/variables.scss";
@@ -37,6 +41,7 @@
 @import "styles/event_show_editor.scss";
 
 @import "styles/event_themes.scss";
+@import "styles/event_fonts.scss";
 
 @import "styles/event_emailinvite.scss";
 

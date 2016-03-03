@@ -37,6 +37,7 @@
 		.event-share {
 			position:relative;
 			z-index:999;
+			display:none;
 
 			a {
 				color:#fff;
@@ -216,3 +217,22 @@
 	display:block;
 
 }
+
+
+
+
+
+
+//global mobile layouts
+
+@media screen and (max-width: 980px) {
+ 
+
+	.event-container .event-page h1 {
+		font-size:30px !important;
+		line-height:40px !important;
+	}
+
+
+}
+

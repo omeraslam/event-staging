@@ -111,350 +111,142 @@ body.invite-view {
 
 
 //event editor
-	
-.editor-open .event-editor-container {
-
-	bottom:0;
-
-}	
-	
-
-.editor-open nav ul.signed-in {
-
-	//top:120px;
-
-}	
 
 
-.editor-open {
-	position:relative;
-	//top:120px;
-
-}		
-
-
-.event-editor-container {
-	position:relative;
+.editor-container {
 	transition: bottom .2s ease-in-out;
 	position:fixed;
-	bottom:-120px;
+	bottom:-100px;
 	left:0;
 	width:100%;
+	z-index: 99;
 
+	&.visible {
+		bottom:0;
+	}
 }
 
 
-.event-editor-controls {
 
-	//background:$brand-secondary; 
-	color:#fff;
-	font-size:12px;
-	width:100%;
-	//border-top:1px solid #333;
 
-	
+
+
+
+.tabs {
+
+	position: relative;
+    top: -5px;
+    margin:0 5px;
+
 	&:after {
+	
 		content: "";
 	 	display: table;
 	 	clear: both;
-	
-	}
-
-	a.circle {
-		margin: 14px 4px;
-		background:transparent;
-
-			&.active {
-				background:darken($brand-primary, 20%);
-				color:#fff;
-			}
-		
-
-			&:hover {
-				background:$brand-primary;
-				color:#fff;
-			}
 
 	}
-	
-	.tabs {
-	
+
+	a.tab {
+
+		color: #fff;
+		line-height: 38px;
+		display: inline-block;
+		background:$brand-secondary;
+		padding:10px 20px;
 		float:left;
-		margin-left:10px;
-		margin-bottom:5px;
-		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+		//box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
 
-		a.tab {
 
-			color: #fff;
-    		line-height: 38px;
-    		display: inline-block;
-    		//margin: 14px 10px;
-			background:$brand-secondary;
-			padding:10px 20px;
-			float:left;
+		&.edit-save {
+			float:right;
 
-    		i {
-			   	font-size: 20px;
-			    position: relative;
-			    top: 4px;
-    		}
-
-    		&.active {
-				color:$brand-primary;
+		}
+		&#save {
+			background:$brand-primary;
+			
+			&:hover {
+				color:#fff;
+				background:darken($brand-primary, 10%);
+	
 			}
+		}
 		
+		&#discard {
+			background:darken($brand-primary, 3%);
+
 
 			&:hover {
-				color:$brand-primary;
+				color:#fff;
+				background:darken($brand-primary, 10%);
+
 			}
-
-			span {
-				display:none;
-			}
-		
-		}
-
-		.view-switcher {
-			padding: 14px 20px;
-			display:inline-block;
-			background:rgba(255,255,255,.1);
-	  		color:#fff;
-  			border:1px solid rgba(255,255,255,.1);
-  			float: left;
-    		margin: 12px;
-
-    		color: #fff;
-
-    		//fix this later	
-		    font-size: 12px;
-		    font-weight: 600;
-		    position:relative;
-		    cursor:pointer;
-
-
-    		&:hover {
-    			background:$brand-primary;
-    			color:#fff;
-    		}	
-
-
-
-
-
-
-
-
-
-		}
-
-	
-	}
-	
-	.actions {
-		float:right;
-
-	
-		a {
-			
-			
-			&#save {
-				margin: 10px;
-			
-			} 
-
-
-			&#close {
-				padding:12px 10px;
-
-			
-			} 		  
-		  &.secondary {
-		  	background:rgba(33, 175, 191,.8);
-		  
-		  }
-
 		}	
-		
-		
+
+
+		i {
+		   	font-size: 20px;
+		    position: relative;
+		    top: 4px;
+		}
+
+		&.active {
+			color:$brand-primary;
+		}
+	
+
+		&:hover {
+			color:$brand-primary;
+		}
+
+		span {
+			display:none;
+		}	
+
+
 	}
-	
-	
 }
+
+
+
+
+	
+
 	
 	
 
 	
-.event-editor	{
+.editor-tools	{
 
 	background:$brand-secondary;
-	height:120px;
-	overflow:hidden;
-	//-webkit-box-shadow: inset 0px 8px 37px -5px rgba(0,0,0,0.6);
-	//-moz-box-shadow: inset 0px 8px 37px -5px rgba(0,0,0,0.6);
-	//box-shadow: inset 0px 8px 37px -5px rgba(0,0,0,0.6);
+	height:100px;
 	width:100%;
-	
-	
-	
-	
-	.event-editor-design {
-	
-		display:none;
-		
-		&.active {
-			display:block;
-		
-		}
-		
-		a {
-			width:16.6666666666666%;
-			color:#fff;
-			font-size:10px;
-			line-height:20px;
-			
-			&:hover {
-				background:#21afbf;
-			
-			}
-					
-		}
-		
 
-		
-		img {
-			display:block;
-			height:100%;
-			width:auto;
-			margin:0 auto;
-			height:80px;
-		
-		}
-	
-	} 
-	
-	
-	
-	.event-editor-background {
-		
-		//display:none;
-		
-		a {
-			opacity:1;
-			width:20%;
-
-			
-			.image {
-			
-				min-height:70px;
-				height:70px;
-				height:70px;
-				-webkit-background-size: cover;
-				-moz-background-size: cover;
-				-o-background-size: cover;
-				background-size: cover;
-    			background-position: 50% 50%;
-				
-			
-			}
-			img {
-				width:100%;
-				height:auto;
-			
-			
-			}
-			
-			
-			&.upload {
-			
-			
-			
-			}
-		
-		}
-		
-		
-		
-		
-		&.active {
-				display:block;
-			
-		}		
-	
-		.upload {
-			border:1px dotted #21afbf;
-			display:block;
-			width:100%;
-			height:70px;
-		
-		}
-	
-	}
-	
-	
-	
-	
-	
-	.event-editor-share {
-		
+	.editor-tool {
 		display:none;
-	
-		&.active {
-			display:block;
-		
-		}		
-	
-	
 	}
-	
-	
 	
 	a {
-	
 		color:#fff;
-		//font-size:10px;
-		line-height:26px;
-		opacity:0;
 		width:33.3333333333%;
+		height:100px;
 		float:left;
 		display:block;
-		//color:#fff;
 		text-align:center;
-		padding:20px;
-		min-height:120px;
-		
 		
 		&:hover {
-			background:#21afbf;
-			color:#fff;
-		
+			background:$brand-primary;
 		}
-		
-
 	
-			
-		input {
-			margin-top: 10px;
-		    padding: 10px;
-		    font-size: 14px;
-		    color: #444;
-		    width: 80%;
-		    display: block;
-		    margin: 0 auto;
-
-		}
 		
 		i {
 			display:block;
 			font-size:40px;
-		
 		}
-		
-		
-		
-		
-		
-	
+	}
+
+	#editor-tool-font a {
+
+		width:16.666666666%;
 	}
 
 }
@@ -463,59 +255,12 @@ body.invite-view {
 	
 	
 
-.event-editor-background {
-
-
-	a {
-	
-		color:#fff;
-		font-size:10px;
-		line-height:26px;
-		opacity:0;
-		width:33.3333333333%;
-		float:left;
-		display:block;
-		//color:#fff;
-		text-align:center;
-		padding:20px;
-		min-height:120px;
-		
-	
-
-	
-			
-		input {
-		    font-size: 14px;
-		    width: 150px;
-		    margin-top: -18px;
-
-		}
-		
-	
-		
-		
-		
-		
-		
-	
-	}
-
-	
-
-
-}
 
 
 
 
 
 
-.upload {
-	background-color: #000;
-
-    background-size: cover;
-    background-position: center center;
-}
 
 .event-editor-container {
     z-index: 9999;
@@ -534,8 +279,8 @@ body.invite-view {
 	
     }
 
-    .cityscape.image {
-		background-image:url(themes/cityscape_thumb.jpg) !important;
+    .default.image {
+		background-image:url(themes/wedding_thumb.jpg) !important;
 	
     }
 
@@ -558,6 +303,12 @@ body.invite-view {
 
     }
 }
+
+
+
+
+
+
 
 #custom-image {
 	position: relative;
@@ -600,10 +351,81 @@ body.invite-view {
 
 
 
+.upload-container {
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+
+	.upload {
+		width:100%;
+		height:100%;
+		margin:0 auto;
+		border:2px dotted rgba(255,255,255,.4);
+		top: 2.5%;
+    	position: relative;
+    	opacity:0;
+    	-webkit-transition: all .5s ease;
+   		transition: all .5s ease;
+   		background:none !important;
+   		visibility:hidden;
+
+    	&.visible {
+    		width:97%;
+			height:95%;
+			opacity:1;
+			visibility:visible;
+    	}
+
+	}
+}
 
 
 
 
+.slider {
+
+	display:inline-block;
+
+	#slider {
+		
+		width:200px;
+		background:rgba(255,255,255,.4);
+		height:10px;
+		position:relative;
+
+		span {
+
+			width:20px;
+			height:20px;
+			background:$brand-primary;
+			position:absolute;
+			top:-5px;
+			cursor:pointer;
+
+		}
+
+
+	}
+
+}
+
+
+.color-picker {
+	display:inline-block;
+	position:relative;
+
+	#color {
+		width:20px;
+		height:20px;
+	}
+}
+
+
+.cp-color-picker {
+	z-index:9999999;
+}
 
 
 

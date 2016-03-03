@@ -42,6 +42,6 @@ class ThemesController < ApplicationController
     end
 
     def theme_params
-      params.require(:theme).permit(:name, :slug, :active)
+      params.require(:theme).permit(:name, :slug, :active, :font_type, :bg_color, :bg_opacity, :layout_type, :icon)
     end
 end

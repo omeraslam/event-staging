@@ -160,7 +160,7 @@ hr {
 
 
 nav {
-	padding:40px 70px 0 70px;
+	padding:30px 40px 0 40px;
 	position:absolute;
 	width:100%;
 	z-index:10;
@@ -806,46 +806,6 @@ a.circle {
       color: #000;
     }
 
-@media screen and (max-width: 768px) {
-  #home {
-    h1 {
-      font-size: 6em;
-      line-height: 1em;
-    }
-  }
-
-   .sessions, .registrations {
-
-    nav {
-
-        padding: 20px;
-
-    }
-
-      form {
-        width: 100%;
-      }
-  }
-
-}
-
-@media screen and (max-width: 640px) {
-  // .pages .logo {
-  //   background-size: cover;
-  //   width: 50px;
-
-  // }
-}
-
-@media screen and (max-width: 400px) {
-  .event-registration {
-      .actions {
-    left: 30%;
-  }
-
-  }
-
-}
 
 .event-registration select {
 
@@ -897,93 +857,6 @@ input[name="event[style_id]"] {
     width: 100px;
   }
 
-@media screen and (max-width: 415px) {
-
-
-.sessions, .registrations {
-
-  background-size: initial;
-}
-
-  nav ul a {
-       padding: 10px;
-    
-  }
-
-  nav {
-    padding: 100px 20px;
-  }
-  .event-info {
-    padding: 0 20px;
-  }
-  .events nav {
-    padding-top: 30px;
-  }
-  .pages {
-    nav {
-      padding: 30px 20px;
-
-    }
-    .container {
-      padding: 60px 20px 40px;
-    }
-  }
-
-  #home,  {
-    .container {
-      padding-bottom: 20px;
-    }
-    h1 {
-      font-size: 4em;
-      width: 100%;
-      margin-bottom: 20px;
-
-    }
-  }
-
-  .hidden-sm {
-    display: none;
-  }
-  .container {
-
-    h1 {
-      margin: 40px 0;
-      font-size: 3em;
-      line-height: 1em;
-    }
-    padding: 120px 20px 40px;
-    height: auto;
-  }
-  .events-list .event .image {
-    width: 100%;
-    background-size: cover;
-    background-position: center center;
-    
-  }
-
-  .event-registration {
-    .field {
-      padding: 120px 0;
-    }
-    form {
-      textarea {
-        height: 100px;
-      }
-      width: 80%;
-    }
-    padding: 0;
-
-
-    .field label.error {
-      position: static;
-      padding: 10px 30px;
-    }
-    .description-example {
-      display: none;
-    }
-  }
-
-}
 
 
 .ui-timepicker-selected {
@@ -1143,3 +1016,19 @@ input[name="event[style_id]"] {
 	
 	}
 }
+
+
+
+//global mobile layouts
+
+@media screen and (max-width: 980px) {
+ 
+ .col {
+  float:none !important;
+  width:100% !important;
+ }
+
+
+
+}
+

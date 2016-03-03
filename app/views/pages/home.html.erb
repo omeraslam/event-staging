@@ -1,6 +1,18 @@
 <div class="hero" id="home">
 
- 	<div class="screens-container">
+
+ 	<div class="hero-content hero-content-left col">
+		<h1> beautiful event websites</h1>
+		<p>Build a professional event website in less than 30 seconds.</p>
+	 	<% if @is_premium != 'active' && @disable_create %>
+			<%= link_to 'Try for free now &rarr;'.html_safe, upgrade_path, :class => 'btn btn-large open-upgrade'  %> 
+		<% else %>
+			<%= link_to 'Try for free now &rarr;'.html_safe, create_path, :class => 'btn btn-large'  %> 
+	 	<% end %>	 	 	
+	</div>
+
+
+ 	<div class="screens-container col" >
 	 	<div class="screen"> 
 	 		<div class="screen-nav">
 	 			<div class="button"></div>
@@ -19,36 +31,25 @@
  	</div>
 
 
- 	<div class="hero-content hero-content-left">
-		<h1> beautiful event websites and invites</h1>
-		<p>EventCreate is the easiest way to create dazzling event websites for conferences, parties or any occasion  </p>
-	 	<% if @is_premium != 'active' && @disable_create %>
-			<%= link_to 'Try for free now &rarr;'.html_safe, upgrade_path, :class => 'btn btn-large open-upgrade'  %> 
-		<% else %>
-			<%= link_to 'Try for free now &rarr;'.html_safe, create_path, :class => 'btn btn-large'  %> 
-	 	<% end %>	 	 	
-	</div>
-
-
 </div>
 
 
 
 <div class="product-feature-container">
 
-	<div class="product-feature">
+	<div class="product-feature col">
 		<i class="icon icon-line-computer"> </i>
 		<h2>enterprise level  software </h2>
 		<p>Beautiful websites and invites built on enterprise-level event management software, so all the tools you need are fully-baked in. <br> <a href="#"> Learn more</a> </p>	
 	</div>
 
-	<div class="product-feature">
+	<div class="product-feature col">
 		<i class="icon icon-line-chart"> </i>
 		<h2>  0% processing fees </h2>
 		<p>Selling tickets, or collecting payments? EventCreate has zero processing fees. Zero. It's that simple.  <br> <a href="#"> Learn more</a></p>	
 	</div>
 
-	<div class="product-feature">
+	<div class="product-feature col">
 		<i class="icon icon-line-email"> </i>
 		<h2> 24/7 customer support</h2>
 		<p>Award-winning customer support is available 24/7 to answer questions and help make your event a success.<br> <a href="#"> Learn more</a> </p>	

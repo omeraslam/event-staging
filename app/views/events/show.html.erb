@@ -26,6 +26,11 @@
   <%= render 'dashboard/eventsuccessmodal' %>
 </div>
 
+
+
+<script src="/assets/vendor/jquery.minicolors.min.js"></script>
+
+
 <script type="text/javascript">
 
 $( document ).ready(function() {
@@ -123,6 +128,11 @@ $( document ).ready(function() {
       });
     });
 
+
+
+
+
+
   //confirmation  modal
   var confirmationModal = $('#attendee-confirmation-form').remodal();
     
@@ -130,63 +140,185 @@ $( document ).ready(function() {
 
 
 
-
+  //UI for navigation panel
   $('.toggleEditorPanel').click(function() {
 
-    var target = $(this).attr("id");
-    var linkActive = $("." + target).hasClass('active');    
-    var panelOpen = $('body').hasClass('editor-open');
+   var active = $(this).hasClass('active');
+   var target = $(this).data('target');
+   $('.toggleEditorPanel.active').removeClass("active");
 
-    
-    if (linkActive == false && panelOpen == false) {
-      $('body').addClass('editor-open'); 
-      
-      $(this).addClass('active')
-      $("." + target).addClass('active')
-      
-      $("." + target + " a").each(function(i) {
-        $(this).delay((i++) * 50).fadeTo(100, 1); 
-      });
-      
+    if (!active) {
+
+      $(".editor-tool").hide();
+      $(".editor-tool#" + target).show();
+      $(this).addClass("active");
+      $(".editor-container").addClass("visible");
+
+    } else {
+
+      $(this).removeClass("active");
+      $(".editor-container").removeClass("visible");
 
     }
-    else if (linkActive == false && panelOpen == true) {
-      console.log('link active false');
-
-      $('.toggleEditorPanel').removeClass('active');
-      $(this).addClass('active');
-
-
-      $('.event-editor-container .active a').each(function(i) {
-        $(this).delay((i++) * 50).fadeTo(100, 0); 
-      });
-      
-      $('.event-editor-container .active').removeClass('active');
-      
-      $("." + target).addClass('active');   
-      
-      $("." + target + " a").each(function(i) {
-       $(this).delay((i++) * 50).fadeTo(100, 1); 
-     }); 
-      
-    }
-    else if (linkActive == true && panelOpen == true) {
-     console.log('link active true');
-
-     $(this).removeClass('active')
-
-     $('body').removeClass('editor-open');       
-     $('.event-editor-container .active a').each(function(i) {
-      $(this).delay((i++) * 50).fadeTo(100, 0); 
-    });
-
-     $('.event-editor-container .active').removeClass('active');
-
-
-   } 
-
 
  });
+
+
+
+  //set current page editor variables
+  var currentFont = "brandon";
+  var currentBgOpacity = ".5";
+  var currentBgColor = "#222";
+
+  var newFont;
+  var newBgOpacity;
+  var newBgColor;
+
+  var tempFont = currentFont;
+
+  var changesExist = false;
+
+
+  function requestEdit(feature) {
+
+    if(feature.bgOpacity) {
+        newBgOpacity = feature.bgOpacity; 
+        if (newBgOpacity != currentBgOpacity) {
+            console.log("opacity change");
+            $(".edit-save").fadeIn();
+            changesExist = true;
+
+        }
+    }
+
+
+    if(feature.bgColor) {
+        newBgColor = feature.bgColor; 
+        if (newBgColor != currentBgColor) {
+            console.log("color change");
+            $(".edit-save").fadeIn(); 
+            changesExist = true;
+
+        }
+    }
+
+
+    if( feature.font) {
+        console.log(feature.font);
+        newFont = feature.font; 
+        if (newFont != currentFont) {
+            console.log("font change");
+            $(".edit-save").fadeIn(); 
+            changesExist = true;
+
+        }
+    }    
+
+  }
+
+
+  //backgroud opacity slider
+    $(function() {
+      $( "#slider" ).slider({
+        slide: function( event, ui ) { 
+          var percentage = ui.value/100;
+          $(".event-page .overlay").css("opacity", percentage);
+          requestEdit({bgOpacity:percentage});
+        }
+      });
+    });
+
+  //background color picker
+    $('input#color').minicolors({ 
+      position: 'top right', 
+      change: function(value, opacity) {
+          $(".event-page .overlay").css("background-color", value);
+          requestEdit({bgColor:value});
+
+      }
+   });
+
+  //change font
+  $('.font').click(function() {
+      var target = $(this).data('target');
+      $('.event-container').removeClass(tempFont); 
+      $('.event-container').addClass(target); 
+      requestEdit({font:target});
+      tempFont = target;
+
+ });
+
+
+
+  // save button 
+  $('#save').click(function(e) {
+    e.preventDefault();
+    $(".editor-container").removeClass("visible");
+    $(".tab.active").removeClass("active");
+    $(".edit-save").fadeOut();
+    saveChanges();
+  });
+
+
+  // discard changes 
+  $('#discard').click(function(e) {
+    
+    $(".editor-container").removeClass("visible");
+    $(".tab.active").removeClass("active");
+    $(".edit-save").fadeOut();
+    
+    $('.event-container').removeClass(newFont); 
+    $('.event-container').removeClass(tempFont); 
+    $('.event-container').addClass(currentFont); 
+
+    $(".event-page .overlay").css("opacity", currentBgOpacity);
+    $(".event-page .overlay").css("background-color", currentBgColor);
+
+    newFont = null;
+    newBgOpacity = null;
+    newBgColor = null;
+
+    changesExist = false;
+
+
+  });
+
+
+
+
+
+  //warning before leave page
+  window.onbeforeunload = function(e) {
+    if(changesExist) {
+      return 'You have unsaved pages. Do you want to leave this page without saving?';
+    }
+  };
+
+  function saveChanges() {
+    $.ajax({
+      type: 'POST',
+        url: String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post', //testing
+        data: {event:{layout_id: layout, layout_style: theme}}
+      }).done(function(data){
+        console.log(data);
+        $('#layout_style').val(theme);
+        changesExist = false;
+
+      });
+    }
+
+  });
+
+
+
+
+
+
+
+
+
+
+
 
 
   //LOAD THE THEME AND CONSTRUCT
@@ -229,31 +361,11 @@ $( document ).ready(function() {
 
   });
 
-  // save button 
-  $('#save').click(function(e) {
-    e.preventDefault();
-    saveTheme();
-  });
 
-  //warning before leave page
-  window.onbeforeunload = function(e) {
-    if($('#layout_style').val() !== theme) {
-      return 'You have unsaved pages. Do you want to leave this page without saving?';
-    }
-  };
 
-  function saveTheme() {
-    $.ajax({
-      type: 'POST',
-        url: String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, layout_style: theme}}
-      }).done(function(data){
-        console.log(data);
-        $('#layout_style').val(theme);
-      });
-    }
 
-  });
+
+
 
     var emailInviteModal = $('#email-invite-modal').remodal();
   
