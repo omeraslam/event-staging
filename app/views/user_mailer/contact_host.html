@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/bf60a8d1-1e05-4ef0-bc32-3edaef6da022.css"/>
+<link href='https://fonts.googleapis.com/css?family=Muli:400,400italic' rel='stylesheet' type='text/css'>
 </head>
-<body>
-  <p>A message from <%= @name %> for the event: <strong> <%= @event.name %></strong>:</p>
 
-  <p><%= @message %></p>
+<body style="padding: 0; margin: 0; background-color: #fff; color: #333; font-family: 'AvenirNextLTW01-Regular', 'Muli', sans-serif;" bgcolor="#fff"> 
+<table cellpadding="0" cellspacing="0" class="wrapper" style="width: 100%; background-color: #fff;" bgcolor="#fff"> 	
+
  
+
+<!--MAIN BODY-->
+  	<tr>  
+  	<td>
+  			<table cellpadding="0" cellspacing="0" class="body-wrapper" align="center" style="width: 100%; max-width: 600px; background-color: #fff; text-align: left;" bgcolor="#fff">
+  			
+  			
+	  			<tr> 
+	  				<td style="width: 100%; text-align: center; padding-top:40px; padding-bottom:30px;">		
+	  					<a href="https://www.eventcreate.com"><img src="https://www.eventcreate.com/assets/emails/eventcreate_logo_simple.png"></a>
+	  				</td>
+	  			</tr>
+
+
+	  			<tr> 
+	  				<td style="width: 100%; text-align: left; padding-top:40px; padding-bottom:40px; padding-left:20px; padding-right:20px; color:#888888; font-size:14px; line-height:20px;">			
+						Hi there!<br><br>
+						You got mail! Sorry, that was lame. Well anyways, we wanted to let you know that you've recieved a message or question about your event, <%= @event.name %>. 
+	  				</td>
+	  			</tr>
+
+
+	  			<tr> 
+	  				<td style="width: 100%; text-align: left; padding-top:40px; padding-bottom:40px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; color:#444444; font-size:16px; line-height:26px; padding-left:20px; padding-right:20px;">			
+						<%= @message %>
+	  				</td>
+	  			</tr>
+ 					
+
+	  			<tr> 
+	  				<td style="width: 100%; text-align: left; padding-top:40px; padding-bottom:80px; color:#888888; font-size:14px; line-height:20px; padding-left:20px; padding-right:20px;">			
+						Thank you,<br>
+						EventCreate<br>
+						If you have feedback or questions, please <a style="color:#21afbf" href="https://www.eventcreate.com/contact">contact us!</a>
+	  				</td>
+	  			</tr>
+
+
+
+  			</table>		
+  	
+  	 
+  	</td>
+  	</tr>
+<!--END MAIN BODY-->
+
+
+
+
+<!--FOOTER -->
+  	<tr>  
+  	<td>
+  			<table cellpadding="0" cellspacing="0" class="body-wrapper" align="center" style="font-size: 11px; color: #999; width: 100%; text-align: center; background-color:#ebedf0;" bgcolor="#ebedf0">
+  			
+  			
+					<tr>
+						<td class="footer" style="padding-top: 40px; padding-bottom: 10px; padding-left:20px; padding-right:20px;">
+							EventCreate is the world's best platform for creating beautiful event websites. <br>If you have any feedback, we'd love to hear from you, so please feel free to contact us.
+						</td>	
+					</tr>	
+
+					<tr>
+						<td style="padding-top: 10px; padding-bottom: 40px; padding-left:20px; padding-right:20px;">
+							© EventCreate, 2015 | 	<a href="#" style="color: #999;">Unsubscribe </a>
+						</td>	
+					</tr>	
+
+  			</table>		
+  	
+  	 
+  	</td>
+  	</tr>
+<!--END FOOTER-->
+
+
+
+
+    
+</table>     
 </body>
 </html>
