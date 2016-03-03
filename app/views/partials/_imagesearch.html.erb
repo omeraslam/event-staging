@@ -1,0 +1,75 @@
+<!--link modal-->
+<div id="image-search-modal"> 
+
+	    <button data-remodal-action="close" class="remodal-close"></button>
+	    <div class="modal-header">
+	    	<i class="icon icon-line-share"> </i>
+		    <h2>Search for Background Images</h2>
+		    <p>  
+		      Find an image to replace your current background photo:
+		    </p>
+	    </div>
+	    <div class="modal-body">
+
+	    	<div class="input-group"> 
+	    		<input type="text" placeholder="Enter a search term" value="" id="bgSearchTerm" >
+	    	</div>
+
+            <input class="search-btn btn" value="find images" />
+            <div class="image-results"><ul></ul></div>
+	    </div>
+</div>
+<!-- END modal -->
+
+
+
+<!-- UNSPLASH API FUNCTIONS -->
+
+<script>
+
+$(document).ready(function(){
+
+	//modal
+    var imageModal = $('#image-search-modal').remodal();
+  
+    $('.open-image-modal').click(function(e){
+        e.preventDefault();
+        imageModal.open();
+    });
+
+    $('.search-btn').on('click', function(e) {
+        e.preventDefault();
+        var searchTerm = $('#bgSearchTerm').val();
+        var url = String(window.location.href).replace('?first=true', '').replace('#', '') + '/unsplash-search';
+
+        $.ajax({
+              url: url,
+              data: {searchTerm: searchTerm},
+              success: function(data) {
+                var photoArray = [];
+
+                $('.image-results ul').empty();
+
+                for(var i=0;i<data.length;i++) {
+                    var list_image = '<li><img src="'+ data[i].attributes.table.urls.thumb +'"/></li>';
+                    photoArray.push(data[i].attributes.table.urls.full);
+
+                    $('.image-results ul').append(list_image);
+                }
+                $('.image-results ul li').off('click');
+                $('.image-results ul li').on('click', function(e) {
+                    e.preventDefault();
+                    $('.event-page').attr('style','background-image: url('+photoArray[$(this).index()]+') !important' );
+                })
+
+              },
+              fail: function(data) {
+                $('.image-results ul').append('<li>No results found</li>')
+              }
+        });
+
+    });
+      
+});
+
+</script>

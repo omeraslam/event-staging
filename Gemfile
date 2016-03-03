@@ -25,6 +25,8 @@ gem 'sitemap_generator'
 
 gem 'icalendar'
 
+gem 'unsplash'
+
 
 #s3 set up
 #gem 'aws-sdk', '~> 2'

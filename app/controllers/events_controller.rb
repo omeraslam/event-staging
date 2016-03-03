@@ -101,6 +101,28 @@ class EventsController < ApplicationController
 
   end
 
+  def unsplash_search
+
+    @search_results = Unsplash::Photo.search(params[:searchTerm])
+
+    render json: @search_results
+
+    # respond_to do |format|
+    #   if @event.update(event_params)
+    #     format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
+    #     format.js
+    #     format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
+    #   else
+
+    #     logger.debug "no save"
+    #     #format.html { render :edit }
+    #     #format.json { render json: @event.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+
+  end
+
 
   # GET /events/new
   def new
