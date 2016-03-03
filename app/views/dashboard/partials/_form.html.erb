@@ -1,5 +1,5 @@
 
- <%= form_for(@event, remote: true, url: event_path(@event)) do |f| %>
+ <%= form_for(@event,  url: event_path(@event)) do |f| %>
   <% if @event.errors.any? %>
 
     <div class="alert error">
@@ -158,10 +158,13 @@
 
 
 // $('#event_slug').focusout(function() {
-//   $.getJSON('/check-slug', { slug: $('#event_slug').val() }, function(data) {
+//   alert('sdfaf');
+//   $.getJSON('/events/griffith-park-ride-nope', { slug: $('#event_slug').val() }, function(data) {
 //     // The data should tell you if its unique or not, you do something
 //     // here depending on response 
-//     alert(JSON.stringify(data));
+//    var alertHTML = '<label id="event_slug-error" class="error" for="event_slug">Custom url name has already been taken. Please choose another</label>';
+
+//     $(alertHTML).insertAfter($('#event_slug'));
 //   });
 // });
 // 

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   after_filter :store_location
   before_action :check_member_type
+  add_flash_types :event_success
   
 
   helper :all

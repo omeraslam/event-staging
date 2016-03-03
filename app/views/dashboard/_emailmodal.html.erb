@@ -14,7 +14,7 @@
 	    </div>
 
 	    <div class="modal-body">
-	    <%= form_for @attendee,  :url => {:action => "batch_invite", :controller => 'attendees'}, :method => "post" do |f| %>
+	    <%= form_for @attendee, remote: true,  :url => {:action => "batch_invite", :controller => 'attendees'}, :method => "post" do |f| %>
 
 	    	<table> 
 	    	<thead>
@@ -120,7 +120,7 @@ $(document).ready(function(){
     	var current_email = $('input[name="attendee[email_address]"]').val();
 
     	var rowHTML = '<tr><td>'+ current_fname +'</td><td>'+ current_lname +'</td><td>'+ current_email +'</td><td class="row-actions">  <a class="delete-btn" href="">remove</a>  </td></tr>';
-    	$(rowHTML).insertBefore($('table tbody tr:last-child'));
+    	$(rowHTML).insertBefore($('#email-invite-modal tbody tr:last-child'));
 
     	// $('.edit-btn').on('click', function() {
 
@@ -183,7 +183,6 @@ $(document).ready(function(){
             ];
 
             var tableObject = $('#email-invite-modal tbody tr:not(.disabled)').map(function (i) {
-            	console.log('i: '+ i);
             	if(i< ($('#email-invite-modal tbody tr:not(.disabled)').length-1)) {
     	        	var row = {};
     	            $(this).find('td').each(function (i) {
