@@ -1,0 +1,38 @@
+<div>
+  <% flash.each do |key, value| %>
+    <div class="ec-notification">
+    <div class='ec-notification-close remodal-close'></div>
+    <div class='ec-notification-content'><p>
+      <%= value %>
+    </p></div>
+     <% if flash_class(key) == 'ec-success' %>
+     <img src="http://i.giphy.com/Hc8PMCBjo9BXa.gif" />
+     <% end %>
+
+    </div>
+  <% end %>
+</div>
+
+
+
+<script type="text/javascript">
+  
+$(document).ready(function() {
+    window.setTimeout( function() {
+      $(".ec-notification").addClass("visible");
+      $(".ec-notification-close").bind( "click", function() {
+          $(this).parent(".ec-notification").removeClass("visible");
+      });
+
+
+      window.setTimeout( function() {
+        $(".ec-notification").removeClass("visible");
+      }, 4000);
+
+    }, 100);
+
+});
+
+
+
+</script>

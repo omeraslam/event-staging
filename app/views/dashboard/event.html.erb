@@ -1,5 +1,7 @@
 <% eventurl = "www.eventcreate.com" + (url_for slugger_path(@event)) %>
 
+
+
 <!--START event navigation-->
 <div class="event-header container"> 
 
@@ -64,8 +66,10 @@
 
 </div>
 
-
 <%= render 'dashboard/partials/subnav' %>
 <%= render 'dashboard/emailmodal' %>
 <%= render 'partials/linkmodal' %>
+
+
+<%= render 'layouts/flash_messages' %>
 

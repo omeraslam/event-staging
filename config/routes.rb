@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
 
 
+
   resources :urls, only: [:new, :create]
 
   resources :attendees
@@ -97,7 +98,11 @@ Rails.application.routes.draw do
   post '/attendees/batch-invite', to: 'attendees#batch_invite'
 
 
+  post '/events/check-slug', to: 'events#check_slug'
+
   post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
+
+
  
 
 
@@ -110,6 +115,8 @@ Rails.application.routes.draw do
   post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
 
   put '/:slug/updatetheme', to: 'events#update_theme'
+
+  get '/:slug/unsplash-search', to: 'events#unsplash_search'
 
 
 end

@@ -15,5 +15,30 @@
   <%= @theme.active %>
 </p>
 
+<p>
+  <strong>default font:</strong>
+  <%= @theme.font_type %>
+</p>
+
+<p>
+  <strong>Default BG Opacity:</strong>
+  <%= @theme.bg_opacity %>
+</p>
+
+<p>
+  <strong>Default Bg Color:</strong>
+  <%= @theme.bg_color %>
+</p>
+
+<p>
+  <strong>Default Icon:</strong>
+  <%= @theme.icon %>
+</p>
+
+<p>
+  <strong>Default Layout Type:</strong>
+  <%= @theme.layout_type %>
+</p>
+
 <%= link_to 'Edit', edit_theme_path(@theme) %> |
 <%= link_to 'Back', themes_path %>

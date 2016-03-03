@@ -41,7 +41,7 @@ class EventsController < ApplicationController
       else  
         @user = User.find(@event.user_id)
 
-          image_style_array = ['cityscape','getloud', 'epic', 'celebrate', 'gallery', 'minimalist']
+          image_style_array = ['wedding','concert', 'gala', 'party', 'sport', 'other']
           @attendee = Attendee.new
 
 
@@ -53,7 +53,7 @@ class EventsController < ApplicationController
 
           if(!@event.layout_style?)
             @event.layout_id = '1'
-            @event.layout_style = 'cityscape'
+            @event.layout_style = 'default'
           end
 
           respond_with(@attendees, @event)
@@ -101,6 +101,28 @@ class EventsController < ApplicationController
 
   end
 
+  def unsplash_search
+
+    @search_results = Unsplash::Photo.search(params[:searchTerm])
+
+    render json: @search_results
+
+    # respond_to do |format|
+    #   if @event.update(event_params)
+    #     format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
+    #     format.js
+    #     format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
+    #   else
+
+    #     logger.debug "no save"
+    #     #format.html { render :edit }
+    #     #format.json { render json: @event.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+
+  end
+
 
   # GET /events/new
   def new
@@ -139,6 +161,9 @@ class EventsController < ApplicationController
     @event = Event.all.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
+
+    logger.debug "#{@event.layout_style}"
+
     #@event.slug = @event.name.downcase.gsub(" ", "-")
 
 
@@ -161,6 +186,19 @@ class EventsController < ApplicationController
     end
   end
 
+  def check_slug
+
+    @event_exists = Event.exists?( slug: params[:slug])
+
+    if @event_exists
+      flash[:notice] = 'Task was successfully created.' 
+    end
+
+    respond_with(@event)
+
+
+  end
+
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
@@ -170,13 +208,16 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
          #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
-         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', notice: 'Event was successfully updated.'}
+         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', event_success: 'Event details was successfully updated.'}
          format.js   { render action: 'event-success', status: :created, location: dashboard_event_path(:event => @event.id) }
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
-         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings' }
-         format.js
-         format.json { render json: @event.errors, status: :unprocessable_entity }
+        format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', notice: 'Event details was NOT updated =(' }
+
+        # # added:
+         format.js   { render json: @event.errors, status: :unprocessable_entity }
+        format.js { render action: 'event-fail', status: :created, location: dashboard_event_path(:event => @event.id) }
+        #  format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -199,7 +240,6 @@ class EventsController < ApplicationController
 
   def export_events
 
-     logger.debug "what up duddee"
      @event = Event.find_by_slug(params[:slug])
 
      @calendar = Icalendar::Calendar.new
@@ -207,11 +247,9 @@ class EventsController < ApplicationController
      event.dtstart = @event.date_start.to_date.strftime("%Y%m%d") + @event.time_start.to_time.strftime("T%H%M%S")
 
     
-     logger.debug "event dtstart #{@event.date_start.to_date.strftime("%Y%m%d") + @event.time_start.to_time.strftime("T%H%M%S")}"
-     logger.debug "event dtend #{@event.date_end.nil?}"
-     logger.debug "event time #{@event.time_end.to_time}"
+
      event.dtend = ((!@event.date_end.blank?) ? @event.date_end.to_date.strftime("%Y%m%d"): @event.date_start.to_date.strftime("%Y%m%d") ) + (@event.time_end.nil? ? 'T00000': @event.time_end.to_time.strftime("T%H%M%S"))
-     logger.debug "event dtend #{event.dtend}"
+  
      event.summary = @event.name
      event.description = @event.description
      event.location = @event.location
@@ -231,7 +269,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type)
 
 
       date_format = '%m/%d/%Y'

@@ -56,17 +56,15 @@ class AttendeesController < ApplicationController
 
   def batch_invite
 
-    
-
     @event = Event.find_by id: params[:event_id]
     
     guest_list = params[:attendees]
 
     @event_type = '1'
-    # 
+
     @event_url = 'http://eventcreate.com/' +  @event.slug
 
-
+    @host = User.find_by id: @event.user_id.to_i
 
     guest_list.each do |guest_item|
         @attendee = Attendee.new
@@ -81,12 +79,17 @@ class AttendeesController < ApplicationController
         if Attendee.where("user_id = :user_id AND email = :email",
           {user_id: @attendee.user_id.to_s, email: @attendee.email}).present?
 
-            logger.debug "user exists"
+          logger.debug "user exists"
 
-            #user already exists error message
+          #user already exists error message
 
 
           # ...
+        elsif @host.email == @attendee.email
+
+          #email to be added is == to contact host
+          logger.debug "host email ===== attendee email"
+
         else
            
             logger.debug "save new user"

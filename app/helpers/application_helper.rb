@@ -1,5 +1,6 @@
 module ApplicationHelper
 
+
 	#set site title
 	def title(title = nil)
 		if title.present?
@@ -41,6 +42,8 @@ module ApplicationHelper
 		else
 			@style_bg = subdir+ 'cityscape_thumb.jpg'
 		end
+
+		#logger.debug "GIVE ME CITYSCAPE: #{event.layout_style}"
 	end
 
 
@@ -99,6 +102,16 @@ module ApplicationHelper
 				# open registration
 			# end
 		# end
+	end
+
+	def flash_class(level)
+	   case level.to_sym
+	   when :event_success then "ec-success"
+	   when :notice then "alert alert-info"
+	   when :success then "alert alert-success"
+	   when :error then "alert alert-error"
+	   when :alert then "alert alert-error"
+	   end
 	end
 
  

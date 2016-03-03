@@ -52,82 +52,17 @@
     <div class="list-inline themes">
 
 
+    <% @themes.each do |theme| %>
       <a class="theme">
+        <%= f.radio_button :layout_style, theme.layout_type,  :class => 'theme-radio'%>
         <div class="theme-thumb">
-          <i class="icon icon-line-rings"> </i>
-          <img src="assets/themes/wedding_thumb.jpg" />
+          <i class="icon icon-<%= theme.icon %>"> </i>
+          <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
           <div class="thumb-cover"></div>
         </div>  
-        <h3> Wedding </h3>
-      </a>
-
-      <a class="theme">
-        <div class="theme-thumb">
-          <i class="icon icon-line-note"> </i>
-          <img src="assets/themes/concert_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>  
-        <h3> Concert/Show </h3>
-      </a>
-
-
-      <a class="theme">
-        <div class="theme-thumb">
-          <i class="icon icon-line-hands"> </i>
-          <img src="assets/themes/gala_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>  
-        <h3>Fundraiser/ Gala </h3>
-      </a>
-
-
-
-      <a class="theme">
-        <div class="theme-thumb">
-          <i class="icon icon-line-cocktail"> </i>
-          <img src="assets/themes/party_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>  
-        <h3> Party! </h3>
-      </a>
-
-
-      <a class="theme">
-        <div class="theme-thumb">
-          <i class="icon icon-line-trophy"> </i>
-          <img src="assets/themes/sport_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>  
-        <h3> Sporting event </h3>
-      </a>
-
-
-
-      <a class="theme">
-        <div class="theme-thumb">
-          <i class="icon icon-line-balloon"> </i>
-          <img src="assets/themes/other_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>  
-        <h3> Other </h3>
-      </a>
-
-
-
-      <%# @themes.each do |theme| %>
-<!--       <a class="theme">
-        <%# f.radio_button :layout_style, theme.slug,  :class => 'theme-radio'%> -->
-   <!--      <div class="theme-thumb">
-          <i class="icon icon-check"> </i>
-          <img src="assets/themes/<%# theme.slug %>_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>   -->
-  <!--       <h3> <%# theme.slug %> </h3>
-      </a> -->
-      <%# end %>  
-
-
-
+        <h3> <%= theme.name %> </h3>
+      </a> 
+      <% end %>  
 
     </div>  
 
