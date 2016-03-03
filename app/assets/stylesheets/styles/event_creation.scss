@@ -113,7 +113,7 @@
 
 	.theme {
 		display:block;
-		width: 50%; 
+		width: 33.33333333%; 
 		box-sizing:border-box;
 		float: left;
     	padding: 20px;
@@ -126,7 +126,7 @@
 		.theme-thumb {
 		    border-radius:3px;
 		    position:relative;
-		    margin-bottom: 15px;
+		    margin-bottom: 10px;
 
 		    img {
 				width: 100%;
@@ -134,8 +134,8 @@
 		    
 
 		    i.icon {
-			position: absolute;
-			    background: $brand-primary;
+				position: absolute;
+			    background: transparent;
 			    z-index: 1;
 			    color: #fff;
 			    border-radius: 50%;
@@ -143,13 +143,14 @@
 			    height: 80px;
 			    line-height: 80;
 			    line-height: 80px;
-			    font-size: 33px;
+			    font-size: 58px;
 			    left: 50%;
 			    top: 50%;
 			    margin-top: -40px;
 			    margin-left: -40px;
 			    padding-top: 5px;
-				display:none;
+			    display:block;
+				
 			}
 
 			.thumb-cover {
@@ -159,7 +160,7 @@
 				width:100%;
 				height:100%;
 				background:#262B31;
-				opacity:0;
+				opacity:.5;
 
 			}
 
@@ -170,6 +171,10 @@
 			background: rgba(255,255,255,.08);
 		}
 
+
+		h3 {
+		   font-size:14px;
+		}
 		
 
 		&.selected {
@@ -181,6 +186,7 @@
 
 			i.icon {
 				display:block;
+				background:$brand-primary;
 			}
 
 			.thumb-cover {

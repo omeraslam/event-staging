@@ -50,114 +50,115 @@
 
 
 
+ <!--START editor continer-->
 
-<div class="event-editor-container"> 
-
- <!--START CONTROLS-->
- <div class="event-editor-controls" >
-  <div class="tabs">
-   <a class="tab toggleEditorPanel" id="event-editor-design" ><i class="icon icon-image"> </i> <span> Change Theme </span></a>
-   <a class="tab toggleEditorPanel" ><i class="icon icon-camera"> </i> <span> Modify background Image  </span></a> 
- </div>
+<div class="editor-container"> 
 
 
- <div class="actions save-btn" > 
-   <a class="btn" id="save" > save changes </a>        
- </div>
+
+     <!--START CONTROLS-->
+      <div class="tabs">
+       <a class="tab toggleEditorPanel"  style="display:none;" id="event-editor-design" ><i class="icon icon-image"> </i> <span> Change Theme </span></a>
+       <a class="tab toggleEditorPanel" data-target="editor-tool-background" ><i class="icon icon-image"> </i> <span> Modify background Image  </span></a> 
+       <a class="tab toggleEditorPanel"  data-target="editor-tool-font"><i class="icon icon-alpha"> </i> <span> Changes fonts  </span></a> 
+       <a class="tab edit-save"  id="save" style="display:none;"><i class="icon icon-save"> </i> save  </a> 
+
+      <a class="tab edit-save"  id="discard" style="display:none;"><i class="icon icon-replay-back"> </i>  </a> 
+
+     </div>
+    <!--END CONTROLS -->
+
+
+
+<!--start TEMP themes container  -->
+<div class="editor" style="display:none;"> 
+   <div class="event-editor-design" style="display:none;" >
+      <a href="#" class="theme" data-layout="1" data-theme="cityscape" id="cityscape">
+      	<img src="./assets/themes/cityscape_thumb.jpg">
+      </a>  
+  		<a href="#" class="theme" data-layout="1" data-theme="getloud" id="getloud">
+  			<img src="./assets/themes/getloud_thumb.jpg">
+  		</a>  
+  		<a href="#" class="theme" data-layout="1" data-theme="epic" id="epic">
+  			<img src="./assets/themes/epic_thumb.jpg">
+  		</a>  
+  		<a href="#" class="theme" data-layout="1" data-theme="gallery" id="gallery">
+  			<img src="./assets/themes/gallery_thumb.jpg">
+  		</a>  					
+  		<a  class="theme" href="#"  data-layout="1" data-theme="celebrate" id="celebrate">
+  			<img src="./assets/themes/celebrate_thumb.jpg"  >
+  		</a> 
+      <a  class="theme" href="#"  data-layout="1" data-theme="minimalist" id="minimalist">
+        <img src="./assets/themes/minimalist_thumb.jpg"  >
+      </a> 					  
+  </div>
+</div>
+  <!--end TEMP themes container -->
+
+
+
+
+  <!--START THE BG UPLOAD-->
+  <div class="editor-tools" >
+
+
+
+    <div class="editor-tool" id="editor-tool-background">
+
+      <a><i class="icon icon-image"> </i> Upload image (or drag and drop above)</a>
+      <a><i class="icon icon-search"> </i>  Search images </a>
+
+      <div class="right">
+        <div class="slider"> <div id="slider"></div> </div>
+        <div class="color-picker"><input id="color"></div>
+      </div>      
+    </div>  
+
+
+
+
+    <div class="editor-tool" id="editor-tool-font" >
+      <a class="font" data-target="brandon">brandon</a>   
+      <a class="font" data-target="helvetica">helvetica</a> 
+      <a class="font" data-target="sophia">sophia</a>   
+      <a class="font" data-target="futura">futura</a>
+      <a class="font" data-target="gotham">gotham</a>     
+      <a class="font" data-target="freight">freight</a>     
+    </div>  
+
+
+
+
+
+
+
+
+  </div>
+  <!--END BG -->
+
+
+
+
+
+
+
+
+
+
 
 
 
 </div>
-<!--END CONTROLS -->
-
-
-<div class="event-editor"> 
-
-
- <!--START THE SHARE -->
- <div class="event-editor-share">
-   <a href="#" id="twitter-share" target="_blank">Share on Twitter  <i class="icon icon-twitter"> </i> </a>         
-   <a href="#" id="email-share">Send email invite <i class="icon icon-email"> </i>  </a>          
-   <a href="#">Share the link   <input id="share-url" type="text" value="
-<%= @bitly.short_url %>" readonly onClick="this.select();"> 
-   </a>   
- </div>
- <!--END THE SHARE -->
-
-
-
- <!--START THE THEMES-->
- <div class="event-editor-design" >
-
-<!--  <a href="#" class="theme" data-layout="1" data-theme="brunch" id="brunch"><img src="/assets/themes/brunch.jpg"  >
-    Get together 
-  </a>  
-  <a href="#"  class="theme" data-layout="1" data-theme="nyc" id="nyc"><img src="/assets/themes/nyc.jpg">
-    NYC Party               
-  </a>   
-  <a  class="theme" href="#"  data-layout="1" data-theme="confetti" id="confetti"><img src="/assets/themes/confetti.jpg"  >
-    Elegant Affiar 
-  </a> 
-
-  <a class="theme" href="#" data-layout="1" data-theme="sunset" id="sunset"><img src="/assets/themes/summer.jpg"  >   Summer celebration </a> 
-
-  <a href="#" class="theme" href="#" data-layout="1" data-theme="linen" id="linen"><img src="/assets/themes/linen.jpg"> State dinner  </a>   
-
-
-  <a href="#" class="theme" href="#" data-layout="1" data-theme="flower" id="flower"><img src="/assets/themes/flower.jpg"> Anniversary party  </a>   --> 
-
-  
-    <a href="#" class="theme" data-layout="1" data-theme="cityscape" id="cityscape">
-    	<img src="./assets/themes/cityscape_thumb.jpg">
-    </a>  
-
-		<a href="#" class="theme" data-layout="1" data-theme="getloud" id="getloud">
-			<img src="./assets/themes/getloud_thumb.jpg">
-		</a>  
-
-		<a href="#" class="theme" data-layout="1" data-theme="epic" id="epic">
-			<img src="./assets/themes/epic_thumb.jpg">
-		</a>  
-
-		<a href="#" class="theme" data-layout="1" data-theme="gallery" id="gallery">
-			<img src="./assets/themes/gallery_thumb.jpg">
-		</a>  	
-				
-		<a  class="theme" href="#"  data-layout="1" data-theme="celebrate" id="celebrate">
-			<img src="./assets/themes/celebrate_thumb.jpg"  >
-		</a> 
-
-
-    <a  class="theme" href="#"  data-layout="1" data-theme="minimalist" id="minimalist">
-      <img src="./assets/themes/minimalist_thumb.jpg"  >
-    </a> 
-					  
-    
-</div>
-<!--END THEMES -->
+ <!--END editor continer-->
 
 
 
 
-<!--START THE BG UPLOAD-->
-<div class="event-editor-background"  >
 
+ <!--TEMP HOLDER FOR DRAG AND DROP ELEMENTS-->
+  <a href="#" id="custom-image" style="display:none;">
 
- <a href="#" class="default"> 
-
-
-  <div class="image"></div></a> 
-  <a href="#" id="custom-image"><div class="upload" style="background-image:url('<%= @event.background_img%>')">  </div> 
-    <div style="display:none;" ><%= image_tag(@event.background_img, id: 'image_color', crossOrigin: 'anonymous')  %></div>
-
-    <%= form_for @event, url: update_event_path(@event), :html => {:id => "background_form"} do |f| %>
-    
-
-    <label for="custom-file-input" class="file-label">Upload Your Own</label>
-    <%= f.file_field :background_img, :id => 'custom-file-input' %> 
-
-
-    <% end %> 
+  <div class="upload" style="background-image:url('<%= @event.background_img%>')">  </div> 
 
     <script id="template-upload" type="text/x-tmpl">
     <div class="uploader">
@@ -165,19 +166,4 @@
     </div>
     </script>
 
-  </a>          
-</div>
-<!--END BG -->
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
+  </a>  

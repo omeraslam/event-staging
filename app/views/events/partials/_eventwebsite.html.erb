@@ -19,6 +19,9 @@
 					</div>
 
 		     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
+
+		     	        <a class="btn btn-bordered rsvp open-registration">Register Now</a>
+
 	      <!-- close registration if event start time has past -->      
 	      <% if (@event.time_start.nil? && @event.time_start != '') %>
 	       <% if(Time.now.utc.strftime( "%H%M%S%N" ) > @event.time_start.to_time.utc.strftime( "%H%M%S%N" ) &&  DateTime.now.to_date == @event.date_start.to_date) %> 
@@ -29,6 +32,16 @@
 	      <% end %>
 	      <!-- registration button end -->
 			</div>
+
+			<div class="upload-container"><div class="upload"></div>  
+
+				<div style="display:none;" ><%= image_tag(@event.background_img, id: 'image_color', crossOrigin: 'anonymous')  %></div>
+			    <%= form_for @event, url: update_event_path(@event), :html => {:id => "background_form"} do |f| %>
+			    <label for="custom-file-input" class="file-label" style="display:none;">Upload Your Own</label>
+			    <%= f.file_field :background_img, :id => 'custom-file-input', :style => "display:none;" %> 
+			    <% end %> 
+
+			</div> 
 
 		  </div>
 
