@@ -166,13 +166,19 @@ $( document ).ready(function() {
 
 
   //set current page editor variables
-  var currentFont = "brandon";
-  var currentBgOpacity = ".5";
-  var currentBgColor = "#222";
+
+
+  var currentFont = $('#font_type_id').val()? $('#font_type_id').val(): "brandon"; 
+  var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
+  var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
+  var currentBg = $('#bg').val(); 
+  var currentShowCustom = $('#show_custom').val(); 
 
   var newFont;
   var newBgOpacity;
   var newBgColor;
+  var newShowCustom;
+  var newBg;
 
   var tempFont = currentFont;
 
@@ -212,15 +218,94 @@ $( document ).ready(function() {
             changesExist = true;
 
         }
-    }    
+    }
+
+    if( feature.bg_img) {
+        console.log(feature.bg_img);
+        newBg = feature.bg_img;
+        newShowCustom = true;
+        if (newBg != currentBg) {
+            console.log("bg change");
+            $(".edit-save").fadeIn(); 
+            changesExist = true;
+
+        }
+    }
+
+    if( feature.show_custom) {
+        console.log(feature.show_custom);
+        newShowCustom = feature.show_custom;
+        if (newShowCustom != currentShowCustom) {
+            console.log("show custom change");
+            $(".edit-save").fadeIn(); 
+            changesExist = true;
+
+        }
+    }      
 
   }
+
+
+// unsplash api functions
+// 
+
+
+  //modal
+    var imageModal = $('#image-search-modal').remodal();
+  
+    $('.open-image-modal').click(function(e){
+        e.preventDefault();
+        imageModal.open();
+    });
+
+    $('.search-btn').on('click', function(e) {
+        e.preventDefault();
+        var searchTerm = $('#bgSearchTerm').val();
+        var url = String(window.location.href).replace('?first=true', '').replace('#', '') + '/unsplash-search';
+
+        $.ajax({
+              url: url,
+              data: {searchTerm: searchTerm},
+              success: function(data) {
+                var photoArray = [];
+
+                $('.image-results ul').empty();
+
+                for(var i=0;i<data.length;i++) {
+                    var list_image = '<li><img src="'+ data[i].attributes.table.urls.thumb +'"/></li>';
+                    photoArray.push(data[i].attributes.table.urls.full);
+
+                    $('.image-results ul').append(list_image);
+                }
+                $('.image-results ul li').off('click');
+                $('.image-results ul li').on('click', function(e) {
+                    e.preventDefault();
+                    imageModal.close();
+                    $('.event-page').attr('style','background-image: url('+photoArray[$(this).index()]+') !important' );
+                    $('#bg').val(photoArray[$(this).index()]);
+                    $('#show_custom').val(true);
+                     requestEdit({bg_img:photoArray[$(this).index()]});
+                     requestEdit({show_custom:true});
+                })
+
+              },
+              error: function(data) {
+                $('.image-results ul').append('<li>No results found</li>')
+              }
+        });
+
+    });
+      
+
+
 
 
   //backgroud opacity slider
     $(function() {
       $( "#slider" ).slider({
+        value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
         slide: function( event, ui ) { 
+
           var percentage = ui.value/100;
           $(".event-page .overlay").css("opacity", percentage);
           requestEdit({bgOpacity:percentage});
@@ -295,10 +380,11 @@ $( document ).ready(function() {
   };
 
   function saveChanges() {
+    alert(newBg);
     $.ajax({
       type: 'POST',
         url: String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, layout_style: theme}}
+        data: {event:{layout_id: layout, layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, background_img: 'https://images.unsplash.com/photo-1432105265591-e769ab4f8d13?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=419820fa5eba03d93397417a0dc17737', show_custom: newShowCustom }}
       }).done(function(data){
         console.log(data);
         $('#layout_style').val(theme);
@@ -325,6 +411,7 @@ $( document ).ready(function() {
 
   var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch";   
   var layout = $('#layout_id').val()? $('#layout_id').val(): "1"; 
+
 
 
   $('.theme.active').removeClass("active");
@@ -374,6 +461,13 @@ $( document ).ready(function() {
         emailInviteModal.open();
 
     });
+
+
+
+
+
+
+
 
 </script>
 

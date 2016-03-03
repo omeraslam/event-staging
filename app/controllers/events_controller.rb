@@ -161,6 +161,9 @@ class EventsController < ApplicationController
     @event = Event.all.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
+
+    logger.debug "#{@event.layout_style}"
+
     #@event.slug = @event.name.downcase.gsub(" ", "-")
 
 
@@ -244,11 +247,9 @@ class EventsController < ApplicationController
      event.dtstart = @event.date_start.to_date.strftime("%Y%m%d") + @event.time_start.to_time.strftime("T%H%M%S")
 
     
-     logger.debug "event dtstart #{@event.date_start.to_date.strftime("%Y%m%d") + @event.time_start.to_time.strftime("T%H%M%S")}"
-     logger.debug "event dtend #{@event.date_end.nil?}"
-     logger.debug "event time #{@event.time_end.to_time}"
+
      event.dtend = ((!@event.date_end.blank?) ? @event.date_end.to_date.strftime("%Y%m%d"): @event.date_start.to_date.strftime("%Y%m%d") ) + (@event.time_end.nil? ? 'T00000': @event.time_end.to_time.strftime("T%H%M%S"))
-     logger.debug "event dtend #{event.dtend}"
+  
      event.summary = @event.name
      event.description = @event.description
      event.location = @event.location
@@ -268,7 +269,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style,  :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type)
 
 
       date_format = '%m/%d/%Y'

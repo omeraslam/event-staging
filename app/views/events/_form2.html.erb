@@ -54,7 +54,7 @@
 
     <% @themes.each do |theme| %>
       <a class="theme">
-        <% f.radio_button :layout_style, theme.layout_type,  :class => 'theme-radio'%>
+        <%= f.radio_button :layout_style, theme.layout_type,  :class => 'theme-radio'%>
         <div class="theme-thumb">
           <i class="icon icon-<%= theme.icon %>"> </i>
           <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
