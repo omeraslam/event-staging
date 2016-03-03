@@ -380,11 +380,10 @@ $( document ).ready(function() {
   };
 
   function saveChanges() {
-    alert(newBg);
     $.ajax({
       type: 'POST',
         url: String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, background_img: 'https://images.unsplash.com/photo-1432105265591-e769ab4f8d13?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=419820fa5eba03d93397417a0dc17737', show_custom: newShowCustom }}
+        data: {event:{layout_id: layout, layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, background_img: newBg, show_custom: newShowCustom }}
       }).done(function(data){
         console.log(data);
         $('#layout_style').val(theme);
