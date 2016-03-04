@@ -96,7 +96,7 @@
 
 		<div class="event-description">
 	  	<p class="event-description">
-			<%= @event.description %>
+			<%= sanitize @event.description.html_safe %>
 			
 	  	</p>
 		</div>	

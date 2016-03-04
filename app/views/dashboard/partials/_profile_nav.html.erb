@@ -79,7 +79,7 @@
            <p> Current plan type end: <%= @cu.subscriptions.data[0].plan.name %></p>
            <p> Current plan type end: $<%= @cu.subscriptions.data[0].plan.amount.to_i/100%>/<%= @cu.subscriptions.data[0].plan.interval%></p>
            <p> Current plan status: <%= @cu.subscriptions.data[0].status %></p>
-           <%= link_to 'Cancel Subscription', cancel_subcription_path(current_user), method: :put %>
+           <%= link_to 'Cancel Subscription', cancel_path %>
            <% else %>
 
                    <a class="open-upgrade">Upgrade now </a> 
