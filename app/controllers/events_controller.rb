@@ -155,7 +155,7 @@ class EventsController < ApplicationController
   # 
   def create
 
-    @themes = Theme.all
+    @themes = Theme.order(:id).all
 
     @user = User.find(current_user)
     @event = Event.all.build(event_params)
