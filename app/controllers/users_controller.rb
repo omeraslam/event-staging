@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         :source => token,
         :plan => plan_type,
         :email => current_user.email,
-        :description => 'Test User'
+        :description => 'Subscribed User'
       )
 
       @user.premium = true
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 
     @user = current_user
     plan_type = params[:planType]
-    
+
     @user.premium = true
 
 
