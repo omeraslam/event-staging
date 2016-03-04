@@ -319,6 +319,7 @@ $( document ).ready(function() {
   //background color picker
     $('input#color').minicolors({ 
       position: 'top right', 
+      defaultValue: currentBgColor,
       change: function(value, opacity) {
           $(".event-page .overlay").css("background-color", value);
           requestEdit({bgColor:value});
