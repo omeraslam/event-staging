@@ -9,8 +9,7 @@
 	
 	<div class="event-status"> 
 		<div class="event-share">
-
-	 		<% if @is_premium != 'active' && @disable_create %>
+	 		<% if @disable_create %>
 	        	<%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, upgrade_path, class: 'btn btn-obvious' %>
 	        <% else %>
 	        	<%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, create_path, class: 'btn btn-obvious' %> 
@@ -27,7 +26,7 @@
 	<% if @events.empty? %>		
 	<div class="empty">
 		<h2>Well, this is uneventful; you don't have any events yet. Get on that! </h2>
-			<% if @is_premium != 'active' && @disable_create %>
+			<% if @disable_create %>
 		    <%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, upgrade_path, class: 'btn btn-obvious' %>
 		    <% else %>
 		    <%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, create_path, class: 'btn btn-obvious' %> 
@@ -43,12 +42,12 @@
 		<div class="events-list">
 			<% @event_num=0 %>
 			<%  @events.each do |event| %>
-			<div class="event <%= (@is_premium != 'active' && @event_num.to_i >= @event_limit.to_i )? 'inactive': 'active' %>">
+			<div class="event <%= (@event_num.to_i >= @event_limit.to_i )? 'inactive': 'active' %>">
 
 
 				<div class="image" style="background-image:url(<%= background_checker(event, true) %>);"> </div>
 				<div class="details"> 
-				<% if @is_premium != 'active' && @event_num.to_i  >= @event_limit.to_i %>
+				<% if @event_num.to_i  >= @event_limit.to_i %>
 					<div class="title"><%= event.name %></div> 
 					<% else %>
 					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
@@ -60,7 +59,7 @@
 
 					</div>
 
-				<% if @is_premium == 'active' || @event_num.to_i < @event_limit.to_i %>
+				<% if @event_num.to_i < @event_limit.to_i %>
 
 					<div class="registrants"> 
 
