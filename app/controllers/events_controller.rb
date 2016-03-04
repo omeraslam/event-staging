@@ -155,7 +155,7 @@ class EventsController < ApplicationController
   # 
   def create
 
-    @themes = Theme.all
+    @themes = Theme.order(:id).all
 
     @user = User.find(current_user)
     @event = Event.all.build(event_params)
@@ -230,11 +230,16 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event = Event.find(params[:id])
-    @event.destroy
+    #@event.destroy
+    @event.published = false
+    @event.status = false
     respond_to do |format|
 
-      format.html { redirect_to controller: 'dashboard', action: 'index', notice: 'Event was successfully destroyed.' }
-      format.json { head :no_content }
+      if @event.save
+
+        format.html { redirect_to controller: 'dashboard', action: 'index', notice: 'Event was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -269,7 +274,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status)
 
 
       date_format = '%m/%d/%Y'

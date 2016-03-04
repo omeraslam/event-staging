@@ -263,9 +263,9 @@ class AttendeesController < ApplicationController
 
       @attendee = Attendee.find_by email: attendee_param['email']
     
-      attendee_param['first_name'] =  @attendee.first_name.blank? ? attendee_param['first_name'] : @attendee.first_name
+      attendee_param['first_name'] =  !@attendee.first_name.blank? ? attendee_param['first_name'] : @attendee.first_name
 
-      attendee_param['last_name'] =  @attendee.last_name.blank? ? attendee_param['last_name'] :  @attendee.last_name
+      attendee_param['last_name'] =  !@attendee.last_name.blank? ? attendee_param['last_name'] :  @attendee.last_name
 
       @attendee.attending = true
       

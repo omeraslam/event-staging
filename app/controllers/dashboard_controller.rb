@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
   def index
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = Event.where(:user_id => current_user.id.to_s).all
+    @events = Event.where(:user_id => current_user.id.to_s, :status => true).all
 
     @dir = true
 
