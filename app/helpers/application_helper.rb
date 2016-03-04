@@ -37,9 +37,12 @@ module ApplicationHelper
 
 		if(event.layout_style? && !event.show_custom) 
 			@style_bg = subdir + event.layout_style.to_s + '_thumb.jpg'
-		elsif(!event.background_img.nil?)
+		elsif(!event.external_image.nil? && !event.external_image.blank? ) 
+			@style_bg = event.external_image 
+		elsif(!event.background_img.nil? && !event.background_img.blank? )
 			@style_bg = event.background_img 
 		else
+			
 			@style_bg = subdir+ 'cityscape_thumb.jpg'
 		end
 

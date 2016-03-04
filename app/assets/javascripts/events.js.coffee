@@ -17,6 +17,9 @@ $(document).on 'ready page:load', ->
         data.context.find('.bar').css('width', progress + '%')
     done: (e, data) -> 
       $('#background_form .uploader .progress').remove();
+      $('#external_image').val('')
+      $(".edit-save").fadeIn()
+
 
       newimage = $('#custom-image').find('> div').css('background-image')
       $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
@@ -78,14 +81,14 @@ $(document).on 'ready page:load', ->
         data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
         return
 
-  if $('#show_custom').val() == 'false' || $('#show_custom').val() == ''
-    $('a.default').addClass('highlight')
-    newimage = $('a.default').find('> div').css('background-image')
-    $('.event-page').css 'cssText', ''
-  else
-    $('a#custom-image').addClass('highlight')
-    newimage = $('#bg').val()
-    $('.event-page').css 'cssText', 'background-image: url('+ newimage + ') !important'
+ # if $('#show_custom').val() == 'false' || $('#show_custom').val() == ''
+ #   $('a.default').addClass('highlight')
+ #   newimage = $('a.default').find('> div').css('background-image')
+ #   $('.event-page').css 'cssText', ''
+ # else
+ #   $('a#custom-image').addClass('highlight')
+ #   newimage = $('#bg').val()
+ #   $('.event-page').css 'cssText', 'background-image: url('+ newimage + ') !important'
 
   $('.event-editor-design a').on 'click', (e) ->
     e.preventDefault()

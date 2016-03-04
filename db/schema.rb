@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303211425) do
+ActiveRecord::Schema.define(version: 20160303231755) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160303211425) do
     t.string   "bg_opacity"
     t.string   "bg_color"
     t.string   "font_type"
+    t.string   "external_image"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true

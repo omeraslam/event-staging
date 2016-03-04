@@ -171,7 +171,8 @@ $( document ).ready(function() {
   var currentFont = $('#font_type_id').val()? $('#font_type_id').val(): "brandon"; 
   var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
   var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
-  var currentBg = $('#bg').val(); 
+  var currentBg = $('#external_image').val(); 
+  var currentBgLoaded = $('#bg').val()? $('#bg').val(): ''; 
   var currentShowCustom = $('#show_custom').val(); 
 
   var newFont;
@@ -223,9 +224,11 @@ $( document ).ready(function() {
     if( feature.bg_img) {
         console.log(feature.bg_img);
         newBg = feature.bg_img;
-        newShowCustom = true;
         if (newBg != currentBg) {
             console.log("bg change");
+            currentBgLoaded = '';
+            $('#external_image').val(newBg)
+            newShowCustom = true;
             $(".edit-save").fadeIn(); 
             changesExist = true;
 
@@ -379,11 +382,16 @@ $( document ).ready(function() {
     }
   };
 
+
+//photo-1443130128240-22fb98ca70a4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=e5ef277d1a5f81a1fc520243664aa7cf
+
   function saveChanges() {
+
+    newBg = $('#external_image').val()
     $.ajax({
       type: 'POST',
         url: String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, background_img: newBg, show_custom: newShowCustom }}
+        data: {event:{layout_id: layout, layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }}
       }).done(function(data){
         console.log(data);
         $('#layout_style').val(theme);
