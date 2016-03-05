@@ -261,6 +261,15 @@ $( document ).ready(function() {
         imageModal.open();
     });
 
+
+    //hitting enter on image modal search, searches unsplash
+    $("#bgSearchTerm").keyup(function (e) {
+        if (e.keyCode == 13) {
+
+             $('.search-btn').click();
+        }
+    });
+
     $('.search-btn').on('click', function(e) {
         e.preventDefault();
         var searchTerm = $('#bgSearchTerm').val();
