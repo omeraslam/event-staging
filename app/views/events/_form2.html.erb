@@ -276,8 +276,15 @@ $(document).ready(function() {
 
 
 });
-
+          //don't allow tabbing by default
           $('input, textarea').attr('tabindex', '-1');
+
+          window.onbeforeunload = function() {
+           
+             return 'You have not yet created your event.'
+          }
+
+ 
 
   //add functionality for tabbing through fields
 
