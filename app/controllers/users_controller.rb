@@ -111,13 +111,35 @@ class UsersController < ApplicationController
 
   def update_password
     @user = User.find(current_user.id)
-    if @user.update(user_params)
-      # Sign in the user by passing validation in case their password changed
-      sign_in @user, :bypass => true
-      redirect_to dashboard_profile_path + '#members'
-    else
-      render dashboard_profile_path + '#members'
+
+    respond_to do |format|
+      if @user.update_with_password(user_params)
+        sign_in @user, :bypass => true
+        format.html { redirect_to dashboard_profile_path + '#members', notice: 'Password was successfully updated.' }
+      else
+        format.html { redirect_to dashboard_profile_path + '#members', :flash => { :error => 'Password could not be updated because: ' + @user.errors.full_messages.join(', ')}, notice: 'Password update failed.' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
+
+
+  
+  end
+
+  def update_email
+
+    @user = User.find(current_user.id)
+
+    respond_to do |format|
+      if @user.update(user_params)
+        #sign_in @user, :bypass => true
+        format.html { redirect_to dashboard_profile_path + '#members', notice: 'Email was successfully updated.' }
+      else
+        format.html { redirect_to dashboard_profile_path + '#members', :flash => { :error => 'Email could not be updated because: ' + @user.errors.full_messages.join(', ')}, notice: 'Email update failed.' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   private

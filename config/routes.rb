@@ -63,7 +63,7 @@ Rails.application.routes.draw do
   end
 
   root :to => 'pages#home'
-  
+
   #get '', to: 'events#show', constraints: {subdomain: /.+/}
 
 
@@ -88,6 +88,7 @@ Rails.application.routes.draw do
   resource :user, only: [:edit] do
     collection do
       patch 'update_password'
+      patch 'update_email'
     end
   end
 

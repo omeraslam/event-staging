@@ -23,29 +23,38 @@
 
         <!-- still need to bind data // CURRENTLY NOT WORKING -->
 
-<!--         <%= form_for(current_user) do |f| %>
+        <%= form_for(@user, :url => { :action => "update_email", :controller => "users" } ) do |f| %>
 
-        <%= f.email_field :email %> <br/>
-        <%= f.password_field :password %><br/>
-        <%= f.password_field :password_confirmation %><br/>
-        <%= f.password_field :current_password%><br/>
+        <div class="input-group">
+        <label>Email address: </label>
+        <%= f.email_field :email %>
+        </div>
+     
 
-        <%= f.submit 'Update', class: 'btn btn-primary' %>
+        <%= f.submit 'Update Email', class: 'btn btn-primary' %>
         
 
 
-        <% end %> -->
+        <% end %> 
 
-        <div class="input-group"> 
-            <label>Email Address</label>
-            <h4> <%= current_user.email %></h4>
-        </div>
+   
      
         <hr>
 
         
         <%= form_for(@user, :url => { :action => "update_password", :controller => "users" } ) do |f| %>
             
+
+        <% if @user.errors.any? %>
+            <div class="error">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this attendee from being saved:</h2>
+            <ul>
+           <% @user.errors.full_messages.each do |message| %>
+             <li><%= message %></li>
+           <% end %>
+           </ul>
+           </div>
+        <% end %>
 
 
 
@@ -186,3 +195,6 @@ $(document).ready(function(){
 
 });
 </script>
+
+
+<%= render 'layouts/flash_messages' %>
