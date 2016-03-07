@@ -249,11 +249,8 @@ class EventsController < ApplicationController
 
      @calendar = Icalendar::Calendar.new
      event = Icalendar::Event.new
-     event.dtstart = @event.date_start.to_date.strftime("%Y%m%d") + @event.time_start.to_time.strftime("T%H%M%S")
-
-    
-
-     event.dtend = ((!@event.date_end.blank?) ? @event.date_end.to_date.strftime("%Y%m%d"): @event.date_start.to_date.strftime("%Y%m%d") ) + (@event.time_end.nil? ? 'T00000': @event.time_end.to_time.strftime("T%H%M%S"))
+    event.dtstart = @event.date_start.to_date.strftime("%Y%m%d") + (@event.time_start.blank? || @event.time_start.nil? ? 'T000000': @event.time_start.to_time.strftime("T%H%M%S") )
+     event.dtend = ((!@event.date_end.blank?) ? @event.date_end.to_date.strftime("%Y%m%d"): @event.date_start.to_date.strftime("%Y%m%d") ) + (@event.time_end.nil? || @event.time_end.blank? ? 'T000000': @event.time_end.to_time.strftime("T%H%M%S"))
   
      event.summary = @event.name
      event.description = @event.description

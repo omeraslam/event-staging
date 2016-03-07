@@ -45,6 +45,14 @@
 
         
         <%= form_for(@user, :url => { :action => "update_password", :controller => "users" } ) do |f| %>
+            
+
+
+
+        <div class="input-group">
+            <label>Current Password</label>
+            <%= f.password_field :current_password, :autocomplete => "off", :placeholder => 'Your current password' %>
+          </div>
 
           <div class="input-group">
             <label>New password</label>

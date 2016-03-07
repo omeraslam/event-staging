@@ -50,40 +50,67 @@ module ApplicationHelper
 
 
 	def show_proper_date(event = nil, layout = true)
-		logger.debug "#{event.date_start}"
 
 		#if date null
 		if(event.date_start.nil? || event.date_start == '' )
-			str = 'TBD'
+			firstLineDate = 'TBD'
+			secondLineDate = ''
 			
 		else
-			str = event.date_start.to_date.strftime("%B ") + event.date_start.to_date.strftime("%e, ") + event.date_start.to_date.strftime("%Y")
-			if(event.time_start != '' && !event.time_start.nil?)
-				if(!event.date_end.nil? && event.date_end != '')
-					str += event.time_start.to_time.strftime(", %l:%M %p")
+			firstLineDate = event.date_start.to_date.strftime("%B ") + event.date_start.to_date.strftime("%e, ") + event.date_start.to_date.strftime("%Y")
+			secondLineDate = ''
+			if(event.time_start != '' && !event.time_start.nil?) #if event time start is not blank
+				if(!event.date_end.nil? && event.date_end != '') 	#if date end is not blank
+					firstLineDate += event.time_start.to_time.strftime(", %l:%M %p") #append time after first date
 				else
-					str2 = event.time_start.to_time.strftime("%l:%M %p")
+					if layout
+						secondLineDate = event.time_start.to_time.strftime("%l:%M %p") # append time like normal
+					else
+						secondLineDate = event.time_start.to_time.strftime(", %l:%M %p")
+					end
+				
 				end
+			else
+				secondLineDate = ''
 			end
 		
-			if(!event.date_end.nil? && event.date_end != '')
-				str2 = event.date_end.to_date.strftime(" - %B ") + event.date_end.to_date.strftime("%e, ") + event.date_end.to_date.strftime("%Y")
+			if(!event.date_end.nil? && event.date_end != '') #if date end is not blank
+				secondLineDate += event.date_end.to_date.strftime(" - %B ") + event.date_end.to_date.strftime("%e, ") + event.date_end.to_date.strftime("%Y")
+
 			end
 
 			if(event.time_end != '' && !event.time_end.nil?)
-				str2 += (!event.date_end.nil? && event.date_end != '')? ', ': ' - '
-				str2 += event.time_end.to_time.strftime("%l:%M %p")
+
+				if (!event.date_start.nil? && event.date_start != '')
+
+					if layout
+						if (event.time_start != '' && event.time_start.nil?)
+							secondLineDate += event.time_end.to_time.strftime("%l:%M %p")
+						else
+							secondLineDate += event.time_end.to_time.strftime(", %l:%M %p")
+						end
+					 else
+
+					 	secondLineDate += event.time_end.to_time.strftime(" - %l:%M %p")
+					 end 
+				else 
+					secondLineDate += (!event.date_end.nil? && event.date_end != '')? ', ': ' - '
+					secondLineDate += event.time_end.to_time.strftime("%l:%M %p")
+				end
 			end
 
-			if layout
-				content_tag(:div, str)  + content_tag(:div, str2)
-			else
-				content_tag(:div, str+ str2)
-			end 
+	
 
 
 		end
 
+
+		if layout
+
+			content_tag(:div, firstLineDate)  + content_tag(:div, secondLineDate)
+		else
+			content_tag(:div, firstLineDate + secondLineDate)
+		end 
 
 
 	end
