@@ -63,7 +63,7 @@
 					</div>
 					<div class="event-meta">
 						<i class="icon icon-location"></i>
-			      <%= @event.location_name %> <br>
+			      		<%= @event.location_name %> <br>
 						<span class="location"><%= @event.location %></span>
 			      
 			      <div class="event-meta-actions">
@@ -97,7 +97,8 @@
 
 
 				<div class="event-description">
-			  	<p class="event-description"><%= best_in_place @event, :description, :url => update_event_path(@event), as: :textarea %> </p>
+			  	<p class="event-description">
+			<%= sanitize @event.description.html_safe %></p>
 				</div>	
 				<div class="event-action-container">
 			<% if  (@event.date_start.nil? &&  @event.date_start.blank? ) %>

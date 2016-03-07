@@ -1,4 +1,4 @@
-<% title @event.name %>
+<% title @event.name.html_safe %>
 <% meta_description 'Create stunning websites in seconds.' %>
 <div class="show-container <%= (signed_in? && current_user.id == @user.id)? 'user' : '' %>">
     
@@ -261,6 +261,15 @@ $( document ).ready(function() {
         imageModal.open();
     });
 
+
+    //hitting enter on image modal search, searches unsplash
+    $("#bgSearchTerm").keyup(function (e) {
+        if (e.keyCode == 13) {
+
+             $('.search-btn').click();
+        }
+    });
+
     $('.search-btn').on('click', function(e) {
         e.preventDefault();
         var searchTerm = $('#bgSearchTerm').val();
@@ -406,15 +415,6 @@ $( document ).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
   //LOAD THE THEME AND CONSTRUCT
 
   var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch";   
@@ -465,9 +465,7 @@ $( document ).ready(function() {
     var emailInviteModal = $('#email-invite-modal').remodal();
   
     $('.open-link-modal').click(function(){
-      //  linkModal.open();
         emailInviteModal.open();
-
     });
 
 

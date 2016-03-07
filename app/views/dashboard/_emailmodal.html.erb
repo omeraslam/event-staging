@@ -48,7 +48,7 @@
 
 
 	    	<div class="input-group">
-	    		<input type="submit" class="btn" value="Send email to 1 guest" />
+	    		<input type="submit" class="btn send-invite" value="Send invitation" />
 	    		<!-- <a href="#" class="btn"> Send email to 1 guest</a> -->
 	    	</div>	
 
@@ -157,8 +157,8 @@ $(document).ready(function(){
 
 
 		   	// change guest count on button
-    	var pluralize_guest = ($('#email-invite-modal tbody tr:not(.disabled)').length - 1 > 1)?' guests':' guest';
-    	$('#email-invite-modal .btn').val('Send email to '+ ($('#email-invite-modal table tbody tr:not(.disabled)').length - 1) + pluralize_guest);
+    	// var pluralize_guest = ($('#email-invite-modal tbody tr:not(.disabled)').length - 1 > 1)?' guests':' guest';
+    	// $('#email-invite-modal .btn').val('Send email to '+ ($('#email-invite-modal table tbody tr:not(.disabled)').length - 1) + pluralize_guest);
 	}
 
    

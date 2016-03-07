@@ -21,7 +21,13 @@
 				<!-- <li class="disabled">Sell tickets/accept payments</li> -->
 				<li class="disabled">Priority customer support </li>	
 			</ul>
-			<%= link_to 'Choose plan', cancel_path, :class => 'btn' %>    				   
+
+           <% if @cu != '' && !@cu.subscriptions.data[0].nil? %> 
+			<%= link_to 'Choose plan', cancel_path, :class => 'btn' %>
+			<% else %>
+			<div class="btn">Choose plan</div>
+
+			<% end %>    				   
 		</div>
 
 
@@ -174,7 +180,6 @@ $(document).ready(function(){
     		upgradeOwl.trigger('next.owl.carousel');
   		} else {
     		// else update plan call
-    	
     	 	if($(this).data("type") != 'basic') {
 
     	 		$.ajax({

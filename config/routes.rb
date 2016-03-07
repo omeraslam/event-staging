@@ -52,15 +52,18 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {  registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
+
+
+
+
+
+
   authenticated do
     root :to => 'dashboard#index', as: :authenticated
   end
 
-
-
-
   root :to => 'pages#home'
-
+  
   #get '', to: 'events#show', constraints: {subdomain: /.+/}
 
 

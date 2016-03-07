@@ -242,13 +242,25 @@ $(document).ready(function() {
           $('input, textarea').attr('tabindex', '-1');
         }
 
+    
+
         if ((index + 1) == count) {
+          window.onbeforeunload = null;
           $('body').addClass('event-creation-loading');
           setTimeout(function(){
             $('#new_event').submit();
           }, 1000);
           
+        } else {
+
+          window.onbeforeunload = function() {
+           
+             return 'You have not yet created your event.'
+          }
+
         }
+
+  
       });
   $(".btn-next").click(function(e) {
     
@@ -274,10 +286,22 @@ $(document).ready(function() {
     $(this).find(".theme-radio").prop('checked', true);
   });
 
+  $('#event_name').on('keyup', function(e) {
+
+      if (e.keyCode == 13) {
+        $(this).blur();
+        $('.btn-next').click();
+      }
+
+
+  });
+
 
 });
-
+          //don't allow tabbing by default
           $('input, textarea').attr('tabindex', '-1');
+
+ 
 
   //add functionality for tabbing through fields
 

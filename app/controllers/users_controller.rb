@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         :source => token,
         :plan => plan_type,
         :email => current_user.email,
-        :description => 'Test User'
+        :description => 'Subscribed User'
       )
 
       @user.premium = true
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 
     @user = current_user
     plan_type = params[:planType]
-    
+
     @user.premium = true
 
 
@@ -86,13 +86,16 @@ class UsersController < ApplicationController
 
     @user = current_user
 
-    @user.premium = false
+
+    logger.debug "user premium: #{@user.premium}"
 
     customer = Stripe::Customer.retrieve(@user.customer_id)
 
     logger.debug "sub id: #{customer.subscriptions}"
     customer.subscriptions.retrieve(customer.subscriptions.data[0].id).delete
 
+
+    @user.premium = false
     @user.plan_type = nil
     @user.subscription_id = nil
     @user.customer_id = nil
@@ -119,7 +122,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-        params.require(:user).permit(:premium,:password, :password_confirmation, :email, :subscription_id, :plan_type)
+        params.require(:user).permit(:password, :password_confirmation, :email, :subscription_id, :plan_type)
     end
 
 

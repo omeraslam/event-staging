@@ -3,7 +3,9 @@
 <div class="event-navigation dashboard-container"> 
     <ul>
         <li> <a  class="event-sub-nav-trigger" data-target="0">  member details </a> </li>       
-        <li> <a  class=" event-sub-nav-trigger" data-target="1" >  billing information </a> </li>
+       
+           <% if @cu != '' && !@cu.subscriptions.data[0].nil? %>  <li> <a  class=" event-sub-nav-trigger" data-target="1" >  billing information </a> </li>
+           <% end %>
       <!--   <li> <a  class=" event-sub-nav-trigger" data-target="2" >  host stats </a> </li> -->
               
     </ul>
@@ -69,20 +71,16 @@
     <div data-hash="billing">
 
         <section> 
-            <h4>Credit Card Information </h4>
-            
-
            <% if @cu != '' && !@cu.subscriptions.data[0].nil? %> 
-
+           <h4>Credit Card Information </h4>
            <p>Credit Card: **** **** **** ****<%= @cu.sources.data[0].last4 %></p>
            <p> Current period end: <%= Time.at(@cu.subscriptions.data[0].current_period_end).to_date.strftime('%B %d, %Y') %></p>
-           <p> Current plan type end: <%= @cu.subscriptions.data[0].plan.name %></p>
+           <p> Current plan type: <%= @cu.subscriptions.data[0].plan.name %></p>
            <p> Current plan type end: $<%= @cu.subscriptions.data[0].plan.amount.to_i/100%>/<%= @cu.subscriptions.data[0].plan.interval%></p>
            <p> Current plan status: <%= @cu.subscriptions.data[0].status %></p>
-           <%= link_to 'Cancel Subscription', cancel_subcription_path(current_user), method: :put %>
+           <%= link_to 'Cancel Subscription', cancel_path, :class => 'btn' %>
            <% else %>
-
-                   <a class="open-upgrade">Upgrade now </a> 
+                   <%= link_to 'Upgrade now ', upgrade_path, :class => 'btn' %>
             <% end %>
         </section>
 

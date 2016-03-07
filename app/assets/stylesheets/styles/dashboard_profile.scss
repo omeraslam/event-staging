@@ -43,6 +43,11 @@ body.profile,  body.payments  {
 		padding:10px;
 		cursor:pointer;
 
+	&.disabled:hover {
+		cursor: default;
+		background:#fff;
+	}
+
 		&:hover {
 			background:#F2F3F5;
 		}
