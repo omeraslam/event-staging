@@ -4,8 +4,9 @@
 	<div class="modal-header modal-header-light">
 		    <button data-remodal-action="close" class="remodal-close"></button>
 		    <i class="icon icon-line-email" style="display: none;"> </i>
-		    <h2>Register</h2>
-		    <p>Nullam tristique a risus ut vulputate. Praesent eu orci sapien. Sed euismod sed leo at tincidunt. Mauris cursus dolor justo, vel maximus arcu laoreet a.</p>
+		    <h2>Register Now</h2>
+		    <p>Complete your registration now for <%= @event.name %>.</h1> 
+ </p>
 		  
 	</div>
 
@@ -44,7 +45,7 @@
 	
 	<div class="input-group">
 		<label>Email Address:</label>
-		 <%= f.text_field :email, :class => 'input input-large', :placeholder => 'Email'  %>
+		 <%= f.text_field :email, :class => 'input input-large', :placeholder => 'email@email.com'  %>
 		 <p>We'll send you a confirmation of your RSVP.  </p>
 	</div>
 
@@ -54,9 +55,12 @@
   <%= hidden_field_tag 'user_id', @event.user_id %>
   
   
-  
-  <%= f.submit "Register Now", :class => 'btn' %>
-  
+  <div class="input-group">
+  	<%= f.submit "Complete Registration", :class => 'btn' %>
+  	<p> This event registration form is powered by EventCreate and secured with 256-bit encryption. By clicking "Complete Registration," I acknowledge that I have read and agree with the EventCreate's <a target="_blank" href="https://www.eventcreate.com/terms">Terms of Service</a> and <a target="_blank" href="https://www.eventcreate.com/privacy">Privacy policy</a>. 
+	</p>
+  </div>
+
   <% end %>
   
   </div>
