@@ -16,6 +16,16 @@
 		  	<%= link_to 'Check out my event website', slugger_path(:slug => @event.slug) , class: 'btn', target: '_blank' %> -->
             <a href="#" class="btn" data-remodal-action="close">Check out my event website</a>
 		    <p><%= link_to 'Or, return to my event dashboard', dashboard_index_path %></p>
+
+
+		    	    	<div class="input-group"> 
+	    		<input type="text" value="http://eventcreate.com/<%= @event.slug %>" disabled>
+	    		<textarea style="z-index:0;position:fixed;top:-99999px; left:-99999px;" id="clipboard">http://eventcreate.com/<%= @event.slug %> </textarea>
+	    		<p> <a id="copy-to-clipboard"> Copy this link to my clipboard</a>  </p>
+	    	</div>
+
+
+	    	
 	    </div>
 
 

@@ -7,14 +7,25 @@
   
 <%= render 'events/partials/eventwebsite' %>
 
-<% if signed_in? && current_user.id == @user.id %>
-  <%= render 'events/partials/eventinvite' %>
-  <%= render 'editor' %>
-  <%= render 'partials/fullpage_loader' %>
-  <%= render 'partials/linkmodal' %>
 
-<%= render 'partials/imagesearch' %>  <!-- unsplash image search modal -->
-<%= render 'dashboard/emailmodal' %>
+<%# render 'events/partials/eventinvite' %>
+<%# render 'partials/fullpage_loader' %>
+<%# render 'dashboard/emailmodal' %>
+<%# render 'partials/linkmodal' %>
+<%# render 'dashboard/eventsuccessmodal' %>
+
+
+
+<% if signed_in? && current_user.id == @user.id && params.has_key?(:editing) %>
+
+  
+
+    <%= render 'events/partials/editor_intro' %>
+    <%= render 'events/partials/editor' %>
+    <%= render 'partials/imagesearch' %>  
+    <%= render 'partials/loader_saving' %>
+
+
 <% end %>
 
 
@@ -23,7 +34,6 @@
   <%= render 'events/partials/rsvp_form' %><!-- 
   <%= render 'events/partials/confirmation_form' %> -->
 
-  <%= render 'dashboard/eventsuccessmodal' %>
 </div>
 
 
@@ -76,7 +86,15 @@ $( document ).ready(function() {
 
 });
 
-	//startIntro();
+
+    //event sucess modal
+   var eventModal = $('#event-creation-modal').remodal({});
+
+
+
+
+
+
 
     //contact host modal
     var contactModal = $('#contact-modal').remodal();
@@ -91,7 +109,8 @@ $( document ).ready(function() {
 			registrationModal.open();
 		});
 
-    $('#view-switch').click(function(e){
+
+    $('#show-dropdown').click(function(e){
       $(".dropdown-menu").toggleClass("visible");
     });
 
@@ -167,6 +186,8 @@ $( document ).ready(function() {
 
   //set current page editor variables
 
+  var published = $('#published').val()? $('#published').val(): "false"; 
+
 
   var currentFont = $('#font_type_id').val()? $('#font_type_id').val(): "brandon"; 
   var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
@@ -186,15 +207,44 @@ $( document ).ready(function() {
   var changesExist = false;
 
 
+
+
+
+$( document ).ready(function() {
+
+
+
+    if (published == "true") {
+      $(".event-editor-draft-container#event_published").show();
+    } else {
+      $(".event-editor-draft-container#event_draft").show();
+    }
+
+
+    $(".full-page-loader#event-creation-loader").delay(2000).hide(0, function() {    
+
+      $(this).removeClass("visible");
+        $(".editor-tool#editor-tool-background").show();
+        $(".editor-container").addClass("visible");
+      $("#editor-tool-background").addClass("active");
+
+
+    });
+
+
+
+
+
+}); 
+
+
+
   function requestEdit(feature) {
 
     if(feature.bgOpacity) {
         newBgOpacity = feature.bgOpacity; 
         if (newBgOpacity != currentBgOpacity) {
-            console.log("opacity change");
-            $(".edit-save").fadeIn();
-            changesExist = true;
-
+             saveChanges();
         }
     }
 
@@ -202,10 +252,7 @@ $( document ).ready(function() {
     if(feature.bgColor) {
         newBgColor = feature.bgColor; 
         if (newBgColor != currentBgColor) {
-            console.log("color change");
-            $(".edit-save").fadeIn(); 
-            changesExist = true;
-
+          saveChanges();
         }
     }
 
@@ -214,10 +261,7 @@ $( document ).ready(function() {
         console.log(feature.font);
         newFont = feature.font; 
         if (newFont != currentFont) {
-            console.log("font change");
-            $(".edit-save").fadeIn(); 
-            changesExist = true;
-
+            saveChanges();
         }
     }
 
@@ -225,12 +269,10 @@ $( document ).ready(function() {
         console.log(feature.bg_img);
         newBg = feature.bg_img;
         if (newBg != currentBg) {
-            console.log("bg change");
             currentBgLoaded = '';
             $('#external_image').val(newBg)
             newShowCustom = true;
-            $(".edit-save").fadeIn(); 
-            changesExist = true;
+            saveChanges();
 
         }
     }
@@ -238,11 +280,8 @@ $( document ).ready(function() {
     if( feature.show_custom) {
         console.log(feature.show_custom);
         newShowCustom = feature.show_custom;
-        if (newShowCustom != currentShowCustom) {
-            console.log("show custom change");
-            $(".edit-save").fadeIn(); 
-            changesExist = true;
-
+        if (newShowCustom != currentShowCustom) {     
+          saveChanges();
         }
     }      
 
@@ -325,6 +364,7 @@ $( document ).ready(function() {
       });
     });
 
+
   //background color picker
     $('input#color').minicolors({ 
       position: 'top right', 
@@ -348,69 +388,83 @@ $( document ).ready(function() {
 
 
 
-  // save button 
-  $('#save').click(function(e) {
+
+  // publish button 
+  $('#publish').click(function(e) {
     e.preventDefault();
+
+    //show the loader
+    $(".full-page-loader.saving").show().addClass("visible");
+
+    //close the editor
     $(".editor-container").removeClass("visible");
     $(".tab.active").removeClass("active");
-    $(".edit-save").fadeOut();
-    saveChanges();
-  });
-
-
-  // discard changes 
-  $('#discard').click(function(e) {
     
-    $(".editor-container").removeClass("visible");
-    $(".tab.active").removeClass("active");
-    $(".edit-save").fadeOut();
-    
-    $('.event-container').removeClass(newFont); 
-    $('.event-container').removeClass(tempFont); 
-    $('.event-container').addClass(currentFont); 
+    //hide the publish button
+    $(".event-editor-draft-container#event_draft").hide();
 
-    $(".event-page .overlay").css("opacity", currentBgOpacity);
-    $(".event-page .overlay").css("background-color", currentBgColor);
-
-    newFont = null;
-    newBgOpacity = null;
-    newBgColor = null;
-
-    changesExist = false;
-
+    published = true;    
+    saveChanges(true);
 
   });
 
 
+
+
+
+
+
+//photo-1443130128240-22fb98ca70a4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=e5ef277d1a5f81a1fc520243664aa7cf
+
+  function saveChanges(showCallback) {
+
+    newBg = $('#external_image').val()
+    $.ajax({
+      type: 'POST',
+        url: String(window.location.href).replace('?first=true', '').replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
+        data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }},
+    beforeSend: function(){
+        
+        changesExist = true;
+        $("#editor-saving-status").text("Saving changes...").show();
+    }
+      }).done(function(data){
+        //console.log(data);
+        $('#layout_style').val(theme);
+        changesExist = false;
+        $("#editor-saving-status").text("Changes saved.").delay(4000).fadeOut();
+
+        if (showCallback) {
+
+          $(".full-page-loader.saving").hide().removeClass("visible");
+          $(".event-editor-draft-container#event_published").show();
+          eventModal.open();
+
+        }
+
+      });
+    }
+
+  });
 
 
 
   //warning before leave page
   window.onbeforeunload = function(e) {
     if(changesExist) {
-      return 'You have unsaved pages. Do you want to leave this page without saving?';
+      return 'You have unsaved pages. Please wait until we have finished saving your event';
     }
   };
 
 
-//photo-1443130128240-22fb98ca70a4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=e5ef277d1a5f81a1fc520243664aa7cf
 
-  function saveChanges() {
 
-    newBg = $('#external_image').val()
-    $.ajax({
-      type: 'POST',
-        url: String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }}
-      }).done(function(data){
-        console.log(data);
-        $('#layout_style').val(theme);
-        changesExist = false;
 
-      });
-    }
 
-  });
+
+
+
+
 
 
 

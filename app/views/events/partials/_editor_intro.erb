@@ -1,0 +1,100 @@
+
+<div class="event-editor-draft-container" id="event_draft">
+
+	<div class="event-creation-navigation-container">
+	  <a class="btn-next event-creation-navigation event-creation-next btn" id="publish"> Publish my event! </a>
+	  <div class="event-creation-help">
+	    <a href="dashboard/event?event=<%= @event.id %>">save as draft </a>
+	    <%# link_to 'help', '//eventcreate.zendesk.com' %>
+	    <%# link_to 'cancel', dashboard_index_path, :data => {:confirm => 'Are you sure you want to cancel?'} %>
+	 </div>
+	</div>
+
+
+
+
+
+	<div class="full-page-loader visible" id="event-creation-loader" style="z-index:99999999999">
+	      <i class='icon icon-loader'></i> 
+	      <h2>Now, the fun part. Let's add some style! </h2>
+	</div>
+
+
+
+
+	<div id="event-creation-modal">
+		    
+		    <div class="modal-header">
+		    	<i class="icon icon-check"> </i>
+			    <h2>You're done!</h2>
+			    <h4>  
+			      Nice work! Your event is setup and ready to share. 
+			    </h4>
+		    </div>
+
+
+		    <div class="modal-body">
+
+			    <div style="display:none;" class="input-group"> 
+		    		<a href="http://eventcreate.com/<%= @event.slug %>?preview=true" target="_blank"><input type="text" value="http://eventcreate.com/<%= @event.slug %>" disabled></a>
+		    	</div>
+
+			    <div class="input-group"> 
+		    		<a href="dashboard/event?event=<%= @event.id %>" class="btn btn-large"><i class="icon icon-home"></i> View my event! </a>
+		    		<p>Go ahead, check out your event.  </p>
+		    	</div>
+
+		         
+		        <a>No, I'd like to continue editing</a> 
+		            
+
+		    </div>
+	</div>
+
+</div>
+
+
+
+
+<div class="event-editor-draft-container" id="event_published">
+
+
+	<div class="event-creation-navigation-container">
+	  <div class="event-creation-help">
+	   	<a id="editor-saving-status"> </a>
+	 </div>
+	</div>
+
+
+
+	<div class="full-page-loader visible" id="event-creation-loader" style="z-index:99999999999">
+	      <i class='icon icon-loader'></i> <h4>loading editor</h4> 
+	</div>
+
+
+
+	<!--START nav-->
+	<div class="show-navigation-container"> 
+
+
+	      <div class="tabs dropdown">
+	       <a class="tab" id="show-dropdown"><i class="icon icon-hamburger"> </i> <span> Modify background Image  </span></a> 
+
+	      <ul class="dropdown-menu">
+	          <li style="display:none;"><a id="view-invite"><i class="icon icon-email"> </i>  Switch to invite view <p>Preview your email invitation </p></a> </li>
+	          <li style="display:none;"><a id="view-website"><i class="icon icon-bolt"> </i>  Switch to website view <p>Preview your event website  </p></a> </li>
+	          <li> <%= link_to "<i class='icon icon-pencil'> </i> Edit event <p> Modify your event details</p>".html_safe, :editing => "true" %></li>
+
+	          <li><a href="dashboard/event?event=<%= @event.id %>"> <i class="icon icon-home"> </i> Event dashboard <p> event guest list and analytics</p></a> </li>  
+	      </ul>
+
+	     </div>
+	    <!--END nav -->
+
+	</div>
+
+
+</div>
+
+
+
