@@ -17,6 +17,7 @@
 		<thead>
 			<th>Name</th>
 			<th>Email</th>
+			<th>Invited Events</th>
 			<th>Actions</th>
 		</thead>
 		<tbody>
@@ -24,6 +25,17 @@
 				<tr>
 					<td><%= item.first_name %> <%= item.last_name %></td>
 					<td><%= item.email %></td>
+
+<% @event_list = Event.where(:id => item.event_id.to_i).all %>
+
+					<td><% @event_list.each do |event| %>
+					<%= event.name %>
+					<% end %>
+
+
+
+
+					 </td>
 					<td><a href="mailto:<%= item.email %>">Send Message</a></td>
 				</tr>
 			<% end %>
