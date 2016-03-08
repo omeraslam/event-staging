@@ -30,24 +30,29 @@
 
 		<p>Number of registered guests: <%= @count_registrations %></p>
 		<p>Current plan of registration limit: <%= @event_registration_limit %></p>
+
 	</div>
 	
 	<div class="event-status"> 
 		<div class="event-share">
-			<%= link_to 'view my website', slugger_path(@event), class: 'btn', target: '_blank' %>
+			<%= link_to 'view my website', slugger_path(@event), class: 'btn', target: '_blank' %> 
+
+			<%= link_to "<i class='icon icon-pencil'></i> <span>Edit website</span>".html_safe, slugger_path(@event.slug, :editing => "true"), :class => 'circle tooltip'  %>
+
+
 			<br>
 
    			<% if @count_registrations >= @event_registration_limit %>  
 				<%= link_to ('<i class="icon icon-email"></i>').html_safe, upgrade_path, :class => 'circle'  %> 
             <% else %>            
-				<a class="circle send-email" ><i class="icon icon-email"></i> </a> 
+				<a class="circle send-email tooltip" ><i class="icon icon-email"></i> <span> Send email invte</span> </a> 
             <% end %>  
 
 
-			<a class="circle open-link-modal"><i class="icon icon-link"></i> </a> 
+			<a class="circle open-link-modal tooltip"><i class="icon icon-link"></i> <span>Share link </span></a> 
 
-			<a class="circle" href="https://www.facebook.com/sharer/sharer.php?u=<%= eventurl %>" target="_blank"><i class="icon icon-facebook"></i> </a> 
-			<a class="circle" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= eventurl %>" target="_blank"><i class="icon icon-twitter"></i> </a> 
+			<a class="circle tooltip" href="https://www.facebook.com/sharer/sharer.php?u=<%= eventurl %>" target="_blank"><i class="icon icon-facebook"></i> <span>Share on Facebook </span> </a> 
+			<a class="circle tooltip" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= eventurl %>" target="_blank"><i class="icon icon-twitter"></i> <span>Share on Twitter </span> </a> 
 		</div>
 		<div class="event-link input-group input-group-dark"><i class="icon icon-link"></i> <input type="text" value="<%= eventurl %>"  /> </div>		
 

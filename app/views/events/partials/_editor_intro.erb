@@ -1,3 +1,10 @@
+
+<div class="event-status-notification-banner"> 
+	Just a heads up: Your website is live, so changes will be visible to attendees! You can go back to <%= link_to "draft status.", dashboard_event_path(:event => @event.id) + '#settings' %>
+</div>
+
+
+
 <!-- header editor module for saving/link outs -->
 
 <div class="event-editor-draft-container" id="event_draft">
@@ -13,7 +20,7 @@
 
 	<div class="full-page-loader visible" id="event-creation-loader" style="z-index:99999999999">
 	      <i class='icon icon-loader'></i> 
-	      <h2>Now, the fun part. Let's add some style! </h2>
+	      <h2>Now, the fun part! </h2> <h3> It's time to customize your website's background image and fonts.</h3>
 	</div>
 
 
@@ -53,6 +60,7 @@
 
 
 
+
 <div class="event-editor-draft-container" id="event_published">
 
 
@@ -85,7 +93,7 @@
 	         <li> <%= link_to "<i class='icon icon-home'> </i> Event dashboard <p> event guest list and analytics</p>".html_safe, dashboard_event_path(:event => @event.id) %></li>
 
 
-	         <li> <%= link_to "<i class='icon icon-bolt'> </i>  Switch to website view <p>Preview your event website  </p>".html_safe, slugger_path(@event.slug), :id => 'view-website', :target => '_blank'  %></li>
+	         <li> <%= link_to "<i class='icon icon-bolt'> </i>  Preview website<p>View website as an attendee </p>".html_safe, slugger_path(@event.slug), :id => 'view-website', :target => '_blank'  %></li>
 
  
 	      </ul>
