@@ -77,7 +77,7 @@ $(document).on 'ready page:load', ->
 
       $.ajax(
         type: 'POST'
-        url: '' + String(window.location.href).replace('?first=true', '').replace('#', '') + '/updatetheme_post'
+        url: '' + String(window.location.href).replace('?editing=true', '').replace('#', '') + '/updatetheme_post'
         data: event: show_custom: $('.default.highlight').length <= 0).done (data) ->
         return
 

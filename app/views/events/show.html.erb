@@ -312,7 +312,7 @@ $( document ).ready(function() {
     $('.search-btn').on('click', function(e) {
         e.preventDefault();
         var searchTerm = $('#bgSearchTerm').val();
-        var url = String(window.location.href).replace('?first=true', '').replace('#', '') + '/unsplash-search';
+        var url = String(window.location.href).replace('?editing=true', '').replace('#', '') + '/unsplash-search';
 
         $.ajax({
               url: url,
@@ -421,7 +421,7 @@ $( document ).ready(function() {
     newBg = $('#external_image').val()
     $.ajax({
       type: 'POST',
-        url: String(window.location.href).replace('?first=true', '').replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
+        url: String(window.location.href).replace('?editing=true', '').replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
         data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }},
     beforeSend: function(){
         

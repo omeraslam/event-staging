@@ -1,3 +1,4 @@
+<!-- header editor module for saving/link outs -->
 
 <div class="event-editor-draft-container" id="event_draft">
 
@@ -9,10 +10,6 @@
 	    <%# link_to 'cancel', dashboard_index_path, :data => {:confirm => 'Are you sure you want to cancel?'} %>
 	 </div>
 	</div>
-
-
-
-
 
 	<div class="full-page-loader visible" id="event-creation-loader" style="z-index:99999999999">
 	      <i class='icon icon-loader'></i> 
@@ -82,10 +79,15 @@
 
 	      <ul class="dropdown-menu">
 	          <li style="display:none;"><a id="view-invite"><i class="icon icon-email"> </i>  Switch to invite view <p>Preview your email invitation </p></a> </li>
-	          <li style="display:none;"><a id="view-website"><i class="icon icon-bolt"> </i>  Switch to website view <p>Preview your event website  </p></a> </li>
-	          <li> <%= link_to "<i class='icon icon-pencil'> </i> Edit event <p> Modify your event details</p>".html_safe, :editing => "true" %></li>
+	          <li style=""><a id="view-website"><i class="icon icon-bolt"> </i>  Switch to website view <p>Preview your event website  </p></a> </li>
+	          <li> <%= link_to "<i class='icon icon-pencil'> </i> Edit event details<p> Modify your event details</p>".html_safe, dashboard_event_path(:event => @event.id) + '#settings' %></li>
 
-	          <li><a href="dashboard/event?event=<%= @event.id %>"> <i class="icon icon-home"> </i> Event dashboard <p> event guest list and analytics</p></a> </li>  
+	         <li> <%= link_to "<i class='icon icon-home'> </i> Event dashboard <p> event guest list and analytics</p>".html_safe, dashboard_event_path(:event => @event.id) %></li>
+
+
+	         <li> <%= link_to "<i class='icon icon-bolt'> </i>  Switch to website view <p>Preview your event website  </p>".html_safe, slugger_path(@event.slug), :id => 'view-website', :target => '_blank'  %></li>
+
+ 
 	      </ul>
 
 	     </div>

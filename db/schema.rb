@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304013337) do
+ActiveRecord::Schema.define(version: 20160308210917) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20160304013337) do
     t.string   "layout_id"
     t.string   "layout_style"
     t.boolean  "show_custom"
-    t.boolean  "published",                  default: true
+    t.boolean  "published",                  default: false
     t.string   "location_name"
     t.string   "subdomain"
     t.string   "slug"
