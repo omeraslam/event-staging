@@ -10,6 +10,8 @@
 	  <%= hidden_field_tag 'bg_opacity', @event.bg_opacity %>
 	  <%= hidden_field_tag 'bg_color', @event.bg_color %>
 	  <%= hidden_field_tag 'font_type_id', @event.font_type %>
+	  <%= hidden_field_tag 'published', @event.published %>
+
 
 		<div class="event-page 1" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important">
 		  <div class="overlay" style="opacity: <%= @event.bg_opacity %>;background-color:<%= @event.bg_color %>;"></div>

@@ -169,7 +169,7 @@ class EventsController < ApplicationController
 
 
     if Event.where(:user_id => current_user.id.to_s).count >= 0
-      str = '?first=true'
+      str = '?editing=true'
     else
       str = ''
     end

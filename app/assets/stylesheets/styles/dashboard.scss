@@ -89,72 +89,7 @@
 
 
 
-	.dropdown {
-		
-		position:relative;
-
-		a.open-dropdown {
-			background: rgba(255, 255, 255, 0.1);
-			border-left: 1px solid rgba(255, 255, 255, 0.1);
-			border-right: 1px solid rgba(255, 255, 255, 0.1);	
-		}
-
-
-
-	    .dropdown-menu {
-	    	position:absolute;
-	    	top:80px;
-	    	left:0;
-			background:rgba(38, 43, 49, 0.9);
-			width:160%;
-			opacity:0;
-			visibility:hidden;
-			transition: all .2s ease-in-out;
-
-
-
-			&.visible {
-				top:60px;
-				opacity:1;
-				visibility:visible;					
-			}
-
-
-	    	li {
-	    		font-size: 12px;
-	    		cursor:pointer;
-	    		display: block;
-
-	    		a {
-	    			color:#fff;
-	    			display: block;
 	
-	    		}
-
-	    		i {
-			    	font-size:30px;
-			    	margin-right:10px;
-			    	float:left;
-	   		 	}
-
-	    		p {
-	    			font-size:10px;
-	    			opacity:.5;
-	    			margin:0;
-	    		}	
-
-	    		&:hover {
-	    			background:$brand-primary;
-	    			color:#fff;
-	    		}	
-
-
-	    	}
-
-	    }
-
-
-	}
 
 
 

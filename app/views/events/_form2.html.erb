@@ -245,11 +245,15 @@ $(document).ready(function() {
     
 
         if ((index + 1) == count) {
+
           window.onbeforeunload = null;
-          $('body').addClass('event-creation-loading');
-          setTimeout(function(){
-            $('#new_event').submit();
-          }, 1000);
+          $('#new_event').submit();
+
+          //window.onbeforeunload = null;
+         // $('body').addClass('event-creation-loading');
+          //setTimeout(function(){
+           // $('#new_event').submit();
+         // }, 1000);
           
         } else {
 

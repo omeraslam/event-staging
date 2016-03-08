@@ -267,6 +267,26 @@ $brand-primary: #21afbf;
 		width: 100%;
 	}
 
+
+	.link-list {
+
+		margin:12px 0 16px 0;
+
+		a {
+			margin:5px;
+			display:inline-block;
+
+		}
+	}
+
+
+	.link-list-small a {
+		font-size:12px;
+		margin:2px;
+		display:inline-block;
+
+	}
+
 }
 
 
