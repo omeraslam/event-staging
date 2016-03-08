@@ -157,6 +157,19 @@
               //icon: iconBase + 'schools_maps.png'
             });
 
+        //recenter map on resize
+        var center;
+        function calculateCenter() {
+          center = map.getCenter();
+        }
+        google.maps.event.addDomListener(map, 'idle', function() {
+          calculateCenter();
+        });
+
+
+        google.maps.event.addDomListener(window, 'resize', function() {
+            map.setCenter(center);
+        });
 
           } else {
         //alert('Geocode was not successful for the following reason: ' + status);

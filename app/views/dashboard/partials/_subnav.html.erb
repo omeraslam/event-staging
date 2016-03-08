@@ -124,7 +124,11 @@ $(document).ready(function(){
     //init the owl carousel plugin  
     var owl = $(".event-actions.owl-carousel").owlCarousel({
         items:1,
-        autoHeight : true,
+        autoHeight : true,  
+        mouseDrag:false,
+        touchDrag:false,
+        freeDrag:false,
+        pullDrag:false,
         URLhashListener:true,
         startPosition: 'URLHash'   
     });
