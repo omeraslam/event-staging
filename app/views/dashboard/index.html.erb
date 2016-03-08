@@ -44,7 +44,6 @@
 			<%  @events.each do |event| %>
 			<div class="event <%= (@event_num.to_i >= @event_limit.to_i )? 'inactive': 'active' %>">
 
-
 				<div class="image" style="background-image:url(<%= background_checker(event, true) %>);"> </div>
 				<div class="details"> 
 				<% if @event_num.to_i  >= @event_limit.to_i %>

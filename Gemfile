@@ -39,6 +39,8 @@ gem "fog"
 
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
+gem "mini_magick"
+
 # Use these for social logins
 gem 'therubyracer'
 gem 'omniauth'
