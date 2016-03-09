@@ -70,8 +70,8 @@ body.invite-view {
 
 .events nav {
 	
-    width: auto;
-    display: none;
+	width: auto;
+	display: none;
 }
 
 
@@ -91,9 +91,9 @@ body.invite-view {
 			float:left;
 			margin-right:30px;
 			background-size:cover;
-    		background-position: 50% 50%;
+			background-position: 50% 50%;
 			display:block;
-		
+			
 		}
 		
 		.title {
@@ -103,7 +103,7 @@ body.invite-view {
 		
 		.registrants {
 			margin-top:20px;
-		
+			
 		}
 		
 		.actions {
@@ -114,17 +114,17 @@ body.invite-view {
 				margin-right:10px;
 				display:inline-block;
 			}
-		
+			
 		}
-	
-	
-	
+		
+		
+		
 	}
 	
 	.event:after {
 		content: "";
- 		display: table;
- 		clear: both;		
+		display: table;
+		clear: both;		
 	}
 
 }
@@ -161,14 +161,14 @@ body.invite-view {
 .tabs {
 
 	position: relative;
-    top: -5px;
-    margin:0 5px;
+	top: -5px;
+	margin:0 5px;
 
 	&:after {
-	
+		
 		content: "";
-	 	display: table;
-	 	clear: both;
+		display: table;
+		clear: both;
 
 	}
 
@@ -193,7 +193,7 @@ body.invite-view {
 			&:hover {
 				color:#fff;
 				background:darken($brand-primary, 10%);
-	
+				
 			}
 		}
 		
@@ -210,15 +210,15 @@ body.invite-view {
 
 
 		i {
-		   	font-size: 20px;
-		    position: relative;
-		    top: 4px;
+			font-size: 20px;
+			position: relative;
+			top: 4px;
 		}
 
 		&.active {
 			color:$brand-primary;
 		}
-	
+		
 
 		&:hover {
 			color:$brand-primary;
@@ -235,12 +235,12 @@ body.invite-view {
 
 
 
-	
 
-	
-	
 
-	
+
+
+
+
 .editor-tools	{
 
 	background:$brand-secondary;
@@ -250,8 +250,10 @@ body.invite-view {
 	.editor-tool {
 		display:none;
 	}
+
+
 	
-	a {
+	a, form {
 		color:#fff;
 		width:25%;
 		height:100px;
@@ -264,7 +266,7 @@ body.invite-view {
 		&:hover {
 			background:$brand-primary;
 		}
-	
+		
 		
 		i {
 			display:block;
@@ -287,10 +289,10 @@ body.invite-view {
 	}
 
 }
-	
-	
-	
-	
+
+
+
+
 
 
 
@@ -300,45 +302,45 @@ body.invite-view {
 
 
 .event-editor-container {
-    z-index: 9999;
+	z-index: 9999;
 
-    a.highlight {
-    	background: $brand-primary;
-    }
+	a.highlight {
+		background: $brand-primary;
+	}
 
-    form input#event_background_img {
+	form input#event_background_img {
 		//opacity: 0;
-    }
+	}
 
 
-    .celebrate.image {
+	.celebrate.image {
 		background-image:url(themes/celebrate_thumb.jpg) !important;
-	
-    }
+		
+	}
 
-    .default.image {
+	.default.image {
 		background-image:url(themes/wedding_thumb.jpg) !important;
-	
-    }
+		
+	}
 
-    .epic.image {
+	.epic.image {
 		background-image:url(themes/epic_thumb.jpg) !important;
 
-    }
+	}
 
-    .gallery.image {
+	.gallery.image {
 
 		background-image:url(themes/gallery_thumb.jpg) !important;
-    }
+	}
 
-    .minimalist.image {
+	.minimalist.image {
 		background-image:url(themes/minimalist_thumb.jpg) !important;
 
-    }
-    .getloud.image {
+	}
+	.getloud.image {
 		background-image:url(themes/getloud_thumb.jpg) !important;
 
-    }
+	}
 }
 
 
@@ -401,19 +403,19 @@ body.invite-view {
 		margin:0 auto;
 		border:2px dotted rgba(255,255,255,.4);
 		top: 2.5%;
-    	position: relative;
-    	opacity:0;
-    	-webkit-transition: all .5s ease;
-   		transition: all .5s ease;
-   		background:none !important;
-   		visibility:hidden;
+		position: relative;
+		opacity:0;
+		-webkit-transition: all .5s ease;
+		transition: all .5s ease;
+		background:none !important;
+		visibility:hidden;
 
-    	&.visible {
-    		width:97%;
+		&.visible {
+			width:97%;
 			height:95%;
 			opacity:1;
 			visibility:visible;
-    	}
+		}
 
 	}
 }
@@ -428,9 +430,9 @@ body.invite-view {
 	#slider {
 		
 		width: 160px;
-	    background: rgba(255, 255, 255, 0.1);
-	    height: 5px;
-	    position: relative;
+		background: rgba(255, 255, 255, 0.1);
+		height: 5px;
+		position: relative;
 
 		span {
 
@@ -455,13 +457,13 @@ body.invite-view {
 	position:relative;
 
 	#color {
-    	background: rgba(255,255,255,.1);
-    	border: none;
-    	font-size: 11px;
-    	width: 89px;
-    	font-size: 12px;
-    	color: #fff;
-    	padding: 14px 10px;
+		background: rgba(255,255,255,.1);
+		border: none;
+		font-size: 11px;
+		width: 89px;
+		font-size: 12px;
+		color: #fff;
+		padding: 14px 10px;
 	}
 }
 
@@ -474,6 +476,25 @@ body.invite-view {
 	border:none !important;
 }
 
+
+#custom_image_form {
+	cursor: pointer;
+	float: left;
+	width: 25%;
+	input {
+		width: 25%;
+		cursor: pointer;
+		background: none;
+		border: none;
+		opacity: 0;
+		position:absolute;
+		top:60px;
+		left:0;
+		height: 100%;
+
+	}	
+
+}
 
 
 

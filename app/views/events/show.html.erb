@@ -5,6 +5,7 @@
 
 
   
+<%= render 'events/partials/eventwebsite' %>
 
 
 <%# render 'events/partials/eventinvite' %>
@@ -28,7 +29,7 @@
 <% end %>
 
 
-  <%= render 'events/partials/eventwebsite' %>
+
   <%= render 'events/partials/contact_form' %>
   <%= render 'events/partials/rsvp_form' %><!-- 
   <%= render 'events/partials/confirmation_form' %> -->
@@ -215,8 +216,6 @@ $( document ).ready(function() {
 
     if (published == "true") {
       $(".event-editor-draft-container#event_published").show();
-      $(".event-status-notification-banner").show();
-
     } else {
       $(".event-editor-draft-container#event_draft").show();
     }
@@ -229,7 +228,6 @@ $( document ).ready(function() {
         $(".editor-container").addClass("visible");
       $("#editor-tool-background").addClass("active");
 
-      
 
     });
 
@@ -423,12 +421,12 @@ $( document ).ready(function() {
     newBg = $('#external_image').val()
     $.ajax({
       type: 'POST',
-        url: String(window.location.href).replace('?editing=true', '').replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, published: published, layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }},
+        url: String(window.location.href).replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
+        data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }},
     beforeSend: function(){
         
         changesExist = true;
-        $("#editor-saving-status").html("<i class='icon icon-loader' style='font-size:30px;'> </i>").show();
+        $("#editor-saving-status").text("Saving changes...").show();
     }
       }).done(function(data){
         //console.log(data);

@@ -91,7 +91,14 @@
 
     <div class="editor-tool" id="editor-tool-background">
 
-      <a><i class="icon icon-image"> </i> Upload image</a>
+
+
+<%= form_for @event, url: update_event_path(@event), :html => { :id => "custom_image_form" }  do |f| %>
+<i class="icon icon-image"> </i>
+  <%= f.file_field :image, name: "event[background_img]", :id => 'hello', :val => 'UPload IMage' %>
+  Upload image
+<% end %>
+
       <a class="open-image-modal"><i class="icon icon-search"> </i>  Search images </a>
 
       <div class="right">
@@ -120,7 +127,6 @@
 
 </div>
  <!--END editor continer-->
-
 
 
 
