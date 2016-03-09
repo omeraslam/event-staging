@@ -18,7 +18,6 @@ $(document).on 'ready page:load', ->
     done: (e, data) -> 
       $('#background_form .uploader .progress').remove();
       $('#external_image').val('')
-      $(".edit-save").fadeIn()
       
       newimage = $('#custom-image').find('> div').css('background-image')
       $('.event-page').css 'cssText', 'background-image: '+ newimage + ' !important'
