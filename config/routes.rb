@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   get '/create', to: 'events#new', :as => :create
 
-  devise_for :users, :controllers => {  registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => {  registrations: "registrations", sessions: "sessions", :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
 

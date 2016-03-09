@@ -25,6 +25,8 @@ class ApplicationController < ActionController::Base
 
 end
 
+
+
 def check_member_type
   if user_signed_in?
 

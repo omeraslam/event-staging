@@ -59,6 +59,8 @@ module ApplicationHelper
 	end
 
 
+
+
 	def show_proper_date(event = nil, layout = true)
 
 		#if date null
@@ -140,6 +142,8 @@ module ApplicationHelper
 			# end
 		# end
 	end
+
+
 
 	def flash_class(level)
 	   case level.to_sym

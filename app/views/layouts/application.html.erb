@@ -237,6 +237,30 @@ if($('.signed-in').length > 0 && $('#event-edit').length > 0) {
 <% end %>
 <!-- end load google map -->
 
+<% if (signed_in? && current_user.sign_in_count == 1 && @welcome) %>
+
+
+
+<!-- Google Code for Signup Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 940862296;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "9mxbCJCJ0GQQ2NbRwAM";
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/940862296/?label=9mxbCJCJ0GQQ2NbRwAM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<% end %>
+
 
 </body>
 </html>

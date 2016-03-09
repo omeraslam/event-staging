@@ -12,6 +12,11 @@ class DashboardController < ApplicationController
     @events = Event.where(:user_id => current_user.id.to_s, :status => true).all
 
     @dir = true
+    @welcome = params[:welcome]
+
+    @sign_in_count = @user.sign_in_count
+
+
 
 
     respond_with(@attendee, @user, @events)
@@ -87,6 +92,8 @@ class DashboardController < ApplicationController
 
 
   def thankyou
+
+
   end
 
 end
