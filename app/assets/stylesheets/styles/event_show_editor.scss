@@ -11,6 +11,28 @@
 
 }
 
+.event-status-notification-banner {
+	background:$brand-primary;
+	color:#fff;
+	padding:10px;
+	font-size:12px;
+	text-align:center;
+	display:none;
+
+	a {
+		color:#fff;
+		text-decoration:underline;
+	}
+}
+
+.show-navigation-container .tabs {
+	position:fixed;
+	top:5px;
+	left:0;
+	z-index:999999;
+}
+
+
 body.invite-view {
 	background:$brand-gray;
 }
@@ -456,9 +478,4 @@ body.invite-view {
 
 
 
-.show-navigation-container .tabs {
-	position:fixed;
-	top:5px;
-	left:0;
 
-}
