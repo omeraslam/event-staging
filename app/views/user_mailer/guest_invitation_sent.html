@@ -134,7 +134,23 @@
 
 			<tr>
 			<!-- START background image/ intro cell -->	
-      		<td class="event-title" background="https://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg" bgcolor="#21afbf" valign="top" style="padding-top: 100px;padding-bottom: 100px;text-align: center;font-size: 50px;line-height: 50px;color: #fff;">
+			
+			<% if(@event.background_img.nil? || @event.background_img.blank?)
+				@background_email_img = 'https://www.eventcreate.com/assets/themes/'+ @event.layout_style + '_bg.jpg'
+			   else
+			   		if @event.background_img.email.file.exists?
+			   			@background_email_img = @event.background_img.url(:email)
+					else
+						@event.background_img.recreate_versions!
+						@background_email_img = @event.background_img.url(:email)
+					end
+			   end
+
+
+			 %>
+
+
+      		<td class="event-title"  bgcolor="#21afbf" valign="top" style="padding-top: 100px;padding-bottom: 100px;text-align: center;font-size: 50px;line-height: 50px;color: #fff;">
 			  <!--[if gte mso 9]>
 			  <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" >
 			    <v:fill type="tile" src="https://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg"  %>" color="#7bceeb" />

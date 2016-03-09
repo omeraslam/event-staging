@@ -85,7 +85,6 @@ class EventsController < ApplicationController
 
 
 
-
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }

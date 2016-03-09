@@ -30,6 +30,7 @@ class Event < ActiveRecord::Base
         def to_ics(for_outlook = false)
           cal = Calendar.new
 
+        
           event = Event.new
           event.dtstart ics_start_datetime, {:TZID => self.timezone }
           event.dtend ics_end_datetime, { :TZID => self.timezone }

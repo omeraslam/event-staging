@@ -38,11 +38,17 @@ module ApplicationHelper
 		if(!event.external_image.nil? && !event.external_image.blank? ) 
 			@style_bg = event.external_image
 		elsif(!event.background_img.nil? && !event.background_img.blank? )
-			# if dir == true
-			# 	@style_bg = event.background_img.url(:thumb)
-			# else
+			if dir == true
+				if event.background_img.thumb.file.exists?
+					@style_bg = event.background_img.url(:thumb)
+				else
+					event.background_img.recreate_versions!
+					@style_bg = event.background_img.url(:thumb)
+
+				end
+			else
 				@style_bg = event.background_img
-			# end
+			end
 		elsif (event.layout_style? && !event.show_custom) 
 			@style_bg = subdir + event.layout_style.to_s + '_bg.jpg'
 		else	
@@ -120,9 +126,7 @@ module ApplicationHelper
 	end
 
 	def show_attendance(attendee)
-
 		@reply = !attendee.attending.blank? ? (attendee.attending ? 'yes': 'no') : 'not yet replied'
-
 	end
 
 	def check_registration_status
