@@ -409,13 +409,11 @@ $( document ).ready(function() {
     var eventProperties = {}
     eventProperties.name = $('h1 span').text();
     eventProperties.slug = window.location.href.split('?editing=true')[0];
-    eventProperties.slug = eventProperties.slug.split('/')[4];
-    eventProperties.type = 'cityscape';
-
-
+    eventProperties.slug = eventProperties.slug.split('/')[3];
+    eventProperties.type = $('#layout_style').val();
     var event_id = 'step 4 success - publishing event';
 
-    amplitude.logEvent(event_id);
+    amplitude.logEvent(event_id, eventProperties);
 
 
  
