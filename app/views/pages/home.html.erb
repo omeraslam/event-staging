@@ -2,12 +2,31 @@
 
 
  	<div class="hero-content hero-content-left col">
-		<h1> beautiful event websites</h1>
-		<p>Build a professional event website in less than 30 seconds.</p>
+
+
+ 	<% if params[:cpn] == "ticketing" %>
+
+		<h1> Zero-fee event ticketing</h1>
+		<p>Start selling event tickets in less than 30 seconds. No fees. Period.</p>
+		
+
+	<% elsif params[:cpn] == "brand" %>
+
+		<h1>Your brand. Not ours.</h1>
+		<p>Build a free, custom-branded event website in less than 30 seconds.</p>
+
+	<% else %>	
+
+		<h1> Sell out your event</h1>
+		<p>Build a free, compelling event website in less than 30 seconds.</p>
+
+	<% end %>	 	 	
+	
+
 	 	<% if @is_premium != 'active' && @disable_create %>
 			<%= link_to 'Try for free now &rarr;'.html_safe, upgrade_path, :class => 'btn btn-large open-upgrade'  %> 
 		<% else %>
-			<%= link_to 'Try for free now &rarr;'.html_safe, create_path, :class => 'btn btn-large'  %> 
+			<%= link_to 'Try for free now &rarr;'.html_safe, create_path, :class => 'btn btn-large btn-obvious'  %> 
 	 	<% end %>	 	 	
 	</div>
 
@@ -19,14 +38,14 @@
 	 			<div class="button"></div>
 	 			<div class="button"></div>
 	 		</div>
-	 		<img src="/assets/home/sample.jpg" />	
+	 		<img src="/assets/home/sample2.jpg" />	
 	 	</div>	
 	 	<div class="phone"> 
 	 		<div class="details">
 	 			<div class="camera"></div>
 	 			<div class="speaker"></div>
 	 		</div>
-			<img src="/assets/home/sample_mobile.jpg" />	
+			<img src="/assets/home/sample2_mobile.jpg" />	
 	 	</div>
  	</div>
 
@@ -37,26 +56,34 @@
 
 <div class="product-feature-container">
 
-	<div class="product-feature col">
-		<i class="icon icon-line-computer"> </i>
-		<h2>enterprise level  software </h2>
-		<p>Beautiful websites and invites built on enterprise-level event management software, so all the tools you need are fully-baked in. <br> <a href="#"> Learn more</a> </p>	
-	</div>
 
 	<div class="product-feature col">
 		<i class="icon icon-line-chart"> </i>
-		<h2>  0% processing fees </h2>
-		<p>Selling tickets, or collecting payments? EventCreate has zero processing fees. Zero. It's that simple.  <br> <a href="#"> Learn more</a></p>	
+		<h2> Collect registrations, sell tickets </h2>
+		<p>Simple but powerful setup, so you can start collecting registrations for your event in less than 30 seconds. We keep it simple. No muss, no fuss.  </p>	
 	</div>
+
+
+	<div class="product-feature col">
+		<i class="icon icon-line-computer"> </i>
+		<h2>Feature your brand, not ours </h2>
+		<p>EventCreate is 100% white-labelled, which means your event website features your brand, not ours. Delight your attendees with a beautiful, custom experience.  </p>	
+	</div>
+
 
 	<div class="product-feature col">
 		<i class="icon icon-line-email"> </i>
-		<h2> 24/7 customer support</h2>
-		<p>Award-winning customer support is available 24/7 to answer questions and help make your event a success.<br> <a href="#"> Learn more</a> </p>	
+		<h2> Make your event a success</h2>
+		<p> Beautiful websites and invites are backed by enterprise-level event management software, so its works as well as it looks. </p>	
 	</div>
 
 </div>
 
+
+<div class="partners"> 
+	<p> Integrated with the tools you love: </p>
+	<img src="/assets/home/partners.jpg">
+</div>
 
 
  	 
