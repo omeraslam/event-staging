@@ -47,8 +47,14 @@
 
 	}
 
+	p {
+		font-size:15px;
+		line-height:22px;
+	}
+
 	&#home {
-		background:url(home/1.jpg);
+		background: #03304D;
+		background: linear-gradient(135deg, #03304D 0%,#4A6572 100%);
 
 	}	
 
@@ -148,7 +154,7 @@
 		.phone {
 			position: absolute;
 			z-index: 2;
-			right:18%;
+			right:10%;
 			top:150px;
 		}
 
@@ -189,6 +195,7 @@
 		a {
 			display:inline-block;
 			margin-top:6px;
+			display:none;
 		}
 
 	}
@@ -205,6 +212,22 @@
 }
 
 
+
+.partners {
+	
+	text-align:center;
+	margin:20px 0;
+
+	p {
+		color:#999;
+		margin-bottom:0;
+	}
+
+	img {
+		width:100%;
+		max-width:1200px;
+	}
+}
 
 
 
