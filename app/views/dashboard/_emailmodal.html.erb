@@ -203,7 +203,11 @@ $(document).ready(function(){
     		  url: $('#email-invite-modal form#new_attendee').attr('action'),
     		  data: {attendees: tableObject, event_id: $('#event_id').val(), user_id: $('#user_id').val()},
     		  success: function(){
-    		  	console.log('submit success');
+
+                amplitude.logEvent('sending invites');
+
+
+
     		  }
     		});
 

@@ -15,11 +15,9 @@ class PaymentsController < ApplicationController
     @user = current_user
     customer = Stripe::Customer.retrieve(@user.customer_id)
 
-    logger.debug "sub id: #{customer.subscriptions}"
-
+   
     subscription = customer.subscriptions.retrieve(customer.subscriptions.data[0].id)
     @subscription = subscription
-    logger.debug "sub id: #{subscription.plan.amount.to_i/100}"
 
   end
 

@@ -50,6 +50,7 @@ class EventsController < ApplicationController
           @url = 'http://eventcreate.com' + slugger_path( @event)
           @bitly = client.shorten(@url)
 
+          
 
           if(!@event.layout_style?)
             @event.layout_id = '1'

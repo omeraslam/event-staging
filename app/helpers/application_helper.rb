@@ -6,7 +6,12 @@ module ApplicationHelper
 		if title.present?
 			content_for :title, title
 		else
-			content_for?(:title) ? content_for(:title)  + ' | ' + APP_CONFIG['default_title'] : APP_CONFIG['default_title']
+			if(controller_name == 'events' && action_name == 'show')
+				content_for?(:title) ? content_for(:title)  + ' | ' + APP_CONFIG['default_title'] : APP_CONFIG['default_title']
+			else
+				content_for?(:title) ? APP_CONFIG['default_title']  + ' - ' + content_for(:title) : APP_CONFIG['default_title']
+
+			end
 		end
 	end
 
@@ -55,7 +60,6 @@ module ApplicationHelper
 			@style_bg = subdir+ 'cityscape_thumb.jpg'
 		end
 
-		#logger.debug "GIVE ME CITYSCAPE: #{event.layout_style}"
 	end
 
 

@@ -192,8 +192,7 @@ $(document).ready(function() {
   });
   var owl = $('.owl-carousel');
   owl.on('initialized.owl.carousel', function(e) {
-    console.log("total: " + e.item.count)
-    console.log("current: " + e.item.index)
+
     var count = e.item.count;
     var index = e.item.index;
         //update the button copy
@@ -220,7 +219,33 @@ $(document).ready(function() {
     var count = e.item.count;
     var index = e.item.index;
 
-    console.log(count)
+    var event_id = ''
+
+switch(index) {
+  case 1:
+  //step 1 success - name
+  event_id = 'step 1 success - name' 
+  break;
+  case 2:
+// step 2 success - get type
+  event_id = 'step 2 success - get type'
+  break;
+  case 3:
+// step 3 success - details
+  event_id = 'step 3 success - details'
+  break;
+
+
+  default:
+  event_id = ''
+  break;
+
+
+}
+if (event_id != '') {
+  amplitude.logEvent(event_id);
+}
+
         //update the button copy
         $(".btn-next").html(eventCreationStates[index].btnCopy +
           ' <i class="icon icon-arrow-right"> </i>');
@@ -236,7 +261,6 @@ $(document).ready(function() {
         }
 
         if(index == 2) {
-
           $('input, textarea').attr('tabindex', '1');
         } else {
           $('input, textarea').attr('tabindex', '-1');
@@ -249,11 +273,7 @@ $(document).ready(function() {
           window.onbeforeunload = null;
           $('#new_event').submit();
 
-          //window.onbeforeunload = null;
-         // $('body').addClass('event-creation-loading');
-          //setTimeout(function(){
-           // $('#new_event').submit();
-         // }, 1000);
+
           
         } else {
 
@@ -264,6 +284,10 @@ $(document).ready(function() {
 
         }
 
+
+
+
+
   
       });
   $(".btn-next").click(function(e) {
@@ -271,8 +295,6 @@ $(document).ready(function() {
     e.preventDefault();
     if (validator.element("#event_name")) {
       owl.trigger('next.owl.carousel');
-
-    
     }
   });
   $(".btn-prev").click(function(e) {

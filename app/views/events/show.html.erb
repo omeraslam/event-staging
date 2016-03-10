@@ -406,6 +406,20 @@ $( document ).ready(function() {
     published = true;    
     saveChanges(true);
 
+    var eventProperties = {}
+    eventProperties.name = $('h1 span').text();
+    eventProperties.slug = window.location.href.split('?editing=true')[0];
+    eventProperties.slug = eventProperties.slug.split('/')[4];
+    eventProperties.type = 'cityscape';
+
+
+    var event_id = 'step 4 success - publishing event';
+
+    amplitude.logEvent(event_id);
+
+
+ 
+
   });
 
 
