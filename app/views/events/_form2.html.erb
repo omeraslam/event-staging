@@ -324,10 +324,12 @@ if (event_id != '') {
 
 
 });
-          //don't allow tabbing by default
-          $('input, textarea').attr('tabindex', '-1');
+  //don't allow tabbing by default
+  $('input, textarea').attr('tabindex', '-1');
 
  
+    
+  amplitude.logEvent('Create an Event');
 
   //add functionality for tabbing through fields
 
