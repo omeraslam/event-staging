@@ -73,6 +73,7 @@
 
 	}
 
+
 }
 
 
@@ -317,6 +318,182 @@
 	
 
 }
+
+
+.zerofees {
+	
+
+	nav {
+		display:none;
+	}
+
+	nav#zerofees_nav {
+		display:block;
+
+	}
+
+	h1,h2 {
+		font-weight:600 !important;
+	}
+
+	h2 {
+		text-align:center;
+		font-size:40px;
+		line-height:50px;
+		margin-bottom:40px;
+	}
+
+
+	.hero#zerofees {
+		background:url(home/4.jpg);
+		background-size:cover;
+		background-position:50% 26%;
+		position:relative;
+
+
+		.hero-content {
+			position:relative;
+			max-width:800px;
+			margin:0 auto;
+			padding:200px 40px;
+
+
+			h1 {
+				font-size:60px;
+				line-height:72px;
+			}
+
+			p.lead {
+				font-size:18px;
+				line-height:26px;
+			}
+
+			
+		}
+
+
+		.hero-cover {
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+			background:rgba(0,0,0,.4);
+		}
+
+	}
+
+
+	.introduction-note {
+
+		max-width:500px;
+		margin:0 auto;
+		margin: 100px auto;
+		color:#666;
+
+
+		p {
+			font-size:16px;
+			line-height:26px;
+		}
+	}
+
+
+	.cta-banner {
+		background:$brand-primary;
+		padding:100px 20px;
+		text-align:center;
+		color:#fff;
+
+		h2 {
+			text-align:center;
+			color:#fff;
+		}
+
+		.btn {
+			background:darken($brand-primary, 10%);
+			color:#fff;
+
+			&:hover {
+				background:lighten($brand-primary, 10%);
+			}
+		}
+	}
+
+
+	.signatures {
+
+		margin: 40px 0;
+
+		.signature{ 
+
+			width:50%;
+			float:left;
+			text-align:center;
+			font-size:12px;
+			font-weight:600;
+
+			img {
+				width:60%;
+				display:block;
+				margin: 0 auto 10px auto;
+			}
+
+		}
+	
+		&:after {
+			content: "";
+  			display: table;
+  			clear: both;
+		}
+	}
+
+
+	//form
+	form {
+
+				width:500px;
+				margin:50px auto;
+
+				p {
+					font-size:12px;
+					line-height:18px;
+					text-align:left;
+
+				}
+
+
+				.input-group-inline:nth-child(1) {
+					width:70%;
+
+				}
+
+				.input-group-inline:nth-child(2) {
+					width:30%;
+
+				}
+
+				input {
+					height:60px;
+					line-height:60px;
+				}
+
+				.btn {
+					width:100%;
+					border-radius:0;
+					height:60px;
+				}
+			}
+
+
+
+}
+
+
+
+
+
+
 
 
 

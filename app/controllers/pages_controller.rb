@@ -30,6 +30,9 @@ class PagesController < ApplicationController
   def contact
   end
 
+  def zerofees
+  end
+
   def explore
 
        @themes = Theme.all
