@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308210917) do
+ActiveRecord::Schema.define(version: 20160311084351) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(version: 20160308210917) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "reservation", id: false, force: true do |t|
+    t.integer "event_id",    null: false
+    t.integer "attendee_id", null: false
+  end
+
+  add_index "reservation", ["attendee_id"], name: "index_reservation_on_attendee_id"
+  add_index "reservation", ["event_id"], name: "index_reservation_on_event_id"
 
   create_table "themes", force: true do |t|
     t.string   "name"
