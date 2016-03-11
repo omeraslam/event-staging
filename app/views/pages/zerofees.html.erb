@@ -1,0 +1,154 @@
+<% cookies.permanent[:lp_zf] = "true" %>
+
+
+
+
+<nav id="zerofees_nav">
+
+      <a class="logo" ><span>EventCreate </span></a>
+
+      <ul class="navbar-links">
+
+
+          <li><a href="mailto:hello@eventcreate.com">Contact Us</a> </li>
+
+      </ul>
+  </nav>
+
+
+<div class="hero" id="zerofees">
+	<div class="hero-cover"></div>
+
+ 	<div class="hero-content">
+		<h1> Sell tickets (no fees apply)</h1>
+		<p class="lead">$15/mo. Unlimited events. Unlimited tickets. <br>
+Zero service fees. Yup, it’s that simple.  </p>	 
+
+<form action="http://eventcreate.createsend.com/t/i/s/kriilr/" method="post" class="subForm">
+    <div class="input-group">
+	    <div class="input-group-inline">
+	    	<input id="fieldEmail" name="cm-kriilr-kriilr" type="email" placeholder="email@email.com" required />
+	    	<p>Please enter your email address to request an invite. </p>
+	    </div>
+
+	    <div class="input-group-inline">
+	    	<button class="btn" type="submit">Request invite</button>
+
+	    </div>
+    </div>
+
+</form>
+
+	</div>
+</div>	
+
+
+<div class="introduction-note"> 
+	<h2>We're like you. </h2>
+
+	<p>We’re like you. We’ve planned hundreds of events. We’ve tested dozens of registration platforms. We’ve paid thousands of dollars in service fees. </p> 
+
+	<p>In late 2015, we decided to change that. So we teamed up with some friends to build a new platform with one goal: a simple event registration tool with zero service fees. </p>
+
+	<p>Three months later, we’re excited (like, really excited) to annouce that we’re finished our beta product. We can’t wait to here what you think. </p>
+
+	<div class="signatures">
+		<div class="signature"><img src="/assets/home/signature_mark.png">Mark Bushy<br> Co-Founder </div>
+		<div class="signature"><img src="/assets/home/signature_rich.png">Rich Saethang<br> Co-Founder</div>
+
+	</div>
+</div>
+
+
+
+<div class="cta-banner">
+
+<h2>Request an invite </h2>
+
+<form action="http://eventcreate.createsend.com/t/i/s/kriilr/" method="post" class="subForm">
+    <div class="input-group">
+	    <div class="input-group-inline">
+	    	<input id="fieldEmail" name="cm-kriilr-kriilr" type="email" placeholder="email@email.com" required />
+	    	<p>Please enter your email address to request an invite. </p>
+	    </div>
+
+	    <div class="input-group-inline">
+	    	<button class="btn" type="submit">Request invite</button>
+
+	    </div>
+    </div>
+
+</form>
+</div>
+
+
+
+<div class="footer">
+
+    <a href="mailto:hello@eventcreate.com">Contact Us</a> |  <a href="/terms">Terms and Conditions</a> | <a href="/privacy">Privacy Policy</a>  |  © EventCreate 2016. 
+
+</div>
+
+
+
+<!-- modal-->
+<div id="thankyou-modal">
+
+	    <button data-remodal-action="close" class="remodal-close"></button>
+	    
+
+	    <div class="modal-header modal-header-light">
+	    	<i class="icon icon-check"> </i>
+		    <h2>We don't like fees, either.</h2>
+		    <p>  
+		      Thank you for requesting an invite to EventCreate! We'll send you one as soon as possible.
+		   		We can't wait to share our new platform with you; it's great to have you onboard!</p>
+		     <button data-remodal-action="confirm" class="remodal-confirm btn">Ok, great!</button>
+	    </div>
+
+
+
+</div>
+<!-- END modal -->
+
+
+
+
+
+<script> 
+
+$( document ).ready(function() {
+
+    var thankyou_modal = $('#thankyou-modal').remodal();
+
+
+    $(function () {
+        $('.subForm').submit(function (e) {
+            e.preventDefault();
+            $.getJSON(
+            this.action + "?callback=?",
+            $(this).serialize(),
+            function (data) {
+                if (data.Status === 400) {
+                    alert("Error: " + data.Message);
+                } else { // 200
+                    thankyou_modal.open();
+                    $('.subForm').each(function() { this.reset() });
+
+                    $("body").append('<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/940862296/?label=9RrTCOj63mQQ2NbRwAM&amp;guid=ON&amp;script=0"/>');
+
+                }
+            });
+        });
+    });
+
+
+
+
+
+
+
+});    
+
+</script>
+
