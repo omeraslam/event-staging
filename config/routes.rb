@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
 
+  get '/buy' => 'payments#buy', :as => :buy
+
 
 
 
