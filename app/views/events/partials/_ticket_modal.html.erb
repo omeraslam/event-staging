@@ -1,43 +1,38 @@
-
-<div id="ticket-modal">
-		
-		<div class="modal-header modal-header-light">
-	    <button data-remodal-action="close" class="remodal-close"></button>
-	    <i class="icon icon-line-email"> </i>
-	    <h2>New ticket</h2>
-	    <p>Send the event host a message or a question about the event.</p>
-	  
-    </div>
-    
-		
-		<div class="modal-body">
-		
-
-
-	<form>
-	
-		    	<div class="input-group">
-		    		<label>Title:</label>
+<!-- <div id="ticket-modal">
+	<div class="modal-header modal-header-light">
+		<button data-remodal-action="close" class="remodal-close"></button>
+		<i class="icon icon-line-email"> </i>
+		<h2>New ticket</h2>
+		<p>Send the event host a message or a question about the event.</p>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="input-group">
+			   	<label>Title:</label>
 				<%= text_field_tag(:name, '', class: 'input input-large', placeholder: '(ie, General Admission)') %>
 			</div>
 
-		    	<div class="input-group">
-		    		<label>Price:</label>
-		    		<%= text_field_tag(:name, '', class: 'input input-large', placeholder: '0') %>
-
+			<div class="input-group">
+				<label>Price:</label>
+				<%= text_field_tag(:name, '', class: 'input input-large', placeholder: '0') %>
 			</div>
-
-		    	<div class="input-group">
+			<div class="input-group">
 				<%= submit_tag('Create new ticket', class: 'btn btn-primary') %>
 			</div>
-
-
-	</form>
-
-	
-		 
-		 
-		</div> 
-		
+		</form> 
+	</div> 
 </div>
+ -->
+<div id="ticket-modal">
+	<div class="modal-header modal-header-light">
+		<button data-remodal-action="close" class="remodal-close"></button>
+		<i class="icon icon-line-email"> </i>
+		<h2>New ticket</h2>
+		<p>Send the event host a message or a question about the event.</p>
+	</div>
+	<div class="modal-body">
 
+		<%= render 'tickets/form' %>
+
+	</div> 
+</div>

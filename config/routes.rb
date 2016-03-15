@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :buyers
+
+  #resources :tickets
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -18,6 +22,10 @@ Rails.application.routes.draw do
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
 
+  get '/buy' => 'payments#buy', :as => :buy
+
+
+#match '/:slug/tickets' => 'tickets#index'
 
 
 
@@ -76,7 +84,8 @@ Rails.application.routes.draw do
   end
   
   resources :users
-  resources :events
+  resources :tickets
+  resources :events 
   get '/:slug' => 'events#show', :as => :slugger
 
   get '/:slug/export' => 'events#export_events', :as => :export_events
@@ -86,6 +95,10 @@ Rails.application.routes.draw do
   # resources :users do
   #   resources :events
   # end
+
+
+ # resources :events 
+
 
   resource :user, only: [:edit] do
     collection do
@@ -121,6 +134,8 @@ Rails.application.routes.draw do
   post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
 
   put '/:slug/updatetheme', to: 'events#update_theme'
+
+  #get '/:slug/tickets', to: 'tickets/#index'
 
   get '/:slug/unsplash-search', to: 'events#unsplash_search'
 

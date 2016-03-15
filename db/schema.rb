@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308210917) do
+ActiveRecord::Schema.define(version: 20160315192444) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20160308210917) do
     t.boolean  "attending"
     t.integer  "event_id"
     t.string   "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "buyers", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -68,6 +76,22 @@ ActiveRecord::Schema.define(version: 20160308210917) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
+  create_table "line_item", id: false, force: true do |t|
+    t.integer "ticket_id",   null: false
+    t.integer "attendee_id", null: false
+  end
+
+  add_index "line_item", ["attendee_id"], name: "index_line_item_on_attendee_id"
+  add_index "line_item", ["ticket_id"], name: "index_line_item_on_ticket_id"
+
+  create_table "reservation", id: false, force: true do |t|
+    t.integer "event_id",    null: false
+    t.integer "attendee_id", null: false
+  end
+
+  add_index "reservation", ["attendee_id"], name: "index_reservation_on_attendee_id"
+  add_index "reservation", ["event_id"], name: "index_reservation_on_event_id"
+
   create_table "themes", force: true do |t|
     t.string   "name"
     t.string   "slug"
@@ -79,6 +103,17 @@ ActiveRecord::Schema.define(version: 20160308210917) do
     t.string   "bg_color"
     t.string   "layout_type"
     t.string   "icon"
+  end
+
+  create_table "tickets", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "price"
+    t.integer  "ticket_limit"
+    t.integer  "buy_limit"
+    t.date     "stop_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

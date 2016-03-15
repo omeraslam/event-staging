@@ -146,21 +146,25 @@
 
       <h4>Active tickets </h4>
         <div class="tickets">
+        
+        <% @tickets.each do |ticket| %>
+
           <div class="ticket">
-            <h3>Early Bird Ticket </h3>
-            <p>$15.00</p>
+            <h3><%= ticket.title %></h3>
+            <p><%= number_to_currency(ticket.price) %></p>
             
             <div class="ticket-actions">
 
 
-             <div class="ticket-action"> <i class="icon icon-pencil"> </i></div>
-            <div class="ticket-action"> <i class="icon icon-trash"> </i></div>
+             <div class="ticket-action">
+            <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket)  %></div>
+            <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %></div>
             </div>
 
           
           </div>
 
-          <div class="ticket">
+         <!--  <div class="ticket">
             <h3>General Admission </h3>
             <p>$25.00</p>
 
@@ -173,7 +177,10 @@
             </div>
 
 
-          </div>
+          </div> -->
+
+
+        <% end %>
 
         </div>
 

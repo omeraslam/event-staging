@@ -1,0 +1,41 @@
+<%= form_for(@ticket) do |f| %>
+  <% if @ticket.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+
+      <ul>
+      <% @ticket.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'input input-large', placeholder: '(ie, General Admission)' %>
+  </div>
+  <div class="input-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'input input-large', placeholder: '0' %>
+  </div>
+  <div class="input-group">
+    <%= f.label :price %>
+    <%= f.number_field :price, class: 'input input-large', placeholder: '0' %>
+  </div>
+  <div class="input-group">
+    <%= f.label :ticket_limit %>
+    <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '4' %>
+  </div>
+  <div class="input-group">
+    <%= f.label :buy_limit %>
+    <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '4' %>
+  </div>
+  <div class="input-group">
+    <%= f.label :stop_date %>
+    <%= f.date_select :stop_date, class: 'input input-large'%>
+  </div>
+  <div class="input-group actions">
+    <%= f.submit 'Create New Ticket', class: 'btn btn-primary' %>
+  </div>
+<% end %>

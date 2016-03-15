@@ -25,4 +25,12 @@ class PaymentsController < ApplicationController
     @user = current_user
   end
 
+  def buy
+    
+  end
+
+  def purchase_tickets
+
+  end
+
 end
