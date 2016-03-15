@@ -23,10 +23,10 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
 
-
-
-
     @event = Event.find_by_slug(params[:slug])
+
+    @tickets = Ticket.all #need to switch by event
+    @ticket = Ticket.new
 
     if !@event
 
@@ -50,7 +50,7 @@ class EventsController < ApplicationController
           @url = 'http://eventcreate.com' + slugger_path( @event)
           @bitly = client.shorten(@url)
 
-          
+
 
           if(!@event.layout_style?)
             @event.layout_id = '1'
@@ -161,6 +161,8 @@ class EventsController < ApplicationController
     @event = Event.all.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
+
+    
 
     logger.debug "#{@event.layout_style}"
 

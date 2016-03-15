@@ -294,16 +294,19 @@ body.invite-view {
 		line-height:100px;
 	}
 
+	.ticket-actions {
+		a{
+			height: auto;
+			background: none;
+			padding: 0;
+
+			i {
+				font-size: 20px;
+			}
+		}
+	}
+
 }
-
-
-
-
-
-
-
-
-
 
 
 

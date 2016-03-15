@@ -11,31 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="input-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'input input-large', placeholder: '(ie, General Admission)' %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+  <div class="input-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'input input-large', placeholder: '0' %>
   </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.number_field :price %>
+  <div class="input-group">
+    <%= f.label :price %>
+    <%= f.number_field :price, class: 'input input-large', placeholder: '0' %>
   </div>
-  <div class="field">
-    <%= f.label :ticket_limit %><br>
-    <%= f.number_field :ticket_limit %>
+  <div class="input-group">
+    <%= f.label :ticket_limit %>
+    <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '4' %>
   </div>
-  <div class="field">
-    <%= f.label :buy_limit %><br>
-    <%= f.number_field :buy_limit %>
+  <div class="input-group">
+    <%= f.label :buy_limit %>
+    <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '4' %>
   </div>
-  <div class="field">
-    <%= f.label :stop_date %><br>
-    <%= f.datetime_select :stop_date %>
+  <div class="input-group">
+    <%= f.label :stop_date %>
+    <%= f.date_select :stop_date, class: 'input input-large'%>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="input-group actions">
+    <%= f.submit 'Create New Ticket', class: 'btn btn-primary' %>
   </div>
 <% end %>
