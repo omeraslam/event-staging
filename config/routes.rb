@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   get '/features' => 'pages#features'
   get '/explore' => 'pages#explore'
   get '/contact' => 'pages#contact'
+    get '/zerofees' => 'pages#zerofees'
+
   #sget '/error404.html' => 'pages#error404', :as => :error_path
 
 

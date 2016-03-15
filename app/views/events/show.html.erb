@@ -24,6 +24,8 @@
     <%= render 'events/partials/editor' %>
     <%= render 'partials/imagesearch' %>  
     <%= render 'partials/loader_saving' %>
+        <%= render 'events/partials/ticket_modal' %>
+
 
 
 <% end %>
@@ -171,16 +173,20 @@ $( document ).ready(function() {
       $(".editor-tool").hide();
       $(".editor-tool#" + target).show();
       $(this).addClass("active");
-      $(".editor-container").addClass("visible");
+      $(".editor-container").css("bottom", $(this).data('height'));
 
     } else {
 
       $(this).removeClass("active");
-      $(".editor-container").removeClass("visible");
+      $(".editor-container").css("bottom", "0");
 
     }
 
  });
+
+
+
+
 
 
 
@@ -221,7 +227,11 @@ $( document ).ready(function() {
     }
 
 
-    $(".full-page-loader#event-creation-loader").delay(2000).hide(0, function() {    
+    //$(".full-page-loader#event-creation-loader").delay(2000).hide(0, function() {    
+
+//TEMP
+$(".full-page-loader#event-creation-loader").hide();
+//END TEMP
 
       $(this).removeClass("visible");
         $(".editor-tool#editor-tool-background").show();
@@ -229,7 +239,7 @@ $( document ).ready(function() {
       $("#editor-tool-background").addClass("active");
 
 
-    });
+   // });
 
 
 
@@ -290,6 +300,13 @@ $( document ).ready(function() {
 
 // unsplash api functions
 // 
+
+
+    var ticketModal = $('#ticket-modal').remodal();
+        $('.open-ticket').click(function(e){
+      ticketModal.open();
+      e.preventDefault;
+    });
 
 
   //modal
