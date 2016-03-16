@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
+  # include Devise::TestHelpers
+  # include Warden::Test::Helpers                       
+  # Warden.test_mode!           
+
   setup do
     @event = events(:one)
   end
@@ -18,7 +22,7 @@ class EventsControllerTest < ActionController::TestCase
 
   # test "should create event" do
   #   assert_difference('Event.count') do
-  #     post :create, event: { background_img: @event.background_img, description: @event.description, location: @event.location, name: @event.name, time: @event.time }
+  #     post :create, event: { description: @event.description, location: @event.location, name: @event.name }
   #   end
 
   #   assert_redirected_to event_path(assigns(:event))
