@@ -21,6 +21,16 @@ class EventsController < ApplicationController
 
   # GET /events/1
   # GET /events/1.json
+def show_buy 
+
+     @event = Event.find_by_slug(params[:slug])
+             @user = User.find(@event.user_id)
+
+
+end
+
+
+
   def show
 
     @event = Event.find_by_slug(params[:slug])

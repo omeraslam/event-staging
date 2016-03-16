@@ -91,6 +91,9 @@ Rails.application.routes.draw do
   get '/:slug/export' => 'events#export_events', :as => :export_events
 
 
+  get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
+
+
 
   # resources :users do
   #   resources :events
