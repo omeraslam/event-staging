@@ -14,47 +14,38 @@
 	
   
 	<div class="tickets">
-		
-         <div class="ticket">
 
 
-            <select>
-			  <option value="0">0</option>
-			  <option value="1">1</option>
-			  <option value="2">2</option>
-			</select>
+       <% @tickets.each do |ticket| %>
 
 
-            <h3>Early Bird Ticket </h3>
-            <p>$15.00</p>
-            <p>Vestibulum sed vulputate justo. Morbi gravida ac libero vitae eleifend. Vivamus volutpat interdum lacus, in consectetur ligula elementum sed</p>
-            <p class="small"> Available until March 2, 2015 </p>
+
+       <div class="ticket">
+
+
+           
+            <%= select_tag options_for_select((0..ticket.ticket_limit).step(1)) %>
+
+
+            <h3><%= ticket.title %></h3>
+            <p><%= number_to_currency(ticket.price) %></p>
+            <p><%= ticket.description %></p>
+            <p class="small"> Available until <%= ticket.stop_date.strftime('%B %d, %Y') %></p>
 
 
 
           
           </div>
 
-          <div class="ticket">
 
 
-          	<select>
-			  <option value="0">0</option>
-			  <option value="1">1</option>
-			  <option value="2">2</option>
-			</select>
+
+      
 
 
-            <h3>General Admission </h3>
-            <p>$25.00</p>
-            <p>Vestibulum sed vulputate justo. Morbi gravida ac libero vitae eleifend. Vivamus volutpat interdum lacus, in consectetur ligula elementum sed</p>
-            <p class="small"> Available until March 2, 2015 </p>
+        <% end %>
 
-			
 		
-
-
-          </div>
 
 	</div>
 
