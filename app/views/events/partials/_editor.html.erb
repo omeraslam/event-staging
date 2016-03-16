@@ -153,6 +153,10 @@
             <h3><%= ticket.title %></h3>
             <p><%= number_to_currency(ticket.price) %></p>
             
+            
+            <%= select_tag "sizes", options_for_select((0..ticket.ticket_limit).step(1)) %>
+
+
             <div class="ticket-actions">
 
 

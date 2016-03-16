@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   get '/zerofees' => 'pages#zerofees'
   get '/about' => 'pages#about'
 
-  #sget '/error404.html' => 'pages#error404', :as => :error_path
+  get '/error404' => 'pages#error404', :as => :error_path
 
 
 

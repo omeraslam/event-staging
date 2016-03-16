@@ -1,7 +1,5 @@
 class PagesController < ApplicationController
-  def info
 
-  end
   
   def home      
   end
@@ -13,6 +11,7 @@ class PagesController < ApplicationController
   end
   
   def about
+    #no design 
   end
 
 	
@@ -21,9 +20,15 @@ class PagesController < ApplicationController
 
 
   def error404
+    respond_to do |format|
+      format.html { render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found }
+      format.xml  { head :not_found }
+      format.any  { head :not_found }
+    end
   end
 
   def features
+    #no design 
   end
 
 
@@ -34,9 +39,8 @@ class PagesController < ApplicationController
   end
 
   def explore
-
-       @themes = Theme.all
-       
+    #no design 
+    @themes = Theme.all
   end
 
 

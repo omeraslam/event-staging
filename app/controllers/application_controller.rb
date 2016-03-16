@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
 
 end
 
+def not_found
+  raise ActionController::RoutingError.new('Not Found')
+end
+
 
 
 def check_member_type

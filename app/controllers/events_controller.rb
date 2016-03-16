@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
 
-    @event = Event.find_by_slug(params[:slug])
+    @event = Event.find_by_slug(params[:slug]) or not_found
 
     @tickets = @event.tickets.all #need to switch by event
     #@ticket = @event.tickets.build(ticket_params)
