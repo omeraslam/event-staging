@@ -25,7 +25,8 @@ class EventsController < ApplicationController
 
     @event = Event.find_by_slug(params[:slug])
 
-    @tickets = Ticket.all #need to switch by event
+    @tickets = @event.tickets.all #need to switch by event
+    #@ticket = @event.tickets.build(ticket_params)
     @ticket = Ticket.new
 
     if !@event
@@ -93,7 +94,7 @@ class EventsController < ApplicationController
         format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
 
-        logger.debug "no save"
+        # "no save"
         #format.html { render :edit }
         #format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -106,20 +107,6 @@ class EventsController < ApplicationController
     @search_results = Unsplash::Photo.search(params[:searchTerm])
 
     render json: @search_results
-
-    # respond_to do |format|
-    #   if @event.update(event_params)
-    #     format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
-    #     format.js
-    #     format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
-    #   else
-
-    #     logger.debug "no save"
-    #     #format.html { render :edit }
-    #     #format.json { render json: @event.errors, status: :unprocessable_entity }
-    #   end
-    # end
-
 
   end
 
@@ -158,15 +145,11 @@ class EventsController < ApplicationController
     @themes = Theme.order(:id).all
 
     @user = User.find(current_user)
-    @event = Event.all.build(event_params)
+    @event = @user.events.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
 
-    
-
-    logger.debug "#{@event.layout_style}"
-
-    #@event.slug = @event.name.downcase.gsub(" ", "-")
+  
 
 
 
@@ -287,4 +270,6 @@ class EventsController < ApplicationController
       # end
       return valid
     end
+
+
   end

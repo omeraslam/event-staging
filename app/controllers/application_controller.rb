@@ -10,18 +10,6 @@ class ApplicationController < ActionController::Base
   helper :all
 
 
- # protected
- #  def authenticate_user!(options={})
- #    if user_signed_in?
- #      super(options)
-
- #    else
- #      redirect_to new_user_registration_path, :notice => 'Please login to create event'
- #      ## if you want render 404 page
- #      ## render :file => File.join(Rails.root, 'public/404'), :formats => [:html], :status => 404, :layout => false
- #    end
- #  end
-
 
 end
 
@@ -69,14 +57,9 @@ def check_member_type
     end
 
 
-    logger.debug "Disable create is: #{@disable_create}"
-
-    #@cu = ''
-    logger.debug "PREMIUM IS: #{current_user.premium}"
     @is_premium = current_user.premium? ? 'active': ''
 
 
-    logger.debug "@is_premium IS: #{@is_premium}"
 
     # else if membership not active
 
@@ -87,17 +70,9 @@ def check_member_type
 
     if !current_user.customer_id.nil?
       @cu = Stripe::Customer.retrieve(current_user.customer_id)
-      logger.debug "app level customer id: #{@cu.id}"
-      #@is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
-
-      logger.debug "current user: #{current_user}"
-
-      #@disable_create = @count_events.count > 0 && @is_premium != 'active'
-      logger.debug "app level customer id: #{@disable_create}"
+      
     else
       @cu = ''
-      #@is_premium = false
-      #@disable_create = @count_events.count > 0
     end
 
 

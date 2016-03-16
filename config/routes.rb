@@ -12,60 +12,62 @@ Rails.application.routes.draw do
   #dashboard routes
   get 'dashboard/index'
   get 'dashboard/event'
-  #get 'dashboard/past'
   get 'dashboard/profile'
   get 'dashboard/print'
   get 'dashboard/contacts'
+  get '/dashboard' => 'dashboard#index'
 
   #payment routes
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
 
+
+  #ticket buying
   get '/buy' => 'payments#buy', :as => :buy
 
 
-#match '/:slug/tickets' => 'tickets#index'
 
-
-
-
+  #bitly url
   resources :urls, only: [:new, :create]
 
+  #attendee routes
   resources :attendees
 
+  #attendee custom routes
+  post '/attendees/send-preview', to: 'attendees#send_preview', :as => :send_preview
+  post '/attendees/invite', to: 'attendees#invite'
+  put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
+  post '/attendees/send-invite', to: 'attendees#send_invite'
+  post '/attendees/batch-invite', to: 'attendees#batch_invite'
+
+
+
+  #static pages
   get '/terms' => 'pages#terms'
   get '/privacy' => 'pages#privacy'
   get '/pricing' => 'pages#pricing'
   get '/features' => 'pages#features'
   get '/explore' => 'pages#explore'
   get '/contact' => 'pages#contact'
-    get '/zerofees' => 'pages#zerofees'
+  get '/zerofees' => 'pages#zerofees'
+  get '/about' => 'pages#about'
 
   #sget '/error404.html' => 'pages#error404', :as => :error_path
 
 
-  get '/dashboard' => 'dashboard#index'
 
 
   get '/events/calendar'  => 'events#calendar'
+  get '/create', to: 'events#new', :as => :create
   
-  get '/about' => 'pages#about'
 
 
   get '/attendees/:id', to: 'attendees#index'
 
-  # get '/dashboard', to: 'events#index', :as => :dashboard
 
-  get '/create', to: 'events#new', :as => :create
 
   devise_for :users, :controllers => {  registrations: "registrations", sessions: "sessions", :omniauth_callbacks => "users/omniauth_callbacks" }
-
-
-
-
-
-
 
 
   authenticated do
@@ -77,27 +79,19 @@ Rails.application.routes.draw do
   #get '', to: 'events#show', constraints: {subdomain: /.+/}
 
 
-  # resources :users
-
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session_path
   end
   
-  resources :users
-  resources :tickets
-  resources :events 
-  get '/:slug' => 'events#show', :as => :slugger
-
-  get '/:slug/export' => 'events#export_events', :as => :export_events
-
+  resources :users, :shallow => true do
+    resources :events do
+       resources :tickets
+    end
+  end
 
 
-  # resources :users do
-  #   resources :events
-  # end
+ 
 
-
- # resources :events 
 
 
   resource :user, only: [:edit] do
@@ -107,36 +101,23 @@ Rails.application.routes.draw do
     end
   end
 
-
-  post '/attendees/send-preview', to: 'attendees#send_preview', :as => :send_preview
-
-  post '/attendees/invite', to: 'attendees#invite'
-  put '/attendees/:id/reply', to: 'attendees#reply', :as => :attendee_reply
-
-  post '/attendees/send-invite', to: 'attendees#send_invite'
-  post '/attendees/batch-invite', to: 'attendees#batch_invite'
-
-
-  post '/events/check-slug', to: 'events#check_slug'
-
-  post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
-
-
  
 
-
+  #user stripe routes
   post '/users/:user_id/charge-card', to: 'users#charge_card', :as => :user_charge
   post '/users/:user_id/update-subscription', to: 'users#update_subscription', :as => :update_subscription
   post '/users/:user_id/cancel-subscription', to: 'users#cancel_subscription', :as => :cancel_subscription
 
 
+  post '/events/check-slug', to: 'events#check_slug'
+  post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
+  #slug 
+  post '/:slug/tickets' => 'tickets#create'
+  get '/:slug' => 'events#show', :as => :slugger
+  get '/:slug/export' => 'events#export_events', :as => :export_events
   patch '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
   post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
-
   put '/:slug/updatetheme', to: 'events#update_theme'
-
-  #get '/:slug/tickets', to: 'tickets/#index'
-
   get '/:slug/unsplash-search', to: 'events#unsplash_search'
 
 

@@ -7,8 +7,10 @@ class CreateTickets < ActiveRecord::Migration
       t.integer :ticket_limit
       t.integer :buy_limit
       t.datetime :stop_date
+      t.references :event, index: true, foreign_key: true
 
       t.timestamps
     end
+    add_index :tickets, [:event_id, :created_at]
   end
 end

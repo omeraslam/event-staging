@@ -37,7 +37,7 @@ class DashboardController < ApplicationController
 
 
   def event
-
+    @user = current_user
     #@import = Attendee::Import.new
 
     @themes = Theme.all
@@ -47,13 +47,14 @@ class DashboardController < ApplicationController
     @attendee = Attendee.new
     @attendee_count = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event], attending: true).count()
 
-    @event = Event.find_by id: params[:event]
+    #@event = Event.find_by id: params[:event]
+    @event = @user.events.find_by id: params[:event]
 
 
 
 
     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
-    logger.debug "ATTENDEE LIST IS: #{@attendees}"
+   
     respond_to do |format|
       format.html
       format.csv { send_data @attendees.to_csv }

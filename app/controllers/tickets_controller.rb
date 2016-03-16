@@ -21,9 +21,17 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+   # @ticket = Ticket.new(ticket_params)
+    #@user = User.find(current_user)
+    #@event = @user.events.build(event_params)
+    #@event.user_id = current_user.id
+    #
+    @event = Event.find_by_slug(params[:slug])
+    logger.debug "#{params[:slug]}"
+    @ticket = @event.tickets.build(ticket_params)
     @ticket.save
-    respond_with(@ticket)
+    #respond_with(@ticket)
+    redirect_to slugger_path(@event) + '?editing=true'
   end
 
   def update

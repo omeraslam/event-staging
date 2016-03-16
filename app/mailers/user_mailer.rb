@@ -41,7 +41,7 @@ class UserMailer < ActionMailer::Base
     end
 
     def guest_invitation_sent(user, attendee, event, eventurl)
-        logger.debug "#{@attendee}"
+       
         @user = user
         @attendee = attendee
         @event = event

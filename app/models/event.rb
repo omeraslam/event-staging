@@ -1,7 +1,8 @@
 class Event < ActiveRecord::Base
         belongs_to :user
-        has_many :tickets
+        has_many :tickets, dependent: :destroy
         mount_uploader :background_img, PictureUploader
+      
         
         # def format_date
         #    self.date_start.to_date.strftime('%B %d')
