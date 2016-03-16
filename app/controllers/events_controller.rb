@@ -29,6 +29,15 @@ def show_buy
 
 end
 
+def show_confirm 
+
+     @event = Event.find_by_slug(params[:slug])
+             @user = User.find(@event.user_id)
+
+
+end
+
+
 
 
   def show
