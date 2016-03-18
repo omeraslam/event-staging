@@ -17,16 +17,36 @@
     </div> 
 
 
-<h1>Thank you </h1>
+    <div class="confirm-container">
+
+      <h2>Nice! You're going to <%= @event.name %>! </h2>
+      <p>Your order has been successfully processed, and we've sent your tickets and a receipt to your mark@test.com. In case you need it, your order number is: 1232323. Thanks for joining us. We look forward to seeing you there.</p>
+      
+
+      <div class="ticket-btn-container"> <a href="" class="btn"><i class="icon icon-print"> </i> Print My Ticket(s) Now </a></div>
+
+      <h3>Now, tell your friends. </h3>
+      <a href="" class="btn btn-facebook"><i class="icon icon-facebook"> </i> Make my friends jealous</a> 
+
+
+    </div>
+
   
+
+
+
+    
+
+  <div class="credit"> 
+    <div>made with</div> 
+    <a href="http://www.eventcreate.com/"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
+  </div>
 
 
 
 </div>
 
 
-
-<script type="text/javascript" src="/assets/payment-modal.js"></script>
 
 
 
