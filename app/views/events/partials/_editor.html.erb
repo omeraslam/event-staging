@@ -70,7 +70,7 @@
 
 
 <!--start TEMP themes container  -->
-<div class="editor" style="display:none;"> 
+<!-- <div class="editor" style="display:none;"> 
    <div class="event-editor-design" style="display:none;" >
       <a href="#" class="theme" data-layout="1" data-theme="cityscape" id="cityscape">
       	<img src="./assets/themes/cityscape_thumb.jpg">
@@ -91,7 +91,7 @@
         <img src="./assets/themes/minimalist_thumb.jpg"  >
       </a> 					  
   </div>
-</div>
+</div> -->
   <!--end TEMP themes container -->
 
 
@@ -99,12 +99,7 @@
   <!--START THE BG UPLOAD-->
   <div class="editor-tools" >
 
-
-
     <div class="editor-tool" id="editor-tool-background">
-
-
-
 <%= form_for @event, url: update_event_path(@event), :html => { :id => "custom_image_form" }  do |f| %>
 <i class="icon icon-image"> </i>
   <%= f.file_field :image, name: "event[background_img]", :id => 'hello', :val => 'UPload IMage' %>
@@ -130,10 +125,6 @@
       <a class="font gotham" data-target="gotham" style="font-size:12px;">Abc</a>  
       <a class="font freight" data-target="freight" style="font-size:16px; letter-spacing:3px;">Abc</a>
     </div>  
-
-
-
-
     <div class="editor-tool" id="editor-tool-ticketing" style="height:400px;" >
       
       <div class="left" style="width:20%;">
@@ -152,54 +143,19 @@
           <div class="ticket">
             <h3><%= ticket.title %></h3>
             <p><%= number_to_currency(ticket.price) %></p>
-            
-            
             <p>Ticket limit: <%= ticket.ticket_limit %> </p>
             <p>Buy limit: <%= ticket.buy_limit %> </p>
-
-
-
             <div class="ticket-actions">
-
-
              <div class="ticket-action">
             <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket)  %></div>
             <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %></div>
             </div>
-
-          
           </div>
-
-         <!--  <div class="ticket">
-            <h3>General Admission </h3>
-            <p>$25.00</p>
-
-
-            <div class="ticket-actions">
-
-
-             <div class="ticket-action"> <i class="icon icon-pencil"> </i></div>
-            <div class="ticket-action"> <i class="icon icon-trash"> </i></div>
-            </div>
-
-
-          </div> -->
-
-
         <% end %>
-
         </div>
 
       </div>
- 
-
     </div>  
-
-
-
-
-
-
     <div class="editor-tool" id="editor-tool-payments" style="height:400px;" >
       
       <div class="left" style="width:20%;">
@@ -210,26 +166,9 @@
       <div class="right" style="width:70%">
        
       <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> <p>Visa, Mastercard, and Visa </p>  </a>
-
             <a>Paypal <p> coming soon </p>  </a>
-
-
-
-
-
-     
       </div>
- 
-
     </div>  
-
-
-
-
-
-
-
-
   </div>
   <!--END BG -->
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316031849) do
+ActiveRecord::Schema.define(version: 20160318193510) do
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"
@@ -83,6 +83,26 @@ ActiveRecord::Schema.define(version: 20160316031849) do
 
   add_index "line_item", ["attendee_id"], name: "index_line_item_on_attendee_id"
   add_index "line_item", ["ticket_id"], name: "index_line_item_on_ticket_id"
+
+  create_table "line_items", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "quantity"
+    t.string   "ticket_id"
+    t.string   "attendee_id"
+    t.string   "purchase_id"
+  end
+
+  create_table "purchases", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "line_item_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone_number"
+    t.string   "stripe_id"
+  end
 
   create_table "reservation", id: false, force: true do |t|
     t.integer "event_id",    null: false

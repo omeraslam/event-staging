@@ -147,7 +147,11 @@ module ApplicationHelper
 		# end
 	end
 
+	def set_buyer
+	end
 
+	def get_buyer
+	end
 
 	def flash_class(level)
 	   case level.to_sym

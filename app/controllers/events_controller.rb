@@ -24,20 +24,125 @@ class EventsController < ApplicationController
 def show_buy 
 
      @event = Event.find_by_slug(params[:slug])
-             @user = User.find(@event.user_id)
+     @user = User.find(@event.user_id)
+     @purchase = Purchase.find(params[:oid].to_i )
+
+     @line_items = LineItem.where(:purchase_id => params[:oid])
+
 
 
 end
 
+def complete_registration
+  #save buyer attach to order
+
+  @purchase = Purchase.find(params[:oid].to_i )
+  @event = Event.where(:id => params[:event_id]).first
+
+  if @purchase.update(purchase_params)
+
+    #save attendees
+    
+    guest_list = params[:attendees]
+
+    guest_list.each do |guest_item|
+
+      @attendee = Attendee.new
+      @attendee.first_name = guest_item[1]['first_name']
+      @attendee.last_name = guest_item[1]['last_name']
+      @attendee.email = guest_item[1]['email']
+      @attendee.phone_number = guest_item[1]['phone_number']
+      @attendee.user_id = params[:user_id]
+      @attendee.event_id = params[:event_id]
+      @attendee.attending = true
+
+      respond_to do |format|
+        if @attendee.save
+          #if not equal to host
+           # if @attendee.id.to_s != @event.user_id.to_s
+           #   #send guest rsvpd emails
+           #   #UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
+           #   #UserMailer.rsvp_update(@current_user, @attendee, @event_url).deliver unless @attendee.invalid?
+           # else
+           #   #send invitations sent emails
+           #   #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+           #   #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+           # end
+          
+          format.html { redirect_to slugger_path(:slug => @event.slug), notice: 'Person was successfully created.' }
+          format.js   { render action: 'confirmation', status: :created, location: slugger_path(:slug => @event.slug) }
+          format.json { render :show, status: :created, location: :back }
+          #send invite email to them now, thank you and sign up with hash
+          #
+        else
+          format.html { render :new }
+          format.json { render json: @attendee.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  
+  # create customer for user
+  # save strip user id
+  # 
+  # 
+  else
+    #purchase wasn't updated and didn't go through
+  end
+
+end
+
+def show_confirm 
+
+     @event = Event.find_by_slug(params[:slug])
+     @user = User.find(@event.user_id)
 
 
-  def show
+end
+
+def select_tickets
+  @event = Event.find_by_slug(params[:slug]) or not_found
+
+  @purchase = Purchase.new
+
+  if @purchase.save
+    @event.tickets.all.each do |ticket|
+      @line_item = LineItem.new
+      @quantity = params[:ticket_quantity][ticket.id.to_s]
+     
+      ticket_id = params[:ticket_id][ticket.id.to_s]
+
+      @line_item.ticket_id = ticket_id
+      @line_item.quantity = @quantity
+      @line_item.purchase_id = @purchase.id.to_s
+
+      if @line_item.save
+
+
+      else
+                
+      end
+    end
+
+  else
+
+  end
+
+
+
+
+
+  redirect_to show_buy_path(:oid =>@purchase)
+end
+
+
+def show
 
     @event = Event.find_by_slug(params[:slug]) or not_found
 
-    @tickets = @event.tickets.all #need to switch by event
+    @tickets = @event.tickets.all 
     #@ticket = @event.tickets.build(ticket_params)
     @ticket = Ticket.new
+    @purchase = Purchase.new
 
     if !@event
 
@@ -281,5 +386,8 @@ end
       return valid
     end
 
+    def purchase_params
+      params.require(:purchase).permit( :email, :first_name, :last_name, :phone_number, :oid)
+    end
 
   end

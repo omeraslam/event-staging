@@ -1,60 +1,43 @@
 
 <div id="attendee-form" name="attendee-form" >
-
 	<div class="modal-header modal-header-light">
-		    <button data-remodal-action="close" class="remodal-close"></button>
-		    <i class="icon icon-line-email" style="display: none;"> </i>
-		    <h2>Select tickets</h2>
- </p>
-		  
-	</div>
-
-
-	<div class="modal-body">
-	
-  
-	<div class="tickets">
-
-
-       <% @tickets.each do |ticket| %>
+      <button data-remodal-action="close" class="remodal-close"></button>
+      <i class="icon icon-line-email" style="display: none;"> </i>
+      <h2>Select tickets</h2>
+    </div>
+    <div class="modal-body">
 
 
 
-       <div class="ticket">
+<%= form_for @purchase, :url => url_for(:controller => 'events', :action => 'select_tickets') do |f| %>
 
 
-           
-            <%= select_tag options_for_select((0..ticket.ticket_limit).step(1)) %>
+<% if @purchase.errors.any? %>
+<div class="alert error">
+    <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+        <% @purchase.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+</div>
+<% end %>
 
 
+    	<div class="tickets">
+         <% @tickets.each do |ticket| %>
+         <div class="ticket">
+            <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.ticket_limit).step(1)) %>
             <h3><%= ticket.title %></h3>
             <p><%= number_to_currency(ticket.price) %></p>
             <p><%= ticket.description %></p>
-            <p class="small"> Available until <%= ticket.stop_date.strftime('%B %d, %Y') %></p>
-
-
-
-          
-          </div>
-
-
-
-
-      
-
-
+            <%= hidden_field_tag 'ticket_id['+ticket.id.to_s+']', ticket.id %>
+            <p class="small"> Available until <%= ticket.stop_date.strftime('%B %d, %Y') %></p>        
+        </div>
         <% end %>
-
-		
-
-	</div>
-
-
-
-	<button class="btn">Continue</button>
-
-	
-  
-  </div>
-
+    </div>
+    <button class="btn">Continue</button>
+</div>
+<% end %>
 </div>

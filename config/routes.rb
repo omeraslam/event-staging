@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :line_items
+
+  resources :purchases
+
   resources :buyers
 
 
@@ -88,12 +92,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-
- 
-
-
-
   resource :user, only: [:edit] do
     collection do
       patch 'update_password'
@@ -122,7 +120,13 @@ Rails.application.routes.draw do
 
 
   #buy tickets
+  #get '/:slug/select-tickets' => 'events#select_tickets' , :as => :select_tickets
+  post '/:slug/select-tickets' => 'events#select_tickets' , :as => :select_tickets
+  post '/:slug/complete-registration' => 'events#complete_registration' , :as => :complete_registration
+  
   get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
+  get '/:slug/confirm' => 'events#show_confirm' , :as => :show_confirm
+
 
 
 end
