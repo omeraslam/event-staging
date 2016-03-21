@@ -1,5 +1,7 @@
 
 class EventsController < ApplicationController
+
+  layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
   after_filter :store_location
   before_filter :authenticate_user!, :except => [:show, :export_events, :contact_host]
@@ -34,6 +36,24 @@ def show_buy
 
 end
 
+def show_ticket
+
+  #render layout: false
+  @event = Event.find_by_slug(params[:slug])
+  @purchase = Purchase.find(params[:oid].to_i )
+  @line_items = @line_items = LineItem.where(:purchase_id => params[:oid])
+
+  respond_to do |format|
+    format.html
+    format.pdf do
+      render pdf: "file_name",   # Excluding ".pdf" extension.
+             template:                       'layouts/ticket.pdf.erb'
+    end
+  end
+    
+
+end
+
 def complete_registration
   #save buyer attach to order
 
@@ -57,7 +77,6 @@ def complete_registration
       @attendee.event_id = params[:event_id]
       @attendee.attending = true
       test = guest_item[1]['line_id']
-      logger.debug "TESTTHIS: #{test}"
       # respond_to do |format|
         if @attendee.save
           #save attendee_id to line_items
@@ -66,7 +85,7 @@ def complete_registration
           @line_item = LineItem.where(:id => guest_item[1]['line_id'].to_i).first
           @line_item.attendee_id = @attendee.id
 
-          line_params = { :attendee_id => guest_item[1]['line_id'].to_i}
+          line_params = { :attendee_id => @attendee.id}
 
           if @line_item.update(line_params)
           else
@@ -107,14 +126,15 @@ def complete_registration
     #purchase wasn't updated and didn't go through
   end
 
-  redirect_to show_confirm_path
+  redirect_to show_confirm_path(:oid => @purchase.id)
 
 end
 
 def show_confirm 
 
-     @event = Event.find_by_slug(params[:slug])
-     @user = User.find(@event.user_id)
+  @purchase = Purchase.find(params[:oid].to_i )
+  @event = Event.find_by_slug(params[:slug])
+  @user = User.find(@event.user_id)
 
 
 end
@@ -125,11 +145,6 @@ def select_tickets
   @purchase = Purchase.new
 
   if @purchase.save
-
-
- # (1..x).each do |i| 
- #    Code to display using <%= stuff %> that you want to display    
- # end
 
 
     @event.tickets.all.each do |ticket|

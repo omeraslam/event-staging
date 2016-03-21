@@ -22,13 +22,11 @@
 
     <div class="purchase-details">
       <h3> Order Summary</h3>
-<% ticket_array = @line_items.group(:ticket_id).count %>
-      <!-- need to rewrite table to accept different types -->
+      <% ticket_array = @line_items.group(:ticket_id).count %>
       <% ticket_array.keys[0] %>
       <table> 
       <% 
       sum = 0 %>
-      <%# @line_items.each do |line_item| %>
       <% (0..(ticket_array.count-1)).each do |i| %>
       <% if ticket_array.values[i].to_i != 0 %>
       <tr>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+ <!-- load fonts.com -->
+  <script type="text/javascript" src="//fast.fonts.net/jsapi/bf60a8d1-1e05-4ef0-bc32-3edaef6da022.js"></script>
+
+  <style>
+
+  * {
+    box-sizing:border-box;
+  }
+
+body {
+   height: 297mm - 23mm;
+  width: 210mm -21mm;
+    font-family: "AvenirNextLTW01-Regular", "Avenir",sans-serif;
+
+}
+
+.ticket {
+  width:900px;
+  margin: 0 auto 20px;
+  height:360px;
+}
+
+.ticket-tile {
+  float:left;
+}
+
+.admit {
+  height:100%;
+  width:100px;
+  background:#21afbf;
+  color:#fff;
+  letter-spacing: 4px;
+}
+
+.admit-content {
+  -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    transform-origin: 100% 0;
+    text-align: center;
+    font-size: 42px;
+    width: 360px;
+    left: -334px;
+    position: relative;
+      opacity: .4;
+
+}
+
+.details {
+  width:600px;
+  height:100%;
+  border:20px solid #efefef;
+  padding:20px;
+}
+
+.details h1{
+  margin: 0 0 32px;
+  font-size: 24px;
+  color:#666;
+
+}
+
+.details h3 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size:13px;
+  font-family: "AvenirNextLTW01-Bold", "Avenir",sans-serif;
+  color:#888;
+}
+
+.details ul{
+  margin:0;
+  padding:0;
+  list-style: none;
+  padding-top:20px;
+  margin-top: 50px;
+  border-top:1px solid #888;
+}
+
+.details ul li{
+  float: left;
+  width:33.33333333%;
+}
+
+.details h4 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size:11px;
+  font-family: "AvenirNextLTW01-Bold", "Avenir",sans-serif;
+  color:#777;
+  margin:0 0 5px 0;
+}
+
+.barcodes {
+  width:200px;
+  height:100%;
+  border:20px solid #efefef;
+  border-left:none;
+  text-align: center;
+}
+
+.barcodes-content {
+
+  -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    transform-origin: 100% 0;
+    text-align: center;
+    font-size: 42px;
+    width: 360px;
+    left: -300px;
+    position: relative;
+    font-size:14px;
+    top:-30px;
+
+}
+
+
+.barcodes-content img {
+  width:80%;
+}
+
+  </style>
+</head>
+
+<body>
+    <div class="intro"> 
+    <p>Here are your ticket(s) for <%= @event.name %>. </p>
+    <p> Order Number <%= @purchase.id %>, ordered by <%= @purchase.first_name %> <%= @purchase.last_name %> (<%= @purchase.email %>) on <%= @purchase.created_at.to_datetime.strftime('%B %d, %Y, %l:%M%P') %>.
+    </div>
+  <% @line_items.each do |line_item| %>
+  <% @attendee_item = Attendee.where(:id => line_item.attendee_id.to_i).first %>
+  <% @ticket_type = Ticket.where(:id => line_item.ticket_id.to_i).first %>
+    <div class="ticket">
+      
+      <div class="admit ticket-tile">
+          <div class="admit-content"> ADMIT ONE </div>
+      </div>
+
+      <div class="details ticket-tile">
+          <h1><%= @event.name %> </h1>
+          <h3>December 9, 2015 at 6pm </h3>
+
+
+    <% if( @event.location != '' ||  @event.location_name != '' ) %>
+            <h3><%= @event.location_name %> <br>
+       <%= @event.location %></h3>
+      <% else %>
+      <h3>TBD</h3>
+        <% end %>
+          <ul class="purchase-details">
+              <li><h4>Attendee </h4> <p><%= @attendee_item.first_name %> <%= @attendee_item.last_name %> </p></li>
+              <li><h4>Price </h4> <p><%= number_to_currency(@ticket_type.price) %> </p></li>
+              <li><h4>Type </h4> <p><%= @ticket_type.title %> </p></li>
+          </ul>
+
+      </div>
+
+      <div class="barcodes ticket-tile">
+        <div class="barcodes-content">
+          <p> Ordered by <%= @purchase.first_name %> <%= @purchase.last_name %></p>
+          <p> Order No. <%= @purchase.id %> </p>
+          <img src="http://toreto.re/barby/code128b_header.png">
+        </div>  
+      </div>
+
+    </div>
+  <% end %>
+
+</body>
+</html>

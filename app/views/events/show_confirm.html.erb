@@ -20,10 +20,13 @@
     <div class="confirm-container">
 
       <h2>Nice! You're going to <%= @event.name %>! </h2>
-      <p>Your order has been successfully processed, and we've sent your tickets and a receipt to your mark@test.com. In case you need it, your order number is: 1232323. Thanks for joining us. We look forward to seeing you there.</p>
+      <p>Your order has been successfully processed, and we've sent your tickets and a receipt to your <%= @purchase.email %>. In case you need it, your order number is: <%= @purchase.id %>. Thanks for joining us. We look forward to seeing you there.</p>
       
 
-      <div class="ticket-btn-container"> <a href="" class="btn"><i class="icon icon-print"> </i> Print My Ticket(s) Now </a></div>
+      <div class="ticket-btn-container">
+<%= link_to ('<i class="icon icon-print"> </i> Print My Ticket(s) Now ').html_safe, show_ticket_path(:oid => @purchase.id, format: :pdf), :class => 'btn', data: { type: :pdf }   %> </div>
+
+
 
       <h3>Now, tell your friends. </h3>
       <a href="" class="btn btn-facebook"><i class="icon icon-facebook"> </i> Make my friends jealous</a> 

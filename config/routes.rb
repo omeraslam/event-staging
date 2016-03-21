@@ -126,6 +126,7 @@ Rails.application.routes.draw do
   
   get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
   get '/:slug/confirm' => 'events#show_confirm' , :as => :show_confirm
+  get '/:slug/ticket' => 'events#show_ticket' , :as => :show_ticket
 
 
 
