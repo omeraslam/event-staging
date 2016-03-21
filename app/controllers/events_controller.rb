@@ -28,6 +28,7 @@ def show_buy
      @purchase = Purchase.find(params[:oid].to_i )
 
      @line_items = LineItem.where(:purchase_id => params[:oid])
+     LineItem.count('ticket_id', :distinct => true)
 
 
 
@@ -55,9 +56,21 @@ def complete_registration
       @attendee.user_id = params[:user_id]
       @attendee.event_id = params[:event_id]
       @attendee.attending = true
-
-      respond_to do |format|
+      test = guest_item[1]['line_id']
+      logger.debug "TESTTHIS: #{test}"
+      # respond_to do |format|
         if @attendee.save
+          #save attendee_id to line_items
+          #
+          logger.debug "some guest item line id = #{guest_item[1]['line_id'].to_i}"
+          @line_item = LineItem.where(:id => guest_item[1]['line_id'].to_i).first
+          @line_item.attendee_id = @attendee.id
+
+          line_params = { :attendee_id => guest_item[1]['line_id'].to_i}
+
+          if @line_item.update(line_params)
+          else
+          end
           #if not equal to host
            # if @attendee.id.to_s != @event.user_id.to_s
            #   #send guest rsvpd emails
@@ -69,16 +82,21 @@ def complete_registration
            #   #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
            # end
           
-          format.html { redirect_to slugger_path(:slug => @event.slug), notice: 'Person was successfully created.' }
-          format.js   { render action: 'confirmation', status: :created, location: slugger_path(:slug => @event.slug) }
-          format.json { render :show, status: :created, location: :back }
+          #format.html { redirect_to slugger_path(:slug => @event.slug), notice: 'Person was successfully created.' }
+          # format.html { redirect_to show_confirm_path, notice: 'Ticket purchase successful'}
+          # format.js   { render action: 'confirmation', status: :created, location: slugger_path(:slug => @event.slug) }
+          # format.json { render :show, status: :created, location: :back }
           #send invite email to them now, thank you and sign up with hash
           #
         else
-          format.html { render :new }
-          format.json { render json: @attendee.errors, status: :unprocessable_entity }
+          logger.debug "not saving some guest item line id = #{guest_item[1]['line_id'].to_i}"
+          
+        #   format.html { render :new }
+        #   format.json { render json: @attendee.errors, status: :unprocessable_entity }
         end
-      end
+      #end
+
+
     end
   
   # create customer for user
@@ -88,6 +106,8 @@ def complete_registration
   else
     #purchase wasn't updated and didn't go through
   end
+
+  redirect_to show_confirm_path
 
 end
 
@@ -105,21 +125,32 @@ def select_tickets
   @purchase = Purchase.new
 
   if @purchase.save
+
+
+ # (1..x).each do |i| 
+ #    Code to display using <%= stuff %> that you want to display    
+ # end
+
+
     @event.tickets.all.each do |ticket|
-      @line_item = LineItem.new
-      @quantity = params[:ticket_quantity][ticket.id.to_s]
-     
-      ticket_id = params[:ticket_id][ticket.id.to_s]
 
-      @line_item.ticket_id = ticket_id
-      @line_item.quantity = @quantity
-      @line_item.purchase_id = @purchase.id.to_s
+      num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
+      (1..num_tickets).each do |i| 
+        @line_item = LineItem.new
+        @quantity = params[:ticket_quantity][ticket.id.to_s]
+        logger.debug "GIVE ME TICKET QUANITITYE: #{params[:ticket_quantity][ticket.id.to_s]}"
+        ticket_id = params[:ticket_id][ticket.id.to_s]
 
-      if @line_item.save
+        @line_item.ticket_id = ticket_id
+        @line_item.quantity = @quantity
+        @line_item.purchase_id = @purchase.id.to_s
+
+        if @line_item.save
 
 
-      else
-                
+        else
+                  
+        end
       end
     end
 
@@ -388,6 +419,10 @@ def show
 
     def purchase_params
       params.require(:purchase).permit( :email, :first_name, :last_name, :phone_number, :oid)
+    end
+
+    def line_item_params
+      params[:line_item]
     end
 
   end

@@ -22,21 +22,26 @@
 
     <div class="purchase-details">
       <h3> Order Summary</h3>
-
+<% ticket_array = @line_items.group(:ticket_id).count %>
+      <!-- need to rewrite table to accept different types -->
+      <% ticket_array.keys[0] %>
       <table> 
       <% 
       sum = 0 %>
-      <% @line_items.each do |line_item| %>
-
+      <%# @line_items.each do |line_item| %>
+      <% (0..(ticket_array.count-1)).each do |i| %>
+      <% if ticket_array.values[i].to_i != 0 %>
       <tr>
      <% 
-      @ticket_item = Ticket.where(:id => line_item.ticket_id.to_i).first %>
-        <td class="ticket-quantity"><h4> <%= @ticket_item.title %> X <%= line_item.quantity %></h4> <p><%= number_to_currency(@ticket_item.price) %> </p></td>
-        <td class="ticket-amount"> <%= number_to_currency(line_item.quantity.to_i * @ticket_item.price.to_i) %> </td>
+      @ticket_item = Ticket.where(:id => ticket_array.keys[i].to_i).first %>
+
+      
+        <td class="ticket-quantity"><h4> <%= @ticket_item.title %> X <%= ticket_array.values[i].to_i %></h4> <p><%= number_to_currency(@ticket_item.price) %> </p></td>
+        <td class="ticket-amount"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %> </td>
       </tr>
-      <% sum += (line_item.quantity.to_i * @ticket_item.price.to_i) %>
+      <% sum += (ticket_array.values[i].to_i * @ticket_item.price.to_i) %>
       <% end %>
-  
+      <% end %>
 
 
 
@@ -52,7 +57,6 @@
 
 
     </div>
-
 
 
 <%= form_tag complete_registration_path do  %>
@@ -96,7 +100,6 @@
     <% tick_num = 1 %>
     <% @line_items.each do |line_item| %>
       
-      <% (1..line_item.quantity.to_i).each do |i| %>
        <div class="ticket-holder">
           <h4> <% @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first %> <%= @ticket.title %> - Ticket <%= tick_num %> </h4>
           <div class="ticket-buyer-form">
@@ -104,12 +107,12 @@
             <div class="input-group"> 
               <div class="input-group-inline">
                 <label> First Name </label>
-                <input type="text" name="attendees[<%= i %>][first_name]" placeholder="First Name" /> 
+                <input type="text" name="attendees[<%= tick_num %>][first_name]" placeholder="First Name" /> 
               </div>
 
               <div class="input-group-inline">
                 <label> Last Name </label>
-                <input type="text" name="attendees[<%= i %>][last_name]" placeholder="Last Name"  /> 
+                <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
               </div>
             </div>
 
@@ -118,14 +121,16 @@
           <div class="input-group"> 
             <div class="input-group-inline">
               <label> Email Address </label>
-              <input type="text"  name="attendees[<%= i %>][email]" placeholder="email@email.com"/> 
+              <input type="text"  name="attendees[<%= tick_num %>][email]" placeholder="email@email.com"/> 
             </div>
           </div>
 
           </div>  
       </div>
+
+      <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", line_item.id  %>
       <% tick_num += 1 %>
-      <% end %>
+  
 
     <% end %>
 
