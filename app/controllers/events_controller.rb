@@ -42,12 +42,14 @@ def show_ticket
   @event = Event.find_by_slug(params[:slug])
   @purchase = Purchase.find(params[:oid].to_i )
   @line_items = @line_items = LineItem.where(:purchase_id => params[:oid])
-
+  @tickets_per_page = 4
   respond_to do |format|
     format.html
     format.pdf do
       render pdf: "file_name",   # Excluding ".pdf" extension.
-             template:                       'layouts/ticket.pdf.erb'
+             template:                       'layouts/ticket.pdf.erb',
+             orientation:                    'Portrait',
+             page_width:                     1200
     end
   end
     
@@ -153,7 +155,6 @@ def select_tickets
       (1..num_tickets).each do |i| 
         @line_item = LineItem.new
         @quantity = params[:ticket_quantity][ticket.id.to_s]
-        logger.debug "GIVE ME TICKET QUANITITYE: #{params[:ticket_quantity][ticket.id.to_s]}"
         ticket_id = params[:ticket_id][ticket.id.to_s]
 
         @line_item.ticket_id = ticket_id

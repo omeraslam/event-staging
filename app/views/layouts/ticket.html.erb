@@ -3,7 +3,7 @@
 <head>
 
  <!-- load fonts.com -->
-  <script type="text/javascript" src="//fast.fonts.net/jsapi/bf60a8d1-1e05-4ef0-bc32-3edaef6da022.js"></script>
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/bf60a8d1-1e05-4ef0-bc32-3edaef6da022.js"></script>
 
   <style>
 
@@ -12,9 +12,9 @@
   }
 
 body {
-   height: 297mm - 23mm;
-  width: 210mm -21mm;
-    font-family: "AvenirNextLTW01-Regular", "Avenir",sans-serif;
+
+    //font-family: "AvenirNextLTW01-Regular", "Avenir",sans-serif;
+    font-family: Arial, sans-serif;
 
 }
 
@@ -40,13 +40,13 @@ body {
   -ms-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
-    transform-origin: 100% 0;
     text-align: center;
     font-size: 42px;
     width: 360px;
-    left: -334px;
+    top: 150px;
+    left: -130px;
     position: relative;
-      opacity: .4;
+    opacity: .4;
 
 }
 
@@ -88,7 +88,6 @@ body {
 
 .details h4 {
   text-transform: uppercase;
-  letter-spacing: 3px;
   font-size:11px;
   font-family: "AvenirNextLTW01-Bold", "Avenir",sans-serif;
   color:#777;
@@ -108,14 +107,14 @@ body {
   -ms-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
-    transform-origin: 100% 0;
+    //transform-origin: 100% 0;
     text-align: center;
     font-size: 42px;
     width: 360px;
-    left: -300px;
+    top: 100px;
+    left: -90px;
     position: relative;
     font-size:14px;
-    top:-30px;
 
 }
 
@@ -125,6 +124,8 @@ body {
 }
 
   </style>
+
+
 </head>
 
 <body>
@@ -143,7 +144,7 @@ body {
 
       <div class="details ticket-tile">
           <h1><%= @event.name %> </h1>
-          <h3>December 9, 2015 at 6pm </h3>
+          <h3><%= @event.date_start.to_date.strftime('%B %d, %Y') %> at <%= @event.time_start.to_time.strftime('%l:%M%P') %></h3>
 
 
     <% if( @event.location != '' ||  @event.location_name != '' ) %>
