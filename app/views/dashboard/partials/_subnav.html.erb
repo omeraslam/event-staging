@@ -58,9 +58,48 @@
     
 
 
+
+    <!--start invite section-->
+    <div data-hash="orders">
+
+       <% if !@orders.empty? %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order No.</th>
+                        <th>Ticket Buyer</th>
+                        <th>Amount</th>  
+                        <th>Purchase Date</th>  
+                        <th>Status</th>             
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @orders.each do |order| %>
+                    <tr>
+                        <td><%= order.id %></td>
+                        <td><%= order.first_name %> <%= order.last_name %></td>
+                        <td><%= order.line_item_id %></td>
+                        <td><%= order.created_at %></td>
+                        <td>Paid via Stripe</td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            
+            <% else %>
+            <div class="empty">
+                <h2>No orders just yet. </h2>
+            </div>
+            <% end %>
+
+
+
+
+    </div>
+
+
     <!--start invite section-->
     <div data-hash="settings">
-
         <section> 
             <!-- start event form -->
             <%= render 'dashboard/partials/form' %>
@@ -69,6 +108,9 @@
 
 </div>  
 <!--END event subnav-->
+
+
+
 
 
 <!--add user modal-->
@@ -93,17 +135,6 @@
       <%= hidden_field_tag 'user_id', @event.user_id %> <br/>
       <%= f.submit "Add guests", :class => 'btn btn-primary' %>
   <% end %>
-
-
-
-   <!--  <p>
-        Add your attendee email addresses (comma separated or with line breaks). 
-    </p>
-    <textarea rows="4"></textarea>
-
-
-
-    <button class="btn btn-large" data-remodal-action="confirm" class="remodal-confirm">Add attendees</button> -->
 </div>
 
 
@@ -112,8 +143,7 @@
 
 $(document).ready(function(){
 
-    var  slug = (window.location.href).split('#')[1];
-    highlightNavItem(slug);
+ 
 
     //init the remodal plugin. we have to init using js to avoid owl carousel conflict 
     var inst = $('#add-user-modal').remodal();
@@ -129,65 +159,18 @@ $(document).ready(function(){
         touchDrag:false,
         freeDrag:false,
         pullDrag:false,
-        URLhashListener:true,
-        startPosition: 'URLHash'   
+        URLhashListener:false
     });
 
 
-    owl.on('changed.owl.carousel', function(event) {
-        slug = (window.location.href).split('#')[1];
-        highlightNavItem(slug);
-    });
-
-    function highlightNavItem(slug) {
-        $('.event-sub-nav-trigger.active').removeClass('active');
-       
-        switch(slug) {
-            // case 'activity':
-            //     $('.event-sub-nav-trigger[data-target="0"]').addClass('active');
-            // break;
-            case 'attendees':
-                $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
-            break;
-            case 'settings':
-                $('.event-sub-nav-trigger[data-target="2"]').addClass('active');
-            break;
-            default:
-                $('.event-sub-nav-trigger[data-target="1"]').addClass('active');
-            break;
-        }
-
-    }
-
-
+  
     $('.event-sub-nav-trigger').click(function(e){
 
         e.preventDefault();
-        
         var dest = parseInt($(this).data('target'));
+        owl.trigger('to.owl.carousel', [dest])
         $('.event-sub-nav-trigger').removeClass('active');
-
-        var url = window.location.href;
-        var n = url.indexOf('#');
-        url = url.substring(0, n != -1 ? n : url.length);
-        var slug = 'activity';
-        var slug = 'attendees';
-        switch(dest) {
-            // case 0:
-            // slug = 'activity';
-            // break;
-            case 1:
-            slug = 'attendees'
-            break;
-            case 2:
-            slug = 'settings'
-            break;
-            default: 
-            //slug = 'activity';
-            break;
-        }
         $(this).addClass('active');
-        window.location.href = url + '#'+slug
 
     });
     

@@ -51,6 +51,7 @@ class DashboardController < ApplicationController
     @event = @user.events.find_by id: params[:event]
 
 
+    @orders = Purchase.all
 
 
     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
