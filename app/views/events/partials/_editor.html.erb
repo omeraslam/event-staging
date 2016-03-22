@@ -164,9 +164,14 @@
       </div>
 
       <div class="right" style="width:70%">
-       
-      <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> <p>Visa, Mastercard, and Visa </p>  </a>
+       <% if  @account == nil %>
+
+      <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85BL1HAfY3NzHDucub5ZiStZBWhlugWb&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> <p>Visa, Mastercard, and Visa </p>  </a>
             <a>Paypal <p> coming soon </p>  </a>
+
+      <% else %>
+        User has connected to stripe
+      <% end %>
       </div>
     </div>  
   </div>
@@ -177,6 +182,16 @@
 </div>
  <!--END editor continer-->
 
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('.stripe-connect-btn').on('click', function(e) {
+        e.preventDefault();
+        alert(window.location.href);
+        window.location = $(this).attr('href') + '&redirect_uri=' + window.location.href
+      });
+  });
+</script>
 
 
 

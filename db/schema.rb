@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318193510) do
+ActiveRecord::Schema.define(version: 20160322192207) do
+
+  create_table "accounts", force: true do |t|
+    t.string   "access_token"
+    t.string   "refresh_token"
+    t.string   "stripe_user_id"
+    t.string   "stripe_publishable_key"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accounts", ["user_id", "created_at"], name: "index_accounts_on_user_id_and_created_at"
+  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id"
 
   create_table "attendees", force: true do |t|
     t.string   "first_name"

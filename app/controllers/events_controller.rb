@@ -1,5 +1,7 @@
 
 class EventsController < ApplicationController
+  require "uri"
+  require "net/http"
 
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
@@ -183,6 +185,65 @@ end
 
 
 def show
+
+    if params[:code]
+      code = params[:code]
+      # @resp = url to get token
+      # 
+      data   = {'grant_type' => 'authorization_code',
+            'client_id' => 'ca_85BL1HAfY3NzHDucub5ZiStZBWhlugWb',
+            'client_secret' => 'sk_test_mqAqte5NAiYcu3yPuTmmAL0N',
+            'code' => code
+           }
+
+#       params = {'box1' => 'Nothing is less important than which fork you use. Etiquette is the science of living. It embraces everything. It is ethics. It is honor. -Emily Post',
+# 'button1' => 'Submit'
+# }
+      x = Net::HTTP.post_form(URI.parse('https://connect.stripe.com/oauth/token'), data)
+      puts "HELP THIS: " + x.body
+
+      account_info = JSON.parse(x.body)
+
+      puts account_info["access_token"]
+
+      @access_object = x.body
+
+      @access_token = account_info["access_token"]
+
+      #account_info = OpenStruct.new(JSON.parse(x.body).to_json)
+
+      #puts account_info.access_token
+
+      # @access_token = @resp.token
+      @user = current_user
+
+      @account = Account.where(:user_id => @user.id).first
+
+      logger.debug "#{@account}"
+
+      if !account_info["access_token"].nil?
+        @account = Account.new
+        @account.access_token = account_info["access_token"]
+        @account.refresh_token = account_info["refresh_token"]
+        @account.stripe_user_id = account_info["access_token"]
+        @account.stripe_publishable_key = account_info["stripe_publishable_key"]
+        @account.user_id = @user.id
+
+        if @account.save
+          logger.debug "save account"
+          #render :js => "window.location = '/thank-you'"  #hack
+        else
+           # logger.debug "no plan updated"
+        end
+      end
+
+
+
+      
+    end
+
+    @user = current_user
+    @account = Account.where(:user_id => @user.id).first
 
     @event = Event.find_by_slug(params[:slug]) or not_found
 
@@ -440,5 +501,10 @@ def show
     def line_item_params
       params[:line_item]
     end
+
+    def account_params   
+      params[:account]
+    end
+
 
   end
