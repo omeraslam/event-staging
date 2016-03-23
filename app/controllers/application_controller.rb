@@ -73,7 +73,7 @@ def check_member_type
 
 
     if !current_user.customer_id.nil?
-      @cu = Stripe::Customer.retrieve(current_user.customer_id)
+      #@cu = Stripe::Customer.retrieve(current_user.customer_id)
       
     else
       @cu = ''

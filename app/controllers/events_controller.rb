@@ -34,9 +34,13 @@ def show_buy
      @line_items = LineItem.where(:purchase_id => params[:oid])
      LineItem.count('ticket_id', :distinct => true)
 
+    @user = User.where(:id => @event.user_id.to_i).first
+    @account = Account.where(:user_id => @user.id).first 
 
-
+    @final_charge = 10000 #add all line items to figure out final price
 end
+
+
 
 def show_ticket
 
@@ -63,6 +67,20 @@ def complete_registration
 
   @purchase = Purchase.find(params[:oid].to_i )
   @event = Event.where(:id => params[:event_id]).first
+
+
+  # Set your secret key: remember to change this to your live secret key in production
+  # See your keys here https://dashboard.stripe.com/account/apikeys
+  # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+
+  # Get the credit card details submitted by the form
+  token = params[:stripeToken]
+  amount = params[:purchaseAmount]
+
+
+
+
+
 
   if @purchase.update(purchase_params)
 
@@ -130,7 +148,31 @@ def complete_registration
     #purchase wasn't updated and didn't go through
   end
 
-  redirect_to show_confirm_path(:oid => @purchase.id)
+
+
+    @account = Account.where(:user_id => @event.user_id.to_s).first
+
+   
+
+  begin
+
+
+    charge = Stripe::Charge.create({
+      :amount => amount,
+      :currency => "usd",
+      :source => token,
+      :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
+    }, {:stripe_account => @account.stripe_user_id})
+
+
+
+  rescue Stripe::CardError => e
+    # The card has been declined
+  end
+
+
+  render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+
 
 end
 
@@ -229,7 +271,7 @@ def show
           @account = Account.new
           @account.access_token = account_info["access_token"]
           @account.refresh_token = account_info["refresh_token"]
-          @account.stripe_user_id = account_info["access_token"]
+          @account.stripe_user_id = account_info["stripe_user_id"]
           @account.stripe_publishable_key = account_info["stripe_publishable_key"]
           @account.user_id = @user.id
 

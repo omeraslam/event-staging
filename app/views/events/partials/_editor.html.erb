@@ -187,7 +187,6 @@
   $(document).ready(function() {
       $('.stripe-connect-btn').on('click', function(e) {
         e.preventDefault();
-        alert(window.location.href);
         window.location = $(this).attr('href') + '&redirect_uri=' + window.location.href
       });
   });
