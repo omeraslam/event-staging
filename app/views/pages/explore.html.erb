@@ -1,40 +1,53 @@
-<div id="home"> 
-
-
-	<div id="intro-container">
-
+<% title "Showcase" %>
+<% meta_description 'EventCreate is the easiest way to create a custom event website. Collect registrations, sell tickets, send invites, and manage your attendees — all in one place.' %>
 
 
 
-		<div id="intro">
-		 	<h1> themes</h1>
-		 	<p>checkout the themes </p>
-		 	
-	 	</div>
- 	</div>
- 	 
-
- 	 
- 	 
- 	
- 	 
- 	     <div class="list-inline themes">
-      <% @themes.each do |theme| %>
-      <a class="theme">
-        
-        <div class="theme-thumb">
-          <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>  
-        <h3> <%= theme.slug %> </h3>
-      </a>
-      <% end %>  
-    </div>  
+<div class="hero" id="showcase">
+  <div class="hero-cover"></div>
+  <div class="hero-content">
+    <h1> Find your inspiration </h1>
+    <p class="lead">Unlimited events. Unlimited tickets. <br>Completely, 100% free. Yup, it’s that simple.  </p>   
+    <a class="btn btn-large">Sign up for free</a>
+  </div>
+</div>  
 
 
 
-  	 	
+<div class="container" id="showcase-features">
+  <div class="showcase-feature">
+  
+    <div class="left"> 
+    <h2> Example number 1</h2>
+    <p>Impress your event attendees with a beautiful, custom branded event website.  Create your site and start collecting registrations in just a few minutes with EventCreate's easy-to-use builder. </p>
+
+    </div>
+
+    <div class="screens-container" >
+      <div class="screen"> 
+        <div class="screen-nav">
+          <div class="button"></div>
+          <div class="button"></div>
+          <div class="button"></div>
+        </div>
+        <img src="/assets/home/sample2.jpg" />  
+      </div>  
+      <div class="phone"> 
+        <div class="details">
+          <div class="camera"></div>
+          <div class="speaker"></div>
+        </div>
+        <img src="/assets/home/sample2_mobile.jpg" /> 
+      </div>
+    </div>
+
+
+
+
+  </div>
 </div>
+
+
 
 
 <%= render 'pages/partials/footer' %>

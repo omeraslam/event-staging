@@ -10,12 +10,13 @@
 	text-align:center;
 	padding:100px 20px;
 	opacity:0;
-	-webkit-transition: opacity .5s;
-    transition: opacity .5s;
+	-webkit-transition: all .5s;
+    transition: all .5s;
     visibility:hidden;
+    z-index: 9999999999;
 
     &.saving {
-    	background:rgba($brand-secondary,.94);
+    	//background:rgba($brand-secondary,.94);
     }
 
 	i {
@@ -23,8 +24,8 @@
 	}
 
 	&.visible {
-		opacity:1;
 		visibility:visible;
+		opacity:1;
 	} 
 
 	h1,h2,h3,h4 {
