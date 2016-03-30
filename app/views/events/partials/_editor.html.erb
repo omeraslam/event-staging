@@ -171,6 +171,29 @@
 $( document ).ready(function() {
 
 
+  //TICKET - new ticket modal functionality and validation
+  $("#show-event-description").click(function() {  
+    $(this).hide();
+    $("#ticket-description").slideDown();
+  });
+  $("#show-ticket-advanced-settings").click(function() {  
+    $("#ticket-advanced-settings").slideToggle();
+  });
+
+  var validator = $("#new_ticket").validate({
+    rules: {
+      name: "required",
+      "ticket[title]": {
+        required: true
+      }
+    },
+    messages : {
+      "ticket[title]": 'Please enter a ticket name.'
+    }
+  });
+
+
+
   //INTRO - slide in the editor tabs
   setTimeout(function(){  
     $('.tabs').addClass("visible");
