@@ -69,31 +69,28 @@ def check_member_type
     end
 
 
-    logger.debug "Disable create is: #{@disable_create}"
 
     #@cu = ''
-    logger.debug "PREMIUM IS: #{current_user.premium}"
     @is_premium = current_user.premium? ? 'active': ''
 
 
-    logger.debug "@is_premium IS: #{@is_premium}"
 
     # else if membership not active
 
 
     # end
 
+    @premium_disable = true
 
 
-    if !current_user.customer_id.nil?
+    if !current_user.customer_id.nil? && !@premium_disable
+
+      logger.debug "app level customer id: #{Stripe::Customer.retrieve(current_user.customer_id)}"
       @cu = Stripe::Customer.retrieve(current_user.customer_id)
-      logger.debug "app level customer id: #{@cu.id}"
       #@is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
 
-      logger.debug "current user: #{current_user}"
 
       #@disable_create = @count_events.count > 0 && @is_premium != 'active'
-      logger.debug "app level customer id: #{@disable_create}"
     else
       @cu = ''
       #@is_premium = false

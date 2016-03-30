@@ -12,7 +12,7 @@
 
       <div class="right"> 
         <ul> 
-          <% if @disable_create %>
+          <% if @disable_create && !@premium_disable %>
             <li><%= link_to "<i class='icon icon-plus'></i> New Event".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
           <% else %>
             <li><%= link_to "<i class='icon icon-plus'></i> New Event".html_safe, create_path %> </li>
@@ -20,7 +20,7 @@
           <li>
 
 
-          <% if @disable_create %>
+          <% if @disable_create && !@premium_disable  %>
             <li><%= link_to "<i class='icon icon-bolt'></i> Upgrade".html_safe, upgrade_path, class: 'open-upgrade' %> </li>  
           <% end %>
 

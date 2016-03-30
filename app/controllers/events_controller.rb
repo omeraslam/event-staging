@@ -130,7 +130,7 @@ class EventsController < ApplicationController
 
     @themes = Theme.all
 
-    if @disable_create
+    if @disable_create && !@premium_disable
        redirect_to pricing_path
     else 
 

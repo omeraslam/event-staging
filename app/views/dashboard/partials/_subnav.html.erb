@@ -20,7 +20,7 @@
                     <th>
 
 
-                    <% if @count_registrations >= @event_registration_limit %>
+                    <% if @count_registrations >= @event_registration_limit && !@premium_disable %>
                         <%= link_to 'add attendees', upgrade_path, :class => 'btn btn-small' %>
                     <% else %>
                         <a  class="btn btn-small send-email">add attendees </a>
