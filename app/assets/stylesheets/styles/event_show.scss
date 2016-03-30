@@ -11,7 +11,6 @@
 }
 
 .event-page {
-	display:none;
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -30,18 +29,59 @@
 		left: 0;
 	}
 
+
+	#event-page-logo {
+
+		.event-page-logo-container {
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-left: 180px solid rgba(21, 21, 21, 0.5);
+	    	border-bottom: 180px solid transparent;
+	    	z-index:9999;
+	    	transition:border-left .5s ease-out;
+		}
+
+
+		.event-page-logo {
+			background-image: url(event_create_logo_vertical.png);
+	 		background-size:contain;
+	 		position:absolute;
+	 		top:12px;
+	 		left:12px;
+	 		width:110px;
+	 		height:110px;	
+	 		z-index:9999;
+	 	 }
+
+	 	 &:hover .event-page-logo-container {
+	 	 	border-left-color: $brand-primary;
+	 	 }
+
+	}
+
+
+
+
 	.header {
 		position:relative;
 		padding: 200px 20px;
 		z-index: 1;
 
 		.event-share {
-			position:relative;
+			position:absolute;
+			top:16px;
+			right:16px;
+			font-size:24px;
 			z-index:999;
-			display:none;
 
 			a {
 				color:#fff;
+				opacity:.8;
+
+				&:hover {
+					opacity:1;
+				}
 
 			}	
 
@@ -136,7 +176,7 @@
 		left:0;
 		width:100%;
 		height:100%;
-		//z-index:11;	
+		z-index:11;	
 
 	}
 
@@ -147,8 +187,6 @@
 	text-align:center;
 	color:#889;
 	padding:50px 10px 70px;
-	font-family: Georgia;
-	font-style: italic;
 	font-size: 10px;
 
 	a {

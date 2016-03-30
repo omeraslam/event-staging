@@ -650,6 +650,25 @@ button {
       background-color:$brand-orange;
     }
     
+
+    &.btn-subtle {
+      background-color:darken($brand-primary,8%);
+    }
+
+    &.btn-block {
+      padding: 16px 36px;
+      margin-top:10px;
+      border-radius:5px;
+      text-align:center;
+      display:block;
+
+       i {
+        display:block;
+        font-size:60px;
+        line-height:60px;
+        opacity:.86;
+       }
+    }
     
     
     &:hover {
