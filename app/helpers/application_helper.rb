@@ -63,7 +63,10 @@ module ApplicationHelper
 	end
 
 
-
+	def set_slug(slug_url)
+		@current_event = slug_url
+	end
+ 
 
 	def show_proper_date(event = nil, layout = true)
 

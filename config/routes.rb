@@ -60,6 +60,8 @@ Rails.application.routes.draw do
 
   get '/error404' => 'pages#error404', :as => :error_path
 
+  get '/connect/redirect' => 'events#stripe_redirect', :as => :stripe_redirect
+
 
 
 

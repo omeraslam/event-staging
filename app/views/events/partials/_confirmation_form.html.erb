@@ -7,6 +7,7 @@
 		    <p>Thank you for registering for <%= @event.name %>! We look forward to seeing you there. </p> 
 		    <p>And, don't worry, we've sent a confirmation email to <%= @attendee.email %>, so you've got all the event details in your inbox. </p>
 			<div class="input-group">
+			<!-- u=<%= @bitly.short_url %> -->
 		    	<a href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>" target="_blank" class="btn btn-large">Tell my friends on Facebook</a>
 		    </div>	
 	</div>

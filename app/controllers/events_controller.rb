@@ -2,6 +2,11 @@
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
+  require 'chunky_png'
+
+  require 'barby'
+  require "barby/barcode/code_128"
+  require 'barby/outputter/png_outputter'
 
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
@@ -48,17 +53,34 @@ def show_ticket
   @event = Event.find_by_slug(params[:slug])
   @purchase = Purchase.find(params[:oid].to_i )
   @line_items = @line_items = LineItem.where(:purchase_id => params[:oid])
+
+
+
+  barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
+  File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
+    f.write barcode.to_png(:height => 20, :margin => 5)
+  }
+
+
   @tickets_per_page = 4
   respond_to do |format|
     format.html
     format.pdf do
-      render pdf: "file_name",   # Excluding ".pdf" extension.
+      render pdf: "EventCreate_ORDER_" + @purchase.id.to_s+ "_" + @event.slug.to_s ,   # Excluding ".pdf" extension.
              template:                       'layouts/ticket.pdf.erb',
              orientation:                    'Portrait',
              page_width:                     1200
     end
   end
     
+
+end
+
+def stripe_redirect
+
+  redirect_to redirect_to slugger_path(@current_event.slug) + "?editing=true"
+
+
 
 end
 
@@ -293,6 +315,7 @@ def show
     end
     @event = Event.find_by_slug(params[:slug]) or not_found
 
+
     @tickets = @event.tickets.all 
     #@ticket = @event.tickets.build(ticket_params)
     @ticket = Ticket.new
@@ -318,7 +341,7 @@ def show
 
           client = Bitly.client
           @url = 'http://eventcreate.com' + slugger_path( @event)
-          @bitly = client.shorten(@url)
+          @bitly = client.shorten(@url)  #airplane
 
 
 
@@ -521,6 +544,8 @@ def show
       #@user = User.find(params[:user_id])
       @event = Event.find(params[:id])
     end
+
+ 
 
 
     # Never trust parameters from the scary internet, only allow the white list through.

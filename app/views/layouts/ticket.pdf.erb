@@ -170,12 +170,14 @@ body {
 
         </div>
       </div>
-
+      <%= "http://localhost:3000/assets/bc/" + @purchase.id.to_s + @event.slug.to_s + ".png" %>
       <div class="barcodes ticket-tile">
         <div class="barcodes-content">
           <p> Ordered by <%= @purchase.first_name %> <%= @purchase.last_name %></p>
           <p> Order No. <%= @purchase.id %> </p>
           <img src="http://toreto.re/barby/code128b_header.png">
+          <img src="http://localhost:3000/assets/bc/<%= @purchase.id.to_s + @event.slug.to_s  %>.png" />
+          <p><%= ENV['SITE_NAME']%>/assets/bc/<%= @purchase.id.to_s + @event.slug.to_s  %>.png</p>
         </div>  
       </div>
 
