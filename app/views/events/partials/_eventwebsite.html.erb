@@ -17,16 +17,16 @@
 		  <div class="overlay" style="opacity: <%= @event.bg_opacity %>;background-color:<%= @event.bg_color %>;"></div>
 			<div class="header"> 
 					<div class="event-share">
-
-	      
-						<a href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>"><i class="icon icon-facebook-1"> </i> </a>
-						<a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>"><i class="icon icon-twitter-2"> </i> </a>
-						<a href="#"><i class="icon icon-gplus"> </i> </a>
+						<a href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>"><i class="icon icon-facebook-circled"> </i> </a>
+						<a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>"><i class="icon icon-twitter-circled"> </i> </a>
 					</div>
 		     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
-
-		     	        <a class="btn btn-bordered rsvp open-registration">Register Now</a>
-
+		     <h2 style="display:none;"> </h2>
+		    <% if !@has_paid_ticket %>
+		    	<a class="btn btn-bordered rsvp open-registration">Register Now</a>
+		    <% else %>
+		    	<a class="btn btn-bordered rsvp open-registration">Buy Tickets</a>
+			<% end %>
 	      <!-- close registration if event start time has past -->      
 	      <% if (@event.time_start.nil? && @event.time_start != '') %>
 	       <% if(Time.now.utc.strftime( "%H%M%S%N" ) > @event.time_start.to_time.utc.strftime( "%H%M%S%N" ) &&  DateTime.now.to_date == @event.date_start.to_date) %> 
@@ -38,6 +38,7 @@
 	      <!-- registration button end -->
 			</div>
 
+
 			<div class="upload-container"><div class="upload"></div>  
 
 				<div style="display:none;" ><%= image_tag(@event.background_img, id: 'image_color', crossOrigin: 'anonymous')  %></div>
@@ -47,6 +48,11 @@
 			    <% end %> 
 
 			</div> 
+
+			<a href="https://www.eventcreate.com/" title="EventCreate" target="_blank" id="event-page-logo">
+		  		<div class="event-page-logo-container"></div>
+		  		<div class="event-page-logo"></div> 
+		 	</a>	
 
 		  </div>
 
@@ -104,12 +110,20 @@
 		<div class="event-action-container">
 			<% if  (@event.date_start.nil? &&  @event.date_start.blank? ) %>
 				<% if Date.today < @event.date_start.to_date  %>
-					<a class="btn btn-large open-registration">Register Now</a>
+					<% if !@has_paid_ticket %>
+						<a class="btn btn-large open-registration">Register Now</a>
+					<% else %>
+						<a class="btn btn-large open-registration">Buy Tickets</a>
+					<% end %>
 				<% else %>
 					<div class="btn btn-large btn-disabled">Registration closed</div>
 				<% end %>
 			<% else %>
-					<a class="btn btn-large open-registration">Register Now</a>
+					<% if !@has_paid_ticket %>
+						<a class="btn btn-large open-registration">Register Now</a>
+					<% else %>
+						<a class="btn btn-large open-registration">Buy Tickets</a>
+					<% end %>
 			<% end %>
 		
 			<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>
@@ -123,8 +137,8 @@
 	</div>
 	<% end %>
 	<div class="credit"> 
-		<div>made with</div> 
-		<a href="http://www.eventcreate.com/"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
+		<div>powered by</div> 
+		<a href="http://www.eventcreate.com/" title="EventCreate"><img alt="EventCreate" src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
 	</div>
 
 

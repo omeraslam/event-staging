@@ -63,7 +63,10 @@ module ApplicationHelper
 	end
 
 
-
+	def set_slug(slug_url)
+		@current_event = slug_url
+	end
+ 
 
 	def show_proper_date(event = nil, layout = true)
 
@@ -147,7 +150,11 @@ module ApplicationHelper
 		# end
 	end
 
+	def set_buyer
+	end
 
+	def get_buyer
+	end
 
 	def flash_class(level)
 	   case level.to_sym

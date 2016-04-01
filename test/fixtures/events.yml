@@ -3,13 +3,11 @@
 one:
   name: MyString
   description: MyString
-  time: MyString
   location: MyString
   background_img: MyString
 
 two:
   name: MyString
   description: MyString
-  time: MyString
   location: MyString
   background_img: MyString

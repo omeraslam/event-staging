@@ -1,7 +1,5 @@
 
-<div class="event-status-notification-banner"> 
-	Just a heads up: Your website is live, so changes will be visible to attendees! You can go back to <%= link_to "draft status.", dashboard_event_path(:event => @event.id) + '#settings' %>
-</div>
+
 
 
 
@@ -23,34 +21,7 @@
 	      <h2>Now, the fun part! </h2> <h3> It's time to customize your website's background image and fonts.</h3>
 	</div>
 
-	<div id="event-creation-modal">
-		    
-		    <div class="modal-header">
-		    	<i class="icon icon-check"> </i>
-			    <h2>You're done!</h2>
-			    <h4>  
-			      Nice work! Your event is setup and ready to share. 
-			    </h4>
-		    </div>
 
-
-		    <div class="modal-body">
-
-			    <div style="display:none;" class="input-group"> 
-		    		<a href="http://eventcreate.com/<%= @event.slug %>?preview=true" target="_blank"><input type="text" value="http://eventcreate.com/<%= @event.slug %>" disabled></a>
-		    	</div>
-
-			    <div class="input-group"> 
-		    		<a href="dashboard/event?event=<%= @event.id %>" class="btn btn-large"><i class="icon icon-home"></i> View my event! </a>
-		    		<p>Go ahead, check out your event.  </p>
-		    	</div>
-
-		         
-		        <a>No, I'd like to continue editing</a> 
-		            
-
-		    </div>
-	</div>
 
 </div>
 

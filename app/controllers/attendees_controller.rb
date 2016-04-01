@@ -79,7 +79,6 @@ class AttendeesController < ApplicationController
         if Attendee.where("user_id = :user_id AND email = :email",
           {user_id: @attendee.user_id.to_s, email: @attendee.email}).present?
 
-          logger.debug "user exists"
 
           #user already exists error message
 
@@ -88,11 +87,8 @@ class AttendeesController < ApplicationController
         elsif @host.email == @attendee.email
 
           #email to be added is == to contact host
-          logger.debug "host email ===== attendee email"
 
         else
-           
-            logger.debug "save new user"
 
             if @attendee.save
 
@@ -134,7 +130,6 @@ class AttendeesController < ApplicationController
 
   def invite
 
-    logger.debug "Emails from form hash: #{attendee_params[:email]}"
     @emails = attendee_params[:email].gsub(/\s+/, "")
     @invalid_addresses = []
     @valid_addresses = []
@@ -156,7 +151,6 @@ class AttendeesController < ApplicationController
       @event_url = 'http://eventcreate.com/' +  @event.slug
 
       @valid_addresses.each do |attendee_address|
-        logger.debug "emails to save: #{attendee_address}"
         @attendee = Attendee.new
         @attendee.email = attendee_address
         @attendee.user_id = @attendee_user_id
@@ -199,8 +193,6 @@ class AttendeesController < ApplicationController
 
       @attendees.each do |attendee|
 
-
-        logger.debug "attendees to send: #{attendee.email}"
         @event_url = 'http://eventcreate.com/' +  @event.slug + '?invited=true&amp;uid='+ attendee.id.to_s
 
         if attendee.id.to_s != @event.user_id.to_s
@@ -225,9 +217,7 @@ class AttendeesController < ApplicationController
 
     @attendee = Attendee.find(params[:id])
      @attendee.attending = true
-    logger.debug "emails to save: #{@attendee}"
      @attendee.update(attendee_params)
-    logger.debug "emails to save: #{@attendee.attending}"
 
    
   end
@@ -237,8 +227,6 @@ class AttendeesController < ApplicationController
   def create
     @attendee_user_id = params[:attendee_user_id]
     attendee_param = params[:attendee]
-
-    logger.debug "#{Attendee.where(:email => attendee_param['email'])}"
 
     @current_user = User.find(params[:user_id])
     @event = Event.find_by id: params[:event_id]

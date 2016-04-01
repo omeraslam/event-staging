@@ -1,45 +1,20 @@
-<% title "Custom Event Websites" %>
+<% title "Sell tickets to your event. For free." %>
 <% meta_description 'EventCreate is the easiest way to create a custom event website. Collect registrations, sell tickets, send invites, and manage your attendees — all in one place.' %>
+
+
+
 <div class="hero" id="home">
-
-
- 	<div class="hero-content hero-content-left col">
-
-
- 	<% if params[:cpn] == "ticketing" %>
-
-		<h1> Zero-fee event ticketing</h1>
-		<p>Start selling event tickets in less than 30 seconds. No fees. Period.</p>
-		
-
-	<% elsif params[:cpn] == "brand" %>
-
-		<h1>Your brand. Not ours.</h1>
-		<p>Build a free, custom-branded event website in less than 30 seconds.</p>
-
-
-	<% elsif params[:cpn] == "emo" %>
-
-		<h1> Sell out your event</h1>
-		<p>Build a free, compelling event website in less than 30 seconds.</p>
-
-	<% else %>	
-
-		<h1>Beautiful event websites </h1>
-		<p>Build a beautiful event website in less than 30 seconds.</p>
-
-	<% end %>	 	 	
-	
-
-	 	<% if @is_premium != 'active' && @disable_create %>
-			<%= link_to 'Try for free now &rarr;'.html_safe, upgrade_path, :class => 'btn btn-large open-upgrade'  %> 
-		<% else %>
-			<%= link_to 'Try for free now &rarr;'.html_safe, create_path, :class => 'btn btn-large btn-obvious'  %> 
-	 	<% end %>	 	 	
+	<div class="hero-cover"></div>
+ 	<div class="hero-content">
+		<h1> Sell tickets to your event. For free. </h1>
+		<p class="lead">Unlimited events. Unlimited tickets. <br>Completely, 100% free. Yup, it’s that simple.  </p>	 
+		<%= link_to 'Sign up for free', new_user_registration_path, :class => 'btn btn-large'  %>
 	</div>
+</div>	
 
 
- 	<div class="screens-container col" >
+<div id="home-example">
+ 	<div class="screens-container " >
 	 	<div class="screen"> 
 	 		<div class="screen-nav">
 	 			<div class="button"></div>
@@ -56,44 +31,70 @@
 			<img src="/assets/home/sample2_mobile.jpg" />	
 	 	</div>
  	</div>
-
-
+ 	<div class="screens-copy-container container">
+	 	<div class="container container-small">
+		 	<h2> Create a beautiful event website</h2>
+		 	<p>Impress your event attendees with a beautiful, custom branded event website.  Create your site and start collecting registrations in just a few minutes with EventCreate's easy-to-use builder. </p>
+			<%= link_to 'Create my event website', new_user_registration_path, :class => 'btn btn-large'  %>
+	 	</div>
+ 	</div>
 </div>
 
 
 
-<div class="product-feature-container">
-
-
-	<div class="product-feature col">
-		<i class="icon icon-line-chart"> </i>
-		<h2> Collect registrations, sell tickets </h2>
-		<p>Simple but powerful setup, so you can start collecting registrations for your event in less than 30 seconds. We keep it simple. No muss, no fuss.  </p>	
+<div id="home-savings-calc">
+	<div class="container container-small">
+		<h2>Switch to EventCreate and save </h2>
+ 		<p>Unlike most event ticketing platforms, EventCreate doesn't charge any service or "convenience" fees, which typically amount to $1 + 3% of the ticket price. Think of all the extra booze you can afford. </p>
+ 		<div class="slider-container">
+ 			<span id="event_size">100 attendees</span>
+			<div class="slider" id="slider_event_size"> </div>
+		</div>
+ 		<div class="slider-container">
+ 			<span id="event_price">$50 per ticket</span>
+			<div class="slider" id="slider_event_price"> </div>
+		</div>
+		<h3 id="event_savings"> Save $2,000</h3>
 	</div>
-
-
-	<div class="product-feature col">
-		<i class="icon icon-line-computer"> </i>
-		<h2>Feature your brand, not ours </h2>
-		<p>EventCreate is 100% white-labelled, which means your event website features your brand, not ours. Delight your attendees with a beautiful, custom experience.  </p>	
-	</div>
-
-
-	<div class="product-feature col">
-		<i class="icon icon-line-email"> </i>
-		<h2> Make your event a success</h2>
-		<p> Beautiful websites and invites are backed by enterprise-level event management software, so its works as well as it looks. </p>	
-	</div>
-
 </div>
 
-
-<div class="partners"> 
-	<p> Integrated with the tools you love: </p>
-	<img src="/assets/home/partners.jpg">
+<div class="container" id="home-cta">
+	<h2> Let's make better events together. </h2>
+	<%= link_to 'Sign up for free', new_user_registration_path, :class => 'btn btn-large'  %>
 </div>
+	
+<%= render 'pages/partials/footer' %> 	
 
+<script>
+$(function() {
+    var eventSize = 150
+    var eventPrice = 75;
+    calcSavings();
+    $("#slider_event_size").slider({
+        min: 10,
+        max: 1000,
+        value: 150,
+        slide: function(event, ui) {
+            eventSize = ui.value;
+            calcSavings();
+        }
+    });
+    $("#slider_event_price").slider({
+        min: 2,
+        max: 1000,
+        value: 75,
+        slide: function(event, ui) {
+            eventPrice = ui.value;
+            calcSavings();
+        }
+    });
 
- 	 
- 	  
-<%= render 'pages/partials/footer' %> 	 	
+    function calcSavings() {
+        $("#event_price").text("$" + eventPrice + " per ticket");
+        $("#event_size").text(eventSize + " attendees");
+        $("#event_savings").text("You'll save appox. $" + Math.floor(
+                eventSize * ((eventPrice * .026) + .7)) +
+            ".");
+    }
+});
+</script> 	

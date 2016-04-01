@@ -1,5 +1,5 @@
 
- <%= form_for(@event,  url: event_path(@event)) do |f| %>
+ <%= form_for [@event] do |f| %>
   <% if @event.errors.any? %>
 
     <div class="alert error">
@@ -161,7 +161,6 @@
 
 
 // $('#event_slug').focusout(function() {
-//   alert('sdfaf');
 //   $.getJSON('/events/griffith-park-ride-nope', { slug: $('#event_slug').val() }, function(data) {
 //     // The data should tell you if its unique or not, you do something
 //     // here depending on response 

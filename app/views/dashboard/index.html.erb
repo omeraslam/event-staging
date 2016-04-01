@@ -24,7 +24,6 @@
 </div>
 
 <div class="container">
-
 	<% if @events.empty? %>		
 	<div class="empty">
 		<h2>Well, this is uneventful; you don't have any events yet. Get on that! </h2>
@@ -61,7 +60,6 @@
 					</div>
 
 				<% if (@event_num.to_i < @event_limit.to_i) || @premium_disable  %>
-
 					<div class="registrants"> 
 
 						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, slugger_path(event.slug), :target => '_blank' %>	  		
@@ -69,7 +67,7 @@
 
 					<div class="actions"> 
 						<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
-						<%= link_to 'Delete event', event_path(:id => event.id) , method: :delete, data: { confirm: 'Are you sure?' } %>
+						<%= link_to 'Delete event', event_path(:id => event.id) , method: :delete, data: { confirm: 'Are you sure?' } %> 
 					</div>
 
 				<% end %>

@@ -10,19 +10,11 @@ class ApplicationController < ActionController::Base
   helper :all
 
 
- # protected
- #  def authenticate_user!(options={})
- #    if user_signed_in?
- #      super(options)
 
- #    else
- #      redirect_to new_user_registration_path, :notice => 'Please login to create event'
- #      ## if you want render 404 page
- #      ## render :file => File.join(Rails.root, 'public/404'), :formats => [:html], :status => 404, :layout => false
- #    end
- #  end
+end
 
-
+def not_found
+  raise ActionController::RoutingError.new('Not Found')
 end
 
 
@@ -54,13 +46,14 @@ def check_member_type
       @event_registration_limit = ENV['BASIC_REGISTRATION_LIMIT'].to_i
     end
 
-
+    @premium_disable = true
 
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     @count_events = Event.where(:user_id => current_user.id.to_s).count
     @count_registrations = Attendee.where(:user_id => current_user.id.to_s).count
 
-    if @count_events < @event_limit && @count_registrations   < @event_registration_limit
+
+    if (@count_events < @event_limit && @count_registrations   < @event_registration_limit) || @premium_disable
       @disable_create = false
 
     else 
@@ -69,8 +62,6 @@ def check_member_type
     end
 
 
-
-    #@cu = ''
     @is_premium = current_user.premium? ? 'active': ''
 
 
@@ -82,19 +73,14 @@ def check_member_type
 
     @premium_disable = true
 
-
     if !current_user.customer_id.nil? && !@premium_disable
 
       logger.debug "app level customer id: #{Stripe::Customer.retrieve(current_user.customer_id)}"
       @cu = Stripe::Customer.retrieve(current_user.customer_id)
       #@is_premium = @cu.subscriptions.data[0].nil? ? false : @cu.subscriptions.data[0].status
 
-
-      #@disable_create = @count_events.count > 0 && @is_premium != 'active'
     else
       @cu = ''
-      #@is_premium = false
-      #@disable_create = @count_events.count > 0
     end
 
 

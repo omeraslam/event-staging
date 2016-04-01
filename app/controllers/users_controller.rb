@@ -18,7 +18,6 @@ class UsersController < ApplicationController
 
     if @user.customer_id.nil? 
 
-      logger.debug "customer being created"
 
       # Create a Customer
       customer = Stripe::Customer.create(
@@ -44,7 +43,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
         render :js => "window.location = '/thank-you'"  #hack
     else
-        logger.debug "no set user to premium"
+        #logger.debug "no set user to premium"
     end
     
   end
@@ -76,7 +75,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
         render :js => "window.location = '/thank-you'"  #hack
     else
-        logger.debug "no plan updated"
+       # logger.debug "no plan updated"
     end
 
   end
@@ -87,11 +86,9 @@ class UsersController < ApplicationController
     @user = current_user
 
 
-    logger.debug "user premium: #{@user.premium}"
 
     customer = Stripe::Customer.retrieve(@user.customer_id)
 
-    logger.debug "sub id: #{customer.subscriptions}"
     customer.subscriptions.retrieve(customer.subscriptions.data[0].id).delete
 
 
@@ -104,7 +101,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render :js => "window.location = '/dashboard/index'"  #hack
     else
-      logger.debug "plan not canceled"
+      #logger.debug "plan not canceled"
     end
     
   end

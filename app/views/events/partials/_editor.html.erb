@@ -1,132 +1,170 @@
-<!-- footer editor module for background/fonts -->
-
-<nav style="display:none;">
-   <div class="dashboard-header" style="display:none;">
-      <div class="left"> 
-        <a class="logo" href="/"><span>Event Create</span></a>
-        <ul> 
-            <li class="dropdown"><a class="open-dropdown" id="view-switch">Previewing website <i class="icon icon-arrow-down"></i> </a>
-                
-                <ul class="dropdown-menu">
-                    <li><a id="view-invite"><i class="icon icon-email"> </i>  Switch to invite view <p>Preview your email invitation </p></a> </li>
-                    <li><a id="view-website"><i class="icon icon-bolt"> </i>  Switch to website view <p>Preview your event website  </p></a> </li>
-                    <li><a href="dashboard/event?event=<%= @event.id %>#settings"> <i class="icon icon-pencil"> </i> Edit event details <p> Modify your event details</p></a> </li>  
-                    <li><a href="dashboard/event?event=<%= @event.id %>"> <i class="icon icon-home"> </i> Event dashboard <p> event guest list and analytics</p></a> </li>  
-                </ul>
-
-            </li>
-        </ul>
-      </div>
-
-
-      <div class="right"> 
-        <ul> 
-          <li>
-            <% if @count_registrations >= @event_registration_limit %>  
-        <%= link_to ('<i class="icon icon-email"></i>').html_safe, upgrade_path, :class => 'large-icon'  %> 
-            <% else %>            
-        <a class="large-icon send-email" ><i class="icon icon-email"></i> </a> 
-            <% end %>  </li>
-
-          <li> <a class="large-icon open-link-modal"><i class="icon icon-link"></i> </a>  </li>
-          <li> <a class="large-icon" href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>" target="_blank"><i class="icon icon-facebook"></i> </a>  </li>         
-          <li><a class="large-icon" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>" target="_blank"><i class="icon icon-twitter"></i> </a>  </li>
-        </ul>
-      </div>     
-
-    </div>
-</nav>
-
- <!--START editor continer-->
-
 <div class="editor-container"> 
 
+  <div class="tabs">
+    <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
+      <i class="icon icon-image"> </i> <span> Modify background Image </span>
+    </a> 
+    <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
+      <i class="icon icon-tag"> </i> <span> Ticketing</span>
+    </a> 
 
 
-     <!--START CONTROLS-->
-      <div class="tabs">
-       <a class="tab toggleEditorPanel"  style="display:none;" id="event-editor-design" ><i class="icon icon-image"> </i> <span> Change Theme </span></a>
-       <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background" ><i class="icon icon-image"> </i> <span> Modify background Image  </span></a> 
-       <a class="tab toggleEditorPanel" id="editor-tool-font" data-target="editor-tool-font"><i class="icon icon-alpha"> </i> <span> Changes fonts  </span></a> 
-       <a class="tab edit-save"  id="save" style="display:none;"><i class="icon icon-save"> </i> save  </a> 
+    <% if @event.published == false %>  
 
-      <a class="tab edit-save"  id="discard" style="display:none;"><i class="icon icon-replay-back"> </i>  </a> 
+      <a class="tab" id="draft">
+        <i class="icon icon-save"> </i>
+        <div>Save</div>
+        <span> Save</span>
+      </a> 
+  
+      <% if @account.nil? && (@tickets.count != 1 || @tickets[0].price != 0) %>
 
-     </div>
-    <!--END CONTROLS -->
+       <a class="tab" onclick="alert('You need to seet up a payment account to publish a paid ticketed event. Please add it via Stripe under ticketing settings.');">
+        <i class="icon icon-globe"> </i>
+        <div>Publish</div>
+         <span> Publish</span>
+      </a> 
 
 
+      <% else %>
 
-<!--start TEMP themes container  -->
-<div class="editor" style="display:none;"> 
-   <div class="event-editor-design" style="display:none;" >
-      <a href="#" class="theme" data-layout="1" data-theme="cityscape" id="cityscape">
-      	<img src="./assets/themes/cityscape_thumb.jpg">
-      </a>  
-  		<a href="#" class="theme" data-layout="1" data-theme="getloud" id="getloud">
-  			<img src="./assets/themes/getloud_thumb.jpg">
-  		</a>  
-  		<a href="#" class="theme" data-layout="1" data-theme="epic" id="epic">
-  			<img src="./assets/themes/epic_thumb.jpg">
-  		</a>  
-  		<a href="#" class="theme" data-layout="1" data-theme="gallery" id="gallery">
-  			<img src="./assets/themes/gallery_thumb.jpg">
-  		</a>  					
-  		<a  class="theme" href="#"  data-layout="1" data-theme="celebrate" id="celebrate">
-  			<img src="./assets/themes/celebrate_thumb.jpg"  >
-  		</a> 
-      <a  class="theme" href="#"  data-layout="1" data-theme="minimalist" id="minimalist">
-        <img src="./assets/themes/minimalist_thumb.jpg"  >
-      </a> 					  
+      <a class="tab" id="publish">
+        <i class="icon icon-globe"> </i>
+        <div>Publish</div>
+         <span> Publish</span>
+      </a> 
+
+      <% end %>
+
+    <% else %>  
+
+      <a href="dashboard/event?event=<%= @event.id %>" class="tab" id="done">
+        <i class="icon icon-check"> </i> 
+        <div>Done</div>
+        <span> Done editing</span>
+      </a> 
+
+      <div class="event-status-notification-banner visible"> 
+        Just a heads up: Your website is live. Changes will be saved automatically and visible to your guests.  <a id="event-status-notification-banner-close" class="btn btn-small"> Got it, thanks. </a>   
+      </div>
+
+    <% end %>  
+
+
+    <a href="dashboard/event?event=<%= @event.id %>" class="tab" id="saving">
+      <i class="icon icon-loader"> </i> 
+    </a> 
+
+
   </div>
-</div>
-  <!--end TEMP themes container -->
 
 
 
-  <!--START THE BG UPLOAD-->
-  <div class="editor-tools" >
+  <div class="editor-tools">
 
-
+    <button data-remodal-action="close" class="remodal-close" id="editor-panel-close"></button>
 
     <div class="editor-tool" id="editor-tool-background">
 
+      <section class="editor-tool-header">
+        <h3>Modify the design </h3> 
+        <p>In id urna nec orci ultrices finibus sit amet nec nulla. Donec consequat turpis ligula, ut lacinia enim semper a. In malesuada erat quis dolor aliquam.</p>
+      </section>
 
+      <section>
+        <h4>Background Image + Color</h4>
+        <div class="editor-current-bg" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>
+        <a> Upload image </a> <a class="open-image-modal"> Search image library </a> 
+        <div class="slider-container">
+          <div class="slider"> <div id="slider"></div> </div>
+          <div class="color-picker"><input id="color"></div>
+        </div>
+      </section>
 
-<%= form_for @event, url: update_event_path(@event), :html => { :id => "custom_image_form" }  do |f| %>
-<i class="icon icon-image"> </i>
-  <%= f.file_field :image, name: "event[background_img]", :id => 'hello', :val => 'UPload IMage' %>
-  Upload image
-<% end %>
+      <section>
+        <h4>Fonts + Style</h4>
+        <div class="fonts">
+          <a class="font brandon" data-target="brandon" style="font">Abc </a>   
+          <a class="font helvetica" data-target="helvetica">Abc</a> 
+          <a class="font sophia" data-target="sophia">Abc</a>
+          <a class="font futura" data-target="futura" style="font-size:22px;">Abc</a>
+          <a class="font gotham" data-target="gotham" style="font-size:12px;">Abc</a>  
+          <a class="font freight" data-target="freight" style="font-size:16px; letter-spacing:3px;">Abc</a>
+        </div>
+      </section>
 
-      <a class="open-image-modal"><i class="icon icon-search"> </i>  Search images </a>
-
-      <div class="right">
-        <div class="slider"> <div id="slider"></div> </div>
-        <div class="color-picker"><input id="color"></div>
-      </div>      
     </div>  
 
 
+    <div class="editor-tool" id="editor-tool-ticketing" >
+      
+      <section class="editor-tool-header">
+        <h3> Sell tickets for your event</h3>
+        <p>In id urna nec orci ultrices finibus sit amet nec nulla. Donec consequat turpis ligula, ut lacinia enim semper a. In malesuada erat quis dolor aliquam.</p>
+        <span href="" class="btn open-ticket"> New ticket</span>
+      </section>
+
+      <section>
+        <h4>Active tickets </h4>
+        <div class="tickets">
+        <% @tickets.each_with_index do |ticket, index| %>
+          <div class="ticket">
+
+            <h3><%= ticket.title %></h3>
+          <% if ticket.price == 0 %>
+              <p>Free</p>
+          <% else %>
+
+            <p><%= number_to_currency(ticket.price) %></p>
+              <% if !ticket.ticket_limit.nil? %>
+                <p>Ticket limit: <%= ticket.ticket_limit %> </p>
+              <% end %>
+            <% end %>
+            <p>Buy limit: <%= ticket.buy_limit %> </p>
+            <div class="ticket-actions">
+             <div class="ticket-action">
+            <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket)  %></div>
+            <% if index != 0 %>
+              <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+              </div>
+          </div>
+        <% end %>
+        </section>
 
 
-    <div class="editor-tool" id="editor-tool-font" >
-      <a class="font brandon" data-target="brandon" style="font">Abc </a>   
-      <a class="font helvetica" data-target="helvetica">Abc</a> 
-      <a class="font sophia" data-target="sophia">Abc</a>
-      <a class="font futura" data-target="futura" style="font-size:22px;">Abc</a>
-      <a class="font gotham" data-target="gotham" style="font-size:12px;">Abc</a>  
-      <a class="font freight" data-target="freight" style="font-size:16px; letter-spacing:3px;">Abc</a>
+        <section>
+        <h4>Collect payments </h4>
+        <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
+        <% if  @account == nil %>
+          <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85BL1HAfY3NzHDucub5ZiStZBWhlugWb&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> </a>
+        <% else %>
+          User has connected to stripe
+        <% end %>
+        </section>
+
     </div>  
-
 
   </div>
-  <!--END BG -->
-
-
-
 </div>
- <!--END editor continer-->
+
+
+
+
+<div id="event-saved-modal">
+  <button data-remodal-action="close" class="remodal-close"></button>
+
+  <div class="modal-header modal-header-light">
+    <h2>Saved.</h2>
+    <p> Rest easy; your event website was successfully saved. If you're finished editing, be sure to publish your event to make it live! </p>
+  </div>
+  <div class="modal-body">
+      <a href="dashboard/event?event=<%= @event.id %>" class="btn btn-block btn-subtle"><i class="icon icon-home"></i>Back to my event dashboard </a>
+      <%= link_to '<i class="icon icon-website"></i> Preview my website (new window)'.html_safe, slugger_path(@event), class: 'btn btn-block btn-subtle', target: '_blank' %>  
+      <a href="dashboard/event?event=<%= @event.id %>" class="btn btn-block"><i class="icon icon-globe"></i> Publish my event! </a>
+  </div>
+</div>
 
 
 
@@ -142,4 +180,379 @@
     </div>
     </script>
 
-  </a>  
+  </a> 
+
+
+
+
+
+
+
+<script src="/assets/vendor/jquery.minicolors.min.js"></script>
+<script type="text/javascript">
+
+
+
+
+
+
+
+$( document ).ready(function() {
+
+
+  //TICKET - new ticket modal functionality and validation
+  $("#show-event-description").click(function() {  
+    $(this).hide();
+    $("#ticket-description").slideDown();
+  });
+  $("#show-ticket-advanced-settings").click(function() {  
+    $("#ticket-advanced-settings").slideToggle();
+  });
+  var validator = $("#new_ticket").validate({
+    rules: {
+      name: "required",
+      "ticket[title]": {
+        required: true
+      }
+    }, messages : {
+      "ticket[title]": 'Please enter a ticket name.'
+    }
+  });
+
+  //prevent new paid ticket submission if no account set up 
+  $('#new_ticket .btn').on('click', function(e) {
+
+    if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
+
+      e.preventDefault();
+      alert('Please enter a payment account to create paid tickets for this event.')
+
+    } 
+
+  });
+
+
+
+
+  //INTRO - slide in the editor tabs
+  setTimeout(function(){  
+    $('.tabs').addClass("visible");
+  }, 500);
+
+
+  //STRIPE - connect
+  $('.stripe-connect-btn').on('click', function(e) {
+    e.preventDefault();
+    window.location = $(this).attr('href') + '&redirect_uri=' + window.location.href
+  });
+
+
+  //EDITOR - set size of panel
+  $('.editor-tools').css("height",$(window).height());
+  $( window ).resize(function() {
+    $('.editor-tools').css("height",$(window).height());
+  });
+
+  //EDITOR -  editor panel interaction behaviors
+  $('.toggleEditorPanel').click(function() {
+
+    var active = $(this).hasClass('active');
+    var target = $(this).data('target');
+    $('.toggleEditorPanel.active').removeClass("active");
+    if (!active) {
+      $(".editor-tool").hide();
+      $(".editor-tool#" + target).show();
+      $(this).addClass("active");
+      $(".editor-container").addClass("visible");
+    } else {
+      $(this).removeClass("active");
+      $(".editor-container").removeClass("visible");
+    }
+  });
+
+  $('#editor-panel-close').click(function() {
+    $(".toggleEditorPanel.active").removeClass("active");
+    $(".editor-container").removeClass("visible");
+   });
+
+
+
+
+
+  //EDITOR - set values
+  var published = $('#published').val()? $('#published').val(): "false"; 
+  var currentFont = $('#font_type_id').val()? $('#font_type_id').val(): "brandon"; 
+  var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
+  var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
+  var currentBg = $('#external_image').val(); 
+  var currentBgLoaded = $('#bg').val()? $('#bg').val(): ''; 
+  var currentShowCustom = $('#show_custom').val(); 
+  var newFont;
+  var newBgOpacity;
+  var newBgColor;
+  var newShowCustom;
+  var newBg;
+  var tempFont = currentFont;
+  var changesExist = false;
+
+  var layout = $('#layout_id').val()? $('#layout_id').val(): "1"; 
+  var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch";   
+
+
+
+
+
+  //TICKETING - add ticket modal
+  var ticketModal = $('#ticket-modal').remodal();
+  $('.open-ticket').click(function(e){
+    ticketModal.open();
+    e.preventDefault;
+  });
+
+
+  //IMAGES - search unsplash
+  var imageModal = $('#image-search-modal').remodal();
+  $('.open-image-modal').click(function(e){
+      e.preventDefault();
+      imageModal.open();
+  });
+
+  $("#bgSearchTerm").keyup(function (e) {
+      if (e.keyCode == 13) {
+           $('.search-btn').click();
+      }
+  });
+
+  $('.search-btn').on('click', function(e) {
+      e.preventDefault();
+      var searchTerm = $('#bgSearchTerm').val();
+      var url = String(window.location.href).replace('?editing=true', '').replace('#', '') + '/unsplash-search';
+
+      $.ajax({
+            url: url,
+            data: {searchTerm: searchTerm},
+            success: function(data) {
+              var photoArray = [];
+
+              $('.image-results ul').empty();
+
+              for(var i=0;i<data.length;i++) {
+                  var list_image = '<li><img src="'+ data[i].attributes.table.urls.thumb +'"/></li>';
+                  photoArray.push(data[i].attributes.table.urls.full);
+
+                  $('.image-results ul').append(list_image);
+              }
+              $('.image-results ul li').off('click');
+              $('.image-results ul li').on('click', function(e) {
+                  e.preventDefault();
+                  imageModal.close();
+                  $('.event-page').attr('style','background-image: url('+photoArray[$(this).index()]+') !important' );
+                  $('#bg').val(photoArray[$(this).index()]);
+                  $('#show_custom').val(true);
+                   requestEdit({bg_img:photoArray[$(this).index()]});
+                   requestEdit({show_custom:true});
+              })
+
+            },
+            error: function(data) {
+              $('.image-results ul').append('<li>No results found</li>')
+            }
+      });
+
+  });
+  //--end unsplash modal    
+  
+
+
+
+
+  //EDITOR - detect changes
+  function requestEdit(feature) {
+
+    if(feature.bgOpacity) {
+        newBgOpacity = feature.bgOpacity; 
+        if (newBgOpacity != currentBgOpacity) {
+             saveChanges();
+        }
+    }
+
+
+    if(feature.bgColor) {
+        newBgColor = feature.bgColor; 
+        if (newBgColor != currentBgColor) {
+          saveChanges();
+        }
+    }
+
+
+    if( feature.font) {
+        console.log(feature.font);
+        newFont = feature.font; 
+        if (newFont != currentFont) {
+            saveChanges();
+        }
+    }
+
+    if( feature.bg_img) {
+        console.log(feature.bg_img);
+        newBg = feature.bg_img;
+        if (newBg != currentBg) {
+            currentBgLoaded = '';
+            $('#external_image').val(newBg)
+            newShowCustom = true;
+            saveChanges();
+
+        }
+    }
+
+    if( feature.show_custom) {
+        console.log(feature.show_custom);
+        newShowCustom = feature.show_custom;
+        if (newShowCustom != currentShowCustom) {     
+          saveChanges();
+        }
+    }      
+
+  }
+
+
+
+
+  //backgroud opacity slider
+    $(function() {
+      $( "#slider" ).slider({
+        value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
+        slide: function( event, ui ) { 
+
+          var percentage = ui.value/100;
+          $(".event-page .overlay").css("opacity", percentage);
+          requestEdit({bgOpacity:percentage});
+        }
+      });
+    });
+
+
+  //background color picker
+    $('input#color').minicolors({ 
+      position: 'top right', 
+      defaultValue: currentBgColor,
+      change: function(value, opacity) {
+          $(".event-page .overlay").css("background-color", value);
+          requestEdit({bgColor:value});
+
+      }
+   });
+
+  //change font
+  $('.font').click(function() {
+      var target = $(this).data('target');
+      $('.event-container').removeClass(tempFont); 
+      $('.event-container').addClass(target); 
+      requestEdit({font:target});
+      tempFont = target;
+
+ });
+
+
+
+
+
+
+
+  //EDITOR -  event saved modal
+  var eventSavedModal = $('#event-saved-modal').remodal();
+  $('#draft').click(function(e){
+    $(".full-page-loader.saving").addClass("visible");
+    setTimeout(function(){  
+      eventSavedModal.open();
+      $(".full-page-loader.saving").removeClass("visible");
+    }, 1500);
+
+    e.preventDefault;
+  });
+
+
+
+
+
+
+
+
+  // publish button 
+  $('#publish').click(function(e) {
+    e.preventDefault();
+
+    $(".full-page-loader.saving").addClass("visible");
+    $(".tabs").removeClass("visible");
+    
+    var eventProperties = {}
+    eventProperties.name = $('h1 span').text();
+    eventProperties.slug = window.location.href.split('?editing=true')[0];
+    eventProperties.slug = eventProperties.slug.split('/')[3];
+    eventProperties.type = $('#layout_style').val();
+    var event_id = 'step 4 success - publishing event';
+    amplitude.logEvent(event_id, eventProperties);  
+
+    published = true;    
+    saveChanges(true);
+
+
+
+  });
+
+
+
+
+
+
+//photo-1443130128240-22fb98ca70a4?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=e5ef277d1a5f81a1fc520243664aa7cf
+
+  function saveChanges(callBack) {
+
+    newBg = $('#external_image').val()
+    $.ajax({
+      type: 'POST',
+        url: String(window.location.href).replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
+        data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }},
+    beforeSend: function(){
+        
+        changesExist = true;
+        $("#saving").addClass("visible");
+    }
+      }).done(function(data){
+        //console.log(data);
+        $('#layout_style').val(theme);
+        changesExist = false;
+        $("#saving").removeClass("visible");
+
+        if (callBack) {
+          window.location.href = "dashboard/event?event=<%= @event.id %>";
+        } else {
+          
+        }
+
+      });
+    }
+
+  });
+
+
+
+  //warning before leave page
+  window.onbeforeunload = function(e) {
+    if(changesExist) {
+      return 'You have unsaved pages. Please wait until we have finished saving your event';
+    }
+  };
+
+
+  //EDITING - close the "editing live events" notifcation banner 
+  $("#event-status-notification-banner-close").click(function(e) {
+    e.preventDefault();
+    $(".event-status-notification-banner").removeClass("visible");
+
+  });
+
+
+</script>
+

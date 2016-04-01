@@ -1,5 +1,14 @@
 
 class EventsController < ApplicationController
+  require "uri"
+  require "net/http"
+  #require 'chunky_png'
+
+  # require 'barby'
+  # require "barby/barcode/code_128"
+  # require 'barby/outputter/png_outputter'
+
+  layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
   after_filter :store_location
   before_filter :authenticate_user!, :except => [:show, :export_events, :contact_host]
@@ -21,12 +30,313 @@ class EventsController < ApplicationController
 
   # GET /events/1
   # GET /events/1.json
-  def show
+def show_buy 
+
+     @event = Event.find_by_slug(params[:slug])
+     @user = User.find(@event.user_id)
+     @purchase = Purchase.find(params[:oid].to_i )
+
+     @line_items = LineItem.where(:purchase_id => params[:oid])
+     LineItem.count('ticket_id', :distinct => true)
+
+    @user = User.where(:id => @event.user_id.to_i).first
+    @account = Account.where(:user_id => @user.id).first 
+
+    @final_charge = 10000 #add all line items to figure out final price
+end
+
+
+
+def show_ticket
+
+  #render layout: false
+  @event = Event.find_by_slug(params[:slug])
+  @purchase = Purchase.find(params[:oid].to_i )
+  @line_items = @line_items = LineItem.where(:purchase_id => params[:oid])
+
+
+
+  #barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
+  # File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
+  #   f.write barcode.to_png(:height => 20, :margin => 5)
+  # }
+
+
+  @tickets_per_page = 4
+  respond_to do |format|
+    format.html
+    format.pdf do
+      render pdf: "EventCreate_ORDER_" + @purchase.id.to_s+ "_" + @event.slug.to_s ,   # Excluding ".pdf" extension.
+             template:                       'layouts/ticket.pdf.erb',
+             orientation:                    'Portrait',
+             page_width:                     1200
+    end
+  end
+    
+
+end
+
+def stripe_redirect
+  redirect_to session.delete(:return_to) + "?editing=true"
+  #redirect_to slugger_path(@current_event.slug) + "?editing=true"
+
+
+
+end
+
+def complete_registration
+  #save buyer attach to order
+
+  @purchase = Purchase.find(params[:oid].to_i )
+  @event = Event.where(:id => params[:event_id]).first
+
+
+  # Set your secret key: remember to change this to your live secret key in production
+  # See your keys here https://dashboard.stripe.com/account/apikeys
+  # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+
+  # Get the credit card details submitted by the form
+  token = params[:stripeToken]
+  amount = params[:purchaseAmount]
 
 
 
 
-    @event = Event.find_by_slug(params[:slug])
+
+  if @purchase.update(purchase_params)
+
+    #save attendees
+    
+    guest_list = params[:attendees]
+
+    guest_list.each do |guest_item|
+
+      @attendee = Attendee.new
+      @attendee.first_name = guest_item[1]['first_name']
+      @attendee.last_name = guest_item[1]['last_name']
+      @attendee.email = guest_item[1]['email']
+      @attendee.phone_number = guest_item[1]['phone_number']
+      @attendee.user_id = params[:user_id]
+      @attendee.event_id = params[:event_id]
+      @attendee.attending = true
+      test = guest_item[1]['line_id']
+      # respond_to do |format|
+        if @attendee.save
+          #save attendee_id to line_items
+          #
+          logger.debug "some guest item line id = #{guest_item[1]['line_id'].to_i}"
+          @line_item = LineItem.where(:id => guest_item[1]['line_id'].to_i).first
+          @line_item.attendee_id = @attendee.id
+
+          line_params = { :attendee_id => @attendee.id}
+
+          if @line_item.update(line_params)
+          else
+          end
+          #if not equal to host
+           # if @attendee.id.to_s != @event.user_id.to_s
+           #   #send guest rsvpd emails
+           #   #UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
+           #   #UserMailer.rsvp_update(@current_user, @attendee, @event_url).deliver unless @attendee.invalid?
+           # else
+           #   #send invitations sent emails
+           #   #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
+           #   #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
+           # end
+          
+          #format.html { redirect_to slugger_path(:slug => @event.slug), notice: 'Person was successfully created.' }
+          # format.html { redirect_to show_confirm_path, notice: 'Ticket purchase successful'}
+          # format.js   { render action: 'confirmation', status: :created, location: slugger_path(:slug => @event.slug) }
+          # format.json { render :show, status: :created, location: :back }
+          #send invite email to them now, thank you and sign up with hash
+          #
+        else
+          logger.debug "not saving some guest item line id = #{guest_item[1]['line_id'].to_i}"
+          
+        #   format.html { render :new }
+        #   format.json { render json: @attendee.errors, status: :unprocessable_entity }
+        end
+      #end
+
+
+    end
+  
+  # create customer for user
+  # save strip user id
+  # 
+  # 
+  else
+    #purchase wasn't updated and didn't go through
+  end
+
+
+
+    @account = Account.where(:user_id => @event.user_id.to_s).first
+
+   
+
+    logger.debug "AMOUNT IS EQUAL TO: #{amount}"
+    if params.has_key?(:purchaseAmount)
+      begin
+
+        charge = Stripe::Charge.create({
+          :amount => amount,
+          :currency => "usd",
+          :source => token,
+          :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
+        }, {:stripe_account => @account.stripe_user_id})
+
+
+
+      rescue Stripe::CardError => e
+        # The card has been declined
+      end
+
+      render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+    else
+      redirect_to show_confirm_path(:oid => @purchase.id.to_s)
+    end
+
+
+
+
+
+end
+
+def show_confirm 
+
+
+
+  @purchase = Purchase.find(params[:oid].to_i )
+  @event = Event.find_by_slug(params[:slug])
+  @user = User.find(@event.user_id)
+
+  UserMailer.send_tickets(@user, @event, @purchase).deliver unless @user.invalid?
+     
+
+
+end
+
+def select_tickets
+  @event = Event.find_by_slug(params[:slug]) or not_found
+
+  @purchase = Purchase.new
+
+  if @purchase.save
+
+
+    @event.tickets.all.each do |ticket|
+
+      num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
+      (1..num_tickets).each do |i| 
+        @line_item = LineItem.new
+        @quantity = params[:ticket_quantity][ticket.id.to_s]
+        ticket_id = params[:ticket_id][ticket.id.to_s]
+
+        @line_item.ticket_id = ticket_id
+        @line_item.quantity = @quantity
+        @line_item.purchase_id = @purchase.id.to_s
+
+        if @line_item.save
+
+
+        else
+                  
+        end
+      end
+    end
+
+  else
+
+  end
+
+
+
+
+
+  redirect_to show_buy_path(:oid =>@purchase)
+end
+
+
+def show
+
+    session[:return_to] ||= request.path
+
+    logger.debug "REQUEST PATH BE: #{session[:return_to]}"
+
+     if signed_in?
+      @user = current_user
+      @account = Account.where(:user_id => @user.id).first.nil? ? nil : Account.where(:user_id => @user.id).first
+    
+      if params[:code]
+        code = params[:code]
+        # @resp = url to get token
+        # 
+        data   = {'grant_type' => 'authorization_code',
+              'client_id' => 'ca_85BL1HAfY3NzHDucub5ZiStZBWhlugWb',
+              'client_secret' => 'sk_test_mqAqte5NAiYcu3yPuTmmAL0N',
+              'code' => code
+             }
+             
+        x = Net::HTTP.post_form(URI.parse('https://connect.stripe.com/oauth/token'), data)
+
+
+        account_info = JSON.parse(x.body)
+
+        puts account_info["access_token"]
+
+        @access_object = x.body
+
+        @access_token = account_info["access_token"]
+
+        #account_info = OpenStruct.new(JSON.parse(x.body).to_json)
+
+        #puts account_info.access_token
+
+        # @access_token = @resp.token
+        @user = current_user
+
+        @account = Account.where(:user_id => @user.id).first 
+
+        logger.debug "#{@account}"
+
+        if !account_info["access_token"].nil?
+          @account = Account.new
+          @account.access_token = account_info["access_token"]
+          @account.refresh_token = account_info["refresh_token"]
+          @account.stripe_user_id = account_info["stripe_user_id"]
+          @account.stripe_publishable_key = account_info["stripe_publishable_key"]
+          @account.user_id = @user.id
+
+          if @account.save
+            logger.debug "save account"
+            #render :js => "window.location = '/thank-you'"  #hack
+          else
+             # logger.debug "no plan updated"
+          end
+        end
+
+
+
+      
+      end
+
+    else
+      @account = nil
+    end
+    @event = Event.find_by_slug(params[:slug]) or not_found
+
+
+    @tickets = @event.tickets.all 
+    @has_paid_ticket = false
+    @tickets.each do |ticket|
+      if ticket.price.to_i > 0  
+        @has_paid_ticket = true
+      end
+    end
+    #@ticket = @event.tickets.build(ticket_params)
+    @ticket = Ticket.new
+    @purchase = Purchase.new
 
     if !@event
 
@@ -48,9 +358,9 @@ class EventsController < ApplicationController
 
           client = Bitly.client
           @url = 'http://eventcreate.com' + slugger_path( @event)
-          @bitly = client.shorten(@url)
+          @bitly = client.shorten(@url)  #airplane
 
-          
+
 
           if(!@event.layout_style?)
             @event.layout_id = '1'
@@ -93,7 +403,7 @@ class EventsController < ApplicationController
         format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
 
-        logger.debug "no save"
+        # "no save"
         #format.html { render :edit }
         #format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -106,20 +416,6 @@ class EventsController < ApplicationController
     @search_results = Unsplash::Photo.search(params[:searchTerm])
 
     render json: @search_results
-
-    # respond_to do |format|
-    #   if @event.update(event_params)
-    #     format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
-    #     format.js
-    #     format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
-    #   else
-
-    #     logger.debug "no save"
-    #     #format.html { render :edit }
-    #     #format.json { render json: @event.errors, status: :unprocessable_entity }
-    #   end
-    # end
-
 
   end
 
@@ -158,14 +454,16 @@ class EventsController < ApplicationController
     @themes = Theme.order(:id).all
 
     @user = User.find(current_user)
-    @event = Event.all.build(event_params)
+    @event = @user.events.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
 
-    logger.debug "#{@event.layout_style}"
+  
 
-    #@event.slug = @event.name.downcase.gsub(" ", "-")
+  
 
+
+    #########
 
 
     if Event.where(:user_id => current_user.id.to_s).count >= 0
@@ -177,6 +475,20 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+
+          ticket_vars = {title: @event.name, stop_date: @event.date_start.nil? ? nil : @event.date_start , buy_limit: 4, ticket_limit: 1000, price: 0, description: nil  }
+          @ticket = @event.tickets.build(ticket_vars)
+          # @ticket = Ticket.new
+          # @ticket.title = @event.name
+          # @ticket.stop_date = @event.date_start
+          # @ticket.buy_limit = 4
+          # @ticket.ticket_limit = nil
+          # @ticket.price = 0
+          # @ticket.description = nil
+
+          @ticket.save
+
+
         format.html { redirect_to slugger_path(@event) + str, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: event_path(current_user, @event) }
       else
@@ -268,6 +580,8 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
     end
 
+ 
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
@@ -285,4 +599,22 @@ class EventsController < ApplicationController
       # end
       return valid
     end
+
+    def purchase_params
+      params.require(:purchase).permit( :email, :first_name, :last_name, :phone_number, :oid)
+    end
+
+    def line_item_params
+      params[:line_item]
+    end
+
+    def account_params   
+      params[:account]
+    end
+
+    def ticket_params
+      params.require(:ticket).permit(:title, :description, :price, :ticket_limit, :buy_limit, :stop_date)
+    end
+
+
   end

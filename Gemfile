@@ -27,6 +27,13 @@ gem 'icalendar'
 
 gem 'unsplash'
 
+#pdf generation for ticketing
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
+gem 'chunky_png'
+gem 'barby'
+
 
 #s3 set up
 #gem 'aws-sdk', '~> 2'

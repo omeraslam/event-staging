@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ticket.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ticket.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @ticket.price %>
+</p>
+
+<p>
+  <strong>Ticket limit:</strong>
+  <%= @ticket.ticket_limit %>
+</p>
+
+<p>
+  <strong>Buy limit:</strong>
+  <%= @ticket.buy_limit %>
+</p>
+
+<p>
+  <strong>Stop date:</strong>
+  <%= @ticket.stop_date %>
+</p>
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+
