@@ -22,7 +22,7 @@
 					</div>
 		     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
 		     <h2 style="display:none;"> </h2>
-		    <% if @tickets.count == 1 && @tickets[0].price == 0 %>
+		    <% if !@has_paid_ticket %>
 		    	<a class="btn btn-bordered rsvp open-registration">Register Now</a>
 		    <% else %>
 		    	<a class="btn btn-bordered rsvp open-registration">Buy Tickets</a>
@@ -110,7 +110,7 @@
 		<div class="event-action-container">
 			<% if  (@event.date_start.nil? &&  @event.date_start.blank? ) %>
 				<% if Date.today < @event.date_start.to_date  %>
-					<% if @tickets.count == 1 && @tickets[0].price == 0 %>
+					<% if !@has_paid_ticket %>
 						<a class="btn btn-large open-registration">Register Now</a>
 					<% else %>
 						<a class="btn btn-large open-registration">Buy Tickets</a>
@@ -119,7 +119,7 @@
 					<div class="btn btn-large btn-disabled">Registration closed</div>
 				<% end %>
 			<% else %>
-					<% if @tickets.count == 1 && @tickets[0].price == 0 %>
+					<% if !@has_paid_ticket %>
 						<a class="btn btn-large open-registration">Register Now</a>
 					<% else %>
 						<a class="btn btn-large open-registration">Buy Tickets</a>

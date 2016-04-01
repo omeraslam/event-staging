@@ -111,12 +111,14 @@
           <div class="ticket">
 
             <h3><%= ticket.title %></h3>
-                   <% if ticket.price == 0 %>
+          <% if ticket.price == 0 %>
               <p>Free</p>
           <% else %>
 
             <p><%= number_to_currency(ticket.price) %></p>
-            <p>Ticket limit: <%= ticket.ticket_limit %> </p>
+              <% if !ticket.ticket_limit.nil? %>
+                <p>Ticket limit: <%= ticket.ticket_limit %> </p>
+              <% end %>
             <% end %>
             <p>Buy limit: <%= ticket.buy_limit %> </p>
             <div class="ticket-actions">
@@ -226,7 +228,7 @@ $( document ).ready(function() {
       alert('Please enter a payment account to create paid tickets for this event.')
 
     } 
-    
+
   });
 
 

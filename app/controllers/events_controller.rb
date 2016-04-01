@@ -319,6 +319,12 @@ def show
 
 
     @tickets = @event.tickets.all 
+    @has_paid_ticket = false
+    @tickets.each do |ticket|
+      if ticket.price.to_i > 0  
+        @has_paid_ticket = true
+      end
+    end
     #@ticket = @event.tickets.build(ticket_params)
     @ticket = Ticket.new
     @purchase = Purchase.new
