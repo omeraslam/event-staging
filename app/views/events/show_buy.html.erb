@@ -208,37 +208,37 @@ $(document).ready(function() {
 
 
   
-  // var validator = $("#purchase-tickets_form").validate({
-  //   rules: {
-  //     "purchase[first_name]": {
-  //       required: true
-  //     },
-  //     "purchase[last_name]": {
-  //       required: true
-  //     },
-  //     "purchase[email]": {
-  //       required: true
-  //     },
-  //     "purchase[email]": {
-  //       required: true
-  //     }
-  //   }, messages : {
-  //     "purchase[first_name]": 'Please enter your first name.',
-  //     "purchase[last_name]": 'Please enter your last name.',
-  //     "purchase[email]": 'Please enter a valid email.',
+  var validator = $("#purchase-tickets_form").validate({
+    rules: {
+      "purchase[first_name]": {
+        required: true
+      },
+      "purchase[last_name]": {
+        required: true
+      },
+      "purchase[email]": {
+        required: true
+      },
+      "purchase[email]": {
+        required: true
+      }
+    }, messages : {
+      "purchase[first_name]": 'Please enter your first name.',
+      "purchase[last_name]": 'Please enter your last name.',
+      "purchase[email]": 'Please enter a valid email.',
 
-  //   }
-  // });
-  // var attendee_length = $('.ticket-holder').length;
-  // for(var i=0; i< attendee_length; i++ ) {
+    }
+  });
+  var attendee_length = $('.ticket-holder').length;
+  for(var i=0; i< attendee_length; i++ ) {
 
-  // $("input[name='attendees["+ (i+1) +"][first_name]']").rules("add", {required: true, messages: { required: 'Please enter a valid first name'}});
+  $("input[name='attendees["+ (i+1) +"][first_name]']").rules("add", {required: true, messages: { required: 'Please enter a valid first name'}});
   
-  // $("input[name='attendees["+ (i+1) +"][last_name]']").rules("add", {required: true, messages: { required: 'Please enter a valid last name'}});
+  $("input[name='attendees["+ (i+1) +"][last_name]']").rules("add", {required: true, messages: { required: 'Please enter a valid last name'}});
   
 
-  // $("input[name='attendees["+ (i+1) +"][email]']").rules("add", {required: true, messages: { required: 'Please enter a valid email'}});
-  // }
+  $("input[name='attendees["+ (i+1) +"][email]']").rules("add", {required: true, messages: { required: 'Please enter a valid email'}});
+  }
 
 });
 

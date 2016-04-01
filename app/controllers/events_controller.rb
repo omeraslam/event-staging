@@ -77,8 +77,8 @@ def show_ticket
 end
 
 def stripe_redirect
-
-  redirect_to redirect_to slugger_path(@current_event.slug) + "?editing=true"
+  redirect_to session.delete(:return_to) + "?editing=true"
+  #redirect_to slugger_path(@current_event.slug) + "?editing=true"
 
 
 
@@ -254,6 +254,10 @@ end
 
 
 def show
+
+    session[:return_to] ||= request.path
+
+    logger.debug "REQUEST PATH BE: #{session[:return_to]}"
 
      if signed_in?
       @user = current_user
