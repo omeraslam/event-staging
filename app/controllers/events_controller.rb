@@ -53,7 +53,7 @@ def show_buy
      end 
                         
 
-    @final_charge = sum #add all line items to figure out final price
+    @final_charge = sum * 100 #add all line items to figure out final price
 end
 
 

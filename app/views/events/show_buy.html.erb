@@ -135,7 +135,7 @@ FINAL CHARGE: <%= @final_charge %>
       
 
 
-<% if !@account.nil? %>
+<% if @final_charge != 0 %>
 
     <h2> Payment</h2> 
 
@@ -196,7 +196,7 @@ FINAL CHARGE: <%= @final_charge %>
 </div>
 
 
-<% if !@account.nil? %>
+<% if @final_charge != 0 %>
 <script type="text/javascript" src="/assets/payment-modal.js"></script>
 <% end %>
 
