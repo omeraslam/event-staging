@@ -42,7 +42,7 @@ def show_buy
     @user = User.where(:id => @event.user_id.to_i).first
     @account = Account.where(:user_id => @user.id).first 
 
-    @final_charge = 10000 #add all line items to figure out final price
+    @final_charge = 0 #add all line items to figure out final price
 end
 
 

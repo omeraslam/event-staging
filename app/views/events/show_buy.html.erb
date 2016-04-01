@@ -1,9 +1,7 @@
 <% title @event.name.html_safe %>
 <% meta_description 'Create stunning websites in seconds.' %>
 <div class="show-container buy-container">
-<% if !@account.nil? %>
-<%= @account.stripe_user_id %>
-<% end %>
+
 
 
     <div class="event-page 1 visible event-buy-page" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important">
