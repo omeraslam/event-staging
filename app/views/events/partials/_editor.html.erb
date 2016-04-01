@@ -191,6 +191,10 @@
 
 
 
+
+
+
+
 $( document ).ready(function() {
 
 
@@ -212,6 +216,19 @@ $( document ).ready(function() {
       "ticket[title]": 'Please enter a ticket name.'
     }
   });
+
+  //prevent new paid ticket submission if no account set up 
+  $('#new_ticket .btn').on('click', function(e) {
+
+    if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
+
+      e.preventDefault();
+      alert('Please enter a payment account to create paid tickets for this event.')
+
+    } 
+    
+  });
+
 
 
 

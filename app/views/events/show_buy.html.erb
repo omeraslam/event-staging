@@ -198,10 +198,41 @@
 </div>
 
 
-
+<% if !@account.nil? %>
 <script type="text/javascript" src="/assets/payment-modal.js"></script>
+<% end %>
+
+<script type="text/javascript">
+  
+$(document).ready(function() {
 
 
+  
+  var validator = $("#purchase-tickets_form").validate({
+    rules: {
+      "purchase[first_name]": {
+        required: true
+      },
+      "purchase[last_name]": {
+        required: true
+      },
+      "purchase[email]": {
+        required: true
+      },
+      "purchase[email]": {
+        required: true
+      }
+    }, messages : {
+      "purchase[first_name]": 'Please enter your first name.',
+      "purchase[last_name]": 'Please enter your last name.',
+      "purchase[email]": 'Please enter a valid email.',
 
+    }
+  });
+
+
+});
+
+</script>
 
 

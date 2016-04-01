@@ -58,20 +58,3 @@
     <%= f.submit 'Add New Ticket', class: 'btn btn-large' %>
   </div>
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-      $('#new_ticket .btn').on('click', function(e) {
-        
-        if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
-
-          e.preventDefault();
-          alert('Please enter a payment account to create paid tickets for this event.')
-
-        } else {
-
-        }
-      });
-  });
-
-</script>
