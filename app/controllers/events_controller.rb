@@ -42,7 +42,18 @@ def show_buy
     @user = User.where(:id => @event.user_id.to_i).first
     @account = Account.where(:user_id => @user.id).first 
 
-    @final_charge = 0 #add all line items to figure out final price
+
+
+     sum = 0 
+
+     @line_items = LineItem.where(:purchase_id => params[:oid])
+     @line_items.each do |line_item|
+          @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
+          sum += @ticket.price
+     end 
+                        
+
+    @final_charge = sum #add all line items to figure out final price
 end
 
 
