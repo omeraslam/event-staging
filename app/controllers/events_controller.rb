@@ -205,9 +205,14 @@ end
 
 def show_confirm 
 
+
+
   @purchase = Purchase.find(params[:oid].to_i )
   @event = Event.find_by_slug(params[:slug])
   @user = User.find(@event.user_id)
+
+  UserMailer.send_tickets(@user, @event, @purchase).deliver unless @user.invalid?
+     
 
 
 end

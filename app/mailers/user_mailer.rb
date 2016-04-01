@@ -40,6 +40,17 @@ class UserMailer < ActionMailer::Base
         mail(to: @user.email, subject: 'You’ve got RSVP incoming!')
     end
 
+    def send_tickets(current_user, current_event, current_purchase)
+
+        @user = current_user
+        @event = current_event
+        @purchase = current_purchase
+        # @response = (attendee.attending)? 'yes' : 'no'
+        # @attendee = attendee
+        # @url = eventurl
+        mail(to: @user.email, subject: 'Here are your tickets!')
+
+    end
     def guest_invitation_sent(user, attendee, event, eventurl)
        
         @user = user
