@@ -57,9 +57,9 @@ def show_ticket
 
 
   #barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
-  File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
-    f.write barcode.to_png(:height => 20, :margin => 5)
-  }
+  # File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
+  #   f.write barcode.to_png(:height => 20, :margin => 5)
+  # }
 
 
   @tickets_per_page = 4
@@ -98,7 +98,6 @@ def complete_registration
   # Get the credit card details submitted by the form
   token = params[:stripeToken]
   amount = params[:purchaseAmount]
-
 
 
 
@@ -176,24 +175,30 @@ def complete_registration
 
    
 
-  begin
+    logger.debug "AMOUNT IS EQUAL TO: #{amount}"
+    if params.has_key?(:purchaseAmount)
+      begin
+
+        charge = Stripe::Charge.create({
+          :amount => amount,
+          :currency => "usd",
+          :source => token,
+          :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
+        }, {:stripe_account => @account.stripe_user_id})
 
 
-    charge = Stripe::Charge.create({
-      :amount => amount,
-      :currency => "usd",
-      :source => token,
-      :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
-    }, {:stripe_account => @account.stripe_user_id})
+
+      rescue Stripe::CardError => e
+        # The card has been declined
+      end
+
+      render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+    else
+      redirect_to show_confirm_path(:oid => @purchase.id.to_s)
+    end
 
 
 
-  rescue Stripe::CardError => e
-    # The card has been declined
-  end
-
-
-  render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
 
 
 end
