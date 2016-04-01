@@ -240,12 +240,6 @@ $( document ).ready(function() {
   }, 500);
 
 
-  //STRIPE - connect
-  $('.stripe-connect-btn').on('click', function(e) {
-    e.preventDefault();
-    window.location = $(this).attr('href') + '&redirect_uri=' + window.location.href
-  });
-
 
   //EDITOR - set size of panel
   $('.editor-tools').css("height",$(window).height());
