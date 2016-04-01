@@ -27,10 +27,10 @@
 
 			
 		</p>
-
+		<% if !@premium_disable %>
 		<p>Number of registered guests: <%= @count_registrations %></p>
 		<p>Current plan of registration limit: <%= @event_registration_limit %></p>
-
+		<% end %>
 	</div>
 	
 	<div class="event-status"> 

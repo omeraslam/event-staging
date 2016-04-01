@@ -1,4 +1,6 @@
-<%= form_for [@ticket], :url => {:action => 'create', :controller =>
+
+
+<%= form_for [@ticket], :url => {:action => (action_name == 'edit' ? 'update' : 'create') , :controller =>
 
  'tickets'} do |f| %>
 

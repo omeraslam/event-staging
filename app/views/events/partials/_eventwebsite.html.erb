@@ -22,9 +22,11 @@
 					</div>
 		     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
 		     <h2 style="display:none;"> </h2>
-		    
-		    <a class="btn btn-bordered rsvp open-registration">Register Now</a>
-
+		    <% if @tickets.count == 1 && @tickets[0].price == 0 %>
+		    	<a class="btn btn-bordered rsvp open-registration">Register Now</a>
+		    <% else %>
+		    	<a class="btn btn-bordered rsvp open-registration">Buy Tickets</a>
+			<% end %>
 	      <!-- close registration if event start time has past -->      
 	      <% if (@event.time_start.nil? && @event.time_start != '') %>
 	       <% if(Time.now.utc.strftime( "%H%M%S%N" ) > @event.time_start.to_time.utc.strftime( "%H%M%S%N" ) &&  DateTime.now.to_date == @event.date_start.to_date) %> 
@@ -108,12 +110,20 @@
 		<div class="event-action-container">
 			<% if  (@event.date_start.nil? &&  @event.date_start.blank? ) %>
 				<% if Date.today < @event.date_start.to_date  %>
-					<a class="btn btn-large open-registration">Register Now</a>
+					<% if @tickets.count == 1 && @tickets[0].price == 0 %>
+						<a class="btn btn-large open-registration">Register Now</a>
+					<% else %>
+						<a class="btn btn-large open-registration">Buy Tickets</a>
+					<% end %>
 				<% else %>
 					<div class="btn btn-large btn-disabled">Registration closed</div>
 				<% end %>
 			<% else %>
-					<a class="btn btn-large open-registration">Register Now</a>
+					<% if @tickets.count == 1 && @tickets[0].price == 0 %>
+						<a class="btn btn-large open-registration">Register Now</a>
+					<% else %>
+						<a class="btn btn-large open-registration">Buy Tickets</a>
+					<% end %>
 			<% end %>
 		
 			<a class="btn btn-large open-contact" style="display:none;">Contact Host</a>

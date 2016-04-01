@@ -36,12 +36,18 @@ class TicketsController < ApplicationController
 
   def update
     @ticket.update(ticket_params)
-    respond_with(@ticket)
+    @event = Event.find(@ticket.event_id)
+    redirect_to slugger_path(@event) + '?editing=true'
   end
 
   def destroy
+    
+    @event = Event.find(@ticket.event_id)
     @ticket.destroy
-    respond_with(@ticket)
+
+    redirect_to slugger_path(@event) + '?editing=true'
+
+    #respond_with(@ticket)
   end
 
   private

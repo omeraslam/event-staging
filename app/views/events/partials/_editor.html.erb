@@ -16,11 +16,25 @@
         <div>Save</div>
         <span> Save</span>
       </a> 
+  
+      <% if @account.nil? && (@tickets.count != 1 || @tickets[0].price != 0) %>
+
+       <a class="tab" onclick="alert('You need to seet up a payment account to publish a paid ticketed event. Please add it via Stripe under ticketing settings.');">
+        <i class="icon icon-globe"> </i>
+        <div>Publish</div>
+         <span> Publish</span>
+      </a> 
+
+
+      <% else %>
+
       <a class="tab" id="publish">
         <i class="icon icon-globe"> </i>
         <div>Publish</div>
          <span> Publish</span>
       </a> 
+
+      <% end %>
 
     <% else %>  
 
@@ -93,17 +107,26 @@
       <section>
         <h4>Active tickets </h4>
         <div class="tickets">
-        <% @tickets.each do |ticket| %>
+        <% @tickets.each_with_index do |ticket, index| %>
           <div class="ticket">
+
             <h3><%= ticket.title %></h3>
+                   <% if ticket.price == 0 %>
+              <p>Free</p>
+          <% else %>
+
             <p><%= number_to_currency(ticket.price) %></p>
             <p>Ticket limit: <%= ticket.ticket_limit %> </p>
+            <% end %>
             <p>Buy limit: <%= ticket.buy_limit %> </p>
             <div class="ticket-actions">
              <div class="ticket-action">
             <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket)  %></div>
-            <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %></div>
-            </div>
+            <% if index != 0 %>
+              <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+              </div>
           </div>
         <% end %>
         </section>

@@ -2,11 +2,11 @@
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
-  require 'chunky_png'
+  #require 'chunky_png'
 
-  require 'barby'
-  require "barby/barcode/code_128"
-  require 'barby/outputter/png_outputter'
+  # require 'barby'
+  # require "barby/barcode/code_128"
+  # require 'barby/outputter/png_outputter'
 
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
@@ -56,7 +56,7 @@ def show_ticket
 
 
 
-  barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
+  #barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
   File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
     f.write barcode.to_png(:height => 20, :margin => 5)
   }
@@ -263,12 +263,9 @@ def show
               'client_secret' => 'sk_test_mqAqte5NAiYcu3yPuTmmAL0N',
               'code' => code
              }
-
-  #       params = {'box1' => 'Nothing is less important than which fork you use. Etiquette is the science of living. It embraces everything. It is ethics. It is honor. -Emily Post',
-  # 'button1' => 'Submit'
-  # }
+             
         x = Net::HTTP.post_form(URI.parse('https://connect.stripe.com/oauth/token'), data)
-        puts "HELP THIS: " + x.body
+
 
         account_info = JSON.parse(x.body)
 
@@ -443,6 +440,10 @@ def show
 
   
 
+  
+
+
+    #########
 
 
     if Event.where(:user_id => current_user.id.to_s).count >= 0
@@ -454,6 +455,20 @@ def show
 
     respond_to do |format|
       if @event.save
+
+          ticket_vars = {title: @event.name, stop_date: @event.date_start.nil? ? nil : @event.date_start , buy_limit: 4, ticket_limit: 1000, price: 0, description: nil  }
+          @ticket = @event.tickets.build(ticket_vars)
+          # @ticket = Ticket.new
+          # @ticket.title = @event.name
+          # @ticket.stop_date = @event.date_start
+          # @ticket.buy_limit = 4
+          # @ticket.ticket_limit = nil
+          # @ticket.price = 0
+          # @ticket.description = nil
+
+          @ticket.save
+
+
         format.html { redirect_to slugger_path(@event) + str, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: event_path(current_user, @event) }
       else
@@ -575,6 +590,10 @@ def show
 
     def account_params   
       params[:account]
+    end
+
+    def ticket_params
+      params.require(:ticket).permit(:title, :description, :price, :ticket_limit, :buy_limit, :stop_date)
     end
 
 
