@@ -202,15 +202,13 @@ $( document ).ready(function() {
   $("#show-ticket-advanced-settings").click(function() {  
     $("#ticket-advanced-settings").slideToggle();
   });
-
   var validator = $("#new_ticket").validate({
     rules: {
       name: "required",
       "ticket[title]": {
         required: true
       }
-    },
-    messages : {
+    }, messages : {
       "ticket[title]": 'Please enter a ticket name.'
     }
   });
@@ -229,6 +227,12 @@ $( document ).ready(function() {
     window.location = $(this).attr('href') + '&redirect_uri=' + window.location.href
   });
 
+
+  //EDITOR - set size of panel
+  $('.editor-tools').css("height",$(window).height());
+  $( window ).resize(function() {
+    $('.editor-tools').css("height",$(window).height());
+  });
 
   //EDITOR -  editor panel interaction behaviors
   $('.toggleEditorPanel').click(function() {
