@@ -31,12 +31,12 @@
            <div class="ticket">
               <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
               <h3><%= ticket.title %></h3>
-          <% if @tickets.count == 1 && ticket.price == 0 %>
+          <% if ticket.price == 0 %>
               <p>Free</p>
           <% else %>
               <p><%= number_to_currency(ticket.price) %></p>
-              <p><%= ticket.description %></p>
           <% end %>
+              <p><%= ticket.description %></p>
               <%= hidden_field_tag 'ticket_id['+ticket.id.to_s+']', ticket.id %>
             <% if !ticket.stop_date.nil? %>
               <p class="small"> Available until <%=  ticket.stop_date.strftime('%B %d, %Y') %></p>       <% end %>
