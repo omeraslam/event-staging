@@ -273,8 +273,8 @@ def show
         # @resp = url to get token
         # 
         data   = {'grant_type' => 'authorization_code',
-              'client_id' => 'ca_85BL1HAfY3NzHDucub5ZiStZBWhlugWb',
-              'client_secret' => 'sk_test_mqAqte5NAiYcu3yPuTmmAL0N',
+              'client_id' => ENV['STRIPE_CLIENT_ID'],
+              'client_secret' => ENV['STRIPE_SECRET_KEY'],
               'code' => code
              }
              
