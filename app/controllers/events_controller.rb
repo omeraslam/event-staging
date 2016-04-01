@@ -77,6 +77,62 @@ def show_ticket
 end
 
 def stripe_redirect
+
+  if signed_in?
+
+     if params[:code]
+        code = params[:code]
+        # @resp = url to get token
+        # 
+        data   = {'grant_type' => 'authorization_code',
+              'client_id' => ENV['STRIPE_CLIENT_ID'],
+              'client_secret' => ENV['STRIPE_SECRET_KEY'],
+              'code' => code
+             }
+             
+        x = Net::HTTP.post_form(URI.parse('https://connect.stripe.com/oauth/token'), data)
+
+
+        account_info = JSON.parse(x.body)
+
+        puts account_info["access_token"]
+
+        @access_object = x.body
+
+        @access_token = account_info["access_token"]
+
+        #account_info = OpenStruct.new(JSON.parse(x.body).to_json)
+
+        #puts account_info.access_token
+
+        # @access_token = @resp.token
+        @user = current_user
+
+        @account = Account.where(:user_id => @user.id).first 
+
+        logger.debug "#{@account}"
+
+        if !account_info["access_token"].nil?
+          @account = Account.new
+          @account.access_token = account_info["access_token"]
+          @account.refresh_token = account_info["refresh_token"]
+          @account.stripe_user_id = account_info["stripe_user_id"]
+          @account.stripe_publishable_key = account_info["stripe_publishable_key"]
+          @account.user_id = @user.id
+
+          if @account.save
+            logger.debug "save account"
+            #render :js => "window.location = '/thank-you'"  #hack
+          else
+             # logger.debug "no plan updated"
+          end
+        end
+
+
+
+      
+      end
+  end
   redirect_to session.delete(:return_to) + "?editing=true"
   #redirect_to slugger_path(@current_event.slug) + "?editing=true"
 
@@ -267,59 +323,6 @@ def show
      if signed_in?
       @user = current_user
       @account = Account.where(:user_id => @user.id).first.nil? ? nil : Account.where(:user_id => @user.id).first
-    
-      if params[:code]
-        code = params[:code]
-        # @resp = url to get token
-        # 
-        data   = {'grant_type' => 'authorization_code',
-              'client_id' => ENV['STRIPE_CLIENT_ID'],
-              'client_secret' => ENV['STRIPE_SECRET_KEY'],
-              'code' => code
-             }
-             
-        x = Net::HTTP.post_form(URI.parse('https://connect.stripe.com/oauth/token'), data)
-
-
-        account_info = JSON.parse(x.body)
-
-        puts account_info["access_token"]
-
-        @access_object = x.body
-
-        @access_token = account_info["access_token"]
-
-        #account_info = OpenStruct.new(JSON.parse(x.body).to_json)
-
-        #puts account_info.access_token
-
-        # @access_token = @resp.token
-        @user = current_user
-
-        @account = Account.where(:user_id => @user.id).first 
-
-        logger.debug "#{@account}"
-
-        if !account_info["access_token"].nil?
-          @account = Account.new
-          @account.access_token = account_info["access_token"]
-          @account.refresh_token = account_info["refresh_token"]
-          @account.stripe_user_id = account_info["stripe_user_id"]
-          @account.stripe_publishable_key = account_info["stripe_publishable_key"]
-          @account.user_id = @user.id
-
-          if @account.save
-            logger.debug "save account"
-            #render :js => "window.location = '/thank-you'"  #hack
-          else
-             # logger.debug "no plan updated"
-          end
-        end
-
-
-
-      
-      end
 
     else
       @account = nil
