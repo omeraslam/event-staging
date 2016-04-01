@@ -138,7 +138,7 @@
         <h4>Collect payments </h4>
         <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
         <% if  @account == nil %>
-          <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85BL1HAfY3NzHDucub5ZiStZBWhlugWb&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> </a>
+          <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> </a>
         <% else %>
           User has connected to stripe
         <% end %>
