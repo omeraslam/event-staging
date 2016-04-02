@@ -1,0 +1,7 @@
+Thanks for your order
+===============================================
+ 
+
+ Here are your ticket(s) for <%= @event.name %>. 
+ 
+  Order Number <%= @purchase.id %>, ordered by <%= @purchase.first_name %> <%= @purchase.last_name %> (<%= @purchase.email %>) on <%= @purchase.created_at.to_datetime.strftime('%B %d, %Y, %l:%M%P') %>.

@@ -2,6 +2,8 @@ class UserMailer < ActionMailer::Base
   include Devise::Mailers::Helpers
   default from: "EventCreate Team <hello@eventcreate.com>"
 
+  #layout "send_tickets", only: [:send_tickets]
+
     def welcome_email(user)
         @user = user
         @url = 'https://eventcreate.com/create'
@@ -40,15 +42,44 @@ class UserMailer < ActionMailer::Base
         mail(to: @user.email, subject: 'You’ve got RSVP incoming!')
     end
 
-    def send_tickets(current_user, current_event, current_purchase)
+    def send_tickets(current_user, current_event, current_purchase , litems)
+
+    #         format.pdf do
+    #   render pdf: "EventCreate_ORDER_" + @purchase.id.to_s+ "_" + @event.slug.to_s ,   # Excluding ".pdf" extension.
+    #          template:                       'layouts/ticket.pdf.erb',
+    #          orientation:                    'Portrait',
+    #          page_width:                     1200
+    # end
+
+
+  
 
         @user = current_user
         @event = current_event
         @purchase = current_purchase
+        @line_items = litems
+        @tickets_per_page = 4
+
+
         # @response = (attendee.attending)? 'yes' : 'no'
         # @attendee = attendee
         # @url = eventurl
-        mail(to: @user.email, subject: 'Here are your tickets!')
+        # 
+        mail(:to => @user.email, :subject => "Here are your tickets!") do |format|
+            format.text # renders send_report.text.erb for body of email
+            format.html
+            format.pdf do
+              attachments["EventCreate_ORDER_" + @purchase.id.to_s+ "_" + @event.slug.to_s + ".pdf"] = WickedPdf.new.pdf_from_string(
+                render_to_string(pdf: "EventCreate_ORDER_" + @purchase.id.to_s+ "_" + @event.slug.to_s ,   # Excluding ".pdf" extension.
+                 template:                       'layouts/ticket.pdf.erb',
+                 orientation:                    'Portrait',
+                 page_width:                     1200
+             )
+              )
+            end
+        end
+
+        #mail(to: @user.email, subject: 'Here are your tickets!')
 
     end
     def guest_invitation_sent(user, attendee, event, eventurl)

@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
   after_filter :store_location
-  before_filter :authenticate_user!, :except => [:show, :export_events, :contact_host]
+  before_filter :authenticate_user!, :except => [:show, :export_events, :contact_host, :show_ticket]
   require 'icalendar'
 
 
@@ -63,7 +63,7 @@ def show_ticket
   #render layout: false
   @event = Event.find_by_slug(params[:slug])
   @purchase = Purchase.find(params[:oid].to_i )
-  @line_items = @line_items = LineItem.where(:purchase_id => params[:oid])
+  @line_items = LineItem.where(:purchase_id => params[:oid])
 
 
 
@@ -278,7 +278,11 @@ def show_confirm
   @event = Event.find_by_slug(params[:slug])
   @user = User.find(@event.user_id)
 
-  UserMailer.send_tickets(@user, @event, @purchase).deliver unless @user.invalid?
+  @event = Event.find_by_slug(params[:slug])
+  @purchase = Purchase.find(params[:oid].to_i )
+  @line_items = LineItem.where(:purchase_id => params[:oid])
+
+  UserMailer.send_tickets(@user, @event, @purchase, @line_items).deliver unless @user.invalid?
      
 
 
