@@ -1,12 +1,17 @@
 <div class="editor-container"> 
 
   <div class="tabs">
+
+    <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" >
+      <i class="icon icon-edit-inline"> </i> <span> Edit details</span>
+    </a> 
     <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
       <i class="icon icon-image"> </i> <span> Modify background Image </span>
     </a> 
     <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
       <i class="icon icon-tag"> </i> <span> Ticketing</span>
-    </a> 
+    </a>     
+
 
 
     <% if @event.published == false %>  
@@ -63,6 +68,26 @@
   <div class="editor-tools">
 
     <button data-remodal-action="close" class="remodal-close" id="editor-panel-close"></button>
+
+
+
+
+    <div class="editor-tool" id="editor-tool-details">
+
+      <section class="editor-tool-header">
+        <h3>Edit event details </h3> 
+        <p>In id urna nec orci ultrices finibus sit amet nec nulla. Donec consequat turpis ligula, ut lacinia enim semper a. In malesuada erat quis dolor aliquam.</p>
+      </section>
+
+      <section>
+      <%= render 'dashboard/partials/form' %>
+      </section>
+
+    </div>  
+
+
+
+    
 
     <div class="editor-tool" id="editor-tool-background">
 

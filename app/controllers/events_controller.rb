@@ -538,7 +538,9 @@ def show
     respond_to do |format|
       if @event.update(event_params)
          #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
-         format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', event_success: 'Event details was successfully updated.'}
+         #format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', event_success: 'Event details was successfully updated.'}
+        format.html { redirect_to slugger_path(@event.slug, :editing => "true"), event_success: 'Event details was successfully updated.'}
+
          format.js   { render action: 'event-success', status: :created, location: dashboard_event_path(:event => @event.id) }
          format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
