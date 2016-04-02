@@ -33,6 +33,16 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
+
+    # first_image  = MiniMagick::Image.new("first.jpg")
+    # second_image = MiniMagick::Image.new("second.jpg")
+    # result = first_image.composite(second_image) do |c|
+    #   c.compose "Over"    # OverCompositeOp
+    #   c.geometry "+20+20" # copy second_image onto first_image from (20, 20)
+    # end
+    # result.write "output.jpg"
+
+
     process :resize_to_fit => [200, 200]
   end
 
