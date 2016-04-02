@@ -42,7 +42,7 @@ class UserMailer < ActionMailer::Base
         mail(to: @user.email, subject: 'You’ve got RSVP incoming!')
     end
 
-    def send_tickets(current_user, current_event, current_purchase , litems)
+    def send_tickets(current_event, current_purchase , litems)
 
     #         format.pdf do
     #   render pdf: "EventCreate_ORDER_" + @purchase.id.to_s+ "_" + @event.slug.to_s ,   # Excluding ".pdf" extension.
@@ -54,7 +54,6 @@ class UserMailer < ActionMailer::Base
 
   
 
-        @user = current_user
         @event = current_event
         @purchase = current_purchase
         @line_items = litems
@@ -65,7 +64,7 @@ class UserMailer < ActionMailer::Base
         # @attendee = attendee
         # @url = eventurl
         # 
-        mail(:to => @user.email, :subject => "Here are your tickets!") do |format|
+        mail(:to => @purchase.email, :subject => "Here are your tickets!") do |format|
             format.text # renders send_report.text.erb for body of email
             format.html
             format.pdf do

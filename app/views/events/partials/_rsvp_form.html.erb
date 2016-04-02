@@ -23,7 +23,7 @@
       </ul>
 </div>
 <% end %>
-
+ 
 
     	<div class="tickets">
           
@@ -40,6 +40,7 @@
               <%= hidden_field_tag 'ticket_id['+ticket.id.to_s+']', ticket.id %>
             <% if !ticket.stop_date.nil? %>
               <p class="small"> Available until <%=  ticket.stop_date.strftime('%B %d, %Y') %></p>       <% end %>
+       
           </div>
           <% end %>
     </div>
