@@ -29,10 +29,11 @@ Rails.application.routes.draw do
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
 
+  get '/events/index', to: 'events#home', :as => :events_home 
+
 
   #ticket buying
   get '/buy' => 'payments#buy', :as => :buy
-
 
 
   #bitly url
@@ -91,6 +92,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session_path
   end
+
+
   
   resources :users, :shallow => true do
     resources :events do
