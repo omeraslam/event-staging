@@ -44,7 +44,7 @@
 			<% @event_num=0 %>
 			<%  @events.each do |event| %>
 
-			<% @tickets = Ticket.where(:event_id => event.id.to_s) %>
+<!-- 	TICKET INVENTORY STATS		<% @tickets = Ticket.where(:event_id => event.id.to_s) %>
 
 			<% @tickets.each do |ticket| %>
 
@@ -55,7 +55,7 @@
 				    #LineItem.where(:ticket_id => ticket.id.to_s).count
            			# ticket.ticket_limit 
 				 %><br/>
-			<% end %>
+			<% end %> -->
 
       
 
