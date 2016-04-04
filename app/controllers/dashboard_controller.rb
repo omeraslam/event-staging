@@ -16,8 +16,6 @@ class DashboardController < ApplicationController
 
     @sign_in_count = @user.sign_in_count
 
-           #LineItem.where(:ticket_id => ticket.id.to_s).count
-           # ticket.ticket_limit 
 
 
 
