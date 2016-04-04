@@ -284,6 +284,7 @@ def show_confirm
   @user = User.find(@event.user_id)
 
   @event = Event.find_by_slug(params[:slug])
+  @eventurl = 'http://'+ ENV['SITE_NAME'] + '/' + @event.slug
   @purchase = Purchase.find(params[:oid].to_i )
   @line_items = LineItem.where(:purchase_id => params[:oid])
 
