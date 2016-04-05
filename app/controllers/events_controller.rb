@@ -168,6 +168,7 @@ def complete_registration
 
 
 
+  @line_items = LineItem.where(:purchase_id => params[:oid])
 
 
   if @purchase.update(purchase_params)
@@ -243,6 +244,10 @@ def complete_registration
    
 
     logger.debug "AMOUNT IS EQUAL TO: #{amount}"
+
+
+  UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+
     if params.has_key?(:purchaseAmount)
       begin
 
@@ -279,13 +284,11 @@ def show_confirm
   @user = User.find(@event.user_id)
 
   @event = Event.find_by_slug(params[:slug])
+  @eventurl = 'http://'+ ENV['SITE_NAME'] + '/' + @event.slug
   @purchase = Purchase.find(params[:oid].to_i )
   @line_items = LineItem.where(:purchase_id => params[:oid])
 
-  UserMailer.send_tickets(@user, @event, @purchase, @line_items).deliver unless @user.invalid?
      
-
-
 end
 
 def select_tickets

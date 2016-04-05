@@ -85,7 +85,7 @@
                         <% @line_items.each do |line_item| %>
                            <%
                             @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first %>
-                         <% sum += @ticket.price  %>
+                         <% sum += @ticket.nil? ? 0 : @ticket.price  %>
                         <% end %>
                          <%= number_to_currency(sum) %>
                         </td>

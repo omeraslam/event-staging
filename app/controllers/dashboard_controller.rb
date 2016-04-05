@@ -19,6 +19,7 @@ class DashboardController < ApplicationController
 
 
 
+
     respond_with(@attendee, @user, @events)
   end
 
