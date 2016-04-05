@@ -1,24 +1,45 @@
 <% title @user.email + 'events' %>
 <% meta_description '' %>
-<% @band = true %>
+<% @title = 'Salamat Yoga' %>
+<% @style = 'yoga' %>
 
 <style type="text/css">
   html, body {
     height: 100%;
   }
   .wrapper {
-    background-image: url(../assets/brots.jpg);
     width: 100%;
     //height: 100%;
+    background-position: center center;
     background-size: cover;
   }
 
+  .wrapper.band {
+    background-image: url(../assets/brots.jpg);
+  }
+
+  .wrapper.yoga {
+
+    background-image: url(../assets/yoga.jpg);
+  }
+
   .wrapper {
+    //padding: 120px 70px;
     color: white;
+  }
+
+  .hero-header {
+    padding: 120px 70px;
+    text-align: center;
+    background: transparent;
   }
 
   h1, h2{
     text-align: center;
+  }
+
+  .container {
+    padding: 40px 70px;
   }
 
   ul.upcoming-events {
@@ -46,6 +67,10 @@
     margin-bottom: 20px;
    }
 
+   .container {
+    background-color: white;
+   }
+
  #event-page-logo .event-page-logo-container {
     position: absolute;
     top: 0;
@@ -68,7 +93,7 @@
 }
 </style>
 
-<div class="wrapper">
+<div class="wrapper <%= @style %>">
 
 <a href="https://www.eventcreate.com/" title="EventCreate" target="_blank" id="event-page-logo">
           <div class="event-page-logo-container"></div>
@@ -81,14 +106,26 @@
             <a href="https://www.facebook.com/sharer/sharer.php?u=http://bit.ly/1PQJMiL"><i class="icon icon-facebook-circled"> </i> </a>
             <a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20http://bit.ly/1PQJMiL"><i class="icon icon-twitter-circled"> </i> </a>
           </div>
-
-<div class="container">
-  
-<h1><%= @band ? 'Blazing Rays of the Sun':@user.email %></h1>
-
+<div class="hero-header">
+<h1><%= @title %></h1>
+<% if @style == 'band' %>
 <p class="lead">We are a Los Angeles-based live-music band and we sound a lot like this. Young Love is our first record and we made it ourselves. We are currently playing or booking shows all around California. Check here for dates. Want us to come to your town? Let us know!</p>
 
-  <h2>Tour Schedule</h2>
+<% else %>
+
+<p class="lead">Yoga every week. Find me at YAS in Silverlake, Los Angeles Boulders in DTLA, and Cliffs of Id in Culver City. Namaste!</p>
+
+<% end %>
+
+</div>
+
+</div>
+
+<div class="container">
+
+
+
+  <h2>Upcoming Events</h2>
   <ul class="upcoming-events">
 <% @events.each do |event| %>
 <li class="event-tile">
@@ -122,19 +159,19 @@
  </li>
 <% end %>
 </ul>
-
+<!-- 
 <div class="widget">
-<h3>Follow us #blazingrays</h3>
+<h3>Follow us #blazingrays</h3> -->
 
 <!-- SnapWidget -->
-<iframe src="http://snapwidget.com/in/?h=YmxhemluZ3JheXN8aW58MjAwfDV8MXx8bm98MjB8ZmFkZUlufG9uU3RhcnR8eWVzfG5v&ve=040416" title="Instagram Widget" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:1100px; height:220px"></iframe>
+<!-- <iframe src="http://snapwidget.com/in/?h=YmxhemluZ3JheXN8aW58MjAwfDV8MXx8bm98MjB8ZmFkZUlufG9uU3RhcnR8eWVzfG5v&ve=040416" title="Instagram Widget" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:1100px; height:220px"></iframe>
 
-</div>
+</div> -->
 
-<div class="widget">
+<!-- <div class="widget">
 <h3>Listen to our latest album:</h3>
 <iframe style="border: 0; width: 100%; height: 120px;" src="http://bandcamp.com/EmbeddedPlayer/album=488577373/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://blazingrays.bandcamp.com/album/young-love">Young Love by The Blazing Rays of the Sun</a></iframe>
-</div>
+</div> -->
 
 <!-- <a href="https://api.instagram.com/oauth/authorize/?client_id=0a4ce555797642009a4728615f6b8b08&redirect_uri=http://localhost:3000/events/index&response_type=token&scope=public_content">Connect your instagram</a> -->
 
