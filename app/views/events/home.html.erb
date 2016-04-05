@@ -16,12 +16,15 @@
   .wrapper {
     color: white;
   }
-  h1 {
+
+  h1, h2{
     text-align: center;
   }
 
   ul.upcoming-events {
-  
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
   }
 
   ul.upcoming-events li {
@@ -42,16 +45,72 @@
    .widget h3 {
     margin-bottom: 20px;
    }
+
+ #event-page-logo .event-page-logo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 180px solid rgba(21, 21, 21, 0.5);
+    border-bottom: 180px solid transparent;
+    z-index: 9999;
+    transition: border-left .5s ease-out;
+}
+
+    #event-page-logo .event-page-logo {
+    background-image: url(../assets/event_create_logo_vertical.png);
+    background-size: contain;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 110px;
+    height: 110px;
+    z-index: 9999;
+}
 </style>
 
 <div class="wrapper">
+
+<a href="https://www.eventcreate.com/" title="EventCreate" target="_blank" id="event-page-logo">
+          <div class="event-page-logo-container"></div>
+          <div class="event-page-logo"></div> 
+      </a>
+
+
+
+<div class="event-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://bit.ly/1PQJMiL"><i class="icon icon-facebook-circled"> </i> </a>
+            <a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20http://bit.ly/1PQJMiL"><i class="icon icon-twitter-circled"> </i> </a>
+          </div>
 
 <div class="container">
   
 <h1><%= @band ? 'Blazing Rays of the Sun':@user.email %></h1>
 
-  <h2>Join us for upcoming events</h2>
+<p class="lead">We are a Los Angeles-based live-music band and we sound a lot like this. Young Love is our first record and we made it ourselves. We are currently playing or booking shows all around California. Check here for dates. Want us to come to your town? Let us know!</p>
+
+  <h2>Tour Schedule</h2>
   <ul class="upcoming-events">
+<% @events.each do |event| %>
+<li class="event-tile">
+<div style="background:url(<%= background_checker(event, false)%>); width: 100%; height: 100%; background-size: cover; background-position: 0 0;">
+</div>
+ <%= event.name %><br/>
+ <% if !event.date_start.empty? %>
+  <%= event.date_start.to_date.strftime("%B %d, %Y") %>
+ <% end %>
+ </li>
+<% end %>
+
+<% @events.each do |event| %>
+<li class="event-tile">
+<div style="background:url(<%= background_checker(event, false)%>); width: 100%; height: 100%; background-size: cover; background-position: 0 0;">
+</div>
+ <%= event.name %><br/>
+ <% if !event.date_start.empty? %>
+  <%= event.date_start.to_date.strftime("%B %d, %Y") %>
+ <% end %>
+ </li>
+<% end %>
 <% @events.each do |event| %>
 <li class="event-tile">
 <div style="background:url(<%= background_checker(event, false)%>); width: 100%; height: 100%; background-size: cover; background-position: 0 0;">
@@ -72,7 +131,10 @@
 
 </div>
 
+<div class="widget">
+<h3>Listen to our latest album:</h3>
 <iframe style="border: 0; width: 100%; height: 120px;" src="http://bandcamp.com/EmbeddedPlayer/album=488577373/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://blazingrays.bandcamp.com/album/young-love">Young Love by The Blazing Rays of the Sun</a></iframe>
+</div>
 
 <!-- <a href="https://api.instagram.com/oauth/authorize/?client_id=0a4ce555797642009a4728615f6b8b08&redirect_uri=http://localhost:3000/events/index&response_type=token&scope=public_content">Connect your instagram</a> -->
 
