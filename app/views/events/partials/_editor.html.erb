@@ -149,7 +149,7 @@
             <div class="ticket-actions">
              <div class="ticket-action">
             <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket)  %></div>
-            <% if index != 0 %>
+            <% if @tickets.count > 1 %>
               <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
               </div>
             <% end %>
