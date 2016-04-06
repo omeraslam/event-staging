@@ -72,6 +72,8 @@
       <ul class="navbar-links">
 
         <li><%= link_to "Features", "/features", :"data-no-turbolink" => true %></li>
+        <li><%= link_to "Pricing", "/pricing", :"data-no-turbolink" => true %></li>
+
 
         <% if signed_in? %>
           <li><%= link_to 'My Account', dashboard_index_path, :class => 'btn'  %> </li>

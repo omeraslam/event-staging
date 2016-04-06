@@ -1,78 +1,70 @@
 
 
-<div class="hero" id="pricing">
-	<div class="hero-cover"></div>
+
+<div class="hero hero-simple" >
  	<div class="hero-content">
-		<h1> we're like you </h1>
+		<h1> Simple pricing.</h1>
+		<p>EventCreate is 100% free for selling tickets and collecting registrations.<br> If you want to white-label your event website, it's just $15/mo. It's that simple. </p>	
 	</div>
 </div>	
 
 
-
-<div class="feature-screens-copy-container container">
-	<h2> Easy pricing</h2>
-	<p>tl;dr EventCreate is 100% free for selling tickets and collecting registrations. If you want to white-label your event website and use a custom design, it's just $15/mo. It's that simple. </p>	
-</div>
-
-
+	
 
 
 <div class="external-plans container"> 
-	<div class="external-plan col">
-		<img src="https://c.stocksy.com/a/PhU100/z0/356339.jpg">
-		<h2>Starter </h2>
-		<p class="price">Free</p>
-		<ul class="features"> 
-			<li>Unlimited events </li>					
-			<li>Unlimited tickets </li>		
-			<li>0% service fees </li>		
-		</ul> 
-		<ul class="secondary-features"> 
-			<li class="disabled">Custom branding </li>
-			<li class="disabled">White labelled domain</li>
-			<li class="disabled">Priority customer support </li>	
-			<li class="disabled">Priority customer support </li>	
-		</ul> 
-		<%= link_to 'Current plan', new_user_registration_path, :class => 'btn' %>   				   
-	</div>
+		<div class="external-plan col">
+			<img src="https://c.stocksy.com/a/PhU100/z0/356339.jpg">
+			<h2>Starter </h2>
+			<p class="price">Free</p>
+			<p class="price-qualifier">forever</p>
+
+			<ul class="features"> 
+				<li>Create unlimited events and sell tickets with zero service fees </li>						
+			</ul> 
+			<ul class="secondary-features"> 
+				<li class="disabled">100% white-labelled </li>
+				<li class="disabled">Custom design and branding </li>
+				<li class="disabled">Send email invites </li>	
+				<li class="disabled">Priority customer support </li>	
+			</ul> 
+			<%= link_to 'Get started ', new_user_registration_path, :class => 'btn' %>   				   
+		</div>
+
+		<div class="external-plan col" data-description="Premium Plan: $7/month. Cancel anytime.">
+			<img src="https://c.stocksy.com/a/cXH300/z0/782416.jpg">
+			<h2>Pro </h2>
+			<p class="price">$15</p>
+			<p class="price-qualifier">per month</p>
+			<ul class="features"> 
+				<li>Go professional with a white-labelled event website and a custom design. </li>						
+			</ul> 
+			<ul class="secondary-features"> 
+				<li class="">100% white-labelled </li>
+				<li class="">Custom design and branding </li>
+				<li class="">Send email invites </li>	
+				<li class="">Priority customer support </li>	
+			</ul> 
+			<%= link_to 'Go Professioanl', new_user_registration_path, :class => 'btn' %>    				   
+		</div>
+	</div> 
 
 
+    
 
-	<div class="external-plan col" data-description="Premium Plan: $7/month. Cancel anytime.">
-		<img src="https://c.stocksy.com/a/cXH300/z0/782416.jpg">
-		<h2>Pro </h2>
-		<p class="price">$15/mo</p>
-		<ul class="features"> 
-			<li>Unlimited events </li>					
-			<li>Unlimited tickets </li>		
-			<li>0% service fees </li>		
-		</ul> 
-		<ul class="secondary-features"> 
-			<li class="disabled">Custom branding </li>
-			<li class="disabled">White labelled domain</li>
-			<li class="disabled">Priority customer support </li>	
-			<li class="disabled">Priority customer support </li>	
-		</ul> 
-		<%= link_to 'Choose plan', new_user_registration_path, :class => 'btn' %>    				   
-	</div>
-
-
-
-
+    
+    
+    
+    
+<div class="container" id="home-cta">
+	<h2> Let's make better events together. </h2>
+	<%= link_to 'Sign up for free', new_user_registration_path, :class => 'btn btn-large'  %>
 </div>
-    
-    
-
-    
-    
-    
-    
-    
 
 
 
 
-<div class="faq"> 
+<div class="faq container" style="display:none;"> 
 
 	<div class="questions col"> 
 		<div class="question">
