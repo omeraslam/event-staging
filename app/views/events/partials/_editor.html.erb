@@ -22,7 +22,7 @@
         <span> Save</span>
       </a> 
   
-      <% if @account.nil? && (@tickets.count != 1 || @tickets[0].price != 0) %>
+      <% if @account.nil? && @has_paid_ticket %>
 
        <a class="tab" onclick="alert('You need to seet up a payment account to publish a paid ticketed event. Please add it via Stripe under ticketing settings.');">
         <i class="icon icon-globe"> </i>
@@ -84,10 +84,6 @@
       </section>
 
     </div>  
-
-
-
-    
 
     <div class="editor-tool" id="editor-tool-background">
 
