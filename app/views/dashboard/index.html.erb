@@ -38,7 +38,7 @@
 
 
 		<% if @is_premium != 'active' && (@count_events.to_i >= @event_limit.to_i || @count_registrations.to_i >= @event_registration_limit.to_i) && !@premium_disable %>
-			<p class="alert">Your current plan is limited to <%= pluralize(@event_limit, 'event') %> and <%= pluralize(@event_registration_limit, 'attendee') %>.  Please <%= link_to 'upgrade', upgrade_path %> to get full access. </p>
+			<!--<p class="alert">Your current plan is limited to <%= pluralize(@event_limit, 'event') %> and <%= pluralize(@event_registration_limit, 'attendee') %>.  Please <%= link_to 'upgrade', upgrade_path %> to get full access. </p>-->
 		<% end %>
 		<div class="events-list">
 			<% @event_num=0 %>

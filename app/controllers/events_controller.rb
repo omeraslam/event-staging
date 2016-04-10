@@ -241,9 +241,7 @@ def complete_registration
 
     @account = Account.where(:user_id => @event.user_id.to_s).first
 
-   
 
-    logger.debug "AMOUNT IS EQUAL TO: #{amount}"
 
 
   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?

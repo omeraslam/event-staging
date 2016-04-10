@@ -42,7 +42,9 @@
 
 			<br>
 
-   			<% if @count_registrations >= @event_registration_limit && !@premium_disable %>  
+   			<%# if @count_registrations >= @event_registration_limit && !@premium_disable %>  
+
+ 			 <% if current_user.customer_id.nil? && !@premium_disable %>
 				<%= link_to ('<i class="icon icon-email"></i>').html_safe, upgrade_path, :class => 'circle'  %> 
             <% else %>            
 				<a class="circle send-email tooltip" ><i class="icon icon-email"></i> <span> Send email invte</span> </a> 
