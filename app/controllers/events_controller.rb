@@ -293,7 +293,7 @@ def select_tickets
   @event = Event.find_by_slug(params[:slug]) or not_found
 
   @purchase = Purchase.new
-
+  @purchase.event_id = @event.id
   if @purchase.save
 
 

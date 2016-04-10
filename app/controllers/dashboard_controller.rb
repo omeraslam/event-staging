@@ -53,6 +53,7 @@ class DashboardController < ApplicationController
 
 
     @orders = Purchase.all
+    @orders = Purchase.where.not(first_name: nil, last_name:nil, email: nil).where(event_id: @event.id)
 
 
     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
