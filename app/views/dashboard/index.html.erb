@@ -37,9 +37,6 @@
 
 
 
-		<% if @is_premium != 'active' && (@count_events.to_i >= @event_limit.to_i || @count_registrations.to_i >= @event_registration_limit.to_i) && !@premium_disable %>
-			<!--<p class="alert">Your current plan is limited to <%= pluralize(@event_limit, 'event') %> and <%= pluralize(@event_registration_limit, 'attendee') %>.  Please <%= link_to 'upgrade', upgrade_path %> to get full access. </p>-->
-		<% end %>
 		<div class="events-list">
 			<% @event_num=0 %>
 			<%  @events.each do |event| %>
@@ -59,23 +56,20 @@
 
       
 
-			<div class="event <%= (@event_num.to_i >= @event_limit.to_i ) && !@premium_disable ? 'inactive': 'active' %>">
+			<div class="event ">
 
 				<div class="image" style="background-image:url(<%= background_checker(event, true) %>);"> </div>
 				<div class="details"> 
-				<% if @event_num.to_i  >= @event_limit.to_i && !@premium_disable %>
-					<div class="title"><%= event.name %></div> 
-					<% else %>
+			
 					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
 					
-				<% end %>
+			
 					<div class="time">
 						
 						<%= show_proper_date(event, false) %>
 
 					</div>
 
-				<% if (@event_num.to_i < @event_limit.to_i) || @premium_disable  %>
 					<div class="registrants"> 
 
 						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, slugger_path(event.slug), :target => '_blank' %>	  		
@@ -86,7 +80,6 @@
 						<%= link_to 'Delete event', event_path(:id => event.id) , method: :delete, data: { confirm: 'Are you sure?' } %> 
 					</div>
 
-				<% end %>
 
 				</div>
 			</div>	
