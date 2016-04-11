@@ -1150,6 +1150,10 @@ margin:0 auto;
 		display:none;
 	}
 
+	.arrow{
+		display: none !important;
+	}
+
 	#home-example .screens-container .phone {
     	position: relative;
     	z-index: 2;
@@ -1167,5 +1171,11 @@ margin:0 auto;
 
 
 
+}
+
+@media screen and (max-width: 400px) {
+	.dot-container {
+		display: none !important;
+	}
 }
 
