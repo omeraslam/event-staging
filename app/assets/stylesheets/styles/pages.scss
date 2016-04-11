@@ -1126,29 +1126,44 @@ margin:0 auto;
 	  display:none;
 	 }
 
+	.container {
+		padding-left:20px !important;
+		padding-right:20px !important;
+	}
+
 
 	.screen {
 		display:none;
 	}
 
 	.hero#home .hero-content {
-		padding:180px 20px 80px 20px;
+		padding:170px 20px 150px 20px;
 		text-align:center;
+
+		h1 {
+			font-size:40px;
+			line-height:48px;
+		}
 	}
 
-	.hero#home .screens-container {
-		margin-top:0;
+	#home .screens-container {
+		display:none;
 	}
 
-	.hero#home .screens-container .phone {
+	#home-example .screens-container .phone {
     	position: relative;
     	z-index: 2;
     	right: initial;
     	top: initial;
-    	width:80%;
+    	width:70%;
     	margin:0 auto;
     	height:300px;
-}
+    	overflow:hidden; 
+
+    	img {
+    		width:100%;
+    	}
+	}
 
 
 
