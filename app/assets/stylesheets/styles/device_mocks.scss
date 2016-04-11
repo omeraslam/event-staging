@@ -218,3 +218,9 @@
 		height:auto;
 	}	
 }	
+
+@media screen and (max-width: 400px) {
+	.url {
+		max-width:310px;
+	}
+}

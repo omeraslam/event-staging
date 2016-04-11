@@ -941,7 +941,7 @@ margin:0 auto;
 
 	&#background {
 	    bottom: 130px;
-	    right: 100px;
+	    right: 200px;
 	}
 	
 
@@ -1171,11 +1171,34 @@ margin:0 auto;
 
 
 
+	.dot-container {
+	
+		&#ticketing {
+			top: 260px;
+	    	left: 250px;
+		}
+
+		&#background {
+		    bottom: 120px;
+		    right: 300px;
+		}
+	}
+
+
+
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 640px) {
 	.dot-container {
 		display: none !important;
 	}
+
+
+
+
+
+
+
+
 }
 
