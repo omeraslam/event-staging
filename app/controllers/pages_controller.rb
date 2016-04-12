@@ -35,8 +35,12 @@ class PagesController < ApplicationController
   def contact
   end
 
-  def zerofees
+  def facebook
   end
+
+  def press
+  end
+
 
   def explore
     #no design 

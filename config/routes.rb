@@ -58,8 +58,10 @@ Rails.application.routes.draw do
   get '/features' => 'pages#features'
   get '/explore' => 'pages#explore'
   get '/contact' => 'pages#contact'
-  get '/zerofees' => 'pages#zerofees'
+  get '/facebookevents' => 'pages#facebook'
   get '/about' => 'pages#about'
+  get '/press' => 'pages#press'
+
 
   get '/error404' => 'pages#error404', :as => :error_path
 

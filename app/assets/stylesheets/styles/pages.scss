@@ -101,10 +101,14 @@
 	&.hero-simple {
 		background:none;
 		color:#333;
+
+		.hero-content { 
+			padding:140px 50px 80px 50px;
+		}
 	}
 
 	.hero-content {
-		padding:160px 50px 100px 50px;
+		padding:200px 50px 140px 50px;
 		text-align:center;
 		max-width:1000px;
 		margin: 0 auto;
@@ -146,7 +150,7 @@
 	&#contact {
 		background:url(home/3.jpg);
 		background-size:cover;
-		background-position:0% 100%;
+		background-position:50%;
 
 	}
 
@@ -751,6 +755,42 @@ margin:0 auto;
 
 }
 
+
+
+
+
+
+
+
+#brandingassets {
+
+	h4 {
+		margin-bottom:20px;
+		clear:both;
+	}
+	
+	a {
+		width:25%;
+		padding:10px;
+		float:left;
+		display:block;
+
+		img {
+			width:100%;
+		}
+	}
+
+
+	&:after {
+			content: "";
+		display: table;
+		clear: both;
+
+	}
+
+	margin-bottom:100px;
+
+}
 
 
 
