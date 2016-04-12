@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'dashboard/print'
   get 'dashboard/contacts'
   get '/dashboard' => 'dashboard#index'
+  get '/event-maker' => 'pages#event'
 
   #payment routes
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
