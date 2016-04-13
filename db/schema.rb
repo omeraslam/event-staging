@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410162502) do
+ActiveRecord::Schema.define(version: 20160413215358) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -177,6 +177,10 @@ ActiveRecord::Schema.define(version: 20160410162502) do
     t.string   "customer_id"
     t.string   "plan_type"
     t.string   "subscription_id"
+    t.text     "description"
+    t.string   "profile_img"
+    t.string   "header_img"
+    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
