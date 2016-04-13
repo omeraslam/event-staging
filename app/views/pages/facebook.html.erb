@@ -1,0 +1,191 @@
+<div id="lp-example">
+
+	<div class="lp-screens-copy-container container">
+		<h1> Create a professional landing page for your Facebook event </h1>
+		<p style="display:none;">Vestibulum vestibulum turpis eu pellentesque pulvinar. Nulla scelerisque ex massa, nec semper mi rutrum nec. Proin porttitor finibus iaculis. </p>
+		<div class="input-group" style="display:none;">
+			<a href="#" class="btn btn-large btn-obvious">Try for Free Now </a>
+			<p>Risk free trial </p>
+		</div>
+
+		<form class="lp-cta subForm" action="https://eventcreate.createsend.com/t/i/s/uliytk/" method="post" id="subForm">
+			<div class="input-group">
+				<label>Enter your Facebook event URL:</label>
+				<input required type="text" placeholder="www.facebook.com/events/817571095020210/" id="fieldukikz" name="cm-f-ukikz" type="text">
+				 <input id="fieldEmail" name="cm-uliytk-uliytk" type="hidden" value="<%= [*('A'..'Z')].sample(8).join %>test@lp.com" />
+			</div>
+			<div class="input-group">
+			<button type="submit" class="btn btn-large btn-obvious">Create my professional landing page</button>
+			<p> Get a free preview. No credit card required. </p>
+			</div>
+		</form>
+
+	</div>
+	<div class="lp-example-cover"> </div>
+
+ 	<div class="screens-container " >
+	 	<div class="screen-large"> 
+	 		<div class="screen-nav">
+	 			<div class="button"></div>
+	 			<div class="button"></div>
+	 			<div class="button"></div>
+	 			<div class="url"><i class="icon icon-lock"> </i> www.yourevent.com </div>
+	 		</div>
+	 		<img src="/assets/home/sample16.jpg" />	
+	 	</div>
+
+ 	</div>
+</div>
+
+
+
+
+
+<div id="product-feature-container" class="lp-comparison-container">
+	<div class="container">
+		<h1>Transform your page in seconds.</h1>
+		<p> With one-click, import your Facebook event details and convert your page<br> into a professional, custom-branded event landing page. </p>
+		<img src="/assets/home/fb_comparison.jpg">
+	</div>	
+</div>
+
+
+
+
+
+
+<div id="lp-feature-container">
+	<div class="container lp-feature-container">
+		<div class="lp-feature col">
+			<i class="icon icon-line-increase"> </i>
+			<h3> Increase  attendence </h3>
+			<p> It's no secret that more profesional-looking events get better turn-out and increased attendence. Boost your registration today.   </p>	
+		</div>
+		<div class="lp-feature col">
+			<i class="icon icon-line-hands-1"> </i>
+			<h3> Be professional  </h3>
+			<p> Feature your brand. Use your design. Impress your guests with a custom-branded, stunning landing page. </p>	
+		</div>
+		<div class="lp-feature col">
+			<i class="icon icon-line-one-click"> </i>
+			<h3> One-click setup </h3>
+			<p> EventCreate is integrated seamlessly with Facebook, so you can convert your existing Facebook event into a landing page in one click.  </p>	
+		</div>
+	</div>
+</div>
+
+
+<div class="container" id="testimonial-container">
+	<h1>"Simply stunning"</h1>
+	<p class="quotecredit"><img src="https://randomuser.me/api/portraits/men/67.jpg"><br><a>@aaronhale</a>, Aaron Hale </p> </p>
+
+
+
+	<form class="lp-cta-bottom subForm" action="http://eventcreate.createsend.com/t/i/s/uliytk/" method="post" id="subForm">
+		<div class="input-group">
+			<label>Enter your Facebook event URL:</label>
+			<input required type="text" placeholder="www.facebook.com/events/817571095020210/" id="fieldukikz" name="cm-f-ukikz" type="text">
+			<input id="fieldEmail" name="cm-uliytk-uliytk" type="hidden" value="<%= [*('A'..'Z')].sample(8).join %>test@lp.com" />
+		</div>
+		<div class="input-group">
+			<button type="submit" class="btn btn-large btn-obvious">Create my professional landing page</button>
+		<p> Get a free preview. No credit card required. </p>
+		</div>
+	</form>
+
+</div>
+
+ 	 
+
+<div class="footer">
+    © EventCreate, LLC 2016 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- modal-->
+<div id="thankyou-modal">
+
+	    <button data-remodal-action="close" class="remodal-close"></button>
+	    
+
+	    <div class="modal-header modal-header-light">
+	    	
+		    <h2>Yikes. Party is at capacity!</h2>
+		    <p>  
+		      Sorry, our servers are currently busy so your request has been added to the queue. Please try signing up and creating your page manually. </p>
+		     <a class="btn" href="https://www.eventcreate.com/users/sign_up">Sign up</a>
+	    </div>
+
+
+
+</div>
+<!-- END modal -->
+
+
+
+
+<!-- Facebook Conversion Code for Lead - FB LP Test Sign Up -->
+<script>
+
+(function() {
+  var _fbq = window._fbq || (window._fbq = []);
+  if (!_fbq.loaded) {
+    var fbds = document.createElement('script');
+    fbds.async = true;
+    fbds.src = 'https://connect.facebook.net/en_US/fbds.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(fbds, s);
+    _fbq.loaded = true;
+  }
+})();
+window._fbq = window._fbq || [];
+
+
+$( document ).ready(function() {
+
+    var thankyou_modal = $('#thankyou-modal').remodal();
+
+
+    $(function () {
+        $('.subForm').submit(function (e) {
+            e.preventDefault();
+            $.getJSON(
+            this.action + "?callback=?",
+            $(this).serialize(),
+            function (data) {
+                if (data.Status === 400) {
+                    alert("Error: " + data.Message);
+                } else { // 200
+                    thankyou_modal.open();
+                    $('.subForm').each(function() { this.reset() });
+					window._fbq.push(['track', '6048907252540', {'value':'0.00','currency':'USD'}]);
+                }
+            });
+        });
+    });
+
+
+
+});    
+
+</script>
+

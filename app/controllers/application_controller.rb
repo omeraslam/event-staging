@@ -46,20 +46,21 @@ def check_member_type
       @event_registration_limit = ENV['BASIC_REGISTRATION_LIMIT'].to_i
     end
 
-    @premium_disable = true
+    @premium_disable = false
 
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     @count_events = Event.where(:user_id => current_user.id.to_s).count
     @count_registrations = Attendee.where(:user_id => current_user.id.to_s).count
 
 
-    if (@count_events < @event_limit && @count_registrations   < @event_registration_limit) || @premium_disable
+    #if (@count_events < @event_limit && @count_registrations   < @event_registration_limit) || @premium_disable
+    #if 
       @disable_create = false
 
-    else 
-      @disable_create = true
+    #else 
+     # @disable_create = true
 
-    end
+    #end
 
 
     @is_premium = current_user.premium? ? 'active': ''
@@ -71,7 +72,7 @@ def check_member_type
 
     # end
 
-    @premium_disable = true
+    @premium_disable = false
 
     if !current_user.customer_id.nil? && !@premium_disable
 

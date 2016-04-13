@@ -1,0 +1,42 @@
+<% title @event.name.html_safe %>
+<% meta_description '' %>
+    
+
+
+<%= render 'events/partials/eventwebsite' %>
+<%= render 'events/partials/contact_form' %>
+<%= render 'events/partials/rsvp_form' %>
+
+
+<% if signed_in? && current_user.id == @user.id && params.has_key?(:editing) %>  
+
+<%= render 'events/partials/editor' %>
+<%= render 'partials/imagesearch' %>  
+<%= render 'events/partials/ticket_modal' %>
+<%= render 'partials/loader_saving' %>
+
+
+<% end %>
+
+
+
+
+<script type="text/javascript">
+
+//EVENT SHOW GLOBAL FUNCTIONS
+$( document ).ready(function() { 
+  //contact host modal
+  var contactModal = $('#contact-modal').remodal();
+  $('.open-contact').click(function(e){
+    contactModal.open();
+    e.preventDefault;
+  });
+
+  //registration modal
+  var registrationModal = $('#attendee-form').remodal({hashTracking:false});
+  $('.open-registration').click(function(){
+    registrationModal.open();
+  });
+});
+
+</script>

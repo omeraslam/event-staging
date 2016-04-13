@@ -247,9 +247,7 @@ def complete_registration
 
     @account = Account.where(:user_id => @event.user_id.to_s).first
 
-   
 
-    logger.debug "AMOUNT IS EQUAL TO: #{amount}"
 
 
   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
@@ -301,7 +299,7 @@ def select_tickets
   @event = Event.find_by_slug(params[:slug]) or not_found
 
   @purchase = Purchase.new
-
+  @purchase.event_id = @event.id
   if @purchase.save
 
 

@@ -22,9 +22,9 @@
         <span> Save</span>
       </a> 
   
-      <% if @account.nil? && (@tickets.count != 1 || @tickets[0].price != 0) %>
+      <% if @account.nil? && @has_paid_ticket %>
 
-       <a class="tab" onclick="alert('You need to seet up a payment account to publish a paid ticketed event. Please add it via Stripe under ticketing settings.');">
+       <a class="tab publish" onclick="alert('You need to seet up a payment account to publish a paid ticketed event. Please add it via Stripe under ticketing settings.');">
         <i class="icon icon-globe"> </i>
         <div>Publish</div>
          <span> Publish</span>
@@ -69,31 +69,23 @@
 
     <button data-remodal-action="close" class="remodal-close" id="editor-panel-close"></button>
 
-
-
-
     <div class="editor-tool" id="editor-tool-details">
-
+    
       <section class="editor-tool-header">
         <h3>Edit event details </h3> 
-        <p>In id urna nec orci ultrices finibus sit amet nec nulla. Donec consequat turpis ligula, ut lacinia enim semper a. In malesuada erat quis dolor aliquam.</p>
+        <p>Change of venue? Modify your event details below. (Don't forget to click the "update event" button when your're done.)</p>
       </section>
-
       <section>
       <%= render 'dashboard/partials/form' %>
       </section>
 
     </div>  
 
-
-
-    
-
     <div class="editor-tool" id="editor-tool-background">
 
       <section class="editor-tool-header">
         <h3>Modify the design </h3> 
-        <p>In id urna nec orci ultrices finibus sit amet nec nulla. Donec consequat turpis ligula, ut lacinia enim semper a. In malesuada erat quis dolor aliquam.</p>
+        <p>Make it your own. Make it amazing. Customize your event website with custom background images, fonts and colors.</p>
       </section>
 
       <section>
@@ -118,15 +110,32 @@
         </div>
       </section>
 
+    <!--CONDITIONAL HOOK FOR NON PREMIUM -->    
+    <!--IF !PREMIUM -->    
+  <% if current_user.customer_id.nil? && !@premium_disable %>
+    <div class="editor-upgrade">
+      <div class="editor-upgrade-content">
+      <h3>Try Pro for Free</h3>
+      <p> A Pro subscription is required to white-label your website and customize the design. Try Pro now with free 7-day trial. </p>
+      <a href="./upgrade" class="btn">Try Pro for Free </a>
+      </div>
+    </div>
+  <% end %>
+    <!--END -->    
+
+
+
     </div>  
 
 
     <div class="editor-tool" id="editor-tool-ticketing" >
       
       <section class="editor-tool-header">
-        <h3> Sell tickets for your event</h3>
-        <p>In id urna nec orci ultrices finibus sit amet nec nulla. Donec consequat turpis ligula, ut lacinia enim semper a. In malesuada erat quis dolor aliquam.</p>
-        <span href="" class="btn open-ticket"> New ticket</span>
+        <h3> Ticketing + Registration</h3>
+        <p>Sell tickets and collect registrations for your event. (By default, we've added a free general admission ticket for you. Feel free to edit or delete that ticket.)</p>
+        
+        <%= link_to 'New ticket type', new_ticket_path(:event => @event) , :remote => true, :class => 'btn open-ticket' %>
+        
       </section>
 
       <section>
@@ -148,8 +157,8 @@
             <p>Buy limit: <%= ticket.buy_limit %> </p>
             <div class="ticket-actions">
              <div class="ticket-action">
-            <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket)  %></div>
-            <% if index != 0 %>
+            <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %></div>
+            <% if @tickets.count > 1 %>
               <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
               </div>
             <% end %>
@@ -323,10 +332,10 @@ $( document ).ready(function() {
 
   //TICKETING - add ticket modal
   var ticketModal = $('#ticket-modal').remodal();
-  $('.open-ticket').click(function(e){
-    ticketModal.open();
-    e.preventDefault;
-  });
+  // $('.open-ticket').click(function(e){
+  //   ticketModal.open();
+  //   e.preventDefault;
+  // });
 
 
   //IMAGES - search unsplash

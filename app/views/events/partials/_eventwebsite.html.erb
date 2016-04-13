@@ -48,11 +48,13 @@
 			    <% end %> 
 
 			</div> 
-
+			
+ 			 <% if current_user.customer_id.nil? && !@premium_disable %>
 			<a href="https://www.eventcreate.com/" title="EventCreate" target="_blank" id="event-page-logo">
 		  		<div class="event-page-logo-container"></div>
 		  		<div class="event-page-logo"></div> 
-		 	</a>	
+		 	</a>
+		 	<% end %>	
 
 		  </div>
 
