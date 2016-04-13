@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   post '/events/check-slug', to: 'events#check_slug'
   post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
   #slug 
-  post '/:slug/tickets' => 'tickets#create'
+  post '/:slug/tickets' => 'tickets#create', :as => :slug_create
   get '/:slug' => 'events#show', :as => :slugger
   get '/:slug/export' => 'events#export_events', :as => :export_events
   patch '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
@@ -136,6 +136,7 @@ Rails.application.routes.draw do
   get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
   get '/:slug/confirm' => 'events#show_confirm' , :as => :show_confirm
   get '/:slug/ticket' => 'events#show_ticket' , :as => :show_ticket
+  post '/tickets/:id/edit' => 'tickets#update'
 
   get '/oauth/callback' do 
     code = params[:code]

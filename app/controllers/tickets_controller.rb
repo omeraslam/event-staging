@@ -1,7 +1,7 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @tickets = Ticket.all
@@ -14,10 +14,18 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
+    @slug = params[:event]
     respond_with(@ticket)
   end
 
   def edit
+      #redirect_to dashboard_index_path
+       # format.html { render action: 'edit' }
+       # 
+      respond_to do |format|
+        format.js 
+       #format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
   end
 
   def create
@@ -27,6 +35,7 @@ class TicketsController < ApplicationController
     #@event.user_id = current_user.id
     #
     @event = Event.find_by_slug(params[:slug])
+    @slug = params[:slug]
     logger.debug "#{params[:slug]}"
     @ticket = @event.tickets.build(ticket_params)
     @ticket.save

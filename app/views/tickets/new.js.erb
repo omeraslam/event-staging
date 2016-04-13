@@ -1,0 +1,5 @@
+$('#ticket-modal').remove();
+
+$('body').append("<%= j render :partial => 'events/partials/ticket_modal', :locals => {slug: params[:event]} %>");
+
+$('#ticket-modal').remodal().open();
