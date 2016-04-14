@@ -29,8 +29,8 @@ class EventsController < ApplicationController
   end
 
   def home
-    @user = User.find(current_user.id)
-    @events = Event.where(:user_id => current_user.id.to_s).all
+    @user = User.find(params[:id])
+    @events = Event.where(:user_id => @user.id.to_s).all
 
   end
 

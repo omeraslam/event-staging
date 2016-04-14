@@ -2,6 +2,14 @@ body.profile,  body.payments  {
 	background:$brand-gray;
 }
 
+.avatar {
+	width: 100px !important;
+	border-radius: 50%;
+}
+
+form {
+	margin-bottom: 40px;
+}
 
 .profile .container, 
 .upgrade .container,

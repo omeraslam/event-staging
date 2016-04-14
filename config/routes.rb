@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
 
-  get '/events/index', to: 'events#home', :as => :events_home 
+  get '/users/:id/events/index', to: 'events#home', :as => :events_home 
 
 
   #ticket buying
@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     collection do
       patch 'update_password'
       patch 'update_email'
+      patch 'update'
     end
   end
 

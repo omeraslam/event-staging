@@ -18,10 +18,31 @@
     <!--start attendee section-->
     <div data-hash="profile">
         
-
+        <div class="input-group">
+          <label>Avatar:</label>
+          <%= image_tag @user.gravatar_url, :class => 'avatar' %>
+          <%= link_to 'View profile', events_home_path(current_user) %>
+        </div>
         <!-- profile settings form  -->
+        <%= form_for(@user, :url => { :action => "update", :controller => "users" } ) do |f| %>
+
+        <div class="input-group">
+          
+        <label>Organization/Brand/Name: </label>
+        <%= f.text_field :username %>
+        </div>
+        <div class="input-group">
+        <label>Description/Tagline: </label>
+        <%= f.text_field :description %>
+
+        </div>
+
+        <%= f.submit 'Update Info', class: 'btn btn-primary' %>
+
+        <% end %>
 
         <!-- still need to bind data // CURRENTLY NOT WORKING -->
+
 
         <%= form_for(@user, :url => { :action => "update_email", :controller => "users" } ) do |f| %>
 

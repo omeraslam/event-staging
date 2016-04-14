@@ -1,7 +1,6 @@
-<% title @user.email + 'events' %>
+
 <% meta_description '' %>
-<% @title = 'Salamat Yoga' %>
-<% @style = 'yoga' %>
+
 
 <style type="text/css">
   html, body {
@@ -14,14 +13,7 @@
     background-size: cover;
   }
 
-  .wrapper.band {
-    background-image: url(../assets/brots.jpg);
-  }
 
-  .wrapper.yoga {
-
-    background-image: url(../assets/yoga.jpg);
-  }
 
   .wrapper {
     //padding: 120px 70px;
@@ -82,7 +74,7 @@
 }
 
     #event-page-logo .event-page-logo {
-    background-image: url(../assets/event_create_logo_vertical.png);
+    background-image: url(../../../assets/event_create_logo_vertical.png);
     background-size: contain;
     position: absolute;
     top: 12px;
@@ -91,9 +83,38 @@
     height: 110px;
     z-index: 9999;
 }
+
+.hero-img {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.6;
+    background-image:url(<%= @user.gravatar_url %>);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    overflow: hidden;
+}
+.hero-header {
+  position: relative;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
 </style>
 
-<div class="wrapper <%= @style %>">
+<div class="wrapper">
 
 <a href="https://www.eventcreate.com/" title="EventCreate" target="_blank" id="event-page-logo">
           <div class="event-page-logo-container"></div>
@@ -106,13 +127,13 @@
             <a href="https://www.facebook.com/sharer/sharer.php?u=http://bit.ly/1PQJMiL"><i class="icon icon-facebook-circled"> </i> </a>
             <a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20http://bit.ly/1PQJMiL"><i class="icon icon-twitter-circled"> </i> </a>
           </div>
-<div class="hero-header">
-<%= image_tag @user.gravatar_url %>
-<h1><img src="http://placehold.it/100x100" /><br/><span><%= current_user.username %></span></h1>
+<div class="hero-header" style="">
+<h1>
+  <%= image_tag @user.gravatar_url, :class => 'avatar' %><br/><span><%= @user.username %></span></h1>
 
 
-<p class="lead"><%= current_user.description %></p>
-
+<p class="lead"><%= @user.description %></p>
+<div class="hero-img"></div>
 
 </div>
 
@@ -122,16 +143,29 @@
 
 
 
+
   <h2>Upcoming Events</h2>
+    <% if @events.empty? %>   
+  <div class="empty">
+    <h2>Well, this is uneventful; you don't have any events yet. Get on that! </h2>
+      <% if @disable_create %>
+        <%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, upgrade_path, class: 'btn btn-obvious' %>
+        <% else %>
+        <%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, create_path, class: 'btn btn-obvious' %> 
+        <% end %>
+  </div>
+  <% end %> 
   <ul class="upcoming-events">
 <% @events.each do |event| %>
 <li class="event-tile">
-<div style="background:url(<%= background_checker(event, false)%>); width: 100%; height: 100%; background-size: cover; background-position: 0 0;">
-</div>
- <%= event.name %><br/>
- <% if !event.date_start.empty? %>
-  <%= event.date_start.to_date.strftime("%B %d, %Y") %>
- <% end %>
+<%= link_to slugger_path(event) do %>
+  <div style="background:url(<%= background_checker(event, true)%>); width: 100%; height: 100%; background-size: cover; background-position: 0 0;">
+  </div>
+   <%= event.name %><br/>
+   <% if !event.date_start.empty? %>
+    <%= event.date_start.to_date.strftime("%B %d, %Y") %>
+   <% end %>
+<% end %>
  </li>
 <% end %>
 
@@ -157,15 +191,7 @@
   //https://api.instagram.com/v1/tags/{tag-name}/media/recent?access_token=ACCESS-TOKEN
   $(document).ready(function() {
 
-    // $.ajax({
 
-    // url: 'https://www.googleapis.com/moderator/v1/series?key='+key,
-    // data: myData,
-    // type: 'GET',
-    // crossDomain: true,
-    // dataType: 'jsonp',
-
-    //alert(window.location.href.split('#access_token=')[1]);
 
     $.ajax({
       url:'https://api.instagram.com/v1/tags/hashtaglunchbagla/media/recent?access_token='+window.location.href.split('#access_token=')[1], 
@@ -173,9 +199,7 @@
       type: 'GET',
       success: function(data) {
       console.log(JSON.stringify(data.data));
-     // var img = data.data[0].images.standard_resolution.url;
-        // var imagehtml = '<img src="'+img+'" />';
-        // $('.container').append(imagehtml);
+
     }
     });
   })
