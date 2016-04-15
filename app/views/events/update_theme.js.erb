@@ -1,6 +1,10 @@
 <% if @event.update(params.require(:event).permit(:background_img)) %>
 	$('.upload').find('img').remove();
 	$('.upload').css('background-image', 'url(\'<%= @event.background_img %>\')');
+
+   
+
+    $('.editor-current-bg').css('background-image', 'url(\'<%= @event.background_img %>\')');
 	
 <% else %>
 	alert("Failed to upload image");

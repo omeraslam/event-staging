@@ -16,6 +16,7 @@
 		<div class="event-page 1" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important">
 		  <div class="overlay" style="opacity: <%= @event.bg_opacity %>;background-color:<%= @event.bg_color %>;"></div>
 			<div class="header"> 
+			<div class="dragOverlay">Drag and Drop a file to upload</div>
 					<div class="event-share">
 						<a href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>"><i class="icon icon-facebook-circled"> </i> </a>
 						<a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>"><i class="icon icon-twitter-circled"> </i> </a>
@@ -45,6 +46,7 @@
 			    <%= form_for @event, url: update_event_path(@event), :html => {:id => "background_form"} do |f| %>
 			    <label for="custom-file-input" class="file-label" style="display:none;">Upload Your Own</label>
 			    <%= f.file_field :background_img, :id => 'custom-file-input', :style => "display:none;" %> 
+			    <%= f.text_field :external_image, :style => "display:none;", :value => nil %> 
 			    <% end %> 
 
 			</div> 

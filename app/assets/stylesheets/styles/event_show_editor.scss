@@ -469,6 +469,9 @@ body.invite-view {
 	}
 }
 
+.header .dragOverlay {
+	display: none;
+}
 
 .file-label {
 	background: $brand-primary;
