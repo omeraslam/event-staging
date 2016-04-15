@@ -91,7 +91,7 @@
       <section>
         <h4>Background Image + Color</h4>
         <div class="editor-current-bg" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>
-        <a> Upload image </a> <a class="open-image-modal"> Search image library </a> 
+        <a class="upload-btn"> Upload image </a> <a class="open-image-modal"> Search image library </a> 
         <div class="slider-container">
           <div class="slider"> <div id="slider"></div> </div>
           <div class="color-picker"><input id="color"></div>
@@ -375,6 +375,8 @@ $( document ).ready(function() {
                   e.preventDefault();
                   imageModal.close();
                   $('.event-page').attr('style','background-image: url('+photoArray[$(this).index()]+') !important' );
+
+                  $('.editor-current-bg').css('background-image', 'url('+ photoArray[$(this).index()] +')');
                   $('#bg').val(photoArray[$(this).index()]);
                   $('#show_custom').val(true);
                    requestEdit({bg_img:photoArray[$(this).index()]});
@@ -553,6 +555,7 @@ $( document ).ready(function() {
         changesExist = false;
         $("#saving").removeClass("visible");
 
+
         if (callBack) {
           window.location.href = "dashboard/event?event=<%= @event.id %>";
         } else {
@@ -573,6 +576,9 @@ $( document ).ready(function() {
     }
   };
 
+  $('.upload-btn').on('click', function(){
+    $('.file-label').click();
+  });
 
   //EDITING - close the "editing live events" notifcation banner 
   $("#event-status-notification-banner-close").click(function(e) {
@@ -580,6 +586,23 @@ $( document ).ready(function() {
     $(".event-status-notification-banner").removeClass("visible");
 
   });
+  var $form = $('#background_form');
+  $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  })
+  .on('dragover dragenter', function() {
+    $form.addClass('is-dragover');
+  })
+  .on('dragleave dragend drop', function() {
+    $form.removeClass('is-dragover');
+  })
+  .on('drop', function(e) {
+    droppedFiles = e.originalEvent.dataTransfer.files;
+  });
+
+
+
 
 
 </script>
