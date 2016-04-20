@@ -1,7 +1,7 @@
 <% if !@user.profile_img.nil? %>
 $('.avatar').css('background-image', 'url(<%= @user.profile_img %>)');
 <% else %>
-    alert('file image upload error')
+    alert('file image upload error') 
 <% end %>
 
 <% if !@user.header_img.nil? %>
