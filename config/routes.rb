@@ -126,6 +126,7 @@ Rails.application.routes.draw do
   post '/:slug/tickets' => 'tickets#create', :as => :slug_create
   get '/:slug' => 'events#show', :as => :slugger
   get '/:slug/export' => 'events#export_events', :as => :export_events
+  patch '/users/:id/update', to: 'users#update', :as => :update_user
   patch '/:slug/updatetheme', to: 'events#update_theme', :as => :update_event
   post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
   put '/:slug/updatetheme', to: 'events#update_theme'

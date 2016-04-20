@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook]
   after_create :send_welcome_email
 
+  mount_uploader :profile_img, AvatarUploader
+
+  mount_uploader :header_img, ProfileBgUploader
+
   include Gravtastic
   gravtastic
 

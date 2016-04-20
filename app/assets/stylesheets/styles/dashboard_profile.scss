@@ -4,11 +4,34 @@ body.profile,  body.payments  {
 
 .avatar {
 	width: 100px !important;
+	height: 100px;
 	border-radius: 50%;
+	background-size: cover;
+	background-position: center center;
+	//margin: 0 auto;
 }
 
-form {
+.btn {
 	margin-bottom: 40px;
+}
+
+.view-profile {
+	
+    position: absolute;
+    float: right;
+    top: 0;
+    right: 10px;
+}
+
+
+.header-preview {
+	width: 200px !important;
+}
+
+input[type="file"] {
+	background: none;
+	font-size: 12px;
+	line-height: 12px;
 }
 
 .profile .container, 

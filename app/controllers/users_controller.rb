@@ -115,7 +115,7 @@ class UsersController < ApplicationController
          #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
          #format.html { redirect_to dashboard_event_path(:event => @event.id) + '#settings', event_success: 'Event details was successfully updated.'}
         format.html { redirect_to dashboard_profile_path , notice: 'Profile details was successfully updated.'}
-
+        format.js
          #format.js   { render action: 'event-success', status: :created, location: dashboard_event_path(:event => @event.id) }
          #format.json { render :show, status: :ok, location: slugger_path(@event.slug) }
       else
@@ -169,7 +169,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-        params.require(:user).permit(:current_password,:password, :password_confirmation, :email, :subscription_id, :plan_type, :username, :description)
+        params.require(:user).permit(:current_password,:password, :password_confirmation, :email, :subscription_id, :plan_type, :username, :description, :profile_img, :header_img, :tw_link, :fb_link)
     end
 
 

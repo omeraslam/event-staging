@@ -1,0 +1,6 @@
+
+<% if @user.profile_img.nil? %>
+    alert("Failed to upload image: <%= j @user.errors.full_messages.join(', ').html %>");
+<% else %>
+    $('.avatar').append("<%= j render(@user.profile_img) %>")
+<% end %>

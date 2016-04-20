@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413215358) do
+ActiveRecord::Schema.define(version: 20160420000428) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -181,6 +181,8 @@ ActiveRecord::Schema.define(version: 20160413215358) do
     t.string   "profile_img"
     t.string   "header_img"
     t.string   "username"
+    t.string   "fb_link"
+    t.string   "tw_link"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

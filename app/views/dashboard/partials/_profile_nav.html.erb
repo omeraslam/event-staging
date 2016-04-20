@@ -17,12 +17,31 @@
 
     <!--start attendee section-->
     <div data-hash="profile">
-        
+       <!--  profile_img: nil, header_img: -->
+
+
+
+
+
         <div class="input-group">
           <label>Avatar:</label>
-          <%= image_tag @user.gravatar_url, :class => 'avatar' %>
-          <%= link_to 'View profile', events_home_path(current_user) %>
+
+          <div class="avatar" style="background-image: url(<%= @user.profile_img.url(:thumb) %>)">
+    
+          </div>
+          <%= form_for @user, url: update_user_path(@user), :html => {:id => "profile_image_form"} do |f| %>
+            <%= f.file_field :profile_img, :title => '', :value => '' %>
+          <% end %> 
+          <label>Profile Background:</label>
+          <%= image_tag(@user.header_img, :class => 'header-preview', crossOrigin: 'anonymous')  %>
+     
+          <%= form_for @user, url: update_user_path(@user), :html => {:id => "profile_bg_form"} do |f| %>
+            <%= f.file_field :header_img %>
+          <% end %> 
+
+          <%= link_to 'View profile', events_home_path(current_user), :class => 'view-profile' %>
         </div>
+
         <!-- profile settings form  -->
         <%= form_for(@user, :url => { :action => "update", :controller => "users" } ) do |f| %>
 
@@ -34,8 +53,19 @@
         <div class="input-group">
         <label>Description/Tagline: </label>
         <%= f.text_field :description %>
-
         </div>
+
+        <div class="input-group">
+        <label>Facebook URL: </label>
+        <%= f.text_field :fb_link %>
+        </div>
+
+             <div class="input-group">
+          
+        <label>Twitter URL: </label>
+        <%= f.text_field :tw_link %>
+        </div>
+
 
         <%= f.submit 'Update Info', class: 'btn btn-primary' %>
 
@@ -214,7 +244,35 @@ $(document).ready(function(){
     });
 
 
+
+    $('#profile_bg_form').fileupload({
+      dataType: "script"
+    })
+
+    $('#profile_image_form').fileupload({
+      dataType: "script"
+    })
+    //$('#profile_image_form').fileupload()
+    // $('#profile_image_form').fileupload({
+    //   dataType: "script",
+    //   add: function(e, data) {
+    //     data.context = $(tmpl("template-upload", data.files[0]));
+    //     $('#profile_image_form .uploader').remove();
+    //     $('#proifle_image_form').append(data.context);
+    //     return data.submit();
+    //   },
+    //   done: function(e, data) {
+    //     return $('.event-page').css('cssText', 'background-image: ' + newimage + ' !important');
+    //   }
+    // })
+   
+
+
 });
+
+
+
+
 </script>
 
 
