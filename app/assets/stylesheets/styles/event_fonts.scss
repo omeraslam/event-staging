@@ -9,7 +9,7 @@
 	font-style: normal;
 
 	h1 {
-		font-size:40px;
+		//font-size:40px;
 	}
 	
 }
@@ -24,8 +24,8 @@
 		
 	h1 {
 
-		font-size:100px;
-		line-height:105px;
+		//font-size:100px;
+		//line-height:105px;
 		font-weight: 600;
 	
 	}
@@ -47,8 +47,8 @@
 
 
 	h1 {
-		font-size:140px;
-		line-height:150px;
+		//font-size:140px;
+		//line-height:150px;
 		font-weight: 700;
 
 	}
@@ -65,11 +65,18 @@
 
 
 	h1 {
-		font-size: 16px;
 		text-transform: uppercase;
 		letter-spacing: 7px;	
 		font-weight: 700;
 
+		font-size: 22px;
+    	line-height: 30px;
+
+	}
+
+	p.lead {
+		font-size: 14px;
+		line-height:22px;
 	}
 }
 
