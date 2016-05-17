@@ -22,7 +22,7 @@
 						<a href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>"><i class="icon icon-twitter-circled"> </i> </a>
 					</div>
 		     <h1> <%= best_in_place @event, :name, :url => update_event_path(@event) %></h1> 
-		     <p class="lead"> <% if (!@event.date_start.nil?) %>    <%= @event.date_start.to_date.strftime("%B %d ") %> <% end %>   </div>
+		     <p class="lead"> <% if (!@event.date_start.blank?) %>   <%= @event.date_start.to_date.strftime("%B %d ") %> <% end %> </p>  </div>
 
 
 			</div>
