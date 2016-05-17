@@ -113,7 +113,7 @@
     <!--CONDITIONAL HOOK FOR NON PREMIUM -->    
     <!--IF !PREMIUM -->    
   <% if current_user.customer_id.nil? && !@premium_disable %>
-    <div class="editor-upgrade">
+    <div class="editor-upgrade" style="display:none;">
       <div class="editor-upgrade-content">
       <h3>Try Pro for Free</h3>
       <p> A Pro subscription is required to white-label your website and customize the design. Try Pro now with free 7-day trial. </p>
