@@ -28,27 +28,21 @@
 			
 		</p>
 		<% if !@premium_disable %>
-		<p>Number of registered guests: <%= @count_registrations %></p>
-		<p>Current plan of registration limit: <%= @event_registration_limit %></p>
+		
 		<% end %>
 	</div>
 	
 	<div class="event-status"> 
 		<div class="event-share">
-			<%= link_to 'view my website', slugger_path(@event), class: 'btn', target: '_blank' %> 
 
-			<%= link_to "<i class='icon icon-pencil'></i> <span>Edit website</span>".html_safe, slugger_path(@event.slug, :editing => "true"), :class => 'circle tooltip'  %>
+			<%= link_to " <span>View/edit my event page</span>".html_safe, slugger_path(@event.slug, :editing => "true"), :class => 'btn'  %>
 
 
 			<br>
 
    			<%# if @count_registrations >= @event_registration_limit && !@premium_disable %>  
 
- 			 <% if current_user.customer_id.nil? && !@premium_disable %>
-				<%= link_to ('<i class="icon icon-email"></i>').html_safe, upgrade_path, :class => 'circle'  %> 
-            <% else %>            
-				<a class="circle send-email tooltip" ><i class="icon icon-email"></i> <span> Send email invte</span> </a> 
-            <% end %>  
+ 	
 
 
 			<a class="circle open-link-modal tooltip"><i class="icon icon-link"></i> <span>Share link </span></a> 

@@ -52,7 +52,8 @@
 		font-size: 48px;
 	    line-height: 60px;
 	    margin: 0 0 10px 0;
-	    font-family:"Baskerville", Georgia, serif;
+	    font-weight:600;
+	    //font-family:"Baskerville", Georgia, serif;
 	}
 
 	p {
@@ -65,7 +66,9 @@
 		font-size: 30px;
 	    line-height: 40px;
 	    margin: 0;
-	    font-family:"Baskerville", Georgia, serif;
+	    font-weight:600;
+
+	    //font-family:"Baskerville", Georgia, serif;
 	}
 	
 	.logo {
@@ -140,12 +143,12 @@
 	}
 
 	&#home {
-		background:url(home/girls.jpg);
+		background:url(home/event_illustration.jpg);
 		background-size:cover;
 		background-position:50% 26%;
 
 		.hero-content {
-			padding:260px 50px 260px 50px;
+			padding:180px 50px 180px 50px;
 			text-align:center;
 			max-width:1000px;
 			margin: 0 auto;
@@ -274,9 +277,10 @@
     position:relative;
     -webkit-transition:top 1s ease;
     transition:top 1s ease;
+    padding:60px 0 60px 0;
 
     &.active {
-    	top:-50px;
+    	top:-20px;
     }
 	
 
@@ -750,7 +754,7 @@ margin:0 auto;
 
 		.signature{ 
 
-			width:33.33333333%;
+			width:50%;
 			float:left;
 			text-align:center;
 			font-size:12px;
