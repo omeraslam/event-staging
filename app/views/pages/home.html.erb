@@ -4,11 +4,11 @@
 
 
 <div class="hero" id="home">
-	<div class="hero-cover"></div>
+	
  	<div class="hero-content">
-		<h1> Sell tickets to your event. For free. </h1>
-		<p class="lead">Unlimited events. Unlimited tickets. <br>Completely, 100% free. Yup, it’s that simple.  </p>	 
-		<%= link_to 'Sign up for free', new_user_registration_path, :class => 'btn btn-large'  %>
+		<h1> 100%-free, awesomely-simple <br> event ticketing. </h1>
+		<p class="lead">Sell tickets to your events for free. No service fees. <br>No convenience fees. Free. (Yup, it’s that simple.)  </p>	 
+		<%= link_to 'Sign up now', new_user_registration_path, :class => 'btn btn-large btn-obvious'  %>
 	</div>
 </div>	
 
@@ -76,9 +76,9 @@
  	</div>
  	<div class="screens-copy-container container">
 	 	<div class="container container-small">
-		 	<h2> Create a beautiful event website</h2>
-		 	<p>Impress your event attendees with a beautiful, custom branded event website.  Create your site and start collecting registrations in just a few minutes with EventCreate's easy-to-use builder. </p>
-			<%= link_to 'Create my event website', new_user_registration_path, :class => 'btn btn-large'  %>
+		 	<h2> Create an event page that impresses your guests. </h2>
+		 	<p>Impress your event attendees with a kick-ass, custom-branded event page. <br>We feature your brand. Not ours.  </p>
+			<%= link_to 'Create my event page now', new_user_registration_path, :class => 'btn btn-large'  %>
 	 	</div>
  	</div>
 </div>
@@ -87,8 +87,8 @@
 
 <div id="home-savings-calc">
 	<div class="container container-small">
-		<h2>Zero ticketing fees. Period. </h2>
- 		<p>Unlike most event ticketing platforms, EventCreate doesn't charge any service or "convenience" fees (which typically amount to $1 + 3% of the ticket price). Think of all the extra ballons you can afford. </p>
+		<h2>Zero fees. Period. </h2>
+ 		<p>EventCreate doesn't charge any ticketing or platforms fees (which typically amount to 3%-5% of the ticket price). Think of all the extra kegs you'll be able to afford. </p>
  		<div class="slider-container">
  			<span id="event_size">100 attendees</span>
 			<div class="slider" id="slider_event_size"> </div>
@@ -101,9 +101,25 @@
 	</div>
 </div>
 
+
+<div class="container container-small" id="introduction-note"> 
+	<p>We’re like you. We’ve planned hundreds of events. We’ve tested dozens of registration platforms. We’ve paid thousands of dollars in service fees. </p> 
+	<p>In late 2015, we decided to change that. So we teamed up with some friends to build a new platform with one goal: a simple event registration tool with zero fees. No service fees, no monthly fees, no ticketing fees. Free. </p>
+	<p>Three months later, we’re excited (like, really excited) to announce that we’re finished with our beta product. We can’t wait to hear what you think. </p>
+	<div class="signatures">
+		<div class="signature">
+			<div class="signature-img"><img src="/assets/home/signature_mark.png"></div> Mark Bushy<br> Co-Founder 
+		</div>
+		<div class="signature">
+			<div class="signature-img"><img src="/assets/home/signature_rich.png"></div> Rich Saethang<br> Co-Founder</div>
+	
+	</div>
+</div>
+
+
 <div class="container" id="home-cta">
-	<h2> Let's make better events together. </h2>
-	<%= link_to 'Sign up for free', new_user_registration_path, :class => 'btn btn-large'  %>
+	<h2> Get an unlimited-day free trial.  </h2>
+	<%= link_to 'Sign up now', new_user_registration_path, :class => 'btn btn-large'  %>
 </div>
 	
 <%= render 'pages/partials/footer' %> 	
