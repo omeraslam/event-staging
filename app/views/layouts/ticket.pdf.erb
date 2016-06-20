@@ -156,7 +156,7 @@ body {
         <div class="details-content">
           <h1><%= @event.name %> </h1>
           <% if !@event.date_start.nil? && !@event.date_start.empty? %>
-          <h3><%= @event.date_start.to_date.strftime('%B %d, %Y') %> at <%= @event.time_start.to_time.strftime('%l:%M%P') %> </h3>
+          <h3><%= @event.date_start.to_date.strftime('%B %d, %Y') %> <%= @event.time_start.blank? ? '': 'at' + @event.time_start.to_time.strftime('%l:%M%P') %> </h3>
           <% end %>
           <% if( @event.location != '' ||  @event.location_name != '' ) %>
             <h3><%= @event.location_name %> <br>

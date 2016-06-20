@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
   after_filter :store_location
-  before_filter :authenticate_user!, :except => [:show, :export_events, :home, :contact_host, :show_ticket]
+  before_filter :authenticate_user!, :except => [:show, :export_events, :home, :contact_host, :show_ticket, :select_tickets, :show_buy, :complete_registration, :show_ticket, :show_confirm]
   require 'icalendar'
 
 

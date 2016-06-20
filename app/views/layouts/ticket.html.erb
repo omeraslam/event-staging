@@ -144,7 +144,7 @@ body {
 
       <div class="details ticket-tile">
           <h1><%= @event.name %> </h1>
-          <h3><%= @event.date_start.to_date.strftime('%B %d, %Y') %> at <%= @event.time_start.to_time.strftime('%l:%M%P') %></h3>
+          <h3><%=  @event.date_start.to_date.strftime('%B %d, %Y') %>  <%= @event.time_start.blank? ? '': 'at' + @event.time_start.to_time.strftime('%l:%M%P') %></h3>
 
 
     <% if( @event.location != '' ||  @event.location_name != '' ) %>
