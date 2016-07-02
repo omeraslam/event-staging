@@ -1,6 +1,59 @@
+<div class="editor-tabs">
+
+  <div class="editor-tools-top">
+
+    <a class="tab toggleEditorPanel" id="editor-tool-home" data-target="editor-tool-home" >
+        <i class="icon icon-home"> </i> <span> Status</span>
+      </a> 
+      <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
+        <i class="icon icon-image"> </i> <span> Design </span>
+      </a> 
+
+      <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
+        <i class="icon icon-tag"> </i> <span> Registration</span>
+      </a>   
+
+          <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" >
+        <i class="icon icon-settings"> </i> <span> Advanced</span>
+      </a>  
+  </div>
+
+
+    <div class="editor-tools-bottom">
+      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+        <i class="icon icon-users"> </i> <span> Attendees</span>
+      </a>
+
+
+      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+        <i class="icon icon-share"> </i> <span> Share</span>
+      </a> 
+
+
+      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+        <i class="icon icon-eye"> </i> <span> Preview</span>
+      </a> 
+
+
+      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+        <i class="icon icon-sign-out"> </i> <span> go to my account </span>
+      </a> 
+
+
+    </div>
+
+
+</div>
+
+
+
 <div class="editor-container"> 
 
-  <div class="tabs">
+  <div class="tabs" style="display:none;">
+
+    <a class="tab toggleEditorPanel" id="editor-tool-status" data-target="editor-tool-status" >
+      <i class="icon icon-edit-inline"> </i> <span> Edit details</span>
+    </a> 
 
     <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" >
       <i class="icon icon-edit-inline"> </i> <span> Edit details</span>
@@ -67,7 +120,7 @@
 
   <div class="editor-tools">
 
-    <button data-remodal-action="close" class="remodal-close" id="editor-panel-close"></button>
+    <a id="editor-panel-close" style="display:none;"><i class="icon icon-arrow-left"> </i></a>
 
     <div class="editor-tool" id="editor-tool-details">
     
@@ -80,6 +133,44 @@
       </section>
 
     </div>  
+
+
+
+
+
+
+    <div class="editor-tool" id="editor-tool-home">
+    
+      <section class="editor-tool-header">
+        <h3>Event Home </h3> 
+        <p>Change of venue? Modify your event details below. (Don't forget to click the "update event" button when your're done.)</p>
+      </section>
+
+      <section> 
+      <div class="toggle-container">
+        <div class="toggle toggle-left"></div>
+        <span class="toggle-text">draft</span>
+      </div>
+      Your event status is a draft.
+      </section>
+
+      <section> 
+        <div class="toggle-status"><span></span> Your event was last saved at 8:00am </div>
+
+        <div class="toggle-status"><span></span> Your event is draft is in draft status </div>
+        <div class="toggle-status"><span></span> Your URL is hidden and cannt be pulcattly accessed </div>
+        <div class="toggle-status"><span></span> Your event is closed for registration.</div>
+
+      </section>
+
+    </div>  
+
+
+
+
+
+
+
 
     <div class="editor-tool" id="editor-tool-background">
 
@@ -128,7 +219,7 @@
     </div>  
 
 
-    <div class="editor-tool" id="editor-tool-ticketing" >
+    <div class="editor-tool" id="editor-tool-ticketing_TEMP" >
       
       <section class="editor-tool-header">
         <h3> Ticketing + Registration</h3>
@@ -179,6 +270,103 @@
         </section>
 
     </div>  
+
+
+
+
+
+
+      <div class="editor-tool" id="editor-tool-ticketing" >
+        
+        <section class="editor-tool-header">
+          <h3> Ticketing + Registration</h3>
+          <p>Venison pig rump flank pork hamburger capicola shoulder kevin jerky. Biltong ball tip tongue jowl chuck. Chicken pork rump, boudin flank andouille porchetta pancetta. </p>
+        </section>
+
+
+
+        <section>
+         
+<%= form_for [@ticket], :url => @url do |f| %>
+
+
+
+  
+
+
+    <div class="input-group">
+        <label> Event capacity</label>
+        <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
+        <p> How many tickets/registrations are available? </p>
+    </div>
+
+    <div class="input-group input-group-addon">
+      <label>Ticket Price</label>
+      <div class="input-addon">$</div><%= f.number_field :price, class: 'input input-large', placeholder: '0.00' %> 
+      <p> If your event is free, just leave blank (entering "0" is cool, too). </p>
+    </div>
+
+
+      <div class="input-group">
+        <label>Buy Limit</label>
+        <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '1' %>
+        <p>Restrict the number of tickets one person can buy. (Defaults to 1 ticket)</p>
+    </div>
+    <div class="input-group">
+      <label>Tickets available until</label>
+      <%= f.date_select :stop_date, class: 'input input-large'%>
+    </div>
+
+
+
+<% end %>
+
+          </section>
+
+
+
+      </div> 
+
+
+
+
+
+
+
+
+
+    <div class="editor-tool" id="editor-tool-attendees" >
+        
+        <section class="editor-tool-header">
+          <h3> Attendees</h3>
+          <p>Venison pig rump flank pork hamburger capicola shoulder kevin jerky. Biltong ball tip tongue jowl chuck. Chicken pork rump, boudin flank andouille porchetta pancetta. </p>
+        </section>
+
+
+        <section class="attendees">
+        <ul> 
+       
+        </ul>
+
+
+        </section>
+
+
+        <div class="editor-cover"> 
+            <div class="editor-cover-content">Your event is still in draft state. Publsh your event now. </div>
+        </div>
+
+
+      </div> 
+
+
+
+
+
+
+
+
+
 
   </div>
 </div>
@@ -232,6 +420,22 @@
 
 
 $( document ).ready(function() {
+
+  $(".toggle-container").click(function() {   
+      $(this).toggleClass("toggle-on");
+      $(this).find("span").text("live");
+  });
+
+  $.ajax({
+    url: 'https://randomuser.me/api/?inc=email,name,picture&results=10',
+    dataType: 'json',
+    success: function(data){
+      for (var i = 0; i < data.results.length; i++) { 
+        $(".attendees ul").append("<li><img src='" + data.results[i].picture.medium +"' />" + data.results[i].name.first + " " +data.results[i].name.last + "</li>")
+      }
+    }
+  });
+    
 
 
   //TICKET - new ticket modal functionality and validation
@@ -543,7 +747,7 @@ $( document ).ready(function() {
     $.ajax({
       type: 'POST',
         url: String(window.location.href).replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom  }},
+        data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom, test:"hi"  }},
     beforeSend: function(){
         
         changesExist = true;

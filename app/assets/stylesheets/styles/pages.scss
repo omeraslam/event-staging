@@ -3,7 +3,7 @@
 	color:#222;
 
 	nav {
-		position:fixed;
+		//position:fixed;
 		top:0;
 		background:#fff;
 		//background:darken($brand-secondary, 4%);
@@ -11,18 +11,18 @@
 		padding-top:0;
 		padding:3px 12px;
 		z-index:99999999999;
-		-webkit-transition:background .5s ease;
-    	transition:background .5s ease;
-    	background:darken($brand-secondary, 3%);
+		//-webkit-transition:background .5s ease;
+    	//transition:background .5s ease;
+    	//background:darken($brand-secondary, 3%);
 
 
 		.logo-svg .a {
-			fill:#fff;
+			fill:#222;
 		}
 
 
 		&.visible {
-			background:darken($brand-secondary, 3%);
+			//background:darken($brand-secondary, 3%);
 		}
 	}
 
@@ -30,7 +30,7 @@
 		background:transparent;
 
 		&.visible {
-			background:darken($brand-secondary, 3%);
+			//background:darken($brand-secondary, 3%);
 		}
 
 	}
@@ -49,10 +49,10 @@
 
 
 	h1 {
-		font-size: 48px;
-	    line-height: 60px;
+		font-size: 30px;
+	    line-height: 36px;
 	    margin: 0 0 10px 0;
-	    font-weight:600;
+	    font-weight:800;
 	    //font-family:"Baskerville", Georgia, serif;
 	}
 
@@ -85,6 +85,8 @@
   		float:left;
  		width: 210px;
     	height: 58px;
+
+
 	}
 
 
@@ -105,8 +107,8 @@
 
 
 .hero {
-	background:$brand-secondary;
-	color:#fff;
+	//background:$brand-secondary;
+	color:#222;
 	overflow:hidden;
 	position:relative;
 
@@ -143,16 +145,27 @@
 	}
 
 	&#home {
-		background:url(home/event_illustration.jpg);
-		background-size:cover;
-		background-position:50% 26%;
+		//background:url(home/event_illustration.jpg);
+		//background-size:cover;
+		//background-position:50% 26%;
+		padding:100px 40px;
+		max-width:1000px;
+		margin: 0 auto;
 
 		.hero-content {
-			padding:180px 50px 180px 50px;
-			text-align:center;
+			padding:0;
+			text-align:left;
 			max-width:1000px;
 			margin: 0 auto;
 			position:relative;
+		}
+
+		.hero-image {
+			float: right;
+			width: 540px;
+			height: 294px;
+			background:url(home/sample_computer.png);
+			background-repeat:no-repeat;
 		}
 
 	}	
@@ -1240,8 +1253,10 @@ margin:0 auto;
 		float:left;
 		text-align:center;
 		background:$brand-gray;
-		border:10px solid #fff;
+		background: rgba(247, 249, 251, 1);
+		border:2px solid #f3f3f3;
 		padding:50px 60px;
+
 
 		&.disabled:hover {
 			cursor: default;

@@ -12,6 +12,7 @@
 
 .event-show {
 	background: #f5f5f5;
+	background:#fff;
 
 
 }
@@ -28,6 +29,33 @@
 	color: #eee;
 }
 
+
+	.btn-reg {
+	    overflow: hidden;
+	    border: none;
+	    font-family: inherit;
+	    font-size: inherit;
+	    color: inherit;
+	    background: none;
+	    cursor: pointer;
+	    padding: 18px 42px;
+	    display: inline-block;
+	    margin: 15px 30px;
+	    text-transform: uppercase;
+	    letter-spacing: 1px;
+	    font-weight: 700;
+	    outline: none;
+	    position: relative;
+	    -webkit-transition: all 0.3s;
+	    -moz-transition: all 0.3s;
+	    transition: all 0.3s;
+		border-radius: 50px;
+	    border: 3px solid #fff;
+	    color: #fff;
+
+	}
+
+
 .event-page {
 	background-size: cover;
 	background-position: center center;
@@ -36,6 +64,8 @@
 	color:#fff;
 	text-align:center;
 	position:relative;
+
+
 
 	.overlay {
 		background: #000;
@@ -59,6 +89,9 @@
 		font-size: 22px;
 	    line-height: 30px;	
 	}
+
+
+
 
 	#event-page-logo {
 
@@ -102,12 +135,13 @@
 			position:absolute;
 			top:16px;
 			right:16px;
-			font-size:24px;
+			font-size:14px;
 			z-index:999;
 
 			a {
 				color:#fff;
 				opacity:.8;
+				margin-left: 16px;
 
 				&:hover {
 					opacity:1;
@@ -126,8 +160,22 @@
 .event-body {
 
 	width:96%;
-	margin:0 auto;
+	margin:80px auto;
 	max-width:800px;
+font-family: "futura-pt",sans-serif;
+
+    h2 {
+    	font-weight:600;
+    	margin-bottom: 40px;
+    }
+
+    p {
+    	font-size: 17px;
+    	line-height: 26px;
+    	font-family: "Adobe Garamond Pro", serif;
+    	font-weight: 400;
+    	margin:20px 0 30px 0;
+    }
 
 
 	&.event-details {
@@ -270,6 +318,15 @@
 	
 }
 
+
+.event-footer {
+	background:#1a1a1a;
+	padding:40px 0 60px;
+	margin-top:100px;
+	text-align:center;
+	color:#fff;
+}
+
 .new_purchase {
 	background:#fff;
 	padding:40px;
@@ -352,13 +409,13 @@
 
 .event-container {
 	input, textarea {
-		background: none;
+		//background: none;
 		//background: rgba(255,255,255, 0.2);
-		border:none;
-		line-height: inherit;
-		margin: 0;
-		font-style: normal;
-		padding: 0;
+		//border:none;
+		//line-height: inherit;
+		//margin: 0;
+		//font-style: normal;
+		//padding: 0;
 
 		//border-bottom: 1px dashed #fff;
 		&:focus {

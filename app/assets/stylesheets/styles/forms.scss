@@ -23,19 +23,32 @@ textarea {
 	max-height: 250px;
 }
 
+select {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+}
 
-
-input, .input, textarea {
+input, .input, textarea, select {
 	font-family: "Avenir",sans-serif;
 	display:inline-block;
-	background:#efefef;
-	font-size:18px;
-	line-height:26px;
+	//background:#efefef;
+	font-size:16px;
+	line-height:24px;
 	width:100%;
-	padding:14px 8px;
+	padding:12px 8px;
 	outline:none;
 	border:1px solid #fff;
 	//border:none;
+    box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dcdcdc;	
+
+
+    &.input-small {
+    	font-size:13px;
+    	line-height: 18px;
+    	padding:10px 8px;
+    }
 	
 	&.input-large {
 		width:100%;
@@ -50,6 +63,14 @@ input, .input, textarea {
 	&.textarea-small {
 		height:100px;
 	}
+}
+
+.form-header {
+
+	margin-bottom: 40px;
+	text-align: center;
+
+
 }
 
 
@@ -110,10 +131,10 @@ input, .input, textarea {
 
 	p {
 		margin-bottom:0;
-		margin-top:3px;
+		margin-top:5px;
 		font-size:11px;
 		line-height:14px;
-		opacity:.6;
+		opacity:.7;
 	}
 	
 
@@ -130,11 +151,14 @@ input, .input, textarea {
 		
 		    color: #fff;
 		    z-index: 99;
-		    background:$error-purple;
+		    //background:$error-purple;
 		    padding:5px;
 		    display:inline-block;
 		    position:relative;
 		    margin-top:5px;
+			color: #555;
+    		background: #f1f0f0;
+
 
 		    &:after {
 		    	bottom: 100%;
@@ -146,7 +170,7 @@ input, .input, textarea {
 				position: absolute;
 				pointer-events: none;
 				border-color: rgba(136, 183, 213, 0);
-				border-bottom-color: $error-purple;
+				border-bottom-color: #f1f0f0;
 				border-width: 5px;
 				margin-left: -5px;
 

@@ -5,10 +5,47 @@
 
 <%= render 'events/partials/eventwebsite' %>
 <%= render 'events/partials/contact_form' %>
-<%= render 'events/partials/rsvp_form' %>
+<%# render 'events/partials/rsvp_form' %>
+<%= render 'events/partials/rsvp_modal_new' %>
 
 
 <% if signed_in? && current_user.id == @user.id && params.has_key?(:editing) %>  
+
+
+
+  <!-- Include JS files. -->
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/froala_editor.min.js"></script>
+
+  <!-- Include Code Mirror. -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+
+  <!-- Include Plugins. -->
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/align.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/char_counter.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/code_beautifier.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/code_view.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/colors.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/emoticons.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/entities.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/file.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/font_family.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/font_size.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/fullscreen.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/image.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/image_manager.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/inline_style.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/line_breaker.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/link.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/lists.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/paragraph_format.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/paragraph_style.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/quick_insert.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/quote.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/table.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/save.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/url.min.js"></script>
+  <script type="text/javascript" src="http://eventcreate.bushydigital.co/froala/js/plugins/video.min.js"></script>
 
 <%= render 'events/partials/editor' %>
 <%= render 'partials/imagesearch' %>  
@@ -16,15 +53,16 @@
 <%= render 'partials/loader_saving' %>
 
 
-<!-- Qualaroo for eventcreate.com -->
-<script type="text/javascript">
-  var _kiq = _kiq || [];
-  (function(){
-    setTimeout(function(){
-    var d = document, f = d.getElementsByTagName('script')[0], s = d.createElement('script'); s.type = 'text/javascript';
-    s.async = true; s.src = '//s3.amazonaws.com/ki.js/64085/eNV.js'; f.parentNode.insertBefore(s, f);
-    }, 1);
-  })();
+
+
+<script>
+$(function() {
+    $('#froala-editor').froalaEditor({
+      toolbarInline: true,
+      charCounterCount: false,
+      toolbarButtons: ['bold', 'italic', 'underline', 'fontSize', 'strikeThrough', 'color', 'emoticons', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo']
+    })
+  });
 </script>
 
 
@@ -46,7 +84,7 @@ $( document ).ready(function() {
   });
 
   //registration modal
-  var registrationModal = $('#attendee-form').remodal({hashTracking:false});
+  var registrationModal = $('#rsvp-new-modal').remodal({hashTracking:false});
   $('.open-registration').click(function(){
     registrationModal.open();
   });

@@ -23,12 +23,12 @@
 
     <div class="container">
 
-      <div class="event-registration-header">
+      <div class="form-header">
         <h2> What's the event? </h2>
         <p>  Name your event. Is it the Napa Wine Festival or Bob's Birthday Bash? Be bold, and concise.  </p>
       </div>
       
-      <div class="input-group input-group-dark">
+      <div class="input-group">
         <label>Event Title: </label>
         <%= f.text_field :name, :class => 'input-primary', :placeholder => 'ie Denver International Wine Festival', :tabindex => "-1" %>
       </div>
@@ -39,36 +39,6 @@
   </div>
 
 
-
-  <div class="theme-selection owl-item">
-
-
-    <div class="event-registration-header">
-      <h2>What type of event is it?</h2>
-      <p> Now, time to give your event some style. </p>
-    </div>
-    
-
-    <div class="list-inline themes">
-
-
-    <% @themes.each do |theme| %>
-      <a class="theme">
-        <%= f.radio_button :layout_style, theme.layout_type,  :class => 'theme-radio'%>
-        <div class="theme-thumb">
-          <i class="icon icon-<%= theme.icon %>"> </i>
-          <img src="assets/themes/<%= theme.slug %>_thumb.jpg" />
-          <div class="thumb-cover"></div>
-        </div>  
-        <h3> <%= theme.name %> </h3>
-      </a> 
-      <% end %>  
-
-    </div>  
-
-
-
-  </div>
 
 
   <div class=" owl-item" >
@@ -82,7 +52,7 @@
 
 
 
-      <div class="input-group input-group-dark" id="datepairExample">
+      <div class="input-group" id="datepairExample">
         <div class="input-group-inline">
           <label> Date</label>
           <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1" %>
@@ -96,7 +66,7 @@
       </div>
 
 
-      <div class="input-group input-group-dark datePairEndDates" id="datepairExample">
+      <div class="input-group datePairEndDates" id="datepairExample">
         <div class="input-group-inline">
           <label> End Date</label>
           <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
@@ -108,7 +78,7 @@
         </div>
       </div>
 
-      <div class="input-group input-group-dark">
+      <div class="input-group ">
         <div class="input-group-inline">
           <label> Location Name</label>
           <%= f.text_field :location_name,  :placeholder => 'ie Hilton Hotel' %>
@@ -121,7 +91,7 @@
       </div> 
 
 
-      <div class="input-group input-group-dark">
+      <div class="input-group" style="display:none;">
         <label> Host Name</label>
         <%= f.text_field :host_name, :class => 'input-primary' , :placeholder => 'Host Name' %>
         <p>This is the person, or company, hosting the event. (Just leave this blank if you don't want it included.) </p>
@@ -131,7 +101,7 @@
       <div style="display:none;" id="map"></div>
 
 
-      <div class="input-group input-group-dark">
+      <div class="input-group" style="display:none;">
         <label>Description </label>
         <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
       </div>
