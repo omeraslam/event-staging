@@ -286,7 +286,10 @@
 
 
         <section>
+
+        </section>
          
+         <section>
 <%= form_for [@ticket], :url => @url do |f| %>
 
 
@@ -317,7 +320,7 @@
       <%= f.date_select :stop_date, class: 'input input-large'%>
     </div>
 
-
+<button type="submir" class="btn">Submit</button>
 
 <% end %>
 
@@ -529,7 +532,7 @@ $( document ).ready(function() {
 
   var layout = $('#layout_id').val()? $('#layout_id').val(): "1"; 
   var theme = $('#layout_style').val()? $('#layout_style').val(): "brunch";   
-
+  var htmlHeroOne; 
 
 
 
@@ -735,6 +738,20 @@ $( document ).ready(function() {
   });
 
 
+$(function() {
+    $('#froala-editor').froalaEditor({
+      toolbarInline: true,
+      charCounterCount: false,
+      toolbarButtons: ['bold', 'italic', 'underline', 'fontSize', 'strikeThrough', 'color', 'emoticons', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo']
+    }).on('froalaEditor.contentChanged', function (e, editor) {
+
+      htmlHeroOne = $(this).froalaEditor('html.get');
+      saveChanges();
+
+
+});
+});
+
 
 
 
@@ -747,7 +764,7 @@ $( document ).ready(function() {
     $.ajax({
       type: 'POST',
         url: String(window.location.href).replace('?editing=true', '').replace('#', '') + '/updatetheme_post', //testing
-        data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom, test:"hi"  }},
+        data: {event:{layout_id: layout, published: "true", layout_style: theme, bg_color: newBgColor , bg_opacity: newBgOpacity, font_type: newFont, external_image: newBg, show_custom: newShowCustom, html_hero_1:htmlHeroOne  }},
     beforeSend: function(){
         
         changesExist = true;

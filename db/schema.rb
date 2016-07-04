@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420000428) do
+ActiveRecord::Schema.define(version: 20160702231706) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20160420000428) do
 
   create_table "events", force: true do |t|
     t.string   "name"
-    t.text     "description",    limit: 255
+    t.text     "description",        limit: 255
     t.string   "location"
     t.string   "background_img"
     t.datetime "created_at"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20160420000428) do
     t.string   "layout_id"
     t.string   "layout_style"
     t.boolean  "show_custom"
-    t.boolean  "published",                  default: false
+    t.boolean  "published",                      default: false
     t.string   "location_name"
     t.string   "subdomain"
     t.string   "slug"
@@ -71,7 +71,12 @@ ActiveRecord::Schema.define(version: 20160420000428) do
     t.string   "bg_color"
     t.string   "font_type"
     t.string   "external_image"
-    t.boolean  "status",                     default: true
+    t.boolean  "status",                         default: true
+    t.string   "html_hero_1"
+    t.string   "html_hero_button"
+    t.string   "html_body_1"
+    t.string   "html_footer_1"
+    t.string   "html_footer_button"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true

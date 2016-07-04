@@ -419,6 +419,7 @@ def show
     @user = User.find(current_user.id)
     @event = Event.find_by_slug(params[:slug])
 
+    
 
 
     respond_to do |format|
@@ -482,7 +483,7 @@ def show
     @event = @user.events.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
-
+    @event.html_hero_1 = @event.name
   
 
   
@@ -491,7 +492,7 @@ def show
     #########
 
 
-    if Event.where(:user_id => current_user.id.to_s).count >= 0
+    if Event.where(:user_id => current_user.id.tof_s).count >= 0
       str = '?editing=true'
     else
       str = ''
@@ -612,7 +613,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1)
 
 
       date_format = '%m/%d/%Y'
