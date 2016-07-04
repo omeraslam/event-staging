@@ -419,7 +419,6 @@ def show
     @user = User.find(current_user.id)
     @event = Event.find_by_slug(params[:slug])
 
-    
 
 
     respond_to do |format|
@@ -492,7 +491,7 @@ def show
     #########
 
 
-    if Event.where(:user_id => current_user.id.tof_s).count >= 0
+    if Event.where(:user_id => current_user.id.to_s).count >= 0
       str = '?editing=true'
     else
       str = ''
