@@ -127,7 +127,6 @@ def stripe_redirect
 
         @account = Account.where(:user_id => @user.id).first 
 
-        logger.debug "#{@account}"
 
         if !account_info["access_token"].nil?
           @account = Account.new
@@ -159,7 +158,6 @@ end
 
 def complete_registration
 
-  logger.debug "SUP"
 
   #select tickets actions
   #
@@ -327,16 +325,15 @@ def complete_registration
 
 
   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-    logger.debug "sending mail bro #{params.has_key?(:purchaseAmount)}"
 
     if params.has_key?(:purchaseAmount)
-      logger.debug "inside hte fortress"
       begin
 
         charge = Stripe::Charge.create({
           :amount => amount,
           :currency => "usd",
           :source => token,
+          :application_fee => 200,
           :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
         }, {:stripe_account => @account.stripe_user_id})
 
@@ -418,7 +415,6 @@ def show
 
     session[:return_to] ||= request.path
 
-    logger.debug "REQUEST PATH BE: #{session[:return_to]}"
 
      if signed_in?
       @user = current_user
