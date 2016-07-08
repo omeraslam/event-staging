@@ -59,7 +59,6 @@
 		
 
 		
-		<form>
 
 	    	<div class="input-group">
 		    		<label>Quantity:</label>
@@ -103,9 +102,7 @@
         </div> -->
       </div>      
 
-
-
-<% if @final_charge != 0 %>
+<% if !@final_charge.nil? && @final_charge != 0 %>
 
 
 
@@ -165,10 +162,10 @@
 
 </div>
 
-
-<% if @final_charge != 0 %>
-<script type="text/javascript" src="/assets/payment-modal.js"></script>
+<% if !@final_charge.nil? && @final_charge != 0 %>
+<script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
 <% end %>
+
 
 <script type="text/javascript">
   
@@ -218,14 +215,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
-		</form>
-	   
 	   
 	
 					
