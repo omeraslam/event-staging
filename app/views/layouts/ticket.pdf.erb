@@ -175,7 +175,7 @@ body {
       <div class="barcodes ticket-tile">
         <div class="barcodes-content">
           <p> Ordered by <%= @purchase.first_name %> <%= @purchase.last_name %></p>
-          <p> Order No. <%= @purchase.id %> </p>
+          <p> Order No. <%= @purchase.id %> - <%= line_item.id %> </p>
           <img src="http://toreto.re/barby/code128b_header.png">
         </div>  
       </div>

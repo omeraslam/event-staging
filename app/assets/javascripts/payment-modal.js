@@ -46,6 +46,7 @@ $(document).ready(function(){
           url: $form.attr('action'),
           data: {stripeToken: token, planType: plantype,  user: {premium: true} },
           success: function() {
+
           }
         });
           //$form.get(0).submit();
@@ -94,6 +95,7 @@ $(document).ready(function(){
 
      $('#purchase-tickets_form').submit(function(e) {
         e.preventDefault();
+        e.stopImmediatePropagation();
         var $form = $(this);
 
         $form.find('button').prop('disabled', true);
@@ -125,6 +127,7 @@ $(document).ready(function(){
              Stripe.card.createToken(cardObj, stripePuchaseTicketsResponseHandler);
 
 
+            return false;
           
             
             //if there are any back end validation issues (ie cc not valid), add to $(".be-validation").html();

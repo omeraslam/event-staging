@@ -1,10 +1,58 @@
 <!--upgrade modal-->
 <div id="rsvp-new-modal">
+
+
+<%= form_tag complete_registration_path, :id => 'purchase-tickets_form' do |f|  %>
+
+					<% if @purchase.errors.any? %>
+			<div class="alert error">
+			    <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+			      <ul>
+			        <% @purchase.errors.full_messages.each do |message| %>
+			        <li><%= message %></li>
+			        <% end %>
+			      </ul>
+			</div>
+			<% end %>
+
+	              <% @tickets.each do |ticket| %>
 		<div class="modal-header modal-header-light">
 	    <button data-remodal-action="close" class="remodal-close"></button>
 	    <h2>RSVP now </h2>	 
-	    <p>1 X $100 (+ $2.00 Processing) </p> 
-    </div>
+
+
+			            <!--   <h3><%= ticket.title %></h3> -->
+			   			<!-- <p><%= ticket.description %></p> -->
+			   			<!-- <% if !ticket.stop_date.nil? %>
+			              <p class="small"> Available until <%=  ticket.stop_date.strftime('%B %d, %Y') %></p>       <% end %>
+			        	-->
+			              <%= hidden_field_tag 'ticket_id['+ticket.id.to_s+']', ticket.id %>
+		
+
+
+	    				<p>1 X 
+	    					<% if ticket.price == 0 %>
+			              	Free
+				          <% else %>
+				              <%= number_to_currency(ticket.price) %>
+				          <% end %> 
+			          (+ $2.00 Processing) </p> 
+
+
+    		</div>
+
+
+
+			<div>
+
+	
+
+			    	
+
+			
+			</div>
+
     
 		
 		<div class="modal-body">
@@ -15,52 +63,165 @@
 
 	    	<div class="input-group">
 		    		<label>Quantity:</label>
-					<select class="input input-small">
-					  <option value="1">1</option>
-					  <option value="2">2</option>
-					  <option value="3">3</option>
-					  <option value="4">4</option>
-					</select>
+			           <% if LineItem.where(:ticket_id => ticket.id.to_s).count < (ticket.ticket_limit.to_i-ticket.buy_limit.to_i) %>
+			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
+			          <% else %>
+
+			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..(ticket.ticket_limit.to_i-LineItem.where(:ticket_id => ticket.id.to_s).count)).step(1)) %>
+			          <% end %>
 			</div>
 
-	    	<div class="input-group">
-	    		<div class="input-group-inline">
-		    		<label>First Name:</label>
-					<input type="text" class="input input-small" placeholder="First Name">
-				</div>
-				<div class="input-group-inline">
-		    		<label>Last Name:</label>
-					<input type="text" class="input input-small" placeholder="Last Name">
-				</div>
-			</div>
 
-	    	<div class="input-group">
-		    		<label>Email Address:</label>
-					<input type="text" class="input input-small" placeholder="Email Address">
-			</div>
 
-	    	<div class="input-group">
-		    		<label>Credit card number:</label>
-					<input type="text" class="input input-small" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;">
-			</div>
-	    	<div class="input-group">
-	    		<div class="input-group-inline">
-		    		<label>Expiration Date:</label>
-					<input type="text" class="input input-small">
-				</div>
-				<div class="input-group-inline">
-		    		<label>CVV:</label>
-					<input type="text" class="input input-small">
-				</div>
-			</div>
-	    	<div class="input-group">
-		    		<button class="btn">Register now</button>
-			</div>
+
+
+
+<%= hidden_field_tag :user_id, @user.id  %>
+<%= hidden_field_tag :event_id, @event.id  %>
+
+
+      <div class="input-group"> 
+        <div class="input-group-inline">
+          <label> First Name </label>
+          <input type="text" class="input input-small" name="purchase[first_name]" placeholder="First Name"/> 
+        </div>
+
+        <div class="input-group-inline">
+          <label> Last Name </label>
+          <input type="text" class="input input-small" name="purchase[last_name]"  placeholder="Last Name" /> 
+        </div>
+      </div>
+
+      <div class="input-group"> 
+          <label> Email Address </label>
+          <input type="text" class="input input-small" name="purchase[email]" placeholder="email@email.com" /> 
+  
+
+  <!--       <div class="input-group-inline">
+          <label> Phone Number (optional) </label>
+          <input type="text" name="purchase[phone_number]" placeholder="(555) 555-5555"  /> 
+        </div> -->
+      </div>      
+
+
+
+<% if @final_charge != 0 %>
+
+
+
+          <div class="input-group">
+            <label>Credit card number</label>
+            <input  type="text" id="cc" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;" class="input input-small cc-number" >
+      
+            
+          </div>
+          
+          <div class="input-group">
+            <div class="input-group-inline">   
+              <label>Expiration (month/year)</label>
+              <input placeholder="12 / 2018" class="input input-small cc-exp" type="text" > 
+            </div>
+            <div class="input-group-inline" id="cvv"> 
+              <label>CVV</label>
+              <input class="input input-small cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
+            </div>
+          </div>  
+
+
+<% end %>
+
+
+	
+
+	       		<% if !@has_paid_ticket %>
+			    	<button class="btn">Register Now</button>
+			    <% else %>
+			    	<button class="btn">Buy Tickets</button>
+				<% end %>
 
 
 			<div class="payment-modal-footer">
 				Payments processed secured with 256-bit enceyption. By registering for this event and/or buying tickets you agree to EventCreate's terms and conditions.
 			</div>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>  
+    
+.
+
+</div>
+
+
+<% if @final_charge != 0 %>
+<script type="text/javascript" src="/assets/payment-modal.js"></script>
+<% end %>
+
+<script type="text/javascript">
+  
+$(document).ready(function() {
+
+
+  
+  var validator = $("#purchase-tickets_form").validate({
+    rules: {
+      "purchase[first_name]": {
+        required: true
+      },
+      "purchase[last_name]": {
+        required: true
+      },
+      "purchase[email]": {
+        required: true
+      },
+      "purchase[email]": {
+        required: true
+      }
+    }, messages : {
+      "purchase[first_name]": 'Please enter your first name.',
+      "purchase[last_name]": 'Please enter your last name.',
+      "purchase[email]": 'Please enter a valid email.',
+
+    }
+  });
+  var attendee_length = $('.ticket-holder').length;
+  for(var i=0; i< attendee_length; i++ ) {
+
+  $("input[name='attendees["+ (i+1) +"][first_name]']").rules("add", {required: true, messages: { required: 'Please enter a valid first name'}});
+  
+  $("input[name='attendees["+ (i+1) +"][last_name]']").rules("add", {required: true, messages: { required: 'Please enter a valid last name'}});
+  
+
+  $("input[name='attendees["+ (i+1) +"][email]']").rules("add", {required: true, messages: { required: 'Please enter a valid email'}});
+  }
+
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 		</form>
@@ -72,6 +233,9 @@
 		 
 		 
 		</div> 
+
+			     <% end %>
+			<% end %>
 		
 </div>
 <!-- END modal -->
