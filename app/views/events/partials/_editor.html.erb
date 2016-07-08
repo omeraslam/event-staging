@@ -224,7 +224,7 @@
       <section class="editor-tool-header">
         <h3> Ticketing + Registration</h3>
         <p>Sell tickets and collect registrations for your event. (By default, we've added a free general admission ticket for you. Feel free to edit or delete that ticket.)</p>
-        HELLO
+        
         <%= link_to 'New ticket type', new_ticket_path(:event => @event) , :remote => true, :class => 'btn open-ticket' %>
         
       </section>
@@ -259,6 +259,8 @@
         </section>
 
 
+
+
         <section>
         <h4>Collect payments </h4>
         <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
@@ -285,35 +287,6 @@
 
 
 
-        <%= link_to 'New ticket type', new_ticket_path(:event => @event) , :remote => true, :class => 'btn open-ticket' %>
-        <section>
-         
-          <h4>Active tickets </h4>
-        <div class="tickets">
-        <% @tickets.each_with_index do |ticket, index| %>
-          <div class="ticket">
-
-            <h3><%= ticket.title %></h3>
-          <% if ticket.price == 0 %>
-              <p>Free</p>
-          <% else %>
-
-            <p><%= number_to_currency(ticket.price) %></p>
-              <% if !ticket.ticket_limit.nil? %>
-                <p>Ticket limit: <%= ticket.ticket_limit %> </p>
-              <% end %>
-            <% end %>
-            <p>Buy limit: <%= ticket.buy_limit %> </p>
-            <div class="ticket-actions">
-             <div class="ticket-action">
-            <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %></div>
-            <% if @tickets.count > 1 %>
-              <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
-              </div>
-            <% end %>
-              </div>
-          </div>
-        <% end %>
 
                 <section>
         <h4>Collect payments </h4>
@@ -326,9 +299,10 @@
         </section>
 
 
+        <section>
 
-<%= form_for [@ticket], :url => @url do |f| %>
 
+<%= form_for [@ticket] do |f| %>
 
 
   
@@ -357,11 +331,11 @@
       <%= f.date_select :stop_date, class: 'input input-large'%>
     </div>
 
- <div class="input-group actions">
-    <%= f.submit 'Add New Ticket', class: 'btn btn-large' %>
-  </div>
+<div class="input-group actions">
+   <%= f.submit 'Update Ticket', class: 'btn btn-large' %>
+ </div>
+ <% end %>
 
-<% end %>
 
           </section>
 
@@ -462,6 +436,11 @@
 
 
 $( document ).ready(function() {
+
+  //rsvp dropdown
+  $('#purchase-tickets_form select').on('change', function(){
+    $('.form-quantity').text($(this).val());
+  });
 
   $(".toggle-container").click(function() {   
       $(this).toggleClass("toggle-on");

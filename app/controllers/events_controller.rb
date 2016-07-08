@@ -217,12 +217,20 @@ def complete_registration
 
 
      sum = 0 
-
+     fee = 0
      #@line_items = LineItem.where(:purchase_id => params[:oid])
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
           sum += @ticket.price
+          if @ticket.price != 0
+            fee += 0.99
+            fee += (@ticket.price * 0.025)
+          end 
+
      end 
+     # if sum != 0
+     #   sum 
+     # end 
                         
 
     @final_charge = sum * 100 #add all line items to figure out final price
@@ -333,7 +341,7 @@ def complete_registration
           :amount => amount,
           :currency => "usd",
           :source => token,
-          :application_fee => 200,
+          :application_fee => fee,
           :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
         }, {:stripe_account => @account.stripe_user_id})
 
@@ -415,6 +423,7 @@ def show
 
     session[:return_to] ||= request.path
 
+    logger.debug "on the show button"
 
      if signed_in?
       @user = current_user
@@ -433,8 +442,11 @@ def show
         @has_paid_ticket = true
       end
     end
+
     #@ticket = @event.tickets.build(ticket_params)
     @ticket = Ticket.new
+
+    @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
 
     if !@event
