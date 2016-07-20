@@ -153,6 +153,11 @@ body.invite-view {
 	z-index: 99;
 	box-shadow: 4px 4px 10px rgba(0,0,0,.1);
 
+	.btn {
+		width: 100%;
+		text-align:center;
+	}
+
 	&.visible {
 		left:66px;
 
@@ -442,7 +447,7 @@ body.invite-view {
 	section {
 		padding:10px 30px;
 		margin:40px 0;
-		border-top:1px solid rgba(0,0,0,.1);
+		//border-top:1px solid rgba(0,0,0,.1);
 
 		&.editor-tool-header {
 			border:none;
@@ -497,6 +502,11 @@ body.invite-view {
 		width:100%;
 		height:140px;
 		background-size:cover;
+		cursor: pointer;
+
+		&:hover {
+			opacity: .8;
+		}
 	}
 
 
@@ -590,6 +600,7 @@ body.invite-view {
 	box-shadow: inset 1px 1px 10px rgba(0,0,0,.2);
     -webkit-transition: all .5s ease;
 	transition: all .5s ease;
+	margin-bottom:30px;
 
 	.toggle {
 		width: 30%;
@@ -629,6 +640,25 @@ body.invite-view {
 
 
 }
+
+
+.toggle-status {
+	font-size:13px;
+	line-height:15px;
+	margin-bottom:14px;
+
+	span {
+		width:14px;
+		height: 14px;
+		display: block;
+		float:left;
+		margin-right: 10px;
+		background:#dedede;
+		border-radius:50%;
+	}
+}
+
+
 
 
 

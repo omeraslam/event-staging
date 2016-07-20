@@ -3,7 +3,7 @@
   <div class="editor-tools-top">
 
     <a class="tab toggleEditorPanel" id="editor-tool-home" data-target="editor-tool-home" >
-        <i class="icon icon-home"> </i> <span> Status</span>
+        <i class="fa fa-globe"> </i> <span> Status</span>
       </a> 
       <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
         <i class="icon icon-image"> </i> <span> Design </span>
@@ -13,7 +13,7 @@
         <i class="icon icon-tag"> </i> <span> Registration</span>
       </a>   
 
-          <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" >
+          <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" style="display:none;" >
         <i class="icon icon-settings"> </i> <span> Advanced</span>
       </a>  
   </div>
@@ -25,19 +25,15 @@
       </a>
 
 
-      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+      <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" >
         <i class="icon icon-share"> </i> <span> Share</span>
       </a> 
 
 
-      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
-        <i class="icon icon-eye"> </i> <span> Preview</span>
-      </a> 
+      <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>  
 
+      <%= link_to '<i class="icon icon-sign-out"> </i> <span> go to my account </span>'.html_safe, "/", class: 'tab' %>  
 
-      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
-        <i class="icon icon-sign-out"> </i> <span> go to my account </span>
-      </a> 
 
 
     </div>
@@ -142,25 +138,20 @@
     <div class="editor-tool" id="editor-tool-home">
     
       <section class="editor-tool-header">
-        <h3>Event Home </h3> 
-        <p>Change of venue? Modify your event details below. (Don't forget to click the "update event" button when your're done.)</p>
+        <h3>Event Status </h3> 
+        <p>View your event's website status visbility. Publish your event to share.</p>
       </section>
 
       <section> 
-      <div class="toggle-container">
-        <div class="toggle toggle-left"></div>
-        <span class="toggle-text">draft</span>
-      </div>
-      Your event status is a draft.
-      </section>
+        <div class="toggle-container">
+          <div class="toggle toggle-left"></div>
+          <span class="toggle-text">draft</span>
+        </div>
 
-      <section> 
         <div class="toggle-status"><span></span> Your event was last saved at 8:00am </div>
-
-        <div class="toggle-status"><span></span> Your event is draft is in draft status </div>
-        <div class="toggle-status"><span></span> Your URL is hidden and cannt be pulcattly accessed </div>
-        <div class="toggle-status"><span></span> Your event is closed for registration.</div>
-
+        <div class="toggle-status"><span></span> Your event is in draft status.</div>
+        <div class="toggle-status"><span></span> Your URL is inactive. </div>
+        <div class="toggle-status"><span></span>Registration is inactive.</div>
       </section>
 
     </div>  
@@ -175,14 +166,12 @@
     <div class="editor-tool" id="editor-tool-background">
 
       <section class="editor-tool-header">
-        <h3>Modify the design </h3> 
-        <p>Make it your own. Make it amazing. Customize your event website with custom background images, fonts and colors.</p>
+        <h3>Modify background image </h3> 
+        <p>Make it your own. Make it amazing. Customize your event website with custom background image or color.</p>
       </section>
 
       <section>
-        <h4>Background Image + Color</h4>
-        <div class="editor-current-bg" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>
-        <a class="upload-btn"> Upload image </a> <a class="open-image-modal"> Search image library </a> 
+        <div class="editor-current-bg upload-btn" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>
         <div class="slider-container">
           <div class="slider"> <div id="slider"></div> </div>
           <div class="color-picker"><input id="color"></div>
@@ -190,6 +179,11 @@
       </section>
 
       <section>
+        <a class="upload-btn btn btn-large"> <i class="fa fa-upload"> </i> Upload image </a> 
+        <a class="open-image-modal btn btn-large"> <i class="fa fa-search"> </i> Search image library </a> 
+      </section>
+
+      <section style="display:none;">
         <h4>Fonts + Style</h4>
         <div class="fonts">
           <a class="font brandon" data-target="brandon" style="font">Abc </a>   
@@ -375,6 +369,26 @@
 
       </div> 
 
+
+
+
+    <div class="editor-tool" id="editor-tool-share" >
+        
+        <section class="editor-tool-header">
+          <h3> Share tools</h3>
+          <p>Venison pig rump flank pork hamburger capicola shoulder kevin jerky. Biltong ball tip tongue jowl chuck. Chicken pork rump, boudin flank andouille porchetta pancetta. </p>
+        </section>
+
+
+
+
+        <section>
+        share stuff goes here
+        </section>
+
+
+
+      </div> 
 
 
 
