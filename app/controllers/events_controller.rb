@@ -568,8 +568,16 @@ def show
     @event = @user.events.build(event_params)
     @event.user_id = current_user.id
     @event.layout_id = '1'
-    @event.html_hero_1 = @event.name
-  
+    
+    @eventHTML = '<h1>' + @event.name + '</h1><p class="lead"> Hi there us for this on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>' + '<a class="btn btn-reg open-registration"> Register now</a>'
+    @eventBodyHtml = "<h2> Join us the!</h2><p>Vestibulum consequat et est ut ultrices. Quisque auctor lacinia ornare. Ut dictum, nisl sit amet molestie rutrum, erat odio sagittis purus, in efficitur lectus dolor sed lacus. Mauris maximus blandit nibh, quis ullamcorper lacus luctus tempor. Duis non blandit ligula, vulputate auctor leo. Phasellus non sapien in ligula condimentum venenatis eu vel nibh. Donec quis ultrices nibh. Vestibulum non facilisis diam, non semper libero. Vivamus vitae felis porttitor nunc rhoncus consectetur a nec lorem. </p><p>Nulla vehicula nunc dapibus, iaculis ex vel, mattis nunc. Morbi nec risus id ipsum bibendum tincidunt id porta lorem. Nulla vitae nunc lobortis, rutrum odio id, finibus ligula. Nulla ultricies dapibus iaculis. Aenean lobortis lacinia justo et laoreet. Praesent at quam laoreet, ultricies diam et, condimentum magna. Suspendisse mauris dui, aliquam sit amet hendrerit posuere. </p>"  
+    @eventFooterHTML = "Made with EventCreate"  
+
+
+      @event.html_hero_1 = @eventHTML.html_safe
+      @event.html_body_1 = @eventBodyHtml.html_safe
+      @event.html_footer_1 = @eventFooterHTML.html_safe
+
 
   
 
@@ -693,12 +701,12 @@ def show
       @event = Event.find(params[:id])
     end
 
- 
+
 
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button)
 
 
       date_format = '%m/%d/%Y'

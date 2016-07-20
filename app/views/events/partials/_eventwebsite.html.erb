@@ -18,26 +18,16 @@
 			<div class="header"> 
 			<div class="dragOverlay">Drag and Drop a file to upload</div>
 
-			<div class="event-share">
+			<div class="event-share" style="display:none;">
 				<a href="/">Get Directions </a>   <a href="/">Contact </a> <a href="/">Register Now </a>
 				<a style="display:none;"> href="https://www.facebook.com/sharer/sharer.php?u=<%= @bitly.short_url %>"><i class="icon icon-facebook-circled"> </i> </a>
 				<a style="display:none;" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= @bitly.short_url %>"><i class="icon icon-twitter-circled"> </i> </a>
 			</div>
 
-			<div id="froala-editor">
-		     <h1 class="editable"> <%=  @event.name %>
-</h1>
-
+			<div class="froala-editor" id="htmlHeroOne">
+		     	<%= raw(@event.html_hero_1) %>
 
 		     </div> 
-
-
-
-
-		     <p class="lead"> <% if (!@event.date_start.blank?) %>   <%= @event.date_start.to_date.strftime("%B %d ") %> <% end %> </p>  
-
-
-		     <a class="btn btn-reg open-registration"> Register now</a>
 
 
 		     </div>
@@ -72,21 +62,26 @@
 
 
 	<div class="event-body">
-		<h2> It's going to be awesome</h2>
-		<p>Vestibulum consequat et est ut ultrices. Quisque auctor lacinia ornare. Ut dictum, nisl sit amet molestie rutrum, erat odio sagittis purus, in efficitur lectus dolor sed lacus. Mauris maximus blandit nibh, quis ullamcorper lacus luctus tempor. Duis non blandit ligula, vulputate auctor leo. Phasellus non sapien in ligula condimentum venenatis eu vel nibh. Donec quis ultrices nibh. Vestibulum non facilisis diam, non semper libero. Vivamus vitae felis porttitor nunc rhoncus consectetur a nec lorem. </p>
 
-		<p>Nulla vehicula nunc dapibus, iaculis ex vel, mattis nunc. Morbi nec risus id ipsum bibendum tincidunt id porta lorem. Nulla vitae nunc lobortis, rutrum odio id, finibus ligula. Nulla ultricies dapibus iaculis. Aenean lobortis lacinia justo et laoreet. Praesent at quam laoreet, ultricies diam et, condimentum magna. Suspendisse mauris dui, aliquam sit amet hendrerit posuere. </p>
+	<div class="froala-editor" id="htmlBodyOne">
+				<%= raw(@event.html_body_1) %>
+	</div>
+
+
+		
 
 	</div>
 
 
 	<div class="event-footer">
-<div class="event-body">
-		<h2> It's going to be awesome</h2>
-				     <a class="btn btn-reg open-registration"> Register now</a>
+
+		<div class="froala-editor" id="htmlFooterOne">
+						<%= raw(@event.html_footer_1) %>
+			</div>
 
 
-	</div>
+		</div>
+
 
 	</div>
 
