@@ -228,6 +228,8 @@ def complete_registration
           end 
 
      end 
+
+     fee = (fee * 100).to_i
      # if sum != 0
      #   sum 
      # end 
@@ -333,8 +335,7 @@ def complete_registration
 
 
   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-
-    if params.has_key?(:purchaseAmount)
+    if amount > 0
       begin
 
         charge = Stripe::Charge.create({
@@ -423,7 +424,6 @@ def show
 
     session[:return_to] ||= request.path
 
-    logger.debug "on the show button"
 
      if signed_in?
       @user = current_user

@@ -102,7 +102,7 @@
         </div> -->
       </div>      
 
-<% if !@final_charge.nil? && @final_charge != 0 %>
+<% if @has_paid_ticket %>
 
 
 
@@ -162,7 +162,7 @@
 
 </div>
 
-<% if !@final_charge.nil? && @final_charge != 0 %>
+<% if @has_paid_ticket %>
 <script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
 <% end %>
 

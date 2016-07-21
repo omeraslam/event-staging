@@ -29,7 +29,6 @@ $(document).ready(function(){
 
       function stripePuchaseTicketsResponseHandler(status, response) {
         var $form = $('#purchase-tickets_form');
-
         //purchase_amount, token
         if (response.error) {
           // Show the errors on the form
