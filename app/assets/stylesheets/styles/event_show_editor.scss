@@ -204,6 +204,21 @@ body.invite-view {
 		position:relative;
 		min-width:66px;
 
+
+		.editor-tab-notification {
+			position: absolute;
+		    width: 10px;
+		    height: 10px;
+		    right: 12px;
+		    bottom: 11px;
+		    background: $brand-primary;
+		    border-radius: 50%;
+
+		    &.editor-tab-notification-error {
+		    	background:$brand-red;
+		    }
+		}
+
 		&#draft {
 			margin-top:6px;
 			background:darken($brand-primary,8%);

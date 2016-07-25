@@ -40,7 +40,7 @@ input, .input, textarea, select {
 	outline:none;
 	border:1px solid #fff;
 	//border:none;
-    box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.1);
+    //box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.1);
     border: 1px solid #dcdcdc;	
 
 
@@ -93,12 +93,11 @@ input, .input, textarea, select {
 		    float: left;
 		    text-align: center;
 		    background: #efefef;
-		    font-size: 22px;
-		    color:#999;
-		    line-height: 26px;
-		    padding: 14px 8px;
-		    border:1px solid #fff;
-			border-right:none;
+			font-size: 20px;
+		    color: #b1b1b1;
+		    line-height: 24px;
+		    padding: 12px 8px;
+		    border: 1px solid #dcdcdc;
 		}
 
 		input {

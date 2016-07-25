@@ -787,6 +787,24 @@ a.circle {
 }
 
 
+.well {
+  padding:10px;
+  margin:0 0 40px 0;
+
+  &.well-error {
+    color:#fff;
+    background:$brand-red;
+
+    a {
+      color:#fff;
+    }
+  }
+}
+
+
+
+
+
 
 
 
@@ -938,8 +956,8 @@ input[name="event[style_id]"] {
     }
 
     .ui-timepicker-list li {
-      padding: 4px;
-      font-size: 14px;
+      //padding: 4px;
+      //font-size: 14px;
     }
 
     // div.ui-timepicker-wrapper:nth-child(even){
@@ -947,8 +965,8 @@ input[name="event[style_id]"] {
     // }
 
   .ui-datepicker {
-    border-radius: 4px;
-    padding: 10px;
+    //border-radius: 4px;
+    //padding: 10px;
     td:hover, .ui-datepicker-current-day {
     background: $brand-primary;
   

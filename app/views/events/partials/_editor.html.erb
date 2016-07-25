@@ -11,6 +11,13 @@
 
       <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
         <i class="icon icon-tag"> </i> <span> Registration</span>
+
+        <% if  @account == nil && @ticket.price != 0 %>
+          <div class="editor-tab-notification editor-tab-notification-error"></div>
+        <% end %>
+
+
+
       </a>   
 
           <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" style="display:none;" >
@@ -255,7 +262,7 @@
 
 
 
-        <section>
+        <section style="display:none;">
         <h4>Collect payments </h4>
         <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
         <% if  @account == nil %>
@@ -276,13 +283,13 @@
         
         <section class="editor-tool-header">
           <h3> Ticketing + Registration</h3>
-          <p>Venison pig rump flank pork hamburger capicola shoulder kevin jerky. Biltong ball tip tongue jowl chuck. Chicken pork rump, boudin flank andouille porchetta pancetta. </p>
+          <p>Sell tickets and collect registrations for your event. Chicken pork rump, boudin flank andouille porchetta pancetta. </p>
         </section>
 
 
 
 
-                <section>
+                <section  style="display:none;">
         <h4>Collect payments </h4>
         <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
         <% if  @account == nil %>
@@ -296,37 +303,55 @@
         <section>
 
 
+        <% if  @account == nil && @ticket.price != 0 %>
+          <div class="well well-error">
+          Don't you want to get paid? Please add a bank account to accept payments. <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write">Connect now </a>
+          </div>
+
+                  <% end %>
+
 <%= form_for [@ticket] do |f| %>
 
 
-  
-
-
-    <div class="input-group">
-        <label> Event capacity</label>
-        <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
-        <p> How many tickets/registrations are available? </p>
-    </div>
 
     <div class="input-group input-group-addon">
-      <label>Ticket Price</label>
+      <label> Price</label>
       <div class="input-addon">$</div><%= f.number_field :price, class: 'input input-large', placeholder: '0.00' %> 
-      <p> If your event is free, just leave blank (entering "0" is cool, too). </p>
+      <p style="display:none;">   <input type="checkbox" name="vehicle" value="Bike"> My event is free </p>
     </div>
+  
+    
+    <div class="input-group" id="datepairExample">
+        <label> Regisration closes on</label>
+ <%= f.text_field :stop_date, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1" %>
+    </div>
+
+
+
 
 
       <div class="input-group">
+        <label> Event capacity</label>
+        <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
+      </div>
+
+            <div class="input-group">
         <label>Buy Limit</label>
         <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '1' %>
-        <p>Restrict the number of tickets one person can buy. (Defaults to 1 ticket)</p>
-    </div>
-    <div class="input-group">
+        <p>Limit the ticket quantity that a user can buy at one time.</p>
+      </div>
+
+
+
+
+
+    <div class="input-group" style="display:none;">
       <label>Tickets available until</label>
       <%= f.date_select :stop_date, class: 'input input-large'%>
     </div>
 
 <div class="input-group actions">
-   <%= f.submit 'Update Ticket', class: 'btn btn-large' %>
+   <%= f.submit 'Update registration settings', class: 'btn btn-large' %>
  </div>
  <% end %>
 
