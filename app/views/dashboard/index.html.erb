@@ -61,22 +61,18 @@
 				<div class="image" style="background-image:url(<%= background_checker(event, true) %>);"> </div>
 				<div class="details"> 
 			
-					<%= link_to event.name, dashboard_event_path(:event => event.id), :class => 'title'  %> 
+					<%= link_to event.name, slugger_path(event.slug, :editing => "true" ), :class => 'title' %> 
 					
 			
+
 					<div class="time">
 						
 						<%= show_proper_date(event, false) %>
 
 					</div>
 
-					<div class="registrants"> 
-
-						<%= link_to "<i class='icon icon-share-window'> </i> Launch website".html_safe, slugger_path(event.slug), :target => '_blank' %>	  		
-					</div>
-
+	
 					<div class="actions"> 
-						<%= link_to 'Edit event', dashboard_event_path(:event => event.id) + '#settings' %>
 						<%= link_to 'Delete event', event_path(:id => event.id) , method: :delete, data: { confirm: 'Are you sure?' } %> 
 					</div>
 
