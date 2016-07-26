@@ -2,7 +2,7 @@
 
   <div class="editor-tools-top">
 
-    <a class="tab toggleEditorPanel" id="editor-tool-home" data-target="editor-tool-home" >
+    <a class="tab toggleEditorPanel" id="editor-tool-home" data-target="editor-tool-home" style="display:none;" >
         <i class="fa fa-globe"> </i> <span> Status</span>
       </a> 
       <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
@@ -305,7 +305,7 @@
 
         <% if  @account == nil && @ticket.price != 0 %>
           <div class="well well-error">
-          Don't you want to get paid? Please add a bank account to accept payments. <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write">Connect now </a>
+         Get paid! Please add a bank account to accept payments. <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write">Add account </a>
           </div>
 
                   <% end %>
@@ -374,22 +374,40 @@
         
         <section class="editor-tool-header">
           <h3> Attendees</h3>
-          <p>Venison pig rump flank pork hamburger capicola shoulder kevin jerky. Biltong ball tip tongue jowl chuck. Chicken pork rump, boudin flank andouille porchetta pancetta. </p>
+          <p>Manage your event registration, attendees and ticket buyers.  </p>
+          <p>  <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: '' %> |
+        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: '' %></p>
         </section>
 
 
-        <section class="attendees">
-        <ul> 
-       
-        </ul>
+
+        <section class="attendees"> 
+          <% if !@attendees.empty? %>
+
+
+              <ul>
+                <% @attendees.each do |attendee| %>
+                <li>
+                  <img src="https://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg"> 
+                    <div class="attendee-details">
+                      <a href="mailto:<%= attendee.email %>"> <%= attendee.first_name %> <%= attendee.last_name %> </a> 
+                      <b> (+1) </b><br>
+                      <%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %>
+                    </div>
+                </li>
+                <% end %>
+              </ul>
+
+              
+              <% else %>
+              <div class="empty">
+                  <h2>No attendees, just yet.  </h2>
+              </div>
+              <% end %>
 
 
         </section>
 
-
-        <div class="editor-cover"> 
-            <div class="editor-cover-content">Your event is still in draft state. Publsh your event now. </div>
-        </div>
 
 
       </div> 
@@ -486,16 +504,7 @@ $( document ).ready(function() {
       $(this).find("span").text("live");
   });
 
-  $.ajax({
-    url: 'https://randomuser.me/api/?inc=email,name,picture&results=10',
-    dataType: 'json',
-    success: function(data){
-      for (var i = 0; i < data.results.length; i++) { 
-        $(".attendees ul").append("<li><img src='" + data.results[i].picture.medium +"' />" + data.results[i].name.first + " " +data.results[i].name.last + "</li>")
-      }
-    }
-  });
-    
+
 
 
   //TICKET - new ticket modal functionality and validation

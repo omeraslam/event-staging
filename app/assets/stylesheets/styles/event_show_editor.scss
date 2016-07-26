@@ -471,10 +471,10 @@ body.invite-view {
 		}
 
 		a {
-			font-size:12px;
-			line-height:16px;
-			font-weight:600;
-			margin-right:10px;
+			//font-size:12px;
+			//line-height:16px;
+			//font-weight:600;
+			//margin-right:10px;
 		}
 	}
 
@@ -597,6 +597,51 @@ body.invite-view {
 
 
 
+.attendees {
+
+	ul li {
+		clear: both;
+		margin-bottom: 16px;
+
+		&:after {
+			content: "";
+			display: table;
+			clear: both;
+
+		}
+
+
+		.attendee-details {
+			padding-top:6px;
+
+			a {
+				color:#222;
+			}
+
+			.attendee-delete {
+				color:$brand-primary;
+				font-size: 10px;
+			}
+		}
+
+
+		img {
+			width:50px;
+			height: auto;
+			border-radius:50%;
+			float:left;
+			margin-right: 10px;
+
+		}
+
+	}
+
+
+}
+
+
+
+
 
 .toggle-container {
 	width:100%;
@@ -676,25 +721,6 @@ body.invite-view {
 
 
 
-
-.attendees {
-
-	ul li {
-		clear: both;
-
-		img {
-			width:50px;
-			height: auto;
-			border-radius:50%;
-			float:left;
-			margin-right: 5px;
-
-		}
-
-	}
-
-
-}
 
 
 .editor-cover {
