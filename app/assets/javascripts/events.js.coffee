@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-
   $('#background_form, #custom_image_form').fileupload
     dataType: "script"
     add: (e, data) ->
@@ -24,7 +23,7 @@ $(document).on 'ready page:load', ->
 
 
   testInt = setInterval((->
-    if $('.time.start').is(':visible')
+    #if $('.time.start').is(':visible')
       clearInterval testInt
       #initialize date time
       $('#datepairExample .time.start').timepicker
@@ -49,7 +48,7 @@ $(document).on 'ready page:load', ->
           $(input).datepicker 'setDate', dateObj
 
 
-    return
+    #return
   ), 1000)
 
 
