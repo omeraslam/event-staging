@@ -444,7 +444,7 @@ def show
     end
 
 
-    @attendees = Attendee.all
+    @attendees = Attendee.where(:event_id => @event.id)
 
 
 
