@@ -446,10 +446,12 @@ def show
       end
     end
 
+    @ticket_price = @ticket_price.nil? ? 0 :  @ticket_price 
+
 
     @attendees = Attendee.where(:event_id => @event.id)
 
-    @starter_price = (@ticket_price + 0.99) + (@ticket_price * 0.025)
+    @starter_price =  @ticket_price == 0 ? 0 : (@ticket_price + 0.99) + (@ticket_price * 0.025)
 
 
     #@ticket = @event.tickets.build(ticket_params)

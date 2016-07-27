@@ -37,7 +37,8 @@
 				          <% else %>
 				              <%= number_to_currency(ticket.price) %>
 				          <% end %> 
-			          (+ 2.5% + $.99) </p> 
+			          
+<% if @has_paid_ticket %>(+ 2.5% + $.99)<% end %> </p> 
                       <p><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p>
 
 
@@ -132,7 +133,7 @@
 	
 
 	       		<% if !@has_paid_ticket %>
-			    	<input class="btn">Register Now</button>
+			    	<button class="btn">Register Now</button>
 			    <% else %>
 			    	<button class="btn">Buy Tickets</button>
 				<% end %>
