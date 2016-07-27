@@ -345,7 +345,7 @@
 
 
 
-                <section  style="display:none;">
+                <section >
         <h4>Collect payments </h4>
         <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
         <% if  @account == nil %>
@@ -548,6 +548,7 @@ $( document ).ready(function() {
 
   //rsvp dropdown
   $('#purchase-tickets_form select').on('change', function(){
+    alert('hey');
     $('.form-quantity').text($(this).val());
   });
 

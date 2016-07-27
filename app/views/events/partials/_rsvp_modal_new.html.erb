@@ -31,13 +31,14 @@
 		
 
 
-	    				<p><span class="form-quantity">0</span> X 
+	    				<p><span class="form-quantity">1</span> X 
 	    					<% if ticket.price == 0 %>
 			              	Free
 				          <% else %>
 				              <%= number_to_currency(ticket.price) %>
 				          <% end %> 
 			          (+ 2.5% + $.99) </p> 
+                      <p><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p>
 
 
     		</div>
@@ -63,10 +64,10 @@
 	    	<div class="input-group">
 		    		<label>Quantity:</label>
 			           <% if LineItem.where(:ticket_id => ticket.id.to_s).count < (ticket.ticket_limit.to_i-ticket.buy_limit.to_i) %>
-			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
+			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((1..ticket.buy_limit).step(1)) %>
 			          <% else %>
 
-			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..(ticket.ticket_limit.to_i-LineItem.where(:ticket_id => ticket.id.to_s).count)).step(1)) %>
+			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((1..(ticket.ticket_limit.to_i-LineItem.where(:ticket_id => ticket.id.to_s).count)).step(1)) %>
 			          <% end %>
 			</div>
 
@@ -170,6 +171,42 @@
 <script type="text/javascript">
   
 $(document).ready(function() {
+
+
+  //rsvp dropdown
+  $('#purchase-tickets_form select').on('change', function(){
+ 
+    $('.form-quantity').text($(this).val());
+    var total_price = (($(this).val()* <%= @ticket_price %>)*.025)+($(this).val()*<%= @ticket_price %>)+(.99*$(this).val())
+    $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+  });
+
+  $(".toggle-container").click(function() {   
+      $(this).toggleClass("toggle-on");
+      $(this).find("span").text("live");
+  });
+
+
+
+
+  //TICKET - new ticket modal functionality and validation
+  $("#show-event-description").click(function() {  
+    $(this).hide();
+    $("#ticket-description").slideDown();
+  });
+  $("#show-ticket-advanced-settings").click(function() {  
+    $("#ticket-advanced-settings").slideToggle();
+  });
+  var validator = $("#new_ticket").validate({
+    rules: {
+      name: "required",
+      "ticket[title]": {
+        required: true
+      }
+    }, messages : {
+      "ticket[title]": 'Please enter a ticket name.'
+    }
+  });
 
 
   
