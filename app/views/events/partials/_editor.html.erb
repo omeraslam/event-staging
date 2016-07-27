@@ -20,7 +20,7 @@
 
       </a>   
 
-          <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" style="display:none;" >
+          <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
         <i class="icon icon-settings"> </i> <span> Advanced</span>
       </a>  
   </div>
@@ -32,7 +32,7 @@
       </a>
 
 
-      <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" >
+      <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" style="display:none;" >
         <i class="icon icon-share"> </i> <span> Share</span>
       </a> 
 
@@ -132,7 +132,63 @@
         <p>Change of venue? Modify your event details below. (Don't forget to click the "update event" button when your're done.)</p>
       </section>
       <section>
-      <%= render 'dashboard/partials/form' %>
+          
+           <%= form_for [@event] do |f| %>
+            <% if @event.errors.any? %>
+
+              <div class="alert error">
+                <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                <ul>
+                <% @event.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+
+            <div class="input-group" >
+                <label> Event Name</label>
+                <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+            </div>
+
+
+            <div class="input-group" id="datepairExample">
+                <label> Date</label>
+                <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :value => (@event.date_start.nil? || @event.date_start == '') ? '' : @event.date_start.to_time.strftime("%m/%d/%Y") %>
+            </div>
+
+
+          
+            <div class="input-group">
+              <label> Location Address</label>
+              <%= f.text_field :location, :autocomplete => false, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
+            </div>  
+              
+            <div class="input-group" style="display:none;">
+              <label>Event Description</label>
+              <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+            </div>
+
+            <div class="input-group">
+              <label>Your event URL</label>
+                <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'custom-event-url' %>
+                <p>www.eventcreate.com/<span id="event-url-output"><%= @event.slug %> </span> </p>
+            </div>
+
+
+
+
+
+            <%= f.submit "Update Event", :class => 'btn btn-large' %>
+
+           
+          <% end %>
+
+          <!-- event form end -->
+
+
       </section>
 
     </div>  
@@ -419,15 +475,11 @@
         
         <section class="editor-tool-header">
           <h3> Share tools</h3>
-          <p>Venison pig rump flank pork hamburger capicola shoulder kevin jerky. Biltong ball tip tongue jowl chuck. Chicken pork rump, boudin flank andouille porchetta pancetta. </p>
+          <p>You've made an beautiful event website. Now it's time to share it with the world!</p>
         </section>
 
 
 
-
-        <section>
-        share stuff goes here
-        </section>
 
 
 
