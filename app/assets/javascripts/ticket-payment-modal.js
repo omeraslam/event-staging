@@ -68,10 +68,10 @@ $(document).ready(function(){
 
      $('#purchase-tickets_form').submit(function(e) {
         e.preventDefault();
-        e.stopImmediatePropagation();
+       // e.stopImmediatePropagation();
         var $form = $(this);
 
-        $form.find('button').prop('disabled', true);
+       // $form.find('button').prop('disabled', true);
 
         $('input').remove('invalid');
 
@@ -81,7 +81,8 @@ $(document).ready(function(){
        $('.cc-exp').toggleClass('invalid', !$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
        $('.cc-cvc').toggleClass('invalid', !$.payment.validateCardCVC($('.cc-cvc').val(), cardType));
      
-      // if ( !$('input.invalid').length ) {
+       if ( !$('input.invalid').length && $('.error:visible').length <= 0 ) {
+          $form.find('button').prop('disabled', true);
           var expgroup = $('.cc-exp').val();
             var expArray = expgroup.split( '/' );
             var expmm = Number($.trim(( expArray[ 0 ] )));
@@ -111,7 +112,7 @@ $(document).ready(function(){
             //should we refresh the page to hide the upgrade links and roadbloacks
             
             
-        // }
+         }
 
 
 
