@@ -561,6 +561,24 @@ body.invite-view {
 		}
 	}
 
+	#input-free-event-container {
+		
+		opacity: 1;
+		line-height: 16px;
+
+		label {
+			cursor: pointer;
+		}
+
+		input {
+			width: inherit;
+			float:left;
+			margin-right: 4px;
+			cursor: pointer;
+		}
+
+	}
+
 
 	.editor-upgrade {
 		position:absolute;

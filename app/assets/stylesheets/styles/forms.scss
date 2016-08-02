@@ -63,6 +63,11 @@ input, .input, textarea, select {
 	&.textarea-small {
 		height:100px;
 	}
+
+	&:disabled {
+    	background: #efefef;
+    	color:#999;
+}
 }
 
 .form-header {
