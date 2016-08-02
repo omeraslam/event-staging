@@ -585,9 +585,9 @@ def show
     @eventFooterHTML = "Made with EventCreate"  
 
 
-      @event.html_hero_1 = @eventHTML.html_safe
-      @event.html_body_1 = @eventBodyHtml.html_safe
-      @event.html_footer_1 = @eventFooterHTML.html_safe
+      @event.html_hero_1 = @eventHTML
+      @event.html_body_1 = @eventBodyHtml
+      @event.html_footer_1 = @eventFooterHTML
 
 
   
