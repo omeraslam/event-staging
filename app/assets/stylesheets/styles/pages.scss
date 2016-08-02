@@ -109,7 +109,6 @@
 .hero {
 	//background:$brand-secondary;
 	color:#222;
-	overflow:hidden;
 	position:relative;
 
 	&.hero-simple {
@@ -122,7 +121,7 @@
 	}
 
 	.hero-content {
-		padding:200px 50px 140px 50px;
+		padding:180px 50px 140px 50px;
 		text-align:center;
 		max-width:1000px;
 		margin: 0 auto;
@@ -140,15 +139,20 @@
 	}
 
 	p {
-		font-size:15px;
-		line-height:22px;
+		font-size:13px;
+		line-height:18px;
+
+		&.lead {
+			font-size: 20px;
+			line-height:28px;
+		}
 	}
 
 	&#home {
 		//background:url(home/event_illustration.jpg);
 		//background-size:cover;
 		//background-position:50% 26%;
-		padding:100px 40px;
+		padding:110px 40px 100px 40px;
 		max-width:1000px;
 		margin: 0 auto;
 
@@ -158,14 +162,20 @@
 			max-width:1000px;
 			margin: 0 auto;
 			position:relative;
+			margin:0;
+			padding-top:20px;
 		}
 
 		.hero-image {
 			float: right;
-			width: 540px;
-			height: 294px;
-			background:url(home/sample_computer.png);
-			background-repeat:no-repeat;
+		    width: 584px;
+		    min-height: 328px;
+		    background: url(home/sample_computer.jpg);
+		    background-repeat: no-repeat;
+		    background-size: contain;
+		    background-position: 100% 0;
+		    position: relative;
+		    right: -30px;
 		}
 
 	}	
@@ -180,7 +190,7 @@
 	}
 
 	&#features {
-		background:url(https://c.stocksy.com/a/MlJ200/z0/552628.jpg);
+		//background:url(https://c.stocksy.com/a/MlJ200/z0/552628.jpg);
 		background-size:cover;
 		background-position:0% 22%;
 
@@ -373,11 +383,10 @@
 	margin:0;
 	position:relative;
 	bottom:0;
-	background:#fff;
 	//-webkit-transition:background 1s ease;
     //transition:background 1s ease;
     padding-top:140px;
-    background:url(home/sample17_bg.jpg);
+    //background:url(home/sample17_bg.jpg);
     background-size:cover;
     background-size:cover;
 
@@ -393,6 +402,7 @@
 		width:100%;
 		height:100%;
 		opacity:1;
+		display: none;
 	}
 
 
@@ -428,7 +438,7 @@
 
 	.feature-screens-copy-container {
 		max-width:800px;
-		color:#fff;
+		//color:#fff;
 		padding-bottom:90px;
 		position: relative;
     z-index: 1;
@@ -667,9 +677,10 @@ margin:0 auto;
 
 
 #product-feature-container {
-	background:#fff;
+	//background:#fff;
 	position:relative;
 	text-align:center;
+	margin-top:100px;
 }
 
 
@@ -693,7 +704,6 @@ margin:0 auto;
 
 		i {
     		font-size: 50px;
-    		color: #999;
     		//display:none;
 		}
 
@@ -1287,8 +1297,8 @@ margin:0 auto;
 		    font-weight: 400;
 		    margin-bottom: 10px;
 		    margin-top: 0;
-		    line-height: 60px;
-		    font-size: 62px;
+		    line-height: 50px;
+		    font-size: 42px;
 		    letter-spacing:-1px;
 		}
 
