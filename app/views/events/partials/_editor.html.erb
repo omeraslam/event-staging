@@ -386,7 +386,7 @@
       <label> Price</label>
       <div class="input-addon">$</div><%= f.number_field :price, class: 'input input-large', id: 'event-price-input', placeholder: '0.00', disabled: @account.nil?  %> 
 
-        <% if  (!@account == nil)%>
+        <% if  @account == nil%>
 
       <p id="input-free-event-container">   <input type="checkbox"  <% if @ticket.price == 0 %> checked <% end %> id="free-event-boolean"><label for="free-event-boolean"> My event is FREE.</label> </p>
 
