@@ -39,7 +39,7 @@
 				          <% end %> 
 			          
 <% if @has_paid_ticket %>(+ 2.5% + $.99)<% end %> </p> 
-                      <p><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p>
+                    <% if @has_paid_ticket %>  <p><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p> <% end %>
 
 
     		</div>
