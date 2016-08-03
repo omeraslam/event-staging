@@ -173,16 +173,12 @@ def complete_registration
 
       num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
 
-        logger.debug "num_tickets: #{num_tickets}"
-        logger.debug "#{params[:ticket_quantity]}"
 
       (1..num_tickets).each do |i| 
         @line_item = LineItem.new
         @quantity = (params[:ticket_quantity][ticket.id.to_s]).to_i
         ticket_id = (params[:ticket_id][ticket.id.to_s]).to_i
 
-        logger.debug "quantity: #{@quantity}"
-        logger.debug "ticket_id: #{ticket_id}"
 
         @line_item.ticket_id = ticket_id
         @line_item.quantity = @quantity
@@ -215,14 +211,16 @@ def complete_registration
   #
   #
 
-     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).first
+     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).all
+
+    logger.debug "~~~~~~line_items: #{@line_items}"
      LineItem.count('ticket_id', :distinct => true)
 
     logger.debug "user: #{@event.user_id.to_s}"
     @user = User.where(:id => @event.user_id.to_i).first
 
     logger.debug "user: #{@user}"
-    @account = Account.where(:user_id => @user.id).first 
+    @account = Account.where(:user_id => @user.id.to_s).first 
 
 
 
@@ -270,7 +268,7 @@ def complete_registration
 
 
 
-  @line_items = LineItem.where(:purchase_id => @purchase.id)
+  @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).all
 
 
   if @purchase.update(purchase_params)
