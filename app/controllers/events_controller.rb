@@ -221,10 +221,10 @@ def complete_registration
      #@line_items = LineItem.where(:purchase_id => params[:oid])
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
-          sum += @ticket.price
+          sum += @ticket.price.to_f
           if @ticket.price != 0
             fee += 0.99
-            fee += (@ticket.price * 0.025)
+            fee += (@ticket.price.to_f * 0.025)
           end 
 
      end 
