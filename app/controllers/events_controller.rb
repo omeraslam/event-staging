@@ -344,28 +344,28 @@ def complete_registration
 
 
 
-  # UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-  #   if amount > 0
-  #     begin
+  UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+    if amount > 0
+      begin
 
-  #       charge = Stripe::Charge.create({
-  #         :amount => amount,
-  #         :currency => "usd",
-  #         :source => token,
-  #         :application_fee => fee,
-  #         :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
-  #       }, {:stripe_account => @account.stripe_user_id})
+        charge = Stripe::Charge.create({
+          :amount => amount,
+          :currency => "usd",
+          :source => token,
+          :application_fee => fee,
+          :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
+        }, {:stripe_account => @account.stripe_user_id})
 
 
 
-  #     rescue Stripe::CardError => e
-  #       # The card has been declined
-  #     end
+      rescue Stripe::CardError => e
+        # The card has been declined
+      end
 
-  #     render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
-  #   else
-  #     redirect_to show_confirm_path(:oid => @purchase.id.to_s)
-  #   end
+      render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+    else
+      redirect_to show_confirm_path(:oid => @purchase.id.to_s)
+    end
 
 
 
