@@ -213,13 +213,10 @@ def complete_registration
 
      @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).all
 
-    logger.debug "~~~~~~line_items: #{@line_items}"
      LineItem.count('ticket_id', :distinct => true)
 
-    logger.debug "user: #{@event.user_id.to_s}"
     @user = User.where(:id => @event.user_id.to_i).first
 
-    logger.debug "user: #{@user}"
     @account = Account.where(:user_id => @user.id.to_s).first 
 
 
@@ -242,8 +239,6 @@ def complete_registration
      #   sum 
      # end 
                         
-    logger.debug "~~~~~~~~~~ SUM is: #{sum}"
-    logger.debug "~~~~~~~~~~ FEE is: #{fee}"
 
     @final_charge = sum * 100 #add all line items to figure out final price
 
