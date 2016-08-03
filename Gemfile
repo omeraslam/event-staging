@@ -34,6 +34,8 @@ gem 'wkhtmltopdf-binary'
 gem 'chunky_png'
 gem 'barby'
 
+gem "wysiwyg-rails"
+
 
 #s3 set up
 #gem 'aws-sdk', '~> 2'
