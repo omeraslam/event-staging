@@ -215,7 +215,7 @@ def complete_registration
   #
   #
 
-     @line_items = LineItem.where(:purchase_id => @purchase.id.to_i).first
+     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).first
      LineItem.count('ticket_id', :distinct => true)
 
     logger.debug "user: #{@event.user_id.to_s}"
