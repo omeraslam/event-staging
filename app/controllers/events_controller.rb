@@ -162,10 +162,10 @@ def complete_registration
   #select tickets actions
   #
 
-  @event = Event.find_by_slug(params[:slug]) or not_found
+  @event = Event.find_by_slug(params[:slug].to_s) or not_found
 
   @purchase = Purchase.new
-  @purchase.event_id = @event.id
+  @purchase.event_id = @event.id.to_s
   if @purchase.save
 
 
@@ -176,6 +176,9 @@ def complete_registration
         @line_item = LineItem.new
         @quantity = (params[:ticket_quantity][ticket.id.to_s]).to_i
         ticket_id = (params[:ticket_id][ticket.id.to_s]).to_i
+
+        logger.debug "quantity: #{@quantity}"
+        logger.debug "ticket_id: #{ticket_id}"
 
         @line_item.ticket_id = ticket_id
         @line_item.quantity = @quantity
@@ -212,6 +215,8 @@ def complete_registration
      LineItem.count('ticket_id', :distinct => true)
 
     @user = User.where(:id => @event.user_id.to_i).first
+
+    logger.debug "user: #{@user}"
     @account = Account.where(:user_id => @user.id).first 
 
 
@@ -336,28 +341,28 @@ def complete_registration
 
 
 
-  UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-    if amount > 0
-      begin
+  # UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+  #   if amount > 0
+  #     begin
 
-        charge = Stripe::Charge.create({
-          :amount => amount,
-          :currency => "usd",
-          :source => token,
-          :application_fee => fee,
-          :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
-        }, {:stripe_account => @account.stripe_user_id})
+  #       charge = Stripe::Charge.create({
+  #         :amount => amount,
+  #         :currency => "usd",
+  #         :source => token,
+  #         :application_fee => fee,
+  #         :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
+  #       }, {:stripe_account => @account.stripe_user_id})
 
 
 
-      rescue Stripe::CardError => e
-        # The card has been declined
-      end
+  #     rescue Stripe::CardError => e
+  #       # The card has been declined
+  #     end
 
-      render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
-    else
-      redirect_to show_confirm_path(:oid => @purchase.id.to_s)
-    end
+  #     render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+  #   else
+  #     redirect_to show_confirm_path(:oid => @purchase.id.to_s)
+  #   end
 
 
 
