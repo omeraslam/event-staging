@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702231706) do
+ActiveRecord::Schema.define(version: 20160803033837) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -72,11 +72,11 @@ ActiveRecord::Schema.define(version: 20160702231706) do
     t.string   "font_type"
     t.string   "external_image"
     t.boolean  "status",                         default: true
-    t.string   "html_hero_1"
-    t.string   "html_hero_button"
-    t.string   "html_body_1"
-    t.string   "html_footer_1"
-    t.string   "html_footer_button"
+    t.text     "html_hero_1",        limit: 255
+    t.text     "html_hero_button",   limit: 255
+    t.text     "html_body_1",        limit: 255
+    t.text     "html_footer_1",      limit: 255
+    t.text     "html_footer_button", limit: 255
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
