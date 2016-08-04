@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803033837) do
+ActiveRecord::Schema.define(version: 20160804055221) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(version: 20160803033837) do
   create_table "tickets", force: true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "price"
+    t.float    "price"
     t.integer  "ticket_limit"
     t.integer  "buy_limit",    default: 4
     t.date     "stop_date"

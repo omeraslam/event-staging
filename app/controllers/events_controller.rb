@@ -240,11 +240,10 @@ def complete_registration
      # end 
                         
 
-    @final_charge = sum * 100 #add all line items to figure out final price
+    @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
   #
   # end show buy page
-
 
 
   # #save buyer attach to order
@@ -260,6 +259,8 @@ def complete_registration
   # Get the credit card details submitted by the form
   token = params[:stripeToken]
   amount = @final_charge
+
+
 
 
 
@@ -338,6 +339,9 @@ def complete_registration
 
 
 
+  logger.debug "FINAL charge is: #{amount}"
+
+  logger.debug "FEE charge is: #{fee}"
 
   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
     if amount > 0

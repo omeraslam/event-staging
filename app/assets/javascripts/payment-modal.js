@@ -77,8 +77,6 @@ $(document).ready(function(){
             var expmm = Number($.trim(( expArray[ 0 ] )));
             var expyy = Number($.trim(( expArray[ 1 ] )));
 
-            console.log('"'+ typeof expmm+"|| expmm:"+ expmm +'"')
-            console.log('"'+ typeof expyy+"|| expyy:"+ expyy+'"')
             
             //INSERT STRIPE.JS CODE HERE
              var cardObj =  {number: $('#cc').val(),
