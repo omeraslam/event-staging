@@ -337,8 +337,6 @@ def complete_registration
 
     @account = Account.where(:user_id => @event.user_id.to_s).first
 
-
-
   logger.debug "FINAL charge is: #{amount}"
 
   logger.debug "FEE charge is: #{fee}"
