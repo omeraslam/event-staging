@@ -35,6 +35,8 @@ gem 'chunky_png'
 gem 'barby'
 
 gem "wysiwyg-rails"
+gem 'ruby_http_client'
+gem 'sendgrid-ruby'
 
 
 #s3 set up
