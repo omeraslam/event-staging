@@ -41,6 +41,17 @@ $brand-primary: #21afbf;
 	}
 
 
+	.modal-secure {
+		position:absolute;
+		top:10px;
+		right:10px;
+		color:#ccc;
+
+		i {
+			font-size: 22px;
+		}
+
+	}
 
 	.modal-header {
 		background:$brand-primary;
@@ -96,7 +107,7 @@ $brand-primary: #21afbf;
 	}
 	
 	.modal-body {
-		padding:20px;	
+		padding:20px 30px;	
 		text-align:left;
 		//width:500px;
 		
@@ -175,9 +186,9 @@ $brand-primary: #21afbf;
 				
 				&.error {
 					bottom:0;
-					color:#fff;
+					//color:#fff;
 					top:inherit;
-					border-right: 1px solid #fff;
+					//border-right: 1px solid #fff;
 					//display:none !important;
 
 

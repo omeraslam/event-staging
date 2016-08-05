@@ -39,9 +39,9 @@ input, .input, textarea, select {
 	padding:12px 8px;
 	outline:none;
 	border:1px solid #fff;
-	//border:none;
+	border:none;
     //box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid #dcdcdc;	
+    border-bottom: 1px solid #dcdcdc;	
 
 
     &.input-small {
@@ -97,12 +97,12 @@ input, .input, textarea, select {
 			width:10%;
 		    float: left;
 		    text-align: center;
-		    background: #efefef;
+		    //background: #efefef;
 			font-size: 20px;
 		    color: #b1b1b1;
 		    line-height: 24px;
-		    padding: 12px 8px;
-		    border: 1px solid #dcdcdc;
+		    padding: 12px 3px;
+		    border-bottom: 1px solid #dcdcdc;
 		}
 
 		input {
@@ -133,7 +133,18 @@ input, .input, textarea, select {
 		margin-top:5px;
 		font-size:11px;
 		line-height:14px;
-		opacity:.7;
+		opacity:.8;
+
+		&.input-secure {
+			font-size: 13px;
+			line-height: 17px;
+			font-weight:600;
+
+			i {
+				font-size:17px;
+				color:#f29b30;
+			}
+		}
 	}
 	
 
