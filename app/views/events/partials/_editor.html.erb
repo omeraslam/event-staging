@@ -744,7 +744,7 @@ $( document ).ready(function() {
 
               for(var i=0;i<data.length;i++) {
                   var list_image = '<li><img src="'+ data[i].attributes.table.urls.thumb +'"/></li>';
-                  photoArray.push(data[i].attributes.table.urls.full);
+                  photoArray.push(data[i].attributes.table.urls.regular);
 
                   $('.image-results ul').append(list_image);
               }

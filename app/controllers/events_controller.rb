@@ -542,6 +542,8 @@ def show
 
     @search_results = Unsplash::Photo.search(params[:searchTerm])
 
+    logger.debug "SEARCH: #{@search_results}"
+
     render json: @search_results
 
   end

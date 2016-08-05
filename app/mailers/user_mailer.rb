@@ -1,9 +1,6 @@
 class UserMailer < ActionMailer::Base
   include Devise::Mailers::Helpers
-  # require 'sendgrid-ruby'
-  # include SendGrid
 
-  # require 'json'
   default from: "EventCreate Team <hello@eventcreate.com>"
 
   #layout "send_tickets", only: [:send_tickets]
