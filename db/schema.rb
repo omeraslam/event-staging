@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804055221) do
+ActiveRecord::Schema.define(version: 20160808221722) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 20160804055221) do
     t.string   "username"
     t.string   "fb_link"
     t.string   "tw_link"
+    t.string   "subdomain"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
