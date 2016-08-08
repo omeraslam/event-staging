@@ -28,6 +28,7 @@ $(document).ready(function(){
  
 
       function stripePuchaseTicketsResponseHandler(status, response) {
+
         var $form = $('#purchase-tickets_form');
         //purchase_amount, token
         if (response.error) {
@@ -97,7 +98,6 @@ $(document).ready(function(){
                     exp_month: expmm,
                     exp_year: expyy
                 }
-
              Stripe.card.createToken(cardObj, stripePuchaseTicketsResponseHandler);
 
 

@@ -23,80 +23,60 @@
 
 
 
-	              <% @tickets.each do |ticket| %>
 
 		<div class="modal-header modal-header-light">
 	    <h3> <%= @event.name %> </h3>	 
       <p> <%= @event.date_start.to_date.strftime("%B %d ")%>  | 
-        <% if ticket.price == 0 %>   
+        <% if @current_ticket.price == 0 %>   
           Free 
         <% else %>
-          <%= number_to_currency(ticket.price) %>
+          <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
         <% end %>   
       </p>
 
-
-			            <!--   <h3><%= ticket.title %></h3> -->
-			   			<!-- <p><%= ticket.description %></p> -->
-			   			<!-- <% if !ticket.stop_date.nil? %>
-			              <p class="small"> Available until <%=  ticket.stop_date.strftime('%B %d, %Y') %></p>       <% end %>
-			        	-->
-			              <%= hidden_field_tag 'ticket_id['+ticket.id.to_s+']', ticket.id %>
+     <%= hidden_field_tag 'ticket_id['+@current_ticket.id.to_s+']', @current_ticket.id %>
 		
 
 
 	    				<p><span class="form-quantity">1</span> X 
-	    					<% if ticket.price == 0 %>
+	    					<% if @current_ticket.price == 0 %>
 			              	Free
 				          <% else %>
-				              <%= number_to_currency(ticket.price) %>
+				              <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
 				          <% end %> 
 			          
-<% if @has_paid_ticket %>(+ 2.5% + $.99)<% end %> </p> 
+                    <% if @has_paid_ticket %>(+ 2.5% + $.99)<% end %> </p> 
                     <% if @has_paid_ticket %>  <p><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p> <% end %>
-
-
-    		</div>
-
-
-
-			<div>
-
-	
-
-			    	
-
-			
+    		    </div>
+			   <div>
 			</div>
 
     
 		
 		<div class="modal-body">
+  
+
 		
 
     <%# @RICH  -   if MORE THAN 1 TICKET EXISTS  %>
-            <div class="input-group">
+            <div class="input-group ticket-type">
                 <label>Select Ticket:</label>
-                <select> 
-                  <option>Ticket.title (Ticket.price) </option>
-                  <option>Ticket.title (Ticket.price) </option>
-                  <option>Ticket.title (Ticket.price) </option>
-                </select>
+   
+                  <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id ] }) %>
 
             </div>
     <%# END  %>
 
 
 
-		
 
-	    	<div class="input-group">
+	    	<div class="input-group quantity">
 		    		<label>Select Quantity:</label>
-			           <% if LineItem.where(:ticket_id => ticket.id.to_s).count < (ticket.ticket_limit.to_i-ticket.buy_limit.to_i) %>
-			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((1..ticket.buy_limit).step(1)) %>
+			           <% if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
+			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..@current_ticket.buy_limit).step(1)) %>
 			          <% else %>
 
-			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((1..(ticket.ticket_limit.to_i-LineItem.where(:ticket_id => ticket.id.to_s).count)).step(1)) %>
+			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %>
 			          <% end %>
 			</div>
 
@@ -132,14 +112,14 @@
         </div> -->
       </div>      
 
-<% if @has_paid_ticket %>
+      <% if @has_paid_ticket %>
 
 
 
           <div class="input-group">
             <label>Credit card number</label>
             <input  type="text" id="cc" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;" class="input cc-number" >
-      
+         
             
           </div>
           
@@ -155,7 +135,7 @@
           </div>  
 
 
-<% end %>
+      <% end %>
 
 
 	
@@ -205,13 +185,30 @@
   
 $(document).ready(function() {
 
+  $('#purchase-tickets_form .ticket-type select').on('change', function(){
+    var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
+
+    $('.form-price').text('$' + filteredPrice);
+    var total_price = (($('.form-quantity').text()* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*$('.form-quantity').text())
+    $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+
+
+  });
 
 
   //rsvp dropdown
-  $('#purchase-tickets_form select').on('change', function(){
- 
+  $('#purchase-tickets_form .quantity select').on('change', function(){
+
+ var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
+    $('.form-price').text('$' + filteredPrice);
     $('.form-quantity').text($(this).val());
-    var total_price = (($(this).val()* <%= @ticket_price %>)*.025)+($(this).val()*<%= @ticket_price %>)+(.99*$(this).val())
+    var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
   });
 
@@ -309,7 +306,6 @@ $(document).ready(function() {
 		 
 		</div> 
 
-			     <% end %>
 			<% end %>
 		
 </div>

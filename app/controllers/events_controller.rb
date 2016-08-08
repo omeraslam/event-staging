@@ -239,7 +239,6 @@ def complete_registration
      #   sum 
      # end 
                         
-
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
   #
@@ -444,19 +443,22 @@ def show
 
     @tickets = @event.tickets.all 
     @has_paid_ticket = false
-    @tickets.each do |ticket|
+    @tickets.each_with_index do |ticket, index|
+      if index == 0
+        @current_ticket = ticket
+      end 
       if ticket.price.to_i > 0 
-        @ticket_price = ticket.price 
+       
         @has_paid_ticket = true
       end
     end
 
-    @ticket_price = @ticket_price.nil? ? 0 :  @ticket_price 
+    @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
 
 
     @attendees = Attendee.where(:event_id => @event.id)
 
-    @starter_price =  @ticket_price == 0 ? 0 : (@ticket_price + 0.99) + (@ticket_price * 0.025)
+    @starter_price =  @current_ticket.price == 0 ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * 0.025)
 
 
     #@ticket = @event.tickets.build(ticket_params)
