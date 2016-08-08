@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   #resources :themes
+  
+  
 
   #dashboard routes
   get 'dashboard/index'
@@ -29,8 +31,11 @@ Rails.application.routes.draw do
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
+  get '', to: 'events#home', constraints: {subdomain: /.+/}
+  get '/users/:id/events/index', to: 'events#home', :as => :events_home
+ 
 
-  get '/users/:id/events/index', to: 'events#home', :as => :events_home 
+  #get '', to: 'events#show', constraints: {subdomain: /.+/}
 
 
   #ticket buying
@@ -89,7 +94,6 @@ Rails.application.routes.draw do
 
   root :to => 'pages#home'
 
-  #get '', to: 'events#show', constraints: {subdomain: /.+/}
 
 
   devise_scope :user do

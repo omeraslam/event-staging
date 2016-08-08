@@ -29,7 +29,8 @@ class EventsController < ApplicationController
   end
 
   def home
-    @user = User.find(params[:id])
+    @user = User.find_by username: request.subdomain
+    #@user = User.find(params[:id])
     @events = Event.where(:user_id => @user.id.to_s).all
 
   end
@@ -238,7 +239,7 @@ def complete_registration
      # if sum != 0
      #   sum 
      # end 
-                        
+
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
   #
