@@ -16,9 +16,8 @@
           <div class="editor-tab-notification editor-tab-notification-error"></div>
         <% end %>
 
-
-
       </a>   
+
 
           <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
         <i class="icon icon-settings"> </i> <span> Advanced</span>
@@ -291,15 +290,13 @@
     <div class="editor-tool" id="editor-tool-ticketing_TEMP" >
       
       <section class="editor-tool-header">
-        <h3> Ticketing + Registration</h3>
-        <p>Sell tickets and collect registrations for your event. (By default, we've added a free general admission ticket for you. Feel free to edit or delete that ticket.)</p>
+        <h3> Advanced Ticketing </h3>
+        <p>Do you have multiple ticket types? Selling VIP passes? Manage your event ticketing advanced settings here.</p>
         
-        <%= link_to 'New ticket type', new_ticket_path(:event => @event) , :remote => true, :class => 'btn open-ticket' %>
         
       </section>
 
       <section>
-        <h4>Active tickets </h4>
         <div class="tickets">
         <% @tickets.each_with_index do |ticket, index| %>
           <div class="ticket">
@@ -310,11 +307,9 @@
           <% else %>
 
             <p><%= number_to_currency(ticket.price) %></p>
-              <% if !ticket.ticket_limit.nil? %>
-                <p>Ticket limit: <%= ticket.ticket_limit %> </p>
-              <% end %>
+
             <% end %>
-            <p>Buy limit: <%= ticket.buy_limit %> </p>
+          
             <div class="ticket-actions">
              <div class="ticket-action">
             <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %></div>
@@ -325,6 +320,13 @@
               </div>
           </div>
         <% end %>
+
+
+        </section>
+
+        <section> 
+          <%= link_to 'New ticket type', new_ticket_path(:event => @event) , :remote => true, :class => 'btn open-ticket' %>
+
         </section>
 
 
@@ -429,6 +431,13 @@
    <%= f.submit 'Update registration settings', class: 'btn btn-large' %>
  </div>
  <% end %>
+
+
+          </section>
+
+          <section> 
+
+            <a class=" toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing_TEMP" > View advanced ticketing</a>   
 
 
           </section>

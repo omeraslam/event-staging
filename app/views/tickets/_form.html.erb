@@ -26,7 +26,7 @@
     <label>Ticket Name (required)</label>
     <%= f.text_field :title, class: 'input input-large', placeholder: 'General Admission' %>
   </div>
-  <div class="input-group" >
+  <div class="input-group" style="display:none;" >
     <%= f.label :description %>
     <%= f.text_area :description, class: 'input input-large textarea-small',  placeholder: 'Add a description to your ticket.' %>
   </div>
@@ -34,31 +34,50 @@
     <div class="input-group-inline input-group-addon">
       <label>Ticket Price</label>
       <div class="input-addon">$</div><%= f.number_field :price, class: 'input input-large', placeholder: '0.00' %> 
-      <p> If your event is free, just leave blank (entering "0" is cool, too). </p>
     </div>
     <div class="input-group-inline">
       <label> Quantity Available</label>
       <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
-      <p> How many tickets are available? Leave blank if unlimited.</p>
     </div>
   </div>
-  <div class="input-group input-expand">
-  <p><a id="show-ticket-advanced-settings">Show advanced settings <i class="icon icon-arrow-down"> </i> </a></p>
-  </div>
-  <div id="ticket-advanced-settings" style="display:none;">
+
     <div class="input-group">
       <div class="input-group-inline">
         <label>Buy Limit</label>
         <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '4' %>
-        <p>Restrict the number of tickets one person can buy. (Defaults to 4 tickets)</p>
+        <p>Limit the ticket quantity that a user can buy at one time.</p>
+      </div>
+      <div class="input-group-inline">
+          <label>Tickets available until</label>
+          <%= f.text_field :stop_date, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1" %>
       </div>
     </div>
-    <div class="input-group">
-      <label>Tickets available until</label>
-      <%= f.date_select :stop_date, class: 'input input-large'%>
-    </div>
-  </div>
   <div class="input-group actions">
-    <%= f.submit 'Add New Ticket', class: 'btn btn-large' %>
+    <%= f.submit 'Save ticket', class: 'btn btn-large' %>
   </div>
 <% end %>
+
+
+<script> 
+
+$( document ).ready(function() {
+
+$("#new_ticket").submit(function(e) {
+
+
+   if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
+
+        e.preventDefault();
+
+        alert($('#ticket_price').val());
+        alert('Before adding a paid ticket, please connect your bank account, so you can get paid!  Head on back to basic ticketing and uncheck "My event is FREE."' );
+
+    } 
+
+
+});
+
+}); 
+
+
+</script>

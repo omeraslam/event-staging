@@ -1,6 +1,7 @@
 <!--upgrade modal-->
 <div id="rsvp-new-modal">
 
+<div class="modal-secure"><i class="fa fa-lock"> </i> </div>
 
 <%= form_tag complete_registration_path, :id => 'purchase-tickets_form' do |f|  %>
 
@@ -16,10 +17,23 @@
 			</div>
 			<% end %>
 
+
+
+
+
+
+
 	              <% @tickets.each do |ticket| %>
+
 		<div class="modal-header modal-header-light">
-	    <button data-remodal-action="close" class="remodal-close"></button>
-	    <h2>RSVP now </h2>	 
+	    <h3> <%= @event.name %> </h3>	 
+      <p> <%= @event.date_start.to_date.strftime("%B %d ")%>  | 
+        <% if ticket.price == 0 %>   
+          Free 
+        <% else %>
+          <%= number_to_currency(ticket.price) %>
+        <% end %>   
+      </p>
 
 
 			            <!--   <h3><%= ticket.title %></h3> -->
@@ -60,10 +74,24 @@
 		<div class="modal-body">
 		
 
+    <%# @RICH  -   if MORE THAN 1 TICKET EXISTS  %>
+            <div class="input-group">
+                <label>Select Ticket:</label>
+                <select> 
+                  <option>Ticket.title (Ticket.price) </option>
+                  <option>Ticket.title (Ticket.price) </option>
+                  <option>Ticket.title (Ticket.price) </option>
+                </select>
+
+            </div>
+    <%# END  %>
+
+
+
 		
 
 	    	<div class="input-group">
-		    		<label>Quantity:</label>
+		    		<label>Select Quantity:</label>
 			           <% if LineItem.where(:ticket_id => ticket.id.to_s).count < (ticket.ticket_limit.to_i-ticket.buy_limit.to_i) %>
 			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((1..ticket.buy_limit).step(1)) %>
 			          <% else %>
@@ -84,18 +112,18 @@
       <div class="input-group"> 
         <div class="input-group-inline">
           <label> First Name </label>
-          <input type="text" class="input input-small" name="purchase[first_name]" placeholder="First Name"/> 
+          <input type="text" class="input " name="purchase[first_name]" placeholder="First Name"/> 
         </div>
 
         <div class="input-group-inline">
           <label> Last Name </label>
-          <input type="text" class="input input-small" name="purchase[last_name]"  placeholder="Last Name" /> 
+          <input type="text" class="input " name="purchase[last_name]"  placeholder="Last Name" /> 
         </div>
       </div>
 
       <div class="input-group"> 
           <label> Email Address </label>
-          <input type="text" class="input input-small" name="purchase[email]" placeholder="email@email.com" /> 
+          <input type="text" class="input" name="purchase[email]" placeholder="email@email.com" /> 
   
 
   <!--       <div class="input-group-inline">
@@ -110,7 +138,7 @@
 
           <div class="input-group">
             <label>Credit card number</label>
-            <input  type="text" id="cc" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;" class="input input-small cc-number" >
+            <input  type="text" id="cc" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;" class="input cc-number" >
       
             
           </div>
@@ -118,11 +146,11 @@
           <div class="input-group">
             <div class="input-group-inline">   
               <label>Expiration (month/year)</label>
-              <input placeholder="12 / 2018" class="input input-small cc-exp" type="text" > 
+              <input placeholder="12 / 2018" class="input cc-exp" type="text" > 
             </div>
             <div class="input-group-inline" id="cvv"> 
               <label>CVV</label>
-              <input class="input input-small cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
+              <input class="input cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
             </div>
           </div>  
 
@@ -131,17 +159,22 @@
 
 
 	
-
+      <div class="input-group"> 
 	       		<% if !@has_paid_ticket %>
-			    	<button class="btn">Register Now</button>
+
+			    	<button class="btn btn-large">Register Now</button>
 			    <% else %>
-			    	<button class="btn">Buy Tickets</button>
+			    	<button class="btn btn-large">Buy Tickets</button>
 				<% end %>
 
+        <p class="input-secure"><i class="fa fa-lock"> </i> Secure server </p>
 
-			<div class="payment-modal-footer">
-				Payments processed secured with 256-bit enceyption. By registering for this event and/or buying tickets you agree to EventCreate's terms and conditions.
-			</div>
+      <p>
+        Your privacy is very important to us. By using this website, registering for an event and/or making a purchase, you agree to EventCreate's <a href="www.eventcreate.com/terms" target="_blank">Terms of Service </a> and <a href="www.eventcreate.com/privacy" target="_blank"> Privacy Policy</a>. All ticketing sales are final and non-refundable. 
+
+      </p>
+
+      </div>
 
       
 
@@ -160,7 +193,6 @@
 
   </div>  
     
-.
 
 </div>
 

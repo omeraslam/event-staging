@@ -40,19 +40,29 @@
   }
 
   ul.upcoming-events {
-    margin: 0 auto;
-    width: 80%;
+    margin:0 -20px;    
     text-align: center;
   }
 
   ul.upcoming-events li {
     vertical-align: top;
     display: inline-block;
-    width: 200px;
-    height: 200px;
-    background: #222;
-    margin-top: 40px;
-    margin-right: 20px;
+    width: 33.333333%;
+    height: 300px;
+    background: none;
+    padding:20px;
+    float:left;
+
+    h2 {
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    .date {
+      color:#888;
+
+    }
+
   }
    ul.upcoming-events li img {
     width: 100px;
