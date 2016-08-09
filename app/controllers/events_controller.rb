@@ -34,7 +34,7 @@ class EventsController < ApplicationController
     logger.debug "USER:::: #{@user.nil? }"
    
     if @user.nil?
-        redirect_to root_url(subdomain: false) 
+        redirect_to root_url(subdomain: 'www') 
     else
         @events = Event.where(:user_id => @user.id.to_s).all
     end
