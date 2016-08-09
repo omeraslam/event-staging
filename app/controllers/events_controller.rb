@@ -32,7 +32,6 @@ class EventsController < ApplicationController
 
   def home
     logger.debug "USER:::: #{@user.nil? }"
-    logger.debug "SUP DUDE"
    
     if @user.nil?
         redirect_to root_url(subdomain: 'www') 
@@ -768,9 +767,10 @@ def show
     end
 
     def find_subdomain
-        logger.debug "#{@user}"
+        logger.debug "#{request.subdomain}"
       #@city_or_state = City.find_by_subdomain(request.subdomain) || State.find_by_subdomain(request.subdomain)
-        @user = User.find_by username: request.subdomain
+      
+        @user = User.find_by subdomain: request.subdomain
         
     end
 
