@@ -32,6 +32,7 @@ class EventsController < ApplicationController
 
   def home
     logger.debug "USER:::: #{@user.nil? }"
+    logger.debug "SUP DUDE"
    
     if @user.nil?
         redirect_to root_url(subdomain: 'www') 

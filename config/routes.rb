@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
-  #get '', to: 'events#home', constraints: {subdomain: /.+/}, :as => :events_subdomain
+  get '', to: 'events#home', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => :events_subdomain
   get '/users/:id/events/index', to: 'events#home', :as => :events_home
  
 
