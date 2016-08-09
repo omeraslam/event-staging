@@ -2,6 +2,8 @@
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
+  before_filter :find_subdomain, only: [ :home]
+
   #require 'chunky_png'
 
   # require 'barby'
@@ -29,9 +31,15 @@ class EventsController < ApplicationController
   end
 
   def home
-    @user = User.find_by username: request.subdomain
+    logger.debug "USER:::: #{@user.nil? }"
+   
+    if @user.nil?
+        redirect_to root_url(subdomain: false) 
+    else
+        @events = Event.where(:user_id => @user.id.to_s).all
+    end
+
     #@user = User.find(params[:id])
-    @events = Event.where(:user_id => @user.id.to_s).all
 
   end
 
@@ -756,6 +764,13 @@ def show
 
     def ticket_params
       params.require(:ticket).permit(:title, :description, :price, :ticket_limit, :buy_limit, :stop_date)
+    end
+
+    def find_subdomain
+        logger.debug "#{@user}"
+      #@city_or_state = City.find_by_subdomain(request.subdomain) || State.find_by_subdomain(request.subdomain)
+        @user = User.find_by username: request.subdomain
+        
     end
 
 
