@@ -590,7 +590,7 @@ def show
     @event.user_id = current_user.id
     @event.layout_id = '1'
     
-    @eventHTML = '<h1>' + @event.name + '</h1><p class="lead"> Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>' + '<a class="btn btn-reg open-registration"> Register now</a>'
+    @eventHTML = '<h1>' + @event.name + '</h1><p class="lead"> Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>' + '<span class="btn btn-reg open-registration"> Register now</span>'
     @eventBodyHtml = "<h2> It's going be awesome!</h2><p>Vestibulum consequat et est ut ultrices. Quisque auctor lacinia ornare. Ut dictum, nisl sit amet molestie rutrum, erat odio sagittis purus, in efficitur lectus dolor sed lacus. Mauris maximus blandit nibh, quis ullamcorper lacus luctus tempor. Duis non blandit ligula, vulputate auctor leo. Phasellus non sapien in ligula condimentum venenatis eu vel nibh. Donec quis ultrices nibh. Vestibulum non facilisis diam, non semper libero. Vivamus vitae felis porttitor nunc rhoncus consectetur a nec lorem. </p><p>Nulla vehicula nunc dapibus, iaculis ex vel, mattis nunc. Morbi nec risus id ipsum bibendum tincidunt id porta lorem. Nulla vitae nunc lobortis, rutrum odio id, finibus ligula. Nulla ultricies dapibus iaculis. Aenean lobortis lacinia justo et laoreet. Praesent at quam laoreet, ultricies diam et, condimentum magna. Suspendisse mauris dui, aliquam sit amet hendrerit posuere. </p>"  
     @eventFooterHTML = "Made with EventCreate"  
 

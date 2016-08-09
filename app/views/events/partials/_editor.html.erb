@@ -939,12 +939,28 @@ $( document ).ready(function() {
   });
 
 
+
+
+
+$.FroalaEditor.DefineIcon('insertRegistrationLink', {NAME: 'tag'});
+$.FroalaEditor.RegisterCommand('insertRegistrationLink', {
+  title: 'Insert Registration Button',
+  focus: true,
+  undo: true,
+  refreshAfterCallback: true,
+  callback: function () {
+    this.html.insert('<span class="btn btn-reg open-registration"> Register now</span>');
+  }
+});
+
+
+
 $(function() {
     $('.froala-editor').froalaEditor({
       key: 'yweqH-8btjB-13B-11oyC2A-7pm==', 
       toolbarInline: true,
       charCounterCount: false,
-      toolbarButtons: ['bold', 'italic', 'underline', 'fontSize', 'strikeThrough', 'color', 'emoticons', '-', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', '-', 'insertImage', 'insertLink', 'insertFile', 'insertVideo', 'undo', 'redo'],
+      toolbarButtons: ['bold', 'italic', 'underline', 'fontSize', 'strikeThrough', 'color', 'emoticons', '-', 'paragraphFormat', 'align', 'insertImage', 'insertLink', 'insertVideo', 'insertRegistrationLink', '-', 'undo', 'redo'],
       linkStyles: {
         btn: 'Button'      }
     }).on('froalaEditor.contentChanged', function (e, editor) {
