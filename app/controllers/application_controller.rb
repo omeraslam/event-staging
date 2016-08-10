@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :check_member_type
   add_flash_types :event_success
   before_filter :expire_hsts
+  before_filter :handle_subdomain
   
 
   helper :all
@@ -117,5 +118,18 @@ end
   def expire_hsts
     response.headers["Strict-Transport-Security"] = 'max-age=0'
   end
+    
+  def handle_subdomain
+    if @user = User.find_by_subdomain(request.subdomain) || User.find_by_domain(request.domain)
+
+      logger.debug "@user.email"
+     
+    else
+      current_user = nil
+     # redirect_to root_url(subdomain: false) 
+    end
+  end
+
+
 
 
