@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         req = request.host
       end 
 
+      puts "request: #{req}"
+
       User.where(:domain => req ).any? || User.where(:subdomain => request.subdomain).any? 
     end
   end 

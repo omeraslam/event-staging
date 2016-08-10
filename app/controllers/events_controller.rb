@@ -790,6 +790,7 @@ def show
 
 
         logger.debug "SO HELP ME:: #{@user.email}"
+        puts "SO HELP ME:: #{@user.email}"
 
         # if a matching site wasn't found, redirect the user to the www.<root url>
         redirect_to root_url(subdomain: 'www') unless @user
