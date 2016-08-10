@@ -120,7 +120,10 @@ end
   end
     
   def handle_subdomain
-    if @user = User.find_by_subdomain(request.subdomain) || User.find_by_domain(request.domain)
+    if @user = User.find_by subdomain: request.subdomain || @user = User.find_by domain: request.domain
+    #@user = User.find_by_subdomain(request.subdomain) || User.find_by_domain(request.domain)
+
+        
 
       logger.debug "@user.email"
      
