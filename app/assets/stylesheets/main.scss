@@ -11,6 +11,18 @@
 @import "vendor/minicolors.css.scss";
 @import "vendor/icons.css.scss";
 
+@import "vendor/editor/plugins/char_counter.css";
+@import "vendor/editor/plugins/code_view.css";
+@import "vendor/editor/plugins/colors.css";
+@import "vendor/editor/plugins/emoticons.css";
+@import "vendor/editor/plugins/file.css";
+@import "vendor/editor/plugins/fullscreen.css";
+@import "vendor/editor/plugins/image.css";
+@import "vendor/editor/plugins/image_manager.css";
+@import "vendor/editor/plugins/line_breaker.css";
+@import "vendor/editor/plugins/quick_insert.css";
+@import "vendor/editor/plugins/table.css";
+@import "vendor/editor/plugins/video.css";
 
 
 //variables and core

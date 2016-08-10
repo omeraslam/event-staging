@@ -34,7 +34,8 @@
 	    overflow: hidden;
 	    border: none;
 	    font-family: inherit;
-	    font-size: inherit;
+	    font-size: 14px;
+	    line-height: 1.5;
 	    color: inherit;
 	    background: none;
 	    cursor: pointer;
@@ -50,8 +51,12 @@
 	    -moz-transition: all 0.3s;
 	    transition: all 0.3s;
 		border-radius: 50px;
-	    border: 3px solid #fff;
-	    color: #fff;
+	    border: 3px solid;
+	    color: inherit;
+
+	    &:hover {
+	    	background:rgba(0,0,0,.5);
+	    }
 
 	}
 
@@ -128,7 +133,7 @@
 
 	.header {
 		position:relative;
-		padding: 190px 80px 220px 80px;
+		padding: 190px 120px 220px 120px;
 		z-index: 1;
 
 		.event-share {
