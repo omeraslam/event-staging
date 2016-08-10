@@ -2,7 +2,9 @@
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
-  before_filter :find_subdomain, only: [ :home]
+  
+  #before_filter :find_subdomain, only: [ :home]
+  before_filter :find_site
 
   #require 'chunky_png'
 
@@ -773,6 +775,25 @@ def show
         @user = User.find_by subdomain: request.subdomain
         
     end
+
+    def find_site
+        # generalise away the potential www. or root variants of the domain name
+        if request.subdomain == 'www'
+          req = request.host[4..-1]
+        else
+          req = request.host
+        end
+
+        # first test if there exists a Site with the requested domain, 
+        # then check if it's a subdomain of the application's main domain
+        @user = User.find_by(domain: req) || User.find_by(subdomain: request.subdomain)
+
+
+        logger.debug "SO HELP ME:: #{@user.email}"
+
+        # if a matching site wasn't found, redirect the user to the www.<root url>
+        redirect_to root_url(subdomain: 'www') unless @user
+      end
 
 
 

@@ -16,6 +16,25 @@ Rails.application.routes.draw do
 
   #resources :themes
   
+  class CustomDomainConstraint
+    def self.matches? request
+      matching_site?(request)
+    end
+
+    def self.matching_site? request
+      if request.subdomain == 'www'
+        req = request.host[4..-1]
+      else
+        req = request.host
+      end 
+
+      User.where(:domain => req ).any? || User.where(:subdomain => request.subdomain).any? 
+    end
+  end 
+
+  #match '/', :to => 'pages#home', :constraints => CustomDomainConstraint, via: :all 
+  #match '/users/:id/events/index' => 'events#home', :constraints => CustomDomainConstraint, via: :all
+  #match ':domain', to: 'pages#home', :constraints => CustomDomainConstraint, via: :all  
   
 
   #dashboard routes

@@ -36,6 +36,8 @@ gem 'barby'
 
 gem "wysiwyg-rails"
 
+gem "rest-client"
+
 
 #s3 set up
 #gem 'aws-sdk', '~> 2'
