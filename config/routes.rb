@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   #match '/', :to => 'pages#home', :constraints => CustomDomainConstraint, via: :all 
   #match '/users/:id/events/index' => 'events#home', :constraints => CustomDomainConstraint, via: :all
-  #match ':domain', to: 'pages#home', :constraints => CustomDomainConstraint, via: :all  
+  match ':domain', to: 'pages#home', :constraints => CustomDomainConstraint, via: :all  
   
 
   #dashboard routes
