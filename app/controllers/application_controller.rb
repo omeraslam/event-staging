@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   before_action :check_member_type
   add_flash_types :event_success
-  before_filter :expire_hsts
-  before_filter :handle_subdomain
   
 
   helper :all
@@ -113,24 +111,6 @@ end
   end  
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
-  end
-
-  def expire_hsts
-    response.headers["Strict-Transport-Security"] = 'max-age=0'
-  end
-    
-  def handle_subdomain
-    if @user = User.find_by subdomain: request.subdomain || @user = User.find_by domain: request.domain
-    #@user = User.find_by_subdomain(request.subdomain) || User.find_by_domain(request.domain)
-
-        
-
-      logger.debug "@user.email"
-     
-    else
-      current_user = nil
-     # redirect_to root_url(subdomain: false) 
-    end
   end
 
 
