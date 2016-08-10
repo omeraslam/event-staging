@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   require "net/http"
   
   #before_filter :find_subdomain, only: [ :home]
-  before_filter :find_site
+  before_filter :find_site, only: [:home]
 
   #require 'chunky_png'
 
