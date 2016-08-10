@@ -38,7 +38,7 @@ class EventsController < ApplicationController
     if @user.nil?
         redirect_to root_url(subdomain: 'www')
     else
-        @events = Event.where(:user_id => @user.id.to_s).all
+        @events = Event.where(:user_id => @user.id.to_s, :published => true).all
     end
 
     #@user = User.find(params[:id])
