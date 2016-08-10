@@ -36,7 +36,7 @@ class EventsController < ApplicationController
     logger.debug "USER:::: #{@user.nil? }"
    
     if @user.nil?
-        redirect_to root_url(subdomain: 'www') 
+        redirect_to root_url(subdomain: 'www')
     else
         @events = Event.where(:user_id => @user.id.to_s).all
     end
@@ -777,20 +777,28 @@ def show
     end
 
     def find_site
+
         # generalise away the potential www. or root variants of the domain name
+        # 
+        logger.debug "request host with subd: #{request.host}"
         if request.subdomain == 'www'
           req = request.host[4..-1]
+
+        logger.debug "request after cut host with subd: #{req}"
         else
+
           req = request.host
+
         end
+
 
         # first test if there exists a Site with the requested domain, 
         # then check if it's a subdomain of the application's main domain
         @user = User.find_by(domain: req) || User.find_by(subdomain: request.subdomain)
 
 
-        logger.debug "SO HELP ME:: #{@user.email}"
-        puts "SO HELP ME:: #{@user.email}"
+        # logger.debug "SO HELP ME:: #{@user.email}"
+        # puts "SO HELP ME:: #{@user.email}"
 
         # if a matching site wasn't found, redirect the user to the www.<root url>
         redirect_to root_url(subdomain: 'www') unless @user

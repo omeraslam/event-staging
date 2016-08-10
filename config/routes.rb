@@ -31,12 +31,14 @@ Rails.application.routes.draw do
       puts "request: #{req}"
 
       User.where(:domain => req ).any? || User.where(:subdomain => request.subdomain).any? 
+
+      puts "HUH: #{User.where(:subdomain => request.subdomain).any? }"
     end
   end 
 
-  #match '/', :to => 'pages#home', :constraints => CustomDomainConstraint, via: :all 
+  #get '', :to => 'events#home', :constraints => CustomDomainConstraint, via: :get 
   #match '/users/:id/events/index' => 'events#home', :constraints => CustomDomainConstraint, via: :all
-  match ':domain', to: 'pages#home', :constraints => CustomDomainConstraint, via: :all  
+  # match ':domain', to: 'pages#home', :constraints => CustomDomainConstraint, via: :all  
   
 
   #dashboard routes
