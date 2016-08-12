@@ -26,7 +26,7 @@ SitemapGenerator::Sitemap.create do
     add '/users/sign_in'
     add '/users/sign_up'
 
-    @events  = Event.where(:published => true)
+    @events  = Event.where(:published => true, :status => true)
 
     @events.each do |event|
       add event.slug
