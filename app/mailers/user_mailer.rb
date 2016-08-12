@@ -16,6 +16,11 @@ class UserMailer < ActionMailer::Base
       devise_mail(record, :reset_password_instructions, opts)
     end
 
+    def event_checkin(user)
+        @user = user
+        mail(to: @user.email, subject: 'Can I help you with your event website?', from: "Mark Bushy <mark@eventcreate.com>")
+    end
+
     def welcome_attendee(attendee, eventurl)
         @attendee = attendee
         @url = eventurl

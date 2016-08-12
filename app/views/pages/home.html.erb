@@ -1,16 +1,64 @@
 <% title "Sell tickets to your event. For free." %>
 <% meta_description 'EventCreate is the easiest way to create a custom event website. Collect registrations, sell tickets, send invites, and manage your attendees — all in one place.' %>
 
+<div class="hero hero-simple">
+ 	<div class="hero-content">
+		<h1>Create a beautiful event website </h1>
+		<p>Create a stunning, white-labelled event website. Collect registrations, sell tickets and plan spectacular events. It's free and easy. </p>
+		<%= link_to 'Get started for free ', new_user_registration_path, :class => 'btn btn-large'  %>
+	</div>
+</div>	
+
+<div id="home-example2">
+	<img src="/assets/home/sample_1.jpg" />	
+</div>
+
+
+
+<div id="product-feature-container">
+	<div class="container product-feature-container">
+		<div class="product-feature product-feature-left col">
+			<i class="icon icon-line-build"> </i>
+			<h2> Easy-to use-builder </h2>
+			<p> EventCreate was built from the ground up to be simple and easy to use. Create a beautiful event website and start selling tickets in minutes.  </p>	
+		</div>
+		<div class="product-feature col">
+			<i class="icon icon-line-mobile-friendly"> </i>
+			<h2> Mobile-friendly  </h2>
+			<p>Don't sacrifice design for usability. Event websites are 100% mobile and tablet friendly, so your guests can register on any device. </p>	
+		</div>
+		<div class="product-feature col">
+			<i class="icon icon-line-flag"> </i>
+			<h2> White-labelled </h2>
+			<p>Feature your brand. Not ours. Fully "white-label" your event by uploading a custom logo and using a custom domain.</p>
+		</div>
+		<div class="product-feature product-feature-left  col">
+			<i class="icon icon-line-ticket"> </i>
+			<h2> Sell tickets</h2>
+			<p>Easily sell tickets and collect registrations to your event. And don't worry: unlimited tickets and ticket types are included. </p>	
+		</div>
+		<div class="product-feature col">
+			<i class="icon icon-line-credit-card"> </i>
+			<h2> Accept payments </h2>
+			<p>Quickly connect with Stripe payments to accept payments via Visa, Mastercard or American Express credit cards. You'll have access to your funds immediately. </p>	
+		</div>
+		<div class="product-feature col">
+			<i class="icon icon-line-email"> </i>
+			<h2> Send email invites </h2>
+			<p>Spread the word about your event. Automatically send email invitations to your guests, customized to match the design of your website. </p>	
+		</div>	
+	</div>
+</div>
+
+
+
 
 
 <div class="hero" id="home">
-	
 	<div class="hero-image"></div>
-
  	<div class="hero-content">
-		<h1> Create a beautiful event website</h1>
-		<p class="lead">It's free, and awesome.  </p>
-		<p>Impress your attendees with a stunning, white-labelled event website. Collect registrations, sell tickets and plan spectacular events. </p>	 
+		<h1>It's easy and free. And awesome.</h1>
+		<p>	Get started with a beautiful website in less than 30 seconds. </p>	 
 		<%= link_to 'Create my FREE event website ', new_user_registration_path, :class => 'btn btn-large'  %>
 	</div>
 
@@ -128,6 +176,18 @@
 </div>
 	
 <%= render 'pages/partials/footer' %> 	
+
+
+
+<script>
+$(function() {
+
+	$("#home-example2").delay(200).animate({opacity:"1", top:"0px"}, 1000);    
+});
+
+
+</script> 		
+
 
 <script>
 $(function() {
