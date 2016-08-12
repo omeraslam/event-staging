@@ -600,8 +600,8 @@ def show
       @event.html_body_1 = @eventBodyHtml
       @event.html_footer_1 = @eventFooterHTML
 
-
-  
+      @userEmail = User.find(current_user)
+      UserMailer.event_checkin(@userEmail).deliver
 
 
     #########
