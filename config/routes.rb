@@ -16,25 +16,22 @@ Rails.application.routes.draw do
 
   #resources :themes
   
-  # class CustomDomainConstraint
-  #   def self.matches? request
-  #     matching_site?(request)
-  #   end
+  class CustomDomainConstraint
+    def self.matches? request
+      matching_site?(request)
+    end
 
-  #   def self.matching_site? request
-  #     if request.subdomain == 'www'
-  #       req = request.host[4..-1]
-  #     else
-  #       req = request.host
-  #     end 
+    def self.matching_site? request
+      if ((request.subdomain.present? && request.subdomain != 'www') || request.host == 'www.markbushyphotography.com')
 
-  #     puts "request: #{req}"
 
-  #     User.where(:domain => req ).any? || User.where(:subdomain => request.subdomain).any? 
+       User.where(:domain => request.host ).any? || User.where(:subdomain => request.subdomain).any? 
 
-  #     puts "HUH: #{User.where(:subdomain => request.subdomain).any? }"
-  #   end
-  # end 
+      end
+    end
+  end 
+
+  #|r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com'
 
   #get '', :to => 'events#home', :constraints => CustomDomainConstraint, via: :get 
   #match '/users/:id/events/index' => 'events#home', :constraints => CustomDomainConstraint, via: :all
@@ -57,7 +54,8 @@ Rails.application.routes.draw do
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
-  get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
+  get '', to: 'events#home', constraints: CustomDomainConstraint, :as => :events_subdomain
+  #get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
   get '/users/:id/events/index', to: 'events#home', :as => :events_home
  
 
