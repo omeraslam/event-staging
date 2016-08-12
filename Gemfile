@@ -50,12 +50,14 @@ gem "rest-client"
 gem 'bitly'
 
 #carrier wave s3 module
-gem "fog"
+#gem "fog"
 
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
 gem "mini_magick"
 
+gem "fog-aws"
+gem "asset_sync"
 # Use these for social logins
 gem 'therubyracer'
 gem 'omniauth'
