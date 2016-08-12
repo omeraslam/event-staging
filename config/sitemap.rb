@@ -34,4 +34,4 @@ SitemapGenerator::Sitemap.create do
 
 end
 
-SitemapGenerator::Sitemap.ping_search_engines
+SitemapGenerator::Sitemap.ping_search_engines('https://www.eventcreate.com/sitemap.xml.gz')
