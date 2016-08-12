@@ -13,18 +13,22 @@
             <% end %>
         </a>   
         <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
-            <i class="icon icon-settings"> </i> <span> Advanced</span>
+            <i class="icon icon-settings"> </i> <span> Settings</span>
         </a>  
+        <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+            <i class="icon icon-users"> </i> <span> Attendees</span>
+        </a>        
+        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>          
     </div>
 
     <div class="editor-tools-bottom">
-        <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
-            <i class="icon icon-users"> </i> <span> Attendees</span>
-        </a>
+        <a class="tab toggleEditorPanel" id="editor-tool-support" data-target="editor-tool-support" >
+            <i class="fa fa-phone"> </i> <span> Support</span>
+        </a>     
         <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" style="display:none;" >
             <i class="icon icon-share"> </i> <span> Share</span>
         </a> 
-        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>  
+
         <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'tab' %>  
     </div>
 
@@ -151,6 +155,23 @@
 
 
 
+
+
+    <div class="editor-tool" id="editor-tool-support">
+    
+      <section class="editor-tool-header">
+        <h3>Support </h3> 
+        <p>Have a question? Need help setting up your website? Feel free to reach out.</p>
+        <p> Our support team is available to help 24/7. </p>
+      </section>
+
+      <section> 
+        <a class="inline-large"><i class="fa fa-fw fa-phone"></i> 1 (617) 752-2176</a>       
+        <a href="mailto:support@eventcreate.com" class="inline-large"><i class="fa fa-fw fa-envelope"></i> support@eventcreate.com</a>       
+
+      </section>
+
+    </div>  
 
 
 
