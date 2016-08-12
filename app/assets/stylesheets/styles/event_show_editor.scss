@@ -180,7 +180,7 @@ body.invite-view {
 	position: fixed;
 	left:0;
 	top:0;
-	width:66px;
+	width:74px;
 	height:100%;
 	background:#fff;
 	z-index:99999;
@@ -189,7 +189,8 @@ body.invite-view {
 
 	.editor-tools-bottom {
 		position: absolute;
-		bottom:0;
+		bottom:10px;
+		width: 100%;
 	}
 
 	a.tab {
@@ -198,12 +199,13 @@ body.invite-view {
 		line-height: 38px;
 		display: block;
 		//background:#fff;
-		padding:10px 16px;
+		padding:10px 0;
 		text-align:center;
 		transition: padding .2s ease-in-out;
 		position:relative;
 		min-width:66px;
-
+		max-width: 72px;
+		overflow: hidden;
 
 		.editor-tab-notification {
 			position: absolute;
@@ -253,6 +255,7 @@ body.invite-view {
 			font-size: 20px;
 			position: relative;
 			top: 4px;
+			line-height: 0;
 		}
 
 		div {
@@ -269,38 +272,11 @@ body.invite-view {
 
 
 		span {
-			position:absolute;
-			right:0;
-			top:0;
-			background:$brand-secondary;
-		    color: #fff;
 		    font-size: 9px;
-		    width: 100px;
-		    left: 94px;
-		    border-radius: 10px;
 		    font-weight: 600;
-		    top:10px;
-			visibility: hidden;
-			opacity: 0;
-			-webkit-transition: all .2s ease-out;
-			transition: all .2s ease-out;
-
-
-			&:after {
-				right: 99%;
-				top: 50%;
-				border: solid transparent;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				pointer-events: none;
-				border-color: rgba(136, 183, 213, 0);
-				border-right-color: $brand-secondary;;
-				border-width: 8px;
-				margin-top: -8px;
-			}	
-
+		    line-height: 0;
+		    display: block;
+		    text-align: center;
 		}	
 
 
@@ -612,6 +588,10 @@ body.invite-view {
 	}
 
 }
+
+
+
+
 
 
 

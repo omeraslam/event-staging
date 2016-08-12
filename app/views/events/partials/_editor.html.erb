@@ -1,49 +1,32 @@
 <div class="editor-tabs">
-
-  <div class="editor-tools-top">
-
-    <a class="tab toggleEditorPanel" id="editor-tool-home" data-target="editor-tool-home" style="display:none;" >
-        <i class="fa fa-globe"> </i> <span> Status</span>
-      </a> 
-      <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
-        <i class="icon icon-image"> </i> <span> Design </span>
-      </a> 
-
-      <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
-        <i class="icon icon-tag"> </i> <span> Registration</span>
-
-        <% if  @account == nil && @ticket.price != 0 %>
-          <div class="editor-tab-notification editor-tab-notification-error"></div>
-        <% end %>
-
-      </a>   
-
-
-          <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
-        <i class="icon icon-settings"> </i> <span> Advanced</span>
-      </a>  
-  </div>
-
-
-    <div class="editor-tools-bottom">
-      <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
-        <i class="icon icon-users"> </i> <span> Attendees</span>
-      </a>
-
-
-      <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" style="display:none;" >
-        <i class="icon icon-share"> </i> <span> Share</span>
-      </a> 
-
-
-      <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>  
-
-      <%= link_to '<i class="icon icon-sign-out"> </i> <span> go to my account </span>'.html_safe, "/", class: 'tab' %>  
-
-
-
+    <div class="editor-tools-top">
+        <a class="tab toggleEditorPanel" id="editor-tool-home" data-target="editor-tool-home" style="display:none;" >
+            <i class="fa fa-globe"> </i> <span> Status</span>
+        </a> 
+        <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
+            <i class="icon icon-image"> </i> <span> Design </span>
+        </a> 
+        <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
+            <i class="icon icon-tag"> </i> <span> Tickets</span>
+            <% if  @account == nil && @ticket.price != 0 %>
+              <div class="editor-tab-notification editor-tab-notification-error"></div>
+            <% end %>
+        </a>   
+        <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
+            <i class="icon icon-settings"> </i> <span> Advanced</span>
+        </a>  
     </div>
 
+    <div class="editor-tools-bottom">
+        <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+            <i class="icon icon-users"> </i> <span> Attendees</span>
+        </a>
+        <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" style="display:none;" >
+            <i class="icon icon-share"> </i> <span> Share</span>
+        </a> 
+        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>  
+        <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'tab' %>  
+    </div>
 
 </div>
 
@@ -51,72 +34,7 @@
 
 <div class="editor-container"> 
 
-  <div class="tabs" style="display:none;">
 
-    <a class="tab toggleEditorPanel" id="editor-tool-status" data-target="editor-tool-status" >
-      <i class="icon icon-edit-inline"> </i> <span> Edit details</span>
-    </a> 
-
-    <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details" >
-      <i class="icon icon-edit-inline"> </i> <span> Edit details</span>
-    </a> 
-    <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
-      <i class="icon icon-image"> </i> <span> Modify background Image </span>
-    </a> 
-    <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
-      <i class="icon icon-tag"> </i> <span> Ticketing</span>
-    </a>     
-
-
-
-    <% if @event.published == false %>  
-
-      <a class="tab" id="draft">
-        <i class="icon icon-save"> </i>
-        <div>Save</div>
-        <span> Save</span>
-      </a> 
-  
-      <% if @account.nil? && @has_paid_ticket %>
-
-       <a class="tab publish" onclick="alert('You need to seet up a payment account to publish a paid ticketed event. Please add it via Stripe under ticketing settings.');">
-        <i class="icon icon-globe"> </i>
-        <div>Publish</div>
-         <span> Publish</span>
-      </a> 
-
-
-      <% else %>
-
-      <a class="tab" id="publish">
-        <i class="icon icon-globe"> </i>
-        <div>Publish</div>
-         <span> Publish</span>
-      </a> 
-
-      <% end %>
-
-    <% else %>  
-
-      <a href="dashboard/event?event=<%= @event.id %>" class="tab" id="done">
-        <i class="icon icon-check"> </i> 
-        <div>Done</div>
-        <span> Done editing</span>
-      </a> 
-
-      <div class="event-status-notification-banner visible"> 
-        Just a heads up: Your website is live. Changes will be saved automatically and visible to your guests.  <a id="event-status-notification-banner-close" class="btn btn-small"> Got it, thanks. </a>   
-      </div>
-
-    <% end %>  
-
-
-    <a href="dashboard/event?event=<%= @event.id %>" class="tab" id="saving">
-      <i class="icon icon-loader"> </i> 
-    </a> 
-
-
-  </div>
 
 
 
