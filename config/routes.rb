@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get '/event-maker' => 'pages#event'
 
   get '/robots.:format' => 'pages#robots'
+  get '/sitemap.xml.gz', to: redirect("https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/sitemaps/sitemap.xml.gz"), as: :sitemap
 
   #payment routes
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
