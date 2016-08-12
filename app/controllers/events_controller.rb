@@ -600,6 +600,7 @@ def show
     @user = User.find(current_user)
     @event = @user.events.build(event_params)
     @event.user_id = current_user.id
+    @event.published = true
     @event.layout_id = '1'
     
     @eventHTML = '<h1>' + @event.name + '</h1><p class="lead"> Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>' + '<span class="btn btn-reg open-registration"> Register now</span>'
