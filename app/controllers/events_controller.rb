@@ -464,6 +464,8 @@ def show
       end
     end
 
+
+
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
 
 

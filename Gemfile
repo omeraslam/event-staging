@@ -16,6 +16,8 @@ end
 #email sending stats
 gem 'mandrill-api'
 
+gem 'platform-api'
+
 #manage environment variables
 gem 'figaro'
 
@@ -26,6 +28,8 @@ gem 'sitemap_generator'
 gem 'icalendar'
 
 gem 'unsplash'
+
+gem 'activejob_backport'
 
 #pdf generation for ticketing
 gem 'wicked_pdf'

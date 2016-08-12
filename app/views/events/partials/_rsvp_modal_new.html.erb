@@ -59,14 +59,15 @@
 		
 
     <%# @RICH  -   if MORE THAN 1 TICKET EXISTS  %>
+     <% if (@tickets.count > 1) %>
             <div class="input-group ticket-type">
                 <label>Select Ticket:</label>
-   
-                  <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id ] }) %>
+             
+                <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id ] }) %>
 
             </div>
+    <% end %>
     <%# END  %>
-
 
 
 
@@ -79,7 +80,6 @@
 			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %>
 			          <% end %>
 			</div>
-
 
 
 
