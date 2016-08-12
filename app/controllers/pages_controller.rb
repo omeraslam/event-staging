@@ -14,6 +14,10 @@ class PagesController < ApplicationController
     #no design 
   end
 
+  def robots
+    respond_to :text
+    expires_in 6.hours, public: true
+  end
 	
 	def pricing
 	end

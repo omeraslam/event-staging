@@ -50,6 +50,8 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#index'
   get '/event-maker' => 'pages#event'
 
+  get '/robots.:format' => 'pages#robots'
+
   #payment routes
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
