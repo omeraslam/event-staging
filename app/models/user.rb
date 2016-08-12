@@ -14,22 +14,6 @@ class User < ActiveRecord::Base
   include Gravtastic
   gravtastic
 
-  # after_save do |user|  
-  #   heroku_environments = %w(production staging)
-  #   if user.domain && (heroku_environments.include? Rails.env)
-  #     added = false
-  #     heroku = Heroku::API.new(api_key: ENV['HEROKU_API_KEY'])
-  #     heroku.get_domains(ENV['APP_NAME']).data[:body].each do |domain|
-  #       added = true if domain['domain'] == user.domain
-  #     end
-
-  #     unless added
-  #       heroku.post_domain(ENV['APP_NAME'], user.domain)
-  #       heroku.post_domain(ENV['APP_NAME'], "www.#{user.domain}")
-  #     end
-  #   end
-  # end 
-
   private
 
     def send_welcome_email
