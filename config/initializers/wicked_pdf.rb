@@ -11,7 +11,8 @@
 WickedPdf.config = {
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
   # one of the wkhtmltopdf-binary family of gems.
-   exe_path: !Rails.env.development? ? Rails.root.join('bin', 'wkhtmltopdf').to_s : '/usr/local/bin/wkhtmltopdf'
+   exe_path: !Rails.env.development? ? Rails.root.join('bin', 'wkhtmltopdf').to_s : ENV['WICKED_PDF_PATH']
+
   #   or
   # exe_path: Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
       
