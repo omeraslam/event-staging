@@ -54,8 +54,8 @@ Rails.application.routes.draw do
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
-  get '', to: 'events#home', constraints: CustomDomainConstraint, :as => :events_subdomain
-  #get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
+  #get '', to: 'events#home', constraints: CustomDomainConstraint, :as => :events_subdomain
+  get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
   get '/users/:id/events/index', to: 'events#home', :as => :events_home
  
 
