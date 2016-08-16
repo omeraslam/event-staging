@@ -34,7 +34,8 @@ $( document ).ready(function() {
 
   //registration modal
   var registrationModal = $('#attendee-form').remodal({hashTracking:false});
-  $('.open-registration').click(function(){
+  $('.open-registration').click(function(e){
+    e.preventDefault();
     registrationModal.open();
   });
 });
