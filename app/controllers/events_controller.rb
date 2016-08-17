@@ -439,6 +439,8 @@ end
 
 def show
 
+
+
     session[:return_to] ||= request.path
 
 
@@ -453,6 +455,43 @@ def show
 
 
     @tickets = @event.tickets.all 
+
+    @total = 0
+
+    # @tickets.each do |ticket|
+    #   Purchase.where(:event_id => @event.id).all.each do |purchase|
+    #     @total += LineItem.where(:purchase_id => purchase.id).count
+    #   end
+
+    #   @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
+    # end 
+    
+    @tickets.each do |ticket|
+      Purchase.where(:event_id => @event.id).all.each do |purchase|
+        @total += LineItem.where(:purchase_id => purchase.id).count
+      end
+
+      if ticket.stop_date.to_date > @event.date_start.to_date
+        @ticket_stop = ticket.stop_date.to_date > @event.date_start.to_date
+        @event.html_hero_1['<span class="btn btn-reg open-registration"> Register now</span>'] = '<span class="btn btn-reg">Registration closed</span>'  
+      end
+
+      @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
+    end
+
+    if @ticket_quantity_left < 1
+      if @ticket_stop
+        @event.html_hero_1['<span class="btn btn-reg">Registration closed</span>'] = '<span class="btn btn-reg">Sold out</span>'  
+      else 
+        @event.html_hero_1['<span class="btn btn-reg open-registration"> Register now</span>'] = '<span class="btn btn-reg">Sold out</span>'
+      end 
+    end
+
+    
+
+    #<span class="btn btn-reg open-registration"> Register now</span>
+
+
     @has_paid_ticket = false
     @tickets.each_with_index do |ticket, index|
       if index == 0
