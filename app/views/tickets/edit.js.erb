@@ -3,5 +3,3 @@ $('#ticket-modal').remove();
 $('body').append("<%= j render :partial => 'events/partials/ticket_modal', :locals => {tickets: @tickets } %>");
 
 $('#ticket-modal').remodal().open();
-
-//alert('sup');
