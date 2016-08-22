@@ -25,6 +25,11 @@
 @import "vendor/editor/plugins/video.css";
 
 
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
 //variables and core
 @import "styles/variables.scss";
 @import "styles/scaffolds.scss";

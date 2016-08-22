@@ -83,7 +83,7 @@ input, .input, textarea, select {
 	margin-bottom:20px;
 	clear:both;
 	position:relative;
-	clear:both;
+	display:block;
 	
 	&:after {
 		content: "";
@@ -93,6 +93,13 @@ input, .input, textarea, select {
 	}
 
 	&.input-group-addon, .input-group-addon {
+
+		width:100%;
+		background:none;
+		border:none; 
+		padding:0;
+		line-height: inherit;
+
 		.input-addon {
 			width:10%;
 		    float: left;
@@ -103,6 +110,7 @@ input, .input, textarea, select {
 		    line-height: 24px;
 		    padding: 12px 3px;
 		    border-bottom: 1px solid #dcdcdc;
+
 		}
 
 		input {
