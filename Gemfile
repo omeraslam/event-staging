@@ -17,6 +17,7 @@ end
 gem 'mandrill-api'
 
 gem 'platform-api'
+gem 'rack-cors', '~> 0.3.1'
 
 #manage environment variables
 gem 'figaro'
