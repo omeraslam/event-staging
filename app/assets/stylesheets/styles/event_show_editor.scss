@@ -205,6 +205,7 @@ body.invite-view {
 		position:relative;
 		min-width:66px;
 		max-width: 72px;
+		text-decoration: none;
 		overflow: hidden;
 
 		.editor-tab-notification {
@@ -380,6 +381,7 @@ body.invite-view {
 
 		&:hover {
 			background:darken($brand-secondary, 2.5%) !important;
+			text-decoration: none;
 		}
 
 		span {
@@ -972,10 +974,10 @@ body.invite-view {
 	position:fixed;
 	right:20px;
 	background:#fff;
-	width:300px;
+	width:310px;
 	z-index: 99999999999;
 	box-shadow:4px 4px 20px rgba(0,0,0,.2);
-	bottom:-360px;
+	bottom:-380px;
 	transition: bottom .3s ease-in-out;
 
 
@@ -1006,7 +1008,7 @@ body.invite-view {
 
 	form {
 		padding:20px;
-		height: 360px;
+		height: 380px;
 
 		p {
 			font-size:12px;

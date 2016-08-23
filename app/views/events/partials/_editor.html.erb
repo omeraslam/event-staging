@@ -419,7 +419,7 @@
                   <img src="https://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg"> 
                     <div class="attendee-details">
                       <a href="mailto:<%= attendee.email %>"> <%= attendee.first_name %> <%= attendee.last_name %> </a> 
-                      <b> (+1) </b><br>
+                     <br>
                       <%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %>
                     </div>
                 </li>
