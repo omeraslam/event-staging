@@ -473,9 +473,11 @@ def show
     # end 
     
     @tickets.each do |ticket|
-      Purchase.where(:event_id => @event.id).all.each do |purchase|
-        @total += LineItem.where(:purchase_id => purchase.id).count
-      end
+      #if !Purchase.where(:event_id => @event.id).nil?
+        Purchase.where(:event_id => @event.id.to_s).all.each do |purchase|
+          @total += LineItem.where(:purchase_id => purchase.id).count
+        end
+      #end
 
       # if ticket.stop_date.to_date > @event.date_start.to_date
       #   @ticket_stop = ticket.stop_date.to_date > @event.date_start.to_date
