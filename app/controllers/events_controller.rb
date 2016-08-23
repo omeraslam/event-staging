@@ -185,7 +185,9 @@ def complete_registration
       num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
 
 
-      (1..num_tickets).each do |i| 
+      (1..num_tickets).each do |i|
+
+
         @line_item = LineItem.new
         @quantity = (params[:ticket_quantity][ticket.id.to_s]).to_i
         ticket_id = (params[:ticket_id][ticket.id.to_s]).to_i

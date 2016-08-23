@@ -72,9 +72,7 @@
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
             <% @total += LineItem.where(:purchase_id => purchase.id).count %>
             <% end %>
-
-
-           <% if @current_ticket.ticket_limit.to_i - @total.to_i > 1 %>
+    <% if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %>
 	    	<div class="input-group quantity">
 		    		<label>Select Quantity:</label>
 			           <% if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
@@ -86,8 +84,18 @@
 			</div>
 
       <% else %>
+          <% if @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %>
+            <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
+          <% else %>
+            <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
+              <div class="input-group quantity">
+                     <label>Select Quantity:</label>
+                    <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>SOLD OUT</option>".html_safe, {:disabled => true} %>
+              </div>
 
-        <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
+          <% end %>
+
+          
 
       <% end %>
 
@@ -153,12 +161,17 @@
 
 	
       <div class="input-group"> 
+      <% if @current_ticket.ticket_limit.to_i - @total.to_i  > 0 %>
 	       		<% if !@has_paid_ticket %>
 
 			    	<button class="btn btn-large">Register Now</button>
 			    <% else %>
 			    	<button class="btn btn-large">Buy Tickets</button>
 				<% end %>
+      <% else %>
+          
+            <button class="btn btn-large btn-disabled" disabled>Not Available</button>
+      <% end %>
 
         <p class="input-secure"><i class="fa fa-lock"> </i> Secure server </p>
 
@@ -207,7 +220,8 @@ $(document).ready(function() {
     $('.form-price').text('$' + filteredPrice);
     var total_price = (($('.form-quantity').text()* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*$('.form-quantity').text())
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
-
+    $('.quantity select').remove();
+    $('.quantity label').after('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option value="1">1</option></select>');
 
   });
 
