@@ -70,7 +70,7 @@
     <%# END  %>
         <% @total = 0 %>
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
-            <% @total += LineItem.where(:purchase_id => purchase.id).count %>
+            <% @total += LineItem.where(:purchase_id => purchase.id.to_s).count %>
             <% end %>
           <!--   now date <%= DateTime.now.to_date %> 
             current stop date <%= @current_ticket.stop_date.to_date %>  -->
