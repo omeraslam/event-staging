@@ -72,33 +72,43 @@
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
             <% @total += LineItem.where(:purchase_id => purchase.id).count %>
             <% end %>
-    <% if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %>
-	    	<div class="input-group quantity">
-		    		<label>Select Quantity:</label>
-			           <% if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
-			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..@current_ticket.buy_limit).step(1)) %>
-			          <% else %>
+          <!--   now date <%= DateTime.now.to_date %> 
+            current stop date <%= @current_ticket.stop_date.to_date %>  -->
 
-			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %>
-			          <% end %>
-			</div>
+    <% if @current_ticket.stop_date.to_date > DateTime.now.to_date %>
+      <% if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %>
+  	    	<div class="input-group quantity">
+  		    		<label>Select Quantity:</label>
+  			           <% if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
+  			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..@current_ticket.buy_limit).step(1)) %>
+  			          <% else %>
 
-      <% else %>
-          <% if @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %>
-            <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
-          <% else %>
-            <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
-              <div class="input-group quantity">
-                     <label>Select Quantity:</label>
-                    <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>SOLD OUT</option>".html_safe, {:disabled => true} %>
-              </div>
+  			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %>
+  			          <% end %>
+  			</div>
 
-          <% end %>
+        <% else %>
+            <% if @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %>
+              <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
+            <% else %>
+              <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
+                <div class="input-group quantity">
+                       <label>Select Quantity:</label>
+                      <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>SOLD OUT</option>".html_safe, {:disabled => true} %>
+                </div>
 
-          
+            <% end %>
 
-      <% end %>
+            
 
+        <% end %>
+
+    <% else %>
+    <div class="input-group quantity">
+      <label>Select Quantity:</label>
+        <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>No longer available </option>".html_safe, {:disabled => true} %>
+      </div>
+    <% end %>
 
 
     
@@ -161,6 +171,8 @@
 
 	
       <div class="input-group"> 
+
+    <% if @current_ticket.stop_date.to_date > DateTime.now.to_date %>
       <% if @current_ticket.ticket_limit.to_i - @total.to_i  > 0 %>
 	       		<% if !@has_paid_ticket %>
 
@@ -172,6 +184,13 @@
           
             <button class="btn btn-large btn-disabled" disabled>Not Available</button>
       <% end %>
+
+
+      <% else %>
+          
+            <button class="btn btn-large btn-disabled" disabled>Registration closed</button>
+      <% end %>
+
 
         <p class="input-secure"><i class="fa fa-lock"> </i> Secure server </p>
 
