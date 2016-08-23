@@ -91,6 +91,7 @@ Rails.application.routes.draw do
   get '/facebookevents' => 'pages#facebook'
   get '/about' => 'pages#about'
   get '/press' => 'pages#press'
+  get '/customization' => 'pages#customization'
 
 
   get '/error404' => 'pages#error404', :as => :error_path
