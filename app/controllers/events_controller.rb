@@ -474,8 +474,8 @@ def show
     
     @tickets.each do |ticket|
       #if !Purchase.where(:event_id => @event.id).nil?
-        Purchase.where(:event_id => @event.id.to_s).all.each do |purchase|
-          @total += LineItem.where(:purchase_id => purchase.id).count
+        Purchase.where(:event_id => @event.id).all.each do |purchase|
+          @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end
       #end
 
