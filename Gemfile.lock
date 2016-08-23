@@ -32,10 +32,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (5.0.1.20140414130214)
-    asset_sync (1.1.0)
-      activemodel
-      fog (>= 1.8.0)
-      unf
     barby (0.6.2)
     bcrypt (3.1.10)
     best_in_place (3.0.3)
@@ -415,7 +411,6 @@ PLATFORMS
 
 DEPENDENCIES
   activejob_backport
-  asset_sync
   barby
   best_in_place (~> 3.0.1)
   bitly
@@ -427,7 +422,7 @@ DEPENDENCIES
   devise_invitable
   email_spec
   figaro
-  fog-aws
+  fog
   foreman
   friendly_id
   gravtastic
