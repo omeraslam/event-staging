@@ -26,9 +26,9 @@
 
 		<div class="modal-header modal-header-light">
 	    <h3> <%= @event.name %> </h3>	 
-      <p> <%= @event.date_start.to_date.strftime("%B %d ")%>  | 
+      <p> 
         <% if @current_ticket.price == 0 %>   
-          Free 
+           
         <% else %>
           <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
         <% end %>   
@@ -38,10 +38,11 @@
 		
 
 
-	    				<p><span class="form-quantity">1</span> X 
 	    					<% if @current_ticket.price == 0 %>
-			              	Free
+			              	
 				          <% else %>
+                                <p><span class="form-quantity">1</span> X 
+
 				              <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
 				          <% end %> 
 			          
@@ -195,8 +196,15 @@
         <p class="input-secure"><i class="fa fa-lock"> </i> Secure server </p>
 
       <p>
-        Your privacy is very important to us. By using this website, registering for an event and/or making a purchase, you agree to EventCreate's <a href="www.eventcreate.com/terms" target="_blank">Terms of Service </a> and <a href="www.eventcreate.com/privacy" target="_blank"> Privacy Policy</a>. All ticketing sales are final and non-refundable. 
+        Your privacy is very important to us. By using this website and/or <% if @current_ticket.price == 0 %>   
+ registering for an event, <% else %> buying tickets to an event, 
+         <% end %>  you agree to EventCreate's <a href="https://www.eventcreate.com/terms" target="_blank">Terms of Service </a> and <a href="https://www.eventcreate.com/privacy" target="_blank"> Privacy Policy</a>. 
 
+<% if @current_ticket.price == 0 %>   
+<% else %>  All ticketing sales are final and non-refundable. 
+
+         <% end %> 
+        
       </p>
 
       </div>
