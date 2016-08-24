@@ -17,6 +17,7 @@ end
 gem 'mandrill-api'
 
 gem 'platform-api'
+gem 'rack-cors', '~> 0.3.1'
 
 #manage environment variables
 gem 'figaro'
@@ -50,14 +51,13 @@ gem "rest-client"
 gem 'bitly'
 
 #carrier wave s3 module
-#gem "fog"
+gem "fog", require: 'fog/aws'
 
 # Use carrierwave for uploading pictures
 gem 'carrierwave'
 gem "mini_magick"
 
-gem "fog-aws"
-gem "asset_sync"
+#gem "asset_sync"
 # Use these for social logins
 gem 'therubyracer'
 gem 'omniauth'

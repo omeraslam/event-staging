@@ -22,8 +22,8 @@ Rails.application.routes.draw do
     end
 
     def self.matching_site? request
-      if ((request.subdomain.present? && request.subdomain != 'www') || request.host == 'www.markbushyphotography.com')
-
+      if ((request.subdomain.present? && request.subdomain != 'www'))
+        puts "HELLO SUBDOMAIN:::: #{request.host}"
 
        User.where(:domain => request.host ).any? || User.where(:subdomain => request.subdomain).any? 
 
@@ -54,8 +54,8 @@ Rails.application.routes.draw do
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
-  #get '', to: 'events#home', constraints: CustomDomainConstraint, :as => :events_subdomain
-  get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
+  get '', to: 'events#home', constraints: CustomDomainConstraint, :as => :events_subdomain
+  #get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
   get '/users/:id/events/index', to: 'events#home', :as => :events_home
  
 
