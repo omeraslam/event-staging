@@ -29,6 +29,10 @@ $(document).ready(function(){
 
       function stripePuchaseTicketsResponseHandler(status, response) {
 
+
+        $(".full-page-loader").addClass("visible");
+
+
         var $form = $('#purchase-tickets_form');
         //purchase_amount, token
         if (response.error) {
@@ -58,7 +62,10 @@ $(document).ready(function(){
 
           },
           error: function(resp) {
-            alert('Credit card charge did not go through')
+
+            $(".full-page-loader").removeClass("visible");
+            alert('Sorry, there seems to be a problem processing that credit card. Please try another card.');
+
           }
         });
           //$form.get(0).submit();

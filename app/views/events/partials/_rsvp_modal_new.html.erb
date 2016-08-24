@@ -230,7 +230,17 @@
 </div>
 
 <% if @has_paid_ticket %>
-<script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
+  <script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
+<else>
+
+<script>
+
+$(document).ready(function() {
+
+
+});  
+</script>
+
 <% end %>
 
 
@@ -342,7 +352,32 @@ $(document).ready(function() {
   $("input[name='attendees["+ (i+1) +"][email]']").rules("add", {required: true, messages: { required: 'Please enter a valid email'}});
   }
 
+
+  //if not a paid event, add a sumbit function to show loader and disable button
+  if ($(".cc-number").length == 0) {
+
+   $('#purchase-tickets_form').submit(function(e) {
+      
+      var $form = $(this);
+      $form.find('button').prop('disabled', true);
+      $(".full-page-loader").addClass("visible");
+
+
+    }); 
+ }
+
+
+
+
+ 
+
+
+
 });
+
+
+
+
 
 </script>
 
@@ -364,4 +399,14 @@ $(document).ready(function() {
 		
 </div>
 <!-- END modal -->
+
+
+
+<div class="full-page-loader">
+      <h2> <i class='icon icon-loader'></i></h2>
+      <h2>Nice! Hang tight for sec, while we process you're event registration.</h2>
+</div>
+
+
+
 
