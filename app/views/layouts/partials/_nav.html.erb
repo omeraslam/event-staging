@@ -76,7 +76,11 @@
         <% if signed_in? %>
           <li><%= link_to 'My Account', dashboard_index_path, :class => 'navbar-link'  %> </li>
         <% else %>
+          <li><%= link_to "Features", "/features", :class => 'navbar-link'  %></li>
+
           <li><%= link_to "Pricing", "/pricing", :class => 'navbar-link'  %></li>
+          <li><%= link_to "Customization Services", "/customization", :class => 'navbar-link'  %></li>
+
  
           <li class="sep"> | </li>
           <li><%= link_to "Sign in", new_user_session_path, :class => 'navbar-link'  %></li>

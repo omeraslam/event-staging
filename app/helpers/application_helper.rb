@@ -9,7 +9,7 @@ module ApplicationHelper
 			if(controller_name == 'events' && action_name == 'show')
 				content_for?(:title) ? content_for(:title)  + ' | ' + APP_CONFIG['default_title'] : APP_CONFIG['default_title']
 			else
-				content_for?(:title) ? APP_CONFIG['default_title']  + ' - ' + content_for(:title) : APP_CONFIG['default_title']
+				content_for?(:title) ? content_for(:title) : APP_CONFIG['default_title']
 
 			end
 		end

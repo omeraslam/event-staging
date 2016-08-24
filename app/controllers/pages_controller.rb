@@ -45,6 +45,9 @@ class PagesController < ApplicationController
   def press
   end
 
+  def customization
+  end
+
 
   def explore
     #no design 
