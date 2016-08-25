@@ -1,29 +1,106 @@
 <!DOCTYPE html>
-<html style="margin: 0;padding: 0;font-family: 'lato',sans-serif;-webkit-text-size-adjust: none;">
+<html style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:'Open Sans', sans-serif;-webkit-text-size-adjust:none;" >
 <head>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 
-	<link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:400,700" rel="stylesheet">
 
 
-	<style type="text/css">
+<style type="text/css">
 		
 	
 	html, body {
 		margin:0;
 		padding: 0;
-		font-family: 'Lato', sans-serif;
+		font-family: 'Raleway', sans-serif;
+		font-family: 'Open Sans', sans-serif;
+
 		-webkit-text-size-adjust: none;	
 	}
 	a {
-		color:#21afbf;
+		color:#1c809e;
 	}	
 	td.bg {
 		background-color: #F5F5F5;
 	}
+	td.logo  {
+		padding:70px 40px 40px 40px;
+		text-align: center;
+	}
+
+	td.logo img {
+		width: 60px;
+		height: auto;
+	}
+
+	td.logo-white  {
+		padding:80px 40px 80px 40px;
+	}
+
+	td.h1  {
+		padding:20px 40px 20px 40px;
+		font-size: 24px;
+		line-height: 36px;
+		color:#111;
+		text-align: center;
+	}
+	td.h1-white  {
+		color:#fff;
+	}	
+	td.h4  {
+		padding:40px 40px 10px 40px;
+		font-size: 12px;
+		line-height: 12px;
+		color:#666;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		vertical-align: top;
+		font-weight: 700;
+	}
+	td.p  {
+		padding:0 40px;
+		font-size: 12px;
+		line-height: 20px;
+		color:#666;
+		text-align: center;
+		font-family: 'Open Sans', sans-serif;
+
+	}
+
+	td.p2  {
+		padding:0 40px;
+		font-size: 12px;
+		line-height: 20px;
+		color:#888;
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	td.p2last  {
+		padding-bottom: 60px;
+	}
+
+
+	td.p-small  {
+		font-size: 10px;
+		line-height: 18px;
+		color:#999;
+	}	
+	td.p-white  {
+		padding-bottom: 80px;
+		color:#fff;
+		opacity: .9;
+	}	
+	td.hero-container {
+		padding:0 0 50px 0;
+	}	
+
+	td.hero {
+		color:#fff;
+	}	
+
 	table.content-wrapper {
 		width:95%;
-		max-width: 600px;
+		max-width: 500px;
 		margin: 0 auto;
 	}
 	td.intro-copy {
@@ -40,29 +117,24 @@
 	table.content {
 		background:#fff;
 	}
-	td.event-title {
-		padding-top:100px;
-		padding-bottom:100px;
-		text-align: center;
-		font-size: 50px;
-		line-height: 50px;
-		color:#fff;
-	}
-	td.event-meta {
-		text-align: center;
-		padding:50px 0 10px 0;
-	}
-	td.event-meta img {
-		width: 22px;
-	}
-	td.event-description {
-		padding:40px 40px 10px 40px;
-		font-size: 14px;
-		color:#444;
-	}
+
 	td.cta {
+		padding: 30px 40px 80px 40px;
 		text-align: center;
-		padding: 30px 20px 60px 20px;
+	}
+	td.steps-image {
+		padding:10px 20px 10px 40px;
+	}
+	td.steps-image img{
+		width:50px;
+		height: auto;
+	}
+	td.steps-text {
+		padding: 10px 40px 10px 10px;
+		font-size: 14px;
+		line-height: 22px;
+		color:#666;
+		font-family: 'Open Sans', sans-serif;
 	}
 	td.footer-description {
 		padding: 50px 0;
@@ -73,11 +145,26 @@
 	}
 	td.footer-logo {
 		text-align: center;
-		padding:0 0 60px 0;
+		padding:100px 20px 30px 20px;
 	}
 	td.footer-logo img{
-		width: 160px;
-		opacity: .7;
+		width: 180px;
+		height:auto;
+	}
+	td.footer-links {
+		padding:0 0 50px 0;
+		color:#999;
+		font-size: 11px;
+		color:#999;
+		text-align: center;
+		font-family: Arial, 'Open Sans', sans-serif;
+	}
+
+	td.footer-links a {
+		color:#999;
+		text-decoration: none;
+		display: inline-block;
+		margin:0 10px;
 	}
 	</style>
 
@@ -85,38 +172,9 @@
 
 
 </head>
-<body style="margin: 0;padding: 0;font-family: 'lato',sans-serif;-webkit-text-size-adjust: none;">
+<body style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:'Open Sans', sans-serif;-webkit-text-size-adjust:none;" >
 
 
-
-
-
-
-<!-- START intro wrapper table -->
- <table cellpadding="0" cellspacing="0" border="0" width="100%">
-
-	<tr> 
-	<td class="bg" style="background-color: #F5F5F5;">
-
-
-		<!-- START intro table -->
-		<table class="content-wrapper intro" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="width: 95%;max-width: 600px;margin: 0 auto;"> 
-
-			<tr>
-			<td class="intro-copy intro-copy-left" style="font-size: 11px;color: #999;padding: 10px 0;">You are invited to <%= @event.name %> </td>	
-			<td class="intro-copy intro-copy-right" style="font-size: 11px;color: #999;padding: 10px 0;text-align: right;"><a href="https://www.eventcreate.com/<%= @event.slug %>" style="color: #21afbf;"> View event website </a></td>			
-			</tr>
-
-		</table>
-		<!-- END intro  table -->
-
-
-	</td>	
-	</tr>
-
-
-</table>
-<!-- END intro wrapper table -->
 
 
 
@@ -125,132 +183,61 @@
  <table cellpadding="0" cellspacing="0" border="0" width="100%">
 
 	<tr> 
-	<td class="bg" style="background-color: #F5F5F5;">
+	<td class="bg" style="background-color:#eff0f3;" >
 
 		
 		<!-- START content table -->	
-		<table class="content-wrapper content" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="width: 95%;max-width: 600px;margin: 0 auto;background: #fff;">
+		<table class="content-wrapper content" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="width:95%;max-width:500px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;background-color:#fff;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;" >
+
 
 
 			<tr>
-			<!-- START background image/ intro cell -->	
-			
-			<% if(@event.background_img.nil? || @event.background_img.blank?)
-				@background_email_img = 'https://www.eventcreate.com/assets/themes/'+ @event.layout_style + '_bg.jpg'
-			   else
-			   		if @event.background_img.email.file.exists?
-			   			@background_email_img = @event.background_img.url(:email)
-					else
-						@event.background_img.recreate_versions!
-						@background_email_img = @event.background_img.url(:email)
-					end
-			   end
-
-
-			 %>
-
-
-      		<td class="event-title"  bgcolor="#21afbf" valign="top" style="padding-top: 100px;padding-bottom: 100px;text-align: center;font-size: 50px;line-height: 50px;color: #fff;">
-			  <!--[if gte mso 9]>
-			  <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" >
-			    <v:fill type="tile" src="https://www.eventcreate.com/assets/themes/<%=@event.layout_style %>_bg.jpg"  %>" color="#7bceeb" />
-			    <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
-			  <![endif]-->
-			  <div>
-
-
-	  			<%= @event.name %>
-
-	  			<!-- START button -->
-
-
-	  			<div><a href="https://www.eventcreate.com<%= show_ticket_path(@event.slug, :oid => @purchase.id, format: :pdf) %>" style="background-color:transpa;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Print Tickets</a>
-				</div>
-	  			<!-- END button -->	
-
-
-
-			  </div>
-			  <!--[if gte mso 9]>
-			    </v:textbox>
-			  </v:rect>
-			  <![endif]-->
-			</td>
-			<!-- END background image/ intro cell -->	
-			</tr>
-			
-			<tr>
-			<td colspan="2">
-				 <p>Here are your ticket(s) for <%= @event.name %>. </p>
-    <p> Order Number <%= @purchase.id %>, ordered by <%= @purchase.first_name %> <%= @purchase.last_name %> (<%= @purchase.email %>) on <%= @purchase.created_at.to_datetime.strftime('%B %d, %Y, %l:%M%P') %>.
-
-			</td>
-			</tr>
-
-
-			<tr>
-				<td colspan="2" class="event-meta" style="text-align: center;padding: 50px 0 10px 0;">
-					<img src="https://www.eventcreate.com/assets/emails/cal.png" style="width: 22px;"><br>
-					
-					 <% if(@event.date_start != '' && !@event.date_start.nil?) %>
+				<td colspan="2" class="logo" style="padding-top:70px;padding-bottom:40px;padding-right:40px;padding-left:40px;text-align:center;" >
+					<img src="email_calendar_icon.png" style="width:60px;height:auto;" >
 		
-					    <%= @event.date_start.to_date.strftime("%B") %> 
-						<%= @event.date_start.to_date.strftime("%e, ") %>
-						<%= @event.date_start.to_date.strftime("%Y") %> 
-					
-						<% if(@event.time_start != '' && !@event.time_start.nil?) %> 
-		  			     <%= @event.time_start.to_time.strftime("%l:%M %p") %>
-		  			    <% end %>
-					    <%else%>
-					  	Date/Time TBD
-					    <%end%>
-
-					<br> <%=link_to 'Add to calendar', 'https://www.eventcreate.com' + export_events_path(@event) %>  
 				</td>	
 			</tr>	
 
 
 
 			<tr>
-				<td colspan="2" class="event-meta" style="text-align: center;padding: 50px 0 10px 0;">
-
-				<% if (!@event.location_name.nil? && !@event.location_name.blank?) || (!@event.location.nil? && !@event.location.blank?) %>
-					<img src="https://www.eventcreate.com/assets/emails/loc.png" style="width: 22px;"><br>
-				<% end %>
-					<%= @event.location_name %> 
-					<% if !@event.location.nil? && !@event.location.blank? %>
-					<%= @event.location %>
-					<br> <a href="http://maps.google.com/?q=<%= @event.location %>" style="color: #21afbf;"> View map </a>
-					<% end %>
-				</td>	
-			</tr>	
-
-
-
-
-
-			<tr>
-				<td colspan="2" class="event-description" style="padding: 40px 40px 10px 40px;font-size: 14px;color: #444;">
-
-				<%= truncate(@event.description, length: 500, separator: ' ') { link_to "read more", "https://www.eventcreate.com/@event.slug" } %>
-
-				
+				<td colspan="2" class="h1" style="padding-top:20px;padding-bottom:20px;padding-right:40px;padding-left:40px;font-size:24px;line-height:36px;color:#111;text-align:center;" >
+					You're all set, <%= @purchase.first_name %>! You're going to <%= @event.name %> on <%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %> 
+		
 				</td>	
 			</tr>	
 
 
 			<tr>
-			<td colspan="2" class="cta" style="text-align: center;padding: 30px 20px 60px 20px;">
+				<td colspan="2" class="p" style="padding-top:0;padding-bottom:0;padding-right:40px;padding-left:40px;font-size:12px;line-height:20px;color:#666;text-align:center;font-family:'Open Sans', sans-serif;" >
+					Your registration for <%= @event.name %> was successfully processed! If you have any further questions, please contact the event host.
+				</td>	
+			</tr>	
 
 
-				<!-- START button -->	
-	  			<div><a href="https://www.eventcreate.com/<%= @event.slug %>" style="background-color:#21afbf;border:1px solid #fff;border-radius:100px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Register now</a>
-				</div>
-	  			<!-- END button -->	
+			<tr>
+				<td colspan="2" class="cta" style="padding-top:30px;padding-bottom:80px;padding-right:40px;padding-left:40px;text-align:center;" >
 
 
-			</td>	
+					<!-- START button -->	
+		  			<div><!--[if mso]>
+					  <v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://nonstop.com"  stroke="f" fillcolor="#21afbf" style="height:60px;v-text-anchor:middle;width:240px;" >
+					    <w:anchorlock/>
+					    <center>
+					  <![endif]-->
+					      <a href="https://www.eventcreate.com/<%= @event.slug %>" style="background-color:#21afbf;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:60px;text-align:center;text-decoration:none;width:240px;-webkit-text-size-adjust:none;border-radius:30px;" >View event website</a>
+					  <!--[if mso]>
+					    </center>
+					  </v:rect>
+					<![endif]--></div>
+		  			<!-- END button -->	
+
+
+				</td>	
 			</tr>
+
+
+
 
 	
 
@@ -275,30 +262,24 @@
  <table cellpadding="0" cellspacing="0" border="0" width="100%">
 
 	<tr> 
-	<td class="bg" style="background-color: #F5F5F5;">
+	<td class="bg" style="background-color:#eff0f3;" >
 
 
 		<!-- START footer table -->
-		<table class="content-wrapper" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="width: 95%;max-width: 600px;margin: 0 auto;"> 
+		<table  class="content-wrapper" cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="width:95%;max-width:500px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" > 
 
 			<tr>
-			<td class="footer-description" style="padding: 50px 0;font-size: 11px;font-style: italic;color: #888;text-align: center;"> 
-
-				This email  was sent via <a href="https://www.eventcreate.com" style="color: #21afbf;">EventCreate</a>, the easist way to create stunning event websites and invites. To ensure you receive all email, please add events@eventcreate.com to your address book. You may <a href="#" style="color: #21afbf;">block this person</a> from sending you EventCreate invitations, or click <a href="#" style="color: #21afbf;">here</a>  to stop receiving all emails from EventCreate, including invitations.
-
-
-			</td>	
-			</tr>
-
+				<td colspan="2" class="footer-logo" style="text-align:center;padding-top:100px;padding-bottom:30px;padding-right:20px;padding-left:20px;" >
+					<a href="https://www.eventcreate.com" style="color:#1c809e;" ><img src="https://www.eventcreate.com/assets/event_create_logo_gray.png" style="width:180px;height:auto;" ></a>
+				</td>	
+			</tr>	
 
 			<tr>
-			<td class="footer-logo" style="text-align: center;padding: 0 0 60px 0;"> 
-
-				<a href="https://www.eventcreate.com" style="color: #21afbf;"><img src="https://www.eventcreate.com/assets/emails/eventcreate_logo.png" style="width: 160px;opacity: .7;"></a>
-
-			</td>	
-			</tr>
-
+				<td colspan="2" class="footer-links" style="padding-top:0;padding-bottom:50px;padding-right:0;padding-left:0;color:#999;font-size:11px;text-align:center;font-family:Arial, 'Open Sans', sans-serif;" >
+					<a href="https://www.eventcreate.com" style="color:#999;text-decoration:none;display:inline-block;margin-top:0;margin-bottom:0;margin-right:10px;margin-left:10px;" >Create a beautiful event website </a>  <a href="[UNSUBSCRIBE_LINK]" style="color:#999;text-decoration:none;display:inline-block;margin-top:0;margin-bottom:0;margin-right:10px;margin-left:10px;" >Unsubscribe </a>
+		
+				</td>	
+			</tr>	
 
 		</table>
 		<!-- END footer  table -->

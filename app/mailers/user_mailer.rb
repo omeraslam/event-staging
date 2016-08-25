@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   include Devise::Mailers::Helpers
 
-  default from: "EventCreate Team <hello@eventcreate.com>"
+  default from: "EventCreate <hello@eventcreate.com>"
 
   #layout "send_tickets", only: [:send_tickets]
 
@@ -70,7 +70,7 @@ class UserMailer < ActionMailer::Base
         # @attendee = attendee
         # @url = eventurl
         # 
-        mail(:to => @purchase.email, :subject => "Here are your tickets!") do |format|
+        mail(:to => @purchase.email, :subject => @event.name + " - Confirmation") do |format|
             format.text # renders send_report.text.erb for body of email
             format.html
             format.pdf do

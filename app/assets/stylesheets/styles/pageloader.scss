@@ -10,8 +10,8 @@
 	text-align:center;
 	padding:100px 20px;
 	opacity:0;
-	-webkit-transition: all .5s;
-    transition: all .5s;
+	-webkit-transition: all .32s ease;
+    transition: all .32s ease;
     visibility:hidden;
     z-index: 9999999999;
 
@@ -20,7 +20,7 @@
     }
 
 	i {
-		font-size:30px;
+		font-size:36px;
 	}
 
 	&.visible {
