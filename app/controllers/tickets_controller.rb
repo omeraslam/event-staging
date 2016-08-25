@@ -65,6 +65,20 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:title, :description, :price, :ticket_limit, :buy_limit, :stop_date)
+      valid = params.require(:ticket).permit(:title, :description, :price, :ticket_limit, :buy_limit, :stop_date)
+
+      date_format = '%m/%d/%Y'
+      if !valid[:stop_date].nil?
+        valid[:stop_date] = valid[:stop_date] != '' ? Date.strptime(valid[:stop_date], date_format) : valid[:stop_date]
+      end
+
+      # if !valid[:name].nil? || !valid[:name].blank?
+      #   valid = false
+      # end
+      return valid
+
     end
+
+
+
 end

@@ -342,9 +342,9 @@
     </div>
   
     
-    <div class="input-group" id="datepairExample">
-        <label> Regisration closes on</label>
- <%= f.text_field :stop_date, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1" %>
+    <div class="input-group" id="datepairExample2">
+        <label> Registration closes on</label>
+ <%= f.text_field :stop_date, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1",  :value => (@ticket.stop_date.nil? || @ticket.stop_date == '') ? '' : @ticket.stop_date.to_time.strftime("%m/%d/%Y") %>
     </div>
 
 
@@ -366,10 +366,10 @@
 
 
 
-    <div class="input-group" style="display:none;">
+<!--     <div class="input-group" style="display:none;">
       <label>Tickets available until</label>
       <%= f.date_select :stop_date, class: 'input input-large'%>
-    </div>
+    </div> -->
 
 <div class="input-group actions">
    <%= f.submit 'Update registration settings', class: 'btn btn-large' %>

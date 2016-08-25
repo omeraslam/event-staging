@@ -156,6 +156,13 @@
         'autoclose': true
       });
 
+      $('#datepairExample2 .date').datepicker({
+        onSelect: function(dateText) {
+          $('.date').focusout();
+        },
+        'format': 'dd/mm/yyyy',
+        'autoclose': true
+      });
 
 
 
