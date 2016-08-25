@@ -315,10 +315,12 @@ $(document).ready(function() {
         required: true
       },
       "purchase[email]": {
-        required: true
+        required: true,
+        email:true
       },
       "purchase[email]": {
-        required: true
+        required: true,
+        email:true
       }
     }, messages : {
       "purchase[first_name]": 'Please enter your first name.',
@@ -358,10 +360,11 @@ $(document).ready(function() {
 
    $('#purchase-tickets_form').submit(function(e) {
       
+      if($(this).valid()) {
       var $form = $(this);
       $form.find('button').prop('disabled', true);
       $(".full-page-loader").addClass("visible");
-
+    }
 
     }); 
  }
