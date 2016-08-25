@@ -1,7 +1,6 @@
-Thanks for your order
+You're all set!
 ===============================================
  
-
- Here are your ticket(s) for <%= @event.name %>. 
- 
-  Order Number <%= @purchase.id %>, ordered by <%= @purchase.first_name %> <%= @purchase.last_name %> (<%= @purchase.email %>) on <%= @purchase.created_at.to_datetime.strftime('%B %d, %Y, %l:%M%P') %>.
+You're going to <%= @event.name %> on <%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %> 
+		
+Your registration for <%= @event.name %> was successfully processed! If you have any further questions, please contact the event host.
