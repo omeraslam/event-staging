@@ -60,14 +60,14 @@
 		
 
     <%# @RICH  -   if MORE THAN 1 TICKET EXISTS  %>
-     <% if (@tickets.count > 1) %>
             <div class="input-group ticket-type">
                 <label>Select Ticket:</label>
              
                 <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id ] }) %>
 
             </div>
-    <% end %>
+
+
     <%# END  %>
         <% @total = 0 %>
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
