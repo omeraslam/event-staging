@@ -44,113 +44,150 @@
 
   <div class="editor-tools">
 
-    <a id="editor-panel-close" style="display:none;"><i class="icon icon-arrow-left"> </i></a>
+    <div id="editor-panel-close"><i class="icon icon-arrow-left"> </i></div>
 
     <div class="editor-tool" id="editor-tool-details">
     
-      <section class="editor-tool-header">
-        <h3>Edit event details </h3> 
-        <p>Change of venue? Modify your event details below. (Don't forget to click the "update event" button when your're done.)</p>
-      </section>
-      <section>
-          
-           <%= form_for [@event] do |f| %>
-            <% if @event.errors.any? %>
 
-              <div class="alert error">
-                <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-                <ul>
-                <% @event.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-                </ul>
-              </div>
-            <% end %>
+        <%= form_for [@event] do |f| %>
 
 
-            <div class="input-group" >
-                <label> Event Name</label>
-                <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event website settings
             </div>
+            <div class="col-md-6 text-right">
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
 
-
-            <div class="input-group" id="datepairExample">
-                <label> Date</label>
-                <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :value => (@event.date_start.nil? || @event.date_start == '') ? '' : @event.date_start.to_time.strftime("%m/%d/%Y") %>
             </div>
-
-            <div class="input-group datePairEndDates" id="datepairExample" style="display:none;">
-              <div class="input-group-inline">
-                <label> End Date</label>
-                <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
-              </div>
-
-              <div class="input-group-inline end-time">
-                <label> End Time</label>
-                <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
-              </div>
-            </div>
-
-
-          
-            <div class="input-group">
-              <label> Location Address</label>
-              <%= f.text_field :location, :autocomplete => false, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
-            </div>  
-              
-            <div class="input-group" style="display:none;">
-              <label>Event Description</label>
-              <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
-            </div>
-
-            <div class="input-group" style="display:none;">
-              <label>Your event URL</label>
-                <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'custom-event-url' %>
-                <p>www.eventcreate.com/<span id="event-url-output"><%= @event.slug %> </span> </p>
-            </div>
-
-
-
-
-
-            <%= f.submit "Update Event", :class => 'btn btn-large' %>
-
-           
-          <% end %>
-
-          <!-- event form end -->
-
-
-      </section>
-
-    </div>  
-
-
-
-
-
-
-    <div class="editor-tool" id="editor-tool-home">
-    
-      <section class="editor-tool-header">
-        <h3>Event Status </h3> 
-        <p>View your event's website status visbility. Publish your event to share.</p>
-      </section>
-
-      <section> 
-        <div class="toggle-container">
-          <div class="toggle toggle-left"></div>
-          <span class="toggle-text">draft</span>
         </div>
 
-        <div class="toggle-status"><span></span> Your event was last saved at 8:00am </div>
-        <div class="toggle-status"><span></span> Your event is in draft status.</div>
-        <div class="toggle-status"><span></span> Your URL is inactive. </div>
-        <div class="toggle-status"><span></span>Registration is inactive.</div>
-      </section>
 
-    </div>  
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Event Details </h4>
+                <p>Change of venue? Modify your event details here.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Event Name</label>
+                        <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+                    </div>
+
+
+                    <div class="input-group" id="datepairExample">
+                        <label> Date</label>
+                        <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :value => (@event.date_start.nil? || @event.date_start == '') ? '' : @event.date_start.to_time.strftime("%m/%d/%Y") %>
+                    </div>
+
+                    <div class="input-group datePairEndDates" id="datepairExample" style="display:none;">
+                      <div class="input-group-inline">
+                        <label> End Date</label>
+                        <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
+                      </div>
+
+                      <div class="input-group-inline end-time">
+                        <label> End Time</label>
+                        <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
+                      </div>
+                    </div>
+
+
+                  
+                    <div class="input-group">
+                      <label> Location Address</label>
+                      <%= f.text_field :location, :autocomplete => false, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
+                    </div>  
+                      
+                    <div class="input-group" style="display:none;">
+                      <label>Event Description</label>
+                      <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>URL/Domain </h4>
+                <p>Manage your event domain and visibility. Want to use a custom domain/url? We got you. Shoot us a note at <a href="mailto:support@eventcreate.com"> support@eventcreate.com</a></p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+
+                    <div class="input-group" >
+                      <label>Your event URL</label>
+                        <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'custom-event-url' %>
+                        <p>www.eventcreate.com/<span id="event-url-output"><%= @event.slug %> </span> </p>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Website visibility</label>
+                        <%= f.select(:published, [['Live', true],['Hidden', false]]) %>
+                        <p> You can prevent anyone from accessing your event website by changing the status to "hidden."" Once hidden, only you will be able to view the website when logged in. </p>
+                    </div>
+
+
+                   
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+            </div>
+        </div>
+
+
+    <% end %>
+    <!-- event form end -->
+
+
+    </div>
+
+
+
 
 
 
@@ -178,22 +215,55 @@
 
     <div class="editor-tool" id="editor-tool-background">
 
-      <section class="editor-tool-header">
-        <h3>Modify background image </h3> 
-        <p>Make it your own. Make it amazing. Customize your event website with custom background image or color.</p>
-      </section>
 
-      <section>
-        <div class="editor-current-bg upload-btn" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>
-        <div class="slider-container">
-          <div class="slider"> <div id="slider"></div> </div>
-          <div class="color-picker"><input id="color"></div>
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event website design
+            </div>
+            <div class="col-md-6 text-right">
+               
+            </div>
         </div>
-      </section>
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Background image </h4>
+                <p>Modify your website's main background here. </p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="editor-current-bg upload-btn" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>  
+                <a class="upload-btn btn btn-small"> <i class="fa fa-upload"> </i> Upload image </a> 
+                <a class="open-image-modal btn btn-small"> <i class="fa fa-search"> </i> Search image library </a> 
+
+            </div>
+        </div>  
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Background color </h4>
+                <p>Change the opacity or color of the background color. </p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="slider-container">
+                    <div class="slider"> <div id="slider"></div> </div>
+                    <div class="color-picker"><input id="color"></div>
+                </div>
+
+  
+            </div>
+        </div>  
+
+
+
 
       <section>
-        <a class="upload-btn btn btn-large"> <i class="fa fa-upload"> </i> Upload image </a> 
-        <a class="open-image-modal btn btn-large"> <i class="fa fa-search"> </i> Search image library </a> 
+        
       </section>
 
       <section style="display:none;">
@@ -295,10 +365,21 @@
 
       <div class="editor-tool" id="editor-tool-ticketing" >
         
-        <section class="editor-tool-header">
-          <h3> Ticketing + Registration</h3>
-          <p>Sell tickets and collect registrations for your event. </p>
-        </section>
+
+        <%= form_for [@ticket] do |f| %>
+
+
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Ticketing + Registration
+            </div>
+            <div class="col-md-6 text-right">
+                 <%= f.submit 'Save changes', class: 'btn btn-small' %>
+            </div>
+        </div>
+
+
+
 
 
 
@@ -314,7 +395,6 @@
         </section>
 
 
-        <section>
 
 
         <% if  @account == nil && @ticket.price != 0 %>
@@ -324,23 +404,38 @@
 
                   <% end %>
 
-<%= form_for [@ticket] do |f| %>
 
 
 
-    <div class="input-group input-group-addon">
-      <label> Price</label>
-      <div class="input-addon">$</div><%= f.number_field :price, class: 'input input-large', id: 'event-price-input', placeholder: '0.00', value: (number_with_precision( f.object.price , precision: 2)),  disabled: @account.nil?  %> 
 
-        <% if  @account == nil%>
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Registration settings  </h4>
+                <p>Manage your event registration settings here. </p>
+            </div>
 
-      <p id="input-free-event-container">   <input type="checkbox"  <% if @ticket.price == 0 %> checked <% end %> id="free-event-boolean"><label for="free-event-boolean"> My event is FREE.</label> </p>
+            <div class="col-md-9">
+               
 
-                  <% end %>
+                <div class="form-container">
+                <div class="input-group input-group-addon">
+                  <label> Price</label>
+                  <div class="input-addon">$</div><%= f.number_field :price, class: 'input input-large', id: 'event-price-input', placeholder: '0.00', value: (number_with_precision( f.object.price , precision: 2)),  disabled: @account.nil?  %> 
+
+                    <% if  @account == nil%>
 
 
-    </div>
-  
+                  <p id="input-free-event-container">   <input type="checkbox"  <% if @ticket.price == 0 %> checked <% end %> id="free-event-boolean"><label for="free-event-boolean"> My event is FREE.</label> </p>
+
+
+                              <% end %>
+
+
+                </div>
+              
+
+
     
     <div class="input-group" id="datepairExample2">
         <label> Registration closes on</label>
@@ -349,35 +444,49 @@
 
 
 
+                  <div class="input-group">
+                    <label> Event capacity</label>
+                    <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
+                  </div>
 
-
-      <div class="input-group">
-        <label> Event capacity</label>
-        <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
-      </div>
-
-            <div class="input-group">
-        <label>Buy Limit</label>
-        <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '1' %>
-        <p>Limit the ticket quantity that a user can buy at one time.</p>
-      </div>
-
+                        <div class="input-group">
+                    <label>Buy Limit</label>
+                    <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '1' %>
+                    <p>Limit the ticket quantity that a user can buy at one time.</p>
+                  </div>
 
 
 
 
-<!--     <div class="input-group" style="display:none;">
-      <label>Tickets available until</label>
-      <%= f.date_select :stop_date, class: 'input input-large'%>
-    </div> -->
-
-<div class="input-group actions">
-   <%= f.submit 'Update registration settings', class: 'btn btn-large' %>
- </div>
- <% end %>
 
 
-          </section>
+        <!--         <div class="input-group" style="display:none;">
+                  <label>Tickets available until</label>
+                  <%= f.date_select :stop_date, class: 'input input-large'%>
+                </div> -->
+
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit 'Save changes', class: 'btn btn-small' %>
+
+            </div>
+        </div>
+
+  
+        <% end %>
+
+
 
           <section> 
 
@@ -400,31 +509,48 @@
 
     <div class="editor-tool" id="editor-tool-attendees" >
         
-        <section class="editor-tool-header">
-          <h3> Attendees</h3>
-          <p>Manage your event registration, attendees and ticket buyers.  </p>
-          <p>  <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: '' %> |
-        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: '' %></p>
-        </section>
+
+       <div class="row editor-tool-header">
+            <div class="col-md-6">
+               Event Attendees
+            </div>
+            <div class="col-md-6 text-right">
+                <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
+        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
+            </div>
+        </div>
 
 
 
-        <section class="attendees"> 
-          <% if !@attendees.empty? %>
+          <% if !@buyers.empty? %>
 
 
-              <ul>
-                <% @attendees.each do |attendee| %>
-                <li>
-                  <img src="https://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg"> 
-                    <div class="attendee-details">
-                      <a href="mailto:<%= attendee.email %>"> <%= attendee.first_name %> <%= attendee.last_name %> </a> 
-                     <br>
-                      <%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %>
-                    </div>
-                </li>
-                <% end %>
-              </ul>
+
+            <div class="row">
+            <div class="col-md-12">
+                <table class="table"> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th>  <th> Registration date </th> <!-- <th> </th> --> </tr> </thead> 
+
+
+                <tbody>  
+
+                    <% @buyers.each do |attendee| %>
+
+                    <tr> 
+                        <td><%= attendee.first_name %></td> 
+                        <td><%= attendee.last_name %></td> 
+                        <td><%= attendee.email %></td>
+                        <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity - 1 %></td>
+                        <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+                  <!--       <td><%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  -->
+                    </tr> 
+
+   
+                    <% end %>
+
+                </tbody> 
+
+              </table>
 
               
               <% else %>
@@ -434,7 +560,10 @@
               <% end %>
 
 
-        </section>
+
+            </div>
+            </div>
+
 
 
 

@@ -518,6 +518,8 @@ def show
 
     @attendees = Attendee.where(:event_id => @event.id)
 
+    @buyers = Purchase.where(:event_id => @event.id)
+
     @starter_price =  @current_ticket.price == 0 ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * 0.025)
 
 
