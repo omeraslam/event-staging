@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810035028) do
+ActiveRecord::Schema.define(version: 20160831180837) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20160810035028) do
     t.text     "html_body_1",        limit: 255
     t.text     "html_footer_1",      limit: 255
     t.text     "html_footer_button", limit: 255
+    t.string   "currency_type",                  default: "USD"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true

@@ -351,7 +351,7 @@ def complete_registration
 
   logger.debug "FINAL charge is: #{amount}"
 
-  logger.debug "FEE charge is: #{fee}"
+  logger.debug "FEE charge is: #{@event.currency_type.downcase}"
 
   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
     if amount > 0
@@ -359,9 +359,10 @@ def complete_registration
 
         charge = Stripe::Charge.create({
           :amount => amount,
-          :currency => "usd",
+          :currency => @event.currency_type.downcase,
           :source => token,
           :application_fee => fee,
+
           :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
         }, {:stripe_account => @account.stripe_user_id})
 
@@ -789,7 +790,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button, :currency_type)
 
 
       date_format = '%m/%d/%Y'
