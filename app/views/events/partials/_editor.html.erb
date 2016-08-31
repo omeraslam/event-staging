@@ -163,6 +163,46 @@
 
 
 
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Country settings  </h4>
+                <p>Choose your country's currency here. </p>
+            </div>
+
+            <div class="col-md-9">
+               
+
+                <div class="form-container">
+                <div class="input-group input-group-addon">
+                
+           
+
+
+
+                
+
+                    <label>Currency</label>
+                    <%= f.select(:currency_type, options_for_select(["USD", "CAD","AUD"], :selected => @event.currency_type), :class => ' form-control' ) %>
+                    <div class="col-md-9 col-md-offset-3 text-right"> 
+
+            </div>
+                             
+
+                </div>
+              
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>  
+
+
 
 
 
@@ -484,47 +524,6 @@
   
         <% end %>
 
-  <div class="row">
-            
-            <div class="col-md-3">
-                <h4>Country settings  </h4>
-                <p>Choose your country's currency here. </p>
-            </div>
-
-            <div class="col-md-9">
-               
-
-                <div class="form-container">
-                <div class="input-group input-group-addon">
-                
-           
-
-
-
-                
-        <%= form_for [@event] do |f| %>
-
-                    <label>Currency</label>
-                    <%= f.select(:currency_type, options_for_select(["USD", "CAD","AUD"], :selected => @event.currency_type), :class => ' form-control' ) %>
-                    <div class="col-md-9 col-md-offset-3 text-right"> 
-                <%= f.submit 'Save changes', class: 'btn btn-small' %>
-
-            </div>
-        <% end %>
-                             
-
-                </div>
-              
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>  
 
 
 
