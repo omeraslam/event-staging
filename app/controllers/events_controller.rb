@@ -349,9 +349,6 @@ def complete_registration
 
     @account = Account.where(:user_id => @event.user_id.to_s).first
 
-  logger.debug "FINAL charge is: #{amount}"
-
-  logger.debug "FEE charge is: #{@event.currency_type.downcase}"
 
   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
     if amount > 0
@@ -448,7 +445,6 @@ def show
 
     @hash = AmazonSignature::data_hash
 
-    logger.debug "HASSHHH:::: #{@hash}"
 
 
      if signed_in?
@@ -607,7 +603,6 @@ def show
 
     @search_results = Unsplash::Photo.search(params[:searchTerm])
 
-    logger.debug "SEARCH: #{@search_results}"
 
     render json: @search_results
 
@@ -663,8 +658,11 @@ def show
       @event.html_footer_1 = @eventFooterHTML
 
       @userEmail = User.find(current_user)
-      UserMailer.event_checkin(@userEmail).deliver
-
+      @total_events = @user.events.count
+      logger.debug "TOTAL EVENTS:: #{@total_events}"
+      if @total_events == 0
+        UserMailer.event_checkin(@userEmail).deliver
+      end
 
     #########
 
@@ -849,9 +847,6 @@ def show
         # then check if it's a subdomain of the application's main domain
         @user = User.find_by(domain: req) || User.find_by(subdomain: request.subdomain)
 
-
-        # logger.debug "SO HELP ME:: #{@user.email}"
-        # puts "SO HELP ME:: #{@user.email}"
 
         # if a matching site wasn't found, redirect the user to the www.<root url>
         redirect_to root_url(subdomain: 'www') unless @user
