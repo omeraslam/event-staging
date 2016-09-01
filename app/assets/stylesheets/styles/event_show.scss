@@ -556,7 +556,7 @@ font-family: "futura-pt",sans-serif;
 			margin:0 auto;
 			text-align:left;
 			padding:100px 0;
-
+			height: 200px;
 
 		}
 }
@@ -567,11 +567,21 @@ font-family: "futura-pt",sans-serif;
     margin: 0 auto;
     text-align: center;
     padding: 40px 0 100px;
+    background: #fff;
+    box-shadow: 10px 10px 40px rgba(0,0,0,.3);
+    padding: 40px;	
+    position: relative;
+    top:-50px;
+
+    h1 {
+    	font-family: "Baskerville";
+    }
+
 
     .ticket-btn-container {
-    	margin:30px 0 50px;
-    	padding-bottom:20px;
-    	border-bottom:1px solid #888;
+    	margin:30px 0;
+    	//padding-bottom:20px;
+    	//border-bottom:1px solid #888;
     }
 
     h3 {
@@ -581,7 +591,15 @@ font-family: "futura-pt",sans-serif;
     .btn-facebook {
     	background:#3b5998;
     }
+
+
 }
+
+
+.credit .logo-svg path{
+    	fill:#fff;
+    }
+
 
 
 
