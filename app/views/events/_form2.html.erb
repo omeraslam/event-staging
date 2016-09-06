@@ -160,7 +160,15 @@ $(document).ready(function() {
       name: "required",
       "event[name]": {
         required: true
+      },
+      "event[date_start]": {
+        required: true
       }
+    },
+    messages: {
+      "event[name]": 'Please enter an event name',
+      "event[date_start]": 'Please enter an event date'
+
     }
   });
   var owl = $('.owl-carousel');
@@ -266,7 +274,7 @@ if (event_id != '') {
   $(".btn-next").click(function(e) {
     
     e.preventDefault();
-    if (validator.element("#event_name")) {
+    if (validator.element("#event_name") && ($('.owl-item:nth-child(2).active').length != 1 || (validator.element("#event_date_start") && $('.owl-item:nth-child(2).active').length == 1) )) {
       owl.trigger('next.owl.carousel');
     }
   });
