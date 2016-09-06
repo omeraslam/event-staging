@@ -49,8 +49,8 @@
     <div class="editor-tool" id="editor-tool-details">
     
 
-        <%= form_for [@event] do |f| %>
-
+        <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
+       
 
         <div class="row editor-tool-header">
             <div class="col-md-6">
@@ -127,6 +127,7 @@
                 </div>
             </div>
         </div>  
+
 
 
 
@@ -741,6 +742,39 @@ $( document ).ready(function() {
     }
   });
 
+
+
+  $.validator.addMethod("loginRegex", function(value, element) {
+        return /^[a-zA-Z0-9-]+$/i.test(value);
+    }, "Event must contain only letters, numbers, or dashes.");
+
+  var validator3 = $("#edit-event").validate({
+    rules: {
+      "event[name]": {
+        required: true
+      },
+      "event[date_start]": {
+        required: true
+      },
+      "event[location]": {
+        required: true
+      },
+      "event[slug]": {
+        required: true,
+        loginRegex: true
+      }
+
+
+    },
+    messages: {
+      "event[name]": 'Please enter an event name',
+      "event[date_start]": 'Please enter an event date',
+      "event[location]": 'Please enter an event location',
+      "event[slug]": 'Please enter an event url'
+    }
+  });
+
+
   //prevent new paid ticket submission if no account set up 
   $('#new_ticket .btn').on('click', function(e) {
 
@@ -1172,6 +1206,10 @@ $(function() {
   .on('drop', function(e) {
     droppedFiles = e.originalEvent.dataTransfer.files;
   });
+
+
+
+
 
 
 
