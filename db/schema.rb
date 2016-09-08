@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906163833) do
+ActiveRecord::Schema.define(version: 20160908180540) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 20160906163833) do
     t.text     "html_footer_1",      limit: 255
     t.text     "html_footer_button", limit: 255
     t.string   "currency_type",                  default: "USD"
-    t.boolean  "npo",                            default: false
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
@@ -192,6 +191,7 @@ ActiveRecord::Schema.define(version: 20160906163833) do
     t.string   "tw_link"
     t.string   "subdomain"
     t.string   "domain"
+    t.boolean  "npo",                    default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

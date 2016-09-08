@@ -236,7 +236,7 @@ def complete_registration
 
      sum = 0 
      fee = 0
-     @fee_rate = @event.npo == true ? 0.015 : 0.025
+     @fee_rate = @user.npo == true ? 0.015 : 0.025
      #@line_items = LineItem.where(:purchase_id => params[:oid])
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
@@ -517,8 +517,8 @@ def show
     @attendees = Attendee.where(:event_id => @event.id)
 
     @buyers = Purchase.where(:event_id => @event.id)
-
-    @fee_rate = @event.npo == true ? 0.015 : 0.025
+    @user = User.find(@event.user_id.to_i)
+    @fee_rate = @user.npo == true ? 0.015 : 0.025
     @starter_price =  @current_ticket.price == 0 ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
 
 
