@@ -582,7 +582,7 @@
                         <td><%= attendee.first_name %></td> 
                         <td><%= attendee.last_name %></td> 
                         <td><%= attendee.email %></td>
-                        <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity - 1 %></td>
+                        <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity.nil? ? 0 : @guest.quantity - 1 %></td>
                         <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
                   <!--       <td><%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  -->
                     </tr> 
