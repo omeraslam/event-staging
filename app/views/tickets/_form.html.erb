@@ -57,25 +57,4 @@
 <% end %>
 
 
-<script> 
 
-$( document ).ready(function() {
-
-$("#new_ticket").submit(function(e) {
-
-
-   if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
-
-        e.preventDefault();
-
-        alert('Before adding a paid ticket, please connect your bank account, so you can get paid!  Head on back to basic ticketing and uncheck "My event is FREE."' );
-
-    } 
-
-
-});
-
-}); 
-
-
-</script>

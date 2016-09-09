@@ -731,16 +731,9 @@ $( document ).ready(function() {
   $("#show-ticket-advanced-settings").click(function() {  
     $("#ticket-advanced-settings").slideToggle();
   });
-  var validator = $("#new_ticket").validate({
-    rules: {
-      name: "required",
-      "ticket[title]": {
-        required: true
-      }
-    }, messages : {
-      "ticket[title]": 'Please enter a ticket name.'
-    }
-  });
+
+
+
 
 
 
@@ -775,17 +768,6 @@ $( document ).ready(function() {
   });
 
 
-  //prevent new paid ticket submission if no account set up 
-  $('#new_ticket .btn').on('click', function(e) {
-
-    if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
-
-      e.preventDefault();
-      alert('Please enter a payment account to create paid tickets for this event.')
-
-    } 
-
-  });
 
 
 

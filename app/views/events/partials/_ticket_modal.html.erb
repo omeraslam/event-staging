@@ -34,3 +34,58 @@
 
 	</div> 
 </div>
+
+<script type="text/javascript">
+	
+
+	$(document).ready(function() {
+		  var validator4 = $("#new_ticket").validate({
+    rules: {
+      "ticket[title]": {
+        required: true
+      },
+      "ticket[price]": {
+        required: true
+      },
+      "ticket[ticket_limit]": {
+        required: true
+      },
+    }, messages : {
+      "ticket[title]": 'Please enter a ticket name.',
+      "ticket[price]": 'Please enter a ticket price.',
+      "ticket[ticket_limit]": 'Please enter a ticket limit.'
+
+    }
+  });
+
+
+
+  //prevent new paid ticket submission if no account set up 
+  $('#new_ticket .btn').on('click', function(e) {
+
+    if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
+
+      e.preventDefault();
+      alert('Please enter a payment account to create paid tickets for this event.')
+
+    } 
+
+  });
+
+  $("#new_ticket").submit(function(e) {
+
+
+   if($('#ticket_price').val() > 0 && $('.stripe-connect-btn').length > 0) {
+
+        e.preventDefault();
+
+        alert('Before adding a paid ticket, please connect your bank account, so you can get paid!  Head on back to basic ticketing and uncheck "My event is FREE."' );
+
+    } 
+
+
+});
+  
+  
+	});
+</script>

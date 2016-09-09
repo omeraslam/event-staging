@@ -27,7 +27,7 @@
 		<div class="modal-header modal-header-light">
 	    <h3> <%= @event.name %> </h3>	 
       <p> 
-        <% if @current_ticket.price == 0 %>   
+        <% if @current_ticket.price == 0 %>   .
            
         <% else %>
           <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
@@ -290,16 +290,6 @@ $(document).ready(function() {
   });
   $("#show-ticket-advanced-settings").click(function() {  
     $("#ticket-advanced-settings").slideToggle();
-  });
-  var validator = $("#new_ticket").validate({
-    rules: {
-      name: "required",
-      "ticket[title]": {
-        required: true
-      }
-    }, messages : {
-      "ticket[title]": 'Please enter a ticket name.'
-    }
   });
 
 
