@@ -148,11 +148,11 @@ body.invite-view {
 	transition: left .3s ease-in-out;
 	position:fixed;
 	top:0;
-	left:-60%;
+	left:-50%;
 	//right:0;
 	z-index: 99;
 	box-shadow: 4px 4px 10px rgba(0,0,0,.1);
-	width:60%;
+	width:50%;
 	overflow: hidden;
 
 	.btn {
@@ -937,6 +937,43 @@ body.invite-view {
 
 
 
+.layout-select {
+
+	li {
+		display: block;
+		padding:10px;
+		margin-bottom: 5px;
+		background:#efefef;
+		font-weight:600;
+		opacity: 1;
+		cursor: pointer;
+
+		i {
+			font-size:20px;
+			float: right;
+		}
+
+		&.inactive {
+			opacity: .3;
+
+			i:before {
+    			content: "\f070";
+			}
+		}
+
+
+		&:hover {
+			//opacity: .9;
+		}
+
+	}
+
+}
+
+
+
+
+
 
 .editor-tools .tickets {
 	
@@ -1067,5 +1104,72 @@ body.invite-view {
 
 }
 
+.logged-in .repeatable {
+	position:relative;
+	margin-bottom:30px;
 
+	.repeatable-actions {
+		position: absolute;
+		width: 100px;
+		margin-left: -50px;
+	    bottom: -10px;;
+	   	left: 50%;
+	    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+	    -moz-box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+	    box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+		z-index: 99;
+		display: none;
+
+
+
+
+		.repeatable-action {
+		    background: #fff;
+		    padding: 10px;
+		    text-align: center;
+		    border-radius:2px;
+		    cursor: pointer;
+		    width: 50px;
+		    float: left;
+
+		   	&:hover {
+	    		color: #222;
+    			background: #ebebeb;
+	    	}
+		}
+	}
+
+	&:hover {
+		.repeatable-actions {
+			display: block;
+		}
+	}
+}
+
+
+.col-no-padding {
+	padding:0 !important;
+	margin:0 !important;
+}
+
+.col-sm-padding {
+	padding:3px !important;
+	margin:0 !important;
+	padding-bottom:6px !important;
+	//padding-right:1px;
+	//padding-left:1px;
+
+	&:first-child {
+		margin-left:-3px !important;
+	}
+
+	&:last-child {
+		margin-right:-3px !important;
+	}
+}
+
+
+.fr-element {
+	//line-height:0;
+}
 

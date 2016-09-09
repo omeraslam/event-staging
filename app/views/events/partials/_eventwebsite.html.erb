@@ -25,17 +25,7 @@
 			</div>
 
 			<div class="froala-editor" id="htmlHeroOne">
-			
-		     	<%= raw(@event.html_hero_1) %>
-
-		     </div> 
-
-
-		     </div>
-
-
-
-
+				<%= raw(@event.html_hero_1) %>
 			</div>
 
 
@@ -49,12 +39,7 @@
 			    <% end %> 
 
 			</div> 
- 			 <% if User.find(@event.user_id).customer_id.nil? && !@premium_disable %>
-			<a href="https://www.eventcreate.com/" title="EventCreate" target="_blank" id="event-page-logo" style="display:none;">
-		  		<div class="event-page-logo-container"></div>
-		  		<div class="event-page-logo"></div> 
-		 	</a>
-		 	<% end %>	
+
 
 		  </div>
 
@@ -62,165 +47,33 @@
 
 
 
-	<div class="event-body">
 
-	<div class="froala-editor" id="htmlBodyOne">
-				<%= raw(@event.html_body_1) %>
+		<div class="froala-editor event-body" id="htmlBodyOne">
+			<%= raw(@event.html_body_1) %>
+		</div>
 	</div>
 
 
-		
 
-	</div>
 
 
 	<div class="event-footer">
 
 		<div class="froala-editor" id="htmlFooterOne">
-						<%= raw(@event.html_footer_1) %>
-			</div>
-
-
+			<%= raw(@event.html_footer_1) %>
 		</div>
-
 
 	</div>
 
 
-	<div class="event-body" style="display:none;"> 
-
-
-
-		
-			<%= form_for @purchase, :url => url_for(:controller => 'events', :action => 'select_tickets') do |f| %>
-			<div>
-
-			<% if @purchase.errors.any? %>
-			<div class="alert error">
-			    <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-			      <ul>
-			        <% @purchase.errors.full_messages.each do |message| %>
-			        <li><%= message %></li>
-			        <% end %>
-			      </ul>
-			</div>
-			<% end %>
-			 
-
-			    	<div class="tickets">
-			          
-			           <% @tickets.each do |ticket| %>
-			           <div class="ticket">
-
-			           <% if LineItem.where(:ticket_id => ticket.id.to_s).count < (ticket.ticket_limit.to_i-ticket.buy_limit.to_i) %>
-			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
-			          <% else %>
-
-			              <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..(ticket.ticket_limit.to_i-LineItem.where(:ticket_id => ticket.id.to_s).count)).step(1)) %>
-
-
-			          <% end %>
-			              <h3><%= ticket.title %></h3>
-			          <% if ticket.price == 0 %>
-			              <p>Free</p>
-			          <% else %>
-			              <p><%= number_to_currency(ticket.price) %></p>
-			          <% end %>
-			              <p><%= ticket.description %></p>
-			              <%= hidden_field_tag 'ticket_id['+ticket.id.to_s+']', ticket.id %>
-			            <% if !ticket.stop_date.nil? %>
-			              <p class="small"> Available until <%=  ticket.stop_date.strftime('%B %d, %Y') %></p>       <% end %>
-			       
-			          </div>
-			          <% end %>
-			    </div>
-
-			    <% if !@has_paid_ticket %>
-			    	<button class="btn">Register Now</button>
-			    <% else %>
-			    	<button class="btn">Buy Tickets</button>
-				<% end %>
-			</div>
-			<% end %>
-	
 </div>
 
 
 
 
 
-	<div class="event-body event-details" style="display:none;"> 
-						
-		<% if(@event.date_start != '' &&  !@event.date_start.nil? ) %>
-		<div class="event-meta col">
-			
-			<h4>Date/Time</h4>
-			
-			<div class="event-meta-content">
-				<%= show_proper_date(@event, true) %>
-	            <%=link_to 'Add to calendar', export_events_path %>  
-			</div>	
-
-  
-		</div>
-	    <% end %>
 
 
 
 
 
-	      <% if( @event.location != '' ||  @event.location_name != '' ) %>
-
-			<div class="event-meta col">
-				<h4>Location </h4>
-	      		<%= @event.location_name %> <br>
-				<span class="location"><%= @event.location %></span>  
-				<% if( @event.location != '' ) %>
-	          		<br>
-	          		<a href="http://maps.google.com/?q=<%= @event.location %>" target="_blank">Get directions </a>  
-		      <% end %>
-			</div>
-
-	      <% end %>
-
-	     
-
-    	<% if(!@event.host_name.blank?) %>
-
-		    <div class="event-meta col">
-		     
-		     <h4> Host</h4>
-		      	<%= @event.host_name %> 
-		     	<br>
-		     	<a class="open-contact" >Contact host </a>  
-		    </div>
-	    <% end %> 
-
-
-
-    	<% if(!@event.description.blank?) %>
-
-		    <div class="event-meta col">
-		     
-		     <h4> Details</h4>
-		      <%= sanitize @event.description.html_safe %>	
-		    </div>
-	    <% end %> 
-
-
-	</div>
-
-
-	 
-
-		
-
-	<div class="credit" style="display:none;"> 
-		<div>powered by</div> 
-		<a href="http://www.eventcreate.com/" title="EventCreate"><img alt="EventCreate" src="<%= asset_path 'event_create_logo.png' %>"/> </a>
-	</div>
-
-
-
-</div>

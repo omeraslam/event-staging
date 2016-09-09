@@ -653,9 +653,114 @@ def show
     @event.published = true
     @event.layout_id = '1'
     
-    @eventHTML = '<h1>' + @event.name + '</h1><p class="lead"> Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>' + '<span class="btn btn-reg open-registration"> Register now</span>'
-    @eventBodyHtml = "<h2> It's going be awesome!</h2><p>Vestibulum consequat et est ut ultrices. Quisque auctor lacinia ornare. Ut dictum, nisl sit amet molestie rutrum, erat odio sagittis purus, in efficitur lectus dolor sed lacus. Mauris maximus blandit nibh, quis ullamcorper lacus luctus tempor. Duis non blandit ligula, vulputate auctor leo. Phasellus non sapien in ligula condimentum venenatis eu vel nibh. Donec quis ultrices nibh. Vestibulum non facilisis diam, non semper libero. Vivamus vitae felis porttitor nunc rhoncus consectetur a nec lorem. </p><p>Nulla vehicula nunc dapibus, iaculis ex vel, mattis nunc. Morbi nec risus id ipsum bibendum tincidunt id porta lorem. Nulla vitae nunc lobortis, rutrum odio id, finibus ligula. Nulla ultricies dapibus iaculis. Aenean lobortis lacinia justo et laoreet. Praesent at quam laoreet, ultricies diam et, condimentum magna. Suspendisse mauris dui, aliquam sit amet hendrerit posuere. </p>"  
-    @eventFooterHTML = "Made with EventCreate"  
+
+
+    @eventHTML = '<div id="hero">
+            <div class="container">
+                <div class="header-content">
+                  <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1472761845708-logo3.png"/>
+
+                  <h1>' + @event.name + '</h1><p class="lead">Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>
+
+                  <span class="btn btn-reg open-registration"> Register now</span>
+                </div> 
+              </div>
+        </div>'
+
+
+
+    @eventBodyHtml = '<div id="about">
+
+        <div class="container about-container">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="subheader">/About </h3>
+              <p>Tell the attendees about your event! Lorem ipsum dolor sit amet Nullam vel ultricies metus, at tincidunt arcu. Morbi vestibulum, ligula ut efficitur mollis, mi massa accumsan justo, accumsan auctor orci lectus ac ipsum. Proin porta nisl sem, ac suscipit lorem dignissim et. Curabitur euismod nec augue vitae dictum. Nam mattis, massa quis consequat molestie, erat justo vulputate tortor, a sollicitudin turpis felis eget risus. Aliquam viverra urna felis, eu ornare enim consectetur sed. Morbi vitae ultrices velit. Sed molestie consectetur metus. Proin neque eros, dapibus ac accumsansodales sit amet velit. </p>
+            </div>
+
+          </div>  
+        </div>
+
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4 col-sm-padding">
+              <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1473442632648-sample1.jpg" class="img-responsive">
+            </div>
+            <div class="col-md-4 col-sm-padding">
+              <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1473442697754-sample2.jpg" class="img-responsive">
+            </div>
+            <div class="col-md-4 col-sm-padding">
+              <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1473443230179-sample3.jpg"class="img-responsive">
+            </div>
+          </div>  
+        </div>
+      </div>
+
+
+      <div id="speakers" class="hidden">
+
+        <div class="container about-container" data-repeatable="speakers">
+        <h3 class="subheader"> /Speakers</h3>
+
+
+        <div class="row repeatable" >
+          <div class="col-md-5">
+            <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1473455426859-portrait2.jpg" class="img-responsive">
+          </div>
+          <div class="col-md-7">
+            <h1>Jane Smith  </h1>
+            <h4>CEO aka The Boss</h4>
+            <p>Sed faucibus bibendum efficitur. Aliquam quis imperdiet urna. Sed tincidunt elit quis dolor aliquam sodales. Fusce eu fermentum eros, sit amet porttitor erat. Suspendisse accumsan mollis purus id rhoncus. Vestibulum feugiat ligula ut orci rhoncus efficitur. Phasellus vitae justo eu nisl hendrerit dictum vitae quis sapien.</p>
+          </div>
+        </div>    
+
+
+        </div>
+      </div>
+
+      <div id="program">
+        <div class="container about-container" data-repeatable="program">
+
+          <h3 class="subheader">/Schedule</h3>
+          <div class="row repeatable ">
+            <div class="col-md-12">
+              <h4>5:00PM </h4>
+              <h1>Welcome and Happy Hour </h1>
+              <p>Sed faucibus bibendum efficitur. Aliquam quis imperdiet urna. Sed tincidunt elit quis dolor aliquam sodales. </p>
+            </div>
+          </div>  
+          <div class="row repeatable ">
+            <div class="col-md-12">
+              <h4>5:30PM </h4>
+              <h1>Presentations </h1>
+              <p>Sed faucibus bibendum efficitur. Aliquam quis imperdiet urna. Sed tincidunt elit quis dolor aliquam sodales. </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="sponsors" class="hidden">
+        <div class="container about-container">
+          <h3 class="subheader">/Sponsors</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1473456849006-sponsors1.jpg" class="img-responsive" /> 
+            </div>
+          </div>
+        </div>
+      </div>'
+
+
+
+   
+
+    @eventFooterHTML ='<div id="footer">
+        <div class="container">
+            Made with <a href="https://www.eventcreate.com/">EventCreate </a>
+        </div>
+    </div>'
 
 
       @event.html_hero_1 = @eventHTML
