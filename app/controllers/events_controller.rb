@@ -519,7 +519,8 @@ def show
     @buyers = Purchase.where(:event_id => @event.id)
     @user = User.find(@event.user_id.to_i)
     @fee_rate = @user.npo == true ? 0.015 : 0.025
-    @starter_price =  @current_ticket.price == 0 ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
+    logger.debug "#{@current_ticket.price}"
+    @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
 
 
     #@ticket = @event.tickets.build(ticket_params)
