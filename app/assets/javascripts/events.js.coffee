@@ -46,8 +46,14 @@ $(document).on 'ready page:load', ->
             return
           'format': 'm/d/yyyy'
           'autoclose': true
+      $('#datepairExample3 .date').datepicker
+          onSelect: (dateText) ->
+            $('.date').focusout()
+            return
+          'format': 'm/d/yyyy'
+          'autoclose': true
         # # initialize datepair
-      $('#datepairExample, #datepairExample2').datepair
+      $('#datepairExample, #datepairExample2, #datepairExample3').datepair
         parseDate: (input) ->
           $(input).datepicker 'getDate'
         updateDate: (input, dateObj) ->

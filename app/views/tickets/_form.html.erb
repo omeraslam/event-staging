@@ -46,10 +46,13 @@
         <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '4' %>
         <p>Limit the ticket quantity that a user can buy at one time.</p>
       </div>
- <!--      <div class="input-group-inline">
-          <label>Tickets available until</label>
-          <%= f.text_field :stop_date, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1" %>
-      </div> -->
+
+
+      <div class="input-group-inline" id="datepairExample3">
+        <label> Registration closes on</label>
+     <%= f.text_field :stop_date, :id => 'stop_date_3', :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1",  :value => (@ticket.stop_date.nil? || @ticket.stop_date == '') ? '' : @ticket.stop_date.to_time.strftime("%m/%d/%Y") %>
+        </div>
+
     </div>
   <div class="input-group actions">
     <%= f.submit 'Save ticket', class: 'btn btn-large' %>
