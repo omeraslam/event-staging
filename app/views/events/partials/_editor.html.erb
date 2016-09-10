@@ -267,6 +267,30 @@
         </div>
 
 
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Layout </h4>
+                <p>Show or hide sections of your event website. </p>
+            </div>
+
+            <div class="col-md-9 layout-select">
+              <ul> 
+              <li class="test-show-layout"  data-target="#about">About <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#speakers">Speakers <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#program">Program/Schedule <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#sponsors">Sponsors <i class="fa fa-eye"> </i></li>
+              </ul>
+
+
+          </div>
+        </div>
+
+
+
+
+
         <div class="row">
             
             <div class="col-md-3">
@@ -614,27 +638,6 @@
 
 
 
-    <div class="editor-tool" id="editor-tool-share" >
-        
-        <section class="editor-tool-header">
-          <h3> Share tools</h3>
-          <p>You've made an beautiful event website. Now it's time to share it with the world!</p>
-        </section>
-
-
-
-
-
-
-      </div> 
-
-
-
-
-
-
-
-
 
   </div>
 </div>
@@ -709,6 +712,98 @@
 
 
 $( document ).ready(function() {
+
+
+  //contruct the layout select
+  $(".test-show-layout").each(function() {
+
+    var target = $(this).data("target");
+        
+    if ($(target).hasClass("hidden")) { 
+      
+      $(this).addClass("inactive");
+
+    } else {
+      
+      //$(this).addClass("inactive");
+
+    }
+  });
+
+
+  
+
+  //click handler for layout select
+  $(".test-show-layout").on( "click", function() {
+    
+    var target = $(this).data("target");
+    
+    if ($(target).hasClass("hidden")) { 
+      
+      $(target).removeClass("hidden");
+      $(this).removeClass("inactive");
+      $('html, body').animate({
+        scrollTop: $(target).offset().top - 50
+      }, 200);
+
+
+      htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
+      htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
+      htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
+
+      saveChanges();
+
+    } else {
+      
+      $(target).addClass("hidden");
+      $(this).addClass("inactive");
+
+      htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
+      htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
+      htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
+
+      saveChanges();
+
+    }
+  
+  });
+
+
+  
+
+  $(".repeatable").append("<div contenteditable='false' class='repeatable-actions'><div class='repeatable-action repeatable-plus'><i class='fa fa-plus'></i></div><div class='repeatable-action repeatable-delete'><i class='fa fa-trash'></i></div></div>");
+
+
+  $(document).on('click', ".repeatable-plus" , function() {
+     
+      var target = $(this).parents(".repeatable");
+      var newelement = target.clone();
+      target.after(newelement);
+      $('html, body').animate({
+        scrollTop: $(newelement).offset().top - 50
+      }, 200);
+
+  });
+
+
+
+  $(document).on('click', ".repeatable-delete" , function() {
+     
+      var target = $(this).parents(".repeatable");
+      var container = $(this).parents(".container").data("repeatable");
+
+      if ($('*[data-repeatable="'+ container +'"] .repeatable').length > 1) {
+        target.fadeOut(200, function() { $(target).remove(); });
+      } else {
+        alert("Ooops, you can't delete this one. If you'd like to hide this section, please change the section visbility under the design tab.")
+      }
+
+
+  
+  });
+
+
+
 
   //rsvp dropdown
   $('#purchase-tickets_form select').on('change', function(){
@@ -1089,6 +1184,7 @@ $(function() {
       key: 'yweqH-8btjB-13B-11oyC2A-7pm==', 
       toolbarInline: true,
       inlineMode: false,
+      imageEditButtons: ['imageReplace', 'imageRemove'],
       imageUploadToS3: {
           bucket: '<%= @hash[:bucket] %>',
           region: 's3-<%= @hash[:region] %>', // Change the region if it is different
