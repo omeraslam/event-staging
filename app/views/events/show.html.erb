@@ -14,6 +14,10 @@
 //HACK TO HIDE repeatable actions for logged in users
 $( document ).ready(function() { 
   $(".repeatable-actions").remove();
+  if ($("#hero").length == 0) {
+
+    $(".event-body").css({"width":"90%", "margin":"0 auto", "padding-top":"50px"})
+  }
 });
 
 </script>
