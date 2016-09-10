@@ -9,6 +9,15 @@
 <%= render 'events/partials/rsvp_modal_new' %>
 
 
+<script type="text/javascript">
+
+//HACK TO HIDE repeatable actions for logged in users
+$( document ).ready(function() { 
+  $(".repeatable-actions").remove();
+});
+
+</script>
+
 <% if signed_in? && current_user.id == @user.id && params.has_key?(:editing) %>  
 
 
@@ -53,7 +62,7 @@
   <script type="text/javascript" src="/assets/vendor/editor/js/plugins/video.min.js"></script>
  -->
 <%= render 'events/partials/editor' %>
-<%= render 'events/partials/feedback_tab' %>
+<%# render 'events/partials/feedback_tab' %>
 
 
 <%= render 'partials/imagesearch' %>  
