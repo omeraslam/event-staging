@@ -16,10 +16,6 @@ class DashboardController < ApplicationController
 
     @sign_in_count = @user.sign_in_count
 
-
-
-
-
     respond_with(@attendee, @user, @events)
   end
 

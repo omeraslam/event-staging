@@ -80,8 +80,8 @@ end
 
 # timepicker for choosing a date range
 gem 'jquery-timepicker-rails'
-
-
+gem 'browserify-rails'
+gem 'react-rails'
 gem 'bootstrap-sass'
 
 # Use SCSS for stylesheets

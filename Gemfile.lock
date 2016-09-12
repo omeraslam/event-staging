@@ -32,6 +32,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (5.0.1.20140414130214)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     barby (0.6.2)
     bcrypt (3.1.10)
     best_in_place (3.0.3)
@@ -43,6 +47,8 @@ GEM
       oauth2 (>= 0.5.0, < 2.0)
     bootstrap-sass (3.2.0.1)
       sass (~> 3.2)
+    browserify-rails (1.1.0)
+      railties (>= 4.0.0, < 5.0)
     builder (3.2.2)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
@@ -57,6 +63,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    connection_pool (2.2.0)
     devise (3.5.6)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -342,6 +349,13 @@ GEM
       trollop
     rdoc (4.2.2)
       json (~> 1.4)
+    react-rails (1.8.2)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     ref (2.0.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
@@ -415,6 +429,7 @@ DEPENDENCIES
   best_in_place (~> 3.0.1)
   bitly
   bootstrap-sass
+  browserify-rails
   carrierwave
   chunky_png
   coffee-rails (~> 4.0.0)
@@ -447,6 +462,7 @@ DEPENDENCIES
   rack-cors (~> 0.3.1)
   rails (= 4.1.4)
   rails_12factor
+  react-rails
   rest-client
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
