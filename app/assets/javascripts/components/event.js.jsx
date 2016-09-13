@@ -9,12 +9,18 @@ var Event = React.createClass({
             }.bind(this)
         });
     },
+    handleShow: function(e) {
+
+    },
+    _buildLinkHref: function(e) {
+        return '/'+ this.props.event.slug;
+    },
     render: function() {
             return (
                 <div className="event ">
                     <div className="image" style={{backgroundImage: 'url(http://placehold.it/300x300)'}}> </div>
                     <div className="details"> 
-                        <a href="" className="title">{this.props.event.name}</a>
+                        <a href={this._buildLinkHref()} className="title" >{this.props.event.name}</a>
                         <div className="time">
                             {this.props.event.date_start}
                         </div>    
