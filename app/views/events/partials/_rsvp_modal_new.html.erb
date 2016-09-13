@@ -53,7 +53,7 @@
             <div class="input-group ticket-type">
                 <label>Select Ticket:</label>
              
-                <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id ] }) %>
+                <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id, {'data-buy_limit'=>p.buy_limit}, {'data-stop_date'=>p.stop_date}, {'data-ticket_limit' => p.ticket_limit}, {'data-quantity_left'=> p.ticket_limit - LineItem.where(:ticket_id => p.id.to_s).count }, {'data-total_bought' => LineItem.where(:ticket_id => p.id.to_s).count }  ] }) %>
 
             </div>
 
@@ -65,43 +65,43 @@
             <% end %>
      
 
-    <% if !@current_ticket.stop_date.nil? &&  @current_ticket.stop_date.to_date > DateTime.now.to_date %>
-      <% if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %>
+<!--     <%# if !@current_ticket.stop_date.nil? &&  @current_ticket.stop_date.to_date > DateTime.now.to_date %> -->
+     <!--  <%# if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %> -->
 
   	    	<div class="input-group quantity">
   		    		<label>Select Quantity:</label>
-  			           <% if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
+  			           <%# if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
   			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..@current_ticket.buy_limit).step(1)) %>
-  			          <% else %>
-
-  			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %>
-  			          <% end %>
+  			          <%# else %>
+<!-- 
+  			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %> -->
+  			          <%# end %>
   			</div>
 
-        <% else %>
-            <% if @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %>
+       <!--  <%# else %> -->
+          <!--   <%# if  @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %> -->
           
-              <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
-            <% else %>
-              <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
-                <div class="input-group quantity">
+              <%# hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
+       <!--      <%# else %> -->
+              <%# hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
+              <!--  <div class="input-group quantity">
                        <label>Select Quantity:</label>
                       
                       <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>SOLD OUT</option>".html_safe, {:disabled => true} %>
-                </div>
+                </div> -->
 
-            <% end %>
+         <!--    <%# end %> -->
 
             
 
-        <% end %>
+       <!--  <%# end %> -->
 
-    <% else %>
-    <div class="input-group quantity">
+<!--     <%# else %> -->
+   <!-- <div class="input-group quantity">
       <label>Select Quantity:</label>
         <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>No longer available </option>".html_safe, {:disabled => true} %>
-      </div>
-    <% end %>
+      </div> -->
+  <!--   <%# end %> -->
 
 
     
@@ -223,20 +223,14 @@
   <script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
 <else>
 
-<script>
-
-$(document).ready(function() {
-
-
-});  
-</script>
-
 <% end %>
 
 
 <script type="text/javascript">
   
 $(document).ready(function() {
+
+  var current_id = null;
    var priceStringFromTitle = $('#ticket_title option:selected').text();
     var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
                                 priceStringFromTitle.lastIndexOf( ")" ) 
@@ -249,11 +243,12 @@ $(document).ready(function() {
       $('.cc-section, .price-listing').hide();
 
     }
-var current_id = null;
   $('#purchase-tickets_form .ticket-type select').on('change', function(){
     if(current_id == null) {
       current_id = <%= @current_ticket.id %>
     } 
+
+    $('input#ticket_quantity_'+ current_id).remove();
 
     $('#ticket_id_' + current_id).val($('#ticket_title option:selected').val());
     $('#ticket_id_' + current_id).attr('id', 'ticket_id_'+$('#ticket_title option:selected').val()).attr('name', 'ticket_id['+$('#ticket_title option:selected').val()+']')
@@ -271,10 +266,9 @@ var current_id = null;
     }
     var total_price = (($('.form-quantity').text()* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*$('.form-quantity').text())
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
-    $('.quantity select').remove();
-    $('.quantity label').after('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option value="1">1</option></select>');
+   changeSelectOptions()
 
-
+   current_id = $('#ticket_title option:selected').val();
   });
 
 
@@ -378,7 +372,32 @@ var current_id = null;
 
 
 
- 
+changeSelectOptions()
+function changeSelectOptions() {
+    $('.quantity select').remove();
+
+  var registrationclosed = moment($('#ticket_title option:selected').data('stop_date')) < moment.now();
+  var soldout = $('#ticket_title option:selected').data('quantity_left') - $('#ticket_title option:selected').data('total_bought') <= 0//quantity left - quantity buying
+
+ if(soldout) {
+
+  var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>Sold out</option></select>')
+  testtrim += '<input id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']" type="hidden" value="0">';
+} else if(registrationclosed) { // if sold out
+  var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>No longer available</option></select>')
+} else {
+  var testtrim = $.trim('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']">');
+for(var i=0;i < $('#ticket_title option:selected').data('buy_limit'); i++) {
+  testtrim += '<option value="'+ (i+1)+'">'+ (i+1)+'</option>'
+}
+testtrim += '</select>';
+
+}
+
+
+$('.quantity label').after(testtrim);
+//return testtrim;
+}
 
 
 
