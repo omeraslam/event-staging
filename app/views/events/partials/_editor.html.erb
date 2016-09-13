@@ -378,7 +378,7 @@
             <h3><%= ticket.title %></h3>
             <% @total = 0 %>
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
-            <% @total += LineItem.where(:purchase_id => purchase.id.to_s).count %>
+            <% @total += LineItem.where(:purchase_id => purchase.id.to_s, :ticket_id => ticket.id.to_s).count %>
             <% end %>
             <small>Tickets quantity left: <%= ticket.ticket_limit.to_i - @total.to_i  %>/<%= ticket.ticket_limit %> </small>
           <% if ticket.price == 0 %>

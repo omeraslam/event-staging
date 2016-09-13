@@ -169,7 +169,6 @@ end
 
 def complete_registration
 
-
   #select tickets actions
   #
 
@@ -183,17 +182,19 @@ def complete_registration
     @event.tickets.all.each do |ticket|
 
       num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
-
+    logger.debug "NUM TICKETS QUANTITY: #{(params[:ticket_quantity][ticket.id.to_s]).to_i}"
+        
 
       (1..num_tickets).each do |i|
-
+        logger.debug "WHAT TICKET QUANTITY: #{(params[:ticket_quantity][ticket.id.to_s]).to_i}"
+        logger.debug "WHAT TICKET: #{params[:ticket_id][ticket.id.to_s]}"
 
         @line_item = LineItem.new
         @quantity = (params[:ticket_quantity][ticket.id.to_s]).to_i
-        ticket_id = (params[:ticket_id][ticket.id.to_s]).to_i
+        ticket_id = (params[:ticket_id][ticket.id.to_s])
 
 
-        @line_item.ticket_id = ticket_id
+        @line_item.ticket_id = ticket_id.to_s
         @line_item.quantity = @quantity
         @line_item.purchase_id = @purchase.id.to_s
 
@@ -240,6 +241,7 @@ def complete_registration
      #@line_items = LineItem.where(:purchase_id => params[:oid])
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
+          logger.debug "ticket in line item: #{line_item}"
           sum += @ticket.price.to_f
           if @ticket.price.to_f != 0
             fee += 0.99
@@ -273,7 +275,7 @@ def complete_registration
   token = params[:stripeToken]
   amount = @final_charge
 
-
+  logger.debug "FINAL CHARGE: #{amount}"
 
 
 
@@ -351,7 +353,7 @@ def complete_registration
     @account = Account.where(:user_id => @event.user_id.to_s).first
 
 
-  UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
     if amount > 0
       begin
 

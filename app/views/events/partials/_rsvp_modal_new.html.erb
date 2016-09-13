@@ -26,28 +26,26 @@
 
 		<div class="modal-header modal-header-light">
 	    <h3> <%= @event.name %> </h3>	 
-      <p> 
-        <% if @current_ticket.price == 0 %>   .
-           
+     
+        <% if @current_ticket.price == 0 %> 
         <% else %>
-          <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
+          <p>  <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span></p>
         <% end %>   
-      </p>
+      
 
      <%= hidden_field_tag 'ticket_id['+@current_ticket.id.to_s+']', @current_ticket.id %>
 		
+          <p class="price-listing">
 
-
-	    					<% if @current_ticket.price == 0 %>
-			              	
-				          <% else %>
-                                <p><span class="form-quantity">1</span> X 
+	    				
+                                <span class="form-quantity">1</span> X 
 
 				              <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
-				          <% end %> 
+				       
 			          
-                    <% if @has_paid_ticket %>(+ <%= @fee_rate*100 %>% + $.99)<% end %> </p> 
-                    <% if @has_paid_ticket %>  <p><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p> <% end %>
+                    (+ <%= @fee_rate*100 %>% + $.99)
+           </p> 
+                    <p class="price-listing"><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p> 
     		    </div>
 			   <div>
 			</div>
@@ -71,12 +69,13 @@
     <%# END  %>
         <% @total = 0 %>
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
-            <% @total += LineItem.where(:purchase_id => purchase.id.to_s).count %>
+            <% @total += LineItem.where(:purchase_id => purchase.id.to_s, :ticket_id => @current_ticket.id.to_s).count %>
             <% end %>
      
 
     <% if !@current_ticket.stop_date.nil? &&  @current_ticket.stop_date.to_date > DateTime.now.to_date %>
       <% if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %>
+
   	    	<div class="input-group quantity">
   		    		<label>Select Quantity:</label>
   			           <% if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
@@ -89,11 +88,13 @@
 
         <% else %>
             <% if @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %>
+          
               <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
             <% else %>
               <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
                 <div class="input-group quantity">
                        <label>Select Quantity:</label>
+                      
                       <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>SOLD OUT</option>".html_safe, {:disabled => true} %>
                 </div>
 
@@ -144,10 +145,8 @@
       </div>      
 
       <% if @has_paid_ticket %>
-
-
-
-          <div class="input-group">
+      <div class="cc-section" style="<%= 'display:none' if @current_ticket.price.to_i == 0 %>">
+          <div class="input-group" >
             <label>Credit card number</label>
             <input  type="text" id="cc" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;" class="input cc-number" >
          
@@ -164,7 +163,7 @@
               <input class="input cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
             </div>
           </div>  
-
+    </div>
 
       <% end %>
 
@@ -246,18 +245,43 @@ $(document).ready(function() {
 <script type="text/javascript">
   
 $(document).ready(function() {
+   var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
 
+    $('.form-price').text('$' + filteredPrice);
+    if(Number(filteredPrice) > 0) {
+      $('.cc-section, .price-listing').show();
+    }else {
+      $('.cc-section, .price-listing').hide();
+
+    }
+var current_id = null;
   $('#purchase-tickets_form .ticket-type select').on('change', function(){
+    if(current_id == null) {
+      current_id = <%= @current_ticket.id %>
+    } 
+
+    $('#ticket_id_' + current_id).val($('#ticket_title option:selected').val());
+    $('#ticket_id_' + current_id).attr('id', 'ticket_id_'+$('#ticket_title option:selected').val()).attr('name', 'ticket_id['+$('#ticket_title option:selected').val()+']')
     var priceStringFromTitle = $('#ticket_title option:selected').text();
     var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
                                 priceStringFromTitle.lastIndexOf( ")" ) 
                               );
 
     $('.form-price').text('$' + filteredPrice);
+    if(Number(filteredPrice) > 0) {
+      $('.cc-section, .price-listing').show();
+    }else {
+      $('.cc-section, .price-listing').hide();
+
+    }
     var total_price = (($('.form-quantity').text()* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*$('.form-quantity').text())
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
     $('.quantity select').remove();
     $('.quantity label').after('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option value="1">1</option></select>');
+
 
   });
 
@@ -345,11 +369,12 @@ $(document).ready(function() {
 
 
   //if not a paid event, add a sumbit function to show loader and disable button
-  if ($(".cc-number").length == 0) {
+ 
+  if ($(".cc-number").is(':visible') == false) {
+  
 
    $('#purchase-tickets_form').submit(function(e) {
-      
-      if($(this).valid()) {
+      if($(this).valid() && $('.invalid').length == 0 ) {
       var $form = $(this);
       $form.find('button').prop('disabled', true);
       $(".full-page-loader").addClass("visible");
