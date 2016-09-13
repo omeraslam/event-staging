@@ -388,7 +388,7 @@ function changeSelectOptions() {
   var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>No longer available</option></select>')
 } else {
   var testtrim = $.trim('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']">');
-for(var i=0;i < $('#ticket_title option:selected').data('buy_limit'); i++) {
+for(var i=0;i < ($('#ticket_title option:selected').data('quantity_left') >= $('#ticket_title option:selected').data('buy_limit') ? $('#ticket_title option:selected').data('buy_limit') :  $('#ticket_title option:selected').data('buy_limit') - $('#ticket_title option:selected').data('quantity_left') ); i++) {
   testtrim += '<option value="'+ (i+1)+'">'+ (i+1)+'</option>'
 }
 testtrim += '</select>';
@@ -403,7 +403,6 @@ changeButtonText(true, 'Register Now');
 
 
 $('.quantity label').after(testtrim);
-//return testtrim;
 }
 
 
@@ -413,8 +412,7 @@ function changeButtonText(enabled, buttonText) {
   } else {
     $('.rsvp-button').text(buttonText).removeClass('btn-disabled').removeAttr('disabled', false);
   }
-  
-           // <button class="btn btn-large">Register Now</button>
+
 }
 
 
