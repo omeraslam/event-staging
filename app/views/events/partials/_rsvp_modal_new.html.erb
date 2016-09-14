@@ -20,10 +20,7 @@
 		<div class="modal-header modal-header-light">
 	    <h3> <%= @event.name %> </h3>	 
      
-        <% if @current_ticket.price == 0 %> 
-        <% else %>
-          <p>  <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span></p>
-        <% end %>   
+  
       
      <%= hidden_field_tag 'ticket_id['+@current_ticket.id.to_s+']', @current_ticket.id %>
 		
@@ -264,7 +261,9 @@ $(document).ready(function() {
       $('.cc-section, .price-listing').hide();
 
     }
-    var total_price = (($('.form-quantity').text()* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*$('.form-quantity').text())
+
+    $('.form-quantity').text(1);
+    var total_price = ((1* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*1)
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
    changeSelectOptions()
 
