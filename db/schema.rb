@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908180540) do
+ActiveRecord::Schema.define(version: 20160914222451) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -37,7 +37,10 @@ ActiveRecord::Schema.define(version: 20160908180540) do
     t.string   "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "line_item_id"
   end
+
+  add_index "attendees", ["line_item_id"], name: "index_attendees_on_line_item_id"
 
   create_table "buyers", force: true do |t|
     t.string   "first_name"
