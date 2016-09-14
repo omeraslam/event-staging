@@ -182,12 +182,9 @@ def complete_registration
     @event.tickets.all.each do |ticket|
 
       num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
-    logger.debug "NUM TICKETS QUANTITY: #{(params[:ticket_quantity][ticket.id.to_s]).to_i}"
-        
+ 
 
       (1..num_tickets).each do |i|
-        logger.debug "WHAT TICKET QUANTITY: #{(params[:ticket_quantity][ticket.id.to_s]).to_i}"
-        logger.debug "WHAT TICKET: #{params[:ticket_id][ticket.id.to_s]}"
 
         @line_item = LineItem.new
         @quantity = (params[:ticket_quantity][ticket.id.to_s]).to_i
@@ -212,22 +209,9 @@ def complete_registration
   end
 
 
+    @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).all
 
-
-
-
-
-  # #
-  # # end select_tickets actions
-  # 
-  #show buy page
-  #
-  #
-  #
-
-     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).all
-
-     LineItem.count('ticket_id', :distinct => true)
+    LineItem.count('ticket_id', :distinct => true)
 
     @user = User.where(:id => @event.user_id.to_i).first
 
@@ -238,7 +222,6 @@ def complete_registration
      sum = 0 
      fee = 0
      @fee_rate = @user.npo == true ? 0.015 : 0.025
-     #@line_items = LineItem.where(:purchase_id => params[:oid])
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
           logger.debug "ticket in line item: #{line_item}"
@@ -251,9 +234,6 @@ def complete_registration
      end 
                         
     fee = (fee * 100).round.to_i
-     # if sum != 0
-     #   sum 
-     # end 
 
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
@@ -262,14 +242,6 @@ def complete_registration
 
 
   # #save buyer attach to order
-
-  # # @purchase = Purchase.find(params[:oid].to_i )
-  # # @event = Event.where(:id => params[:event_id]).first
-
-
-  # Set your secret key: remember to change this to your live secret key in production
-  # See your keys here https://dashboard.stripe.com/account/apikeys
-  # Stripe.api_key = ENV['STRIPE_SECRET_KEY']
 
   # Get the credit card details submitted by the form
   token = params[:stripeToken]
@@ -294,56 +266,29 @@ def complete_registration
       @attendee.first_name = params[:purchase]['first_name']
       @attendee.last_name = params[:purchase]['last_name']
       @attendee.email = params[:purchase]['email']
-      #@attendee.phone_number = guest_item[1]['phone_number']
       @attendee.user_id = params[:user_id]
       @attendee.event_id = params[:event_id]
       @attendee.attending = true
-      #test = guest_item[1]['line_id']
-      # respond_to do |format|
         if @attendee.save
           #save attendee_id to line_items
-          #
-          #logger.debug "some guest item line id = #{guest_item[1]['line_id'].to_i}"
           @line_item = guest_item
           @line_item.attendee_id = @attendee.id
 
           line_params = { :attendee_id => @attendee.id}
 
-          if @line_item.update(line_params)
-          else
-          end
-          #if not equal to host
-           # if @attendee.id.to_s != @event.user_id.to_s
-           #   #send guest rsvpd emails
-           #   #UserMailer.welcome_attendee(@attendee, @event_url).deliver unless @attendee.invalid?
-           #   #UserMailer.rsvp_update(@current_user, @attendee, @event_url).deliver unless @attendee.invalid?
-           # else
-           #   #send invitations sent emails
-           #   #UserMailer.invitation_sent(current_user,@attendee, @event, @event_url).deliver unless @attendee.invalid?
-           #   #UserMailer.guest_invitation_sent(current_user, @attendee, @event, @event_url).deliver unless @attendee.invalid?
-           # end
-          
-          #format.html { redirect_to slugger_path(:slug => @event.slug), notice: 'Person was successfully created.' }
-          # format.html { redirect_to show_confirm_path, notice: 'Ticket purchase successful'}
-          # format.js   { render action: 'confirmation', status: :created, location: slugger_path(:slug => @event.slug) }
-          # format.json { render :show, status: :created, location: :back }
-          #send invite email to them now, thank you and sign up with hash
-          #
+            if @line_item.update(line_params)
+            else
+            end
+
         else
-          #logger.debug "not saving some guest item line id = #{guest_item[1]['line_id'].to_i}"
-          
-        #   format.html { render :new }
-        #   format.json { render json: @attendee.errors, status: :unprocessable_entity }
         end
-      #end
 
 
     end
   
   # create customer for user
   # save strip user id
-  # 
-  # 
+
   else
     #purchase wasn't updated and didn't go through
   end
@@ -374,6 +319,8 @@ def complete_registration
       rescue Stripe::CardError => e
         # The card has been declined
           logger.debug "card error"
+          #if error delete what just happened
+          
         
       else 
       end
