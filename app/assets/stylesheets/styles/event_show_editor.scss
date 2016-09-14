@@ -148,11 +148,11 @@ body.invite-view {
 	transition: left .3s ease-in-out;
 	position:fixed;
 	top:0;
-	left:-50%;
+	left:-100%;
 	//right:0;
 	z-index: 99;
 	box-shadow: 4px 4px 10px rgba(0,0,0,.1);
-	width:50%;
+	//width:50%;
 	overflow: hidden;
 
 	.btn {
@@ -415,7 +415,7 @@ body.invite-view {
 	background:#f1f3f5;
 	background:lighten($brand-secondary,80%);
 	//box-shadow: 12px 12px 50px rgba(0, 0, 0, 0.6);
-	width:100%;
+	//width:100%;
 	color:#444;
 	position:relative;
 	height:800px;
@@ -449,6 +449,7 @@ body.invite-view {
 	.editor-tool {
 		display:none;
 		position:relative;
+		width: 700px;
 
 	}
 
