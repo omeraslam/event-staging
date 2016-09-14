@@ -275,7 +275,7 @@ $(document).ready(function() {
   //rsvp dropdown
   $('#purchase-tickets_form .quantity select').on('change', function(){
 
- var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var priceStringFromTitle = $('#ticket_title option:selected').text();
     var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
                                 priceStringFromTitle.lastIndexOf( ")" ) 
                               );
@@ -379,30 +379,51 @@ function changeSelectOptions() {
   var registrationclosed = moment($('#ticket_title option:selected').data('stop_date')) < moment.now();
   var soldout = $('#ticket_title option:selected').data('quantity_left') <= 0//quantity left - quantity buying
 
- if(soldout) {
-  changeButtonText(false, 'Sold Out');
-  var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>Sold out</option></select>')
-  testtrim += '<input id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']" type="hidden" value="0">';
-} else if(registrationclosed) { // if sold out
-  changeButtonText(false, 'Registration Closed');
-  var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>No longer available</option></select>')
-} else {
-  var testtrim = $.trim('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']">');
-for(var i=0;i < ($('#ticket_title option:selected').data('quantity_left') >= $('#ticket_title option:selected').data('buy_limit') ? $('#ticket_title option:selected').data('buy_limit') :  $('#ticket_title option:selected').data('buy_limit') - $('#ticket_title option:selected').data('quantity_left') ); i++) {
-  testtrim += '<option value="'+ (i+1)+'">'+ (i+1)+'</option>'
-}
-testtrim += '</select>';
-if($('.price-listing').is(':visible') == true) {
-  changeButtonText(true, 'Buy Tickets');
-} else {
-changeButtonText(true, 'Register Now');
-}
+   if(soldout) {
+    changeButtonText(false, 'Sold Out');
+    var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>Sold out</option></select>')
+    testtrim += '<input id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']" type="hidden" value="0">';
+  } else if(registrationclosed) { // if sold out
+    changeButtonText(false, 'Registration Closed');
+    var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>No longer available</option></select>')
+  } else {
+    var testtrim = $.trim('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']">');
+      for(var i=0;i < ($('#ticket_title option:selected').data('quantity_left') >= $('#ticket_title option:selected').data('buy_limit') ? $('#ticket_title option:selected').data('buy_limit') :  $('#ticket_title option:selected').data('buy_limit') - $('#ticket_title option:selected').data('quantity_left') ); i++) {
+        testtrim += '<option value="'+ (i+1)+'">'+ (i+1)+'</option>'
+        }
+      testtrim += '</select>';
+      if($('.price-listing').is(':visible') == true) {
+        changeButtonText(true, 'Buy Tickets');
+      } else {
+      changeButtonText(true, 'Register Now');
+      }
 
 
-}
+  }
+
+
+
 
 
 $('.quantity label').after(testtrim);
+
+$('#purchase-tickets_form .quantity select').off('change');
+  $('#purchase-tickets_form .quantity select').on('change', function(){
+
+    var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
+    $('.form-price').text('$' + filteredPrice);
+    $('.form-quantity').text($(this).val());
+    var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
+    $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+  });
+
+  $(".toggle-container").click(function() {   
+      $(this).toggleClass("toggle-on");
+      $(this).find("span").text("live");
+  });
 }
 
 

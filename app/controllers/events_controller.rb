@@ -352,8 +352,7 @@ def complete_registration
 
     @account = Account.where(:user_id => @event.user_id.to_s).first
 
-
-   UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+    logger.debug "AMOUNT:::: #{amount}"
     if amount > 0
       begin
 
@@ -366,14 +365,23 @@ def complete_registration
           :metadata => {"order_id" => @purchase.id, "purchse_email" => @purchase.email}
         }, {:stripe_account => @account.stripe_user_id})
 
-
+        if charge["paid"] == true
+         #Save customer to the db
+          UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+          render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+        end
 
       rescue Stripe::CardError => e
         # The card has been declined
+          logger.debug "card error"
+        
+      else 
       end
 
-      render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+
+      #render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
     else
+      UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
       redirect_to show_confirm_path(:oid => @purchase.id.to_s)
     end
 
