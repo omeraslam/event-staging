@@ -80,7 +80,7 @@ def show_ticket
   #render layout: false
   @event = Event.find_by_slug(params[:slug])
   @purchase = Purchase.where(:confirm_token => params[:oid].to_s ).first
-  @line_items = LineItem.where(:purchase_id => @purchase.id)
+  @line_items = LineItem.where(:purchase_id => @purchase.id.to_s)
 
 
 
