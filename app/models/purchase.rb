@@ -5,7 +5,6 @@ class Purchase < ActiveRecord::Base
 
 private
     def generate_token
-
       self.confirm_token = SecureRandom.uuid
     end
 end

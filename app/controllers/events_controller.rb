@@ -384,7 +384,7 @@ def show_confirm
 
 
 
-  @purchase = Purchase.where(:confirm_token => params[:oid] )
+  @purchase = Purchase.where(:confirm_token => params[:oid] ) 
   @event = Event.find_by_slug(params[:slug])
   @user = User.find(@event.user_id)
 
