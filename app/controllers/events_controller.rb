@@ -79,8 +79,8 @@ def show_ticket
 
   #render layout: false
   @event = Event.find_by_slug(params[:slug])
-  @purchase = Purchase.find(params[:oid].to_i )
-  @line_items = LineItem.where(:purchase_id => params[:oid])
+  @purchase = Purchase.where(:confirm_token => params[:oid].to_s ).first
+  @line_items = LineItem.where(:purchase_id => @purchase.id)
 
 
 
@@ -209,6 +209,7 @@ def complete_registration
       #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
+      @purchase.confirm_token = SecureRandom.urlsafe_base64.to_s
       if @purchase.save
       else
       end
@@ -277,7 +278,7 @@ def complete_registration
                   end
             
             UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-            render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+            render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.confirm_token.to_s + "'"  #hack
           else
             logger.debug "CHARGE SHOULD BE FAILED"
             #if error delete what just happened
@@ -310,6 +311,8 @@ def complete_registration
 #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
+      @purchase.confirm_token = SecureRandom.urlsafe_base64.to_s
+
       if @purchase.save
       else
       end
@@ -368,7 +371,7 @@ def complete_registration
 ########
 
       UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-      redirect_to show_confirm_path(:oid => @purchase.id.to_s)
+      redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
     end
 
 
@@ -383,14 +386,14 @@ def show_confirm
 
 
 
-  @purchase = Purchase.find(params[:oid].to_i )
+  @purchase = Purchase.where(:confirm_token => params[:oid] )
   @event = Event.find_by_slug(params[:slug])
   @user = User.find(@event.user_id)
 
   @event = Event.find_by_slug(params[:slug])
   @eventurl = 'http://'+ ENV['SITE_NAME'] + '/' + @event.slug
-  @purchase = Purchase.find(params[:oid].to_i )
-  @line_items = LineItem.where(:purchase_id => params[:oid])
+  @purchase = Purchase.where(:confirm_token => params[:oid] ).first
+  @line_items = LineItem.where(:purchase_id => @purchase.id)
 
      
 end
