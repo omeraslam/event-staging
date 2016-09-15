@@ -295,7 +295,7 @@ def complete_registration
           # The card has been declined
 
             @purchase.destroy
-
+    
  
         else 
         end
