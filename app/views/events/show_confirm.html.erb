@@ -24,7 +24,7 @@
       
 
       <div class="ticket-btn-container">
-<%= link_to ('<i class="icon icon-print"> </i> Print My Tickets Now ').html_safe, show_ticket_path(:oid => @purchase.id, format: :pdf), :class => 'btn', data: { type: :pdf }, :target => '_blank'   %> </div>
+<%= link_to ('<i class="icon icon-print"> </i> Print My Tickets Now ').html_safe, show_ticket_path(:oid => @purchase.confirm_token, format: :pdf), :class => 'btn', data: { type: :pdf }, :target => '_blank'   %> </div>
 
 
       <a href="https://www.facebook.com/sharer/sharer.php?u=<%= @eventurl %>" class="btn btn-facebook"><i class="icon icon-facebook"> </i>Share on Facebook</a> 

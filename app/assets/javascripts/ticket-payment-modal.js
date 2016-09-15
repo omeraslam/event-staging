@@ -28,7 +28,7 @@ $(document).ready(function(){
  
 
       function stripePuchaseTicketsResponseHandler(status, response) {
-
+    
 
         $(".full-page-loader").addClass("visible");
 
@@ -66,6 +66,7 @@ $(document).ready(function(){
             $(".full-page-loader").removeClass("visible");
             alert('Sorry, there seems to be a problem processing that credit card. Please try another card.');
 
+            $form.find('button').prop('disabled', false);
           }
         });
           //$form.get(0).submit();
@@ -75,6 +76,8 @@ $(document).ready(function(){
 
 
      $('#purchase-tickets_form').submit(function(e) {
+      if( $(".cc-number").is(':visible') == true ) {
+
         e.preventDefault();
        // e.stopImmediatePropagation();
         var $form = $(this);
@@ -88,7 +91,7 @@ $(document).ready(function(){
        $('.cc-number').toggleClass('invalid', !$.payment.validateCardNumber($('.cc-number').val()));
        $('.cc-exp').toggleClass('invalid', !$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
        $('.cc-cvc').toggleClass('invalid', !$.payment.validateCardCVC($('.cc-cvc').val(), cardType));
-     
+      
        if ( !$('input.invalid').length && $('.error:visible').length <= 0 ) {
           $form.find('button').prop('disabled', true);
           var expgroup = $('.cc-exp').val();
@@ -121,9 +124,12 @@ $(document).ready(function(){
             
          }
 
-
+      }
 
      });
+
+
+      
 
      
 });

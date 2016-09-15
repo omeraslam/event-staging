@@ -48,7 +48,6 @@
 
     <div class="editor-tool" id="editor-tool-details">
     
-
         <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
        
 
@@ -365,7 +364,7 @@
       
       <section class="editor-tool-header">
         <h3> Advanced Ticketing </h3>
-        <p>Do you have multiple ticket types? Selling VIP passes? Manage your event ticketing advanced settings here.</p>
+        <p>Do you have multiple ticket types? Selling VIP passes? Manage your event ticketing advanced settings here. <strong>Note:</strong> <em>Once guests start registering for your tickets, you will not be allowed to edit them.</em> </p>
         
         
       </section>
@@ -378,7 +377,7 @@
             <h3><%= ticket.title %></h3>
             <% @total = 0 %>
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
-            <% @total += LineItem.where(:purchase_id => purchase.id.to_s).count %>
+            <% @total += LineItem.where(:purchase_id => purchase.id.to_s, :ticket_id => ticket.id.to_s).count %>
             <% end %>
             <small>Tickets quantity left: <%= ticket.ticket_limit.to_i - @total.to_i  %>/<%= ticket.ticket_limit %> </small>
           <% if ticket.price == 0 %>
@@ -388,15 +387,21 @@
             <p><%= number_to_currency(ticket.price) %></p>
 
             <% end %>
+            
+            <% if @total == 0 %>
+                <div class="ticket-actions">
+                    <div class="ticket-action">
+                        <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %>    
+                    </div>
+                    <% if @tickets.count > 1 %>
+                    <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </div>
+                    <% end %>
+                </div>
+            <% else %>
+            <small>Tickets have been registered. Editing or deletion is no longer available.</small>
           
-            <div class="ticket-actions">
-             <div class="ticket-action">
-            <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %></div>
-            <% if @tickets.count > 1 %>
-              <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
-              </div>
             <% end %>
-              </div>
           </div>
         <% end %>
 
@@ -573,7 +578,7 @@
 
 
 
-    <div class="editor-tool" id="editor-tool-attendees" >
+    <div class="editor-tool" id="editor-tool-attendees" style="width:1000px;">
         
 
        <div class="row editor-tool-header">
@@ -595,18 +600,29 @@
             <div class="row">
             <div class="col-md-12">
                 <table class="table"> 
-                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th>  <th> Registration date </th> <!-- <th> </th> --> </tr> </thead> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th><th>Ticket Type</th> <th>Total Order</th><th> Registration date </th> <!-- <th> </th> --> </tr> </thead> 
 
 
                 <tbody>  
 
                     <% @buyers.each do |attendee| %>
 
+              
+
                     <tr> 
                         <td><%= attendee.first_name %></td> 
                         <td><%= attendee.last_name %></td> 
                         <td><%= attendee.email %></td>
                         <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity.nil? ? 0 : @guest.quantity - 1 %></td>
+                        <td><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
+                        <td>          
+                            <% total_order = 0 %>
+                    <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
+                       
+                        <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
+                        <% total_order += @ticket.nil? ? 0 : @ticket.price %>
+                    <% end %> 
+                        <%= number_to_currency(total_order, :precision => 2) %></td>
                         <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
                   <!--       <td><%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  -->
                     </tr> 

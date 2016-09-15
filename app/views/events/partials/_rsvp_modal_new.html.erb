@@ -17,37 +17,24 @@
 			</div>
 			<% end %>
 
-
-
-
-
-
-
-
 		<div class="modal-header modal-header-light">
 	    <h3> <%= @event.name %> </h3>	 
-      <p> 
-        <% if @current_ticket.price == 0 %>   .
-           
-        <% else %>
-          <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
-        <% end %>   
-      </p>
-
+     
+  
+      
      <%= hidden_field_tag 'ticket_id['+@current_ticket.id.to_s+']', @current_ticket.id %>
 		
+          <p class="price-listing">
 
-
-	    					<% if @current_ticket.price == 0 %>
-			              	
-				          <% else %>
-                                <p><span class="form-quantity">1</span> X 
+	    				
+                                <span class="form-quantity">1</span> X 
 
 				              <span class="form-price"><%= number_to_currency(@current_ticket.price) %></span>
-				          <% end %> 
+				       
 			          
-                    <% if @has_paid_ticket %>(+ <%= @fee_rate*100 %>% + $.99)<% end %> </p> 
-                    <% if @has_paid_ticket %>  <p><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p> <% end %>
+                    (+ <%= @fee_rate*100 %>% + $.99)
+           </p> 
+                    <p class="price-listing"><strong>Total:</strong><span class="form-total"> $<%= number_with_precision(@starter_price, :precision => 2) %> </span></p> 
     		    </div>
 			   <div>
 			</div>
@@ -62,8 +49,8 @@
     <%# @RICH  -   if MORE THAN 1 TICKET EXISTS  %>
             <div class="input-group ticket-type">
                 <label>Select Ticket:</label>
-             
-                <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id ] }) %>
+                
+                <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id, {'data-buy_limit'=>p.buy_limit}, {'data-stop_date'=>p.stop_date}, {'data-ticket_limit' => p.ticket_limit}, {'data-quantity_left'=> p.ticket_limit - LineItem.where(:ticket_id => p.id.to_s).count }, {'data-total_bought' => LineItem.where(:ticket_id => p.id.to_s).count }  ] }) %>
 
             </div>
 
@@ -71,44 +58,47 @@
     <%# END  %>
         <% @total = 0 %>
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
-            <% @total += LineItem.where(:purchase_id => purchase.id.to_s).count %>
+            <% @total += LineItem.where(:purchase_id => purchase.id.to_s, :ticket_id => @current_ticket.id.to_s).count %>
             <% end %>
      
 
-    <% if !@current_ticket.stop_date.nil? &&  @current_ticket.stop_date.to_date > DateTime.now.to_date %>
-      <% if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %>
+<!--     <%# if !@current_ticket.stop_date.nil? &&  @current_ticket.stop_date.to_date > DateTime.now.to_date %> -->
+     <!--  <%# if @current_ticket.ticket_limit.to_i - @total.to_i > 0 %> -->
+
   	    	<div class="input-group quantity">
   		    		<label>Select Quantity:</label>
-  			           <% if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
+  			           <%# if LineItem.where(:ticket_id => @current_ticket.id.to_s).count < (@current_ticket.ticket_limit.to_i-@current_ticket.buy_limit.to_i) %>
   			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..@current_ticket.buy_limit).step(1)) %>
-  			          <% else %>
-
-  			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %>
-  			          <% end %>
+  			          <%# else %>
+<!-- 
+  			              <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', options_for_select((1..(@current_ticket.ticket_limit.to_i-LineItem.where(:ticket_id => @current_ticket.id.to_s).count)).step(1)) %> -->
+  			          <%# end %>
   			</div>
 
-        <% else %>
-            <% if @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %>
-              <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
-            <% else %>
-              <%= hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
-                <div class="input-group quantity">
+       <!--  <%# else %> -->
+          <!--   <%# if  @current_ticket.ticket_limit.to_i - @total.to_i  == 1 %> -->
+          
+              <%# hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 1 %>
+       <!--      <%# else %> -->
+              <%# hidden_field_tag "ticket_quantity["+@current_ticket.id.to_s+']', 0 %>
+              <!--  <div class="input-group quantity">
                        <label>Select Quantity:</label>
+                      
                       <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>SOLD OUT</option>".html_safe, {:disabled => true} %>
-                </div>
+                </div> -->
 
-            <% end %>
+         <!--    <%# end %> -->
 
             
 
-        <% end %>
+       <!--  <%# end %> -->
 
-    <% else %>
-    <div class="input-group quantity">
+<!--     <%# else %> -->
+   <!-- <div class="input-group quantity">
       <label>Select Quantity:</label>
         <%= select_tag "ticket_quantity["+@current_ticket.id.to_s+']', "<option>No longer available </option>".html_safe, {:disabled => true} %>
-      </div>
-    <% end %>
+      </div> -->
+  <!--   <%# end %> -->
 
 
     
@@ -144,10 +134,8 @@
       </div>      
 
       <% if @has_paid_ticket %>
-
-
-
-          <div class="input-group">
+      <div class="cc-section" style="<%= 'display:none' if @current_ticket.price.to_i == 0 %>">
+          <div class="input-group" >
             <label>Credit card number</label>
             <input  type="text" id="cc" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;" class="input cc-number" >
          
@@ -164,7 +152,7 @@
               <input class="input cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
             </div>
           </div>  
-
+    </div>
 
       <% end %>
 
@@ -172,24 +160,24 @@
 	
       <div class="input-group"> 
 
-    <% if !@current_ticket.stop_date.nil? && @current_ticket.stop_date.to_date > DateTime.now.to_date %>
-      <% if @current_ticket.ticket_limit.to_i - @total.to_i  > 0 %>
-	       		<% if !@has_paid_ticket %>
+    <%# if !@current_ticket.stop_date.nil? && @current_ticket.stop_date.to_date > DateTime.now.to_date %>
+      <%# if @current_ticket.ticket_limit.to_i - @total.to_i  > 0 %>
+	       		<%# if !@has_paid_ticket %>
 
-			    	<button class="btn btn-large">Register Now</button>
-			    <% else %>
-			    	<button class="btn btn-large">Buy Tickets</button>
-				<% end %>
-      <% else %>
+			    	<button class="btn btn-large rsvp-button">Register Now</button>
+			    <%# else %>
+			    	<!--<button class="btn btn-large">Buy Tickets</button>-->
+				<%# end %>
+      <%# else %>
           
-            <button class="btn btn-large btn-disabled" disabled>Not Available</button>
-      <% end %>
+            <!--<button class="btn btn-large btn-disabled" disabled>Not Available</button> -->
+      <%# end %>
 
 
-      <% else %>
+      <%# else %>
           
-            <button class="btn btn-large btn-disabled" disabled>Registration closed</button>
-      <% end %>
+            <!-- <button class="btn btn-large btn-disabled" disabled>Registration closed</button> -->
+      <%# end %>
 
 
         <p class="input-secure"><i class="fa fa-lock"> </i> Secure server </p>
@@ -232,14 +220,6 @@
   <script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
 <else>
 
-<script>
-
-$(document).ready(function() {
-
-
-});  
-</script>
-
 <% end %>
 
 
@@ -247,25 +227,54 @@ $(document).ready(function() {
   
 $(document).ready(function() {
 
+  var current_id = null;
+   var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
+
+    $('.form-price').text('$' + filteredPrice);
+    if(Number(filteredPrice) > 0) {
+      $('.cc-section, .price-listing').show();
+    }else {
+      $('.cc-section, .price-listing').hide();
+
+    }
   $('#purchase-tickets_form .ticket-type select').on('change', function(){
+    if(current_id == null) {
+      current_id = <%= @current_ticket.id %>
+    } 
+
+    $('input#ticket_quantity_'+ current_id).remove();
+
+    $('#ticket_id_' + current_id).val($('#ticket_title option:selected').val());
+    $('#ticket_id_' + current_id).attr('id', 'ticket_id_'+$('#ticket_title option:selected').val()).attr('name', 'ticket_id['+$('#ticket_title option:selected').val()+']')
     var priceStringFromTitle = $('#ticket_title option:selected').text();
     var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
                                 priceStringFromTitle.lastIndexOf( ")" ) 
                               );
 
     $('.form-price').text('$' + filteredPrice);
-    var total_price = (($('.form-quantity').text()* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*$('.form-quantity').text())
-    $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
-    $('.quantity select').remove();
-    $('.quantity label').after('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option value="1">1</option></select>');
+    if(Number(filteredPrice) > 0) {
+      $('.cc-section, .price-listing').show();
+    }else {
+      $('.cc-section, .price-listing').hide();
 
+    }
+
+    $('.form-quantity').text(1);
+    var total_price = ((Number($('.form-quantity').text())* filteredPrice)*.025)+(Number($('.form-quantity').text())*filteredPrice)+(.99*Number($('.form-quantity').text()))
+    $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+   changeSelectOptions()
+
+   current_id = $('#ticket_title option:selected').val();
   });
 
 
   //rsvp dropdown
   $('#purchase-tickets_form .quantity select').on('change', function(){
 
- var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var priceStringFromTitle = $('#ticket_title option:selected').text();
     var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
                                 priceStringFromTitle.lastIndexOf( ")" ) 
                               );
@@ -345,11 +354,12 @@ $(document).ready(function() {
 
 
   //if not a paid event, add a sumbit function to show loader and disable button
-  if ($(".cc-number").length == 0) {
+ 
+  if ($(".cc-number").is(':visible') == false) {
+  
 
    $('#purchase-tickets_form').submit(function(e) {
-      
-      if($(this).valid()) {
+      if($(this).valid() && $('.invalid').length == 0 ) {
       var $form = $(this);
       $form.find('button').prop('disabled', true);
       $(".full-page-loader").addClass("visible");
@@ -361,8 +371,71 @@ $(document).ready(function() {
 
 
 
- 
+changeSelectOptions()
+function changeSelectOptions() {
+    $('.quantity select').remove();
 
+  var registrationclosed = moment($('#ticket_title option:selected').data('stop_date')) < moment.now();
+  var soldout = $('#ticket_title option:selected').data('quantity_left') <= 0//quantity left - quantity buying
+
+   if(soldout) {
+    changeButtonText(false, 'Sold Out');
+    var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>Sold out</option></select>')
+    testtrim += '<input id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']" type="hidden" value="0">';
+  } else if(registrationclosed) { // if sold out
+    changeButtonText(false, 'Registration Closed');
+    var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>No longer available</option></select>')
+  } else {
+    var testtrim = $.trim('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']">');
+
+
+      for(var i=0;i < ($('#ticket_title option:selected').data('quantity_left') >= $('#ticket_title option:selected').data('buy_limit') ? $('#ticket_title option:selected').data('buy_limit') :  $('#ticket_title option:selected').data('quantity_left') ); i++) {
+        testtrim += '<option value="'+ (i+1)+'">'+ (i+1)+'</option>'
+        }
+      testtrim += '</select>';
+      if($('.price-listing').is(':visible') == true) {
+        changeButtonText(true, 'Buy Tickets');
+      } else {
+      changeButtonText(true, 'Register Now');
+      }
+
+
+  }
+
+
+
+
+
+$('.quantity label').after(testtrim);
+
+$('#purchase-tickets_form .quantity select').off('change');
+  $('#purchase-tickets_form .quantity select').on('change', function(){
+
+    var priceStringFromTitle = $('#ticket_title option:selected').text();
+    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
+    $('.form-price').text('$' + filteredPrice);
+    $('.form-quantity').text($(this).val());
+    var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
+    $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+  });
+
+  $(".toggle-container").click(function() {   
+      $(this).toggleClass("toggle-on");
+      $(this).find("span").text("live");
+  });
+}
+
+
+function changeButtonText(enabled, buttonText) {
+  if(!enabled){
+    $('.rsvp-button').text(buttonText).addClass('btn-disabled').attr('disabled', true);
+  } else {
+    $('.rsvp-button').text(buttonText).removeClass('btn-disabled').removeAttr('disabled', false);
+  }
+
+}
 
 
 });
