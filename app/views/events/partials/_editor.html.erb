@@ -609,13 +609,13 @@
                         <td><%= attendee.last_name %></td> 
                         <td><%= attendee.email %></td>
                         <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity.nil? ? 0 : @guest.quantity - 1 %></td>
-                        <td>"<% @ticket = Ticket.find( @guest.ticket_id.to_i) %><%= @ticket.title %>" </td>
+                        <td><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
                         <td>          
                             <% total_order = 0 %>
                     <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
-                        <% lineitem.ticket_id %>
-                        <% @ticket = Ticket.find(lineitem.ticket_id.to_i) %>
-                        <% total_order += @ticket.price %>
+                       
+                        <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
+                        <% total_order += @ticket.nil? ? 0 : @ticket.price %>
                     <% end %> 
                         <%= number_to_currency(total_order, :precision => 2) %></td>
                         <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
