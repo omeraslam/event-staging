@@ -209,7 +209,6 @@ def complete_registration
       #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
-      @purchase.confirm_token = SecureRandom.urlsafe_base64.to_s
       if @purchase.save
       else
       end
@@ -311,7 +310,6 @@ def complete_registration
 #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
-      @purchase.confirm_token = SecureRandom.urlsafe_base64.to_s
 
       if @purchase.save
       else
