@@ -263,7 +263,7 @@ $(document).ready(function() {
     }
 
     $('.form-quantity').text(1);
-    var total_price = ((1* filteredPrice)*.025)+($('.form-quantity').text()*filteredPrice)+(.99*1)
+    var total_price = ((Number($('.form-quantity').text())* filteredPrice)*.025)+(Number($('.form-quantity').text())*filteredPrice)+(.99*Number($('.form-quantity').text()))
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
    changeSelectOptions()
 
@@ -387,7 +387,9 @@ function changeSelectOptions() {
     var testtrim = $.trim('<select disabled="disabled" id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']"><option>No longer available</option></select>')
   } else {
     var testtrim = $.trim('<select id="ticket_quantity_'+ $('#ticket_title option:selected').val() +'" name="ticket_quantity['+ $('#ticket_title option:selected').val() +']">');
-      for(var i=0;i < ($('#ticket_title option:selected').data('quantity_left') >= $('#ticket_title option:selected').data('buy_limit') ? $('#ticket_title option:selected').data('buy_limit') :  $('#ticket_title option:selected').data('buy_limit') - $('#ticket_title option:selected').data('quantity_left') ); i++) {
+
+
+      for(var i=0;i < ($('#ticket_title option:selected').data('quantity_left') >= $('#ticket_title option:selected').data('buy_limit') ? $('#ticket_title option:selected').data('buy_limit') :  $('#ticket_title option:selected').data('quantity_left') ); i++) {
         testtrim += '<option value="'+ (i+1)+'">'+ (i+1)+'</option>'
         }
       testtrim += '</select>';
