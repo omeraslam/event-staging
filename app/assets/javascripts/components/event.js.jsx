@@ -12,13 +12,16 @@ var Event = React.createClass({
     handleShow: function(e) {
 
     },
+    _buildBackgroundImage: function() {
+        return  this.props.event.background_img.thumb.url == null ? '/assets/themes/default_bg.jpg' : this.props.event.background_img.thumb.url;
+    },
     _buildLinkHref: function(e) {
         return '/'+ this.props.event.slug + '?editing=true';
     },
     render: function() {
             return (
                 <div className="event ">
-                    <div className="image" style={{backgroundImage: 'url(http://placehold.it/300x300)'}}> </div>
+                    <div className="image" style={{backgroundImage: 'url('+ this._buildBackgroundImage() +')'}}> </div>
                     <div className="details"> 
                         <a href={this._buildLinkHref()} className="title" >{this.props.event.name}</a>
                         <div className="time">
