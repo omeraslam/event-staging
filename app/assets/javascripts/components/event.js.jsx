@@ -13,7 +13,7 @@ var Event = React.createClass({
 
     },
     _buildLinkHref: function(e) {
-        return '/'+ this.props.event.slug;
+        return '/'+ this.props.event.slug + '?editing=true';
     },
     render: function() {
             return (
