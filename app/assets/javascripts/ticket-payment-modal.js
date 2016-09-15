@@ -66,6 +66,7 @@ $(document).ready(function(){
             $(".full-page-loader").removeClass("visible");
             alert('Sorry, there seems to be a problem processing that credit card. Please try another card.');
 
+            $form.find('button').prop('disabled', false);
           }
         });
           //$form.get(0).submit();
