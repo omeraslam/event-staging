@@ -224,14 +224,9 @@ def complete_registration
 
     end
 
-    charge_metadata = {
-      :coupon_code => @code,
-      #:coupon_discount => (@discount * 100).to_s + "%"
-      :coupon_discount =>  @coupon.coupon_type == 'fixed' ? '$' + @coupon.discount.to_s :  (@coupon.discount * 100).to_s + "%"
-    }
   end
 
-  charge_metadata ||= {}
+
 
 
   logger.debug "FINAL SUM: #{@final_charge}"
@@ -255,6 +250,13 @@ def complete_registration
 
  
       if @purchase.update(purchase_params)
+        charge_metadata = {
+            :order_id=> @purchase.id, 
+            :purchase_email => @purchase.email,
+            :coupon_code => @code,
+            :coupon_discount =>  @coupon.coupon_type == 'fixed' ? '$' + @coupon.discount.to_s :  (@coupon.discount * 100).to_s + "%"
+          }
+        charge_metadata ||= {}
 
         begin
           charge = Stripe::Charge.create({
@@ -263,7 +265,7 @@ def complete_registration
             :source => token,
             :application_fee => fee,
 
-            :metadata => {"order_id" => @purchase.id, "purchase_email" => @purchase.email}
+            :metadata => charge_metadata
           }, {:stripe_account => @account.stripe_user_id})
           logger.debug "CHARGE is paid:::: #{charge['paid']}"
           if charge["paid"] == true
