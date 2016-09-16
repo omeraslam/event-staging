@@ -179,6 +179,13 @@ def complete_registration
   quantity_num =   params[:ticket_quantity][ticket_id]  
   @ticket = Ticket.find((ticket_id).to_i)
 
+
+  @code = params[:couponCode]
+
+  logger.debug "COUPON CODE iS:: #{@code}"
+
+
+
   #calculate tickets
   sum = 0 
   fee = 0
@@ -196,13 +203,46 @@ def complete_registration
 
   @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
+  if !@code.blank?
+    @coupon = get_coupon(@code)
+
+    logger.debug "DISCOUNT RATE iS:: #{@coupon.discount}"
+
+    if @coupon.discount.nil?
+      flash[:error] = 'Coupon code is not valid or expired.'
+      redirect_to slugger_path(@event)
+      return
+    else
+      #@discount_amount = @final_charge * @discount
+      if @coupon.coupon_type == 'fixed'
+        @final_amount = @final_charge - @coupon.discount.to_i
+      else
+        @discount_amount = @final_charge * @coupon.discount
+        @final_amount = @final_charge - @discount_amount.to_i
+      end
+
+
+    end
+
+    charge_metadata = {
+      :coupon_code => @code,
+      #:coupon_discount => (@discount * 100).to_s + "%"
+      :coupon_discount =>  @coupon.coupon_type == 'fixed' ? '$' + @coupon.discount.to_s :  (@coupon.discount * 100).to_s + "%"
+    }
+  end
+
+  charge_metadata ||= {}
+
+
   logger.debug "FINAL SUM: #{@final_charge}"
   logger.debug "FINAL FEE: #{fee}"
 
 
   #Get the credit card details submitted by the form
   token = params[:stripeToken]
-  amount = @final_charge
+  amount = @final_amount
+
+  logger.debug "FINAL CHARGE WITH DISCOUNT: #{amount}"
   
     if amount > 0
 
@@ -460,6 +500,9 @@ def show
     @tickets = @event.tickets.all 
 
     @total = 0
+
+    @coupons = Coupon.where(:event_id => @event.id).all
+    logger.debug "@coupons ==== #{@coupons}"
 
     # @tickets.each do |ticket|
     #   Purchase.where(:event_id => @event.id).all.each do |purchase|
@@ -957,6 +1000,13 @@ def show
         redirect_to root_url(subdomain: 'www') unless @user
       end
 
+
+      def get_coupon(code)
+        # Normalize user input
+        code = code.gsub(/\s+/, '')
+        code = code.upcase
+        @coupon_code = Coupon.where(:promo_code => code).first
+      end
 
 
   end

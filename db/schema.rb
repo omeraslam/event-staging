@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915142044) do
+ActiveRecord::Schema.define(version: 20160916132612) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(version: 20160915142044) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "coupons", force: true do |t|
+    t.string   "promo_code"
+    t.float    "discount"
+    t.string   "coupon_type"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "coupons", ["event_id"], name: "index_coupons_on_event_id"
 
   create_table "events", force: true do |t|
     t.string   "name"

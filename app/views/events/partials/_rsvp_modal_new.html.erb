@@ -135,6 +135,13 @@
 
       <% if @has_paid_ticket %>
       <div class="cc-section" style="<%= 'display:none' if @current_ticket.price.to_i == 0 %>">
+
+      <%  if @coupons.count > 0 %>
+          <div class="input-group" >
+            <label>Coupon code</label>
+          <input type="text" class="input" name="couponCode" placeholder="COUPON CODE HERE" /> 
+          </div>
+      <% end %>
           <div class="input-group" >
             <label>Credit card number</label>
             <input  type="text" id="cc" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&#9679;" class="input cc-number" >
