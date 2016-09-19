@@ -48,7 +48,6 @@
 
     <div class="editor-tool" id="editor-tool-details">
     
-
         <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
        
 
@@ -365,7 +364,7 @@
       
       <section class="editor-tool-header">
         <h3> Advanced Ticketing </h3>
-        <p>Do you have multiple ticket types? Selling VIP passes? Manage your event ticketing advanced settings here.</p>
+        <p>Do you have multiple ticket types? Selling VIP passes? Manage your event ticketing advanced settings here. <strong>Note:</strong> <em>Once guests start registering for your tickets, you will not be allowed to edit them.</em> </p>
         
         
       </section>
@@ -388,15 +387,21 @@
             <p><%= number_to_currency(ticket.price) %></p>
 
             <% end %>
+            
+            <% if @total == 0 %>
+                <div class="ticket-actions">
+                    <div class="ticket-action">
+                        <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %>    
+                    </div>
+                    <% if @tickets.count > 1 %>
+                    <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </div>
+                    <% end %>
+                </div>
+            <% else %>
+            <small>Tickets have been registered. Editing or deletion is no longer available.</small>
           
-            <div class="ticket-actions">
-             <div class="ticket-action">
-            <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %></div>
-            <% if @tickets.count > 1 %>
-              <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
-              </div>
             <% end %>
-              </div>
           </div>
         <% end %>
 

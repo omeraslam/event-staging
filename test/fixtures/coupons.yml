@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  promo_code: MyString
+  discount: 1.5
+  coupon_type: MyString
+  event_id: 
+
+two:
+  promo_code: MyString
+  discount: 1.5
+  coupon_type: MyString
+  event_id: 

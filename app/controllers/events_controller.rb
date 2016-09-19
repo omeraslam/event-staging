@@ -79,8 +79,8 @@ def show_ticket
 
   #render layout: false
   @event = Event.find_by_slug(params[:slug])
-  @purchase = Purchase.find(params[:oid].to_i )
-  @line_items = LineItem.where(:purchase_id => params[:oid])
+  @purchase = Purchase.where(:confirm_token => params[:oid].to_s ).first
+  @line_items = LineItem.where(:purchase_id => @purchase.id.to_s)
 
 
 
@@ -179,6 +179,13 @@ def complete_registration
   quantity_num =   params[:ticket_quantity][ticket_id]  
   @ticket = Ticket.find((ticket_id).to_i)
 
+
+  @code = params[:couponCode]
+
+  logger.debug "COUPON CODE iS:: #{@code}"
+
+
+
   #calculate tickets
   sum = 0 
   fee = 0
@@ -196,13 +203,41 @@ def complete_registration
 
   @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
+  if !@code.blank?
+    @coupon = get_coupon(@code)
+
+    logger.debug "DISCOUNT RATE iS:: #{@coupon.discount}"
+
+    if @coupon.discount.nil?
+      flash[:error] = 'Coupon code is not valid or expired.'
+      redirect_to slugger_path(@event)
+      return
+    else
+      #@discount_amount = @final_charge * @discount
+      if @coupon.coupon_type == 'fixed'
+        @final_amount = @final_charge - @coupon.discount.to_i
+      else
+        @discount_amount = @final_charge * @coupon.discount
+        @final_amount = @final_charge - @discount_amount.to_i
+      end
+
+
+    end
+
+  end
+
+
+
+
   logger.debug "FINAL SUM: #{@final_charge}"
   logger.debug "FINAL FEE: #{fee}"
 
 
   #Get the credit card details submitted by the form
   token = params[:stripeToken]
-  amount = @final_charge
+  amount = @final_amount
+
+  logger.debug "FINAL CHARGE WITH DISCOUNT: #{amount}"
   
     if amount > 0
 
@@ -215,6 +250,13 @@ def complete_registration
 
  
       if @purchase.update(purchase_params)
+        charge_metadata = {
+            :order_id=> @purchase.id, 
+            :purchase_email => @purchase.email,
+            :coupon_code => @code,
+            :coupon_discount =>  @coupon.coupon_type == 'fixed' ? '$' + @coupon.discount.to_s :  (@coupon.discount * 100).to_s + "%"
+          }
+        charge_metadata ||= {}
 
         begin
           charge = Stripe::Charge.create({
@@ -223,7 +265,7 @@ def complete_registration
             :source => token,
             :application_fee => fee,
 
-            :metadata => {"order_id" => @purchase.id, "purchase_email" => @purchase.email}
+            :metadata => charge_metadata
           }, {:stripe_account => @account.stripe_user_id})
           logger.debug "CHARGE is paid:::: #{charge['paid']}"
           if charge["paid"] == true
@@ -277,7 +319,7 @@ def complete_registration
                   end
             
             UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-            render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.id.to_s + "'"  #hack
+            render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.confirm_token.to_s + "'"  #hack
           else
             logger.debug "CHARGE SHOULD BE FAILED"
             #if error delete what just happened
@@ -295,7 +337,7 @@ def complete_registration
           # The card has been declined
 
             @purchase.destroy
-
+    
  
         else 
         end
@@ -310,6 +352,7 @@ def complete_registration
 #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
+
       if @purchase.save
       else
       end
@@ -368,7 +411,7 @@ def complete_registration
 ########
 
       UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-      redirect_to show_confirm_path(:oid => @purchase.id.to_s)
+      redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
     end
 
 
@@ -383,14 +426,14 @@ def show_confirm
 
 
 
-  @purchase = Purchase.find(params[:oid].to_i )
+  @purchase = Purchase.where(:confirm_token => params[:oid] ) 
   @event = Event.find_by_slug(params[:slug])
   @user = User.find(@event.user_id)
 
   @event = Event.find_by_slug(params[:slug])
   @eventurl = 'http://'+ ENV['SITE_NAME'] + '/' + @event.slug
-  @purchase = Purchase.find(params[:oid].to_i )
-  @line_items = LineItem.where(:purchase_id => params[:oid])
+  @purchase = Purchase.where(:confirm_token => params[:oid] ).first
+  @line_items = LineItem.where(:purchase_id => @purchase.id)
 
      
 end
@@ -459,6 +502,9 @@ def show
     @tickets = @event.tickets.all 
 
     @total = 0
+
+    @coupons = Coupon.where(:event_id => @event.id).all
+    logger.debug "@coupons ==== #{@coupons}"
 
     # @tickets.each do |ticket|
     #   Purchase.where(:event_id => @event.id).all.each do |purchase|
@@ -956,6 +1002,13 @@ def show
         redirect_to root_url(subdomain: 'www') unless @user
       end
 
+
+      def get_coupon(code)
+        # Normalize user input
+        code = code.gsub(/\s+/, '')
+        code = code.upcase
+        @coupon_code = Coupon.where(:promo_code => code).first
+      end
 
 
   end
