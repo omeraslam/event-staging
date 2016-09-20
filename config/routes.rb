@@ -162,6 +162,8 @@ Rails.application.routes.draw do
   post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
   put '/:slug/updatetheme', to: 'events#update_theme'
   get '/:slug/unsplash-search', to: 'events#unsplash_search'
+  post '/:slug/coupons' => 'coupons#create', :as => :coupon_create
+  post '/coupons/:id/edit' => 'coupons#update'
 
 
   #buy tickets

@@ -136,7 +136,7 @@
       <% if @has_paid_ticket %>
       <div class="cc-section" style="<%= 'display:none' if @current_ticket.price.to_i == 0 %>">
 
-      <%  if @coupons.count > 0 %>
+      <%  if !@coupon.nil? && @coupon.is_active == true %>
           <div class="input-group" >
             <label>Coupon code</label>
           <input type="text" class="input" name="couponCode" placeholder="COUPON CODE HERE" /> 

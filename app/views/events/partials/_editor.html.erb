@@ -239,8 +239,22 @@
 
 
     <div class="editor-tool" id="editor-tool-promotions">
-    
-        <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
+
+
+  
+  <%= form_for(@coupon) do |f| %>
+    <% if @coupon.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+
+        <ul>
+        <% @coupon.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
        
 
         <div class="row editor-tool-header">
@@ -266,29 +280,45 @@
                 <div class="form-container">
 
 
+
+
+
+
+
+
                     <div class="input-group">
                         <label>Coupon Active</label>
-                        <%= f.select(:published, [['Active', true],['Inactive', false]]) %>
+                        <%= f.select(:is_active, [['Active', true],['Inactive', false]]) %>
                     </div>
+
+
+                    <%= hidden_field_tag 'event_id', @event.id %>
 
 
                     <div class="input-group" >
                       <label>Offer code</label>
-                        <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'SAVE2016' %>
+                
+    <%= f.text_field :promo_code, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'SAVE2016' %>
+
                         <p>Enter an offer code (ie "Save2016") to advertise to your attendees</p>
                     </div>
 
 
                     <div class="input-group" >
                       <label>Discount</label>
-                        <%= f.number_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => '10' %>
+              
+
+                      <%= f.number_field :discount, :class => 'input-primary', :id => 'event-url-input', :placeholder => '10',  value: f.object.is_fixed == true ? (number_with_precision( f.object.discount , precision: 2)) : (number_with_precision( f.object.discount , precision: 0)) %>
+
+
                         <p>Discount amount</p>
 
                     </div>
 
                     <div class="input-group">
                         <label>Percentage or Fixed</label>
-                        <%= f.select(:slug, [['%', true],['$', false]]) %>
+                        <%= f.select(:is_fixed, [['%', false],['$', true]]) %>
+
                         <p> Should the discount be applied as a percentage (ie 10%) or fixed amount ($10). </p>
                     </div>
 
