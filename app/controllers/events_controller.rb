@@ -278,7 +278,7 @@ def complete_registration
             :order_id=> @purchase.id, 
             :purchase_email => @purchase.email,
             :coupon_code => @code,
-            :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount * 100).to_s + "%"
+            :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%"
           }
         else
           charge_metadata = {
