@@ -7,7 +7,7 @@
             <i class="icon icon-image"> </i> <span> Design </span>
         </a> 
         <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
-            <i class="icon icon-tag"> </i> <span> Tickets</span>
+            <i class="fa fa-fw fa-ticket"> </i> <span> Tickets</span>
             <% if  @account == nil && @ticket.price != 0 %>
               <div class="editor-tab-notification editor-tab-notification-error"></div>
             <% end %>
@@ -15,6 +15,9 @@
         <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
             <i class="icon icon-settings"> </i> <span> Settings</span>
         </a>  
+        <a class="tab toggleEditorPanel" id="editor-tool-promotions" data-target="editor-tool-promotions" >
+            <i class="fa fa-fw fa-tag"> </i> <span> Coupons</span>
+        </a>            
         <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
             <i class="icon icon-users"> </i> <span> Attendees</span>
         </a>        
@@ -225,6 +228,115 @@
 
 
     </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="editor-tool" id="editor-tool-promotions">
+    
+        <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
+       
+
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event coupons/promotions
+            </div>
+            <div class="col-md-6 text-right">
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Coupons </h4>
+                <p>Offer attendees a discount or promotion to encourage registration.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+
+                    <div class="input-group">
+                        <label>Coupon Active</label>
+                        <%= f.select(:published, [['Active', true],['Inactive', false]]) %>
+                    </div>
+
+
+                    <div class="input-group" >
+                      <label>Offer code</label>
+                        <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'SAVE2016' %>
+                        <p>Enter an offer code (ie "Save2016") to advertise to your attendees</p>
+                    </div>
+
+
+                    <div class="input-group" >
+                      <label>Discount</label>
+                        <%= f.number_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => '10' %>
+                        <p>Discount amount</p>
+
+                    </div>
+
+                    <div class="input-group">
+                        <label>Percentage or Fixed</label>
+                        <%= f.select(:slug, [['%', true],['$', false]]) %>
+                        <p> Should the discount be applied as a percentage (ie 10%) or fixed amount ($10). </p>
+                    </div>
+
+
+                   
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+            </div>
+        </div>
+
+
+    <% end %>
+    <!-- event form end -->
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
