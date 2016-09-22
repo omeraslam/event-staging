@@ -2,6 +2,9 @@
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
+
+  include ActionView::Helpers::NumberHelper
+
   
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
@@ -167,6 +170,29 @@ def stripe_redirect
 
 end
 
+def check_coupon
+
+  @code = params[:couponCode]
+
+  @coupon = get_coupon(@code)
+
+  logger.debug "coupon wow: #{@coupon}"
+  if !@coupon.nil?
+    if @coupon.is_fixed == true
+      @return_obj = {status: "ok", message: "Discount applied: $" + (number_with_precision(@coupon.discount, precision: 2)).to_s + ' off!', is_fixed: @coupon.is_fixed, discount: @coupon.discount}
+    else
+
+      @return_obj = {status: "ok", message: "Discount applied: "+(number_with_precision(@coupon.discount, precision: 0)).to_s + "% off!", is_fixed: @coupon.is_fixed, discount: @coupon.discount}
+    end
+  else
+    @return_obj = {status: "error", message: "No coupon applied"}
+  end
+
+  render json: @return_obj  
+
+
+end
+
 def complete_registration
 
   #get variables
@@ -227,6 +253,8 @@ def complete_registration
         @final_amount = @final_charge - @discount_amount.to_i
   
         fee = (fee - (fee * (@coupon.discount/100))).to_i
+
+        logger.debug "FINAL AMOUNT BOUT THAT: #{@final_amount}"
 
       end
 

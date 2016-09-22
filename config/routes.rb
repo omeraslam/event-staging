@@ -164,6 +164,7 @@ Rails.application.routes.draw do
   get '/:slug/unsplash-search', to: 'events#unsplash_search'
   post '/:slug/coupons' => 'coupons#create', :as => :coupon_create
   post '/coupons/:id/edit' => 'coupons#update'
+  post '/check-coupon' => 'events#check_coupon'
 
 
   #buy tickets
