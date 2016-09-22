@@ -483,7 +483,7 @@ var couponFixed = false;
           e.preventDefault();
 
           //check coupon code
-          var data = {couponCode: $('input[name="couponCode"]').val()}
+          var data = {couponCode: $('input[name="couponCode"]').val(), eventId: $('#event_id').val()}
           $.ajax({
             type: "POST",
             url: '/check-coupon',
@@ -493,6 +493,7 @@ var couponFixed = false;
                 $('.coupon-status').remove();
               if(resp.status == "error") {
                 $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
+                $('input[name="couponCode"]').val('');
              
               } else {
                 $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');

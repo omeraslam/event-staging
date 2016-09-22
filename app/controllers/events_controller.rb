@@ -174,7 +174,8 @@ def check_coupon
 
   @code = params[:couponCode]
 
-  @coupon = get_coupon(@code)
+
+  @coupon = get_coupon(@code, params[:eventId])
 
   logger.debug "coupon wow: #{@coupon}"
   if !@coupon.nil?
@@ -185,7 +186,7 @@ def check_coupon
       @return_obj = {status: "ok", message: "Discount applied: "+(number_with_precision(@coupon.discount, precision: 0)).to_s + "% off!", is_fixed: @coupon.is_fixed, discount: @coupon.discount}
     end
   else
-    @return_obj = {status: "error", message: "No coupon applied"}
+    @return_obj = {status: "error", message: "Coupon has expired or is invalid: No coupon applied"}
   end
 
   render json: @return_obj  
@@ -231,14 +232,15 @@ def complete_registration
   @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
   if !@code.blank?
-    @coupon = get_coupon(@code)
+    @coupon = get_coupon(@code, @event.id)
 
-    logger.debug "DISCOUNT RATE iS:: #{@coupon.discount}"
 
-    if @coupon.discount.nil?
-      flash[:error] = 'Coupon code is not valid or expired.'
-      redirect_to slugger_path(@event)
-      return
+    if @coupon.nil?
+      # flash[:error] = 'Coupon code is not valid or expired.'
+      # redirect_to slugger_path(@event)
+      #return
+      #
+      @final_amount = @final_charge
     else
       #@discount_amount = @final_charge * @discount
       if @coupon.is_fixed == true
@@ -301,7 +303,7 @@ def complete_registration
 
  
       if @purchase.update(purchase_params)
-        if !@code.blank? && !@coupon.discount.nil?
+        if !@code.blank? && !@coupon.nil?
           charge_metadata = {
             :order_id=> @purchase.id, 
             :purchase_email => @purchase.email,
@@ -1062,11 +1064,11 @@ def show
       end
 
 
-      def get_coupon(code)
+      def get_coupon(code, eventId)
         # Normalize user input
         code = code.gsub(/\s+/, '')
         code = code.upcase
-        @coupon_code = Coupon.where(:promo_code => code).first
+        @coupon_code = Coupon.where(:promo_code => code, :event_id => eventId).first
       end
 
 
