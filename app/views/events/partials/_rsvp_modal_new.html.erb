@@ -139,11 +139,10 @@
       <%  if !@coupon.nil? && @coupon.is_active == true %>
           <div class="input-group" >
             <label>Coupon code</label>
-          <input type="text" class="input" name="couponCode" placeholder="COUPON CODE HERE" /> 
+          <input type="text" class="input" name="couponCode" placeholder="Coupon Code" /> 
+          <p><a id="coupon-btn"> Apply coupon</a></p>
           </div>
-            <div class="input-group" >
-          <input type="button" class="btn btn-sm" value="Apply Coupon" id="coupon-btn" /> 
-          </div>
+
       <% end %>
           <div class="input-group" >
             <label>Credit card number</label>
