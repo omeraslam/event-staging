@@ -297,6 +297,9 @@ def complete_registration
       #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
+      @purchase.total_order = amount
+      @purchase.total_fee = fee
+      @purchase.affiliate_code = params[:ref_code]
       if @purchase.save
       else
       end
@@ -410,6 +413,8 @@ def complete_registration
 #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
+      @purchase.total_order = amount
+      @purchase.affiliate_code = params[:ref_code]
 
       if @purchase.save
       else

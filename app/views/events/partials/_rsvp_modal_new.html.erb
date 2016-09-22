@@ -236,6 +236,23 @@
   
 $(document).ready(function() {
 
+  var refcode = getParameterByName('refcode') != '' || getParameterByName('refcode') != null ? getParameterByName('refcode') : null;
+
+  if(refcode != '' || refcode != null ) {
+    $('#purchase-tickets_form').append('<input type="hidden" id="ref_code" name="ref_code" value="'+ refcode +'" />')
+  }
+
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
   var current_id = null;
    var priceStringFromTitle = $('#ticket_title option:selected').text();
     var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 

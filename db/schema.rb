@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160922152959) do
 
+
   create_table "accounts", force: true do |t|
     t.string   "access_token"
     t.string   "refresh_token"
