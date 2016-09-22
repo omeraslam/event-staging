@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920092541) do
+ActiveRecord::Schema.define(version: 20160922152959) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -139,6 +139,9 @@ ActiveRecord::Schema.define(version: 20160920092541) do
     t.string   "stripe_id"
     t.integer  "event_id"
     t.string   "confirm_token"
+    t.string   "affiliate_code"
+    t.float    "total_fee"
+    t.float    "total_order"
   end
 
   add_index "purchases", ["event_id"], name: "index_purchases_on_event_id"
