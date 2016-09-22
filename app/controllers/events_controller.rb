@@ -330,6 +330,10 @@ def complete_registration
           }, {:stripe_account => @account.stripe_user_id})
           logger.debug "CHARGE is paid:::: #{charge['paid']}"
           if charge["paid"] == true
+            @purchase.stripe_id = charge["id"]
+            if @purchase.update(purchase_params)
+            else
+            end
            #Save customer to the db
            
 
