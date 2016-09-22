@@ -2,6 +2,9 @@
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
+
+  include ActionView::Helpers::NumberHelper
+
   
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
@@ -167,6 +170,29 @@ def stripe_redirect
 
 end
 
+def check_coupon
+
+  @code = params[:couponCode]
+
+  @coupon = get_coupon(@code)
+
+  logger.debug "coupon wow: #{@coupon}"
+  if !@coupon.nil?
+    if @coupon.is_fixed == true
+      @return_obj = {status: "ok", message: "Discount applied: $" + (number_with_precision(@coupon.discount, precision: 2)).to_s + ' off!', is_fixed: @coupon.is_fixed, discount: @coupon.discount}
+    else
+
+      @return_obj = {status: "ok", message: "Discount applied: "+(number_with_precision(@coupon.discount, precision: 0)).to_s + "% off!", is_fixed: @coupon.is_fixed, discount: @coupon.discount}
+    end
+  else
+    @return_obj = {status: "error", message: "No coupon applied"}
+  end
+
+  render json: @return_obj  
+
+
+end
+
 def complete_registration
 
   #get variables
@@ -195,9 +221,10 @@ def complete_registration
 
   sum = @ticket.price.to_f * quantity_num.to_i
   if @ticket.price.to_f != 0
-      fee += 0.99 * quantity_num.to_i
       fee += (@ticket.price.to_f * @fee_rate) * quantity_num.to_i
   end 
+
+  logger.debug "FEE AT TOP: #{fee}"
                         
   fee = (fee * 100).round.to_i
 
@@ -214,23 +241,47 @@ def complete_registration
       return
     else
       #@discount_amount = @final_charge * @discount
-      if @coupon.coupon_type == 'fixed'
-        @final_amount = @final_charge - @coupon.discount.to_i
+      if @coupon.is_fixed == true
+        @final_amount = @final_charge - (@coupon.discount * 100).to_i
+        if @final_amount < 0
+          flash[:error] = 'Coupon code is not valid or expired.'
+          redirect_to slugger_path(@event)
+        end
       else
-        @discount_amount = @final_charge * @coupon.discount
+        @discount_amount = @final_charge * (@coupon.discount/100)
+  
         @final_amount = @final_charge - @discount_amount.to_i
+  
+        fee = (fee - (fee * (@coupon.discount/100))).to_i
+
+        logger.debug "FINAL AMOUNT BOUT THAT: #{@final_amount}"
+
       end
 
 
     end
+  else
+    @final_amount = @final_charge
+
 
   end
 
+  if @final_amount > 0
+    fee += 99 * quantity_num.to_i
+  end
 
+ 
+  
 
 
   logger.debug "FINAL SUM: #{@final_charge}"
   logger.debug "FINAL FEE: #{fee}"
+
+
+# 10:21:43 web.1  | DISCOUNT RATE iS:: 50.0
+# 10:21:43 web.1  | FINAL SUM: 10000
+# 10:21:43 web.1  | FINAL FEE: -12201.0
+# 10:21:43 web.1  | FINAL CHARGE WITH DISCOUNT: -490000.0
 
 
   #Get the credit card details submitted by the form
@@ -250,13 +301,19 @@ def complete_registration
 
  
       if @purchase.update(purchase_params)
-        charge_metadata = {
+        if !@code.blank? && !@coupon.discount.nil?
+          charge_metadata = {
             :order_id=> @purchase.id, 
             :purchase_email => @purchase.email,
             :coupon_code => @code,
-            :coupon_discount =>  @coupon.coupon_type == 'fixed' ? '$' + @coupon.discount.to_s :  (@coupon.discount * 100).to_s + "%"
+            :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%"
           }
-        charge_metadata ||= {}
+        else
+          charge_metadata = {
+            :order_id=> @purchase.id, 
+            :purchase_email => @purchase.email
+          }
+        end 
 
         begin
           charge = Stripe::Charge.create({
@@ -264,7 +321,6 @@ def complete_registration
             :currency => @event.currency_type.downcase,
             :source => token,
             :application_fee => fee,
-
             :metadata => charge_metadata
           }, {:stripe_account => @account.stripe_user_id})
           logger.debug "CHARGE is paid:::: #{charge['paid']}"
@@ -553,6 +609,9 @@ def show
       end
     end
 
+    @coupon = Coupon.where(:event_id => @event.id).first.nil? ? Coupon.new : Coupon.where(:event_id => @event.id).first
+
+    @slug = params[:slug]
 
 
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 

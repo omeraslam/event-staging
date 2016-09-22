@@ -136,10 +136,13 @@
       <% if @has_paid_ticket %>
       <div class="cc-section" style="<%= 'display:none' if @current_ticket.price.to_i == 0 %>">
 
-      <%  if @coupons.count > 0 %>
+      <%  if !@coupon.nil? && @coupon.is_active == true %>
           <div class="input-group" >
             <label>Coupon code</label>
           <input type="text" class="input" name="couponCode" placeholder="COUPON CODE HERE" /> 
+          </div>
+            <div class="input-group" >
+          <input type="button" class="btn btn-sm" value="Apply Coupon" id="coupon-btn" /> 
           </div>
       <% end %>
           <div class="input-group" >
@@ -270,7 +273,16 @@ $(document).ready(function() {
     }
 
     $('.form-quantity').text(1);
-    var total_price = ((Number($('.form-quantity').text())* filteredPrice)*.025)+(Number($('.form-quantity').text())*filteredPrice)+(.99*Number($('.form-quantity').text()))
+    if(couponFixed == false) {
+         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+
+    } else {
+
+
+        var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+
+    }
+ 
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
    changeSelectOptions()
 
@@ -288,6 +300,16 @@ $(document).ready(function() {
     $('.form-price').text('$' + filteredPrice);
     $('.form-quantity').text($(this).val());
     var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
+    
+    if(couponFixed == false) {
+         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+
+    } else {
+
+  var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+
+    }
+
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
   });
 
@@ -366,6 +388,7 @@ $(document).ready(function() {
   
 
    $('#purchase-tickets_form').submit(function(e) {
+
       if($(this).valid() && $('.invalid').length == 0 ) {
       var $form = $(this);
       $form.find('button').prop('disabled', true);
@@ -424,7 +447,17 @@ $('#purchase-tickets_form .quantity select').off('change');
                               );
     $('.form-price').text('$' + filteredPrice);
     $('.form-quantity').text($(this).val());
-    var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
+
+    if(couponFixed == false) {
+         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+
+    } else {
+
+   var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+
+    }
+
+    //var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
   });
 
@@ -444,8 +477,66 @@ function changeButtonText(enabled, buttonText) {
 
 }
 
+var couponDiscount = 0;
+var couponFixed = false;
+
+       $('#coupon-btn').on('click', function(e) {
+          e.preventDefault();
+
+          //check coupon code
+          var data = {couponCode: $('input[name="couponCode"]').val()}
+          $.ajax({
+            type: "POST",
+            url: '/check-coupon',
+            data: data,
+            success: function(resp) {
+
+                $('.coupon-status').remove();
+              if(resp.status == "error") {
+                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
+             
+              } else {
+                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
+           
+              }
+
+
+                couponDiscount = resp.discount/100;
+                couponFixed = resp.is_fixed;
+
+                var priceStringFromTitle = $('#ticket_title option:selected').text();
+
+                var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
+
+              if(couponFixed == false) {
+                var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+
+              } else {
+
+                var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+              }
+
+              if(resp.status != "error") {
+                $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+              }
+
+
+            },
+            error: function(resp) {
+
+      
+            }
+          });
+
+        });
+
 
 });
+
+
+ 
 
 
 
