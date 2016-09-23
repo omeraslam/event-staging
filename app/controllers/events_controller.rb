@@ -1024,7 +1024,7 @@ def show
     end
 
     def purchase_params
-      params.require(:purchase).permit( :email, :first_name, :last_name, :phone_number, :oid)
+      params.require(:purchase).permit( :email, :first_name, :last_name, :phone_number, :oid, :total_order, :total_fee, :affiliate_code, :stripe_id)
     end
 
     def line_item_params
