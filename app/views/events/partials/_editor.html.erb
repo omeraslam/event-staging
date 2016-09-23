@@ -137,6 +137,41 @@
         <div class="row">
             
             <div class="col-md-3">
+                <h4>Confirmation Page </h4>
+                <p>Change the text on the confirmation page to something more personal.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Custom Confirmation Page Text</label>
+                        <%= f.text_field :confirmation_text, :class => 'input-primary', :placeholder => 'Guest, you da real mvp!' %>
+                    </div>
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
                 <h4>URL/Domain </h4>
                 <p>Manage your event domain and visibility. Want to use a custom domain/url? We got you. Shoot us a note at <a href="mailto:support@eventcreate.com"> support@eventcreate.com</a></p>
             </div>
