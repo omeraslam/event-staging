@@ -364,6 +364,7 @@ def complete_registration
                     @attendee.email = params[:purchase]['email']
                     @attendee.user_id = params[:user_id]
                     @attendee.event_id = params[:event_id]
+                    logger.debug "GUEST ITEM ID : #{guest_item.id.to_s}"
                     @attendee.line_item_id = guest_item.id.to_s
                     @attendee.attending = true
                       if @attendee.save
@@ -383,7 +384,7 @@ def complete_registration
 
                   end
             
-            UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+            #UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
             render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.confirm_token.to_s + "'"  #hack
           else
             logger.debug "CHARGE SHOULD BE FAILED"
@@ -453,6 +454,7 @@ def complete_registration
           @attendee.email = params[:purchase]['email']
           @attendee.user_id = params[:user_id]
           @attendee.event_id = params[:event_id]
+          @attendee.line_item_id = guest_item.id.to_s
           @attendee.attending = true
             if @attendee.save
               #save attendee_id to line_items
@@ -477,7 +479,7 @@ def complete_registration
 
 ########
 
-      UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+      #UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
       redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
     end
 
