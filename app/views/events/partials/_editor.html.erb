@@ -764,7 +764,7 @@
                         <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
                         <% total_order += @ticket.nil? ? 0 : @ticket.price %>
                     <% end %> 
-                        <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? ? '' : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
+                        <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' ? 'n/a' : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
                         <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
                   <!--       <td><%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  -->
                     </tr> 
