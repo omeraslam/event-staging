@@ -33,7 +33,9 @@ class PurchasesController < ApplicationController
 
   def destroy
     @purchase.destroy
-    respond_with(@purchase)
+    @event = Event.find_by_slug(params[:slug])
+    redirect_to slugger_path(@event) + '?editing=true'
+    #respond_with(@purchase)
   end
 
   private

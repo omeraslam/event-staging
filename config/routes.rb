@@ -155,6 +155,8 @@ Rails.application.routes.draw do
   post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
   #slug 
   post '/:slug/tickets' => 'tickets#create', :as => :slug_create
+  delete '/:slug/purchases/:id' => 'purchases#destroy', :as => :slug_purchase_destroy
+  #/purchases/:id(.:format)  purchases#destroy
   get '/:slug' => 'events#show', :as => :slugger
   get '/:slug/export' => 'events#export_events', :as => :export_events
   patch '/users/:id/update', to: 'users#update', :as => :update_user

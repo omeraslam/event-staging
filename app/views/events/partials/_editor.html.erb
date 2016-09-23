@@ -742,7 +742,7 @@
             <div class="row">
             <div class="col-md-12">
                 <table class="table"> 
-                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th><th>Ticket Type</th> <th>Total Order</th> <th>Affiliate Code</th><th> Registration date </th> <!-- <th> </th> --> </tr> </thead> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th><th>Ticket Type</th> <th>Total Order</th> <th>Affiliate Code</th><th> Registration date </th>  <th> </th>  </tr> </thead> 
 
 
                 <tbody>  
@@ -766,7 +766,7 @@
                     <% end %> 
                         <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' ? 'n/a' : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
                         <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
-                  <!--       <td><%= link_to 'Delete', attendee, class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  -->
+                        <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
                     </tr> 
 
    
