@@ -384,7 +384,7 @@ def complete_registration
 
                   end
             
-            #UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+            UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
             render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.confirm_token.to_s + "'"  #hack
           else
             logger.debug "CHARGE SHOULD BE FAILED"
@@ -479,7 +479,7 @@ def complete_registration
 
 ########
 
-      #UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+      UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
       redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
     end
 

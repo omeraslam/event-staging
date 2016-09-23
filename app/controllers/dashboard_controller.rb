@@ -6,6 +6,9 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
   respond_to :html, :js, :json
 
+
+  include ActionView::Helpers::NumberHelper
+    
   def index
     @attendee = Attendee.new
     @user = User.find(current_user.id)
@@ -54,13 +57,14 @@ class DashboardController < ApplicationController
 
     @orders = Purchase.all
     @orders = Purchase.where.not(first_name: nil, last_name:nil, email: nil).where(event_id: @event.id)
-
+    
+    @buyers = Purchase.where(:event_id => @event.id)
 
     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
    
     respond_to do |format|
       format.html
-      format.csv { send_data @attendees.to_csv }
+      format.csv { send_data @buyers.to_csv }
     end
     #respond_with(@attendees, @event)
   end
@@ -69,7 +73,7 @@ class DashboardController < ApplicationController
 
     @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
     @event = Event.find_by id: params[:event]
-    
+
     @buyers = Purchase.where(:event_id => @event.id)
     render :layout => false
  
