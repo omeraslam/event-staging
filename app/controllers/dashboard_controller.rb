@@ -69,6 +69,8 @@ class DashboardController < ApplicationController
 
     @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
     @event = Event.find_by id: params[:event]
+    
+    @buyers = Purchase.where(:event_id => @event.id)
     render :layout => false
  
 
