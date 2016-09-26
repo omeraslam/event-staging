@@ -322,7 +322,7 @@ def complete_registration
 
         begin
           charge = Stripe::Charge.create({
-            :amount => amount,
+            :amount => (amount + fee),
             :currency => @event.currency_type.downcase,
             :source => token,
             :application_fee => fee,
