@@ -11,9 +11,9 @@ class EventsController < ApplicationController
 
   #require 'chunky_png'
 
-  # require 'barby'
-  # require "barby/barcode/code_128"
-  # require 'barby/outputter/png_outputter'
+  require 'barby'
+  require "barby/barcode/code_128"
+  require 'barby/outputter/png_outputter'
 
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
@@ -87,10 +87,10 @@ def show_ticket
 
 
 
-  #barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
-  # File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
-  #   f.write barcode.to_png(:height => 20, :margin => 5)
-  # }
+  barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
+  File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
+    f.write barcode.to_png(:height => 20, :margin => 5)
+  }
 
 
   @tickets_per_page = 4
