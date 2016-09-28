@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   resources :tickets
 
+  constraints(CheckoutSubdomain) do
+    get '/:slug/buy' => 'events#show_buy' , :as => :show_buy_2
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

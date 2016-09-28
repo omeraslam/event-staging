@@ -54,26 +54,27 @@ def show_buy
 
      @event = Event.find_by_slug(params[:slug])
      @user = User.find(@event.user_id)
-     @purchase = Purchase.find(params[:oid].to_i )
+     @tickets = Ticket.where(:event_id => @event.id)
+    #  @purchase = Purchase.find(params[:oid].to_i )
 
-     @line_items = LineItem.where(:purchase_id => params[:oid])
-     LineItem.count('ticket_id', :distinct => true)
+    #  @line_items = LineItem.where(:purchase_id => params[:oid])
+    #  LineItem.count('ticket_id', :distinct => true)
 
-    @user = User.where(:id => @event.user_id.to_i).first
-    @account = Account.where(:user_id => @user.id).first 
+    # @user = User.where(:id => @event.user_id.to_i).first
+    # @account = Account.where(:user_id => @user.id).first 
 
 
 
-     sum = 0 
+    #  sum = 0 
 
-     @line_items = LineItem.where(:purchase_id => params[:oid])
-     @line_items.each do |line_item|
-          @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
-          sum += @ticket.price
-     end 
+    #  @line_items = LineItem.where(:purchase_id => params[:oid])
+    #  @line_items.each do |line_item|
+    #       @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
+    #       sum += @ticket.price
+    #  end 
                         
 
-    @final_charge = sum * 100 #add all line items to figure out final price
+    # @final_charge = sum * 100 #add all line items to figure out final price
 end
 
 
