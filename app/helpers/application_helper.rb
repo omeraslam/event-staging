@@ -40,6 +40,14 @@ module ApplicationHelper
 	    end
 	end 
 
+	def meta_fb_url(uri = nil)
+		if uri.present?
+	      content_for :meta_fb_url, uri
+	    else
+	      content_for?(:meta_fb_url) ? content_for(:meta_fb_url) : APP_CONFIG['meta_fb_url']
+	    end
+	end
+
 	def background_checker(event = nil, dir = true)
 		if dir == true
 			subdir = '/assets/themes/'
