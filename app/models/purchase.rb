@@ -41,7 +41,8 @@ private
     end 
     
     def purchase_total
-        "$#{number_with_precision(total_order/100, :precision => 2)}"
+        @total_oder = !total_order.nil? ? total_order/100 : 0
+        "$#{number_with_precision(@total_oder, :precision => 2)}"
     end 
 
 

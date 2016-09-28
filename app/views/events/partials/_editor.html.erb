@@ -137,7 +137,7 @@
         <div class="row">
             
             <div class="col-md-3">
-                <h4>Confirmation Page </h4>
+                <h4>Confirmation Page (optional)</h4>
                 <p>Change the text on the confirmation page to something more personal.</p>
             </div>
 
@@ -159,7 +159,7 @@
 
                     <div class="input-group" >
                         <label> Custom Confirmation Page Text</label>
-                        <%= f.text_field :confirmation_text, :class => 'input-primary', :placeholder => 'Guest, you da real mvp!' %>
+                        <%= f.text_field :confirmation_text, :class => 'input-primary', :placeholder => 'e.g., Thank you for registering!' %>
                     </div>
 
                 </div>
@@ -791,7 +791,7 @@
                         <td><%= attendee.last_name %></td> 
                         <td><%= attendee.email %></td>
                         <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity.nil? ? 0 : @guest.quantity - 1 %></td>
-                        <td><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
+                        <td><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
                         <td>          
                             <% total_order = 0 %>
                     <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
@@ -799,7 +799,7 @@
                         <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
                         <% total_order += @ticket.nil? ? 0 : @ticket.price %>
                     <% end %> 
-                        <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' ? 'n/a' : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
+                        <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' || Purchase.find(attendee.id.to_i).affiliate_code.blank?  ? 'n/a'  : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
                         <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
                         <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
                     </tr> 
