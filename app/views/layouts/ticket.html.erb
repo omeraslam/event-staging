@@ -7,20 +7,23 @@
 
   <style>
 
+  /* wkhtmltopdf formatting breaks when using:
+    - transform origin
+    - letter-spacing
+  */
+ 
   * {
     box-sizing:border-box;
   }
 
 body {
-
-    //font-family: "AvenirNextLTW01-Regular", "Avenir",sans-serif;
-    font-family: Arial, sans-serif;
-
+  font-family: "AvenirNextLTW01-Regular", "Avenir", "Arial",sans-serif;
 }
 
 .ticket {
-  width:900px;
+  width:1200px;
   margin: 0 auto 20px;
+  margin-bottom: 40px;
   height:360px;
 }
 
@@ -29,11 +32,11 @@ body {
 }
 
 .admit {
-  height:100%;
+  height:360px;
   width:100px;
   background:#21afbf;
   color:#fff;
-  letter-spacing: 4px;
+  display: none;
 }
 
 .admit-content {
@@ -43,33 +46,36 @@ body {
     text-align: center;
     font-size: 42px;
     width: 360px;
+    position: relative;
+    
+    font-size: 42px;
+    width: 360px;
     top: 150px;
     left: -130px;
-    position: relative;
-    opacity: .4;
+      opacity: .4;
 
 }
 
 .details {
   width:600px;
-  height:100%;
+  height:380px;
   border:20px solid #efefef;
-  padding:20px;
+  border-left: none;
+  //padding:20px;
+  margin-bottom: 20px;
 }
 
 .details h1{
   margin: 0 0 32px;
-  font-size: 24px;
-  color:#666;
+  font-size: 34px;
+  color:#222;
 
 }
 
 .details h3 {
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size:13px;
+  font-size:20px;
   font-family: "AvenirNextLTW01-Bold", "Avenir",sans-serif;
-  color:#888;
+  color:#333;
 }
 
 .details ul{
@@ -94,34 +100,28 @@ body {
   margin:0 0 5px 0;
 }
 
+.details-content {
+  padding: 20px;
+}
+
 .barcodes {
-  width:200px;
-  height:100%;
+  width:420px;
+  height:380px;
   border:20px solid #efefef;
-  border-left:none;
+  border-right:none;
   text-align: center;
 }
 
 .barcodes-content {
-
-  -ms-transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    //transform-origin: 100% 0;
-    text-align: center;
-    font-size: 42px;
-    width: 360px;
-    top: 100px;
-    left: -90px;
-    position: relative;
-    font-size:14px;
-
+  padding:14px;
 }
 
+.page-break { display:block; clear:both; page-break-after:always; }
 
 .barcodes-content img {
   width:80%;
 }
+
 
  table {
   border-width: 0;
@@ -141,9 +141,10 @@ body {
  }
  td.black { background-color: #000; }
  td.white { background-color: #fff; }
+
+
+
   </style>
-
-
 </head>
 
 <body>
@@ -151,62 +152,56 @@ body {
     <p>Here are your ticket(s) for <%= @event.name %>. </p>
     <p> Order Number <%= @purchase.id %>, ordered by <%= @purchase.first_name %> <%= @purchase.last_name %> (<%= @purchase.email %>) on <%= @purchase.created_at.to_datetime.strftime('%B %d, %Y, %l:%M%P') %>.
     </div>
-  <% @line_items.each_with_index do |line_item, index| %>
+  <% i=0
+     @line_items.each_with_index do |line_item, index| %>
   <% @attendee_item = Attendee.where(:id => line_item.attendee_id.to_i).first %>
   <% @ticket_type = Ticket.where(:id => line_item.ticket_id.to_i).first %>
-    <div class="ticket">
-      
+
+  <% if i%(@tickets_per_page) == 0 && @tickets_per_page < @line_items.count %>
+    <div class="page-break">
+  <% end %>
+    <div class="ticket ">
       <div class="admit ticket-tile">
           <div class="admit-content"> ADMIT ONE </div>
       </div>
 
+      <div class="barcodes ticket-tile">
+        <div class="barcodes-content">
+
+          <%= image_tag @qr_codes[index] %>  
+
+
+        </div>  
+      </div>
+
+
       <div class="details ticket-tile">
+        <div class="details-content">
           <h1><%= @event.name %> </h1>
-          <h3><%=  @event.date_start.to_date.strftime('%B %d, %Y') %>  <%= @event.time_start.blank? ? '': 'at' + @event.time_start.to_time.strftime('%l:%M%P') %></h3>
-
-
-    <% if( @event.location != '' ||  @event.location_name != '' ) %>
-            <h3><%= @event.location_name %> <br>
-       <%= @event.location %></h3>
-      <% else %>
-      <h3>TBD</h3>
-        <% end %>
+          <% if !@event.date_start.nil? && !@event.date_start.empty? %>
+          <h3><%= @event.date_start.to_date.strftime('%B %d, %Y') %> <%= @event.time_start.blank? ? '': 'at' + @event.time_start.to_time.strftime('%l:%M%P') %> </h3>
+          <% end %>
           <ul class="purchase-details">
               <li><h4>Attendee </h4> <p><%= @attendee_item.first_name %> <%= @attendee_item.last_name %> </p></li>
               <li><h4>Price </h4> <p><%= number_to_currency(@ticket_type.price) %> </p></li>
               <li><h4>Type </h4> <p><%= @ticket_type.title %> </p></li>
           </ul>
 
+        </div>
       </div>
 
-      <div class="barcodes ticket-tile">
-        <div class="barcodes-content">
-          <p> Ordered by <%= @purchase.first_name %> <%= @purchase.last_name %></p>
-          <p> Order No. <%= @purchase.id %> </p>
-               <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/bc/08c5ac86-3b7c-4928-bb5d-e9f2b035b7a0coupon-test-2.png" width="584" height="30"/>
+
 
  
-<table width="40px" height="40px">
- <% @qr_codes[index].modules.each_index do |x| -%>
-   <tr>
-   <% @qr_codes[index].modules.each_index do |y| -%>
-    <% if @qr_codes[index].dark?(x,y) -%>
-    <td class="black"/>
-    <% else -%>
-    <td class="white"/>
-    <% end -%>
-   <% end -%>
-   </tr>
- <% end -%>
-</table>
-        </div>  
-      </div>
-
-
-
 
 
     </div>
+
+  <% if i%(@tickets_per_page) == (@tickets_per_page-1) && @tickets_per_page < @line_items.count %>
+    </div>
+  <% end
+    i+=1
+   %>
   <% end %>
 
 </body>

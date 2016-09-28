@@ -17,8 +17,8 @@ class EventsController < ApplicationController
 
 
   # Controller
-require 'rqrcode'
- 
+#require 'rqrcode'
+require 'rqrcode_png'  
 
  
 
@@ -84,6 +84,23 @@ def show_buy
     @final_charge = sum * 100 #add all line items to figure out final price
 end
 
+def confirm_ticket
+  @purchase = Purchase.where(:confirm_token => params[:oid])
+  @line_item = LineItem.where(:id => params[:luid])
+
+  if @line_item.redeemed == false
+    @line_item.redeemed = true
+    @line_item.save
+    @status = "CONFIRMED"
+  else
+    @status = "ALREADY USED"
+  end
+  # uid = purchase
+  # purchase => line_item
+  # line_item -> activated
+
+
+end
 
 
 def show_ticket
@@ -103,7 +120,7 @@ def show_ticket
      @qr_codes = []
         @line_items.each do |lineitem|
           logger.debug "#{@purchase.confirm_token.to_s + ' || - || ' + @event.slug.to_s + lineitem.id.to_s}"
-          qr  = RQRCode::QRCode.new(@purchase.confirm_token.to_s + @event.slug.to_s)
+          qr  = RQRCode::QRCode.new('http://www.eventcreate.com/' + @event.slug.to_s + '?oid='+ @purchase.confirm_token.to_s + '&luid=' + lineitem.id.to_s).to_img.resize(200, 200).to_data_url
           @qr_codes.push(qr)
         end 
 

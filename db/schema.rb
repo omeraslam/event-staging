@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923214043) do
+ActiveRecord::Schema.define(version: 20160928232556) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20160923214043) do
     t.string   "ticket_id"
     t.string   "attendee_id"
     t.string   "purchase_id"
+    t.boolean  "redeemed",    default: true
   end
 
   create_table "purchases", force: true do |t|

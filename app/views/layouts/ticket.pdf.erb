@@ -58,7 +58,7 @@ body {
 
 .details {
   width:600px;
-  height:440px;
+  height:380px;
   border:20px solid #efefef;
   border-left: none;
   //padding:20px;
@@ -106,7 +106,7 @@ body {
 
 .barcodes {
   width:420px;
-  height:440px;
+  height:380px;
   border:20px solid #efefef;
   border-right:none;
   text-align: center;
@@ -168,20 +168,7 @@ body {
       <div class="barcodes ticket-tile">
         <div class="barcodes-content">
         
-          <table>
-           <% @qr_codes[index].modules.each_index do |x| -%>
-             <tr>
-             <% @qr_codes[index].modules.each_index do |y| -%>
-              <% if @qr_codes[index].dark?(x,y) -%>
-              <td class="black"/>
-              <% else -%>
-              <td class="white"/>
-              <% end -%>
-             <% end -%>
-             </tr>
-           <% end -%>
-          </table>
-
+          <%= image_tag @qr_codes[index] %>  
 
         </div>  
       </div>
