@@ -1,0 +1,216 @@
+ <div class="editor-tool" id="editor-tool-details">
+    
+        <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
+       
+
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event website settings
+            </div>
+            <div class="col-md-6 text-right">
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Event Details </h4>
+                <p>Change of venue? Modify your event details here.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Event Name</label>
+                        <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+                    </div>
+
+
+                    <div class="input-group" id="datepairExample">
+                        <label> Date</label>
+                        <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :value => (@event.date_start.nil? || @event.date_start == '') ? '' : @event.date_start.to_time.strftime("%m/%d/%Y") %>
+                    </div>
+
+                    <div class="input-group datePairEndDates" id="datepairExample" style="display:none;">
+                      <div class="input-group-inline">
+                        <label> End Date</label>
+                        <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
+                      </div>
+
+                      <div class="input-group-inline end-time">
+                        <label> End Time</label>
+                        <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
+                      </div>
+                    </div>
+
+
+                  
+                    <div class="input-group">
+                      <label> Location Address</label>
+                      <%= f.text_field :location, :autocomplete => false, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
+                    </div>  
+                      
+                    <div class="input-group" style="display:none;">
+                      <label>Event Description</label>
+                      <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Confirmation Page (optional)</h4>
+                <p>Change the text on the confirmation page to something more personal.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Custom Confirmation Page Text</label>
+                        <%= f.text_field :confirmation_text, :class => 'input-primary', :placeholder => 'e.g., Thank you for registering!' %>
+                    </div>
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>URL/Domain </h4>
+                <p>Manage your event domain and visibility. Want to use a custom domain/url? We got you. Shoot us a note at <a href="mailto:support@eventcreate.com"> support@eventcreate.com</a></p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+
+                    <div class="input-group" >
+                      <label>Your event URL</label>
+                        <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'custom-event-url' %>
+                        <p>www.eventcreate.com/<span id="event-url-output"><%= @event.slug %> </span> </p>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Website visibility</label>
+                        <%= f.select(:published, [['Live', true],['Hidden', false]]) %>
+                        <p> You can prevent anyone from accessing your event website by changing the status to "hidden."" Once hidden, only you will be able to view the website when logged in. </p>
+                    </div>
+
+
+                   
+                </div>
+            </div>
+        </div>  
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Country settings  </h4>
+                <p>Choose your country's currency here. </p>
+            </div>
+
+            <div class="col-md-9">
+               
+
+                <div class="form-container">
+                <div class="input-group input-group-addon">
+                
+           
+
+
+
+                
+
+                    <label>Currency</label>
+                    <%= f.select(:currency_type, options_for_select(["USD", "CAD","AUD"], :selected => @event.currency_type), :class => ' form-control' ) %>
+                    <div class="col-md-9 col-md-offset-3 text-right"> 
+
+            </div>
+                             
+
+                </div>
+              
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+            </div>
+        </div>
+
+
+    <% end %>
+    <!-- event form end -->
+
+
+    </div>
+
+
