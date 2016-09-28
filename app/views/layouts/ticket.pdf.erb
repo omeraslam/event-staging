@@ -132,6 +132,28 @@ body {
   width:80%;
 }
 
+
+ table {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+ }
+ td {
+   border-width: 0;
+   border-style: none;
+   border-color: #0000ff;
+   border-collapse: collapse;
+   padding: 0;
+   margin: 0;
+   width: 10px;
+   height: 10px;
+ }
+ td.black { background-color: #000; }
+ td.white { background-color: #fff; }
+
+
+
   </style>
 </head>
 
@@ -141,7 +163,7 @@ body {
     <p> Order Number <%= @purchase.id %>, ordered by <%= @purchase.first_name %> <%= @purchase.last_name %> (<%= @purchase.email %>) on <%= @purchase.created_at.to_datetime.strftime('%B %d, %Y, %l:%M%P') %>.
     </div>
   <% i=0
-     @line_items.each do |line_item| %>
+     @line_items.each_with_index do |line_item, index| %>
   <% @attendee_item = Attendee.where(:id => line_item.attendee_id.to_i).first %>
   <% @ticket_type = Ticket.where(:id => line_item.ticket_id.to_i).first %>
 
@@ -178,8 +200,28 @@ body {
           <p> Order No. <%= @purchase.id %> - <%= line_item.id %> </p>
           <!-- <img src="http://toreto.re/barby/code128b_header.png"> -->
           <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/bc/08c5ac86-3b7c-4928-bb5d-e9f2b035b7a0coupon-test-2.png" width="584"/>
+
+          <table>
+ <% @qr_codes[index].modules.each_index do |x| -%>
+   <tr>
+   <% @qr_codes[index].modules.each_index do |y| -%>
+    <% if @qr_codes[index].dark?(x,y) -%>
+    <td class="black"/>
+    <% else -%>
+    <td class="white"/>
+    <% end -%>
+   <% end -%>
+   </tr>
+ <% end -%>
+</table>
+
+
         </div>  
       </div>
+
+
+ 
+
 
     </div>
 

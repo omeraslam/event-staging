@@ -26,6 +26,8 @@ gem 'stripe'
 
 gem 'sitemap_generator'
 
+gem 'rqrcode'
+
 gem 'icalendar'
 
 gem 'unsplash'

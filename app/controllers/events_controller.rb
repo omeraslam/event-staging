@@ -15,6 +15,14 @@ class EventsController < ApplicationController
   require "barby/barcode/code_128"
   require 'barby/outputter/png_outputter'
 
+
+  # Controller
+require 'rqrcode'
+ 
+
+ 
+
+
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
   after_filter :store_location
@@ -92,7 +100,15 @@ def show_ticket
     f.write barcode.to_png(:height => 20, :margin => 5)
   }
 
+     @qr_codes = []
+        @line_items.each do |lineitem|
+          logger.debug "#{@purchase.confirm_token.to_s + ' || - || ' + @event.slug.to_s + lineitem.id.to_s}"
+          qr  = RQRCode::QRCode.new(@purchase.confirm_token.to_s + @event.slug.to_s)
+          @qr_codes.push(qr)
+        end 
 
+
+ logger.debug "QRRRRRR : #{@qr}"
   @tickets_per_page = 4
   respond_to do |format|
     format.html

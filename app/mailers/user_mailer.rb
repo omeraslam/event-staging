@@ -70,6 +70,15 @@ class UserMailer < ActionMailer::Base
         # @attendee = attendee
         # @url = eventurl
         # 
+        # 
+        @qr_codes = []
+        @line_items.each do |lineitem|
+          logger.debug "#{@purchase.confirm_token.to_s + ' || - || ' + @event.slug.to_s + lineitem.id.to_s}"
+          qr  = RQRCode::QRCode.new(@purchase.confirm_token.to_s + @event.slug.to_s)
+          @qr_codes.push(qr)
+        end 
+        
+
         mail(:to => @purchase.email, :subject => @event.name + " - Confirmation") do |format|
             format.text # renders send_report.text.erb for body of email
             format.html
