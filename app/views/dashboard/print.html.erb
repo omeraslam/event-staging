@@ -51,7 +51,7 @@
 				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.last_name %></td>
 				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.email %></td>
 				
-				 <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity.nil? ? 0 : @guest.quantity - 1 %></td>
+				 <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.nil? ? 0 : @guest.quantity - 1 %></td>
                         <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
                         <td style="border: 1px solid black;padding: 10px; margin: 0;">          
                             <% total_order = 0 %>

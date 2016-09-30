@@ -36,6 +36,7 @@ body {
   width:100px;
   background:#21afbf;
   color:#fff;
+  display: none;
 }
 
 .admit-content {
@@ -57,23 +58,24 @@ body {
 
 .details {
   width:600px;
-  height:360px;
+  height:380px;
   border:20px solid #efefef;
+  border-left: none;
   //padding:20px;
+  margin-bottom: 20px;
 }
 
 .details h1{
   margin: 0 0 32px;
-  font-size: 24px;
-  color:#666;
+  font-size: 34px;
+  color:#222;
 
 }
 
 .details h3 {
-  text-transform: uppercase;
-  font-size:13px;
+  font-size:20px;
   font-family: "AvenirNextLTW01-Bold", "Avenir",sans-serif;
-  color:#888;
+  color:#333;
 }
 
 .details ul{
@@ -103,27 +105,15 @@ body {
 }
 
 .barcodes {
-  width:200px;
-  height:360px;
+  width:420px;
+  height:380px;
   border:20px solid #efefef;
-  border-left:none;
+  border-right:none;
   text-align: center;
 }
 
 .barcodes-content {
-
-  -ms-transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    //transform-origin: 100% 0;
-    text-align: center;
-    font-size: 42px;
-    width: 360px;
-    top: 100px;
-    left: -90px;
-    position: relative;
-    font-size:14px;
-
+  padding:14px;
 }
 
 .page-break { display:block; clear:both; page-break-after:always; }
@@ -131,6 +121,28 @@ body {
 .barcodes-content img {
   width:80%;
 }
+
+
+ table {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+ }
+ td {
+   border-width: 0;
+   border-style: none;
+   border-color: #0000ff;
+   border-collapse: collapse;
+   padding: 0;
+   margin: 0;
+   width: 10px;
+   height: 10px;
+ }
+ td.black { background-color: #000; }
+ td.white { background-color: #fff; }
+
+
 
   </style>
 </head>
@@ -141,7 +153,7 @@ body {
     <p> Order Number <%= @purchase.id %>, ordered by <%= @purchase.first_name %> <%= @purchase.last_name %> (<%= @purchase.email %>) on <%= @purchase.created_at.to_datetime.strftime('%B %d, %Y, %l:%M%P') %>.
     </div>
   <% i=0
-     @line_items.each do |line_item| %>
+     @line_items.each_with_index do |line_item, index| %>
   <% @attendee_item = Attendee.where(:id => line_item.attendee_id.to_i).first %>
   <% @ticket_type = Ticket.where(:id => line_item.ticket_id.to_i).first %>
 
@@ -152,17 +164,21 @@ body {
       <div class="admit ticket-tile">
           <div class="admit-content"> ADMIT ONE </div>
       </div>
+
+      <div class="barcodes ticket-tile">
+        <div class="barcodes-content">
+        
+          <%= image_tag @qr_codes[index] %>  
+
+        </div>  
+      </div>
+
+
       <div class="details ticket-tile">
         <div class="details-content">
           <h1><%= @event.name %> </h1>
           <% if !@event.date_start.nil? && !@event.date_start.empty? %>
           <h3><%= @event.date_start.to_date.strftime('%B %d, %Y') %> <%= @event.time_start.blank? ? '': 'at' + @event.time_start.to_time.strftime('%l:%M%P') %> </h3>
-          <% end %>
-          <% if( @event.location != '' ||  @event.location_name != '' ) %>
-            <h3><%= @event.location_name %> <br>
-            <%= @event.location %></h3>
-          <% else %>
-            <h3>TBD</h3>
           <% end %>
           <ul class="purchase-details">
               <li><h4>Attendee </h4> <p><%= @attendee_item.first_name %> <%= @attendee_item.last_name %> </p></li>
@@ -172,13 +188,11 @@ body {
 
         </div>
       </div>
-      <div class="barcodes ticket-tile">
-        <div class="barcodes-content">
-          <p> Ordered by <%= @purchase.first_name %> <%= @purchase.last_name %></p>
-          <p> Order No. <%= @purchase.id %> - <%= line_item.id %> </p>
-          <img src="http://toreto.re/barby/code128b_header.png">
-        </div>  
-      </div>
+
+
+
+ 
+
 
     </div>
 

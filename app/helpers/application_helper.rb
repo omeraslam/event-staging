@@ -10,7 +10,6 @@ module ApplicationHelper
 				content_for?(:title) ? content_for(:title)  + ' | ' + APP_CONFIG['default_title'] : APP_CONFIG['default_title']
 			else
 				content_for?(:title) ? content_for(:title) : APP_CONFIG['default_title']
-
 			end
 		end
 	end
@@ -30,6 +29,22 @@ module ApplicationHelper
 	      content_for :meta_description, desc
 	    else
 	      content_for?(:meta_description) ? content_for(:meta_description) : APP_CONFIG['meta_description']
+	    end
+	end
+
+	def meta_fb(photo = nil)
+		if photo.present?
+	      content_for :meta_fb, photo
+	    else
+	      content_for?(:meta_fb) ? content_for(:meta_fb) : APP_CONFIG['meta_fb']
+	    end
+	end 
+
+	def meta_fb_url(uri = nil)
+		if uri.present?
+	      content_for :meta_fb_url, uri
+	    else
+	      content_for?(:meta_fb_url) ? content_for(:meta_fb_url) : APP_CONFIG['meta_fb_url']
 	    end
 	end
 
