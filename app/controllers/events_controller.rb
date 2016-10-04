@@ -9,6 +9,10 @@ class EventsController < ApplicationController
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
 
+  before_filter :ensure_proper_subdomain, :only => "checkout_page"
+
+
+
   #require 'chunky_png'
 
   require 'barby'
@@ -26,7 +30,7 @@ require 'rqrcode_png'
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
   after_filter :store_location
-  before_filter :authenticate_user!, :except => [:show, :export_events, :home, :contact_host, :show_ticket, :select_tickets, :show_buy, :complete_registration, :show_ticket, :show_confirm]
+  before_filter :authenticate_user!, :except => [:show, :export_events, :home, :contact_host, :show_ticket, :select_tickets, :show_buy, :complete_registration, :show_ticket, :show_confirm, :select_buy]
   require 'icalendar'
 
 
@@ -839,6 +843,7 @@ def show
     @event.published = true
     @event.layout_id = '1'
 
+
     @eventHTML = '<div id="hero">
             <div class="container">
                 <div class="header-content">
@@ -846,7 +851,7 @@ def show
 
                   <h1>' + @event.name + '</h1><p class="lead">Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>
 
-                  <a href="/checkout-page" class="btn btn-reg open-registration"> Register now</a>
+                  <a href="/checkout-page" class="btn btn-reg ' + (@event.paid_event == false ? '': 'checkout-btn ') +'open-registration"> Register now</a>
                 </div> 
               </div>
         </div>'
@@ -995,8 +1000,8 @@ def show
   end
 
   def checkout_page
-    @event = 
-    redirect_to select_buy_path()
+    @event = Event.find(87)
+    redirect_to select_buy_path(:slug => @event.slug, :subdomain => 'checkout')
   end
 
   def check_slug
@@ -1157,6 +1162,15 @@ def show
         code = code.gsub(/\s+/, '')
         code = code.upcase
         @coupon_code = Coupon.where(:promo_code => code, :event_id => eventId).first
+      end
+
+
+      def ensure_proper_subdomain
+        logger.debug "request after cut host with subd: #{request.host_with_port}"
+        puts "request.host_with_port"
+        # if request.host_with_port != 'checkout.lvh.me:3000'
+        #   redirect_to params.merge({host: 'checkout.lvh.me:3000'})
+        # end
       end
 
 

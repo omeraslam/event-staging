@@ -108,9 +108,33 @@ $( document ).ready(function() {
 
   //registration modal
   var registrationModal = $('#rsvp-new-modal').remodal({hashTracking:false});
-  $('.open-registration').click(function(){
-    registrationModal.open();
+  $('.open-registration').addClass('checkout-btn');
+  $('.open-registration').click(function(e){
+    if( !$(this).hasClass('checkout-btn')) {
+    e.preventDefault();
+      registrationModal.open();
+    } else {
+      // alert('checkout');
+      //   var data = {"event_id": <%= @event.id %>};
+      //   alert(data);
+      //   $.ajax({
+      //     type: "POST",
+      //     url: <%= @event.slug %> + '/checkout-page',
+      //     data: data,
+      //     success: function() {
+
+      //     },
+      //     error: function(resp) {
+
+         
+      //     }
+      //   });
+
+
+    }
   });
+
+
 });
 
 </script>

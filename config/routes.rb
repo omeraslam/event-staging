@@ -46,7 +46,7 @@ Rails.application.routes.draw do
 
   #dashboard routes
   get 'dashboard/index'
-  post '/checkout-page' => 'events#checkout_page'
+  get '/checkout-page' => 'events#checkout_page'
   get 'dashboard/event'
   get 'dashboard/profile'
   get 'dashboard/print'
