@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :tickets
 
   constraints(CheckoutSubdomain) do
-    get '/:slug/buy' => 'events#show_buy' , :as => :show_buy_2
+    get '/:slug/select-buy' => 'events#select_buy' , :as => :select_buy
   end
 
 
@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
   #dashboard routes
   get 'dashboard/index'
+  post '/checkout-page' => 'events#checkout_page'
   get 'dashboard/event'
   get 'dashboard/profile'
   get 'dashboard/print'

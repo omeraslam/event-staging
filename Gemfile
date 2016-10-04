@@ -15,6 +15,7 @@ end
 
 #email sending stats
 gem 'mandrill-api'
+gem 'thin', group: :development
 
 gem 'platform-api'
 gem 'rack-cors', '~> 0.3.1'

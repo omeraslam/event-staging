@@ -38,8 +38,22 @@ require 'rqrcode_png'
     @attendee = Attendee.new
     @user = User.find(current_user.id)
     @events = Event.where(:user_id => current_user.id.to_s).all
-
     @themes = Theme.all
+
+  end
+
+  def select_buy
+    @event = Event.find_by_slug(params[:slug])
+    if(!@event.layout_style?)
+      @event.layout_id = '1'
+      @event.layout_style = 'default'
+    end
+    @user = User.where(:id => @event.user_id.to_i).first
+    @tickets = @event.tickets.all 
+    @purchase = Purchase.new
+  end
+
+  def finish_registration
 
   end
 
@@ -63,27 +77,34 @@ def show_buy
      @event = Event.find_by_slug(params[:slug])
      @user = User.find(@event.user_id)
      @tickets = Ticket.where(:event_id => @event.id)
-    #  @purchase = Purchase.find(params[:oid].to_i )
+     @purchase = Purchase.find(params[:oid].to_i )
 
-    #  @line_items = LineItem.where(:purchase_id => params[:oid])
-    #  LineItem.count('ticket_id', :distinct => true)
+     @line_items = LineItem.where(:purchase_id => params[:oid])
+     LineItem.count('ticket_id', :distinct => true)
 
-    # @user = User.where(:id => @event.user_id.to_i).first
-    # @account = Account.where(:user_id => @user.id).first 
+    @user = User.where(:id => @event.user_id.to_i).first
+    @account = Account.where(:user_id => @user.id).first 
 
 
 
-    #  sum = 0 
+     sum = 0 
 
-    #  @line_items = LineItem.where(:purchase_id => params[:oid])
-    #  @line_items.each do |line_item|
-    #       @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
-    #       sum += @ticket.price
-    #  end 
+     @line_items = LineItem.where(:purchase_id => params[:oid])
+     @line_items.each do |line_item|
+          @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
+          sum += @ticket.price
+     end 
                         
 
-    # @final_charge = sum * 100 #add all line items to figure out final price
+    @final_charge = sum * 100 #add all line items to figure out final price
+
+    if(!@event.layout_style?)
+      @event.layout_id = '1'
+      @event.layout_style = 'default'
+    end
 end
+
+
 
 def confirm_ticket
 
@@ -550,6 +571,11 @@ def show_confirm
   @purchase = Purchase.where(:confirm_token => params[:oid] ).first
   @line_items = LineItem.where(:purchase_id => @purchase.id)
 
+  if(!@event.layout_style?)
+    @event.layout_id = '1'
+    @event.layout_style = 'default'
+  end
+
      
 end
 
@@ -678,6 +704,10 @@ def show
 
     @attendees = Attendee.where(:event_id => @event.id)
 
+    @ticket = Ticket.new
+
+    @ticket = Ticket.where(:event_id => @event.id).first
+    @purchase = Purchase.new
     @buyers = Purchase.where(:event_id => @event.id)
     @user = User.find(@event.user_id.to_i)
     @fee_rate = @user.npo == true ? 0.015 : 0.025
@@ -686,10 +716,6 @@ def show
 
 
     #@ticket = @event.tickets.build(ticket_params)
-    @ticket = Ticket.new
-
-    @ticket = Ticket.where(:event_id => @event.id).first
-    @purchase = Purchase.new
 
     if !@event
 
@@ -820,7 +846,7 @@ def show
 
                   <h1>' + @event.name + '</h1><p class="lead">Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>
 
-                  <span class="btn btn-reg open-registration"> Register now</span>
+                  <a href="/checkout-page" class="btn btn-reg open-registration"> Register now</a>
                 </div> 
               </div>
         </div>'
@@ -966,6 +992,11 @@ def show
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def checkout_page
+    @event = 
+    redirect_to select_buy_path()
   end
 
   def check_slug

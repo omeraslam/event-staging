@@ -722,3 +722,21 @@ img.fr-dib.fr-draggable {
 
 }
 
+.ticket-list-container {
+
+	text-align: left;
+}
+
+.ticket-container:first-child {
+
+	border-top: 1px solid #ccc;
+}
+
+.ticket-container {
+	padding: 20px 0;
+	margin: 10px 0;
+
+	border-bottom: 1px solid #ccc;
+
+}
+
