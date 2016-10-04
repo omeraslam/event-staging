@@ -123,6 +123,9 @@ gem 'friendly_id'
 
 
 gem 'gravtastic'
+gem 'chart-js-rails'
+gem 'jquery-tablesorter'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

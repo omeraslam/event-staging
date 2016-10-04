@@ -1,49 +1,68 @@
-<div class="editor-tabs">
-    <div class="editor-tools-top">
-        <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
+<div class="event-nav-container">
+    <div class="event-nav-top">
+        <a class="event-nav-logo"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255.9 276.6"><path d="M255.8 0.7c0 10.8 0 19.6 0 30.8 -39.9 0.1-79.3-0.4-118.6 0.3C92.9 32.5 60.7 54 42 93.8c-18.7 39.8-14.5 78.4 12.8 113.1 19.4 24.7 45.5 38.1 77.2 38.7 30.4 0.5 60.7 0 92.4 0 0-10.4 0-19.7 0-31.3 -27.6 0-55.2 0.2-82.9 0.1 -48.7-0.1-82.8-30.1-83.1-73.2 -0.3-45.6 34-78.2 82.9-78.5 37.5-0.2 75-0.1 113.9-0.2 0 31 0.1 61 0.1 92.2 -41.8 0.1-83.5 0.1-126.3 0.2 0-9.3 0-18.1 0-28.9 31 0 62.4-0.1 95.2-0.1 0-11.2 0-20.5 0-31.7 -31.9 0-64.1-1.4-96.1 0.6 -23 1.5-40 25.5-38.3 48.6 1.6 21.8 19.3 39 43 39.6 33.7 0.8 67.4 0.2 101.1 0.1 7 0 14 0 22 0 0 31.1 0.1 60.7 0.1 93.3 -14.1 0-28.7 0.4-43.2 0 -35.5-0.9-71.8 2-106.5-4C40 261.1-4 198.9 0.3 130.1 4.5 62.8 58.2 5.2 123.8 1.3 167-1.2 210.4 0.7 255.8 0.7z" fill="#FFF"/></svg>   
+        </a>
+
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-dashboard" data-target="editor-tool-dashboard">
+            <i class="icon icon-home"> </i> <span> Dashboard </span>
+        </a> 
+
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+            <i class="icon icon-users"> </i> <span> Attendees</span>
+        </a>   
+
+        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'event-nav-link', target: '_blank' %>        
+     
+         
+    </div>
+
+    <div class="event-nav-bottom">
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
             <i class="icon icon-image"> </i> <span> Design </span>
         </a> 
-        <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
             <i class="fa fa-fw fa-ticket"> </i> <span> Tickets</span>
             <% if  @account == nil && @ticket.price != 0 %>
               <div class="editor-tab-notification editor-tab-notification-error"></div>
             <% end %>
         </a>   
-        <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
             <i class="icon icon-settings"> </i> <span> Settings</span>
         </a>  
-        <a class="tab toggleEditorPanel" id="editor-tool-promotions" data-target="editor-tool-promotions" >
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-promotions" data-target="editor-tool-promotions" >
             <i class="fa fa-fw fa-tag"> </i> <span> Coupons</span>
-        </a>            
-        <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
-            <i class="icon icon-users"> </i> <span> Attendees</span>
-        </a>        
-        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>          
-    </div>
+        </a>       
 
-    <div class="editor-tools-bottom">
-        <a class="tab toggleEditorPanel" id="editor-tool-support" data-target="editor-tool-support" >
-            <i class="fa fa-phone"> </i> <span> Support</span>
-        </a>     
-        <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" style="display:none;" >
-            <i class="icon icon-share"> </i> <span> Share</span>
-        </a> 
-        <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'tab' %>  
+        <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'event-nav-link hidden' %>  
     </div>
 </div>
 
 
 
-<div class="editor-container"> 
-    <div class="editor-tools">
-        <div id="editor-panel-close"><i class="icon icon-arrow-left"> </i></div>
 
-        <%= render 'events/partials/editor/editor_settings' %>
-        <%= render 'events/partials/editor/editor_coupons' %>
-        <%= render 'events/partials/editor/editor_support' %>
-        <%= render 'events/partials/editor/editor_design' %>
-        <%= render 'events/partials/editor/editor_ticketing' %>
-        <%= render 'events/partials/editor/editor_attendees' %>
+
+<div class="event-editor-section-container"> 
+
+    <div class="event-editor-header text-right">
+       <a href="#">Contact Support</a> <a href="#">My account </a>  <a id="editor-panel-close"><i class="icon icon-arrow-left"> </i></a>
+    </div>
+
+    <div class="event-editor-sections">
+        
+
+        <%= render 'events/partials/editor/editor_settings_new' %>
+        <%= render 'events/partials/editor/editor_attendees_new' %>
+
+
+        <%= render 'events/partials/editor/editor_dashboard_new' %>
+
+        <%# render 'events/partials/editor/editor_settings' %>
+        <%# render 'events/partials/editor/editor_coupons' %>
+        <%# render 'events/partials/editor/editor_support' %>
+        <%# render 'events/partials/editor/editor_design' %>
+        <%# render 'events/partials/editor/editor_ticketing' %>
+        <%# render 'events/partials/editor/editor_attendees' %>
 
     </div>
 </div>
@@ -278,9 +297,9 @@ $( document ).ready(function() {
 
 
   //EDITOR - set size of panel
-  $('.editor-tools').css("height",$(window).height());
+  $('.event-editor-sections').css("height",$(window).height());
   $( window ).resize(function() {
-    $('.editor-tools').css("height",$(window).height());
+    $('.event-editor-sections').css("height",$(window).height());
   });
 
   //EDITOR -  editor panel interaction behaviors
@@ -293,16 +312,16 @@ $( document ).ready(function() {
       $(".editor-tool").hide();
       $(".editor-tool#" + target).show();
       $(this).addClass("active");
-      $(".editor-container").addClass("visible");
+      $(".event-editor-section-container").addClass("visible");
     } else {
       $(this).removeClass("active");
-      $(".editor-container").removeClass("visible");
+      $(".event-editor-section-container").removeClass("visible");
     }
   });
 
   $('#editor-panel-close').click(function() {
     $(".toggleEditorPanel.active").removeClass("active");
-    $(".editor-container").removeClass("visible");
+    $(".event-editor-section-container").removeClass("visible");
    });
 
 
