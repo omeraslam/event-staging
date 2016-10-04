@@ -1,7 +1,26 @@
-<div class="event-header container">
+<div class="jumbotron text-center" style="position:absolute; width:100%; height:100%; margin:0;">
+      <div class="container">
 
-<h1>Your ticket is:</h1>
+			<% if @status %>
 
-<p class="lead success"><%= @status %></p>
+			<div class="jumbotron">
+			      <div class="container">
+			      	<h1 style="color:green; font-size:60px; margin-bottom:30px;"><i class='fa fa-check'> </i></h1>
+			        <h1>Confirmed</h1>
+			        <p>This guest is confirmed, and has been succesfully marked as "attending."</p>
+			      </div>
+			</div>
 
+
+			<% else %>
+
+
+			      	<h1 style="color:red; font-size:60px; margin-bottom:30px;"><i class='fa fa-close'> </i></h1>
+			        <h1>Fail</h1>
+			        <p>This guest has already redeemed their ticket or has already checked in for the event. </p>
+
+
+			<% end %>
+
+	</div>
 </div>

@@ -106,9 +106,10 @@ def confirm_ticket
     if @line_item.redeemed == false
       @line_item.redeemed = true
       @line_item.save
-      @status = "CONFIRMED"
+      @status = true
+
     else
-      @status = "ALREADY USED"
+      @status = false
     end
   end
 
