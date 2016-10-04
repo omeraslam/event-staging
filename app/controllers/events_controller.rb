@@ -550,6 +550,11 @@ def show_confirm
   @purchase = Purchase.where(:confirm_token => params[:oid] ).first
   @line_items = LineItem.where(:purchase_id => @purchase.id)
 
+  if(!@event.layout_style?)
+      @event.layout_id = '1'
+      @event.layout_style = 'default'
+    end
+
      
 end
 
