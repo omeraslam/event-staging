@@ -17,7 +17,7 @@
       margin: 0;
       text-align: left;
       border-spacing: 0;
-      width:100%;
+      //width:100%;
     }
 
     td.row-actions, th.row-actions {
@@ -28,18 +28,18 @@
     td, th {
       padding: 12px 0;
       font-weight: 400;
-      min-width: 120px;
+      //min-width: 120px;
       //color: #888;
     }
     
     td {
-      width:25%;
+      //width:25%;
       border-top:1px solid #DCDCDC;
     }
 
 
     th { 
-      width: 200px;
+      //width: 200px;
       //border-bottom: 1px solid #DDD; 
           border-top: 0;
     text-transform: uppercase;
@@ -80,6 +80,46 @@
 
 .tablesorter .filtered {
     display: none;
+}
+
+.tablesorter td {
+
+}
+
+.tablesorter-header {
+  outline: none !important;
+  cursor: pointer;
+}
+
+.tablesorter-header.tablesorter-headerAsc,.tablesorter-header.tablesorter-headerDesc {
+  color: $brand-primary;
+  border-bottom:2px solid $brand-primary;
+
+}
+
+.tablesorter-header-inner {
+  float: left;
+}
+
+.tablesorter-headerAsc:after, .tablesorter-headerDesc:after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    content: "";
+    margin-right: -10px;
+    margin-bottom: 2px;
+    margin-left: 5px;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+
+.tablesorter-headerDesc:after {
+    border-bottom: 4px solid;
+}
+
+.tablesorter-headerAsc:after {
+   border-top: 4px solid;
 }
 
 

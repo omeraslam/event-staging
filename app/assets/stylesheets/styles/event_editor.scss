@@ -22,8 +22,9 @@ $editor_panel_width:1300px;
 		height: 60px;
 
 		svg {
-			width: 50%;
-			margin: 0 auto;
+			width: 35%;
+    		margin: 0 auto;
+    		padding-top: 15px;
 		}
 	}
 
@@ -185,6 +186,7 @@ $editor_panel_width:1300px;
 			.editor-panel {
 				padding:16px 20px 40px 112px;
     			padding:$editor_panel_padding;
+    			padding-top:14px;
 				padding-left:$nav_left_width + $editor_panel_padding;
 			}
 

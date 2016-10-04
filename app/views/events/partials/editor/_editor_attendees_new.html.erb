@@ -4,11 +4,11 @@
     <div class="editor-aside"> 
 	    <div class="row">
 		    <div class="col-md-6">
-				<input class="search selectable" type="search" placeholder="Filter attendees" data-column="all">
+				<input class="search selectable" type="search" placeholder="Search attendees" data-column="all">
 		    </div>
 		    <div class="col-md-6 text-right">
-		    	<%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
-		        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %> 
+		        <%= link_to 'Print List ', dashboard_print_path(:event => @event.id), class: 'btn btn-primary' %> 
+		    	<%= link_to 'Download CSV ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-primary' %> 
 		    </div>
 
 	    </div>
