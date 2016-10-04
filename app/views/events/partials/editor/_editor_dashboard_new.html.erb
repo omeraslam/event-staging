@@ -1,44 +1,42 @@
- <div class="editor-tool" id="editor-tool-dashboard">
-
-       <div class="editor-subpanel-sm-background"></div>
+ <div class="editor-tool editor-panel-primary" id="editor-tool-dashboard">
 
 
-       <div class="editor-subpanel-sm">
+
+       <div class="editor-aside">
             <section>
                 <h4>Status </h4>
-                <div class="event-activity-meter"><span> </span> Active</div>
-                <div class="event-activity-meter"><span> </span> Active </div>
+                <div class="event-activity-meter"><span> </span> <div class="event-activity-status"><h5>Live </h5> <p> Your event website is live and ready to share.</p> </div> </div>
+                <div class="event-activity-meter"><span> </span> <div class="event-activity-status"><h5>Registration open </h5> <p> Your event is currently accepting regisations.</p> </div> </div>
             </section>
 
             <section>
-                <h4>URL </h4>
+                <h4>Event URL </h4>
                 <div class="input-group">
-                    <input type="text" />
+                    <input type="text" value="myevent.eventcreate.com" disabled="true" />
                     <p> Lorem ipsum solor sit amet</p>
                 </div>
             </section>
 
             <section>
                 <h4>Share </h4>
-                <a href="#" class="btn btn-primary">Share on Facebook </a>
-                <a href="#" class="btn btn-primary">Share on Twitter </a>
-                <a href="#" class="btn btn-primary">Share on Instagram </a>
+                <a href="#" class="btn btn-primary" id="facebook">Share on Facebook </a>
+                <a href="#" class="btn btn-primary" id="twitter">Share on Twitter </a>
+                <a href="#" class="btn btn-primary" id="instagram">Share on Instagram </a>
             </section>
-
 
         </div>
 
 
-        <div class="editor-panel-main">
+
+        <div class="editor-panel">
             <div class="row"> 
 
-            <div class="col-md-4"><h4>Total revenue</h4><h1>$234 </h1></div>
+            <div class="col-md-4 event-activity-data"><h4>Total revenue</h4><h1>$234 </h1><p>Lorem ipsum solor</p></div>
+            <div class="col-md-4 event-activity-data"><h4>Total revenue</h4><h1>$234 </h1><p>Lorem ipsum solor</p></div>
+            <div class="col-md-4 event-activity-data"><h4>Total revenue</h4><h1>$234 </h1><p>Lorem ipsum solor</p></div>
 
-            <div class="col-md-4"><h4>Total revenue</h4><h1>$234 </h1></div>
-            <div class="col-md-4"><h4>Total revenue</h4><h1>$234 </h1></div>
 
-
-            <div class="col-md-12">   
+            <div class="col-md-12 event-activity-chart">   
                 <canvas id="myChart" width="400" height="400"></canvas> 
             </div>
 
@@ -60,6 +58,8 @@
 
 <script>
 var ctx = document.getElementById("myChart");
+Chart.defaults.global.legend.display = false;
+
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -68,30 +68,46 @@ var myChart = new Chart(ctx, {
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(33, 175, 191, .05)',
+                'rgba(33, 175, 191, .05)',
+                'rgba(33, 175, 191, .05)',
+                'rgba(33, 175, 191, .05)',
+                'rgba(33, 175, 191, .05)',
+                'rgba(33, 175, 191, .05)'
             ],
             borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(33, 175, 191, 1)',
+                'rgba(33, 175, 191, 1)',
+                'rgba(33, 175, 191, 1)',
+                'rgba(33, 175, 191, 1)',
+                'rgba(33, 175, 191, 1)',
+                'rgba(33, 175, 191, 1)',
             ],
-            borderWidth: 1
+            //borderWidth: 3
         }]
     },
     options: {
+        maintainAspectRatio:false,
+        responsive:true,
         scales: {
             yAxes: [{
                 ticks: {
                     beginAtZero:true
-                }
+                },
+                  gridLines: {
+                    //color:rgba(0,0,0,.5)
+                    zeroLineColor: "rgba(0,0,0,0.0)",
+                    color:"rgba(0,0,0,0.0)"
+
+                } 
+            }], 
+            xAxes: [{
+                  gridLines: {
+                    display:false,
+                   color:"rgba(0,0,0,0.0)",
+                    zeroLineColor: "rgba(0,0,0,0.0)"
+
+                } 
             }]
         }
     }
