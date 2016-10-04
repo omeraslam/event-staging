@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20160928232556) do
     t.string   "ticket_id"
     t.string   "attendee_id"
     t.string   "purchase_id"
-    t.boolean  "redeemed",    default: true
+    t.boolean  "redeemed",    default: false
   end
 
   create_table "purchases", force: true do |t|
