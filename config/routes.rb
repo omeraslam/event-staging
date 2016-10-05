@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   end
 
 
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -47,6 +49,7 @@ Rails.application.routes.draw do
   #dashboard routes
   get 'dashboard/index'
   get '/checkout-page' => 'events#checkout_page'
+  post ':slug/choose-tickets' => 'events#choose_tickets', :as => :events_choose_tickets
   get 'dashboard/event'
   get 'dashboard/profile'
   get 'dashboard/print'
@@ -179,6 +182,9 @@ Rails.application.routes.draw do
   post '/:slug/select-tickets' => 'events#select_tickets' , :as => :select_tickets
   post '/:slug/complete-registration' => 'events#complete_registration' , :as => :complete_registration
   
+   post '/:slug/submit-attendees' => 'events#submit_attendees' , :as => :submit_attendees
+  
+
   get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
   get '/:slug/confirm' => 'events#show_confirm' , :as => :show_confirm
   get '/:slug/ticket' => 'events#show_ticket' , :as => :show_ticket
