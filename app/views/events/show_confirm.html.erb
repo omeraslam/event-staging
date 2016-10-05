@@ -3,8 +3,6 @@
 <div class="show-container buy-container">
     
 
-
-
     <div class="event-page 1 visible event-buy-page" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important">
       
       <div class="overlay" style="opacity: <%= @event.bg_opacity %>;background-color:<%= @event.bg_color %>;"></div>
@@ -18,8 +16,7 @@
 
     <div class="confirm-container">
 
-  
-    <% if @event.confirmation_text.nil? %>
+    <% if @event.confirmation_text.nil? || @event.confirmation_text == '' %>
       <h1> You're all set, <%= @purchase.first_name %>! </h1>
       <p> You're going to <%= @event.name %> on <%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %>! Your order has been successfully processed, and we've sent your tickets and a receipt to <%= @purchase.email %>. We look forward to seeing you there.</p>
 
