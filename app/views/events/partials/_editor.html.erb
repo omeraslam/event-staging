@@ -73,6 +73,7 @@
         <%# render 'events/partials/editor/editor_attendees' %>
 
     </div>
+
 </div>
 
 
@@ -610,7 +611,18 @@ $(function() {
           }
        },
       charCounterCount: false,
-      toolbarButtons: ['bold', 'italic', 'underline', 'fontSize', 'strikeThrough', 'color', 'emoticons', '-', 'paragraphFormat', 'align', 'insertImage', 'insertLink', 'insertVideo', 'insertRegistrationLink', '-', 'undo', 'redo'],
+      fontFamily: {
+        'Arial,Helvetica,sans-serif': 'Arial',
+        'Georgia,serif': 'Georgia',
+        'Impact,Charcoal,sans-serif': 'Impact',
+        'Tahoma,Geneva,sans-serif': 'Tahoma',
+        "'Times New Roman',Times,serif": 'Times New Roman',
+        'Verdana,Geneva,sans-serif': 'Verdana',
+        "'brandon-grotesque',sans-serif": 'Brandon Grotesque',
+        "'freight-display-pro',serif": 'Freight Display',
+        "'futura-pt',sans-serif": 'Futura PT'
+      },
+      toolbarButtons: ['fontFamily', 'bold', 'italic', 'underline', 'fontSize', 'strikeThrough', 'color', '-', 'paragraphFormat', 'align', 'insertImage', 'insertLink', 'insertVideo', 'emoticons', 'insertRegistrationLink', '-', 'undo', 'redo'],
       linkStyles: {
         btn: 'Button'      }
     }).on('froalaEditor.contentChanged', function (e, editor) {

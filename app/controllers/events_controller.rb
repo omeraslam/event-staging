@@ -11,9 +11,17 @@ class EventsController < ApplicationController
 
   #require 'chunky_png'
 
-  # require 'barby'
-  # require "barby/barcode/code_128"
-  # require 'barby/outputter/png_outputter'
+  require 'barby'
+  require "barby/barcode/code_128"
+  require 'barby/outputter/png_outputter'
+
+
+  # Controller
+#require 'rqrcode'
+require 'rqrcode_png'  
+
+ 
+
 
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
@@ -76,6 +84,36 @@ def show_buy
     @final_charge = sum * 100 #add all line items to figure out final price
 end
 
+def confirm_ticket
+
+  if signed_in?
+    @user = current_user
+  end
+   
+  @event = Event.find_by_slug(params[:slug])
+
+
+
+  if @event.user_id != @user.id.to_s || !signed_in?
+      #&& current_user.id.to_i != @event.user_id.to_i
+      redirect_to root_path
+  else  
+
+
+    @purchase = Purchase.where(:confirm_token => params[:oid])
+    @line_item = LineItem.where(:id => params[:luid].to_i).first
+
+    if @line_item.redeemed == false
+      @line_item.redeemed = true
+      @line_item.save
+      @status = true
+
+    else
+      @status = false
+    end
+  end
+
+end
 
 
 def show_ticket
@@ -87,12 +125,20 @@ def show_ticket
 
 
 
-  #barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
-  # File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
-  #   f.write barcode.to_png(:height => 20, :margin => 5)
-  # }
+  barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
+  File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
+    f.write barcode.to_png(:height => 20, :margin => 5)
+  }
+
+     @qr_codes = []
+        @line_items.each do |lineitem|
+          logger.debug "#{@purchase.confirm_token.to_s + ' || - || ' + @event.slug.to_s + lineitem.id.to_s}"
+          qr  = RQRCode::QRCode.new('http://www.eventcreate.com/' + @event.slug.to_s + '/confirm-ticket?oid='+ @purchase.confirm_token.to_s + '&luid=' + lineitem.id.to_s).to_img.resize(200, 200).to_data_url
+          @qr_codes.push(qr)
+        end 
 
 
+ logger.debug "QRRRRRR : #{@qr}"
   @tickets_per_page = 4
   respond_to do |format|
     format.html
@@ -503,6 +549,11 @@ def show_confirm
   @eventurl = 'http://'+ ENV['SITE_NAME'] + '/' + @event.slug
   @purchase = Purchase.where(:confirm_token => params[:oid] ).first
   @line_items = LineItem.where(:purchase_id => @purchase.id)
+
+  if(!@event.layout_style?)
+      @event.layout_id = '1'
+      @event.layout_style = 'default'
+    end
 
      
 end

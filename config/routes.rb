@@ -177,6 +177,7 @@ Rails.application.routes.draw do
   get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
   get '/:slug/confirm' => 'events#show_confirm' , :as => :show_confirm
   get '/:slug/ticket' => 'events#show_ticket' , :as => :show_ticket
+  get '/:slug/confirm-ticket' => 'events#confirm_ticket' , :as => :confirm_ticket
   post '/tickets/:id/edit' => 'tickets#update'
 
   get '/oauth/callback' do 

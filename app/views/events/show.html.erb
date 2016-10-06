@@ -1,6 +1,11 @@
 <% title @event.name.html_safe %>
 <% meta_description '' %>
-    
+<% if !@event.external_image.nil? && !@event.external_image.blank? %>
+<% meta_fb @event.external_image.nil? ? '' : @event.external_image %>
+<% else %>
+<% meta_fb @event.background_img.nil? ? '' : @event.background_img %>
+<% end %>
+
 
 
 <%= render 'events/partials/eventwebsite' %>
