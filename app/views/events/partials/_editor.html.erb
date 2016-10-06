@@ -18,21 +18,28 @@
     </div>
 
     <div class="event-nav-bottom">
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
+        <a class="event-nav-link toggleEditorPanel hidden" id="editor-tool-background" data-target="editor-tool-background">
             <i class="icon icon-image"> </i> <span> Design </span>
         </a> 
+
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
+            <i class="icon icon-settings"> </i> <span> Settings</span>
+        </a> 
+
         <a class="event-nav-link toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
             <i class="fa fa-fw fa-ticket"> </i> <span> Tickets</span>
             <% if  @account == nil && @ticket.price != 0 %>
               <div class="editor-tab-notification editor-tab-notification-error"></div>
             <% end %>
-        </a>   
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
-            <i class="icon icon-settings"> </i> <span> Settings</span>
-        </a>  
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-promotions" data-target="editor-tool-promotions" >
+        </a>    
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-questions" data-target="editor-tool-questions" >
+            <i class="icon icon-question"> </i> <span> Questions</span>
+        </a>       
+
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-coupons" data-target="editor-tool-coupons" >
             <i class="fa fa-fw fa-tag"> </i> <span> Coupons</span>
         </a>       
+
 
         <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'event-nav-link hidden' %>  
     </div>
@@ -53,9 +60,10 @@
 
         <%= render 'events/partials/editor/editor_settings_new' %>
         <%= render 'events/partials/editor/editor_attendees_new' %>
-
-
         <%= render 'events/partials/editor/editor_dashboard_new' %>
+        <%= render 'events/partials/editor/editor_ticketing_new' %>
+        <%= render 'events/partials/editor/editor_coupons_new' %>
+        <%= render 'events/partials/editor/editor_questions_new' %>
 
         <%# render 'events/partials/editor/editor_settings' %>
         <%# render 'events/partials/editor/editor_coupons' %>

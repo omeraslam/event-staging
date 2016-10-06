@@ -35,7 +35,7 @@ $editor_panel_width:1300px;
 	}
 
 	.event-nav-link {
-		color: #777;
+		color: rgba(255,255,255,.5);
 		line-height: 38px;
 		display: block;
 		//background:#fff;
@@ -155,6 +155,9 @@ $editor_panel_width:1300px;
 				padding-top:$nav_top_height;
 				padding-left:$nav_left_width;
 				padding-right:0;
+				overflow: scroll;
+				position:absolute;
+				height: 700px;
     		}	
 
 
@@ -188,6 +191,17 @@ $editor_panel_width:1300px;
     			padding:$editor_panel_padding;
     			padding-top:14px;
 				padding-left:$nav_left_width + $editor_panel_padding;
+			}
+
+		}
+
+
+		.editor-panel-blank-state {
+			text-align: center;
+
+			i {
+				font-size: 60px;
+				display: inline-block;
 			}
 
 		}
@@ -270,10 +284,27 @@ $editor_panel_width:1300px;
 
 	li {
 		border-bottom:1px solid #efefef;
-		padding:20px 0;
+		padding:30px 22px 30px 28px;
+		cursor: pointer;
+
+
 
 		&.active {
 			background:rgba( #eff0f3, .5);
+			color:#888;
+			cursor: auto;
+		}
+
+		&:hover {
+			background:rgba( #eff0f3, .5);
+			//background:$brand-primary;
+			//color:#fff;
+		}
+
+		&:after {
+			content: "";
+  			display: table;
+  			clear: both;
 		}
 	}
 
@@ -345,4 +376,44 @@ $editor_panel_width:1300px;
 		}
 	
 	}
+
+
+	.editor-aside-nav {
+
+		a.edit-aside-nav-add {
+			padding:16px 22px;
+			display: inline-block;
+		}
+
+		i {
+			display: block;
+			float: left;
+			margin-right:10px;
+			font-size: 20px;
+		}
+
+		.editor-aside-nav-desc {
+			float:left;
+			width: 80%;
+
+			h3 {
+				line-height: 20px;
+				font-size:16px;
+				font-weight: 600;
+				text-decoration: none;
+				margin: 0 0 0 0;
+			}
+
+			p {
+				opacity: .5;
+				margin-top: 2px;
+			}
+		}
+
+
+
+
+	}
+
+
 }
