@@ -13,7 +13,7 @@
  </div> 
 
  <div class="confirm-container">
-  <div class="breadcrumbs">1. <a href="">Ticket</a> 2. <a href="">Payment</a> 3. <a href="">Confirmation</a></div>
+  <div class="breadcrumbs">1. <a href="">Ticket</a> 2. <a href="">Payment</a> </div>
   <h2><%= @event.name %> </h2>
   <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
 
@@ -36,11 +36,27 @@
       </table>
       
       <table> 
+        <% if @final_charge > 0 %>
         <tr>
-          <td><strong> Total </strong></td>
-          <td class="ticket-amount"> <%= number_to_currency(sum) %></td>
+          <td><strong> Fee </strong></td>
+          <td class="fee-amount"> <%= number_to_currency(@final_fee) %></td>
         </tr>
+        <% end %>
+        <tr>   
+
+          <td><strong> Total </strong></td>
+          <td class="ticket-amount"> <%= number_to_currency(sum + @final_fee) %></td>
+        </tr>
+     
       </table> 
+           <%  if !@coupon.nil? && @coupon.is_active == true %>
+          <div class="input-group" >
+            <label>Coupon code</label>
+          <input type="text" class="input" name="couponCode" placeholder="Coupon Code" /> 
+          <p><a id="coupon-btn"> Apply coupon</a></p>
+          </div>
+
+      <% end %>
     </div>
 
 <!-- END RIGHT COLUMN -->
@@ -203,14 +219,31 @@
 
 
 
-
 <% if @final_charge != 0 %>
-<script type="text/javascript" src="/assets/payment-modal.js"></script>
+<script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
 <% end %>
 
 <script type="text/javascript">
   
 $(document).ready(function() {
+
+
+    var refcode = getParameterByName('refcode') != '' || getParameterByName('refcode') != null ? getParameterByName('refcode') : null;
+
+  if(refcode != '' || refcode != null ) {
+    $('#purchase-tickets_form').append('<input type="hidden" id="ref_code" name="ref_code" value="'+ refcode +'" />')
+  }
+
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
 
   
@@ -246,7 +279,74 @@ $(document).ready(function() {
   $("input[name='attendees["+ (i+1) +"][email]']").rules("add", {required: true, messages: { required: 'Please enter a valid email'}});
   }
 
+
+
+
+
+var couponDiscount = 0;
+var couponFixed = false;
+
+       $('#coupon-btn').on('click', function(e) {
+          e.preventDefault();
+
+          var $form = $('#purchase-tickets_form');
+          
+          $form.append($('<input type="hidden" name="couponApplied" value="'+ $('input[name="couponCode"]').val() +'"/>'));
+
+          //check coupon code
+          var data = {couponCode: $('input[name="couponCode"]').val(), eventId: $('#event_id').val()}
+          $.ajax({
+            type: "POST",
+            url: '/check-coupon',
+            data: data,
+            success: function(resp) {
+
+                $('.coupon-status').remove();
+              if(resp.status == "error") {
+                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
+                $('input[name="couponCode"]').val('');
+            
+              } else {
+                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
+           
+              }
+
+
+                couponDiscount = resp.discount/100;
+                couponFixed = resp.is_fixed;
+
+                var priceStringFromTitle = $('#ticket_title option:selected').text();
+
+                var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.lastIndexOf( ")" ) 
+                              );
+
+              if(couponFixed == false) {
+                var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+
+              } else {
+
+                var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+              }
+
+              if(resp.status != "error") {
+                $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+              }
+
+
+            },
+            error: function(resp) {
+
+      
+            }
+          });
+
+        });
+
+
 });
+
+
 
 </script>
 

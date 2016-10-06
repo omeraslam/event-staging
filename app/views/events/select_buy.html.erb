@@ -8,7 +8,7 @@
    </div>
  </div> 
  <div class="confirm-container">
-  <div class="breadcrumbs">1. <a href="">Ticket</a> 2. <a href="">Payment</a></div>
+  <div class="breadcrumbs">1. <a href="">Ticket</a> </div>
   <h2><%= @event.name %> </h2>
   <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
   <%= form_tag events_choose_tickets_path, :id => 'purchase-tickets_form' do |f|  %>
@@ -25,10 +25,11 @@
     <div class="ticket-list-container">
       <% @tickets.each do |ticket| %>
       <div class='ticket-container'>
-        <h4><%= ticket.title %></h4>
+        <h4><%= ticket.title %> - <%= number_to_currency(ticket.price) %></h4>
+        
         <small><%= ticket.description %></small>
 
-        <%= hidden_field_tag 'ticket_id', ticket.id %>
+        <%= hidden_field_tag "ticket_id["+ticket.id.to_s+']', ticket.id %>
         <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
       </div>
       <% end %>

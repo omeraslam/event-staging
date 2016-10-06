@@ -3,7 +3,7 @@
 <head>
   <script src="https://cdn.optimizely.com/js/5685873116.js"></script>
   
-  <title><%= title %></title>
+  <title><%= title %> - <%= action_name %></title>
   <meta name="description" content="<%= meta_description %>" />
   
   <meta property="og:image" content="<%= meta_fb %>" /> 
@@ -37,12 +37,10 @@
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
   <script type="text/javascript">
-  <% if (action_name == 'show_buy' || action_name == 'complete_registration') && !@account.nil?   %>
-    Stripe.setPublishableKey('<%= @account.stripe_publishable_key %>');
- <% else %>
+
     Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
 
- <% end %>
+
   </script>
 
 
