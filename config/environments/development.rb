@@ -13,6 +13,9 @@ Rails.application.configure do
   #force ssl on pages
   config.force_ssl = false
 
+  config.use_ssl = true
+  config.ssl_port = 3001  
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false

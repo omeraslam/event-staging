@@ -122,7 +122,6 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {  registrations: "registrations", sessions: "sessions", :omniauth_callbacks => "users/omniauth_callbacks" }
 
-
   authenticated do
     root :to => 'dashboard#index', as: :authenticated
   end

@@ -1,6 +1,8 @@
 #registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
 
+  force_ssl
+
   def create
     super
     UserMailer.welcome_email(@user).deliver unless @user.invalid?

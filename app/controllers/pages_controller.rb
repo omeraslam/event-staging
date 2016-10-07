@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
-
+  
+  force_ssl
   
   def home      
   end

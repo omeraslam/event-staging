@@ -21,6 +21,8 @@ module Ec
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
      config.time_zone = 'Pacific Time (US & Canada)'
      #config.force_ssl = false
+     #
+    config.use_ssl = false 
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
