@@ -135,6 +135,32 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. </p>
     <% tick_num = 1 %>
+    <% if @buyer_only == true %>
+      <% @purchaser = @line_items.first %>
+      <% @ticket = Ticket.where(:id => @purchaser.ticket_id.to_i).first %> 
+
+       <div class="ticket-buyer-form">
+            
+            <div class="input-group"> 
+              <div class="input-group-inline">
+                <label> First Name </label>
+                <input type="text" name="attendees[<%= tick_num %>][first_name]" placeholder="First Name" /> 
+              </div>
+
+              <div class="input-group-inline">
+                <label> Last Name </label>
+                <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
+              </div>
+            </div>
+
+
+          </div>  
+        
+
+      <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", @purchaser.id  %>
+
+
+    <% else %>
     <% @line_items.each do |line_item| %>
       
        <div class="ticket-holder">
@@ -157,8 +183,10 @@
           </div>  
       </div>
 
+
       <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", line_item.id  %>
       <% tick_num += 1 %>
+      <% end %>
   
 
     <% end %>

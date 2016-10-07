@@ -65,6 +65,8 @@ require 'rqrcode_png'
   # submit tickets to buy
   def choose_tickets
 
+
+
    @event = Event.find_by_slug(params[:slug]) or not_found
 
     @purchase = Purchase.new
@@ -103,11 +105,17 @@ require 'rqrcode_png'
 
   def submit_attendees
 
+
+    #replace with actual data
+
+
     #get variables
     @event = Event.find_by_slug(params[:slug].to_s) or not_found
     @user = User.where(:id => @event.user_id.to_i).first
     @account = Account.where(:user_id => @user.id.to_s).first 
     @purchase = Purchase.where(:oid => params[:oid]).first
+
+    @buyer_only = @event.buyer_only
 
 
 
@@ -136,8 +144,6 @@ require 'rqrcode_png'
       end
     end
 
-    logger.debug "FEE AT TOP: #{fee}"
-    logger.debug "SUM AT TOP: #{sum}"
                           
     fee = (fee * 100).round.to_i
 
@@ -240,9 +246,16 @@ require 'rqrcode_png'
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
                    position = index+1
-                   first_name = params[:attendees][(index+1).to_s]["first_name"]
-                   last_name = params[:attendees][(index+1).to_s]["last_name"]
-                   email = params[:purchase]["email"]
+
+                   if @buyer_only != true 
+                     first_name = params[:attendees][(index+1).to_s]["first_name"]
+                     last_name = params[:attendees][(index+1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   else
+                     first_name = params[:attendees][(1).to_s]["first_name"]
+                     last_name = params[:attendees][(1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   end
 
                    if index == 0
                     @purchase.first_name = first_name
@@ -259,6 +272,8 @@ require 'rqrcode_png'
                    @attendee.email = email
                    @attendee.event_id = @event.id
                    @attendee.line_item_id = lineitem.id
+                   @attendee.user_id = @user.id
+                   @attendee.attending =true
 
                    # save potential survey questions
 
@@ -318,11 +333,6 @@ require 'rqrcode_png'
         if @purchase.update(purchase_params)
 
   
-
-                  #save attendees
-
-
-          
               @event.tickets.all.each do |ticket|
 
                 @line_items = LineItem.where(:ticket_id => ticket.id, :purchase_id => @purchase.id).all
@@ -330,9 +340,17 @@ require 'rqrcode_png'
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
                    position = index+1
-                   first_name = params[:attendees][(index+1).to_s]["first_name"]
-                   last_name = params[:attendees][(index+1).to_s]["last_name"]
-                   email = params[:purchase]["email"]
+           
+                   if @buyer_only != true 
+                     first_name = params[:attendees][(index+1).to_s]["first_name"]
+                     last_name = params[:attendees][(index+1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   else
+                     first_name = params[:attendees][(1).to_s]["first_name"]
+                     last_name = params[:attendees][(1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   end
+
 
                    logger.debug "ATTENDEE INFO: #{first_name}"
                    @attendee = Attendee.new
@@ -343,6 +361,8 @@ require 'rqrcode_png'
                    @attendee.email = email
                    @attendee.event_id = @event.id
                    @attendee.line_item_id = lineitem.id
+                   @attendee.user_id = @user.id
+                   @attendee.attending =true
 
 
                   if index == 0
@@ -406,11 +426,14 @@ require 'rqrcode_png'
   # GET /events/1.json
 def show_buy 
 
+    #replace with actual data
 
      @event = Event.find_by_slug(params[:slug])
      @user = User.find(@event.user_id)
      @tickets = Ticket.where(:event_id => @event.id)
      @purchase = Purchase.find(params[:oid].to_i )
+
+    @buyer_only = @event.buyer_only
 
      @line_items = LineItem.where(:purchase_id => params[:oid])
 
