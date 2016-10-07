@@ -27,7 +27,7 @@
           <% if ticket_array.values[i].to_i != 0 %>
             <tr>
               <% @ticket_item = Ticket.where(:id => ticket_array.keys[i].to_i).first %>
-              <td class="ticket-quantity"><p> <%= @ticket_item.title %> X <%= ticket_array.values[i].to_i %></p></td>
+              <td ><p> <%= @ticket_item.title %> X <span class="ticket-quantity"><%= ticket_array.values[i].to_i %></span></p></td>
               <td class="ticket-amount"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %> </td>
             </tr>
             <% sum += (ticket_array.values[i].to_i * @ticket_item.price.to_i) %>
@@ -45,7 +45,7 @@
         <tr>   
 
           <td><strong> Total </strong></td>
-          <td class="ticket-amount"> <%= number_to_currency(sum + @final_fee) %></td>
+          <td class="total-amount"> <%= number_to_currency(sum + @final_fee) %></td>
         </tr>
      
       </table> 
@@ -177,8 +177,6 @@
 <% end %>
 
 
-
-
   </div>  
 <!-- end left column -->
 
@@ -194,11 +192,6 @@
 </div>
 
 
-
-
-
-
-<!-- WHAT THE HECK -->
 
 
 
@@ -315,14 +308,38 @@ var couponFixed = false;
                 couponDiscount = resp.discount/100;
                 couponFixed = resp.is_fixed;
 
-                var priceStringFromTitle = $('#ticket_title option:selected').text();
+               
 
-                var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
-                                priceStringFromTitle.lastIndexOf( ")" ) 
+
+                var fee_price = 0
+                var total_ticket_price = 0
+              if(couponFixed == false) {
+                $('.ticket-amount').each(function( index ) {
+
+                   var priceStringFromTitle = $(this).html()
+
+
+                    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.length-1
                               );
 
-              if(couponFixed == false) {
-                var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+                     var ticket_price = filteredPrice - (filteredPrice * couponDiscount);
+                    total_ticket_price += ticket_price
+
+
+                    $(this).html('$' + parseFloat(Math.round(ticket_price * 100) / 100).toFixed(2));
+
+                    if(ticket_price > 0) {
+                       fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * .99)
+
+                    }
+                   
+
+
+                });
+              
+                $('.fee-amount').html('$' + parseFloat(Math.round(fee_price * 100) / 100).toFixed(2));
+                var total_price = $('.total-amount').html( '$' + parseFloat(Math.round((fee_price+total_ticket_price) * 100) / 100).toFixed(2) )
 
               } else {
 
