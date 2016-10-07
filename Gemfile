@@ -26,6 +26,8 @@ gem 'stripe'
 
 gem 'sitemap_generator'
 
+gem 'rqrcode'
+
 gem 'icalendar'
 
 gem 'unsplash'
@@ -100,6 +102,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Use jquery-ui rails
 gem 'jquery-ui-rails'
+gem 'rqrcode_png'
 
 gem 'jquery-fileupload-rails'
 
@@ -123,6 +126,9 @@ gem 'friendly_id'
 
 
 gem 'gravtastic'
+gem 'chart-js-rails'
+gem 'jquery-tablesorter'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

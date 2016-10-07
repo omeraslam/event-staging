@@ -1055,10 +1055,10 @@ body.invite-view {
 	position:fixed;
 	right:20px;
 	background:#fff;
-	width:310px;
+	width:360px;
 	z-index: 99999999999;
 	box-shadow:4px 4px 20px rgba(0,0,0,.2);
-	bottom:-380px;
+	bottom:-450px;
 	transition: bottom .3s ease-in-out;
 
 
@@ -1089,7 +1089,7 @@ body.invite-view {
 
 	form {
 		padding:20px;
-		height: 380px;
+		height: 450px;
 
 		p {
 			font-size:12px;
@@ -1174,3 +1174,14 @@ body.invite-view {
 	//line-height:0;
 }
 
+
+
+.input[type="radio"], input[type="checkbox"] {
+	float: left;
+    width: initial;
+    margin:0 10px 0 0;
+}
+
+textarea {
+	border:1px solid #dcdcdc;
+}

@@ -2,15 +2,26 @@
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
+
+  include ActionView::Helpers::NumberHelper
+
   
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
 
   #require 'chunky_png'
 
-  # require 'barby'
-  # require "barby/barcode/code_128"
-  # require 'barby/outputter/png_outputter'
+  require 'barby'
+  require "barby/barcode/code_128"
+  require 'barby/outputter/png_outputter'
+
+
+  # Controller
+#require 'rqrcode'
+require 'rqrcode_png'  
+
+ 
+
 
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
@@ -73,6 +84,36 @@ def show_buy
     @final_charge = sum * 100 #add all line items to figure out final price
 end
 
+def confirm_ticket
+
+  if signed_in?
+    @user = current_user
+  end
+   
+  @event = Event.find_by_slug(params[:slug])
+
+
+
+  if @event.user_id != @user.id.to_s || !signed_in?
+      #&& current_user.id.to_i != @event.user_id.to_i
+      redirect_to root_path
+  else  
+
+
+    @purchase = Purchase.where(:confirm_token => params[:oid])
+    @line_item = LineItem.where(:id => params[:luid].to_i).first
+
+    if @line_item.redeemed == false
+      @line_item.redeemed = true
+      @line_item.save
+      @status = true
+
+    else
+      @status = false
+    end
+  end
+
+end
 
 
 def show_ticket
@@ -84,12 +125,20 @@ def show_ticket
 
 
 
-  #barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
-  # File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
-  #   f.write barcode.to_png(:height => 20, :margin => 5)
-  # }
+  barcode = Barby::Code128B.new(params[:oid].to_s + @event.slug.to_s)
+  File.open('app/assets/images/bc/'+params[:oid].to_s + @event.slug.to_s + '.png', 'w'){|f|
+    f.write barcode.to_png(:height => 20, :margin => 5)
+  }
+
+     @qr_codes = []
+        @line_items.each do |lineitem|
+          logger.debug "#{@purchase.confirm_token.to_s + ' || - || ' + @event.slug.to_s + lineitem.id.to_s}"
+          qr  = RQRCode::QRCode.new('http://www.eventcreate.com/' + @event.slug.to_s + '/confirm-ticket?oid='+ @purchase.confirm_token.to_s + '&luid=' + lineitem.id.to_s).to_img.resize(200, 200).to_data_url
+          @qr_codes.push(qr)
+        end 
 
 
+ logger.debug "QRRRRRR : #{@qr}"
   @tickets_per_page = 4
   respond_to do |format|
     format.html
@@ -167,6 +216,30 @@ def stripe_redirect
 
 end
 
+def check_coupon
+
+  @code = params[:couponCode]
+
+
+  @coupon = get_coupon(@code, params[:eventId])
+
+  logger.debug "coupon wow: #{@coupon}"
+  if !@coupon.nil?
+    if @coupon.is_fixed == true
+      @return_obj = {status: "ok", message: "Discount applied: $" + (number_with_precision(@coupon.discount, precision: 2)).to_s + ' off!', is_fixed: @coupon.is_fixed, discount: @coupon.discount}
+    else
+
+      @return_obj = {status: "ok", message: "Discount applied: "+(number_with_precision(@coupon.discount, precision: 0)).to_s + "% off!", is_fixed: @coupon.is_fixed, discount: @coupon.discount}
+    end
+  else
+    @return_obj = {status: "error", message: "Coupon has expired or is invalid: No coupon applied"}
+  end
+
+  render json: @return_obj  
+
+
+end
+
 def complete_registration
 
   #get variables
@@ -179,6 +252,13 @@ def complete_registration
   quantity_num =   params[:ticket_quantity][ticket_id]  
   @ticket = Ticket.find((ticket_id).to_i)
 
+
+  @code = params[:couponCode]
+
+  logger.debug "COUPON CODE iS:: #{@code}"
+
+
+
   #calculate tickets
   sum = 0 
   fee = 0
@@ -188,45 +268,118 @@ def complete_registration
 
   sum = @ticket.price.to_f * quantity_num.to_i
   if @ticket.price.to_f != 0
-      fee += 0.99 * quantity_num.to_i
       fee += (@ticket.price.to_f * @fee_rate) * quantity_num.to_i
   end 
+
+  logger.debug "FEE AT TOP: #{fee}"
                         
   fee = (fee * 100).round.to_i
 
   @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
+  if !@code.blank?
+    @coupon = get_coupon(@code, @event.id)
+
+
+    if @coupon.nil?
+      # flash[:error] = 'Coupon code is not valid or expired.'
+      # redirect_to slugger_path(@event)
+      #return
+      #
+      @final_amount = @final_charge
+    else
+      #@discount_amount = @final_charge * @discount
+      if @coupon.is_fixed == true
+        @final_amount = @final_charge - (@coupon.discount * 100).to_i
+        if @final_amount < 0
+          flash[:error] = 'Coupon code is not valid or expired.'
+          redirect_to slugger_path(@event)
+        end
+      else
+        @discount_amount = @final_charge * (@coupon.discount/100)
+  
+        @final_amount = @final_charge - @discount_amount.to_i
+  
+        fee = (fee - (fee * (@coupon.discount/100))).to_i
+
+        logger.debug "FINAL AMOUNT BOUT THAT: #{@final_amount}"
+
+      end
+
+
+    end
+  else
+    @final_amount = @final_charge
+
+
+  end
+
+  if @final_amount > 0
+    fee += 99 * quantity_num.to_i
+  end
+
+ 
+  
+
+
   logger.debug "FINAL SUM: #{@final_charge}"
   logger.debug "FINAL FEE: #{fee}"
 
 
+# 10:21:43 web.1  | DISCOUNT RATE iS:: 50.0
+# 10:21:43 web.1  | FINAL SUM: 10000
+# 10:21:43 web.1  | FINAL FEE: -12201.0
+# 10:21:43 web.1  | FINAL CHARGE WITH DISCOUNT: -490000.0
+
+
   #Get the credit card details submitted by the form
   token = params[:stripeToken]
-  amount = @final_charge
+  amount = @final_amount
+
+  logger.debug "FINAL CHARGE WITH DISCOUNT: #{amount}"
   
     if amount > 0
 
       #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
+      @purchase.total_order = amount
+      @purchase.total_fee = fee
+      @purchase.affiliate_code = params[:ref_code]
       if @purchase.save
       else
       end
 
  
       if @purchase.update(purchase_params)
+        if !@code.blank? && !@coupon.nil?
+          charge_metadata = {
+            :order_id=> @purchase.id, 
+            :purchase_email => @purchase.email,
+            :coupon_code => @code,
+            :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%"
+          }
+        else
+          charge_metadata = {
+            :order_id=> @purchase.id, 
+            :purchase_email => @purchase.email
+          }
+        end 
 
         begin
           charge = Stripe::Charge.create({
-            :amount => amount,
+            :amount => (amount + fee),
             :currency => @event.currency_type.downcase,
             :source => token,
             :application_fee => fee,
-
-            :metadata => {"order_id" => @purchase.id, "purchase_email" => @purchase.email}
+            :metadata => charge_metadata
           }, {:stripe_account => @account.stripe_user_id})
           logger.debug "CHARGE is paid:::: #{charge['paid']}"
           if charge["paid"] == true
+            @purchase.stripe_id = charge["id"]
+            if @purchase.update(purchase_params)
+            else
+            end
            #Save customer to the db
            
 
@@ -257,6 +410,7 @@ def complete_registration
                     @attendee.email = params[:purchase]['email']
                     @attendee.user_id = params[:user_id]
                     @attendee.event_id = params[:event_id]
+                    logger.debug "GUEST ITEM ID : #{guest_item.id.to_s}"
                     @attendee.line_item_id = guest_item.id.to_s
                     @attendee.attending = true
                       if @attendee.save
@@ -310,6 +464,8 @@ def complete_registration
 #purchase
       @purchase = Purchase.new
       @purchase.event_id = @event.id.to_s
+      @purchase.total_order = amount
+      @purchase.affiliate_code = params[:ref_code]
 
       if @purchase.save
       else
@@ -344,6 +500,7 @@ def complete_registration
           @attendee.email = params[:purchase]['email']
           @attendee.user_id = params[:user_id]
           @attendee.event_id = params[:event_id]
+          @attendee.line_item_id = guest_item.id.to_s
           @attendee.attending = true
             if @attendee.save
               #save attendee_id to line_items
@@ -392,6 +549,11 @@ def show_confirm
   @eventurl = 'http://'+ ENV['SITE_NAME'] + '/' + @event.slug
   @purchase = Purchase.where(:confirm_token => params[:oid] ).first
   @line_items = LineItem.where(:purchase_id => @purchase.id)
+
+  if(!@event.layout_style?)
+      @event.layout_id = '1'
+      @event.layout_style = 'default'
+    end
 
      
 end
@@ -461,6 +623,9 @@ def show
 
     @total = 0
 
+    @coupons = Coupon.where(:event_id => @event.id).all
+    logger.debug "@coupons ==== #{@coupons}"
+
     # @tickets.each do |ticket|
     #   Purchase.where(:event_id => @event.id).all.each do |purchase|
     #     @total += LineItem.where(:purchase_id => purchase.id).count
@@ -508,6 +673,9 @@ def show
       end
     end
 
+    @coupon = Coupon.where(:event_id => @event.id).first.nil? ? Coupon.new : Coupon.where(:event_id => @event.id).first
+
+    @slug = params[:slug]
 
 
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
@@ -893,7 +1061,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button, :currency_type)
+      valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button, :currency_type, :confirmation_text)
 
 
       date_format = '%m/%d/%Y'
@@ -909,7 +1077,7 @@ def show
     end
 
     def purchase_params
-      params.require(:purchase).permit( :email, :first_name, :last_name, :phone_number, :oid)
+      params.require(:purchase).permit( :email, :first_name, :last_name, :phone_number, :oid, :total_order, :total_fee, :affiliate_code, :stripe_id)
     end
 
     def line_item_params
@@ -957,6 +1125,13 @@ def show
         redirect_to root_url(subdomain: 'www') unless @user
       end
 
+
+      def get_coupon(code, eventId)
+        # Normalize user input
+        code = code.gsub(/\s+/, '')
+        code = code.upcase
+        @coupon_code = Coupon.where(:promo_code => code, :event_id => eventId).first
+      end
 
 
   end

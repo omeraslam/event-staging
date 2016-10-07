@@ -679,6 +679,35 @@ font-family: "futura-pt",sans-serif;
 
 
 
+//hot fixes for css issues 
+
+.event-show table:not(.ui-datepicker-calendar) td, .event-show table:not(.ui-datepicker-calendar) th {
+	min-width:0 !important;
+}
+
+img.fr-dib.fr-draggable {
+    max-width: 100%;
+    height: auto !important;
+}
+
+#rsvp-new-modal select {
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist;
+
+}
+
+
+#rsvp-new-modal select {
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist;
+    
+
+}
+
+
+
 
 //global mobile layouts
 

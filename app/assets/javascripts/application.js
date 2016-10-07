@@ -26,6 +26,9 @@
 //= require jquery.payment
 //= require turbolinks
 //= require froala_editor.min.js
+//= require Chart
+//= require jquery-tablesorter
+
 
 // Include other plugins.
 //= require plugins/align.min.js

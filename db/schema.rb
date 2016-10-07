@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915142044) do
+ActiveRecord::Schema.define(version: 20160928232556) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -50,6 +50,19 @@ ActiveRecord::Schema.define(version: 20160915142044) do
     t.datetime "updated_at"
   end
 
+  create_table "coupons", force: true do |t|
+    t.string   "promo_code"
+    t.float    "discount"
+    t.string   "coupon_type"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_active",   default: false
+    t.boolean  "is_fixed",    default: false
+  end
+
+  add_index "coupons", ["event_id"], name: "index_coupons_on_event_id"
+
   create_table "events", force: true do |t|
     t.string   "name"
     t.text     "description",        limit: 255
@@ -81,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160915142044) do
     t.text     "html_footer_1",      limit: 255
     t.text     "html_footer_button", limit: 255
     t.string   "currency_type",                  default: "USD"
+    t.text     "confirmation_text"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
@@ -113,6 +127,7 @@ ActiveRecord::Schema.define(version: 20160915142044) do
     t.string   "ticket_id"
     t.string   "attendee_id"
     t.string   "purchase_id"
+    t.boolean  "redeemed",    default: false
   end
 
   create_table "purchases", force: true do |t|
@@ -126,6 +141,9 @@ ActiveRecord::Schema.define(version: 20160915142044) do
     t.string   "stripe_id"
     t.integer  "event_id"
     t.string   "confirm_token"
+    t.string   "affiliate_code"
+    t.float    "total_fee"
+    t.float    "total_order"
   end
 
   add_index "purchases", ["event_id"], name: "index_purchases_on_event_id"

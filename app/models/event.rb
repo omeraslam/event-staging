@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
         belongs_to :user
         has_many :purchases, dependent: :destroy
         has_many :tickets, dependent: :destroy
+        has_many :coupons, dependent: :destroy
         mount_uploader :background_img, PictureUploader
       
         

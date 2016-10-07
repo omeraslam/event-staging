@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :coupons
+
   resources :accounts
 
   resources :line_items
@@ -153,6 +155,8 @@ Rails.application.routes.draw do
   post '/:slug/contact-host', to: 'events#contact_host', :as => :contact_host
   #slug 
   post '/:slug/tickets' => 'tickets#create', :as => :slug_create
+  delete '/:slug/purchases/:id' => 'purchases#destroy', :as => :slug_purchase_destroy
+  #/purchases/:id(.:format)  purchases#destroy
   get '/:slug' => 'events#show', :as => :slugger
   get '/:slug/export' => 'events#export_events', :as => :export_events
   patch '/users/:id/update', to: 'users#update', :as => :update_user
@@ -160,6 +164,9 @@ Rails.application.routes.draw do
   post '/:slug/updatetheme_post', to: 'events#update_theme', :as => :update_event_post
   put '/:slug/updatetheme', to: 'events#update_theme'
   get '/:slug/unsplash-search', to: 'events#unsplash_search'
+  post '/:slug/coupons' => 'coupons#create', :as => :coupon_create
+  post '/coupons/:id/edit' => 'coupons#update'
+  post '/check-coupon' => 'events#check_coupon'
 
 
   #buy tickets
@@ -170,6 +177,7 @@ Rails.application.routes.draw do
   get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
   get '/:slug/confirm' => 'events#show_confirm' , :as => :show_confirm
   get '/:slug/ticket' => 'events#show_ticket' , :as => :show_ticket
+  get '/:slug/confirm-ticket' => 'events#confirm_ticket' , :as => :confirm_ticket
   post '/tickets/:id/edit' => 'tickets#update'
 
   get '/oauth/callback' do 
