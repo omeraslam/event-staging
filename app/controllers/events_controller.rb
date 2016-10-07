@@ -9,7 +9,9 @@ class EventsController < ApplicationController
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
 
-  before_filter :ensure_proper_subdomain, :only => "checkout_page"
+  before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
+
+
 
 
 
@@ -1032,8 +1034,6 @@ def show
 
     @hash = AmazonSignature::data_hash
 
-
-
      if signed_in?
       @user = current_user
       @account = Account.where(:user_id => @user.id).first.nil? ? nil : Account.where(:user_id => @user.id).first
@@ -1041,8 +1041,12 @@ def show
     else
       @account = nil
     end
-    @event = Event.find_by_slug(params[:slug]) or not_found
 
+    if params[:slug].nil?
+      @event = Event.find_by_slug(request.subdomain) or not_found
+    else
+      @event = Event.find_by_slug(params[:slug]) or not_found
+    end
 
     @tickets = @event.tickets.all 
 
@@ -1566,12 +1570,11 @@ def show
 
 
       def ensure_proper_subdomain
-        logger.debug "request after cut host with subd: #{request.host_with_port}"
-        puts "request.host_with_port"
-        # if request.host_with_port != 'checkout.lvh.me:3000'
-        #   redirect_to params.merge({host: 'checkout.lvh.me:3000'})
-        # end
+        if request.host_with_port != 'checkout.lvh.me:3000'
+          redirect_to params.merge({host: 'checkout.lvh.me:3000'})
+        end
       end
+
 
 
   end
