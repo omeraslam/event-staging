@@ -246,7 +246,7 @@ require 'rqrcode_png'
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
                    position = index+1
-
+                  logger.debug "BUYER ONLY::: #{@buyer_only != true}"
                    if @buyer_only != true 
                      first_name = params[:attendees][(index+1).to_s]["first_name"]
                      last_name = params[:attendees][(index+1).to_s]["last_name"]
