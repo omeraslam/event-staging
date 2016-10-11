@@ -8,10 +8,10 @@
 <div class="container checkout-body">
     <div class="breadcrumbs hidden">1. <a href="">Ticket</a> </div>
 
-
-    <h1><%= @event.name %> </h1>
-    <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
-
+    <div class="checkout-header-text">
+        <h1><%= @event.name %> </h1>
+        <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
+    </div>
 
 
     <!-- START select form  -->
@@ -105,5 +105,5 @@
 
 
 <div class="checkout-footer text-center"> 
-    <div>Event websites by </div> 
+    <div><i class="fa fa-lock"></i> Secured with 256-bit encryption </div> 
 </div>

@@ -10,8 +10,10 @@
 
     <div class="breadcrumbs hidden">1. <a href="">Ticket</a> 2. <a href="">Payment</a> </div>
   
-    <h1><%= @event.name %> </h1>
-    <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
+    <div class="checkout-header-text">
+        <h1><%= @event.name %> </h1>
+        <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
+    </div>
 
 
     <div class="row">
@@ -79,7 +81,6 @@
                 <section>
 
                     <h4> Additional Details</h4> 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 
                     <% tick_num = 1 %>
 
@@ -161,31 +162,31 @@
 
               <% ticket_array = @line_items.group(:ticket_id).count %>
               <% ticket_array.keys[0] %>
-              <table> 
+              <table class="table"> 
                 <% sum = 0 %>
                 <% (0..(ticket_array.count-1)).each do |i| %>
                   <% if ticket_array.values[i].to_i != 0 %>
                     <tr>
                       <% @ticket_item = Ticket.where(:id => ticket_array.keys[i].to_i).first %>
-                      <td ><p> <%= @ticket_item.title %> X <span class="ticket-quantity"><%= ticket_array.values[i].to_i %></span></p></td>
-                      <td class="ticket-amount"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %> </td>
+                      <td > <%= @ticket_item.title %> X <span class="ticket-quantity"><%= ticket_array.values[i].to_i %></span></td>
+                      <td class="text-right"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %> </td>
                     </tr>
                     <% sum += (ticket_array.values[i].to_i * @ticket_item.price.to_i) %>
                   <% end %>
                 <% end %>
               </table>
               
-              <table> 
+              <table class="table"> 
                 <% if @final_charge > 0 %>
                 <tr>
-                  <td><strong> Fee </strong></td>
-                  <td class="fee-amount"> <%= number_to_currency(@final_fee) %></td>
+                  <td><strong>Service Fee </strong></td>
+                  <td class="text-right"> <%= number_to_currency(@final_fee) %></td>
                 </tr>
                 <% end %>
                 <tr>   
 
                   <td><strong> Total </strong></td>
-                  <td class="total-amount"> <%= number_to_currency(sum + @final_fee) %></td>
+                  <td class="text-right"> <%= number_to_currency(sum + @final_fee) %></td>
                 </tr>
              
               </table> 
@@ -215,12 +216,9 @@
 
 
 
-
 <div class="checkout-footer text-center"> 
-    <div>Event websites by </div> 
+    <div><i class="fa fa-lock"></i> Secured with 256-bit encryption </div> 
 </div>
-
-
    
 
     
