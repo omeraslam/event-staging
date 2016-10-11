@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007222738) do
+
+ActiveRecord::Schema.define(version: 20161010224116) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -97,6 +98,7 @@ ActiveRecord::Schema.define(version: 20161007222738) do
     t.text     "confirmation_text"
     t.boolean  "paid_event",                     default: false
     t.boolean  "buyer_only",                     default: true
+
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
@@ -181,6 +183,7 @@ ActiveRecord::Schema.define(version: 20161007222738) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "event_id"
+    t.boolean  "is_active",    default: true
   end
 
   create_table "users", force: true do |t|
