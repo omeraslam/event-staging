@@ -12,6 +12,10 @@
             <i class="icon icon-users"> </i> <span> Attendees</span>
         </a>   
 
+        <a class="event-nav-link toggleEditorPanel" id="editor-tool-orders" data-target="editor-tool-orders" >
+            <i class="icon icon-doc-lines"> </i> <span> Orders</span>
+        </a>  
+
         <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'event-nav-link', target: '_blank' %>        
      
          
@@ -64,6 +68,8 @@
         <%= render 'events/partials/editor/editor_ticketing_new' %>
         <%= render 'events/partials/editor/editor_coupons_new' %>
         <%= render 'events/partials/editor/editor_questions_new' %>
+
+        <%= render 'events/partials/editor/editor_orders_new' %>
 
         <%# render 'events/partials/editor/editor_settings' %>
         <%# render 'events/partials/editor/editor_coupons' %>
