@@ -705,14 +705,7 @@
                     <p>Limit the ticket quantity that a user can buy at one time.</p>
                 </div>
 
-                <div class="input-group">
-                    <label>Ticket Active</label>
-                    <% set_disable = (Ticket.where(:event_id => @event.id.to_s, :is_active => true ).count <= 1) &&  @ticket.is_active == true  %>
-                    <%= f.select(:is_active, [['Active', true],['Inactive', false]], {}, {:disabled => set_disable}) %>
-                        <% if set_disable == true %>
-                        <p>There must be at least one active ticket for an event.</p>
-                        <% end %>
-                  </div>
+          
 
 
 
