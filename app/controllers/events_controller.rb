@@ -623,6 +623,8 @@ def show
 
     @tickets = @event.tickets.all 
 
+    @tickets_for_purchase = @event.tickets.where(:is_active => true)
+
     @total = 0
 
     @coupons = Coupon.where(:event_id => @event.id).all
@@ -666,7 +668,7 @@ def show
 
     @has_paid_ticket = false
     @tickets.each_with_index do |ticket, index|
-      if index == 0
+      if @current_ticket.nil? && ticket.is_active == true
         @current_ticket = ticket
       end 
       if ticket.price.to_i > 0 
