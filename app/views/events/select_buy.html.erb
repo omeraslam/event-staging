@@ -1,0 +1,109 @@
+<% title @event.name.html_safe %>
+<% meta_description 'Create stunning websites in seconds.' %>
+
+
+<div class="container-fluid checkout-header" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"></div> 
+
+
+<div class="container checkout-body">
+    <div class="breadcrumbs hidden">1. <a href="">Ticket</a> </div>
+
+
+    <h1><%= @event.name %> </h1>
+    <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
+
+
+
+    <!-- START select form  -->
+
+    <%= form_tag events_choose_tickets_path, :id => 'purchase-tickets_form' do |f|  %>
+
+
+        <% if @purchase.errors.any? %>
+            <div class="alert error">
+                <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this event from being saved:</h2>
+                <ul>
+                <% @purchase.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+
+        <% @tickets.each do |ticket| %>
+            <div class='row ticket-container'>
+                <div class="col-md-8">
+                    <h4><%= ticket.title %> - <%= number_to_currency(ticket.price) %></h4>
+                    <small><%= ticket.description %> Cras odio erat, luctus eu enim quis, rhoncus fringilla urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet justo risus. </small>
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="col-md-3 col-md-offset-1">
+                    <%= hidden_field_tag "ticket_id["+ticket.id.to_s+']', ticket.id %>
+
+                <!-- if past stop date, registration closed -->
+                <%= DateTime.now.to_date %>
+                    <% if !ticket.stop_date.nil? &&  ticket.stop_date.to_date > DateTime.now.to_date %>
+                    
+                    <!-- if ticket available is less than buy limit  -->
+
+                               SOLD TICKETS: <%=  LineItem.where(:ticket_id => ticket.id).count %>
+                    TICKET LIMIT: <%=  ticket.ticket_limit %>
+                        <% if ticket.ticket_limit > LineItem.where(:ticket_id => ticket.id).count %>
+                        
+                        <% if ticket.buy_limit <= (ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id).count) %> 
+                            <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
+                       <% else %>
+                            <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..(ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id).count)).step(1)) %>
+                       
+                       <% end %>
+
+                        <% else %>
+                    <!-- if past ticket availabilty, sold out -->
+                        <%= select_tag "ticket_quantity["+ticket.id.to_s+']', "<option>Sold out</option>".html_safe, {:disabled => true} %>
+                        <% end %>
+
+
+                    <% else %>
+
+
+                        <%= select_tag "ticket_quantity["+ticket.id.to_s+']', "<option>No longer available </option>".html_safe, {:disabled => true} %>
+               
+
+
+                    <% end %>
+                </div>
+
+
+
+            </div>
+        <% end %>
+
+
+        <%= hidden_field_tag :user_id, @user.id  %>
+        <%= hidden_field_tag :event_id, @event.id  %>
+        
+        <input type="submit" value="Continue" class="btn btn-primary" />
+
+
+    <% end %>
+    <!-- END select form -->
+
+
+
+</div>
+
+
+
+
+<div class="checkout-footer text-center"> 
+    <div>Event websites by </div> 
+</div>

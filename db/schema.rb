@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928232556) do
+ActiveRecord::Schema.define(version: 20161010224116) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160928232556) do
     t.text     "html_footer_button", limit: 255
     t.string   "currency_type",                  default: "USD"
     t.text     "confirmation_text"
+    t.boolean  "paid_event",                     default: false
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
@@ -127,7 +128,7 @@ ActiveRecord::Schema.define(version: 20160928232556) do
     t.string   "ticket_id"
     t.string   "attendee_id"
     t.string   "purchase_id"
-    t.boolean  "redeemed",    default: false
+    t.boolean  "redeemed",    default: true
   end
 
   create_table "purchases", force: true do |t|
@@ -179,6 +180,7 @@ ActiveRecord::Schema.define(version: 20160928232556) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "event_id"
+    t.boolean  "is_active",    default: true
   end
 
   create_table "users", force: true do |t|

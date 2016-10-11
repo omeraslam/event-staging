@@ -556,6 +556,9 @@
             <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
             <% @total += LineItem.where(:purchase_id => purchase.id.to_s, :ticket_id => ticket.id.to_s).count %>
             <% end %>
+
+
+
             <small>Tickets quantity left: <%= ticket.ticket_limit.to_i - @total.to_i  %>/<%= ticket.ticket_limit %> </small>
           <% if ticket.price == 0 %>
               <p>Free</p>
@@ -691,15 +694,24 @@
 
 
 
-                  <div class="input-group">
+                <div class="input-group">
                     <label> Event capacity</label>
                     <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
-                  </div>
+                </div>
 
-                        <div class="input-group">
+                <div class="input-group">
                     <label>Buy Limit</label>
                     <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '1' %>
                     <p>Limit the ticket quantity that a user can buy at one time.</p>
+                </div>
+
+                <div class="input-group">
+                    <label>Ticket Active</label>
+                    <% set_disable = (Ticket.where(:event_id => @event.id.to_s, :is_active => true ).count <= 1) &&  @ticket.is_active == true  %>
+                    <%= f.select(:is_active, [['Active', true],['Inactive', false]], {}, {:disabled => set_disable}) %>
+                        <% if set_disable == true %>
+                        <p>There must be at least one active ticket for an event.</p>
+                        <% end %>
                   </div>
 
 
