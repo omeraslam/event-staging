@@ -1,6 +1,9 @@
 <% title @event.name.html_safe %>
 <% meta_description 'Create stunning websites in seconds.' %>
 
+<% flash.each do |key, value| %>
+  <%= content_tag :p, value, class: "alert alert-danger #{key}" %>
+<% end %>
 
 <div class="container-fluid checkout-header" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"></div> 
 
@@ -38,47 +41,27 @@
                     <small><%= ticket.description %> Cras odio erat, luctus eu enim quis, rhoncus fringilla urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet justo risus. </small>
                 </div>
 
-
-
-
-
-
-
-
-
                 <div class="col-md-3 col-md-offset-1">
                     <%= hidden_field_tag "ticket_id["+ticket.id.to_s+']', ticket.id %>
 
                 <!-- if past stop date, registration closed -->
-                <%= DateTime.now.to_date %>
                     <% if !ticket.stop_date.nil? &&  ticket.stop_date.to_date > DateTime.now.to_date %>
                     
                     <!-- if ticket available is less than buy limit  -->
 
-                               SOLD TICKETS: <%=  LineItem.where(:ticket_id => ticket.id).count %>
-                    TICKET LIMIT: <%=  ticket.ticket_limit %>
                         <% if ticket.ticket_limit > LineItem.where(:ticket_id => ticket.id).count %>
                         
                         <% if ticket.buy_limit <= (ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id).count) %> 
                             <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
                        <% else %>
                             <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..(ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id).count)).step(1)) %>
-                       
                        <% end %>
-
                         <% else %>
                     <!-- if past ticket availabilty, sold out -->
                         <%= select_tag "ticket_quantity["+ticket.id.to_s+']', "<option>Sold out</option>".html_safe, {:disabled => true} %>
                         <% end %>
-
-
                     <% else %>
-
-
                         <%= select_tag "ticket_quantity["+ticket.id.to_s+']', "<option>No longer available </option>".html_safe, {:disabled => true} %>
-               
-
-
                     <% end %>
                 </div>
 

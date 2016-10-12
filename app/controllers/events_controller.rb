@@ -51,7 +51,13 @@ require 'rqrcode_png'
   
   # select tickets to buy
   def select_buy
+
+
     @event = Event.find_by_slug(params[:slug])
+
+
+    @purchase = Purchase.where(:event_id => @event.id, :first_name => nil ).destroy_all
+
     if(!@event.layout_style?)
       @event.layout_id = '1'
       @event.layout_style = 'default'
@@ -69,38 +75,51 @@ require 'rqrcode_png'
 
    @event = Event.find_by_slug(params[:slug]) or not_found
 
-    @purchase = Purchase.new
-    @purchase.event_id = @event.id
-    if @purchase.save
-
-
-      @event.tickets.all.each do |ticket|
-
-        num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
-        (1..num_tickets).each do |i| 
-          @line_item = LineItem.new
-          @quantity = params[:ticket_quantity][ticket.id.to_s]
-          ticket_id = params[:ticket_id][ticket.id.to_s]
-
-          @line_item.ticket_id = ticket_id
-          @line_item.quantity = @quantity
-          @line_item.purchase_id = @purchase.id.to_s
-
-          if @line_item.save
-
-
-          else
-                    
-          end
-        end
-      end
-
-    else
-
+    logger.debug "TICKET QUANTITY: #{params[:ticket_quantity]}"
+    ticket_sum = 0
+    params[:ticket_quantity].each do |key, value|
+      logger.debug "#{value}"
+      ticket_sum += value.to_i
     end
 
-    redirect_to show_buy_path(:oid =>@purchase)
+    if ticket_sum == 0
 
+      respond_to do |format|
+        format.html { redirect_to select_buy_path, :flash => { :error => 'Please select a ticket' }}
+      end
+    else 
+      @purchase = Purchase.new
+      @purchase.event_id = @event.id
+      if @purchase.save
+
+
+        @event.tickets.all.each do |ticket|
+
+          num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
+          (1..num_tickets).each do |i| 
+            @line_item = LineItem.new
+            @quantity = params[:ticket_quantity][ticket.id.to_s]
+            ticket_id = params[:ticket_id][ticket.id.to_s]
+
+            @line_item.ticket_id = ticket_id
+            @line_item.quantity = @quantity
+            @line_item.purchase_id = @purchase.id.to_s
+
+            if @line_item.save
+
+
+            else
+                      
+            end
+          end
+        end
+
+      else
+
+      end
+
+      redirect_to show_buy_path(:oid =>@purchase)
+    end
   end
 
   def submit_attendees
