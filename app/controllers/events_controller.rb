@@ -64,7 +64,7 @@ require 'rqrcode_png'
 
     @user = User.where(:id => @event.user_id.to_i).first
     @tickets = @event.tickets.all 
-    
+
     @tickets_for_purchase = @event.tickets.where(:is_active => true)
     @purchase = Purchase.new
   end
@@ -102,7 +102,7 @@ require 'rqrcode_png'
             @quantity = params[:ticket_quantity][ticket.id.to_s]
             ticket_id = params[:ticket_id][ticket.id.to_s]
 
-            @line_item.ticket_id = ticket_id
+            @line_item.ticket_id = ticket_id.to_s
             @line_item.quantity = @quantity
             @line_item.purchase_id = @purchase.id.to_s
 
