@@ -484,7 +484,7 @@ def show_buy
     @event.tickets.all.each do |ticket|
 
       #get line item
-      @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id).all
+      @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
       @line_items.each_with_index do |lineitem, index|
 
         sum += ticket.price.to_f
