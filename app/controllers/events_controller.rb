@@ -133,7 +133,7 @@ require 'rqrcode_png'
     @event = Event.find_by_slug(params[:slug].to_s) or not_found
     @user = User.where(:id => @event.user_id.to_i).first
     @account = Account.where(:user_id => @user.id.to_s).first 
-    @purchase = Purchase.where(:oid => params[:oid]).first
+    @purchase = Purchase.where(:id => params[:oid]).first
 
     @buyer_only = @event.buyer_only
 
