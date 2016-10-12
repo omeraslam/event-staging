@@ -48,7 +48,6 @@ Rails.application.routes.draw do
 
   #dashboard routes
   get 'dashboard/index'
-  get '/checkout-page' => 'events#checkout_page'
   post ':slug/choose-tickets' => 'events#choose_tickets', :as => :events_choose_tickets
   get 'dashboard/event'
   get 'dashboard/profile'

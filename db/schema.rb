@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(version: 20161010224116) do
     t.text     "html_footer_button", limit: 255
     t.string   "currency_type",                  default: "USD"
     t.text     "confirmation_text"
-    t.boolean  "paid_event",                     default: false
     t.boolean  "buyer_only",                     default: true
 
   end

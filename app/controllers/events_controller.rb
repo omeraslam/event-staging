@@ -9,7 +9,6 @@ class EventsController < ApplicationController
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
 
-  before_filter :ensure_proper_subdomain, :only => "checkout_page"
 
 
 
@@ -1297,7 +1296,7 @@ def show
 
                   <h1>' + @event.name + '</h1><p class="lead">Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>
 
-                  <span class="btn btn-reg ' + (@event.paid_event == false ? '': 'checkout-btn ') +'open-registration"> Register now</span>
+                  <span class="btn btn-reg open-registration"> Register now</span>
                 </div> 
               </div>
         </div>'
@@ -1445,10 +1444,6 @@ def show
     end
   end
 
-  def checkout_page
-    @event = Event.find(87)
-    redirect_to select_buy_path(:slug => @event.slug, :subdomain => 'checkout')
-  end
 
   def check_slug
 

@@ -3,7 +3,7 @@
 <head>
   <script src="https://cdn.optimizely.com/js/5685873116.js"></script>
   
-  <title><%= title %> - <%= action_name %></title>
+  <title><%= title %></title>
   <meta name="description" content="<%= meta_description %>" />
   
   <meta property="og:image" content="<%= meta_fb %>" /> 
@@ -38,7 +38,12 @@
 
   <script type="text/javascript">
 
-    Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
+
+  
+   Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
+
+
+   
 
 
   </script>
