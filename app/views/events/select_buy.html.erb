@@ -49,12 +49,12 @@
                     
                     <!-- if ticket available is less than buy limit  -->
 
-                        <% if ticket.ticket_limit > LineItem.where(:ticket_id => ticket.id).count %>
+                        <% if ticket.ticket_limit > LineItem.where(:ticket_id => ticket.id.to_s).count %>
                         
-                        <% if ticket.buy_limit <= (ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id).count) %> 
+                        <% if ticket.buy_limit <= (ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id.to_s).count) %> 
                             <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..ticket.buy_limit).step(1)) %>
                        <% else %>
-                            <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..(ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id).count)).step(1)) %>
+                            <%= select_tag "ticket_quantity["+ticket.id.to_s+']', options_for_select((0..(ticket.ticket_limit - LineItem.where(:ticket_id => ticket.id.to_s).count)).step(1)) %>
                        <% end %>
                         <% else %>
                     <!-- if past ticket availabilty, sold out -->
