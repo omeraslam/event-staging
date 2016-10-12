@@ -117,38 +117,9 @@
 
 
 
-    <div class="owl-item">
-
-        <div class="container">
-
-            <div class="form-header">
-                <h2> Are you selling tickets? </h2>
-                <p></p>
-            </div>
-            
-            <div class="row text-center">
-                <div class="col-md-6">
-                    <div class='event-new-paid-boolean' data-value="true">
-                        <i class="icon icon-check"> </i>
-                        <span>Yes</span> I am selling tickets.
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class='event-new-paid-boolean' data-value="false">
-                        <i class="icon icon-check"> </i>
-                        <span>No</span> I'm not selling tickets.
-                    </div>
-                </div>
 
 
-                <input type="hidden" name="Event-PAID" id="Event-PAID" value="false" />
-            </div>
 
-
-        </div>   
-
-    </div>
 
 
   <div class="theme-selection owl-item">
@@ -169,6 +140,43 @@
     <%= link_to 'cancel', dashboard_index_path, :data => {:confirm => 'Are you sure you want to cancel?'} %> <!-- replace with last page -->
  </div>
 </div>
+
+
+
+
+
+<!--Paid ticketing question -  Hiding this for now -->
+<div class="hidden">
+    <div class="container">
+
+        <div class="form-header">
+            <h2> Are you selling tickets? </h2>
+            <p></p>
+        </div>
+        
+        <div class="row text-center">
+            <div class="col-md-6">
+                <div class='event-new-paid-boolean' data-value="true">
+                    <i class="icon icon-check"> </i>
+                    <span>Yes</span> I am selling tickets.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class='event-new-paid-boolean' data-value="false">
+                    <i class="icon icon-check"> </i>
+                    <span>No</span> I'm not selling tickets.
+                </div>
+            </div>
+
+
+            <input type="hidden" name="Event-PAID" id="Event-PAID" value="false" />
+        </div>
+    </div>   
+</div>
+<!--END paid ticketing question-->
+
+
 
 
 
@@ -206,11 +214,10 @@ $(document).ready(function() {
   });
 
 
+  //Click handler for paid event question 
   $(".event-new-paid-boolean").click(function() { 
         $(".event-new-paid-boolean").removeClass("selected");
         $(this).addClass("selected");
-
-
         $("#Event-PAID").val($(this).data("value"));
 
   });
