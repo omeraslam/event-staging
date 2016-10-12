@@ -64,6 +64,8 @@ require 'rqrcode_png'
 
     @user = User.where(:id => @event.user_id.to_i).first
     @tickets = @event.tickets.all 
+    
+    @tickets_for_purchase = @event.tickets.where(:is_active => true)
     @purchase = Purchase.new
   end
 
