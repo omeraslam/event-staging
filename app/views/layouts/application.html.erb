@@ -39,9 +39,13 @@
   <script type="text/javascript">
 
 
+ <% if (action_name == 'submit_attendees' || action_name == 'complete_registration') && !@account.nil?   %>
+   Stripe.setPublishableKey('<%= @account.stripe_publishable_key %>');
+<% else %>
   
    Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
 
+<% end %>
 
    
 
