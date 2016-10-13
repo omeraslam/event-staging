@@ -261,7 +261,7 @@ require 'rqrcode_png'
 
               @event.tickets.all.each do |ticket|
 
-                @line_items = LineItem.where(:ticket_id => ticket.id, :purchase_id => @purchase.id).all
+                @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
 
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
