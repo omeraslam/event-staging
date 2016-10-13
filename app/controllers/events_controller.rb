@@ -10,18 +10,18 @@ class EventsController < ApplicationController
   before_filter :find_site, only: [:home]
 
 
-  before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
-
-
+before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
 
   #require 'chunky_png'
 
   require 'barby'
   require "barby/barcode/code_128"
   require 'barby/outputter/png_outputter'
+
+
   # Controller
-  #require 'rqrcode'
-  require 'rqrcode_png'  
+#require 'rqrcode'
+require 'rqrcode_png'  
 
  
 
@@ -1074,6 +1074,8 @@ def show
 
     @hash = AmazonSignature::data_hash
 
+
+
      if signed_in?
       @user = current_user
       @account = Account.where(:user_id => @user.id).first.nil? ? nil : Account.where(:user_id => @user.id).first
@@ -1081,12 +1083,12 @@ def show
     else
       @account = nil
     end
+     if params[:slug].nil?
+       @event = Event.find_by_slug(request.subdomain) or not_found
+     else
+       @event = Event.find_by_slug(params[:slug]) or not_found
+     end
 
-    if params[:slug].nil?
-      @event = Event.find_by_slug(request.subdomain) or not_found
-    else
-      @event = Event.find_by_slug(params[:slug]) or not_found
-    end
 
     @tickets = @event.tickets.all 
 
@@ -1608,11 +1610,10 @@ def show
 
 
       def ensure_proper_subdomain
-        if request.host_with_port != 'checkout.lvh.me:3000'
-          redirect_to params.merge({host: 'checkout.lvh.me:3000'})
-        end
+         if request.host_with_port != 'checkout.' + ENV['SITE_URL']
+           redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL']})
+         end
       end
-
 
 
   end
