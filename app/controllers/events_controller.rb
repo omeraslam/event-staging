@@ -118,8 +118,8 @@ require 'rqrcode_png'
       else
 
       end
-
-      redirect_to show_buy_path(:oid =>@purchase)
+      redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s)
+     
     end
   end
 
@@ -133,7 +133,7 @@ require 'rqrcode_png'
     @event = Event.find_by_slug(params[:slug].to_s) or not_found
     @user = User.where(:id => @event.user_id.to_i).first
     @account = Account.where(:user_id => @user.id.to_s).first 
-    @purchase = Purchase.where(:id => params[:oid]).first
+    @purchase = Purchase.where(:confirm_token => (params[:oid]).to_s).first
 
     @buyer_only = @event.buyer_only
 
@@ -153,7 +153,7 @@ require 'rqrcode_png'
     @event.tickets.all.each do |ticket|
 
       #get line item
-      @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id).all
+      @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
       @line_items.each_with_index do |lineitem, index|
 
         sum += ticket.price.to_f
@@ -214,7 +214,6 @@ require 'rqrcode_png'
     logger.debug "STRIPE TOKEN IN CHECKOUT::: #{token}"
     amount = @final_amount
 
-    
       if amount > 0
 
         #purchase
@@ -258,6 +257,7 @@ require 'rqrcode_png'
               end
              #Save customer to the db
              
+              @array_of_ticket = []
 
               @event.tickets.all.each do |ticket|
 
@@ -300,10 +300,11 @@ require 'rqrcode_png'
                    # save attendee
 
                    if @attendee.save
-                     lineitem.attendee_id = @attendee.id
+                      lineitem.attendee_id = @attendee.id
 
                        if lineitem.save
                        # save attendee id to lineitem
+                       @array_of_ticket.push(lineitem)
                        else
 
 
@@ -315,7 +316,7 @@ require 'rqrcode_png'
 
 
               
-              UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+              UserMailer.send_tickets(@event, @purchase, @array_of_ticket).deliver unless @purchase.invalid?
               render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.confirm_token.to_s + "'"  #hack
             else
               logger.debug "CHARGE SHOULD BE FAILED"
@@ -343,24 +344,32 @@ require 'rqrcode_png'
     else
 
 
-
+#############
+#
+#
   #purchase
         @purchase.event_id = @event.id.to_s
         @purchase.total_order = amount
+        @purchase.total_fee = fee
         @purchase.affiliate_code = params[:ref_code]
+        if @purchase.save
+        else
+        end
 
-           
+   
         if @purchase.update(purchase_params)
+              
+              @array_of_ticket = []
 
-  
               @event.tickets.all.each do |ticket|
+              
 
-                @line_items = LineItem.where(:ticket_id => ticket.id, :purchase_id => @purchase.id).all
+                @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
 
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
                    position = index+1
-           
+                 
                    if @buyer_only != true 
                      first_name = params[:attendees][(index+1).to_s]["first_name"]
                      last_name = params[:attendees][(index+1).to_s]["last_name"]
@@ -371,8 +380,12 @@ require 'rqrcode_png'
                      email = params[:purchase]["email"]
                    end
 
+                   if index == 0
+                    @purchase.first_name = first_name
+                    @purchase.last_name = last_name
+                    @purchase.save
+                   end
 
-                   logger.debug "ATTENDEE INFO: #{first_name}"
                    @attendee = Attendee.new
                    # save first name
                    # save last name
@@ -384,37 +397,31 @@ require 'rqrcode_png'
                    @attendee.user_id = @user.id
                    @attendee.attending =true
 
+                    # save potential survey questions
 
-                  if index == 0
-                    @purchase.first_name = first_name
-                    @purchase.last_name = last_name
-                    @purchase.save
-                   end
+                    # save attendee
 
-                   # save potential survey questions
+                    if @attendee.save
+                      lineitem.attendee_id = @attendee.id
 
-                   # save attendee
+                      if lineitem.save
+                      # save attendee id to lineitem
+                      @array_of_ticket.push(lineitem)
+                      else
+                      end
 
-                   if @attendee.save
-                     lineitem.attendee_id = @attendee.id
-
-                       if lineitem.save
-                       # save attendee id to lineitem
-                       else
-
-
-                       end
-
-                  end
+                    end
                 end
               end
 
-        else
+
+                UserMailer.send_tickets(@event, @purchase, @array_of_ticket).deliver unless @purchase.invalid?
+                redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
+            end
+
+       
         end
 
-        UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
-        redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
-      end
 
   end
 
@@ -451,11 +458,11 @@ def show_buy
      @event = Event.find_by_slug(params[:slug])
      @user = User.find(@event.user_id)
      @tickets = Ticket.where(:event_id => @event.id)
-     @purchase = Purchase.find(params[:oid].to_i )
+     @purchase = Purchase.where(:confirm_token => params[:oid].to_s ).first
 
     @buyer_only = @event.buyer_only
 
-     @line_items = LineItem.where(:purchase_id => params[:oid])
+     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).all
 
       ticket_array = @line_items.group(:ticket_id).count
       logger.debug "TICKET ARRAY IS: #{ticket_array}"
@@ -517,7 +524,7 @@ def show_buy
 
 
 
-     @line_items = LineItem.where(:purchase_id => params[:oid])
+     @line_items = LineItem.where(:purchase_id => @purchase.id)
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
           if !@ticket.nil?
@@ -532,16 +539,6 @@ def show_buy
       @event.layout_id = '1'
       @event.layout_style = 'default'
     end
-
-
-
-
-
-
-
-
-
-
 
 
 end
@@ -624,7 +621,7 @@ def stripe_redirect
      if params[:code]
         code = params[:code]
         # @resp = url to get token
-        # 
+        
         data   = {'grant_type' => 'authorization_code',
               'client_id' => ENV['STRIPE_CLIENT_ID'],
               'client_secret' => ENV['STRIPE_SECRET_KEY'],

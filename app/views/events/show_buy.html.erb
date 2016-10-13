@@ -27,7 +27,7 @@
 
             <%= form_tag submit_attendees_path, :id => 'purchase-tickets_form' do  %>
 
-                <%= hidden_field_tag :oid, @purchase.id  %>
+                <%= hidden_field_tag :oid, @purchase.confirm_token  %>
                 <%= hidden_field_tag :user_id, @user.id  %>
                 <%= hidden_field_tag :event_id, @event.id  %>
                 <%= hidden_field_tag :purchase_amount, @final_charge  %>
@@ -86,6 +86,7 @@
 
                     <% if @buyer_only == true %>
                       <% @purchaser = @line_items.first %>
+
                       <% @ticket = Ticket.where(:id => @purchaser.ticket_id.to_i).first %> 
 
                         <div class="ticket-holder">
