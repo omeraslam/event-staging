@@ -524,7 +524,7 @@ def show_buy
 
 
 
-     @line_items = LineItem.where(:purchase_id => @purchase.id)
+     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s)
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
           if !@ticket.nil?
