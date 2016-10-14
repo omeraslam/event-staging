@@ -31,18 +31,10 @@ Rails.application.routes.draw do
 
       if ((request.subdomain.present? && request.subdomain != 'www'))
         if(Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any? )
-
-          puts "::::::REQUEST HOST: #{request.host}"
           Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any?
         else 
           User.where(:domain => request.host ).any? || User.where(:subdomain => request.subdomain).any? 
         end
-      elsif ((request.host != 'eventcreate.com'))
-
-        puts "::::::REQUEST HOST ON NEW LOGIC: #{request.host}"
-        User.where(:domain => request.host ).any?
-      else
-
       end
 
     end

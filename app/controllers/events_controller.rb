@@ -1083,6 +1083,7 @@ def show
     else
       @account = nil
     end
+    
      if params[:slug].nil?
        @event = Event.find_by_slug(request.subdomain) or not_found
      else
