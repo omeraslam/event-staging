@@ -27,9 +27,9 @@ Rails.application.routes.draw do
     end
 
     def self.matching_site? request
-      if ((request.host != "eventcreate.com"))
-        Event.where(:domain => request.host).any? || User.where(:domain => request.host).any?
-      elsif ((request.subdomain.present? && request.subdomain != 'www'))
+
+
+      if ((request.subdomain.present? && request.subdomain != 'www'))
         if(Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any? )
           Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any?
         else 
