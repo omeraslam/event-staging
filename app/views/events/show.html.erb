@@ -11,8 +11,9 @@
 <%= render 'events/partials/eventwebsite' %>
 <%# render 'events/partials/contact_form' %>
 <%# render 'events/partials/rsvp_form' %>
+<% if !@has_paid_ticket %>
 <%= render 'events/partials/rsvp_modal_new' %>
-
+<% end %>
 
 <script type="text/javascript">
 
@@ -111,7 +112,13 @@ $( document ).ready(function() {
  
   $('.open-registration').click(function(e){
     e.preventDefault();
+    if(<%= !@has_paid_ticket %>) {
+
       registrationModal.open();
+    } else {
+      window.location.href = "//checkout.<%= ENV['SITE_NAME'] %>/<%= @event.slug %>/select-buy";
+
+    }
   });
 
 

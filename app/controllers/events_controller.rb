@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
 
-  force_ssl :except => :show
+  #force_ssl :except => :show
 
 
 

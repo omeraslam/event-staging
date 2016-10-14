@@ -1,7 +1,7 @@
 #registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
 
-  force_ssl
+  #force_ssl
 
   def create
     super
