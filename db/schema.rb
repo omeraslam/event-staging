@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161004185540) do
+ActiveRecord::Schema.define(version: 20161014010151) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -96,6 +96,9 @@ ActiveRecord::Schema.define(version: 20161004185540) do
     t.string   "currency_type",                  default: "USD"
     t.text     "confirmation_text"
     t.boolean  "paid_event",                     default: false
+    t.boolean  "buyer_only",                     default: true
+    t.string   "domain"
+    t.string   "ga_code"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
@@ -128,7 +131,7 @@ ActiveRecord::Schema.define(version: 20161004185540) do
     t.string   "ticket_id"
     t.string   "attendee_id"
     t.string   "purchase_id"
-    t.boolean  "redeemed",    default: false
+    t.boolean  "redeemed",    default: true
   end
 
   create_table "purchases", force: true do |t|
@@ -180,6 +183,7 @@ ActiveRecord::Schema.define(version: 20161004185540) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "event_id"
+    t.boolean  "is_active",    default: true
   end
 
   create_table "users", force: true do |t|

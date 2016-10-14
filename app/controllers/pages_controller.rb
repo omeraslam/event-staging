@@ -1,7 +1,10 @@
 class PagesController < ApplicationController
+
   
   force_ssl
-  
+  before_filter :ensure_proper_root_domain
+
+
   def home      
   end
 
@@ -47,6 +50,13 @@ class PagesController < ApplicationController
   end
 
   def customization
+  end
+
+  def ensure_proper_root_domain
+
+    if ((request.subdomain.present? && request.subdomain != 'www'))
+      redirect_to params.merge({subdomain: 'www'})
+    end
   end
 
 

@@ -58,12 +58,11 @@ class UserMailer < ActionMailer::Base
     # end
 
 
-  
-
         @event = current_event
         @purchase = current_purchase
         @line_items = litems
         @tickets_per_page = 4
+
 
 
         # @response = (attendee.attending)? 'yes' : 'no'
@@ -73,6 +72,7 @@ class UserMailer < ActionMailer::Base
         # 
         @qr_codes = []
         @line_items.each do |lineitem|
+
           logger.debug "#{@purchase.confirm_token.to_s + ' || - || ' + @event.slug.to_s + lineitem.id.to_s}"
           qr  = RQRCode::QRCode.new('http://www.eventcreate.com/' + @event.slug.to_s + '/confirm-ticket?oid='+ @purchase.confirm_token.to_s + '&luid=' + lineitem.id.to_s).to_img.resize(200, 200).to_data_url
           @qr_codes.push(qr)

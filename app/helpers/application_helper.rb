@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+	def ensure_proper_root_domain
+	   if ((request.subdomain.present? && request.subdomain != 'www'))
+	     redirect_to params.merge({subdomain: 'www'})
+	   end
+	 end
+
 
 	#set site title
 	def title(title = nil)

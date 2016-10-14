@@ -3,7 +3,7 @@
 
 <div class="modal-secure"><i class="fa fa-lock"> </i> </div>
 
-<%= form_tag complete_registration_path, :id => 'purchase-tickets_form' do |f|  %>
+<%= form_tag complete_registration_path(@event), :id => 'purchase-tickets_form' do |f|  %>
 
 					<% if @purchase.errors.any? %>
 			<div class="alert error">
@@ -18,10 +18,7 @@
 			<% end %>
 
 		<div class="modal-header modal-header-light">
-	    <h3> <%= @event.name %> </h3>	 
-     
-  
-      
+	    <h3> <%= @event.name %> </h3>	  
      <%= hidden_field_tag 'ticket_id['+@current_ticket.id.to_s+']', @current_ticket.id %>
 		
           <p class="price-listing">
@@ -50,7 +47,7 @@
             <div class="input-group ticket-type">
                 <label>Select Ticket:</label>
                 
-                <%= select("ticket", "title", @tickets.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id, {'data-buy_limit'=>p.buy_limit}, {'data-stop_date'=>p.stop_date}, {'data-ticket_limit' => p.ticket_limit}, {'data-quantity_left'=> p.ticket_limit - LineItem.where(:ticket_id => p.id.to_s).count }, {'data-total_bought' => LineItem.where(:ticket_id => p.id.to_s).count }  ] }) %>
+                <%= select("ticket", "title", @tickets_for_purchase.collect {|p| [ p.title + ' ($' + number_with_precision(p.price.to_s, :precision => 2) + ')' , p.id, {'data-buy_limit'=>p.buy_limit}, {'data-stop_date'=>p.stop_date}, {'data-ticket_limit' => p.ticket_limit}, {'data-quantity_left'=> p.ticket_limit - LineItem.where(:ticket_id => p.id.to_s).count }, {'data-total_bought' => LineItem.where(:ticket_id => p.id.to_s).count }  ] }) %>
 
             </div>
 

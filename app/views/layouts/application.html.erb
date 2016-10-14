@@ -3,7 +3,7 @@
 <head>
   <script src="https://cdn.optimizely.com/js/5685873116.js"></script>
   
-  <title><%= title %> - <%= action_name %></title>
+  <title><%= title %></title>
   <meta name="description" content="<%= meta_description %>" />
   
   <meta property="og:image" content="<%= meta_fb %>" /> 
@@ -38,7 +38,16 @@
 
   <script type="text/javascript">
 
-    Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
+
+ <% if (action_name == 'submit_attendees' || action_name == 'complete_registration') && !@account.nil?   %>
+   Stripe.setPublishableKey('<%= @account.stripe_publishable_key %>');
+<% else %>
+  
+   Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
+
+<% end %>
+
+   
 
 
   </script>
@@ -50,6 +59,9 @@
 
 
 
+<!-- google analytics code -->
+  <script src="/assets/vendor/google-analytics.js"></script>
+<!-- end google analytics code -->
 
 </head>
 
@@ -82,9 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </footer>
 
 
-<!-- google analytics code -->
-  <script src="/assets/vendor/google-analytics.js"></script>
-<!-- end google analytics code -->
+
 
 <!-- ampltitude code -->
   <script src="/assets/vendor/amplitude.js"></script>
