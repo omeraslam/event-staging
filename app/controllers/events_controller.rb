@@ -1083,7 +1083,13 @@ def show
     else
       @account = nil
     end
-     if params[:slug].nil?
+     if request.host != "eventcreate.com"
+      logger.debug "SUBDOMAIN::: #{request.subdomain}"
+      logger.debug "DOMAIN::: #{request.host}"
+      custom_url = request.subdomain.nil? || request.subdomain.blank? ? request.host  : request.subdomain + "." + request.host 
+      logger.debug "CUSTOM URL:: #{custom_url}"
+      @event = Event.where(:domain => custom_url) or not_found
+     elsif params[:slug].nil?
        @event = Event.find_by_slug(request.subdomain) or not_found
      else
        @event = Event.find_by_slug(params[:slug]) or not_found
