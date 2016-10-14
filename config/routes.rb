@@ -27,6 +27,10 @@ Rails.application.routes.draw do
     end
 
     def self.matching_site? request
+      puts "SUBDOMAIN::: #{request.subdomain}"
+      puts "DOMAIN::: #{request.host}"
+      custom_url = request.subdomain.nil? || request.subdomain.blank? ? request.host  : request.subdomain + "." + request.host 
+      puts "CUSTOM URL:: #{custom_url}"
       if ((request.host != "eventcreate.com"))
         Event.where(:domain => request.host).any? || User.where(:domain => request.host).any?
       elsif ((request.subdomain.present? && request.subdomain != 'www'))

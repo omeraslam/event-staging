@@ -1084,10 +1084,10 @@ def show
       @account = nil
     end
      if request.host != "eventcreate.com"
-      logger.debug "SUBDOMAIN::: #{request.subdomain}"
-      logger.debug "DOMAIN::: #{request.host}"
+      puts "SUBDOMAIN::: #{request.subdomain}"
+      puts "DOMAIN::: #{request.host}"
       custom_url = request.subdomain.nil? || request.subdomain.blank? ? request.host  : request.subdomain + "." + request.host 
-      logger.debug "CUSTOM URL:: #{custom_url}"
+      puts "CUSTOM URL:: #{custom_url}"
       @event = Event.find_by_domain(custom_url) or not_found
      elsif params[:slug].nil?
        @event = Event.find_by_slug(request.subdomain) or not_found
