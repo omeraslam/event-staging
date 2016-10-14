@@ -9,6 +9,9 @@ class EventsController < ApplicationController
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
 
+  force_ssl :except => :show
+
+
 
   before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
 
