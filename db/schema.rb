@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014003936) do
+ActiveRecord::Schema.define(version: 20161014010151) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20161014003936) do
     t.boolean  "paid_event",                     default: false
     t.boolean  "buyer_only",                     default: true
     t.string   "domain"
+    t.string   "ga_code"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
