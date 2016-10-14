@@ -10,7 +10,7 @@ class EventsController < ApplicationController
   before_filter :find_site, only: [:home]
 
 
-before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
+  before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
 
   #require 'chunky_png'
 
