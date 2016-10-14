@@ -126,7 +126,7 @@ $( document ).ready(function() {
 <% if !@event.ga_code.nil? %>
 <script  type="text/javascript">
 
-  ga('create', <%= @event.ga_code %>, 'auto', {'name': 'clientTracker'});  
+  ga('create', "<%= @event.ga_code %>", 'auto', {'name': 'clientTracker'});  
   ga('clientTracker.send', 'pageview'); 
 
 
