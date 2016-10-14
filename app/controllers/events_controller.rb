@@ -1083,10 +1083,7 @@ def show
     else
       @account = nil
     end
-     if request.domain != "eventcreate.com" 
-      puts "SUBDOMAIN::: #{request.subdomain}"
-      puts "DOMAIN::: #{request.host}"
-      puts "DOMAIN::: #{request.domain}"
+     if request.domain != ENV['SITE_URL']
       @event = Event.find_by_domain(request.host) or not_found
      elsif params[:slug].nil?
        @event = Event.find_by_slug(request.subdomain) or not_found
@@ -1615,7 +1612,7 @@ def show
 
 
       def ensure_proper_subdomain
-         if request.host_with_port != 'checkout.' + ENV['SITE_URL']
+         if request.host != 'checkout.' + ENV['SITE_URL']
            redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL']})
          end
       end
