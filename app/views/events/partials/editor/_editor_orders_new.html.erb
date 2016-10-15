@@ -38,8 +38,12 @@
                         <td><%= attendee.first_name %></td> 
                         <td><%= attendee.last_name %></td> 
                         <td><%= attendee.email %></td>
-                        <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.quantity.nil? ? 0 : @guest.quantity - 1 %></td>
-                        <td><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
+                        <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> 
+
+                        <% @guest_quantity = LineItem.where(:purchase_id => attendee.id.to_s).count %> 
+
+                        <%= @guest_quantity.nil? ? 0 : @guest_quantity - 1 %></td>
+                        <td><% @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
                         <td>          
                             <% total_order = 0 %>
                     <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>

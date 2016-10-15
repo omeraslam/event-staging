@@ -25,6 +25,16 @@
     <label>Ticket Name (required)</label>
     <%= f.text_field :title, class: 'input input-large', placeholder: 'General Admission' %>
   </div>
+  <div class="input-group">
+    <label>Ticket Active</label>
+      <% set_disable = (Ticket.where(:event_id => @ticket.event_id.to_s, :is_active => true ).count <= 1) &&  @ticket.is_active == true  %>
+      <%= f.select(:is_active, [['Active', true],['Inactive', false]], {}, {:disabled => set_disable}) %>
+      <% if set_disable == true %>
+        <p>There must be at least one active ticket for an event.</p>
+      <% end %>
+
+  </div>
+
   <div class="input-group" style="display:none;" >
     <%= f.label :description %>
     <%= f.text_area :description, class: 'input input-large textarea-small',  placeholder: 'Add a description to your ticket.' %>

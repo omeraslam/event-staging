@@ -11,8 +11,9 @@
 <%= render 'events/partials/eventwebsite' %>
 <%# render 'events/partials/contact_form' %>
 <%# render 'events/partials/rsvp_form' %>
+<% if !@has_paid_ticket %>
 <%= render 'events/partials/rsvp_modal_new' %>
-
+<% end %>
 
 <script type="text/javascript">
 
@@ -108,9 +109,37 @@ $( document ).ready(function() {
 
   //registration modal
   var registrationModal = $('#rsvp-new-modal').remodal({hashTracking:false});
-  $('.open-registration').click(function(){
-    registrationModal.open();
+ 
+  $('.open-registration').click(function(e){
+    e.preventDefault();
+    if(<%= !@has_paid_ticket %>) {
+
+      registrationModal.open();
+    } else {
+      window.location.href = "//checkout.<%= ENV['SITE_NAME'] %>/<%= @event.slug %>/select-buy";
+
+    }
   });
+
+
 });
 
 </script>
+
+
+
+
+<!--IF analytics exists exists -->
+<% if !@event.ga_code.nil? %>
+<script  type="text/javascript">
+
+  ga('create', "<%= @event.ga_code %>", 'auto', {'name': 'clientTracker'});  
+  ga('clientTracker.send', 'pageview'); 
+
+
+</script>
+<% end %>
+<!--END IF  -->
+
+
+

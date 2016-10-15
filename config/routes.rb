@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   resources :tickets
 
+  #constraints(CheckoutSubdomain) do
+    get '/:slug/select-buy' => 'events#select_buy' , :as => :select_buy
+  #end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -24,11 +27,14 @@ Rails.application.routes.draw do
     end
 
     def self.matching_site? request
-      if ((request.subdomain.present? && request.subdomain != 'www'))
-        puts "HELLO SUBDOMAIN:::: #{request.host}"
-
-       User.where(:domain => request.host ).any? || User.where(:subdomain => request.subdomain).any? 
-
+      if ((request.domain != ENV['SITE_URL']))
+        Event.where(:domain => request.host).any? || User.where(:domain => request.host).any?
+      elsif ((request.subdomain.present? && request.subdomain != 'www'))
+        if(Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any? )
+          Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any?
+        else 
+          User.where(:domain => request.host ).any? || User.where(:subdomain => request.subdomain).any? 
+        end
       end
     end
   end 
@@ -42,6 +48,7 @@ Rails.application.routes.draw do
 
   #dashboard routes
   get 'dashboard/index'
+  post ':slug/choose-tickets' => 'events#choose_tickets', :as => :events_choose_tickets
   get 'dashboard/event'
   get 'dashboard/profile'
   get 'dashboard/print'
@@ -56,7 +63,7 @@ Rails.application.routes.draw do
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
-  get '', to: 'events#home', constraints: CustomDomainConstraint, :as => :events_subdomain
+  get '', to: 'events#show', constraints: CustomDomainConstraint, :as => :events_subdomain
   #get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
   get '/users/:id/events/index', to: 'events#home', :as => :events_home
  
@@ -114,13 +121,12 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {  registrations: "registrations", sessions: "sessions", :omniauth_callbacks => "users/omniauth_callbacks" }
 
-
   authenticated do
     root :to => 'dashboard#index', as: :authenticated
   end
 
   root :to => 'pages#home'
-
+ 
 
 
   devise_scope :user do
@@ -174,6 +180,9 @@ Rails.application.routes.draw do
   post '/:slug/select-tickets' => 'events#select_tickets' , :as => :select_tickets
   post '/:slug/complete-registration' => 'events#complete_registration' , :as => :complete_registration
   
+   post '/:slug/submit-attendees' => 'events#submit_attendees' , :as => :submit_attendees
+  
+
   get '/:slug/buy' => 'events#show_buy' , :as => :show_buy
   get '/:slug/confirm' => 'events#show_confirm' , :as => :show_confirm
   get '/:slug/ticket' => 'events#show_ticket' , :as => :show_ticket

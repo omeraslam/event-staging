@@ -1,3 +1,73 @@
+<!-- old ticketing reference -->
+<!--       </section>
+
+      <section>
+        <div class="tickets">
+        <% @tickets.each_with_index do |ticket, index| %>
+          <div class="ticket">
+
+            <h3><%= ticket.title %></h3>
+            <% @total = 0 %>
+            <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
+            <% @total += LineItem.where(:purchase_id => purchase.id.to_s, :ticket_id => ticket.id.to_s).count %>
+            <% end %>
+
+
+
+            <small>Tickets quantity left: <%= ticket.ticket_limit.to_i - @total.to_i  %>/<%= ticket.ticket_limit %> </small>
+          <% if ticket.price == 0 %>
+              <p>Free</p>
+          <% else %>
+
+            <p><%= number_to_currency(ticket.price) %></p>
+
+            <% end %>
+            
+            <% if @total == 0 %>
+                <div class="ticket-actions">
+                    <div class="ticket-action">
+                        <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %>    
+                    </div>
+                    <% if @tickets.count > 1 %>
+                    <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </div>
+                    <% end %>
+                </div>
+            <% else %>
+            <small>Tickets have been registered. Editing or deletion is no longer available.</small>
+          
+            <% end %>
+          </div>
+        <% end %>
+
+
+        </section>
+
+        <section> 
+          <%= link_to 'New ticket type', new_ticket_path(:event => @event) , :remote => true, :class => 'btn open-ticket' %>
+
+        </section>
+
+
+
+
+        <section style="display:none;">
+        <h4>Collect payments </h4>
+        <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
+        <% if  @account == nil %>
+          <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> </a>
+        <% else %>
+          User has connected to stripe
+        <% end %>
+        </section>
+
+    </div>   -->
+
+
+    <!-- old ticketing reference -->
+
+
+
 <div class="editor-tool editor-panel-left-nav" id="editor-tool-ticketing" >
 
 

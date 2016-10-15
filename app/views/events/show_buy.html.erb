@@ -1,208 +1,261 @@
 <% title @event.name.html_safe %>
 <% meta_description 'Create stunning websites in seconds.' %>
-<div class="show-container buy-container">
 
 
-
-    <div class="event-page 1 visible event-buy-page" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important">
-      
-      <div class="overlay" style="opacity: <%= @event.bg_opacity %>;background-color:<%= @event.bg_color %>;"></div>
-
-      <div class="header"> 
-         <h2> <%= @event.name %></h2>
-         <p><%= show_proper_date(@event, true) %> </p>        
-      </div>
-
-    </div> 
+<div class="container-fluid checkout-header" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"></div> 
 
 
-   
-  <div class="event-purchase-form"> 
-
-    <div class="purchase-details">
-      <h3> Order Summary</h3>
-      <% ticket_array = @line_items.group(:ticket_id).count %>
-      <% ticket_array.keys[0] %>
-      <table> 
-      <% 
-      sum = 0 %>
-      <% (0..(ticket_array.count-1)).each do |i| %>
-      <% if ticket_array.values[i].to_i != 0 %>
-      <tr>
-     <% 
-      @ticket_item = Ticket.where(:id => ticket_array.keys[i].to_i).first %>
-
-      
-        <td class="ticket-quantity"><h4> <%= @ticket_item.title %> X <%= ticket_array.values[i].to_i %></h4> <p><%= number_to_currency(@ticket_item.price) %> </p></td>
-        <td class="ticket-amount"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %> </td>
-      </tr>
-      <% sum += (ticket_array.values[i].to_i * @ticket_item.price.to_i) %>
-      <% end %>
-      <% end %>
+<div class="container checkout-body">
 
 
-
-      </table>
-
-      <table> 
-      <tr>
-        <td><h4> Total </h4></td>
-        <td class="ticket-amount"> <%= number_to_currency(sum) %></td>
-      </tr>
-
-      </table> 
-
-
-    </div>
-
-
-<%= form_tag complete_registration_path, :id => 'purchase-tickets_form' do  %>
-
-<%= hidden_field_tag :oid, @purchase.id  %>
-<%= hidden_field_tag :user_id, @user.id  %>
-<%= hidden_field_tag :event_id, @event.id  %>
-<%= hidden_field_tag :purchase_amount, @final_charge  %>
-
-
-
-
-      <h2> Ticket Buyer</h2> 
-
-      <div class="input-group"> 
-        <div class="input-group-inline">
-          <label> First Name </label>
-          <input type="text" name="purchase[first_name]" placeholder="First Name"/> 
-        </div>
-
-        <div class="input-group-inline">
-          <label> Last Name </label>
-          <input type="text"  name="purchase[last_name]"  placeholder="Last Name" /> 
-        </div>
-      </div>
-
-      <div class="input-group"> 
-        <div class="input-group-inline">
-          <label> Email Address </label>
-          <input type="text" name="purchase[email]" placeholder="email@email.com" /> 
-        </div>
-
-        <div class="input-group-inline">
-          <label> Phone Number (optional) </label>
-          <input type="text" name="purchase[phone_number]" placeholder="(555) 555-5555"  /> 
-        </div>
-      </div>      
-
-
-
-      <h2> Ticket Holder(s)</h2> 
-    <% tick_num = 1 %>
-    <% @line_items.each do |line_item| %>
-      
-       <div class="ticket-holder">
-          <h4> <% @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first %> <%= @ticket.title %> - Ticket <%= tick_num %> </h4>
-          <div class="ticket-buyer-form">
-            
-            <div class="input-group"> 
-              <div class="input-group-inline">
-                <label> First Name </label>
-                <input type="text" name="attendees[<%= tick_num %>][first_name]" placeholder="First Name" /> 
-              </div>
-
-              <div class="input-group-inline">
-                <label> Last Name </label>
-                <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
-              </div>
-            </div>
-
-
-
-          <div class="input-group"> 
-            <div class="input-group-inline">
-              <label> Email Address </label>
-              <input type="text"  name="attendees[<%= tick_num %>][email]" placeholder="email@email.com"/> 
-            </div>
-          </div>
-
-          </div>  
-      </div>
-
-      <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", line_item.id  %>
-      <% tick_num += 1 %>
+    <div class="breadcrumbs hidden">1. <a href="">Ticket</a> 2. <a href="">Payment</a> </div>
   
-
-    <% end %>
-
-      
-
-
-<% if @final_charge != 0 %>
-
-    <h2> Payment</h2> 
-
-    <div class="ticket-purchase">
-
-          <div class="input-group">
-            <label>Credit card number</label>
-            <input  type="text" id="cc" placeholder="5555 5555 5555 5555" class="input input-large cc-number" >
-            <p>We  accept Visa, Mastercard and American Express credit cards.</p>
-            
-          </div>
-          
-          <div class="input-group">
-            <div class="input-group-inline">   
-              <label>Expiration (month/year)</label>
-              <input placeholder="12 / 2018" class="input cc-exp" type="text" > 
-            </div>
-            <div class="input-group-inline" id="cvv"> 
-              <label>CVV</label>
-              <input class="input cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
-            </div>
-          </div>  
-
+    <div class="checkout-header-text">
+        <h1><%= @event.name %> </h1>
+        <p><%= @event.date_start.to_date.strftime("%B") %> <%= @event.date_start.to_date.strftime("%e, ") %> <%= @event.date_start.to_date.strftime("%Y") %></p>
     </div>
 
 
-    <div class="input-group">
-        <p> By clicking <%= !@account.nil? ? "Pay Now" : "Complete Registration" %>, I acknowledge that I have read and agree with the EventCreate terms of service, privacy policy, and cookie policy.</p>
+    <div class="row">
+
+
+        <!-- START left column -->
+        <div class="col-md-8">
+
+
+            <%= form_tag submit_attendees_path, :id => 'purchase-tickets_form' do  %>
+
+                <%= hidden_field_tag :oid, @purchase.confirm_token  %>
+                <%= hidden_field_tag :user_id, @user.id  %>
+                <%= hidden_field_tag :event_id, @event.id  %>
+                <%= hidden_field_tag :purchase_amount, @final_charge  %>
+
+
+                <!-- SECTION Email -->
+                <section>
+                    <div class="input-group"> 
+                        <div class="input-group-inline">
+                            <label> Email Address </label>
+                            <input type="text" name="purchase[email]" placeholder="email@email.com" /> 
+                        </div>
+                    </div>      
+                </section>
+
+
+
+
+                <!-- SECTION Payment -->
+                <% if @final_charge != 0 %>
+                <section>
+
+
+                    <h4> Payment Details</h4> 
+
+                    <div class="input-group">
+                        <label>Credit card number</label>
+                        <input  type="text" id="cc" placeholder="5555 5555 5555 5555" class="input input-large cc-number" >
+                        <p>We  accept Visa, Mastercard and American Express credit cards.</p>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-inline">   
+                            <label>Expiration (month/year)</label>
+                            <input placeholder="12 / 2018" class="input cc-exp" type="text" > 
+                        </div>
+                        <div class="input-group-inline" id="cvv"> 
+                            <label>CVV</label>
+                            <input class="input cc-cvc" type="text" placeholder="CVV" maxlength="4"  >
+                        </div>
+                    </div>  
+
+                </section>
+                <% end %>
+
+
+
+
+
+                <!-- SECTION Details -->
+                <section>
+
+                    <h4> Additional Details</h4> 
+
+                    <% tick_num = 1 %>
+
+                    <% if @buyer_only == true %>
+                      <% @purchaser = @line_items.first %>
+
+                      <% @ticket = Ticket.where(:id => @purchaser.ticket_id.to_i).first %> 
+
+                        <div class="ticket-holder">
+                          <div class="ticket-buyer-form">
+                            <div class="input-group"> 
+                                <div class="input-group-inline">
+                                    <label> First Name </label>
+                                    <input type="text" name="attendees[<%= tick_num %>][first_name]" placeholder="First Name" /> 
+                                </div>
+
+                                <div class="input-group-inline">
+                                    <label> Last Name </label>
+                                    <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
+                                </div>
+                            </div>
+
+                          </div>  
+                        </div>
+                      <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", @purchaser.id  %>
+                    <% else %>
+                      <% @line_items.each do |line_item| %>
+                            
+                          <div class="ticket-holder">
+                              <h4> <% @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first %> <%= @ticket.title %> - Ticket <%= tick_num %> </h4>
+                              <div class="ticket-buyer-form">
+
+
+                              <div class="input-group"> 
+                                  <div class="input-group-inline">
+                                      <label> First Name </label>
+                                      <input type="text" name="attendees[<%= tick_num %>][first_name]" placeholder="First Name" /> 
+                                  </div>
+
+                                  <div class="input-group-inline">
+                                      <label> Last Name </label>
+                                      <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
+                                  </div>
+                              </div>
+
+                              </div>  
+                          </div>
+
+                          <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", line_item.id  %>
+                          <% tick_num += 1 %>
+                        
+
+                      <% end %>
+                    <% end %>
+
+                </section>
+
+
+
+                <div class="input-group">
+                <button class="btn btn-large"><%= !@account.nil? ? "Pay Now" : "Complete Registration" %> </button>
+                <p> By clicking <%= !@account.nil? ? "Pay Now" : "Complete Registration" %>, I acknowledge that I have read and agree with the EventCreate terms of service, privacy policy, and cookie policy.</p>
+
+                </div>
+
+
+
+
+            <% end %>
+        </div>
+        <!-- END left column -->
+
+
+
+
+
+        <!-- START right column -->
+
+        <div class="col-md-4">
+
+              <% ticket_array = @line_items.group(:ticket_id).count %>
+              <% ticket_array.keys[0] %>
+              <table class="table"> 
+                <% sum = 0 %>
+                <% (0..(ticket_array.count-1)).each do |i| %>
+                  <% if ticket_array.values[i].to_i != 0 %>
+                    <tr>
+                      <% @ticket_item = Ticket.where(:id => ticket_array.keys[i].to_i).first %>
+                      <td > <%= @ticket_item.title %> X <span class="ticket-quantity"><%= ticket_array.values[i].to_i %></span></td>
+                      <td class="text-right"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %> </td>
+                    </tr>
+                    <% sum += (ticket_array.values[i].to_i * @ticket_item.price.to_i) %>
+                  <% end %>
+                <% end %>
+              </table>
+              
+              <table class="table"> 
+                <% if @final_charge > 0 %>
+                <tr>
+                  <td><strong>Service Fee </strong></td>
+                  <td class="text-right"> <%= number_to_currency(@final_fee) %></td>
+                </tr>
+                <% end %>
+                <tr>   
+
+                  <td><strong> Total </strong></td>
+                  <td class="text-right"> <%= number_to_currency(sum + @final_fee) %></td>
+                </tr>
+             
+              </table> 
+                   <%  if !@coupon.nil? && @coupon.is_active == true %>
+                  <div class="input-group" >
+                    <label>Coupon code</label>
+                  <input type="text" class="input" name="couponCode" placeholder="Coupon Code" /> 
+                  <p><a id="coupon-btn"> Apply coupon</a></p>
+                  </div>
+
+              <% end %>
+
+
+
+        </div>
+        <!-- END right column -->
+
+
+
+
+
     </div>
-
-<% end %>
-
-    <div class="input-group">
-    <button class="btn btn-large"><%= !@account.nil? ? "Pay Now" : "Complete Registration" %> </button>
-
-    </div>
-
-
-
-
-
-
-
-
-<% end %>
-
-
-  </div>  
-    
-
-  <div class="credit"> 
-    <div>made with</div> 
-    <a href="http://www.eventcreate.com/"><img src="<%= asset_path 'event_create_logo_gray.png' %>"/> </a>
-  </div>
-
-
-
 </div>
 
 
+
+
+
+
+<div class="checkout-footer text-center"> 
+    <div><i class="fa fa-lock"></i> Secured with 256-bit encryption </div> 
+</div>
+   
+
+    
+
+
+
+ 
+
+
+
+
+
+
 <% if @final_charge != 0 %>
-<script type="text/javascript" src="/assets/payment-modal.js"></script>
+<script type="text/javascript" src="/assets/ticket-payment-modal.js"></script>
 <% end %>
 
 <script type="text/javascript">
   
 $(document).ready(function() {
+
+
+    var refcode = getParameterByName('refcode') != '' || getParameterByName('refcode') != null ? getParameterByName('refcode') : null;
+
+  if(refcode != '' || refcode != null ) {
+    $('#purchase-tickets_form').append('<input type="hidden" id="ref_code" name="ref_code" value="'+ refcode +'" />')
+  }
+
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
 
   
@@ -238,7 +291,98 @@ $(document).ready(function() {
   $("input[name='attendees["+ (i+1) +"][email]']").rules("add", {required: true, messages: { required: 'Please enter a valid email'}});
   }
 
+
+
+
+
+var couponDiscount = 0;
+var couponFixed = false;
+
+       $('#coupon-btn').on('click', function(e) {
+          e.preventDefault();
+
+          var $form = $('#purchase-tickets_form');
+          
+          $form.append($('<input type="hidden" name="couponApplied" value="'+ $('input[name="couponCode"]').val() +'"/>'));
+
+          //check coupon code
+          var data = {couponCode: $('input[name="couponCode"]').val(), eventId: $('#event_id').val()}
+          $.ajax({
+            type: "POST",
+            url: '/check-coupon',
+            data: data,
+            success: function(resp) {
+
+                $('.coupon-status').remove();
+              if(resp.status == "error") {
+                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
+                $('input[name="couponCode"]').val('');
+            
+              } else {
+                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
+           
+              }
+
+
+                couponDiscount = resp.discount/100;
+                couponFixed = resp.is_fixed;
+
+               
+
+
+                var fee_price = 0
+                var total_ticket_price = 0
+              if(couponFixed == false) {
+                $('.ticket-amount').each(function( index ) {
+
+                   var priceStringFromTitle = $(this).html()
+
+
+                    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                priceStringFromTitle.length-1
+                              );
+
+                     var ticket_price = filteredPrice - (filteredPrice * couponDiscount);
+                    total_ticket_price += ticket_price
+
+
+                    $(this).html('$' + parseFloat(Math.round(ticket_price * 100) / 100).toFixed(2));
+
+                    if(ticket_price > 0) {
+                       fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * .99)
+
+                    }
+                   
+
+
+                });
+              
+                $('.fee-amount').html('$' + parseFloat(Math.round(fee_price * 100) / 100).toFixed(2));
+                var total_price = $('.total-amount').html( '$' + parseFloat(Math.round((fee_price+total_ticket_price) * 100) / 100).toFixed(2) )
+
+              } else {
+
+                var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+              }
+
+              if(resp.status != "error") {
+                $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+              }
+
+
+            },
+            error: function(resp) {
+
+      
+            }
+          });
+
+        });
+
+
 });
+
+
 
 </script>
 

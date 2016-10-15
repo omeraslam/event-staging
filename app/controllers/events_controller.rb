@@ -9,6 +9,12 @@ class EventsController < ApplicationController
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
 
+  #force_ssl :except => :show
+
+
+
+  before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
+
   #require 'chunky_png'
 
   require 'barby'
@@ -26,7 +32,7 @@ require 'rqrcode_png'
   layout "ticket", only: [:show_ticket]
   before_action :set_event, only: [ :edit]
   after_filter :store_location
-  before_filter :authenticate_user!, :except => [:show, :export_events, :home, :contact_host, :show_ticket, :select_tickets, :show_buy, :complete_registration, :show_ticket, :show_confirm]
+  before_filter :authenticate_user!, :except => [:show, :export_events, :home, :contact_host, :show_ticket, :select_tickets, :show_buy, :complete_registration, :show_ticket, :show_confirm, :select_buy, :choose_tickets, :submit_attendees, :check_coupon]
   require 'icalendar'
 
 
@@ -38,8 +44,398 @@ require 'rqrcode_png'
     @attendee = Attendee.new
     @user = User.find(current_user.id)
     @events = Event.where(:user_id => current_user.id.to_s).all
-
     @themes = Theme.all
+
+  end
+
+
+  #NEW REGISTRATION
+  
+  # select tickets to buy
+  def select_buy
+
+
+    @event = Event.find_by_slug(params[:slug])
+
+
+    @purchase = Purchase.where(:event_id => @event.id, :first_name => nil ).destroy_all
+
+    if(!@event.layout_style?)
+      @event.layout_id = '1'
+      @event.layout_style = 'default'
+    end
+
+    @user = User.where(:id => @event.user_id.to_i).first
+    @tickets = @event.tickets.all 
+
+    @tickets_for_purchase = @event.tickets.where(:is_active => true)
+    @purchase = Purchase.new
+  end
+
+  # submit tickets to buy
+  def choose_tickets
+
+
+
+   @event = Event.find_by_slug(params[:slug]) or not_found
+
+    logger.debug "TICKET QUANTITY: #{params[:ticket_quantity]}"
+    ticket_sum = 0
+    params[:ticket_quantity].each do |key, value|
+      logger.debug "#{value}"
+      ticket_sum += value.to_i
+    end
+
+    if ticket_sum == 0
+
+      respond_to do |format|
+        format.html { redirect_to select_buy_path, :flash => { :error => 'Please select a ticket' }}
+      end
+    else 
+      @purchase = Purchase.new
+      @purchase.event_id = @event.id
+      if @purchase.save
+
+
+        @event.tickets.all.each do |ticket|
+
+          num_tickets = (params[:ticket_quantity][ticket.id.to_s]).to_i
+          (1..num_tickets).each do |i| 
+            @line_item = LineItem.new
+            @quantity = params[:ticket_quantity][ticket.id.to_s]
+            ticket_id = params[:ticket_id][ticket.id.to_s]
+
+            @line_item.ticket_id = ticket_id.to_s
+            @line_item.quantity = @quantity
+            @line_item.purchase_id = @purchase.id.to_s
+
+            if @line_item.save
+
+
+            else
+                      
+            end
+          end
+        end
+
+      else
+
+      end
+      redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s)
+     
+    end
+  end
+
+  def submit_attendees
+
+
+    #replace with actual data
+
+
+    #get variables
+    @event = Event.find_by_slug(params[:slug].to_s) or not_found
+    @user = User.where(:id => @event.user_id.to_i).first
+    @account = Account.where(:user_id => @user.id.to_s).first 
+    @purchase = Purchase.where(:confirm_token => (params[:oid]).to_s).first
+
+    @buyer_only = @event.buyer_only
+
+
+
+    @code = params[:couponApplied]
+
+
+    #calculate tickets
+    sum = 0 
+    fee = 0
+
+    #get fee rates
+    @fee_rate = @user.npo == true ? 0.015 : 0.025
+    num_of_paid_tickets = 0
+    
+    @event.tickets.all.each do |ticket|
+
+      #get line item
+      @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
+      @line_items.each_with_index do |lineitem, index|
+
+        sum += ticket.price.to_f
+        if ticket.price.to_f != 0
+            num_of_paid_tickets += 1
+            fee += (ticket.price.to_f * @fee_rate)
+        end
+      end
+    end
+
+                          
+    fee = (fee * 100).round.to_i
+
+    @final_charge = (sum * 100).to_i #add all line items to figure out final price
+
+    if !@code.blank?
+        @coupon = get_coupon(@code, @event.id)
+
+
+        if @coupon.nil?
+
+          @final_amount = @final_charge
+        else
+          if @coupon.is_fixed == true
+            @final_amount = @final_charge - (@coupon.discount * 100).to_i
+            if @final_amount < 0
+              flash[:error] = 'Coupon code is not valid or expired.'
+              #redirect_to slugger_path(@event)
+              #redirect to same page
+            end
+          else
+            @discount_amount = @final_charge * (@coupon.discount/100)
+      
+            @final_amount = @final_charge - @discount_amount.to_i
+      
+            fee = (fee - (fee * (@coupon.discount/100))).to_i
+          end
+
+
+        end
+      else
+        @final_amount = @final_charge
+
+
+      end
+
+      if @final_amount > 0
+        logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
+        fee += 99 * num_of_paid_tickets
+      end
+
+
+
+
+
+    #Get the credit card details submitted by the form
+    token = params[:stripeToken]
+    logger.debug "STRIPE TOKEN IN CHECKOUT::: #{token}"
+    amount = @final_amount
+
+      if amount > 0
+
+        #purchase
+        @purchase.event_id = @event.id.to_s
+        @purchase.total_order = amount
+        @purchase.total_fee = fee
+        @purchase.affiliate_code = params[:ref_code]
+        if @purchase.save
+        else
+        end
+
+   
+        if @purchase.update(purchase_params)
+          if !@code.blank? && !@coupon.nil?
+            charge_metadata = {
+              :order_id=> @purchase.id, 
+              :purchase_email => @purchase.email,
+              :coupon_code => @code,
+              :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%"
+            }
+          else
+            charge_metadata = {
+              :order_id=> @purchase.id, 
+              :purchase_email => @purchase.email
+            }
+          end 
+
+          begin
+            charge = Stripe::Charge.create({
+              :amount => (amount + fee),
+              :currency => @event.currency_type.downcase,
+              :source => token,
+              :application_fee => fee,
+              :metadata => charge_metadata
+            }, {:stripe_account => @account.stripe_user_id})
+            logger.debug "CHARGE is paid:::: #{charge['paid']}"
+            if charge["paid"] == true
+              @purchase.stripe_id = charge["id"]
+              if @purchase.update(purchase_params)
+              else
+              end
+             #Save customer to the db
+             
+              @array_of_ticket = []
+
+              @event.tickets.all.each do |ticket|
+
+                @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
+
+                @line_items.each_with_index do |lineitem, index|
+                   # create new attendee
+                   position = index+1
+                  logger.debug "BUYER ONLY::: #{@buyer_only != true}"
+                   if @buyer_only != true 
+                     first_name = params[:attendees][(index+1).to_s]["first_name"]
+                     last_name = params[:attendees][(index+1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   else
+                     first_name = params[:attendees][(1).to_s]["first_name"]
+                     last_name = params[:attendees][(1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   end
+
+                   if index == 0
+                    @purchase.first_name = first_name
+                    @purchase.last_name = last_name
+                    @purchase.save
+                   end
+
+                   logger.debug "ATTENDEE INFO: #{first_name}"
+                   @attendee = Attendee.new
+                   # save first name
+                   # save last name
+                   @attendee.first_name = first_name
+                   @attendee.last_name = last_name
+                   @attendee.email = email
+                   @attendee.event_id = @event.id
+                   @attendee.line_item_id = lineitem.id
+                   @attendee.user_id = @user.id
+                   @attendee.attending =true
+
+                   # save potential survey questions
+
+                   # save attendee
+
+                   if @attendee.save
+                      lineitem.attendee_id = @attendee.id
+
+                       if lineitem.save
+                       # save attendee id to lineitem
+                       @array_of_ticket.push(lineitem)
+                       else
+
+
+                       end
+
+                  end
+                end
+              end
+
+
+              
+              UserMailer.send_tickets(@event, @purchase, @array_of_ticket).deliver unless @purchase.invalid?
+              render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.confirm_token.to_s + "'"  #hack
+            else
+              logger.debug "CHARGE SHOULD BE FAILED"
+              #if error delete what just happened
+              @line_items.each do |line_item|
+                @attendee_to_delete = Attendee.find(@line_item.attendee_id.to_i)
+                @attendee_to_delete.destroy
+              end 
+              @purchase.destroy
+
+            end 
+
+          rescue Stripe::CardError => e
+
+              logger.debug "CARD DECLINED"
+            # The card has been declined
+
+              @purchase.destroy
+      
+   
+          else 
+          end
+        end
+
+    else
+
+
+#############
+#
+#
+  #purchase
+        @purchase.event_id = @event.id.to_s
+        @purchase.total_order = amount
+        @purchase.total_fee = fee
+        @purchase.affiliate_code = params[:ref_code]
+        if @purchase.save
+        else
+        end
+
+   
+        if @purchase.update(purchase_params)
+              
+              @array_of_ticket = []
+
+              @event.tickets.all.each do |ticket|
+              
+
+                @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
+
+                @line_items.each_with_index do |lineitem, index|
+                   # create new attendee
+                   position = index+1
+                 
+                   if @buyer_only != true 
+                     first_name = params[:attendees][(index+1).to_s]["first_name"]
+                     last_name = params[:attendees][(index+1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   else
+                     first_name = params[:attendees][(1).to_s]["first_name"]
+                     last_name = params[:attendees][(1).to_s]["last_name"]
+                     email = params[:purchase]["email"]
+                   end
+
+                   if index == 0
+                    @purchase.first_name = first_name
+                    @purchase.last_name = last_name
+                    @purchase.save
+                   end
+
+                   @attendee = Attendee.new
+                   # save first name
+                   # save last name
+                   @attendee.first_name = first_name
+                   @attendee.last_name = last_name
+                   @attendee.email = email
+                   @attendee.event_id = @event.id
+                   @attendee.line_item_id = lineitem.id
+                   @attendee.user_id = @user.id
+                   @attendee.attending =true
+
+                    # save potential survey questions
+
+                    # save attendee
+
+                    if @attendee.save
+                      lineitem.attendee_id = @attendee.id
+
+                      if lineitem.save
+                      # save attendee id to lineitem
+                      @array_of_ticket.push(lineitem)
+                      else
+                      end
+
+                    end
+                end
+              end
+
+
+                UserMailer.send_tickets(@event, @purchase, @array_of_ticket).deliver unless @purchase.invalid?
+                redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
+            end
+
+       
+        end
+
+
+  end
+
+
+
+
+  ##### END NEW REGISTRATION
+
+
+
+  def finish_registration
 
   end
 
@@ -60,29 +456,97 @@ require 'rqrcode_png'
   # GET /events/1.json
 def show_buy 
 
+    #replace with actual data
+
      @event = Event.find_by_slug(params[:slug])
      @user = User.find(@event.user_id)
-     @purchase = Purchase.find(params[:oid].to_i )
+     @tickets = Ticket.where(:event_id => @event.id)
+     @purchase = Purchase.where(:confirm_token => params[:oid].to_s ).first
 
-     @line_items = LineItem.where(:purchase_id => params[:oid])
+    @buyer_only = @event.buyer_only
+
+     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s).all
+
+      ticket_array = @line_items.group(:ticket_id).count
+      logger.debug "TICKET ARRAY IS: #{ticket_array}"
      LineItem.count('ticket_id', :distinct => true)
 
     @user = User.where(:id => @event.user_id.to_i).first
     @account = Account.where(:user_id => @user.id).first 
 
+    @coupons = Coupon.where(:event_id => @event.id).all
+     @coupon = Coupon.where(:event_id => @event.id).first.nil? ? Coupon.new : Coupon.where(:event_id => @event.id).first
 
+    @code = params[:couponCode]
+    logger.debug "COUPON CODE iS:: #{@code}"
 
      sum = 0 
+     fee = 0
 
-     @line_items = LineItem.where(:purchase_id => params[:oid])
+      #get fee rates
+      @fee_rate = @user.npo == true ? 0.015 : 0.025
+
+
+    num_of_paid_tickets = 0
+
+
+ 
+    @event.tickets.all.each do |ticket|
+
+      #get line item
+      @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
+      @line_items.each_with_index do |lineitem, index|
+
+        sum += ticket.price.to_f
+        if ticket.price.to_f != 0
+            num_of_paid_tickets += 1
+            fee += (ticket.price.to_f * @fee_rate)
+        end
+      end
+    end
+
+    logger.debug "FEE AT TOP: #{fee}"
+    logger.debug "SUM AT TOP: #{sum}"
+                          
+    fee = (fee * 100).round.to_i
+
+    @final_charge = (sum * 100).to_i #add all line items to figure out final price
+
+
+      if @final_charge > 0
+        logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
+        fee += 99 * num_of_paid_tickets
+      end
+
+      @final_fee = (fee.to_f/100)
+
+
+
+
+
+
+
+
+     @line_items = LineItem.where(:purchase_id => @purchase.id.to_s)
      @line_items.each do |line_item|
           @ticket = Ticket.where(:id => line_item.ticket_id.to_i).first
-          sum += @ticket.price
+          if !@ticket.nil?
+            sum += @ticket.price
+          end
      end 
                         
 
     @final_charge = sum * 100 #add all line items to figure out final price
+
+    if(!@event.layout_style?)
+      @event.layout_id = '1'
+      @event.layout_style = 'default'
+    end
+
+
 end
+
+
 
 def confirm_ticket
 
@@ -160,7 +624,7 @@ def stripe_redirect
      if params[:code]
         code = params[:code]
         # @resp = url to get token
-        # 
+        
         data   = {'grant_type' => 'authorization_code',
               'client_id' => ENV['STRIPE_CLIENT_ID'],
               'client_secret' => ENV['STRIPE_SECRET_KEY'],
@@ -336,6 +800,9 @@ def complete_registration
   token = params[:stripeToken]
   amount = @final_amount
 
+
+    logger.debug "STRIPE TOKEN IN MODAL CHECKOUT::: #{token}"
+
   logger.debug "FINAL CHARGE WITH DISCOUNT: #{amount}"
   
     if amount > 0
@@ -357,12 +824,14 @@ def complete_registration
             :order_id=> @purchase.id, 
             :purchase_email => @purchase.email,
             :coupon_code => @code,
-            :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%"
+            :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%",
+            :slug => @event.slug
           }
         else
           charge_metadata = {
             :order_id=> @purchase.id, 
-            :purchase_email => @purchase.email
+            :purchase_email => @purchase.email,
+            :slug => @event.slug
           }
         end 
 
@@ -551,9 +1020,10 @@ def show_confirm
   @line_items = LineItem.where(:purchase_id => @purchase.id)
 
   if(!@event.layout_style?)
-      @event.layout_id = '1'
-      @event.layout_style = 'default'
-    end
+    @event.layout_id = '1'
+    @event.layout_style = 'default'
+  end
+
 
      
 end
@@ -616,10 +1086,18 @@ def show
     else
       @account = nil
     end
-    @event = Event.find_by_slug(params[:slug]) or not_found
+     if request.domain != ENV['SITE_URL']
+      @event = Event.find_by_domain(request.host) or not_found
+     elsif params[:slug].nil?
+       @event = Event.find_by_slug(request.subdomain) or not_found
+     else
+       @event = Event.find_by_slug(params[:slug]) or not_found
+     end
 
 
     @tickets = @event.tickets.all 
+
+    @tickets_for_purchase = @event.tickets.where(:is_active => true)
 
     @total = 0
 
@@ -664,7 +1142,7 @@ def show
 
     @has_paid_ticket = false
     @tickets.each_with_index do |ticket, index|
-      if index == 0
+      if @current_ticket.nil? && ticket.is_active == true
         @current_ticket = ticket
       end 
       if ticket.price.to_i > 0 
@@ -683,6 +1161,10 @@ def show
 
     @attendees = Attendee.where(:event_id => @event.id)
 
+    @ticket = Ticket.new
+
+    @ticket = Ticket.where(:event_id => @event.id).first
+    @purchase = Purchase.new
     @buyers = Purchase.where(:event_id => @event.id)
     @user = User.find(@event.user_id.to_i)
     @fee_rate = @user.npo == true ? 0.015 : 0.025
@@ -691,10 +1173,6 @@ def show
 
 
     #@ticket = @event.tickets.build(ticket_params)
-    @ticket = Ticket.new
-
-    @ticket = Ticket.where(:event_id => @event.id).first
-    @purchase = Purchase.new
 
     if !@event
 
@@ -817,6 +1295,7 @@ def show
     @event.user_id = current_user.id
     @event.published = true
     @event.layout_id = '1'
+
 
     @eventHTML = '<div id="hero">
             <div class="container">
@@ -951,7 +1430,7 @@ def show
     respond_to do |format|
       if @event.save
 
-          ticket_vars = {title: @event.name, stop_date: @event.date_start.nil? ? nil : @event.date_start , buy_limit: 4, ticket_limit: 1000, price: 0, description: nil  }
+          ticket_vars = {title: 'General Admission', stop_date: @event.date_start.nil? ? nil : @event.date_start , buy_limit: 4, ticket_limit: 1000, price: 0, description: nil  }
           @ticket = @event.tickets.build(ticket_vars)
           # @ticket = Ticket.new
           # @ticket.title = @event.name
@@ -972,6 +1451,7 @@ def show
       end
     end
   end
+
 
   def check_slug
 
@@ -1131,6 +1611,13 @@ def show
         code = code.gsub(/\s+/, '')
         code = code.upcase
         @coupon_code = Coupon.where(:promo_code => code, :event_id => eventId).first
+      end
+
+
+      def ensure_proper_subdomain
+         if request.host != 'checkout.' + ENV['SITE_URL']
+           redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL']})
+         end
       end
 
 

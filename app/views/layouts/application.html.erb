@@ -37,12 +37,19 @@
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
   <script type="text/javascript">
-  <% if (action_name == 'show_buy' || action_name == 'complete_registration') && !@account.nil?   %>
-    Stripe.setPublishableKey('<%= @account.stripe_publishable_key %>');
- <% else %>
-    Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
 
- <% end %>
+
+ <% if (action_name == 'submit_attendees' || action_name == 'complete_registration') && !@account.nil?   %>
+   Stripe.setPublishableKey('<%= @account.stripe_publishable_key %>');
+<% else %>
+  
+   Stripe.setPublishableKey('<%= ENV['STRIPE_PUBLISHABLE_KEY'].to_s %>');
+
+<% end %>
+
+   
+
+
   </script>
 
 
@@ -52,6 +59,9 @@
 
 
 
+<!-- google analytics code -->
+  <script src="/assets/vendor/google-analytics.js"></script>
+<!-- end google analytics code -->
 
 </head>
 
@@ -84,9 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </footer>
 
 
-<!-- google analytics code -->
-  <script src="/assets/vendor/google-analytics.js"></script>
-<!-- end google analytics code -->
+
 
 <!-- ampltitude code -->
   <script src="/assets/vendor/amplitude.js"></script>

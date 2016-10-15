@@ -553,6 +553,12 @@ font-family: "futura-pt",sans-serif;
 		line-height:34px;
 	}
 
+	.input-group input {
+		border: 1px solid #fff;
+		background: #dcdcdc;
+		margin-right: 4px;
+	}
+
 	&:after {
 		content: "";
 		display: table;
@@ -561,53 +567,16 @@ font-family: "futura-pt",sans-serif;
 
 
 	form {
-		float:left;
-		width:50%;
+		//float:left;
+		//width:50%;
+		text-align: left;
 	}
 	
-	.purchase-details {
-		float:right;
-		width:40%;
-		padding:30px;
-		background:$brand-secondary;
-		position: relative;
-		color:#fff;
-    	top: -40px;
-
-
-    	table {
-
-    		width:100%;
-    		border-top:1px solid rgba(255,255,255,.1);
-    		padding:20px 0 0;
-    		margin:20px 0;
-    		vertical-align:top;
-
-  
-
-    		td.ticket-quantity {
-    			text-align:left;
-    			vertical-align:top;
-
-    			p {
-    				opacity:.6;
-    			}
-    		}
-
-    		td.ticket-amount {
-    			@extend h4;
-    			text-align:right;
-    			vertical-align:top;
-
-    		}
-
-    	}
-	}
+	
 
 	.ticket-holder {
-		border: 1px dotted #ccc;
-    	box-shadow: 5px 5px 17px rgba(0, 0, 0, 0.05);
-    	padding: 20px;
+
+    	margin-top: 30px;
     	margin-bottom: 30px;
 
 		h4 {
@@ -625,6 +594,40 @@ font-family: "futura-pt",sans-serif;
 }
 
 
+.purchase-details {
+		float:right;
+		background:#fff;
+		position: relative;
+		color:#000;
+
+	
+
+    	table {
+
+    		width:100%;
+    		border-top:1px solid rgba(255,255,255,.1);
+    		padding:20px 0 0;
+    		margin:20px 0;
+    		vertical-align:top;
+
+    		td.ticket-quantity {
+    			text-align:left;
+    			vertical-align:top;
+
+    			p {
+    				opacity:.6;
+    			}
+    		}
+
+    		td.ticket-amount {
+    			text-align:right;
+    			vertical-align:top;
+
+    		}
+
+    	}
+	}
+
 .event-buy-page.event-page {
 		.header {
 
@@ -641,7 +644,7 @@ font-family: "futura-pt",sans-serif;
 .confirm-container {
 	max-width: 700px;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
     padding: 40px 0 100px;
     background: #fff;
     box-shadow: 10px 10px 40px rgba(0,0,0,.3);
@@ -719,6 +722,24 @@ img.fr-dib.fr-draggable {
 		line-height:40px !important;
 	}
 
+
+}
+
+.ticket-list-container {
+
+	text-align: left;
+}
+
+.ticket-container:first-child {
+
+	border-top: 1px solid #ccc;
+}
+
+.ticket-container {
+	//padding: 20px 0;
+	//margin: 10px 0;
+
+	//border-bottom: 1px solid #ccc;
 
 }
 
