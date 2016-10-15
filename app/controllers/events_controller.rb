@@ -1158,8 +1158,34 @@ def show
 
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
 
+      @attendees_list = {
+        "attendees" => [],
+        "event" => {
+          "event_id" => @event.id
+          } 
+      }             
+   
+
+
 
     @attendees = Attendee.where(:event_id => @event.id)
+    @attendees.each do |attendee|
+      @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
+      @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
+      attendee_block = {
+          "id" => attendee.id,
+          "first_name" => attendee.first_name,
+          "last_name" => attendee.last_name,
+          "email" => attendee.email,
+          "created_at" => attendee.created_at.to_date.strftime("%B %d, %Y "),
+          "ticket_type" => @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"'
+        }
+
+        @attendees_list["attendees"].push(attendee_block)
+
+    end
+
+    logger.debug "#{@attendees_list}"
 
     @ticket = Ticket.new
 
