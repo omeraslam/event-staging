@@ -1,0 +1,77 @@
+<% eventurl = "www.eventcreate.com" + (url_for slugger_path(@user, @event)) %>
+
+
+
+<!--START event navigation-->
+<div class="event-header container"> 
+ 
+	<div class="event-meta"> 
+		<% @style_bg = '/assets/themes/' + @event.layout_style.to_s + '_thumb.jpg' %>
+		
+		<!-- <a href="#" class="thumb" style="background-image:url(<%= @style_bg %>);"> 
+			<div class="thumb-cover"> </div> 
+			<div class="thumb-action"><i class="icon icon-share-window"> </i> </div> 
+		</a> -->
+		
+		
+		<%= link_to slugger_path(@event), :class => 'thumb', :style => "background-image:url(" + @style_bg + ");",  :target => '_blank'  do %>
+		<div class="thumb-cover"> </div> 
+		<div class="thumb-action"><i class="icon icon-share-window"> </i> </div> 
+		<% end %>
+
+
+		<h1> 	<%= @event.name  %> </h1>
+		<p class="lead">
+			<% if (!@event.date_start.nil? && @event.date_start != '')%>
+			<%= @event.date_start.to_date.strftime("%B %d") %> | <% end %>Status:  <span> <%= @event.published == false ? 'Draft' : 'Live'%> </span>
+
+			
+		</p>
+		<% if !@premium_disable %>
+		
+		<% end %>
+	</div>
+	
+	<div class="event-status"> 
+		<div class="event-share">
+
+			<%= link_to " <span>View/edit my event page</span>".html_safe, slugger_path(@event.slug, :editing => "true"), :class => 'btn'  %>
+
+
+			<br>
+
+   			<%# if @count_registrations >= @event_registration_limit && !@premium_disable %>  
+
+ 	
+
+
+			<a class="circle open-link-modal tooltip"><i class="icon icon-link"></i> <span>Share link </span></a> 
+
+			<a class="circle tooltip" href="https://www.facebook.com/sharer/sharer.php?u=<%= eventurl %>" target="_blank"><i class="icon icon-facebook"></i> <span>Share on Facebook </span> </a> 
+			<a class="circle tooltip" href="https://twitter.com/home?status=Registration%20is%20now%20open%20at%20<%= eventurl %>" target="_blank"><i class="icon icon-twitter"></i> <span>Share on Twitter </span> </a> 
+		</div>
+		<div class="event-link input-group input-group-dark"><i class="icon icon-link"></i> <input type="text" value="<%= eventurl %>"  /> </div>		
+
+	</div>
+
+
+
+	<div class="event-navigation"> 
+	    <ul>
+	        <!-- <li> <a  class="event-sub-nav-trigger" data-target="0">  activity  </a> </li> -->
+	        <li> <a  class=" event-sub-nav-trigger active" data-target="0" >  guest list </a> </li>
+	       	<li> <a  class=" event-sub-nav-trigger" data-target="1" >  orders  </a> </li>
+	       	<li> <a  class=" event-sub-nav-trigger" data-target="2" >  settings  </a> </li>
+
+	    </ul>
+	</div>
+
+</div>
+
+<%= render 'dashboard/partials/subnav' %>
+<%= render 'dashboard/emailmodal' %>
+<%= render 'partials/linkmodal' %>
+
+
+<%= render 'layouts/flash_messages' %>
+

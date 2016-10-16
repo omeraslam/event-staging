@@ -26,8 +26,7 @@ var AttendeeList = React.createClass({
     },
 
     render: function() {
-        // TODO - if else if buyers exist, empty state
-
+        //if buyers do not exist, empty state
         if(this.props.attendees_list.attendees.length > 0) {
             AttendeeContent = <TableElement attendees_list={this.props.attendees_list} />;
         } else {
@@ -37,7 +36,6 @@ var AttendeeList = React.createClass({
         return (
 
             <div className="editor-tool editor-panel-top-nav" id="editor-tool-attendees" >
-
                    {AttendeeContent}
             </div> 
         )

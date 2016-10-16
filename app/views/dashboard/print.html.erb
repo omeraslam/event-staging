@@ -29,13 +29,7 @@
 			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">First Name</th>
 			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Last Name</th>
 			<th width="300px"  style="border: 1px solid black;padding: 10px; margin: 0;">Email Address</th>
-			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Guest Count</th>
-
 			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Ticket Type</th>
-
-			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Total Order</th>
-
-			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Affiliate Code</th>
 
 			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Registration date</th>
 		</tr></thead>
@@ -44,24 +38,17 @@
 
 
 		<tbody>
-			<% @buyers.each do |attendee| %>
+			<% @attendees_list["attendees"].each_with_index do |attendee, index| %>
 			<tr width="350" style="border: 1px solid black ;">		
-				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.id %></td>
-				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.first_name %></td>
-				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.last_name %></td>
-				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.email %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= index+1 %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee["first_name"] %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee["last_name"]  %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee["email"] %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee["ticket_type"] %></td>
 				
-				 <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.nil? ? 0 : @guest.quantity - 1 %></td>
-                        <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
-                        <td style="border: 1px solid black;padding: 10px; margin: 0;">          
-                            <% total_order = 0 %>
-                    <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
-                       
-                        <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
-                        <% total_order += @ticket.nil? ? 0 : @ticket.price %>
-                    <% end %> 
-                        <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td style="border: 1px solid black;padding: 10px; margin: 0;"><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' ? 'n/a' : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
-                        <td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+
+
+                        <td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee["created_at"] %> </td>
 
 
 			</tr>
