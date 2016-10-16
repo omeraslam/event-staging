@@ -28,13 +28,12 @@ Rails.application.routes.draw do
 
     def self.matching_site? request
 
-      #   puts "REQUEST SUBDOMAIN:: #{request.subdomain}"
-      # if ((request.domain != ENV['SITE_URL']))
-      #   puts "REQUEST DOMAIN:: #{request.domain}"
-      #   puts "SITE URL:: #{ENV['SITE_URL']}"
-      #   Event.where(:domain => request.host).any? || User.where(:domain => request.host).any?
-      # els
-      if ((request.subdomain.present? && request.subdomain != 'www'))
+        puts "REQUEST SUBDOMAIN:: #{request.subdomain}"
+      if ((request.domain != ENV['SITE_URL']))
+        puts "REQUEST DOMAIN:: #{request.domain}"
+        puts "SITE URL:: #{ENV['SITE_URL']}"
+        Event.where(:domain => request.host).any? || User.where(:domain => request.host).any?
+      elsif ((request.subdomain.present? && request.subdomain != 'www'))
         if(Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any? )
           Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any?
         else 
@@ -68,7 +67,7 @@ Rails.application.routes.draw do
   get '/thank-you',  to: 'payments#thankyou', :as => :thankyou
   get '/upgrade' => 'payments#upgrade', :as => :upgrade
   get '/cancel' => 'payments#cancel', :as => :cancel
-  get '', to: 'events#show', constraints: CustomDomainConstraint, :as => :events_subdomain
+  #get '', to: 'events#show', constraints: CustomDomainConstraint, :as => :events_subdomain
   #get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
   get '/users/:id/events/index', to: 'events#home', :as => :events_home
  
