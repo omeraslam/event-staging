@@ -95,17 +95,18 @@ Rails.application.routes.draw do
 
 
   #static pages
-  get '/terms' => 'pages#terms'
-  get '/privacy' => 'pages#privacy'
-  get '/pricing' => 'pages#pricing'
-  get '/features' => 'pages#features'
-  get '/explore' => 'pages#explore'
-  get '/contact' => 'pages#contact'
-  get '/facebookevents' => 'pages#facebook'
-  get '/about' => 'pages#about'
-  get '/press' => 'pages#press'
-  get '/customization' => 'pages#customization'
-
+  scope :constraints => { :protocol => "https" } do
+    get '/terms' => 'pages#terms'
+    get '/privacy' => 'pages#privacy'
+    get '/pricing' => 'pages#pricing'
+    get '/features' => 'pages#features'
+    get '/explore' => 'pages#explore'
+    get '/contact' => 'pages#contact'
+    get '/facebookevents' => 'pages#facebook'
+    get '/about' => 'pages#about'
+    get '/press' => 'pages#press'
+    get '/customization' => 'pages#customization'
+  end
 
   get '/error404' => 'pages#error404', :as => :error_path
 
