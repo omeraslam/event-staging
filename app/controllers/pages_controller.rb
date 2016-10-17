@@ -54,8 +54,8 @@ class PagesController < ApplicationController
 
   def ensure_proper_root_domain
 
-    if ((request.subdomain.present? && request.subdomain != 'www'))
-      redirect_to params.merge({subdomain: 'www'})
+    if ((request.subdomain.present? && request.subdomain != ENV['SITE_SUBDOMAIN']))
+      redirect_to params.merge({subdomain: ENV['SITE_SUBDOMAIN']})
     end
   end
 
