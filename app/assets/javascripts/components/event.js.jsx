@@ -13,7 +13,7 @@ var Event = React.createClass({
 
     },
     _buildBackgroundImage: function() {
-        return  this.props.event.background_img.thumb.url == null ? '/assets/themes/default_bg.jpg' : this.props.event.background_img.thumb.url;
+        return  this.props.event.background_img
     },
     _buildLinkHref: function(e) {
         return '/'+ this.props.event.slug + '?editing=true';
@@ -21,7 +21,7 @@ var Event = React.createClass({
     render: function() {
             return (
                 <div className="event ">
-                    <div className="image" style={{backgroundImage: 'url('+ this._buildBackgroundImage() +')'}}> </div>
+                    <div className="image" style={{backgroundImage: 'url('+ this.props.event.background_img +')'}}> </div>
                     <div className="details"> 
                         <a href={this._buildLinkHref()} className="title" >{this.props.event.name}</a>
                         <div className="time">

@@ -12,7 +12,57 @@ class DashboardController < ApplicationController
   def index
     @attendee = Attendee.new
     @user = User.find(current_user.id)
-    @events = Event.where(:user_id => current_user.id.to_s, :status => true).all
+    events = Event.where(:user_id => current_user.id.to_s, :status => true).all
+
+    @events = []
+
+    events.each do |event|
+      eventobj = {
+        "name" => event.name,
+        "id" => event.id,
+        "date_start" => event.date_start.to_date.strftime("%B %d, %Y"),
+        "slug" => event.slug, 
+        "background_img" => background_checker(event, true)
+      }
+
+      #this.props.event.background_img.thumb.url == null ? '/assets/themes/default_bg.jpg' : this.props.event.background_img.thumb.url
+
+      @events.push(eventobj)
+
+    end 
+        #@event = Event.find_by id: params[:event]
+
+    #   @attendees_list = {
+    #     "attendees" => [],
+    #     "event" => {
+    #       "event_id" => @event.id,
+    #       "name" => @event.name,
+    #       "date_start" => @event.date_start.to_date.strftime("%B %d, %Y")
+    #       } 
+    #   }             
+   
+    # @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+
+    # @attendees.each do |attendee|
+    #   @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
+    #   @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
+    #   attendee_block = {
+    #       "id" => attendee.id,
+    #       "first_name" => attendee.first_name,
+    #       "last_name" => attendee.last_name,
+    #       "email" => attendee.email,
+    #       "created_at" => attendee.created_at.to_date.strftime("%B %d, %Y "),
+    #       "ticket_type" => @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"'
+    #     }
+
+    #     @attendees_list["attendees"].push(attendee_block)
+
+    # end
+
+
+
+
+
 
     @dir = true
     @welcome = params[:welcome]
@@ -20,6 +70,8 @@ class DashboardController < ApplicationController
     @sign_in_count = @user.sign_in_count
 
     respond_with(@attendee, @user, @events)
+
+
   end
 
   def contacts
@@ -165,5 +217,35 @@ class DashboardController < ApplicationController
 
 
   end
+
+  private 
+    def background_checker(event = nil, dir = true)
+      if dir == true
+        subdir = '/assets/themes/'
+      else 
+        subdir = 'themes/'
+      end
+
+      if(!event.external_image.nil? && !event.external_image.blank? ) 
+        @style_bg = event.external_image
+      elsif(!event.background_img.nil? && !event.background_img.blank? )
+        if dir == true
+          if event.background_img.thumb.file.exists?
+            @style_bg = event.background_img.url(:thumb)
+          else
+            event.background_img.recreate_versions!
+            @style_bg = event.background_img.url(:thumb)
+
+          end
+        else
+          @style_bg = event.background_img
+        end
+      elsif (event.layout_style? && !event.show_custom) 
+        @style_bg = subdir + event.layout_style.to_s + '_bg.jpg'
+      else  
+        @style_bg = subdir+ 'default_bg.jpg'
+      end
+
+    end
 
 end

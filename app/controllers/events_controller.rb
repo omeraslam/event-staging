@@ -1157,6 +1157,7 @@ def show
 
 
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
+      @attendee_headers = ["First Name", "Last Name", "Email Address", "Ticket Type", "Registration Date"]
 
       @attendees_list = {
         "attendees" => [],
@@ -1164,7 +1165,8 @@ def show
           "event_id" => @event.id
           } 
       }             
-   
+    
+      @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Ticket Type", "Total Order", "Affiliate Code"]
 
 
 
@@ -1185,7 +1187,6 @@ def show
 
     end
 
-    logger.debug "#{@attendees_list}"
 
     @ticket = Ticket.new
 
@@ -1645,6 +1646,8 @@ def show
            redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL']})
          end
       end
+
+      
 
 
   end

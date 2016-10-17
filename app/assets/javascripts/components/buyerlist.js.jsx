@@ -1,4 +1,4 @@
-var AttendeeList = React.createClass({
+var BuyerList = React.createClass({
     getInitialState: function() {
         return { attendees_list: this.props.attendees_list, headers: this.props.headers}
     },
@@ -30,7 +30,7 @@ var AttendeeList = React.createClass({
         if(this.props.attendees_list.attendees.length > 0) {
             AttendeeContent = <TableElement attendees_list={this.props.attendees_list} table_headers={this.props.headers} />;
         } else {
-            AttendeeContent = <EmptyState message="No attendees, just yet."/>
+            AttendeeContent = <EmptyState message="No orders, just yet."/>
         }
 
         return (

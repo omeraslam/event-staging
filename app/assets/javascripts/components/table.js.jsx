@@ -1,10 +1,10 @@
 var TableElement = React.createClass({
     getInitialState: function() {
-        return { attendees: this.props.attendees_list.attendees,
+        return { attendees: this.props.attendees_list.attendees, headers: this.props.table_headers,
         event: this.props.attendees_list.event }
     },
     getDefaultProps: function() {
-        return { attendees: [], event: {}}
+        return { attendees: [], event: {}, headers: []}
     },
 
     componentDidMount: function() {
@@ -35,11 +35,9 @@ var TableElement = React.createClass({
                 <table className="table tablesorter table-attendees"> 
                             <thead> 
                                 <tr> 
-                                  <th>First Name</th> 
-                                  <th>Last Name</th> 
-                                  <th>Email Address</th>  
-                                  <th>Ticket Type</th> 
-                                  <th> Registration date </th>      
+                                     {this.state.headers.map(function(header){
+                                        return <th>{header}</th>
+                                    }.bind(this))}   
                                 </tr> 
                             </thead> 
                             <tbody>
