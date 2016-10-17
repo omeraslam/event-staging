@@ -1,7 +1,7 @@
 var TableElement = React.createClass({
     getInitialState: function() {
-        return { attendees: this.props.attendees_list.attendees, headers: this.props.table_headers,
-        event: this.props.attendees_list.event }
+        return { attendees: this.props.items.items, headers: this.props.table_headers,
+        event: this.props.items.event }
     },
     getDefaultProps: function() {
         return { attendees: [], event: {}, headers: []}
@@ -11,10 +11,10 @@ var TableElement = React.createClass({
 
     },
     _buildPrintLinkHref: function(e) {
-        return '/dashboard/print?event='+ this.props.attendees_list.event.event_id
+        return '/dashboard/print?event='+ this.props.items.event.event_id
     },
     _buildDownloadLinkHref: function(e) {
-        return '/dashboard/event.csv?event='+ this.props.attendees_list.event.event_id
+        return '/dashboard/event.csv?event='+ this.props.items.event.event_id
     },
 
     render: function() {
@@ -35,8 +35,8 @@ var TableElement = React.createClass({
                 <table className="table tablesorter table-attendees"> 
                             <thead> 
                                 <tr> 
-                                     {this.state.headers.map(function(header){
-                                        return <th>{header}</th>
+                                     {this.state.headers.map(function(header, index){
+                                        return <th key={index}>{header}</th>
                                     }.bind(this))}   
                                 </tr> 
                             </thead> 

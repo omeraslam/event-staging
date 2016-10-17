@@ -15,11 +15,20 @@ var AttendeeRow = React.createClass({
 
 
                  <tr> 
-                        <td>{this.props.attendee.first_name}</td> 
-                        <td>{this.props.attendee.last_name}</td> 
-                        <td>{this.props.attendee.email}</td>
-                        <td>{this.props.attendee.ticket_type}</td>         
-                        <td> {this.props.attendee.created_at}</td>
+
+                    { Object.keys(this.props.attendee).map(function (key) {
+                        //alert('key', key);
+                        var propitem = this.props.attendee[key]
+                        if(key != 'id') {
+                            return (
+
+                            <td>{propitem}</td>
+                            )
+
+                        }
+                        
+                    }, this)}
+                   
                     </tr> 
 
             );

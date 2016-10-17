@@ -1,9 +1,9 @@
 var BuyerList = React.createClass({
     getInitialState: function() {
-        return { attendees_list: this.props.attendees_list, headers: this.props.headers}
+        return { items: this.props.items, headers: this.props.headers}
     },
     getDefaultProps: function() {
-        return { attendees_list: [], headers: []}
+        return { items: [], headers: []}
     },
 
     componentDidMount: function() {
@@ -27,15 +27,15 @@ var BuyerList = React.createClass({
 
     render: function() {
         //if buyers do not exist, empty state
-        if(this.props.attendees_list.attendees.length > 0) {
-            AttendeeContent = <TableElement attendees_list={this.props.attendees_list} table_headers={this.props.headers} />;
+        if(this.props.items.items.length > 0) {
+            AttendeeContent = <TableElement items={this.props.items} table_headers={this.props.headers} />;
         } else {
             AttendeeContent = <EmptyState message="No orders, just yet."/>
         }
 
         return (
 
-            <div className="editor-tool editor-panel-top-nav" id="editor-tool-attendees" >
+            <div className="editor-tool editor-panel-top-nav" id="editor-tool-orders" >
                    {AttendeeContent}
             </div> 
         )

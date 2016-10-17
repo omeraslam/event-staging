@@ -1,8 +1,15 @@
 
-  <%= react_component 'BuyerList', { attendees_list: @attendees_list, headers: @buyer_headers } %>
-<!-- 
+ 
 <div class="editor-tool editor-panel-top-nav" id="editor-tool-orders" >
-    <div class="editor-aside"> 
+
+
+  <%= react_component 'BuyerList', { items: @buyers_list, headers: @buyers_headers } %>
+
+
+
+
+
+<!--     <div class="editor-aside"> 
 	    <div class="row">
 		    <div class="col-md-6">
 				<input class="search selectable table-search-orders" type="search" placeholder="Search orders" data-column="all">
@@ -75,37 +82,11 @@
     </div>
 
 
-
+ -->
 
         
 
 
 
 
-</div>  -->
-
-<script type="text/javascript">
-$(document).ready(function() {
-  // call the tablesorter plugin
-  var $table = $(".table-orders").tablesorter({
-    // Sort on the second column, in ascending order
-    sortList: [[1,0]],
-     widgets: [ "filter"],
-         widgetOptions : {
-      // use the filter_external option OR use bindSearch function (below)
-      // to bind external filters.
-      filter_external : '.table-search-orders',
-      filter_columnFilters: false,
-      filter_saveFilters : true    
-  }
-
-  });
-
-
-  //$.tablesorter.filter.bindSearch( $table, $('.search') );
-
-
-});
-
-
-</script>
+</div> 

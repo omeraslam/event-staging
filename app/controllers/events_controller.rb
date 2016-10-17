@@ -1160,13 +1160,13 @@ def show
       @attendee_headers = ["First Name", "Last Name", "Email Address", "Ticket Type", "Registration Date"]
 
       @attendees_list = {
-        "attendees" => [],
+        "items" => [],
         "event" => {
           "event_id" => @event.id
           } 
       }             
     
-      @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Ticket Type", "Total Order", "Affiliate Code"]
+      @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Total Order", "Affiliate Code"]
 
 
 
@@ -1183,7 +1183,7 @@ def show
           "ticket_type" => @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"'
         }
 
-        @attendees_list["attendees"].push(attendee_block)
+        @attendees_list["items"].push(attendee_block)
 
     end
 
@@ -1193,6 +1193,34 @@ def show
     @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
     @buyers = Purchase.where(:event_id => @event.id)
+    @buyers_list = {
+      "items" => [],   
+      "event" => {
+          "event_id" => @event.id
+          } 
+
+    }
+
+
+    @buyers.each do |buyer|
+      # @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
+      # @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
+      buyer_block = {
+          "id" => buyer.id,
+          "first_name" => buyer.first_name,
+          "last_name" => buyer.last_name,
+          "email" => buyer.email,
+          "guest_count" => LineItem.where(:purchase_id => buyer.id.to_s).count > 0 ? (LineItem.where(:purchase_id => buyer.id.to_s).count).to_i - 1 : 0,
+
+          "total_order" => buyer.total_order,
+          "affiliate_code" => buyer.affiliate_code == 'null' ? 'n/a' : buyer.affiliate_code
+        }
+
+        @buyers_list["items"].push(buyer_block)
+
+    end
+
+
     @user = User.find(@event.user_id.to_i)
     @fee_rate = @user.npo == true ? 0.015 : 0.025
     logger.debug "#{@current_ticket.price}"

@@ -27,17 +27,16 @@ var AttendeeList = React.createClass({
 
     render: function() {
         //if buyers do not exist, empty state
-        if(this.props.attendees_list.attendees.length > 0) {
-            AttendeeContent = <TableElement attendees_list={this.props.attendees_list} table_headers={this.props.headers} />;
+        if(this.props.attendees_list.items.length > 0) {
+            AttendeeContent = <TableElement items={this.props.attendees_list} table_headers={this.props.headers} />;
         } else {
             AttendeeContent = <EmptyState message="No attendees, just yet."/>
         }
 
         return (
-
-            <div className="editor-tool editor-panel-top-nav" id="editor-tool-attendees" >
+                <div>
                    {AttendeeContent}
-            </div> 
+                </div>
         )
    } 
 });
