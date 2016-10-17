@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
   
-  force_ssl
+  #force_ssl
   before_filter :ensure_proper_root_domain
 
 
