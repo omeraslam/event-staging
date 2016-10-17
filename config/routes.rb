@@ -95,7 +95,7 @@ Rails.application.routes.draw do
 
 
   #static pages
-  scope :constraints => { :protocol => "https" } do
+  #scope :constraints => { :protocol => "https" } do
     get '/terms' => 'pages#terms'
     get '/privacy' => 'pages#privacy'
     get '/pricing' => 'pages#pricing'
@@ -106,7 +106,7 @@ Rails.application.routes.draw do
     get '/about' => 'pages#about'
     get '/press' => 'pages#press'
     get '/customization' => 'pages#customization'
-  end
+  #end
 
   get '/error404' => 'pages#error404', :as => :error_path
 
