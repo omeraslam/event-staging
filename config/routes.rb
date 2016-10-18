@@ -183,7 +183,7 @@ Rails.application.routes.draw do
   #buy tickets
   #get '/:slug/select-tickets' => 'events#select_tickets' , :as => :select_tickets
   post '/:slug/select-tickets' => 'events#select_tickets' , :as => :select_tickets
-  post '/:slug/complete-registration' => 'events#complete_registration' , :as => :complete_registration
+  post '//checkout.eventcreate.com/:slug/complete-registration' => 'events#complete_registration' , :as => :complete_registration
   
    post '/:slug/submit-attendees' => 'events#submit_attendees' , :as => :submit_attendees
   
