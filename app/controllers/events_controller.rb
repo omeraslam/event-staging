@@ -14,7 +14,7 @@ class EventsController < ApplicationController
 
 
 
-  before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket, :complete_registration]
+  before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
 
   #require 'chunky_png'
 
@@ -1622,7 +1622,7 @@ def show
           puts "ENV SITE URL IS::: #{ENV['SITE_URL']}"
           puts "REQUEST HOST IS::: #{request.host}"
          if request.host != 'checkout.' + ENV['SITE_URL'].to_s
-           redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL']})
+           redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL'].to_s})
          end
       end
 
