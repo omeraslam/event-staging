@@ -122,7 +122,13 @@ require 'rqrcode_png'
       else
 
       end
-      redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s)
+      logger.debug "REF CODE IS::::: #{params[:ref_code]}"
+      if params[:ref_code] != nil
+        redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s, :refcode => params[:ref_code])
+      else
+        redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s)
+
+      end
      
     end
   end
