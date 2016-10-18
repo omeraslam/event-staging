@@ -1,7 +1,7 @@
 var EditorPanel = React.createClass({
-    // getInitialState: function() {
-    //     return { current_selection: this.props.current_selection}
-    // },
+    getInitialState: function() {
+        return { current_selection: this.props.current_selection}
+    },
     // getDefaultProps: function() {
     //     return { current_selection: null}
     // },
@@ -37,6 +37,9 @@ var EditorPanel = React.createClass({
         });
     },
 
+    handleChange: function(e) {
+        this.setState({value: event.target.value})
+    },
     render: function() {
         return (
             <div className="editor-panel">
@@ -62,7 +65,7 @@ var EditorPanel = React.createClass({
                     </div>
                     <div className="input-group">
                         <label>Registration closes on</label>
-                        <input type="text" defaultValue={this.props.current_selection.stop_date} />
+                        <input type="text" defaultValue={this.props.current_selection.stop_date} onChange={this.handleChange} />
                     </div>
                     <div className="input-group">
                         <button onClick={this.handleUpdate} className="btn btn-primary">Update</button>
