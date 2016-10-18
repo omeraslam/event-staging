@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
-  before_filter :force_http, only: [:show,:complete_registration]
+  before_filter :force_http, only: [:show,:complete_registration,:update_theme]
 
   force_ssl except: [:show, :complete_registration, :show_confirm]
 
