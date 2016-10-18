@@ -1087,14 +1087,14 @@ def show
     else
       @account = nil
     end
-     # if request.domain != ENV['SITE_URL']
-     #  @event = Event.find_by_domain(request.host) or not_found
-     # els
-     if params[:slug].nil?
-       @event = Event.find_by_slug(request.subdomain) or not_found
-     else
-       @event = Event.find_by_slug(params[:slug]) or not_found
-     end
+     
+    if request.domain != ENV['SITE_URL']
+      @event = Event.find_by_domain(request.host) or not_found
+    elsif params[:slug].nil?
+      @event = Event.find_by_slug(request.subdomain) or not_found
+    else
+      @event = Event.find_by_slug(params[:slug]) or not_found
+    end
 
 
     @tickets = @event.tickets.all 
