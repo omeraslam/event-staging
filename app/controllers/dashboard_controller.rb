@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   layout nil
   layout 'application', :except => :print
 
-
+  force_ssl
   before_filter :authenticate_user!
   respond_to :html, :js, :json
 

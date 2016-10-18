@@ -797,7 +797,7 @@
                         <td><%= attendee.email %></td>
                         <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %>
                             <% @guest_quantity = LineItem.where(:purchase_id => attendee.id.to_s).count %>
-                         <%= @guest_quantity.nil? ? 'n/a' : @guest_quantity - 1 %></td>
+                         <%= @guest_quantity.nil? || @guest_quantity <= 0 ? 'n/a' : @guest_quantity - 1 %></td>
                         <td><% @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
                         <td>          
                             <% total_order = 0 %>
