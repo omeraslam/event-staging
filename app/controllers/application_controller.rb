@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
   before_action :check_member_type
   add_flash_types :event_success
+  before_filter :expire_hsts
+
   
 
   helper :all
@@ -111,6 +113,12 @@ end
   end  
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
+  end
+
+
+private
+  def expire_hsts
+    response.headers["Strict-Transport-Security"] = 'max-age=0'
   end
 
 
