@@ -8,9 +8,9 @@ class EventsController < ApplicationController
   
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
-  before_filter :force_http, only: [:show]
+  #before_filter :force_http, only: [:show]
 
-  force_ssl :except => :show
+  #force_ssl :except => :show
 
 
 
@@ -1088,9 +1088,10 @@ def show
       @account = nil
     end
      
-    if request.domain != ENV['SITE_URL']
-      @event = Event.find_by_domain(request.host) or not_found
-    elsif params[:slug].nil?
+    # if request.domain != ENV['SITE_URL']
+    #   @event = Event.find_by_domain(request.host) or not_found
+    # els
+    if params[:slug].nil?
       @event = Event.find_by_slug(request.subdomain) or not_found
     else
       @event = Event.find_by_slug(params[:slug]) or not_found
