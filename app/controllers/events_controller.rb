@@ -1628,7 +1628,8 @@ def show
 
       def force_http
         if request.ssl? && Rails.env.production?
-          redirect_to :protocol => 'http://', :status => :moved_permanently
+
+          redirect_to params.merge({:protocol => 'http://', :status => :moved_permanently})
         end
       end
 
