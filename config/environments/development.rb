@@ -14,7 +14,7 @@ Rails.application.configure do
   config.force_ssl = false
 
   config.use_ssl = true
-  config.ssl_port = 3001  
+  config.ssl_port = 5000  
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
