@@ -1619,7 +1619,7 @@ def show
       def ensure_proper_subdomain
           puts "ENV SITE URL IS::: #{ENV['SITE_URL']}"
           puts "REQUEST HOST IS::: #{request.host}"
-         if request.host != 'checkout.' + ENV['SITE_URL']
+         if request.host != 'checkout.' + ENV['SITE_URL'].to_s
            redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL']})
          end
       end
