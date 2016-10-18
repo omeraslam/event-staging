@@ -16,13 +16,13 @@ var AttendeeRow = React.createClass({
 
                  <tr> 
 
-                    { Object.keys(this.props.attendee).map(function (key) {
+                    { Object.keys(this.props.attendee).map(function (key, index) {
                         //alert('key', key);
                         var propitem = this.props.attendee[key]
                         if(key != 'id') {
                             return (
 
-                            <td>{propitem}</td>
+                            <td key={index}>{propitem}</td>
                             )
 
                         }

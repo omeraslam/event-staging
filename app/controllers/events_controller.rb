@@ -1097,6 +1097,20 @@ def show
 
     @tickets = @event.tickets.all 
 
+    @tickets_for_event = []
+
+    
+
+    @tickets.each do |ticket|
+      tickets_sold = ticket.ticket_limit.to_i - LineItem.where(:ticket_id => ticket.id.to_s).count
+      ticket["description"] = tickets_sold.to_s + " out of " + ticket.ticket_limit.to_s
+      ticketobj = {
+        "ticket_object" => ticket
+      }
+
+      @tickets_for_event.push(ticketobj)
+    end
+
     @tickets_for_purchase = @event.tickets.where(:is_active => true)
 
     @total = 0

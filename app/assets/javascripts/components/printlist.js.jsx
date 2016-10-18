@@ -1,6 +1,5 @@
 var PrintList = React.createClass({    
     getInitialState: function() {
-        alert('hiii');
         return { attendees_list: this.props.attendees_list}
 
     },
