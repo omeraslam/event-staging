@@ -15,13 +15,18 @@ var EditorSection = React.createClass({
         this.setState({current_selection: item})
 
     },
+    onPanelUpdate: function() {
 
+    },
+    refreshNav: function() {
+
+    },
     render: function() {
         
         return (
            <div>
-                <EditorAsideNav items={this.props.items} handleSelectItem={this.selectItem} />
-                <EditorPanelContainer current_selection={this.state.current_selection} />
+                <EditorAsideNav items={this.props.items} handleSelectItem={this.selectItem} handleRefreshNav={this.refreshNav} />
+                <EditorPanelContainer current_selection={this.state.current_selection} handleOnPanelUpdate={this.onPanelUpdate}/>
             </div>
         )
    } 
