@@ -1095,6 +1095,7 @@ def show
      end
 
 
+
     @tickets = @event.tickets.all 
 
     @tickets_for_event = []
@@ -1107,10 +1108,9 @@ def show
       ticketobj = {
         "ticket_object" => ticket
       }
-
       @tickets_for_event.push(ticketobj)
     end
-
+    @current_event_ticket = @tickets_for_event[0]['ticket_object']
     @tickets_for_purchase = @event.tickets.where(:is_active => true)
 
     @total = 0
@@ -1158,6 +1158,7 @@ def show
     @tickets.each_with_index do |ticket, index|
       if @current_ticket.nil? && ticket.is_active == true
         @current_ticket = ticket
+        logger.debug "TICKET ID #{@current_ticket.id}"
       end 
       if ticket.price.to_i > 0 
        
@@ -1610,6 +1611,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
+      logger.debug "EVENT PARAMS:::: #{event_params}"
       valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button, :currency_type, :confirmation_text)
 
 
