@@ -18,6 +18,9 @@
         <a class="tab toggleEditorPanel" id="editor-tool-promotions" data-target="editor-tool-promotions" >
             <i class="fa fa-fw fa-tag"> </i> <span> Coupons</span>
         </a>            
+        <a class="tab toggleEditorPanel" id="editor-tool-orders" data-target="editor-tool-orders" >
+            <i class="icon icon-users"> </i> <span> Orders</span>
+        </a>  
         <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
             <i class="icon icon-users"> </i> <span> Attendees</span>
         </a>        
@@ -754,6 +757,81 @@
 
 
 
+ <div class="editor-tool" id="editor-tool-orders" style="width:1000px;">
+        
+
+       <div class="row editor-tool-header">
+            <div class="col-md-6">
+               Event Orders
+            </div>
+            <div class="col-md-6 text-right">
+                <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
+        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
+            </div>
+        </div>
+
+
+
+          <% if !@buyers.empty? %>
+
+
+
+            <div class="row">
+            <div class="col-md-12">
+                <table class="table"> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th> <th>Total Order</th> <th>Affiliate Code</th><th> Registration date </th>  <th> </th>  </tr> </thead> 
+
+
+                <tbody>  
+
+                    <% @buyers.each do |attendee| %>
+                        <tr> 
+                            <td><%= attendee.first_name %></td> 
+                            <td><%= attendee.last_name %></td> 
+                            <td><%= attendee.email %></td>
+                            <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %>
+                                <% @guest_quantity = LineItem.where(:purchase_id => attendee.id.to_s).count %>
+                             <%= @guest_quantity.nil? || @guest_quantity <= 0 ? 'n/a' : @guest_quantity - 1 %></td>
+                           
+                            <td>          
+                                <% total_order = 0 %>
+                        <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
+                           
+                            <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
+                            <% total_order += @ticket.nil? ? 0 : @ticket.price %>
+                        <% end %> 
+                            <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' || Purchase.find(attendee.id.to_i).affiliate_code.blank?  ? 'n/a'  : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
+                            <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+                            <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
+                        </tr> 
+                    <% end %>
+
+                </tbody> 
+
+              </table>
+
+            </div>
+            </div>
+              
+              <% else %>
+              <div class="empty">
+                  <h2>No attendees, just yet.  </h2>
+              </div>
+              <% end %>
+
+
+
+
+
+
+
+      </div> 
+
+
+
+
+
+
 
 
 
@@ -775,38 +853,23 @@
 
 
 
-          <% if !@buyers.empty? %>
-
-
+          <% if !@attendees.empty? %>
 
             <div class="row">
             <div class="col-md-12">
                 <table class="table"> 
-                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th><th>Ticket Type</th> <th>Total Order</th> <th>Affiliate Code</th><th> Registration date </th>  <th> </th>  </tr> </thead> 
-
-
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th>Ticket Type</th> <th> Registration date </th>  <th> </th>  </tr> </thead> 
                 <tbody>  
-
-                    <% @buyers.each do |attendee| %>
-
-              
-
+                    <% @attendees.each do |attendee| %>
                     <tr> 
                         <td><%= attendee.first_name %></td> 
                         <td><%= attendee.last_name %></td> 
                         <td><%= attendee.email %></td>
-                        <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %>
-                            <% @guest_quantity = LineItem.where(:purchase_id => attendee.id.to_s).count %>
-                         <%= @guest_quantity.nil? || @guest_quantity <= 0 ? 'n/a' : @guest_quantity - 1 %></td>
+                        
+                        <% @guest = LineItem.where(:attendee_id => attendee.id.to_s).first %>
+                        
                         <td><% @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
-                        <td>          
-                            <% total_order = 0 %>
-                    <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
-                       
-                        <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
-                        <% total_order += @ticket.nil? ? 0 : @ticket.price %>
-                    <% end %> 
-                        <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' || Purchase.find(attendee.id.to_i).affiliate_code.blank?  ? 'n/a'  : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
+                      
                         <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
                         <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
                     </tr> 
@@ -817,7 +880,8 @@
                 </tbody> 
 
               </table>
-
+                </div>
+            </div>
               
               <% else %>
               <div class="empty">
@@ -827,8 +891,7 @@
 
 
 
-            </div>
-            </div>
+           
 
 
 
@@ -836,11 +899,6 @@
       </div> 
 
 
-
-
-
-  </div>
-</div>
 
 
 
