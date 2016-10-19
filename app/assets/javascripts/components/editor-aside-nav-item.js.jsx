@@ -1,4 +1,5 @@
 var EditorAsideNavItem = React.createClass({
+
     selectItem: function(e) {
         this.props.handleSelectEvent(this.props.item)
         //return this.props.item
