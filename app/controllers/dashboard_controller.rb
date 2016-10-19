@@ -1,8 +1,10 @@
 class DashboardController < ApplicationController
   layout nil
   layout 'application', :except => :print
-
-  force_ssl
+  if !Rails.env.development?
+    force_ssl
+  end
+  
   before_filter :authenticate_user!
   respond_to :html, :js, :json
 

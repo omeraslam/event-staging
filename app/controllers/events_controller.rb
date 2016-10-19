@@ -10,8 +10,9 @@ class EventsController < ApplicationController
   before_filter :find_site, only: [:home]
   before_filter :force_http, only: [:show,:complete_registration,:update_theme, :update]
 
-  force_ssl except: [:show, :complete_registration, :show_confirm,:update_theme, :update]
-
+  if !Rails.env.development?
+    force_ssl except: [:show, :complete_registration, :show_confirm,:update_theme, :update]
+  end
 
 
   before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]

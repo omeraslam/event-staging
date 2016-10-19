@@ -1,7 +1,9 @@
 class PagesController < ApplicationController
 
   
-  force_ssl
+  if !Rails.env.development?
+    force_ssl
+  end
   before_filter :ensure_proper_root_domain
 
 
