@@ -19,6 +19,7 @@ tmp
 logs
 eventcreate.esproj/
 
+node_modules/
 .env
 Procfile
 
