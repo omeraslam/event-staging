@@ -5,8 +5,14 @@
         <!--  COUPON LOOP/NAV -->
 
         <ul class="editor-aside editor-aside-nav">
-            <li><div class="editor-aside-nav-desc"><h3>T-shirt size </h3><p>Text input </p></div></li>
+
+        <% @survey_questions.each do |survey| %>
+             <li><div class="editor-aside-nav-desc"><h3><%= survey.question_text %></h3>
+             <p><%= survey.description %></p></div></li>
+        <% end %>
             <a href="#" class="edit-aside-nav-add"><h4>+ Add New Question </h4> </a>
+        
+
         </ul>
     
 
@@ -14,7 +20,13 @@
 
         <!--  COUPON DETAIL  -->
 
+
+
+
+
        <div class="editor-panel editor-panel-blank-state">
+
+        <%= render 'survey_questions/form' %>
         
             <i class="icon icon-question"> </i>
             <h1>Questions</h1>

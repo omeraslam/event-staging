@@ -1106,12 +1106,12 @@ def show
     end
 
 
-
+    @survey_questions = @event.survey_questions.all
     @tickets = @event.tickets.all 
 
     @tickets_for_event = []
 
-    
+    @survey_question = SurveyQuestion.new
 
     @tickets.each do |ticket|
       tickets_sold = ticket.ticket_limit.to_i - LineItem.where(:ticket_id => ticket.id.to_s).count

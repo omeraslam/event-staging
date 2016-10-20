@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question_text: MyText
+  response_required: false
+  description: MyText
+  field_type: 1
+  ticket_id: 1
+  event_id: 1
+  is_active: false
+  free_text_active: false
+  free_text: MyText
+
+two:
+  question_text: MyText
+  response_required: false
+  description: MyText
+  field_type: 1
+  ticket_id: 1
+  event_id: 1
+  is_active: false
+  free_text_active: false
+  free_text: MyText
