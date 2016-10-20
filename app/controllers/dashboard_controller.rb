@@ -1,6 +1,8 @@
 class DashboardController < ApplicationController
   layout nil
   layout 'application', :except => :print
+
+
   if !Rails.env.development?
     force_ssl
   end
@@ -64,8 +66,10 @@ class DashboardController < ApplicationController
 
     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
    
+    logger.debug "BUYERS ::: #{@buyers}"
     respond_to do |format|
       format.html
+      format.xls { send_data @buyers.to_csv  }
       format.csv { send_data @buyers.to_csv }
     end
     #respond_with(@attendees, @event)
@@ -82,12 +86,60 @@ class DashboardController < ApplicationController
 
   end
 
+  def print_attendees
+    @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+    @event = Event.find_by id: params[:event]
+    render :layout => false
+
+  end
+
+  def print_attendees_csv
+    @attendees_to_print = []
+    @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+    @attendees = @attendees.group('attendees.id')
+    @event = Event.find_by id: params[:event]
+
+
+
+
+      @attendees.each do |attendee| 
+
+         @guest = LineItem.where(:attendee_id => attendee.id.to_s).first 
+         @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)
+           
+        attendeeObj =  {
+          "first_name" => attendee.first_name,
+          "last_name" => attendee.last_name,
+          "email" => attendee.email,
+          "ticket_type" => (@ticket.nil? ? 'N/A' : '"' + @ticket.title + '"'),
+          "registration_date" => attendee.created_at.to_date.strftime("%B %d ")
+        }
+
+
+           @attendees_to_print.push(attendeeObj) 
+
+     
+       end
+
+
+
+  
+      respond_to do |format|
+        format.html
+        format.csv { send_data @attendees_to_print.to_csv("test.csv") }
+        format.xls { send_data @attendees_to_print.to_csv(col_sep: "\t") }
+      end
+  end
+
 
   def dashboard_delete
 
 
 
   end
+
+
+
 
   def profile
 

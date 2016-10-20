@@ -765,6 +765,7 @@
                Event Orders
             </div>
             <div class="col-md-6 text-right">
+                <%= link_to 'Excel ', dashboard_event_path(:event => @event.id, :format => :xls), class: 'btn btn-small' %> 
                 <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
         <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
             </div>
@@ -846,8 +847,9 @@
                Event Attendees
             </div>
             <div class="col-md-6 text-right">
-                <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
-        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
+                <%= link_to 'Excel ', print_attendees_csv_path(:event => @event.id, :format => :xls), class: 'btn btn-small' %> 
+                <%= link_to 'Download ', print_attendees_csv_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
+        <%= link_to 'Print ', print_attendees_path(:event => @event.id), class: 'btn btn-small' %>
             </div>
         </div>
 
