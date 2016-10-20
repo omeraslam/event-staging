@@ -1,7 +1,8 @@
 var TicketForm = React.createClass({
     getInitialState: function() {
         return { 
-            current_selection: this.props.current_selection
+            current_selection: this.props.current_selection,
+            event: this.props.event
 
         }
     },
@@ -48,7 +49,7 @@ var TicketForm = React.createClass({
         var method, uri;
         if (this.state.current_selection.id == null) {
             method = 'POST'
-            uri = '/tickets'
+            uri = this.props.event + '/tickets'
         } else {
             method = 'PUT'
             uri = '/tickets/' + this.state.current_selection.id
@@ -89,7 +90,7 @@ var TicketForm = React.createClass({
     render: function() {
         return (
                 <div>
-                <h1>{this.state.current_selection.title}</h1>
+                <h1>{this.props.current_selection.title}</h1>
 
                     <form>
                         <div className="input-group">
@@ -103,6 +104,10 @@ var TicketForm = React.createClass({
                                 <option value="false">Inactive</option>
                               </select>
 
+                        </div>
+                        <div className="input-group">
+                            <label>Price</label>
+                            <input name="price" type="text" value={this.state.current_selection.price == undefined ? 0 : this.state.current_selection.price} onChange={this.handleChange}  />
                         </div>
                         <div className="input-group">
                             <label>Quantity Available</label>

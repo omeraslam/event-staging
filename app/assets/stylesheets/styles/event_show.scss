@@ -725,6 +725,24 @@ img.fr-dib.fr-draggable {
 
 }
 
+
+//fixes for mobile views
+
+@media screen and (max-width: 500px) {
+ 
+
+	#hero span {
+		display:inline-block;
+	}
+
+
+	a {
+		word-break: break-word;
+	}
+
+}
+
+
 .ticket-list-container {
 
 	text-align: left;

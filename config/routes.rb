@@ -27,7 +27,11 @@ Rails.application.routes.draw do
     end
 
     def self.matching_site? request
+
+        puts "REQUEST SUBDOMAIN:: #{request.subdomain}"
       if ((request.domain != ENV['SITE_URL']))
+        puts "REQUEST DOMAIN:: #{request.domain}"
+        puts "SITE URL:: #{ENV['SITE_URL']}"
         Event.where(:domain => request.host).any? || User.where(:domain => request.host).any?
       elsif ((request.subdomain.present? && request.subdomain != 'www'))
         if(Event.where(:slug => request.subdomain).any? || User.where(:domain => request.host ).any? )
@@ -91,17 +95,18 @@ Rails.application.routes.draw do
 
 
   #static pages
-  get '/terms' => 'pages#terms'
-  get '/privacy' => 'pages#privacy'
-  get '/pricing' => 'pages#pricing'
-  get '/features' => 'pages#features'
-  get '/explore' => 'pages#explore'
-  get '/contact' => 'pages#contact'
-  get '/facebookevents' => 'pages#facebook'
-  get '/about' => 'pages#about'
-  get '/press' => 'pages#press'
-  get '/customization' => 'pages#customization'
-
+  #scope :constraints => { :protocol => "https" } do
+    get '/terms' => 'pages#terms'
+    get '/privacy' => 'pages#privacy'
+    get '/pricing' => 'pages#pricing'
+    get '/features' => 'pages#features'
+    get '/explore' => 'pages#explore'
+    get '/contact' => 'pages#contact'
+    get '/facebookevents' => 'pages#facebook'
+    get '/about' => 'pages#about'
+    get '/press' => 'pages#press'
+    get '/customization' => 'pages#customization'
+  #end
 
   get '/error404' => 'pages#error404', :as => :error_path
 

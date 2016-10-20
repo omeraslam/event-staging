@@ -7,6 +7,265 @@
         <a class="event-nav-link toggleEditorPanel" id="editor-tool-dashboard" data-target="editor-tool-dashboard">
             <i class="icon icon-home"> </i> <span> Dashboard </span>
         </a> 
+<<<<<<< HEAD
+=======
+        <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
+            <i class="icon icon-image"> </i> <span> Design </span>
+        </a> 
+        <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
+            <i class="fa fa-fw fa-ticket"> </i> <span> Tickets</span>
+            <% if  @account == nil && @ticket.price != 0 %>
+              <div class="editor-tab-notification editor-tab-notification-error"></div>
+            <% end %>
+        </a>   
+        <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
+            <i class="icon icon-settings"> </i> <span> Settings</span>
+        </a>  
+        <a class="tab toggleEditorPanel" id="editor-tool-promotions" data-target="editor-tool-promotions" >
+            <i class="fa fa-fw fa-tag"> </i> <span> Coupons</span>
+        </a>            
+        <a class="tab toggleEditorPanel" id="editor-tool-orders" data-target="editor-tool-orders" >
+            <i class="icon icon-users"> </i> <span> Orders</span>
+        </a>  
+        <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+            <i class="icon icon-users"> </i> <span> Attendees</span>
+        </a>        
+        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>          
+    </div>
+
+    <div class="editor-tools-bottom">
+        <a class="tab toggleEditorPanel" id="editor-tool-support" data-target="editor-tool-support" >
+            <i class="fa fa-phone"> </i> <span> Support</span>
+        </a>     
+        <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" style="display:none;" >
+            <i class="icon icon-share"> </i> <span> Share</span>
+        </a> 
+
+        <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'tab' %>  
+    </div>
+
+</div>
+
+
+
+<div class="editor-container"> 
+
+
+
+
+
+  <div class="editor-tools">
+
+    <div id="editor-panel-close"><i class="icon icon-arrow-left"> </i></div>
+
+    <div class="editor-tool" id="editor-tool-details">
+    
+        <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
+       
+
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event website settings
+            </div>
+            <div class="col-md-6 text-right">
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Event Details </h4>
+                <p>Change of venue? Modify your event details here.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Event Name</label>
+                        <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+                    </div>
+
+
+                    <div class="input-group" id="datepairExample">
+                        <label> Date</label>
+                        <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :value => (@event.date_start.nil? || @event.date_start == '') ? '' : @event.date_start.to_time.strftime("%m/%d/%Y") %>
+                    </div>
+
+                    <div class="input-group datePairEndDates" id="datepairExample" style="display:none;">
+                      <div class="input-group-inline">
+                        <label> End Date</label>
+                        <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
+                      </div>
+
+                      <div class="input-group-inline end-time">
+                        <label> End Time</label>
+                        <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
+                      </div>
+                    </div>
+
+
+                  
+                    <div class="input-group">
+                      <label> Location Address</label>
+                      <%= f.text_field :location, :autocomplete => false, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
+                    </div>  
+                      
+                    <div class="input-group" style="display:none;">
+                      <label>Event Description</label>
+                      <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Confirmation Page (optional)</h4>
+                <p>Change the text on the confirmation page to something more personal.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Custom Confirmation Page Text</label>
+                        <%= f.text_field :confirmation_text, :class => 'input-primary', :placeholder => 'e.g., Thank you for registering!' %>
+                    </div>
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>URL/Domain </h4>
+                <p>Manage your event domain and visibility. Want to use a custom domain/url? We got you. Shoot us a note at <a href="mailto:support@eventcreate.com"> support@eventcreate.com</a></p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+
+                    <div class="input-group" >
+                      <label>Your event URL</label>
+                        <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'custom-event-url' %>
+                        <p>www.eventcreate.com/<span id="event-url-output"><%= @event.slug %> </span> </p>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Website visibility</label>
+                        <%= f.select(:published, [['Live', true],['Hidden', false]]) %>
+                        <p> You can prevent anyone from accessing your event website by changing the status to "hidden."" Once hidden, only you will be able to view the website when logged in. </p>
+                    </div>
+
+
+                   
+                </div>
+            </div>
+        </div>  
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Country settings  </h4>
+                <p>Choose your country's currency here. </p>
+            </div>
+
+            <div class="col-md-9">
+               
+
+                <div class="form-container">
+                <div class="input-group input-group-addon">
+                
+           
+
+
+
+                
+
+                    <label>Currency</label>
+                    <%= f.select(:currency_type, options_for_select(["USD", "CAD","AUD"], :selected => @event.currency_type), :class => ' form-control' ) %>
+                    <div class="col-md-9 col-md-offset-3 text-right"> 
+
+            </div>
+                             
+
+                </div>
+              
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+            </div>
+        </div>
+>>>>>>> master
 
         <a class="event-nav-link toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
             <i class="icon icon-users"> </i> <span> Attendees</span>
@@ -82,7 +341,214 @@
     </div>
 
 
+<<<<<<< HEAD
 </div>
+=======
+
+                <div class="input-group">
+                    <label> Event capacity</label>
+                    <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
+                </div>
+
+                <div class="input-group">
+                    <label>Buy Limit</label>
+                    <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '1' %>
+                    <p>Limit the ticket quantity that a user can buy at one time.</p>
+                </div>
+
+          
+
+
+
+
+
+        <!--         <div class="input-group" style="display:none;">
+                  <label>Tickets available until</label>
+                  <%= f.date_select :stop_date, class: 'input input-large'%>
+                </div> -->
+
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit 'Save changes', class: 'btn btn-small' %>
+
+            </div>
+        </div>
+
+  
+        <% end %>
+
+
+
+
+
+
+          <section> 
+
+            <a class=" toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing_TEMP" > View advanced ticketing</a>   
+
+
+          </section>
+
+
+
+      </div> 
+
+
+
+ <div class="editor-tool" id="editor-tool-orders" style="width:1000px;">
+        
+
+       <div class="row editor-tool-header">
+            <div class="col-md-6">
+               Event Orders
+            </div>
+            <div class="col-md-6 text-right">
+                <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
+        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
+            </div>
+        </div>
+
+
+
+          <% if !@buyers.empty? %>
+
+
+
+            <div class="row">
+            <div class="col-md-12">
+                <table class="table"> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th> <th>Total Order</th> <th>Affiliate Code</th><th> Registration date </th>  <th> </th>  </tr> </thead> 
+
+
+                <tbody>  
+
+                    <% @buyers.each do |attendee| %>
+                        <tr> 
+                            <td><%= attendee.first_name %></td> 
+                            <td><%= attendee.last_name %></td> 
+                            <td><%= attendee.email %></td>
+                            <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %>
+                                <% @guest_quantity = LineItem.where(:purchase_id => attendee.id.to_s).count %>
+                             <%= @guest_quantity.nil? || @guest_quantity <= 0 ? 'n/a' : @guest_quantity - 1 %></td>
+                           
+                            <td>          
+                                <% total_order = 0 %>
+                        <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
+                           
+                            <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
+                            <% total_order += @ticket.nil? ? 0 : @ticket.price %>
+                        <% end %> 
+                            <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' || Purchase.find(attendee.id.to_i).affiliate_code.blank?  ? 'n/a'  : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
+                            <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+                            <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
+                        </tr> 
+                    <% end %>
+
+                </tbody> 
+
+              </table>
+
+            </div>
+            </div>
+              
+              <% else %>
+              <div class="empty">
+                  <h2>No orders, just yet.  </h2>
+              </div>
+              <% end %>
+
+
+
+
+
+
+
+      </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="editor-tool" id="editor-tool-attendees" style="width:1000px;">
+        
+
+       <div class="row editor-tool-header">
+            <div class="col-md-6">
+               Event Attendees
+            </div>
+            <div class="col-md-6 text-right">
+                <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
+        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
+            </div>
+        </div>
+
+
+
+          <% if !@attendees.empty? %>
+
+            <div class="row">
+            <div class="col-md-12">
+                <table class="table"> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th>Ticket Type</th> <th> Registration date </th>  <th> </th>  </tr> </thead> 
+                <tbody>  
+                    <% @attendees.each do |attendee| %>
+                    <tr> 
+                        <td><%= attendee.first_name %></td> 
+                        <td><%= attendee.last_name %></td> 
+                        <td><%= attendee.email %></td>
+                        
+                        <% @guest = LineItem.where(:attendee_id => attendee.id.to_s).first %>
+                        
+                        <td><% @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
+                      
+                        <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+                        <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
+                    </tr> 
+
+   
+                    <% end %>
+
+                </tbody> 
+
+              </table>
+                </div>
+            </div>
+              
+              <% else %>
+              <div class="empty">
+                  <h2>No attendees, just yet.  </h2>
+              </div>
+              <% end %>
+
+
+
+           
+
+
+
+
+      </div> 
+
+
+>>>>>>> master
+
 
 
 

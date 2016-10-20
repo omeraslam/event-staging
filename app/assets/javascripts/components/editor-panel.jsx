@@ -1,7 +1,8 @@
 var EditorPanel = React.createClass({
     getInitialState: function() {
         return { 
-            current_selection: this.props.current_selection
+            current_selection: this.props.current_selection,
+            event: this.props.event
 
         }
     },
@@ -18,7 +19,7 @@ var EditorPanel = React.createClass({
         return (
             <div className="editor-panel">
             
-                <TicketForm current_selection={this.state.current_selection} />
+                <TicketForm current_selection={this.state.current_selection} event={this.state.event}/>
             </div>
         )
    } 

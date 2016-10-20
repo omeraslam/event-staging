@@ -1,6 +1,6 @@
 var EditorSection = React.createClass({
     getInitialState: function() {
-        return { items: this.props.items, current_selection: this.props.current_selection}
+        return { items: this.props.items, current_selection: null, event: this.props.event}
     },
     getDefaultProps: function() {
         return { items: [], current_selection: null}
@@ -26,7 +26,7 @@ var EditorSection = React.createClass({
         return (
            <div>
                 <EditorAsideNav items={this.props.items} handleSelectItem={this.selectItem} handleRefreshNav={this.refreshNav} />
-                <EditorPanelContainer current_selection={this.state.current_selection} handleOnPanelUpdate={this.onPanelUpdate}/>
+                <EditorPanelContainer current_selection={this.state.current_selection} handleOnPanelUpdate={this.onPanelUpdate} event={this.props.event}/>
             </div>
         )
    } 

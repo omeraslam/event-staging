@@ -8,9 +8,11 @@ class EventsController < ApplicationController
   
   #before_filter :find_subdomain, only: [ :home]
   before_filter :find_site, only: [:home]
+  before_filter :force_http, only: [:show,:complete_registration,:update_theme, :update]
 
-  #force_ssl :except => :show
-
+  if !Rails.env.development?
+    force_ssl except: [:show, :complete_registration, :show_confirm,:update_theme, :update]
+  end
 
 
   before_filter :ensure_proper_subdomain, only: [:checkout_page, :select_buy, :show_buy, :show_confirm, :show_ticket]
@@ -121,7 +123,13 @@ require 'rqrcode_png'
       else
 
       end
-      redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s)
+      logger.debug "REF CODE IS::::: #{params[:ref_code]}"
+      if params[:ref_code] != nil
+        redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s, :refcode => params[:ref_code])
+      else
+        redirect_to show_buy_path(:oid => @purchase.confirm_token.to_s)
+
+      end
      
     end
   end
@@ -900,6 +908,8 @@ def complete_registration
                   end
             
             UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
+
+            logger.debug "SHOW CONFIRM SOMETHING NOT FREE::: #{@purchase.confirm_token.to_s}"
             render :js => "window.location = '/" + @event.slug + "/confirm" + "?oid=" + @purchase.confirm_token.to_s + "'"  #hack
           else
             logger.debug "CHARGE SHOULD BE FAILED"
@@ -993,7 +1003,7 @@ def complete_registration
       end
 
 ########
-
+      logger.debug "SHOW CONFIRM PATH FREE::: #{@purchase.confirm_token.to_s}"
       UserMailer.send_tickets(@event, @purchase, @line_items).deliver unless @purchase.invalid?
       redirect_to show_confirm_path(:oid => @purchase.confirm_token.to_s)
     end
@@ -1086,13 +1096,14 @@ def show
     else
       @account = nil
     end
-     if request.domain != ENV['SITE_URL']
+     
+    if request.domain != ENV['SITE_URL'].to_s
       @event = Event.find_by_domain(request.host) or not_found
-     elsif params[:slug].nil?
-       @event = Event.find_by_slug(request.subdomain) or not_found
-     else
-       @event = Event.find_by_slug(params[:slug]) or not_found
-     end
+    elsif params[:slug].nil?
+      @event = Event.find_by_slug(request.subdomain) or not_found
+    else
+      @event = Event.find_by_slug(params[:slug]) or not_found
+    end
 
 
 
@@ -1242,17 +1253,13 @@ def show
     @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
 
 
-    #@ticket = @event.tickets.build(ticket_params)
 
     if !@event
 
       render_404
     else 
 
-       #@event = Event.where('id' => 70)
-      #@event = Event.find(request.subdomain)
       if @event.published == false && !signed_in?
-          #&& current_user.id.to_i != @event.user_id.to_i
           redirect_to root_path
       else  
         @user = User.find(@event.user_id)
@@ -1686,12 +1693,19 @@ def show
 
 
       def ensure_proper_subdomain
-         if request.host != 'checkout.' + ENV['SITE_URL']
-           redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL']})
+          puts "ENV SITE URL IS::: #{ENV['SITE_URL']}"
+          puts "REQUEST HOST IS::: #{request.host}"
+         if request.host != 'checkout.' + ENV['SITE_URL'].to_s
+           redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL'].to_s})
          end
       end
 
-      
 
+      def force_http
+        if request.ssl? && Rails.env.production?
+
+          redirect_to params.merge({:protocol => 'http://', :status => :moved_permanently})
+        end
+      end
 
   end

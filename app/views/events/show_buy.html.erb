@@ -168,7 +168,7 @@
                     <tr>
                       <% @ticket_item = Ticket.where(:id => ticket_array.keys[i].to_i).first %>
                       <td > <%= @ticket_item.title %> X <span class="ticket-quantity"><%= ticket_array.values[i].to_i %></span></td>
-                      <td class="text-right"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %> </td>
+                      <td class="text-right"><span class="ticket-amount"> <%= number_to_currency(ticket_array.values[i].to_i * @ticket_item.price.to_i) %></span></td>
                     </tr>
                     <% sum += (ticket_array.values[i].to_i * @ticket_item.price.to_i) %>
                   <% end %>
@@ -179,13 +179,13 @@
                 <% if @final_charge > 0 %>
                 <tr>
                   <td><strong>Service Fee </strong></td>
-                  <td class="text-right"> <%= number_to_currency(@final_fee) %></td>
+                  <td class="text-right"><span class="fee-amount"><%= number_to_currency(@final_fee) %></span></td>
                 </tr>
                 <% end %>
                 <tr>   
 
                   <td><strong> Total </strong></td>
-                  <td class="text-right"> <%= number_to_currency(sum + @final_fee) %></td>
+                  <td class="text-right"><span class="total-amount"><%= number_to_currency(sum + @final_fee) %></span></td>
                 </tr>
              
               </table> 
@@ -301,82 +301,85 @@ var couponFixed = false;
        $('#coupon-btn').on('click', function(e) {
           e.preventDefault();
 
-          var $form = $('#purchase-tickets_form');
-          
-          $form.append($('<input type="hidden" name="couponApplied" value="'+ $('input[name="couponCode"]').val() +'"/>'));
+          if($('.coupon-status.success').length == 0) {
 
-          //check coupon code
-          var data = {couponCode: $('input[name="couponCode"]').val(), eventId: $('#event_id').val()}
-          $.ajax({
-            type: "POST",
-            url: '/check-coupon',
-            data: data,
-            success: function(resp) {
 
-                $('.coupon-status').remove();
-              if(resp.status == "error") {
-                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
-                $('input[name="couponCode"]').val('');
+            var $form = $('#purchase-tickets_form');
             
-              } else {
-                $('input[name="couponCode"]').after('<label class="coupon-status">'+ resp.message +'</label>');
-           
-              }
+            $form.append($('<input type="hidden" name="couponApplied" value="'+ $('input[name="couponCode"]').val() +'"/>'));
 
+            //check coupon code
+            var data = {couponCode: $('input[name="couponCode"]').val(), eventId: $('#event_id').val()}
+            $.ajax({
+              type: "POST",
+              url: '/check-coupon',
+              data: data,
+              success: function(resp) {
 
-                couponDiscount = resp.discount/100;
-                couponFixed = resp.is_fixed;
-
-               
-
-
-                var fee_price = 0
-                var total_ticket_price = 0
-              if(couponFixed == false) {
-                $('.ticket-amount').each(function( index ) {
-
-                   var priceStringFromTitle = $(this).html()
-
-
-                    var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
-                                priceStringFromTitle.length-1
-                              );
-
-                     var ticket_price = filteredPrice - (filteredPrice * couponDiscount);
-                    total_ticket_price += ticket_price
-
-
-                    $(this).html('$' + parseFloat(Math.round(ticket_price * 100) / 100).toFixed(2));
-
-                    if(ticket_price > 0) {
-                       fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * .99)
-
-                    }
-                   
-
-
-                });
+                  $('.coupon-status').remove();
+                if(resp.status == "error") {
+                  $('input[name="couponCode"]').after('<label class="coupon-status error">'+ resp.message +'</label>');
+                  $('input[name="couponCode"]').val('');
               
-                $('.fee-amount').html('$' + parseFloat(Math.round(fee_price * 100) / 100).toFixed(2));
-                var total_price = $('.total-amount').html( '$' + parseFloat(Math.round((fee_price+total_ticket_price) * 100) / 100).toFixed(2) )
+                } else {
+                  $('input[name="couponCode"]').after('<label class="coupon-status success">'+ resp.message +'</label>');
+             
+                }
 
-              } else {
 
-                var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+                  couponDiscount = resp.discount/100;
+                  couponFixed = resp.is_fixed;
+
+                 
+
+
+                  var fee_price = 0
+                  var total_ticket_price = 0
+                if(couponFixed == false) {
+                  $('.ticket-amount').each(function( index ) {
+
+                     var priceStringFromTitle = $(this).html()
+
+
+                      var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                  priceStringFromTitle.length-1
+                                );
+
+                       var ticket_price = filteredPrice - (filteredPrice * couponDiscount);
+                      total_ticket_price += ticket_price
+
+
+                      $(this).html('$' + parseFloat(Math.round(ticket_price * 100) / 100).toFixed(2));
+
+                      if(ticket_price > 0) {
+                         fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * .99)
+
+                      }
+                     
+
+
+                  });
+                
+                  $('.fee-amount').html('$' + parseFloat(Math.round(fee_price * 100) / 100).toFixed(2));
+                  var total_price = $('.total-amount').html( '$' + parseFloat(Math.round((fee_price+total_ticket_price) * 100) / 100).toFixed(2) )
+
+                } else {
+
+                  var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+                }
+
+                if(resp.status != "error") {
+                  $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
+                }
+
+
+              },
+              error: function(resp) {
+
+        
               }
-
-              if(resp.status != "error") {
-                $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
-              }
-
-
-            },
-            error: function(resp) {
-
-      
-            }
-          });
-
+            });
+          }
         });
 
 

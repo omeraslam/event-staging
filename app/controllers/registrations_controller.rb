@@ -1,7 +1,9 @@
 #registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
 
-  #force_ssl
+  if !Rails.env.development?
+    force_ssl
+  end
 
   def create
     super
