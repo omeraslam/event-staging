@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020024702) do
+ActiveRecord::Schema.define(version: 20161021210051) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -159,6 +159,15 @@ ActiveRecord::Schema.define(version: 20161020024702) do
 
   add_index "reservation", ["attendee_id"], name: "index_reservation_on_attendee_id"
   add_index "reservation", ["event_id"], name: "index_reservation_on_event_id"
+
+  create_table "survey_answers", force: true do |t|
+    t.string   "answer_text"
+    t.integer  "attendee_id"
+    t.integer  "survey_question_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "survey_questions", force: true do |t|
     t.text     "question_text"

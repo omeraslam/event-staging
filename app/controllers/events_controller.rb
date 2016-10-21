@@ -267,6 +267,11 @@ require 'rqrcode_png'
               else
               end
              #Save customer to the db
+             #
+             logger.debug "#{params[:surveyanswers]}"
+
+
+
              
               @array_of_ticket = []
 
@@ -277,11 +282,20 @@ require 'rqrcode_png'
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
                    position = index+1
-                  logger.debug "BUYER ONLY::: #{@buyer_only != true}"
                    if @buyer_only != true 
                      first_name = params[:attendees][(index+1).to_s]["first_name"]
                      last_name = params[:attendees][(index+1).to_s]["last_name"]
                      email = params[:purchase]["email"]
+
+
+
+
+      #                   t.string :answer_text
+      # t.integer :attendee_id
+      # t.integer :survey_question_id
+      # t.integer :event_id
+
+
                    else
                      first_name = params[:attendees][(1).to_s]["first_name"]
                      last_name = params[:attendees][(1).to_s]["last_name"]
@@ -312,6 +326,21 @@ require 'rqrcode_png'
 
                    if @attendee.save
                       lineitem.attendee_id = @attendee.id
+
+
+                      surveyanswer = SurveyAnswer.new
+                      logger.debug "INDEX:::: #{(index+1)}"
+                      logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
+                      surveyanswer.answer_text = params[:surveyanswers][(index+1).to_s]["answer_text"]
+
+                      surveyanswer.attendee_id = @attendee.id
+                      surveyanswer.event_id = @event.id
+                      surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
+
+                      if surveyanswer.save
+                      else
+                      end
+
 
                        if lineitem.save
                        # save attendee id to lineitem
@@ -415,6 +444,18 @@ require 'rqrcode_png'
                     if @attendee.save
                       lineitem.attendee_id = @attendee.id
 
+
+                      surveyanswer = SurveyAnswer.new
+                      surveyanswer.answer_text = params[:surveyanswers][index+1]["answer_text"]
+                      surveyanswer.attendee_id = @attendee.id
+                      surveyanswer.event_id = @event.id
+                      surveyanswer.survey_question_id = params[:surveyanswers][index+1]["survey_id"]
+
+                      if surveyanswer.save
+                      else
+                      end
+
+
                       if lineitem.save
                       # save attendee id to lineitem
                       @array_of_ticket.push(lineitem)
@@ -497,6 +538,8 @@ def show_buy
 
     num_of_paid_tickets = 0
 
+
+    @survey_questions = @event.survey_questions.all
 
  
     @event.tickets.all.each do |ticket|
@@ -728,6 +771,8 @@ def complete_registration
   @code = params[:couponCode]
 
   logger.debug "COUPON CODE iS:: #{@code}"
+
+
 
 
 
