@@ -66,7 +66,6 @@ class DashboardController < ApplicationController
 
     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
    
-    logger.debug "BUYERS ::: #{@buyers}"
     respond_to do |format|
       format.html
       format.xls { send_data @buyers.to_csv  }
