@@ -243,12 +243,14 @@ require 'rqrcode_png'
               :order_id=> @purchase.id, 
               :purchase_email => @purchase.email,
               :coupon_code => @code,
-              :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%"
+              :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%",
+              :slug => @event.slug
             }
           else
             charge_metadata = {
               :order_id=> @purchase.id, 
-              :purchase_email => @purchase.email
+              :purchase_email => @purchase.email,
+              :slug => @event.slug
             }
           end 
 
@@ -851,7 +853,7 @@ def complete_registration
             :application_fee => fee,
             :metadata => charge_metadata
           }, {:stripe_account => @account.stripe_user_id})
-          logger.debug "CHARGE is paid:::: #{charge['paid']}"
+
           if charge["paid"] == true
             @purchase.stripe_id = charge["id"]
             if @purchase.update(purchase_params)
