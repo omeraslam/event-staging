@@ -103,8 +103,9 @@ class DashboardController < ApplicationController
 
       @attendees.each do |attendee| 
 
-         @guest = LineItem.where(:attendee_id => attendee.id.to_s).first 
-         @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)
+         @guest = LineItem.where(:id => attendee.line_item_id.to_s).first 
+
+         @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
            
         attendeeObj =  {
           "first_name" => attendee.first_name,
