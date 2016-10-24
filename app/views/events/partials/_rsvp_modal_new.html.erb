@@ -287,12 +287,12 @@ $(document).ready(function() {
 
     $('.form-quantity').text(1);
     if(couponFixed == false) {
-         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.020)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
 
     } else {
 
 
-        var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+        var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.020)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
 
     }
  
@@ -312,14 +312,14 @@ $(document).ready(function() {
                               );
     $('.form-price').text('$' + filteredPrice);
     $('.form-quantity').text($(this).val());
-    var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
+    var total_price = (($(this).val()* filteredPrice)*.020)+($(this).val()*filteredPrice)+(.99*$(this).val())
     
     if(couponFixed == false) {
-         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.020)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
 
     } else {
 
-  var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+  var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.020)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
 
     }
 
@@ -462,15 +462,15 @@ $('#purchase-tickets_form .quantity select').off('change');
     $('.form-quantity').text($(this).val());
 
     if(couponFixed == false) {
-         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+         var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.020)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
 
     } else {
 
-   var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+   var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.020)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
 
     }
 
-    //var total_price = (($(this).val()* filteredPrice)*.025)+($(this).val()*filteredPrice)+(.99*$(this).val())
+    //var total_price = (($(this).val()* filteredPrice)*.020)+($(this).val()*filteredPrice)+(.99*$(this).val())
     $('.form-total').text(' $'+ (Math.round((total_price + 0.00001) * 100) / 100));
   });
 
@@ -525,11 +525,11 @@ var couponFixed = false;
                               );
 
               if(couponFixed == false) {
-                var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.025)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
+                var total_price = ((Number($('.form-quantity').text())* (filteredPrice - (filteredPrice * couponDiscount)))*.020)+(Number($('.form-quantity').text())*(filteredPrice - (filteredPrice * couponDiscount)))+(.99*Number($('.form-quantity').text()))
 
               } else {
 
-                var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.025)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+                var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.020)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
               }
 
               if(resp.status != "error") {
