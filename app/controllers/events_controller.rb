@@ -1230,6 +1230,12 @@ def show
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
       @attendee_headers = ["First Name", "Last Name", "Email Address", "Ticket Type", "Registration Date"]
 
+      survey_headers = []
+      @survey_questions = SurveyQuestion.where(:event_id => @event.id).all
+      @survey_questions.each do |survey|
+        @attendee_headers.push(survey.question_text)
+      end
+
       @attendees_list = {
         "items" => [],
         "event" => {
@@ -1242,7 +1248,7 @@ def show
 
 
     @attendees = Attendee.where(:event_id => @event.id)
-    @attendees.each do |attendee|
+    @attendees.each_with_index do |attendee|
       @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
       @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
       attendee_block = {
@@ -1253,6 +1259,19 @@ def show
           "created_at" => attendee.created_at.to_date.strftime("%B %d, %Y "),
           "ticket_type" => @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"'
         }
+        @survey_questions.each_with_index do |survey, index|
+
+          attendee_block[("question_"+(survey.id.to_s))] = ""
+        end
+
+        @survey_answers = SurveyAnswer.where(:attendee_id => attendee.id).all
+      
+
+        if @survey_answers.count > 0
+          @survey_answers.each_with_index do |sanswer, index|
+            attendee_block[("question_"+(sanswer.survey_question_id.nil? ? '0': sanswer.survey_question_id.to_s) )] = sanswer.answer_text
+          end
+        end
 
         @attendees_list["items"].push(attendee_block)
 
