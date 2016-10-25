@@ -1,35 +1,11 @@
  <div class="editor-tool editor-panel-left-nav" id="editor-tool-details">
 
-    <%= react_component 'EditorAsideSectionNav', { } %>
     
 
-       <div class="editor-panel">
-          
-          <h1>Edit main settings</h1>
-          <p>Lorem sipusm solor sit amet </p>
+    <%= react_component 'EditorSectionContainer', { eventObj: @event, ticketObj: @ticket  } %>
 
 
-          <form>
-          <div class="input-group">
-          <label> test</label>
-          <input type="text" />
-          </div>
-
-          <div class="input-group">
-          <label> test</label>
-          <input type="text" />
-          </div>
-                    <div class="input-group">
-          <label> test</label>
-          <input type="text" />
-          </div>
-            <div class="input-group">
-                <button class="btn btn-primary">Update</button>
-            </div>
-
-          </form>
-        </div>
-
+    
 
       
 

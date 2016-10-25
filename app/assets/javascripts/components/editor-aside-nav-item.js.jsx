@@ -5,7 +5,6 @@ var EditorAsideNavItem = React.createClass({
     selectItem: function(e) {
 
         this.props.handleSelectEvent(this.props.item)
-        //return this.props.item
     },
     componentWillReceiveProps: function(nextProps) {
         this.setState({currentItem: nextProps.currentItem})
