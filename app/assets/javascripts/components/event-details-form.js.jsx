@@ -16,6 +16,30 @@ var EventDetailsForm = React.createClass({
         obj[name] = e.target.value;
         this.setState({eventObj: obj});
     },
+
+
+    handleUpdate: function(e) {
+
+        e.preventDefault();
+        var method, uri;
+      
+        method = 'PUT'
+        uri = '/events/' + this.state.eventObj.id
+        $.ajax({
+            method: method,
+            url: uri,
+            data: {"event": this.state.eventObj},
+            dataType: 'JSON',
+            success: function() {
+               //alert('success');
+               
+            }.bind(this)
+        });
+
+        
+
+    },
+
     componentWillReceiveProps: function(nextProps) {
         this.setState({eventObj: nextProps.eventObj})
     },
@@ -81,7 +105,7 @@ var EventDetailsForm = React.createClass({
                       <input name="location" type="text"  value={this.state.eventObj.location} onChange={this.handleChange} />
                     </div>
                     <div className="input-group">
-                        <button className="btn btn-primary">Update</button>
+                        <button className="btn btn-primary" onClick={this.handleUpdate}>Update</button>
                     </div>
                 </form>
             </div>
