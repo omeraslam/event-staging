@@ -6,6 +6,46 @@ var EventUrlForm = React.createClass({
         }
     },
 
+    componentDidMount: function() {
+
+    $(".edit_event").on("ajax:success", function(e, data, status, xhr) {
+
+      }).on("ajax:error", function(e, data, status, xhr) {
+        alert('ajax error');
+
+      var alertHTML = '<label id="event_slug-error" class="error" for="event_slug">Custom url name has already been taken. Please choose another</label>';
+
+        $(alertHTML).insertAfter($('#event_slug'));
+
+
+
+
+        // return $("#step-clients form").render_form_errors('client', data.responseJSON);
+      });
+
+
+
+
+  $.validator.addMethod("loginRegex", function(value, element) {
+        return /^[a-zA-Z0-9-]+$/i.test(value);
+    }, "Event must contain only letters, numbers, or dashes.");
+
+
+      var validator2 = $(".edit-slug").validate({
+         rules: {
+           "slug": {
+             required: true,
+             loginRegex: true
+           }
+           
+
+         },
+         messages: {
+           "slug": 'Please enter an event name'
+         }
+       });
+
+    },
     handleChange: function(e) {
         var name, obj;
         name = e.target.name;
@@ -19,7 +59,7 @@ var EventUrlForm = React.createClass({
              <h1>{this.props.header}</h1>
                 <p>{this.props.subheader}</p>
 
-                <form>
+                <form className="edit-slug">
                     <div className="input-group">
                       <label>Your event URL</label>
                       <input name="slug" type="text" value={this.state.eventObj.slug} onChange={this.handleChange} />

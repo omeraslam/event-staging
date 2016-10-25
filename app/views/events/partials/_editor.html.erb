@@ -223,29 +223,6 @@ $( document ).ready(function() {
       $(this).find("span").text("live");
   });
 
-      var validator5 = $(".edit_ticket").validate({
-    rules: {
-      "ticket[title]": {
-        required: true
-      },
-      "ticket[price]": {
-        required: true
-      },
-      "ticket[ticket_limit]": {
-        required: true
-      },
-      "ticket[stop_date]": {
-        required: true
-      },
-    }, messages : {
-      "ticket[title]": 'Please enter a ticket name.',
-      "ticket[price]": 'Please enter a ticket price.',
-      "ticket[ticket_limit]": 'Please enter a ticket limit.',
-      "ticket[stop_date]": 'Please enter an end date.'
-
-    }
-  });
-
 
 
   //TICKET - new ticket modal functionality and validation
@@ -259,38 +236,6 @@ $( document ).ready(function() {
 
 
 
-
-
-
-  $.validator.addMethod("loginRegex", function(value, element) {
-        return /^[a-zA-Z0-9-]+$/i.test(value);
-    }, "Event must contain only letters, numbers, or dashes.");
-
-  var validator3 = $("#edit-event").validate({
-    rules: {
-      "event[name]": {
-        required: true
-      },
-      "event[date_start]": {
-        required: true
-      },
-      "event[location]": {
-        required: true
-      },
-      "event[slug]": {
-        required: true,
-        loginRegex: true
-      }
-
-
-    },
-    messages: {
-      "event[name]": 'Please enter an event name',
-      "event[date_start]": 'Please enter an event date',
-      "event[location]": 'Please enter an event location',
-      "event[slug]": 'Please enter an event url'
-    }
-  });
 
 
 
