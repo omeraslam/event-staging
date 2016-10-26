@@ -1,9 +1,33 @@
 var EventUrlForm = React.createClass({
     getInitialState: function() {
         return { 
-            eventObj: this.props.eventObj
+            eventObj: this.props.eventObj,
+            updateEvent: this.props.onUpdateEventItem
 
         }
+    },
+
+    handleUpdate: function(e) {
+
+        e.preventDefault();
+        var method, uri;
+      
+        method = 'PUT'
+        uri = '/events/' + this.state.eventObj.id
+        $.ajax({
+            method: method,
+            url: uri,
+            data: {"event": this.state.eventObj},
+            dataType: 'JSON',
+            success: function() {
+               //alert('success');
+               this.updateEvent(this.state.eventObj)
+               
+            }.bind(this)
+        });
+
+        
+
     },
 
     componentDidMount: function() {
@@ -74,7 +98,7 @@ var EventUrlForm = React.createClass({
                       <small>You can prevent anyone from accessing your event website by changing the status to "hidden." Once hidden, only you will be able to view the website when logged in.</small> 
                     </div>
                     <div className="input-group">
-                        <button className="btn btn-primary">Update</button>
+                        <button className="btn btn-primary" onClick={this.handleUpdate} >Update</button>
                     </div>
                 </form>
             </div>

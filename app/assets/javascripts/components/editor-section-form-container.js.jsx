@@ -6,8 +6,10 @@ var EditorSectionFormContainer = React.createClass({
         this.setState({current_selection: nextProps.current_selection, eventObj: nextProps.eventObj})
     },
 
+    updateEventItem: function(item) {
+        this.setState({eventObj: item})
 
-   
+    },
    render: function() {
         if(this.state.current_selection != null) {
             switch(this.state.current_selection["category"]) {
@@ -18,7 +20,7 @@ var EditorSectionFormContainer = React.createClass({
                 var sectionContent =  <EventTicketingForm header="Edit Registration + Ticketing settings" subheader="Manage your event registration settings here." eventObj={this.state.eventObj} ticketObj={this.state.ticketObj} />;
                 break;
                 case 'url':
-                var sectionContent =  <EventUrlForm header="Edit URL settings" subheader="Manage your event domain and visibility. Want to use a custom domain/url? We got you. Shoot us a note at support@eventcreate.com" eventObj={this.state.eventObj}  />;
+                var sectionContent =  <EventUrlForm header="Edit URL settings" subheader="Manage your event domain and visibility. Want to use a custom domain/url? We got you. Shoot us a note at support@eventcreate.com" eventObj={this.state.eventObj} onUpdateEventItem={this.updateEventItem}  />;
                 break;
                 // case 'design':
                 // var sectionContent =  <EventDesignForm header="Edit Design settings" subheader="" />;

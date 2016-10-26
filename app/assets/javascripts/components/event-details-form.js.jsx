@@ -32,6 +32,8 @@ var EventDetailsForm = React.createClass({
             dataType: 'JSON',
             success: function() {
                //alert('success');
+               //
+               
                
             }.bind(this)
         });
