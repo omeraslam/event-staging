@@ -19,5 +19,6 @@ Rails.application.config.assets.precompile += %w( payments.js )
 Rails.application.config.assets.precompile += %w( attendees.js )
 Rails.application.config.assets.precompile += %w( tickets.js )
 Rails.application.config.assets.precompile += %w( coupons.js )
+Rails.application.config.assets.precompile += %w( survey_questions.js )
 
 # Rails.application.config.assets.precompile += %w( search.js )

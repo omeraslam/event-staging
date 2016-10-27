@@ -101,6 +101,16 @@
                                 </div>
                             </div>
 
+                              <% @survey_questions.each do |survey| %>
+                              <div class="input-group">
+                                 <label><%= survey.question_text %></label>
+                                 <p class="small"><%= survey.description %></p>
+                                 <% if survey.field_type == 1 %>
+                                 <textarea name="surveyanswers[<%= tick_num %>][answer_text]"></textarea>
+                                 <% end %>
+                              </div>
+                              <% end %>
+
                           </div>  
                         </div>
                       <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", @purchaser.id  %>
@@ -123,7 +133,16 @@
                                       <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
                                   </div>
                               </div>
+                              <% @survey_questions.each do |survey| %>
+                              <div class="input-group">
 
+                                <%= hidden_field_tag "surveyanswers["+ (tick_num.to_s)+"][survey_id]", survey.id  %>
+                                 <label><%= survey.question_text %></label>
+                                 <% if survey.field_type == 1 %>
+                                  <textarea name="surveyanswers[<%= tick_num %>][answer_text]"></textarea>
+                                 <% end %>
+                              </div>
+                              <% end %>
                               </div>  
                           </div>
 

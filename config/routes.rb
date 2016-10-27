@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :survey_answers
+
+  resources :survey_questions
+
   resources :coupons
 
   resources :accounts

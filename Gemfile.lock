@@ -32,6 +32,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (5.0.1.20140414130214)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     barby (0.6.2)
     bcrypt (3.1.10)
     best_in_place (3.0.3)
@@ -43,12 +47,16 @@ GEM
       oauth2 (>= 0.5.0, < 2.0)
     bootstrap-sass (3.2.0.1)
       sass (~> 3.2)
+    browserify-rails (1.1.0)
+      railties (>= 4.0.0, < 5.0)
     builder (3.2.2)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chart-js-rails (0.1.0)
+      railties (> 3.1)
     chunky_png (1.3.1)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -57,6 +65,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    connection_pool (2.2.0)
     daemons (1.2.4)
     devise (3.5.6)
       bcrypt (~> 3.0)
@@ -245,6 +254,8 @@ GEM
     jquery-rails (3.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-tablesorter (1.22.7)
+      railties (>= 3.2, < 6)
     jquery-timepicker-rails (1.4.3)
       railties (>= 3.1.0)
     jquery-turbolinks (2.1.0)
@@ -344,6 +355,13 @@ GEM
       trollop
     rdoc (4.2.2)
       json (~> 1.4)
+    react-rails (1.8.2)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     ref (2.0.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
@@ -426,7 +444,9 @@ DEPENDENCIES
   best_in_place (~> 3.0.1)
   bitly
   bootstrap-sass
+  browserify-rails
   carrierwave
+  chart-js-rails
   chunky_png
   coffee-rails (~> 4.0.0)
   devise
@@ -441,6 +461,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-fileupload-rails
   jquery-rails
+  jquery-tablesorter
   jquery-timepicker-rails
   jquery-turbolinks
   jquery-ui-rails
@@ -458,6 +479,7 @@ DEPENDENCIES
   rack-cors (~> 0.3.1)
   rails (= 4.1.4)
   rails_12factor
+  react-rails
   rest-client
   rqrcode
   rqrcode_png

@@ -268,6 +268,11 @@ require 'rqrcode_png'
               else
               end
              #Save customer to the db
+             #
+             logger.debug "#{params[:surveyanswers]}"
+
+
+
              
               @array_of_ticket = []
 
@@ -278,11 +283,20 @@ require 'rqrcode_png'
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
                    position = index+1
-                  logger.debug "BUYER ONLY::: #{@buyer_only != true}"
                    if @buyer_only != true 
                      first_name = params[:attendees][(index+1).to_s]["first_name"]
                      last_name = params[:attendees][(index+1).to_s]["last_name"]
                      email = params[:purchase]["email"]
+
+
+
+
+      #                   t.string :answer_text
+      # t.integer :attendee_id
+      # t.integer :survey_question_id
+      # t.integer :event_id
+
+
                    else
                      first_name = params[:attendees][(1).to_s]["first_name"]
                      last_name = params[:attendees][(1).to_s]["last_name"]
@@ -313,6 +327,21 @@ require 'rqrcode_png'
 
                    if @attendee.save
                       lineitem.attendee_id = @attendee.id
+
+
+                      surveyanswer = SurveyAnswer.new
+                      logger.debug "INDEX:::: #{(index+1)}"
+                      logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
+                      surveyanswer.answer_text = params[:surveyanswers][(index+1).to_s]["answer_text"]
+
+                      surveyanswer.attendee_id = @attendee.id
+                      surveyanswer.event_id = @event.id
+                      surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
+
+                      if surveyanswer.save
+                      else
+                      end
+
 
                        if lineitem.save
                        # save attendee id to lineitem
@@ -416,6 +445,18 @@ require 'rqrcode_png'
                     if @attendee.save
                       lineitem.attendee_id = @attendee.id
 
+
+                      surveyanswer = SurveyAnswer.new
+                      surveyanswer.answer_text = params[:surveyanswers][index+1]["answer_text"]
+                      surveyanswer.attendee_id = @attendee.id
+                      surveyanswer.event_id = @event.id
+                      surveyanswer.survey_question_id = params[:surveyanswers][index+1]["survey_id"]
+
+                      if surveyanswer.save
+                      else
+                      end
+
+
                       if lineitem.save
                       # save attendee id to lineitem
                       @array_of_ticket.push(lineitem)
@@ -498,6 +539,8 @@ def show_buy
 
     num_of_paid_tickets = 0
 
+
+    @survey_questions = @event.survey_questions.all
 
  
     @event.tickets.all.each do |ticket|
@@ -729,6 +772,8 @@ def complete_registration
   @code = params[:couponCode]
 
   logger.debug "COUPON CODE iS:: #{@code}"
+
+
 
 
 
@@ -1107,8 +1152,22 @@ def show
     end
 
 
+    @survey_questions = @event.survey_questions.all
     @tickets = @event.tickets.all 
 
+    @tickets_for_event = []
+
+    @survey_question = SurveyQuestion.new
+
+    @tickets.each do |ticket|
+      tickets_sold = ticket.ticket_limit.to_i - LineItem.where(:ticket_id => ticket.id.to_s).count
+      ticket["description"] = tickets_sold.to_s + " out of " + ticket.ticket_limit.to_s
+      ticketobj = {
+        "ticket_object" => ticket
+      }
+      @tickets_for_event.push(ticketobj)
+    end
+    @current_event_ticket = @tickets_for_event[0]['ticket_object']
     @tickets_for_purchase = @event.tickets.where(:is_active => true)
 
     @total = 0
@@ -1122,14 +1181,23 @@ def show
     #   end
 
     #   @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
-    # end 
-    
+    # end
+    # 
+    @total_revenue = 0
+
     @tickets.each do |ticket|
       #if !Purchase.where(:event_id => @event.id).nil?
         Purchase.where(:event_id => @event.id).all.each do |purchase|
+          @total_revenue += purchase.total_order
           @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end
       #end
+      #
+      @event_stats = {
+        total_revenue: @total_revenue/100,
+        spots_left: 'TBD',
+        guest_number: 'TBD'
+      }
 
       # if ticket.stop_date.to_date > @event.date_start.to_date
       #   @ticket_stop = ticket.stop_date.to_date > @event.date_start.to_date
@@ -1156,6 +1224,7 @@ def show
     @tickets.each_with_index do |ticket, index|
       if @current_ticket.nil? && ticket.is_active == true
         @current_ticket = ticket
+        logger.debug "TICKET ID #{@current_ticket.id}"
       end 
       if ticket.price.to_i > 0 
        
@@ -1169,32 +1238,102 @@ def show
 
 
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
+      @attendee_headers = ["First Name", "Last Name", "Email Address", "Ticket Type", "Registration Date"]
+
+      survey_headers = []
+      @survey_questions = SurveyQuestion.where(:event_id => @event.id).all
+      @survey_questions.each do |survey|
+        @attendee_headers.push(survey.question_text)
+      end
+
+      @attendees_list = {
+        "items" => [],
+        "event" => {
+          "event_id" => @event.id
+          } 
+      }             
+    
+      @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Total Order", "Affiliate Code"]
+
 
 
     @attendees = Attendee.where(:event_id => @event.id)
+    @attendees.each_with_index do |attendee|
+      @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
+      @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
+      attendee_block = {
+          "id" => attendee.id,
+          "first_name" => attendee.first_name,
+          "last_name" => attendee.last_name,
+          "email" => attendee.email,
+          "created_at" => attendee.created_at.to_date.strftime("%B %d, %Y "),
+          "ticket_type" => @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"'
+        }
+        @survey_questions.each_with_index do |survey, index|
+
+          attendee_block[("question_"+(survey.id.to_s))] = ""
+        end
+
+        @survey_answers = SurveyAnswer.where(:attendee_id => attendee.id).all
+      
+
+        if @survey_answers.count > 0
+          @survey_answers.each_with_index do |sanswer, index|
+            attendee_block[("question_"+(sanswer.survey_question_id.nil? ? '0': sanswer.survey_question_id.to_s) )] = sanswer.answer_text
+          end
+        end
+
+        @attendees_list["items"].push(attendee_block)
+
+    end
+
 
     @ticket = Ticket.new
 
     @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
     @buyers = Purchase.where(:event_id => @event.id)
+    @buyers_list = {
+      "items" => [],   
+      "event" => {
+          "event_id" => @event.id
+          } 
+
+    }
+
+
+    @buyers.each do |buyer|
+      # @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
+      # @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
+      buyer_block = {
+          "id" => buyer.id,
+          "first_name" => buyer.first_name,
+          "last_name" => buyer.last_name,
+          "email" => buyer.email,
+          "guest_count" => LineItem.where(:purchase_id => buyer.id.to_s).count > 0 ? (LineItem.where(:purchase_id => buyer.id.to_s).count).to_i - 1 : 0,
+
+          "total_order" => buyer.total_order,
+          "affiliate_code" => buyer.affiliate_code == 'null' ? 'n/a' : buyer.affiliate_code
+        }
+
+        @buyers_list["items"].push(buyer_block)
+
+    end
+
+
     @user = User.find(@event.user_id.to_i)
     @fee_rate = @user.npo == true ? 0.015 : 0.020
     logger.debug "#{@current_ticket.price}"
     @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
 
 
-    #@ticket = @event.tickets.build(ticket_params)
 
     if !@event
 
       render_404
     else 
 
-       #@event = Event.where('id' => 70)
-      #@event = Event.find(request.subdomain)
       if @event.published == false && !signed_in?
-          #&& current_user.id.to_i != @event.user_id.to_i
           redirect_to root_path
       else  
         @user = User.find(@event.user_id)
@@ -1482,7 +1621,7 @@ def show
   def update
 
     #@user = User.find(params[:user_id])
-    @event = Event.find_by_slug(params[:id])
+    @event = Event.find(params[:id])
     respond_to do |format|
       if @event.update(event_params)
          #format.html { redirect_to slugger_path(@event.slug), notice: 'Event was successfully updated.' }
@@ -1553,6 +1692,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
+      #logger.debug "EVENT PARAMS:::: #{event_params}"
       valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button, :currency_type, :confirmation_text)
 
 
@@ -1633,6 +1773,7 @@ def show
            redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL'].to_s})
          end
       end
+
 
       def force_http
         if request.ssl? && Rails.env.production?
