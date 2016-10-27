@@ -158,7 +158,7 @@ require 'rqrcode_png'
     fee = 0
 
     #get fee rates
-    @fee_rate = @user.npo == true ? 0.015 : 0.025
+    @fee_rate = @user.npo == true ? 0.015 : 0.020
     num_of_paid_tickets = 0
     
     @event.tickets.all.each do |ticket|
@@ -222,7 +222,6 @@ require 'rqrcode_png'
 
     #Get the credit card details submitted by the form
     token = params[:stripeToken]
-    logger.debug "STRIPE TOKEN IN CHECKOUT::: #{token}"
     amount = @final_amount
 
       if amount > 0
@@ -243,12 +242,14 @@ require 'rqrcode_png'
               :order_id=> @purchase.id, 
               :purchase_email => @purchase.email,
               :coupon_code => @code,
-              :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%"
+              :coupon_discount =>  @coupon.is_fixed == true ? '$' + @coupon.discount.to_s :  (@coupon.discount).to_s + "%",
+              :slug => @event.slug
             }
           else
             charge_metadata = {
               :order_id=> @purchase.id, 
-              :purchase_email => @purchase.email
+              :purchase_email => @purchase.email,
+              :slug => @event.slug
             }
           end 
 
@@ -533,7 +534,7 @@ def show_buy
      fee = 0
 
       #get fee rates
-      @fee_rate = @user.npo == true ? 0.015 : 0.025
+      @fee_rate = @user.npo == true ? 0.015 : 0.020
 
 
     num_of_paid_tickets = 0
@@ -781,7 +782,7 @@ def complete_registration
   fee = 0
 
   #get fee rates
-  @fee_rate = @user.npo == true ? 0.015 : 0.025
+  @fee_rate = @user.npo == true ? 0.015 : 0.020
 
   sum = @ticket.price.to_f * quantity_num.to_i
   if @ticket.price.to_f != 0
@@ -896,7 +897,7 @@ def complete_registration
             :application_fee => fee,
             :metadata => charge_metadata
           }, {:stripe_account => @account.stripe_user_id})
-          logger.debug "CHARGE is paid:::: #{charge['paid']}"
+
           if charge["paid"] == true
             @purchase.stripe_id = charge["id"]
             if @purchase.update(purchase_params)
@@ -1321,7 +1322,7 @@ def show
 
 
     @user = User.find(@event.user_id.to_i)
-    @fee_rate = @user.npo == true ? 0.015 : 0.025
+    @fee_rate = @user.npo == true ? 0.015 : 0.020
     logger.debug "#{@current_ticket.price}"
     @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
 

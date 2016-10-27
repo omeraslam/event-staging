@@ -13,6 +13,8 @@ Rails.application.configure do
   #force ssl on pages
   config.force_ssl = false
 
+
+
   # config.use_ssl = true
   # config.ssl_port = 5000  
 

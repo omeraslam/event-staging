@@ -1,0 +1,60 @@
+
+<!--START event navigation-->
+
+<div class="event-header dashboard-container"> 
+
+	<div class="event-meta"> 
+
+
+		<p> <strong>Event Name:</strong> <%= @event.name  %> </p>
+		<p class="lead">
+			<strong> Date: </strong><%= @event.date_start.to_date.strftime("%B %d, %Y") %>
+		</p>
+	</div>
+	
+	<div class="event-status"> 
+		<div class="status" style="display: none;">Live </div>
+		<div class="status-date" style="display: none;">Event last updated November 1, 2015 </div>
+	</div>
+
+</div>
+
+ 
+
+
+<table style="border: 1px solid black; padding: 0; margin: 0;">
+	<thead >
+		<tr width="400px" style="border: 1px solid black ; padding: 0; margin: 0;">
+			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">ID</th>
+			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">First Name</th>
+			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Last Name</th>
+			<th width="300px"  style="border: 1px solid black;padding: 10px; margin: 0;">Email Address</th>
+			
+
+			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Ticket Type</th>
+
+		
+
+			<th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Registration date</th>
+		</tr></thead>
+
+
+
+
+		<tbody>
+			<% @attendees.each do |attendee| %>
+			<tr width="350" style="border: 1px solid black ;">		
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.id %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.first_name %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.last_name %></td>
+				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.email %></td>
+				<% @guest = LineItem.where(:attendee_id => attendee.id.to_s).first %> 
+                        <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
+                       
+                        <td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+
+
+			</tr>
+			<% end %>
+		</tbody>
+	</table>

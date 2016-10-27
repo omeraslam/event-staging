@@ -58,8 +58,10 @@ Rails.application.routes.draw do
   get 'dashboard/index'
   post ':slug/choose-tickets' => 'events#choose_tickets', :as => :events_choose_tickets
   get 'dashboard/event'
+  get 'dashboard/print-attendees-csv' => 'dashboard#print_attendees_csv', :as => :print_attendees_csv
   get 'dashboard/profile'
   get 'dashboard/print'
+  get 'dashboard/print-attendees' => 'dashboard#print_attendees', :as => :print_attendees
   get 'dashboard/contacts'
   get '/dashboard' => 'dashboard#index'
   get '/event-maker' => 'pages#event'
@@ -109,6 +111,8 @@ Rails.application.routes.draw do
     get '/facebookevents' => 'pages#facebook'
     get '/about' => 'pages#about'
     get '/press' => 'pages#press'
+    get '/offer' => 'pages#offer'
+
     get '/customization' => 'pages#customization'
   #end
 
