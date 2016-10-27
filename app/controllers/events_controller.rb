@@ -1180,14 +1180,23 @@ def show
     #   end
 
     #   @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
-    # end 
-    
+    # end
+    # 
+    @total_revenue = 0
+
     @tickets.each do |ticket|
       #if !Purchase.where(:event_id => @event.id).nil?
         Purchase.where(:event_id => @event.id).all.each do |purchase|
+          @total_revenue += purchase.total_order
           @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end
       #end
+      #
+      @event_stats = {
+        total_revenue: @total_revenue/100,
+        spots_left: 'TBD',
+        guest_number: 'TBD'
+      }
 
       # if ticket.stop_date.to_date > @event.date_start.to_date
       #   @ticket_stop = ticket.stop_date.to_date > @event.date_start.to_date
