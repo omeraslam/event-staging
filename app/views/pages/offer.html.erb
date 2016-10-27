@@ -3,83 +3,90 @@
 
 
 
-<div class="intro text-center">
+
+
+<div class="intro" id="intro-offer">
 
 	<div class="cover"> </div>
 	<div class="container">
-		<h1>Beautiful event websites. Spectaular events. </h1>
-		<p class="lead">Plan succesful events with the world's leading event platform.<br> It's easy and free. </p>
-		<p>
-			<%= link_to 'Create my FREE event website', new_user_registration_path, :class => 'btn btn-large'  %>
-			<%= link_to 'Request a demo ', new_user_registration_path, :class => 'btn btn-large btn-bordered hidden'  %>
-			<br> <span class='click-trigger'>Get started in less than 30 seconds</span>
-		</p>
 
-	</div>
-</div>
+		<div class="row">
+
+		<div class="col-md-6">
+			<h1>Sell tickets with EventCreate and get $500 on us</h1>
+			<p class="lead">Try out EventCreate for your next big event, and we'll pay you up to $500. We know you'll love it.  </p>
+		</div>
 
 
-
-<div class="container text-center" id="websites">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="page-secondary-header">
-				<h2>Create a beautiful event website </h2>
-				<p>Create a stunning, white-labelled event website without any developers. It's really easy and takes less than 30 seconds. </p>
-				<p><%= link_to 'Get started for free ', new_user_registration_path, :class => 'btn'  %></p>
-			</div>
+		<div class="col-md-5 col-md-offset-1">
 
 
-			<div class="row">
-				<div class="col-md-2 features-list">
-					<ul> 
-						<li> 
-							<i class="icon icon-line-flag"> </i>
-							<h3> 100% White-labelled </h3>
-							<p>  Your design. Your brand. Your way. You won't see EventCreate's logo anywhere.  </p>	
-						</li>
-						<li> 
-							<i class="icon icon icon-line-computer"> </i>
-							<h3> Custom domain <sup> new </sup></h3>
-							<p> Forget unmemorable URLs. Use your domain, like myevent.com, to make it your own. </p>	
-						</li>
-					</ul>
-				</div>	
+			<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" novalidate="novalidate"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="dS2znAI8/HlAkhwmkAJ+ScRZVXx/A5Dobmc+FNFCTGM="></div>
+			    
 
-				<div class="col-md-8 features-sample">
-					<img src="/assets/home/home-computer_1.png" class="img-responsive" />	
-				</div>			
+			    <div class="input-group">
+			      <label>Your email address</label>
+			      <input autofocus="autofocus" class="input-primary valid" id="user_email" name="user[email]" placeholder="email@email.com" type="email" value="" aria-required="true" aria-invalid="false">
+			    </div>
 
-				<div class="col-md-2 features-list">
-					<ul> 
-						<li> 
-							<i class="icon icon-line-build"> </i>
-							<h3> Easy-to use-builder </h3>
-							<p> EventCreate was built from the ground up to be simple and easy to use.   </p>	
-						</li>
-						<li> 
-							<i class="icon icon-line-mobile-friendly"> </i>
-							<h3> Mobile-friendly </h3>
-							<p> Event websites are 100% mobile and tablet friendly, so your guests can register on any device. </p>	
-						</li>
-					</ul>
-				</div>	
+			    <div class="input-group">
+			      <label>Choose a Password</label>
+			      <input autocomplete="off" class="input-primary" id="user_password" name="user[password]" placeholder="Password " type="password">
+			    </div>
 
-			</div>
+
+			    <div class="input-group">
+			      <input class="btn btn-large" name="commit" type="submit" value="Create my free account">
+			      <p> By signing up, you agree to the <a href="/terms" target="_blank">terms and conditions</a>. </p>
+			    </div>
+
+			</form>
+
+
+		</div>
 
 		</div>
 	</div>
+
 </div>
 
 
 
 
-<div id="internal">
+
+<div class="container" id="offer-benefits">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-2"><span class="decorative-number">1</span> </div>
+				<div class="col-md-10 features-list"><h3>Register and create an event</h3> <p>Sign up for EventCreate and create your first event. Once you create your acount, you'll be automatically enrolled. </p> </div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-2"><span class="decorative-number">2</span> </div>
+				<div class="col-md-10 features-list"><h3>Sell tickets using our platform</h3> <p>Publish your event and sell tickets to your event on EventCreate. The more tickets you sell, the more you'll earn! </p> </div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-2"><span class="decorative-number">3</span> </div>
+				<div class="col-md-10 features-list"><h3>Collect your cash bonus</h3> <p> You'll earn $0.50 per ticket you sell, up to $500.  When your event if complete, we'll pay you your cash bonus via Paypal. </p> </div>
+			</div>
+		</div>		
+
+
+	</div>
+</div>
+
+
+
+
 <div class="container text-center">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-secondary-header">
-				<h2>All the tools you need are built in</h2>
+				<h2>Meet the world's most powerful ticketing software</h2>
 				<p>With EventCreate, all the tools to plan a world-class event are at your fingertips. </p>
 				<p><%= link_to 'Get started for free ', new_user_registration_path, :class => 'btn'  %></p>
 			</div>
@@ -125,7 +132,33 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+
+<div id="why-switch">
+<div class="container text-center">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-secondary-header">
+				<h2>Why switch to EventCreate?</h2>
+				<p class="hidden">With EventCreate, all the tools to plan a world-class event are at your fingertips. </p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4"><h3>We're cheaper</h3> <p>Our fees are 25% on average less than the leading ticketing competetors.  </p></div>
+				<div class="col-md-4"><h3>We're 100% white-labelled</h3> <p>Your design. Your brand. Your way. You won't see EventCreate's logo anywhere. </p></div>
+				<div class="col-md-4"><h3>You'll get paid immediately</h3> <p>When you sell a ticket, you'll get paid immediately. There's no holding periods. Period. </p></div>
+			</div>
+
+		</div>
+	</div>
 </div>
+</div>
+
+
+
 
 
 
@@ -139,7 +172,7 @@
 		<div class="col-md-12">
 			<div class="page-secondary-header text-center">
 				<h2>Trusted by the world’s best</h2>
-				<p> Loved by event planners, for events big and small. </p>
+				<p class="hidden">Create a stunning, white-labelled event website. Collect registrations, sell tickets and plan spectacular events. It's easy and free. </p>
 			</div>
 			
 			<div class="testimonial-blocks">
@@ -195,6 +228,21 @@
 
 
 
+
+
+
+
+<div class="container hidden" id="offer-details">
+	<div class="row">
+		<div class="col-md-12">
+
+		<p><b>Offer details: </b>Mauris viverra est justo, bibendum dignissim urna lacinia a. Aliquam arcu nunc, scelerisque non lacus id, ornare congue purus. Nulla fermentum, felis in faucibus placerat, enim erat egestas elit, vel dapibus tortor eros sed arcu. Suspendisse maximus vestibulum facilisis. Nunc nisl leo, fringilla tincidunt mauris eu, imperdiet tincidunt libero. Vestibulum eget urna in velit ornare pellentesque. Nullam tristique mi risus, sed vulputate urna aliquet posuere.</p>
+
+		<p>Donec tortor turpis, sagittis sed lorem eu, rutrum condimentum turpis. Morbi orci massa, vehicula in tellus pharetra, ullamcorper vulputate lacus. Curabitur lacinia ultricies tellus, sit amet cursus orci finibus sed. Maecenas porttitor semper pretium. Quisque laoreet felis quis mollis sollicitudin. Curabitur dictum consectetur sapien eu sodales. Vestibulum pellentesque viverra diam, ut efficitur dolor aliquam at. Duis sagittis porta est non volutpat. Sed gravida ut dui id sodales. Vivamus dictum feugiat augue vitae fermentum. Morbi semper ut justo sed imperdiet. Sed arcu orci, egestas vel nibh in, dignissim tristique diam. </p>
+
+		</div>
+	</div>
+</div>
 
 
 

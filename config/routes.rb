@@ -105,6 +105,8 @@ Rails.application.routes.draw do
     get '/facebookevents' => 'pages#facebook'
     get '/about' => 'pages#about'
     get '/press' => 'pages#press'
+    get '/offer' => 'pages#offer'
+
     get '/customization' => 'pages#customization'
   #end
 

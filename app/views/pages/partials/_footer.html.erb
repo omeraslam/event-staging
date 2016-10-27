@@ -1,7 +1,38 @@
-<div class="footer text-center">
+<div id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"> 
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 828.8 895.8" class="footer-logo"><path d="M828.6 2.1c0.1 35 0.1 63.6 0.1 99.6 -129.4 0.2-256.7-1.2-384 1 -143.9 2.5-248.1 72.1-308.6 201 -60.5 128.8-47 253.9 41.4 366.4 62.8 80 147.5 123.4 250.2 125.2 98.3 1.7 196.7 0.1 299.2-0.1 -0.1-33.6-0.1-63.7-0.2-101.5 -89.4 0.1-178.9 0.5-268.4 0.4 -157.9-0.2-268.2-97.5-269.1-236.9 -1.1-147.8 110.2-253.4 268.3-254.2 121.5-0.6 243-0.4 369-0.6 0.2 100.3 0.3 197.5 0.4 298.5 -135.3 0.2-270.5 0.4-409.2 0.6 0-30-0.1-58.6-0.1-93.6 100.3-0.2 201.9-0.3 308.2-0.5 -0.1-36.2-0.1-66.3-0.2-102.5 -103.2 0.2-207.6-4.5-311.4 2.1 -74.5 4.7-129.6 82.5-124 157.3 5.3 70.5 62.4 126.3 139.2 128.1 109 2.6 218.2 0.5 327.3 0.5 22.7 0 45.3-0.1 71.3-0.1 0.2 100.8 0.3 196.5 0.5 302.3 -45.7 0.1-92.9 1.2-140.1 0 -115.1-2.8-232.4 6.4-344.8-12.9C129.5 845.7-13 644.1 0.9 421.2 14.6 203.4 188.4 17 400.9 4.3 540.8-4 681.5 2.3 828.6 2.1z" fill="#FFF"/></svg>
+			</div>
 
-	<p> Questions? We're here to help. Contact us at hello@eventcreate.com or at (617) 752-2176</p>
-   
-   <a href="/terms">Terms and Conditions</a>   <a href="/privacy">Privacy Policy</a>    &copy; EventCreate 2016. 
+			<div class="col-md-3"> 
+				<h4> About </h4>
+				<a href="/pricing"> Pricing</a>
+				<%= link_to "My Account", new_user_session_path  %>
+          		<%= link_to 'Sign up', new_user_registration_path  %> 	
+			</div>
 
+			<div class="col-md-3"> 
+				<h4> About </h4>
+				<a href="/privacy"> Privacy Policy</a>
+				<a href="/terms">Terms of Service </a>
+			</div>
+
+				<div class="col-md-3" id="footer-contact"> 
+					<h4> Say hello </h4>
+					<div class="h2">(617) 752-2176</div>
+					<div class="h2">hello@eventcreate.com </div>
+				</div>
+
+		</div>
+
+
+		<div class="row text-center footer-secondary">
+		<div class="col-md-12">&copy; 2016. EventCreate, LLC. 929 Colorado Ave, Santa Monica, CA 90401</div>
+
+		</div>
+
+
+	</div>
 </div>
+
