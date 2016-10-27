@@ -4,38 +4,51 @@
 
 
 
-<div class="container text-center">
+<div class="intro text-center" id="intro-pricing">
 
-	<div class="row">
-		<div class="col-md-12 text-center home-primary">
-			<h1>Simple pricing </h1>
-			<p>EventCreate is free for free events. For paid events, it's just 2% plus $0.99/ticket. No catches. It's that simple. </p>
-		</div>
+
+	<div class="cover"> </div>
+	<div class="container">
+		<h1>Simple pricing </h1>
+		<p class="lead">EventCreate is free for free events. For paid events, it's just 2% plus $0.99/ticket. No catches. It's that simple. </p>
+		<p class="hidden">
+			<%= link_to 'Get started for free ', new_user_registration_path, :class => 'btn btn-large'  %>
+			<%= link_to 'Request a demo ', new_user_registration_path, :class => 'btn btn-large btn-bordered'  %>
+		</p>
+
 	</div>
-
 </div>
 
 
-<div class="external-plans container"> 
-		<div class="external-plan col">
-			<img src="https://c.stocksy.com/a/PhU100/z0/356339.jpg">
-			<h2>Free Events </h2>
-			<p class="price">FREE</p>
-			<p class="price-qualifier">forever</p>
 
-			<ul class="features" style="display:none;"> 
-				<li>Create unlimited events and sell tickets with zero service fees </li>						
-			</ul> 
-			<ul class="secondary-features"> 
-				<li class="">Custom design and branding </li>
-				<li class="">Collect registrations </li>	
-				<li class="">100% white-labelled </li>
-				
-			</ul> 
-			<%= link_to 'Get Started', new_user_registration_path, :class => 'btn' %>   				   
+<div class="container text-center external-plans ">
+
+	<div class="row">
+
+
+		<div class="col-md-6 text-center">
+			<div class="external-plan">
+				<h2>Free Events </h2>
+				<p class="price">FREE</p>
+				<p class="price-qualifier">forever</p>
+
+				<ul class="features" style="display:none;"> 
+					<li>Create unlimited events and sell tickets with zero service fees </li>						
+				</ul> 
+				<ul class="secondary-features"> 
+					<li class="">Custom design and branding </li>
+					<li class="">Collect registrations </li>	
+					<li class="">100% white-labelled </li>
+					
+				</ul> 
+				<%= link_to 'Get Started', new_user_registration_path, :class => 'btn' %>   				   
+			</div>
 		</div>
 
-		<div class="external-plan col" data-description="Premium Plan: $7/month. Cancel anytime.">
+
+		<div class="col-md-6 text-center">
+
+		<div class="external-plan" data-description="Premium Plan: $7/month. Cancel anytime.">
 			<img src="https://c.stocksy.com/a/cXH300/z0/782416.jpg">
 			<h2>Paid Events </h2>
 			<p class="price">2% + $0.99</p>
@@ -50,7 +63,19 @@
 			</ul> 
 			<%= link_to 'Try for Free', new_user_registration_path, :class => 'btn' %>    				   
 		</div>
-	</div> 
+
+		</div>
+
+
+
+
+
+
+	</div>
+
+</div>
+
+
 
 
     
@@ -106,7 +131,7 @@
 		
 		<div class="question">
 			<h3>Can I change my plan?</h3>
-			<p>Definitely. You can switch your plans at anytime.</p>
+
 		</div>	
 	
 		
