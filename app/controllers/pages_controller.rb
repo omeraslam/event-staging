@@ -67,5 +67,7 @@ class PagesController < ApplicationController
     @themes = Theme.all
   end
 
+  
+
 
 end

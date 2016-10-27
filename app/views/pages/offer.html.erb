@@ -21,26 +21,27 @@
 		<div class="col-md-5 col-md-offset-1">
 
 
-			<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" novalidate="novalidate"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="dS2znAI8/HlAkhwmkAJ+ScRZVXx/A5Dobmc+FNFCTGM="></div>
-			    
 
-			    <div class="input-group">
-			      <label>Your email address</label>
-			      <input autofocus="autofocus" class="input-primary valid" id="user_email" name="user[email]" placeholder="email@email.com" type="email" value="" aria-required="true" aria-invalid="false">
-			    </div>
+		  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+		    <%= devise_error_messages! %>
 
-			    <div class="input-group">
-			      <label>Choose a Password</label>
-			      <input autocomplete="off" class="input-primary" id="user_password" name="user[password]" placeholder="Password " type="password">
-			    </div>
+		    <div class="input-group">
+		      <label>Your email address</label>
+		      <%= f.email_field :email, autofocus: true, :class => 'input-primary', :placeholder => 'email@email.com' %>
+		    </div>
+
+		    <div class="input-group">
+		      <label>Password</label>
+		      <%= f.password_field :password, autocomplete: "off", :class => 'input-primary', :placeholder => 'Password ' %>
+		    </div>
 
 
-			    <div class="input-group">
-			      <input class="btn btn-large" name="commit" type="submit" value="Create my free account">
-			      <p> By signing up, you agree to the <a href="/terms" target="_blank">terms and conditions</a>. </p>
-			    </div>
+		    <div class="input-group">
+		      <%= f.submit "Create my free account", :class => 'btn btn-large' %>
+		      <p> By signing up, you agree to the <%= link_to 'terms and conditions', terms_path, :target => '_blank' %>.</p>
+		    </div>
 
-			</form>
+		  <% end %>
 
 
 		</div>
