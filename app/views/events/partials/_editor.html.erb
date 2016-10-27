@@ -22,7 +22,7 @@
     </div>
 
     <div class="event-nav-bottom">
-        <a class="event-nav-link toggleEditorPanel hidden" id="editor-tool-background" data-target="editor-tool-background">
+        <a class="event-nav-link toggleDesignPanel" id="editor-tool-background" data-target="editor-tool-background">
             <i class="icon icon-image"> </i> <span> Design </span>
         </a> 
 
@@ -72,6 +72,9 @@
 
         <%= render 'events/partials/editor/editor_orders_new' %>
 
+
+
+
         <%# render 'events/partials/editor/editor_settings' %>
         <%# render 'events/partials/editor/editor_coupons' %>
         <%# render 'events/partials/editor/editor_support' %>
@@ -84,6 +87,13 @@
 
 </div>
 
+
+
+<div class="design-editor-section-container">
+
+        <%= render 'events/partials/editor/editor_design_new' %>
+
+</div>
 
 
 
@@ -286,6 +296,21 @@ $( document ).ready(function() {
    });
 
 
+  $('.toggleDesignPanel').click(function() {
+    $(".design-editor-section-container").addClass("visible");
+
+    $(".toggleEditorPanel.active").removeClass("active");
+    $(".event-editor-section-container").removeClass("visible");
+
+   });
+
+
+
+
+  $('#design-panel-close').click(function() {
+    $(".design-editor-section-container").removeClass("visible");
+   });
+
 
 
 
@@ -450,7 +475,7 @@ $( document ).ready(function() {
 
   //background color picker
     $('input#color').minicolors({ 
-      position: 'top right', 
+      position: 'top left', 
       defaultValue: currentBgColor,
       change: function(value, opacity) {
           $(".event-page .overlay").css("background-color", value);
