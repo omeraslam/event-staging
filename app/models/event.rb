@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
         has_many :purchases, dependent: :destroy
         has_many :tickets, dependent: :destroy
         has_many :coupons, dependent: :destroy
+        has_many :survey_questions, dependent: :destroy
         mount_uploader :background_img, PictureUploader
       
         

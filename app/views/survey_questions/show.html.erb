@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question text:</strong>
+  <%= @survey_question.question_text %>
+</p>
+
+<p>
+  <strong>Response required:</strong>
+  <%= @survey_question.response_required %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @survey_question.description %>
+</p>
+
+<p>
+  <strong>Field type:</strong>
+  <%= @survey_question.field_type %>
+</p>
+
+<p>
+  <strong>Ticket:</strong>
+  <%= @survey_question.ticket_id %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @survey_question.event_id %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @survey_question.is_active %>
+</p>
+
+<p>
+  <strong>Free text active:</strong>
+  <%= @survey_question.free_text_active %>
+</p>
+
+<p>
+  <strong>Free text:</strong>
+  <%= @survey_question.free_text %>
+</p>
+
+<%= link_to 'Edit', edit_survey_question_path(@survey_question) %> |
+<%= link_to 'Back', survey_questions_path %>

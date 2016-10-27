@@ -22,11 +22,13 @@ $brand-primary: #21afbf;
 
 .remodal-wrapper {
 	display: none;
+	z-index: 9999999999999999;
 }
 
 .remodal-overlay {
 	
 	background:rgba(26, 26, 26, 0.82);
+	    z-index: 99999;
 }
 
 

@@ -1,0 +1,41 @@
+<div class="editor-tool editor-panel-left-nav" id="editor-tool-questions" >
+
+
+
+        <!--  COUPON LOOP/NAV -->
+
+        <ul class="editor-aside editor-aside-nav">
+
+        <% @survey_questions.each do |survey| %>
+             <li><div class="editor-aside-nav-desc"><h3><%= survey.question_text %></h3>
+             <p><%= survey.description %></p></div></li>
+        <% end %>
+            <a href="#" class="edit-aside-nav-add"><h4>+ Add New Question </h4> </a>
+        </ul>
+    
+
+
+
+        <!--  COUPON DETAIL  -->
+
+
+
+
+
+      <div class="editor-panel editor-panel-blank-state">
+
+        <%= render 'survey_questions/form' %>
+        
+         <!--     <i class="icon icon-question"> </i>
+            <h1>Questions</h1>
+            <p>Need to your attendees for a t-shirt size, or collect info or a guest? Add a custom question to your registration form.</p>
+            <p><button class="btn btn-primary">Add New Question</button> </p> -->
+
+        </div> 
+
+
+
+
+
+      
+</div>

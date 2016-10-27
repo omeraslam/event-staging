@@ -126,43 +126,43 @@
   $(document).ready(function() {
 
 
-    var validator = $(".edit_event").validate({
-      rules: {
-        "event[name]": {
-          required: true
-        }
-      },
-      messages : {
-        "event[name]": 'Please enter an event title'
-      }
-    });
+    // var validator = $(".edit_event").validate({
+    //   rules: {
+    //     "event[name]": {
+    //       required: true
+    //     }
+    //   },
+    //   messages : {
+    //     "event[name]": 'Please enter an event title'
+    //   }
+    // });
 
 
-      $('#datepairExample .time.start').timepicker({
-        'showDuration': true,
-        'timeFormat': 'g:ia',
-        'appendTo': '.start-time'
-      });
-      $('#datepairExample .time.end').timepicker({
-        'showDuration': true,
-        'timeFormat': 'g:ia',
-        'appendTo': '.end-time'
-      });
-      $('#datepairExample .date').datepicker({
-        onSelect: function(dateText) {
-          $('.date').focusout();
-        },
-        'format': 'dd/mm/yyyy',
-        'autoclose': true
-      });
+    //   $('#datepairExample .time.start').timepicker({
+    //     'showDuration': true,
+    //     'timeFormat': 'g:ia',
+    //     'appendTo': '.start-time'
+    //   });
+    //   $('#datepairExample .time.end').timepicker({
+    //     'showDuration': true,
+    //     'timeFormat': 'g:ia',
+    //     'appendTo': '.end-time'
+    //   });
+    //   $('#datepairExample .date').datepicker({
+    //     onSelect: function(dateText) {
+    //       $('.date').focusout();
+    //     },
+    //     'format': 'dd/mm/yyyy',
+    //     'autoclose': true
+    //   });
 
-      $('#datepairExample2 .date').datepicker({
-        onSelect: function(dateText) {
-          $('.date').focusout();
-        },
-        'format': 'dd/mm/yyyy',
-        'autoclose': true
-      });
+    //   $('#datepairExample2 .date').datepicker({
+    //     onSelect: function(dateText) {
+    //       $('.date').focusout();
+    //     },
+    //     'format': 'dd/mm/yyyy',
+    //     'autoclose': true
+    //   });
 
 
 
@@ -179,20 +179,7 @@
 // 
 // 
 // # New Client
-$(".edit_event").on("ajax:success", function(e, data, status, xhr) {
 
-}).on("ajax:error", function(e, data, status, xhr) {
-  alert('ajax error');
-
-var alertHTML = '<label id="event_slug-error" class="error" for="event_slug">Custom url name has already been taken. Please choose another</label>';
-
-  $(alertHTML).insertAfter($('#event_slug'));
-
-
-
-
-  // return $("#step-clients form").render_form_errors('client', data.responseJSON);
-});
 
 
 

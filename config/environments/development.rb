@@ -47,6 +47,10 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+
+  # React development variant (unminified)
+  config.react.variant = :development
+
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {

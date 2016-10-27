@@ -1,0 +1,92 @@
+
+ 
+<div class="editor-tool editor-panel-top-nav" id="editor-tool-orders" >
+
+
+  <%= react_component 'BuyerList', { items: @buyers_list, headers: @buyers_headers } %>
+
+
+
+
+
+<!--     <div class="editor-aside"> 
+	    <div class="row">
+		    <div class="col-md-6">
+				<input class="search selectable table-search-orders" type="search" placeholder="Search orders" data-column="all">
+		    </div>
+		    <div class="col-md-6 text-right hidden">
+		        <%= link_to 'Print List ', dashboard_print_path(:event => @event.id), class: 'btn btn-primary' %> 
+		    	<%= link_to 'Download CSV ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-primary' %> 
+		    </div>
+	    </div>
+    </div>
+    <div class="editor-panel">
+        <% if !@buyers.empty? %>
+
+
+
+
+                <table class="table tablesorter table-orders"> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th><th>Ticket Type</th> <th>Total Order</th> <th>Affiliate Code</th><th> Registration date </th>  <th> </th>  </tr> </thead> 
+
+
+                <tbody>  
+
+                    <% @buyers.each do |attendee| %>
+
+              
+
+                    <tr> 
+                        <td><%= attendee.first_name %></td> 
+                        <td><%= attendee.last_name %></td> 
+                        <td><%= attendee.email %></td>
+                        <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> 
+
+                        <% @guest_quantity = LineItem.where(:purchase_id => attendee.id.to_s).count %> 
+
+                        <%= @guest_quantity.nil? ? 0 : @guest_quantity - 1 %></td>
+                        <td><% @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
+                        <td>          
+                            <% total_order = 0 %>
+                    <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
+                       
+                        <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
+                        <% total_order += @ticket.nil? ? 0 : @ticket.price %>
+                    <% end %> 
+                        <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' || Purchase.find(attendee.id.to_i).affiliate_code.blank?  ? 'n/a'  : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
+                        <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+                        <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
+                    </tr> 
+
+   
+                    <% end %>
+
+                </tbody> 
+
+              </table>
+
+              
+              <% else %>
+              <div class="empty">
+                  <h2>No orders, just yet.  </h2>
+              </div>
+              <% end %>
+
+
+
+
+
+
+
+
+    </div>
+
+
+ -->
+
+        
+
+
+
+
+</div> 
