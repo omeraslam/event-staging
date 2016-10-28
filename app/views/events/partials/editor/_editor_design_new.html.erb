@@ -1,0 +1,57 @@
+
+<div class="design-editor-header text-right">
+    <a id="design-panel-close"><i class="icon icon-arrow-left"> </i></a>
+</div>
+
+<div class="design-editor-body">
+
+<section>
+
+                <h4>Layout </h4>
+                <p>Show or hide sections of your event website. </p>
+            <div class=" layout-select">
+              <ul> 
+              <li class="test-show-layout"  data-target="#about">About <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#speakers">Speakers <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#program">Program/Schedule <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#sponsors">Sponsors <i class="fa fa-eye"> </i></li>
+              </ul>
+
+
+          </div>
+</section>
+
+
+
+
+       <section>
+            
+                <h4>Background image/color </h4>
+                <p>Modify your website's main background here. </p>
+
+                <div class="editor-current-bg upload-btn" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>  
+                <a class="upload-btn btn btn-small"> <i class="fa fa-upload"> </i> Upload image </a> 
+                <a class="open-image-modal btn btn-small"> <i class="fa fa-search"> </i> Search image library </a> 
+
+        </section>  
+
+
+        <section>
+
+
+                <div class="slider-container">
+                    <div class="slider"> <div id="slider"></div> </div>
+                    <div class="color-picker"><input id="color"></div>
+                </div>
+
+  
+        </section>  
+
+
+
+
+</div>
+
+
+
+

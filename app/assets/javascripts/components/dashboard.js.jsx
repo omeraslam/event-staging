@@ -80,7 +80,7 @@ var DashboardContainer = React.createClass({
 
                     <section>
                         <h4>Event URL </h4>
-                        <div class="input-group">
+                        <div className="input-group">
                             <input type="text" value="myevent.eventcreate.com" disabled="true" />
                             <p> Lorem ipsum solor sit amet</p>
                         </div>

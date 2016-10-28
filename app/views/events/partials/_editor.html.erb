@@ -22,7 +22,7 @@
     </div>
 
     <div class="event-nav-bottom">
-        <a class="event-nav-link toggleEditorPanel hidden" id="editor-tool-background" data-target="editor-tool-background">
+        <a class="event-nav-link toggleDesignPanel" id="editor-tool-background" data-target="editor-tool-background">
             <i class="icon icon-image"> </i> <span> Design </span>
         </a> 
 
@@ -63,26 +63,25 @@
         
 
 
-        <%= render 'events/partials/editor/editor_settings_new' %>
-        <%= render 'events/partials/editor/editor_attendees_new' %>
-        <%= render 'events/partials/editor/editor_dashboard_new' %>
-        <%= render 'events/partials/editor/editor_ticketing_new' %>
-        <%= render 'events/partials/editor/editor_coupons_new' %>
+
+        <%= react_component 'EditorSettings', { eventObj: @event, ticketObj: @ticket  } %>
+        <%= react_component 'EditorAttendees', { attendees_list: @attendees_list, headers: @attendee_headers } %>
+        <%= react_component 'DashboardContainer', { stats: @event_stats } %>
+        <%= react_component 'EditorTicketing', { items: @tickets_for_event, current_selection: @current_event_ticket, event: @event.slug } %>
+        <%= react_component 'EditorOrders', { items: @buyers_list, headers: @buyers_headers } %>
+        <%= react_component 'EditorCoupons', { } %>
+
         <%= render 'events/partials/editor/editor_questions_new' %>
 
-        <%= render 'events/partials/editor/editor_orders_new' %>
 
-        <%# render 'events/partials/editor/editor_settings' %>
-        <%# render 'events/partials/editor/editor_coupons' %>
-        <%# render 'events/partials/editor/editor_support' %>
-        <%# render 'events/partials/editor/editor_design' %>
-        <%# render 'events/partials/editor/editor_ticketing' %>
-        <%# render 'events/partials/editor/editor_attendees' %>
 
     </div>
 
 
 </div>
+
+ <%= react_component 'EditorDesign', {eventObj: @event} %>
+
 
 
 
@@ -132,55 +131,6 @@
 
 $( document ).ready(function() {
 
-
-  //DESIGN > LAYOUT 
-  //contruct the layout selector based on html visibility
-  $(".test-show-layout").each(function() {
-
-    var target = $(this).data("target");
-    if ($(target).hasClass("hidden")) {       
-      $(this).addClass("inactive");
-
-    } 
-  });
-
-
-  
-  //DESIGN > LAYOUT 
-  //click handler for layout select
-  $(".test-show-layout").on( "click", function() {
-    
-    var target = $(this).data("target");
-    
-    if ($(target).hasClass("hidden")) { 
-      
-      $(target).removeClass("hidden");
-      $(this).removeClass("inactive");
-      $('html, body').animate({
-        scrollTop: $(target).offset().top - 50
-      }, 200);
-
-
-      htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
-      htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
-      htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
-
-      saveChanges();
-
-    } else {
-      
-      $(target).addClass("hidden");
-      $(this).addClass("inactive");
-
-      htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
-      htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
-      htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
-
-      saveChanges();
-
-    }
-  
-  });
 
 
   
@@ -283,6 +233,21 @@ $( document ).ready(function() {
    });
 
 
+  // $('.toggleDesignPanel').click(function() {
+  //   $(".design-editor-section-container").addClass("visible");
+
+  //   $(".toggleEditorPanel.active").removeClass("active");
+  //   $(".event-editor-section-container").removeClass("visible");
+
+  //  });
+
+
+
+
+  // $('#design-panel-close').click(function() {
+  //   $(".design-editor-section-container").removeClass("visible");
+  //  });
+
 
 
 
@@ -323,10 +288,7 @@ $( document ).ready(function() {
 
   //IMAGES - search unsplash
   var imageModal = $('#image-search-modal').remodal();
-  $('.open-image-modal').click(function(e){
-      e.preventDefault();
-      imageModal.open();
-  });
+  
 
   $("#bgSearchTerm").keyup(function (e) {
       if (e.keyCode == 13) {
@@ -447,7 +409,7 @@ $( document ).ready(function() {
 
   //background color picker
     $('input#color').minicolors({ 
-      position: 'top right', 
+      position: 'top left', 
       defaultValue: currentBgColor,
       change: function(value, opacity) {
           $(".event-page .overlay").css("background-color", value);
@@ -630,9 +592,9 @@ $(function() {
     }
   };
 
-  $('.upload-btn').on('click', function(){
-    $('.file-label').click();
-  });
+  // $('.upload-btn').on('click', function(){
+  //   $('.file-label').click();
+  // });
 
   //EDITING - close the "editing live events" notifcation banner 
   $("#event-status-notification-banner-close").click(function(e) {
