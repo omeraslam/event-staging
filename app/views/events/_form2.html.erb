@@ -21,23 +21,24 @@
 
 
 
-    <div class="owl-item">
+  <div class="owl-item">
 
-        <div class="container">
+    <div class="container">
 
-            <div class="form-header">
-                <h2> What's the name of your event? </h2>
-                <p>  Give your event an awesome name. </p>
-            </div>
-            
-            <div class="input-group">
-                <label>Event Title: </label>
-                <%= f.text_field :name, :class => 'input-primary', :placeholder => 'ie Denver International Wine Festival', :tabindex => "-1" %>
-            </div>
-          
-        </div>   
+      <div class="form-header">
+        <h2> What's the name of your event? </h2>
+        <p>  Give your event an awesome name. </p>
+      </div>
+      
+      <div class="input-group">
+        <label>Event Title: </label>
+        <%= f.text_field :name, :class => 'input-primary', :placeholder => 'ie Denver International Wine Festival', :tabindex => "-1" %>
+      </div>
+      
 
-    </div>
+    </div>   
+
+  </div>
 
 
 
@@ -117,11 +118,6 @@
 
 
 
-
-
-
-
-
   <div class="theme-selection owl-item">
 
 
@@ -145,49 +141,12 @@
 
 
 
-<!--Paid ticketing question -  Hiding this for now -->
-<div class="hidden">
-    <div class="container">
-
-        <div class="form-header">
-            <h2> Are you selling tickets? </h2>
-            <p></p>
-        </div>
-        
-        <div class="row text-center">
-            <div class="col-md-6">
-                <div class='event-new-paid-boolean' data-value="true">
-                    <i class="icon icon-check"> </i>
-                    <span>Yes</span> I am selling tickets.
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class='event-new-paid-boolean' data-value="false">
-                    <i class="icon icon-check"> </i>
-                    <span>No</span> I'm not selling tickets.
-                </div>
-            </div>
-
-
-            <input type="hidden" name="Event-PAID" id="Event-PAID" value="false" />
-        </div>
-    </div>   
-</div>
-<!--END paid ticketing question-->
-
-
-
-
-
-
-
 <script>
 
 var eventCreationStates = [{
-  'btnCopy': 'Next',
+  'btnCopy': 'Next: Choose theme',
 }, {
-  'btnCopy': 'Next',
+  'btnCopy': 'Finish',
 }, {
   'btnCopy': 'Finish',
 }, {
@@ -212,17 +171,6 @@ $(document).ready(function() {
 
     }
   });
-
-
-  //Click handler for paid event question 
-  $(".event-new-paid-boolean").click(function() { 
-        $(".event-new-paid-boolean").removeClass("selected");
-        $(this).addClass("selected");
-        $("#Event-PAID").val($(this).data("value"));
-
-  });
-
-
   var owl = $('.owl-carousel');
   owl.on('initialized.owl.carousel', function(e) {
 
@@ -365,10 +313,6 @@ if (event_id != '') {
   amplitude.logEvent('Create an Event');
 
   //add functionality for tabbing through fields
-
-
-
-
 
   </script>
 

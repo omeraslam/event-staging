@@ -1,102 +1,923 @@
-<div class="event-nav-container">
-    <div class="event-nav-top">
-        <a class="event-nav-logo"> 
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255.9 276.6"><path d="M255.8 0.7c0 10.8 0 19.6 0 30.8 -39.9 0.1-79.3-0.4-118.6 0.3C92.9 32.5 60.7 54 42 93.8c-18.7 39.8-14.5 78.4 12.8 113.1 19.4 24.7 45.5 38.1 77.2 38.7 30.4 0.5 60.7 0 92.4 0 0-10.4 0-19.7 0-31.3 -27.6 0-55.2 0.2-82.9 0.1 -48.7-0.1-82.8-30.1-83.1-73.2 -0.3-45.6 34-78.2 82.9-78.5 37.5-0.2 75-0.1 113.9-0.2 0 31 0.1 61 0.1 92.2 -41.8 0.1-83.5 0.1-126.3 0.2 0-9.3 0-18.1 0-28.9 31 0 62.4-0.1 95.2-0.1 0-11.2 0-20.5 0-31.7 -31.9 0-64.1-1.4-96.1 0.6 -23 1.5-40 25.5-38.3 48.6 1.6 21.8 19.3 39 43 39.6 33.7 0.8 67.4 0.2 101.1 0.1 7 0 14 0 22 0 0 31.1 0.1 60.7 0.1 93.3 -14.1 0-28.7 0.4-43.2 0 -35.5-0.9-71.8 2-106.5-4C40 261.1-4 198.9 0.3 130.1 4.5 62.8 58.2 5.2 123.8 1.3 167-1.2 210.4 0.7 255.8 0.7z" fill="#FFF"/></svg>   
-        </a>
-
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-dashboard" data-target="editor-tool-dashboard">
-            <i class="icon icon-home"> </i> <span> Dashboard </span>
+<div class="editor-tabs">
+    <div class="editor-tools-top">
+        <a class="tab toggleEditorPanel" id="editor-tool-home" data-target="editor-tool-home" style="display:none;" >
+            <i class="fa fa-globe"> </i> <span> Status</span>
         </a> 
-
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
-            <i class="icon icon-users"> </i> <span> Attendees</span>
-        </a>   
-
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-orders" data-target="editor-tool-orders" >
-            <i class="icon icon-doc-lines"> </i> <span> Orders</span>
-        </a>  
-
-        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'event-nav-link', target: '_blank' %>        
-     
-         
-    </div>
-
-    <div class="event-nav-bottom">
-        <a class="event-nav-link toggleDesignPanel" id="editor-tool-background" data-target="editor-tool-background">
+        <a class="tab toggleEditorPanel" id="editor-tool-background" data-target="editor-tool-background">
             <i class="icon icon-image"> </i> <span> Design </span>
         </a> 
-
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
-            <i class="icon icon-settings"> </i> <span> Settings</span>
-        </a> 
-
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
+        <a class="tab toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
             <i class="fa fa-fw fa-ticket"> </i> <span> Tickets</span>
             <% if  @account == nil && @ticket.price != 0 %>
               <div class="editor-tab-notification editor-tab-notification-error"></div>
             <% end %>
-        </a>    
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-questions" data-target="editor-tool-questions" >
-            <i class="icon icon-question"> </i> <span> Questions</span>
-        </a>       
-
-        <a class="event-nav-link toggleEditorPanel" id="editor-tool-coupons" data-target="editor-tool-coupons" >
+        </a>   
+        <a class="tab toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
+            <i class="icon icon-settings"> </i> <span> Settings</span>
+        </a>  
+        <a class="tab toggleEditorPanel" id="editor-tool-promotions" data-target="editor-tool-promotions" >
             <i class="fa fa-fw fa-tag"> </i> <span> Coupons</span>
-        </a>       
-
-
-        <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'event-nav-link hidden' %>  
+        </a>            
+        <a class="tab toggleEditorPanel" id="editor-tool-orders" data-target="editor-tool-orders" >
+            <i class="icon icon-users"> </i> <span> Orders</span>
+        </a>  
+        <a class="tab toggleEditorPanel" id="editor-tool-attendees" data-target="editor-tool-attendees" >
+            <i class="icon icon-users"> </i> <span> Attendees</span>
+        </a>        
+        <%= link_to '<i class="icon icon-eye"> </i> <span> Preview</span>'.html_safe, slugger_path(@event), class: 'tab', target: '_blank' %>          
     </div>
+
+    <div class="editor-tools-bottom">
+        <a class="tab toggleEditorPanel" id="editor-tool-support" data-target="editor-tool-support" >
+            <i class="fa fa-phone"> </i> <span> Support</span>
+        </a>     
+        <a class="tab toggleEditorPanel" id="editor-tool-share" data-target="editor-tool-share" style="display:none;" >
+            <i class="icon icon-share"> </i> <span> Share</span>
+        </a> 
+
+        <%= link_to '<i class="icon icon-sign-out"> </i> <span> Exit </span>'.html_safe, "/", class: 'tab' %>  
+    </div>
+
 </div>
 
 
 
+<div class="editor-container"> 
 
 
-<div class="event-editor-section-container"> 
 
-    <div class="event-editor-header text-right">
-       <a href="#">Contact Support</a> <a href="#">My account </a>  <a id="editor-panel-close"><i class="icon icon-arrow-left"> </i></a>
+
+
+  <div class="editor-tools">
+
+    <div id="editor-panel-close"><i class="icon icon-arrow-left"> </i></div>
+
+    <div class="editor-tool" id="editor-tool-details">
+    
+        <%= form_for [@event] , :html => {:id => "edit-event"} do |f| %>
+       
+
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event website settings
+            </div>
+            <div class="col-md-6 text-right">
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Event Details </h4>
+                <p>Change of venue? Modify your event details here.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Event Name</label>
+                        <%= f.text_field :name, :class => 'input-primary', :placeholder => 'Mikes Birthday, etc' %>
+                    </div>
+
+
+                    <div class="input-group" id="datepairExample">
+                        <label> Date</label>
+                        <%= f.text_field :date_start, :class => 'date start input-primary', :placeholder => 'Date', :value => (@event.date_start.nil? || @event.date_start == '') ? '' : @event.date_start.to_time.strftime("%m/%d/%Y") %>
+                    </div>
+
+                    <div class="input-group datePairEndDates" id="datepairExample" style="display:none;">
+                      <div class="input-group-inline">
+                        <label> End Date</label>
+                        <%= f.text_field :date_end, :class => 'date end input-primary' , :placeholder => 'End date' %>
+                      </div>
+
+                      <div class="input-group-inline end-time">
+                        <label> End Time</label>
+                        <%= f.text_field :time_end, :class => 'time end input-primary' , :placeholder => 'End time' %>
+                      </div>
+                    </div>
+
+
+                  
+                    <div class="input-group">
+                      <label> Location Address</label>
+                      <%= f.text_field :location, :autocomplete => false, :class => 'input-primary controls', :id => 'pac-input', :placeholder => 'ie 10 Main Street' %>
+                    </div>  
+                      
+                    <div class="input-group" style="display:none;">
+                      <label>Event Description</label>
+                      <%= f.text_area :description, :class => 'input-primary', :placeholder => 'Example: Why don\'t you and your friends, get with my friends, and we can be friends!' %>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Confirmation Page (optional)</h4>
+                <p>Change the text on the confirmation page to something more personal.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+                    <% if @event.errors.any? %>
+
+                      <div class="alert error">
+                        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+                        <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="input-group" >
+                        <label> Custom Confirmation Page Text</label>
+                        <%= f.text_field :confirmation_text, :class => 'input-primary', :placeholder => 'e.g., Thank you for registering!' %>
+                    </div>
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>URL/Domain </h4>
+                <p>Manage your event domain and visibility. Want to use a custom domain/url? We got you. Shoot us a note at <a href="mailto:support@eventcreate.com"> support@eventcreate.com</a></p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+
+                    <div class="input-group" >
+                      <label>Your event URL</label>
+                        <%= f.text_field :slug, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'custom-event-url' %>
+                        <p>www.eventcreate.com/<span id="event-url-output"><%= @event.slug %> </span> </p>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Website visibility</label>
+                        <%= f.select(:published, [['Live', true],['Hidden', false]]) %>
+                        <p> You can prevent anyone from accessing your event website by changing the status to "hidden."" Once hidden, only you will be able to view the website when logged in. </p>
+                    </div>
+
+
+                   
+                </div>
+            </div>
+        </div>  
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Country settings  </h4>
+                <p>Choose your country's currency here. </p>
+            </div>
+
+            <div class="col-md-9">
+               
+
+                <div class="form-container">
+                <div class="input-group input-group-addon">
+                
+           
+
+
+
+                
+
+                    <label>Currency</label>
+                    <%= f.select(:currency_type, options_for_select(["USD", "CAD","AUD"], :selected => @event.currency_type), :class => ' form-control' ) %>
+                    <div class="col-md-9 col-md-offset-3 text-right"> 
+
+            </div>
+                             
+
+                </div>
+              
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+            </div>
+        </div>
+
+
+    <% end %>
+    <!-- event form end -->
+
+
     </div>
 
-    <div class="event-editor-sections">
+
+
+
+
+
+
+
+
+
+    <div class="editor-tool" id="editor-tool-promotions">
+
+
+  
+  <%= form_for(@coupon) do |f| %>
+    <% if @coupon.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+
+        <ul>
+        <% @coupon.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+       
+
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event coupons/promotions
+            </div>
+            <div class="col-md-6 text-right">
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Coupons </h4>
+                <p>Offer attendees a discount or promotion to encourage registration.</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-container">
+
+
+
+
+
+
+
+
+                    <div class="input-group">
+                        <label>Coupon Active</label>
+                        <%= f.select(:is_active, [['Active', true],['Inactive', false]]) %>
+                    </div>
+
+
+                    <%= hidden_field_tag 'event_id', @event.id %>
+
+
+                    <div class="input-group" >
+                      <label>Offer code</label>
+                
+    <%= f.text_field :promo_code, :class => 'input-primary', :id => 'event-url-input', :placeholder => 'SAVE2016' %>
+
+                        <p>Enter an offer code (ie "Save2016") to advertise to your attendees</p>
+                    </div>
+
+
+                    <div class="input-group" >
+                      <label>Discount</label>
+              
+
+                      <%= f.number_field :discount, :class => 'input-primary', :id => 'event-url-input', :placeholder => '10',  value: f.object.is_fixed == true ? (number_with_precision( f.object.discount , precision: 2)) : (number_with_precision( f.object.discount , precision: 0)) %>
+
+
+                        <p>Discount amount</p>
+
+                    </div>
+
+                    <div class="input-group">
+                        <label>Percentage or Fixed</label>
+                        <%= f.select(:is_fixed, [['%', false],['$', true]]) %>
+
+                        <p> Should the discount be applied as a percentage (ie 10%) or fixed amount ($10). </p>
+                    </div>
+
+
+                   
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit "Save changes", :class => 'btn btn-small' %> 
+            </div>
+        </div>
+
+
+    <% end %>
+    <!-- event form end -->
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="editor-tool" id="editor-tool-support">
+    
+      <section class="editor-tool-header">
+        <h3>Support </h3> 
+        <p>Have a question? Need help setting up your website? Feel free to reach out.</p>
+        <p> Our support team is available to help 24/7. </p>
+      </section>
+
+      <section> 
+        <a class="inline-large"><i class="fa fa-fw fa-phone"></i> 1 (617) 752-2176</a>       
+        <a href="mailto:support@eventcreate.com" class="inline-large"><i class="fa fa-fw fa-envelope"></i> support@eventcreate.com</a>       
+
+      </section>
+
+    </div>  
+
+
+
+
+    <div class="editor-tool" id="editor-tool-background">
+
+
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Event website design
+            </div>
+            <div class="col-md-6 text-right">
+               
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Layout </h4>
+                <p>Show or hide sections of your event website. </p>
+            </div>
+
+            <div class="col-md-9 layout-select">
+              <ul> 
+              <li class="test-show-layout"  data-target="#about">About <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#speakers">Speakers <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#program">Program/Schedule <i class="fa fa-eye"> </i></li>
+              <li class="test-show-layout" data-target="#sponsors">Sponsors <i class="fa fa-eye"> </i></li>
+              </ul>
+
+
+          </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Background image </h4>
+                <p>Modify your website's main background here. </p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="editor-current-bg upload-btn" style="background-image: url(<%= image_path(background_checker(@event, false), :width => 100) %> ) !important"> </div>  
+                <a class="upload-btn btn btn-small"> <i class="fa fa-upload"> </i> Upload image </a> 
+                <a class="open-image-modal btn btn-small"> <i class="fa fa-search"> </i> Search image library </a> 
+
+            </div>
+        </div>  
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Background color </h4>
+                <p>Change the opacity or color of the background color. </p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="slider-container">
+                    <div class="slider"> <div id="slider"></div> </div>
+                    <div class="color-picker"><input id="color"></div>
+                </div>
+
+  
+            </div>
+        </div>  
+
+
+
+
+      <section>
+        
+      </section>
+
+      <section style="display:none;">
+        <h4>Fonts + Style</h4>
+        <div class="fonts">
+          <a class="font brandon" data-target="brandon" style="font">Abc </a>   
+          <a class="font helvetica" data-target="helvetica">Abc</a> 
+          <a class="font sophia" data-target="sophia">Abc</a>
+          <a class="font futura" data-target="futura" style="font-size:22px;">Abc</a>
+          <a class="font gotham" data-target="gotham" style="font-size:12px;">Abc</a>  
+          <a class="font freight" data-target="freight" style="font-size:16px; letter-spacing:3px;">Abc</a>
+        </div>
+      </section>
+
+    <!--CONDITIONAL HOOK FOR NON PREMIUM -->    
+    <!--IF !PREMIUM -->    
+  <% if current_user.customer_id.nil? && !@premium_disable %>
+    <div class="editor-upgrade" style="display:none;">
+      <div class="editor-upgrade-content">
+      <h3>Try Pro for Free</h3>
+      <p> A Pro subscription is required to white-label your website and customize the design. Try Pro now with free 7-day trial. </p>
+      <a href="./upgrade" class="btn">Try Pro for Free </a>
+      </div>
+    </div>
+  <% end %>
+    <!--END -->    
+
+
+
+    </div>  
+
+
+    <div class="editor-tool" id="editor-tool-ticketing_TEMP" >
+      
+      <section class="editor-tool-header">
+        <h3> Advanced Ticketing </h3>
+        <p>Do you have multiple ticket types? Selling VIP passes? Manage your event ticketing advanced settings here. <strong>Note:</strong> <em>Once guests start registering for your tickets, you will not be allowed to edit them.</em> </p>
+        
+        
+      </section>
+
+      <section>
+        <div class="tickets">
+        <% @tickets.each_with_index do |ticket, index| %>
+          <div class="ticket">
+
+            <h3><%= ticket.title %></h3>
+            <% @total = 0 %>
+            <% Purchase.where(:event_id => @event.id).all.each do |purchase| %>
+            <% @total += LineItem.where(:purchase_id => purchase.id.to_s, :ticket_id => ticket.id.to_s).count %>
+            <% end %>
+
+
+
+            <small>Tickets quantity left: <%= ticket.ticket_limit.to_i - @total.to_i  %>/<%= ticket.ticket_limit %> </small>
+          <% if ticket.price == 0 %>
+              <p>Free</p>
+          <% else %>
+
+            <p><%= number_to_currency(ticket.price) %></p>
+
+            <% end %>
+            
+            <% if @total == 0 %>
+                <div class="ticket-actions">
+                    <div class="ticket-action">
+                        <%= link_to ('<i class="icon icon-pencil"> </i>').html_safe, edit_ticket_path(ticket), :remote => true %>    
+                    </div>
+                    <% if @tickets.count > 1 %>
+                    <div class="ticket-action"> <%= link_to ('<i class="icon icon-trash"> </i>').html_safe,  ticket_path(ticket)  , method: :delete, data: { confirm: 'Are you sure?' } %>
+                    </div>
+                    <% end %>
+                </div>
+            <% else %>
+            <small>Tickets have been registered. Editing or deletion is no longer available.</small>
+          
+            <% end %>
+          </div>
+        <% end %>
+
+
+        </section>
+
+        <section> 
+          <%= link_to 'New ticket type', new_ticket_path(:event => @event) , :remote => true, :class => 'btn open-ticket' %>
+
+        </section>
+
+
+
+
+        <section style="display:none;">
+        <h4>Collect payments </h4>
+        <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
+        <% if  @account == nil %>
+          <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> </a>
+        <% else %>
+          User has connected to stripe
+        <% end %>
+        </section>
+
+    </div>  
+
+
+
+
+
+
+      <div class="editor-tool" id="editor-tool-ticketing" >
         
 
-
-        <%= render 'events/partials/editor/editor_settings_new' %>
-        <%= render 'events/partials/editor/editor_attendees_new' %>
-        <%= render 'events/partials/editor/editor_dashboard_new' %>
-        <%= render 'events/partials/editor/editor_ticketing_new' %>
-        <%= render 'events/partials/editor/editor_coupons_new' %>
-        <%= render 'events/partials/editor/editor_questions_new' %>
-
-        <%= render 'events/partials/editor/editor_orders_new' %>
+        <%= form_for [@ticket] do |f| %>
 
 
+        <div class="row editor-tool-header">
+            <div class="col-md-6">
+                Ticketing + Registration
+            </div>
+            <div class="col-md-6 text-right">
+                 <%= f.submit 'Save changes', class: 'btn btn-small' %>
+            </div>
+        </div>
 
 
-        <%# render 'events/partials/editor/editor_settings' %>
-        <%# render 'events/partials/editor/editor_coupons' %>
-        <%# render 'events/partials/editor/editor_support' %>
-        <%# render 'events/partials/editor/editor_design' %>
-        <%# render 'events/partials/editor/editor_ticketing' %>
-        <%# render 'events/partials/editor/editor_attendees' %>
 
+
+
+
+
+                <section style="display:none;" >
+        <h4>Collect payments </h4>
+        <p>Please connect to Stripe to sell tickets and collect payments via Visa, MasterCard or American Express. (PS, you only need to do this if you're charging for tickets.)</p>
+        <% if  @account == nil %>
+          <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> </a>
+        <% else %>
+          User has connected to stripe
+        <% end %>
+        </section>
+
+
+
+
+        <% if  @account == nil && @ticket.price != 0 %>
+          <div class="well well-error">
+         Get paid! Please add a bank account to accept payments. <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write">Add account </a>
+          </div>
+
+                  <% end %>
+
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3">
+                <h4>Registration settings  </h4>
+                <p>Manage your event registration settings here. </p>
+            </div>
+
+            <div class="col-md-9">
+               
+
+                <div class="form-container">
+                <div class="input-group input-group-addon">
+                  <label> Price</label>
+                  <div class="input-addon">$</div><%= f.number_field :price, class: 'input input-large', id: 'event-price-input', placeholder: '0.00', value: (number_with_precision( f.object.price , precision: 2)),  disabled: @account.nil?  %> 
+
+                    <% if  @account == nil%>
+
+
+                  <p id="input-free-event-container">   <input type="checkbox"  <% if @ticket.price == 0 %> checked <% end %> id="free-event-boolean"><label for="free-event-boolean"> My event is FREE.</label> </p>
+
+
+                              <% end %>
+
+
+                </div>
+              
+
+
+    
+    <div class="input-group" id="datepairExample2">
+        <label> Registration closes on</label>
+ <%= f.text_field :stop_date, :class => 'date start input-primary', :placeholder => 'Date', :tabindex => "-1",  :value => (@ticket.stop_date.nil? || @ticket.stop_date == '') ? '' : @ticket.stop_date.to_time.strftime("%m/%d/%Y") %>
     </div>
 
 
 
+                <div class="input-group">
+                    <label> Event capacity</label>
+                    <%= f.number_field :ticket_limit, class: 'input input-large', placeholder: '∞' %>
+                </div>
 
+                <div class="input-group">
+                    <label>Buy Limit</label>
+                    <%= f.number_field :buy_limit, class: 'input input-large', placeholder: '1' %>
+                    <p>Limit the ticket quantity that a user can buy at one time.</p>
+                </div>
+
+          
+
+
+
+
+
+        <!--         <div class="input-group" style="display:none;">
+                  <label>Tickets available until</label>
+                  <%= f.date_select :stop_date, class: 'input input-large'%>
+                </div> -->
+
+
+
+                </div>
+            </div>
+        </div>  
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3 text-right"> 
+                <%= f.submit 'Save changes', class: 'btn btn-small' %>
+
+            </div>
+        </div>
+
+  
+        <% end %>
+
+
+
+
+
+
+          <section> 
+
+            <a class=" toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing_TEMP" > View advanced ticketing</a>   
+
+
+          </section>
+
+
+
+      </div> 
+
+
+
+ <div class="editor-tool" id="editor-tool-orders" style="width:1000px;">
+        
+
+       <div class="row editor-tool-header">
+            <div class="col-md-6">
+               Event Orders
+            </div>
+            <div class="col-md-6 text-right">
+                <%= link_to 'Excel ', dashboard_event_path(:event => @event.id, :format => :xls), class: 'btn btn-small' %> 
+                <%= link_to 'Download ', dashboard_event_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
+        <%= link_to 'Print ', dashboard_print_path(:event => @event.id), class: 'btn btn-small' %>
+            </div>
+        </div>
+
+
+
+          <% if !@buyers.empty? %>
+
+
+
+            <div class="row">
+            <div class="col-md-12">
+                <table class="table"> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th> Guest Count </th> <th>Total Order</th> <th>Affiliate Code</th><th> Registration date </th>  <th> </th>  </tr> </thead> 
+
+
+                <tbody>  
+
+                    <% @buyers.each do |attendee| %>
+                        <tr> 
+                            <td><%= attendee.first_name %></td> 
+                            <td><%= attendee.last_name %></td> 
+                            <td><%= attendee.email %></td>
+                            <td><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %>
+                                <% @guest_quantity = LineItem.where(:purchase_id => attendee.id.to_s).count %>
+                             <%= @guest_quantity.nil? || @guest_quantity <= 0 ? 'n/a' : @guest_quantity - 1 %></td>
+                           
+                            <td>          
+                                <% total_order = 0 %>
+                        <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>
+                           
+                            <% @ticket = Ticket.find_by_id(lineitem.ticket_id.to_i) %>
+                            <% total_order += @ticket.nil? ? 0 : @ticket.price %>
+                        <% end %> 
+                            <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' || Purchase.find(attendee.id.to_i).affiliate_code.blank?  ? 'n/a'  : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
+                            <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+                            <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
+                        </tr> 
+                    <% end %>
+
+                </tbody> 
+
+              </table>
+
+            </div>
+            </div>
+              
+              <% else %>
+              <div class="empty">
+                  <h2>No orders, just yet.  </h2>
+              </div>
+              <% end %>
+
+
+
+
+
+
+
+      </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="editor-tool" id="editor-tool-attendees" style="width:1000px;">
+        
+
+       <div class="row editor-tool-header">
+            <div class="col-md-6">
+               Event Attendees
+            </div>
+            <div class="col-md-6 text-right">
+                <%= link_to 'Excel ', print_attendees_csv_path(:event => @event.id, :format => :xls), class: 'btn btn-small' %> 
+                <%= link_to 'Download ', print_attendees_csv_path(:event => @event.id, :format => :csv), class: 'btn btn-small' %> 
+        <%= link_to 'Print ', print_attendees_path(:event => @event.id), class: 'btn btn-small' %>
+            </div>
+        </div>
+
+
+
+          <% if !@attendees.empty? %>
+
+            <div class="row">
+            <div class="col-md-12">
+                <table class="table"> 
+                <thead> <tr> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>  <th>Ticket Type</th> <th> Registration date </th>  <th> </th>  </tr> </thead> 
+                <tbody>  
+                    <% @attendees.each do |attendee| %>
+                    <tr> 
+                        <td><%= attendee.first_name %></td> 
+                        <td><%= attendee.last_name %></td> 
+                        <td><%= attendee.email %></td>
+                        
+                        <% @guest = LineItem.where(:attendee_id => attendee.id.to_s).first %>
+                        
+                        <td><% @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"' %> </td>
+                      
+                        <td><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+                        <td><%= link_to 'Delete', slug_purchase_destroy_path(id: attendee.id), class: 'attendee-delete', method: :delete, data: { confirm: 'Are you sure? This cannot be undone' } %></td>  
+                    </tr> 
+
+   
+                    <% end %>
+
+                </tbody> 
+
+              </table>
+                </div>
+            </div>
+              
+              <% else %>
+              <div class="empty">
+                  <h2>No attendees, just yet.  </h2>
+              </div>
+              <% end %>
+
+
+
+           
+
+
+
+
+      </div> 
+
+
+
+
+
+
+<div id="event-saved-modal">
+  <button data-remodal-action="close" class="remodal-close"></button>
+
+  <div class="modal-header modal-header-light">
+    <h2>Saved.</h2>
+    <p> Rest easy; your event website was successfully saved. If you're finished editing, be sure to publish your event to make it live! </p>
+  </div>
+  <div class="modal-body">
+      <a href="dashboard/event?event=<%= @event.id %>" class="btn btn-block btn-subtle"><i class="icon icon-home"></i>Back to my event dashboard </a>
+      <%= link_to '<i class="icon icon-website"></i> Preview my website (new window)'.html_safe, slugger_path(@event), class: 'btn btn-block btn-subtle', target: '_blank' %>  
+      <a href="dashboard/event?event=<%= @event.id %>" class="btn btn-block"><i class="icon icon-globe"></i> Publish my event! </a>
+  </div>
 </div>
-
-
-
-<div class="design-editor-section-container">
-
-        <%= render 'events/partials/editor/editor_design_new' %>
-
-</div>
-
 
 
 
@@ -130,6 +951,11 @@
 
   </div>
   <div class="modal-body">
+   
+
+
+
+
   </div> 
 </div>
 
@@ -148,20 +974,25 @@
 $( document ).ready(function() {
 
 
-  //DESIGN > LAYOUT 
-  //contruct the layout selector based on html visibility
+  //contruct the layout select
   $(".test-show-layout").each(function() {
 
     var target = $(this).data("target");
-    if ($(target).hasClass("hidden")) {       
+        
+    if ($(target).hasClass("hidden")) { 
+      
       $(this).addClass("inactive");
 
-    } 
+    } else {
+      
+      //$(this).addClass("inactive");
+
+    }
   });
 
 
   
-  //DESIGN > LAYOUT 
+
   //click handler for layout select
   $(".test-show-layout").on( "click", function() {
     
@@ -199,9 +1030,10 @@ $( document ).ready(function() {
 
 
   
-  //FROALA > CUSTOM > LAYOUT
-  //repeatable sections on page
+
   $(".repeatable").append("<div contenteditable='false' class='repeatable-actions'><div class='repeatable-action repeatable-plus'><i class='fa fa-plus'></i></div><div class='repeatable-action repeatable-delete'><i class='fa fa-trash'></i></div></div>");
+
+
   $(document).on('click', ".repeatable-plus" , function() {
      
       var target = $(this).parents(".repeatable");
@@ -212,14 +1044,22 @@ $( document ).ready(function() {
       }, 200);
 
   });
-  $(document).on('click', ".repeatable-delete" , function() {     
+
+
+
+  $(document).on('click', ".repeatable-delete" , function() {
+     
       var target = $(this).parents(".repeatable");
       var container = $(this).parents(".container").data("repeatable");
+
       if ($('*[data-repeatable="'+ container +'"] .repeatable').length > 1) {
         target.fadeOut(200, function() { $(target).remove(); });
       } else {
         alert("Ooops, you can't delete this one. If you'd like to hide this section, please change the section visbility under the design tab.")
       }
+
+
+  
   });
 
 
@@ -235,6 +1075,29 @@ $( document ).ready(function() {
       $(this).find("span").text("live");
   });
 
+      var validator5 = $(".edit_ticket").validate({
+    rules: {
+      "ticket[title]": {
+        required: true
+      },
+      "ticket[price]": {
+        required: true
+      },
+      "ticket[ticket_limit]": {
+        required: true
+      },
+      "ticket[stop_date]": {
+        required: true
+      },
+    }, messages : {
+      "ticket[title]": 'Please enter a ticket name.',
+      "ticket[price]": 'Please enter a ticket price.',
+      "ticket[ticket_limit]": 'Please enter a ticket limit.',
+      "ticket[stop_date]": 'Please enter an end date.'
+
+    }
+  });
+
 
 
   //TICKET - new ticket modal functionality and validation
@@ -248,6 +1111,38 @@ $( document ).ready(function() {
 
 
 
+
+
+
+  $.validator.addMethod("loginRegex", function(value, element) {
+        return /^[a-zA-Z0-9-]+$/i.test(value);
+    }, "Event must contain only letters, numbers, or dashes.");
+
+  var validator3 = $("#edit-event").validate({
+    rules: {
+      "event[name]": {
+        required: true
+      },
+      "event[date_start]": {
+        required: true
+      },
+      "event[location]": {
+        required: true
+      },
+      "event[slug]": {
+        required: true,
+        loginRegex: true
+      }
+
+
+    },
+    messages: {
+      "event[name]": 'Please enter an event name',
+      "event[date_start]": 'Please enter an event date',
+      "event[location]": 'Please enter an event location',
+      "event[slug]": 'Please enter an event url'
+    }
+  });
 
 
 
@@ -270,9 +1165,9 @@ $( document ).ready(function() {
 
 
   //EDITOR - set size of panel
-  $('.event-editor-sections').css("height",$(window).height());
+  $('.editor-tools').css("height",$(window).height());
   $( window ).resize(function() {
-    $('.event-editor-sections').css("height",$(window).height());
+    $('.editor-tools').css("height",$(window).height());
   });
 
   //EDITOR -  editor panel interaction behaviors
@@ -285,33 +1180,18 @@ $( document ).ready(function() {
       $(".editor-tool").hide();
       $(".editor-tool#" + target).show();
       $(this).addClass("active");
-      $(".event-editor-section-container").addClass("visible");
+      $(".editor-container").addClass("visible");
     } else {
       $(this).removeClass("active");
-      $(".event-editor-section-container").removeClass("visible");
+      $(".editor-container").removeClass("visible");
     }
   });
 
   $('#editor-panel-close').click(function() {
     $(".toggleEditorPanel.active").removeClass("active");
-    $(".event-editor-section-container").removeClass("visible");
+    $(".editor-container").removeClass("visible");
    });
 
-
-  $('.toggleDesignPanel').click(function() {
-    $(".design-editor-section-container").addClass("visible");
-
-    $(".toggleEditorPanel.active").removeClass("active");
-    $(".event-editor-section-container").removeClass("visible");
-
-   });
-
-
-
-
-  $('#design-panel-close').click(function() {
-    $(".design-editor-section-container").removeClass("visible");
-   });
 
 
 
@@ -477,7 +1357,7 @@ $( document ).ready(function() {
 
   //background color picker
     $('input#color').minicolors({ 
-      position: 'top left', 
+      position: 'top right', 
       defaultValue: currentBgColor,
       change: function(value, opacity) {
           $(".event-page .overlay").css("background-color", value);
@@ -499,6 +1379,20 @@ $( document ).ready(function() {
 
 
 
+
+
+
+  //EDITOR -  event saved modal
+  var eventSavedModal = $('#event-saved-modal').remodal();
+  $('#draft').click(function(e){
+    $(".full-page-loader.saving").addClass("visible");
+    setTimeout(function(){  
+      eventSavedModal.open();
+      $(".full-page-loader.saving").removeClass("visible");
+    }, 1500);
+
+    e.preventDefault;
+  });
 
 
 
@@ -685,4 +1579,13 @@ $(function() {
     droppedFiles = e.originalEvent.dataTransfer.files;
   });
 
+
+
+
+
+
+
+
+
 </script>
+
