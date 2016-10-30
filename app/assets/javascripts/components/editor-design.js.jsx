@@ -6,27 +6,28 @@ var EditorDesign = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         this.setState({eventObj: nextProps.eventObj})
     },
+    onClosePanel: function() {
+      $(".design-editor-section-container").removeClass("visible");
+    },
+    onUploadBtnClick: function() {
+       $('.file-label').click();
+    },
     componentDidMount: function() {
 
-        $('#design-panel-close').click(function() {
-            $(".design-editor-section-container").removeClass("visible");
-        });
+  
 
         $('.toggleDesignPanel').click(function() {
             $(".design-editor-section-container").addClass("visible");
-
             $(".toggleEditorPanel.active").removeClass("active");
             $(".event-editor-section-container").removeClass("visible");
 
         });
 
-          $('.upload-btn').on('click', function(){
-            $('.file-label').click();
-          });
+       
 
         var imageModal = $('#image-search-modal').remodal();
 
-          $('.open-image-modal').click(function(e){
+        $('.open-image-modal').click(function(e){
           e.preventDefault();
           imageModal.open();
       });
@@ -130,7 +131,7 @@ var EditorDesign = React.createClass({
 
             <div className="design-editor-section-container">
                 <div className="design-editor-header text-right">
-                    <a id="design-panel-close"><i className="icon icon-arrow-left"> </i></a>
+                    <a id="design-panel-close" onClick={this.onClosePanel} ><i className="icon icon-arrow-left"> </i></a>
                 </div>
 
                 <div className="design-editor-body">
@@ -149,7 +150,7 @@ var EditorDesign = React.createClass({
                     <section>
                         <h4>Background image/color </h4>
                         <p>Modify your website's main background here. </p>
-                        <div className="editor-current-bg upload-btn" style={divStyle} > </div>  
+                        <div className="editor-current-bg upload-btn" onClick={this.onUploadBtnClick} style={divStyle} > </div>  
                         <a className="upload-btn btn btn-small"> <i className="fa fa-upload"> </i> Upload image </a> 
                         <a className="open-image-modal btn btn-small"> <i className="fa fa-search"> </i> Search image library </a> 
                     </section>  
