@@ -53,34 +53,39 @@
 
 
 
-<div class="event-editor-section-container"> 
+        
+        <%= react_component 'Editor', {
+          event: @event, ticketObj:  @ticket ,
+        attendees_list: @attendees_list, attendee_headers: @attendee_headers,
+        stats: @event_stats,
+        ticket_items: @tickets_for_event, current_ticket: @current_event_ticket, event_slug: @event.slug,
+        order_items: @buyers_list, order_headers: @buyers_headers,
+        coupon_items: @coupons, current_coupon: @current_survey_question,
+        question_items: @survey_questions, current_question: @current_survey_question} %>
 
-    <div class="event-editor-header text-right">
-       <a href="#">Contact Support</a> <a href="#">My account </a>  <a id="editor-panel-close"><i class="icon icon-arrow-left"> </i></a>
-    </div>
 
-    <div class="event-editor-sections">
+   <!--      
+    BROUGHT IN COMPONENTS
+   <%= react_component 'EditorSettings', { eventObj: @event, ticketObj: @ticket  } %>
+        <%= react_component 'EditorAttendees', { attendees_list: @attendees_list, headers: @attendee_headers } %>
+        <%= react_component 'EditorOrders', { items: @buyers_list, headers: @buyers_headers } %>
+
+        <%= react_component 'DashboardContainer', { stats: @event_stats } %>
+        <%= react_component 'EditorTicketing', { items: @tickets_for_event, current_selection: @current_event_ticket, event: @event.slug } %>
+
+  NOT YET BROUGHT IN
+        <%= react_component 'EditorCoupons', { items: @coupons, current_selection: @current_survey_question, event: @event.slug } %>
+         <%= react_component 'EditorQuestions', { items: @survey_questions, current_selection: @current_survey_question, event: @event.slug } %> 
+
+
+
+ <%= react_component 'EditorDesign', {eventObj: @event} %>
+
+         -->
         
 
 
 
-        <%= react_component 'EditorSettings', { eventObj: @event, ticketObj: @ticket  } %>
-        <%= react_component 'EditorAttendees', { attendees_list: @attendees_list, headers: @attendee_headers } %>
-        <%= react_component 'DashboardContainer', { stats: @event_stats } %>
-        <%= react_component 'EditorTicketing', { items: @tickets_for_event, current_selection: @current_event_ticket, event: @event.slug } %>
-        <%= react_component 'EditorOrders', { items: @buyers_list, headers: @buyers_headers } %>
-        <%= react_component 'EditorCoupons', { } %>
-
-        <%= render 'events/partials/editor/editor_questions_new' %>
-
-
-
-    </div>
-
-
-</div>
-
- <%= react_component 'EditorDesign', {eventObj: @event} %>
 
 
 
@@ -254,8 +259,8 @@ $( document ).ready(function() {
   //EDITOR - set values
   var published = $('#published').val()? $('#published').val(): "false"; 
   var currentFont = $('#font_type_id').val()? $('#font_type_id').val(): "brandon"; 
-  var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
-  var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
+  // var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
+  // var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
   var currentBg = $('#external_image').val(); 
   var currentBgLoaded = $('#bg').val()? $('#bg').val(): ''; 
   var currentShowCustom = $('#show_custom').val(); 
@@ -394,29 +399,29 @@ $( document ).ready(function() {
 
 
   //backgroud opacity slider
-    $(function() {
-      $( "#slider" ).slider({
-        value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
-        slide: function( event, ui ) { 
+    // $(function() {
+    //   $( "#slider" ).slider({
+    //     value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
+    //     slide: function( event, ui ) { 
 
-          var percentage = ui.value/100;
-          $(".event-page .overlay").css("opacity", percentage);
-          requestEdit({bgOpacity:percentage});
-        }
-      });
-    });
+    //       var percentage = ui.value/100;
+    //       $(".event-page .overlay").css("opacity", percentage);
+    //       requestEdit({bgOpacity:percentage});
+    //     }
+    //   });
+    // });
 
 
-  //background color picker
-    $('input#color').minicolors({ 
-      position: 'top left', 
-      defaultValue: currentBgColor,
-      change: function(value, opacity) {
-          $(".event-page .overlay").css("background-color", value);
-          requestEdit({bgColor:value});
+  // //background color picker
+  //   $('input#color').minicolors({ 
+  //     position: 'top left', 
+  //     defaultValue: currentBgColor,
+  //     change: function(value, opacity) {
+  //         $(".event-page .overlay").css("background-color", value);
+  //         requestEdit({bgColor:value});
 
-      }
-   });
+  //     }
+  //  });
 
   //change font
   $('.font').click(function() {

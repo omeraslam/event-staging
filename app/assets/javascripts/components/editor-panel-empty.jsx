@@ -11,14 +11,16 @@ var EditorPanelEmpty = React.createClass({
     },
 
     render: function() {
+
+
    
 
         return (
             <div className="editor-panel empty">
                 <i className="icon icon-ticket"> </i>
-                <h1>Ticketing</h1>
-                <p>Add new ticket. It sure is neat. PS, we've added a sample "General Admssion" ticket for you, to help you get started.</p>
-                <p><button className="btn btn-primary">Add ticket</button> </p>
+                <h1>{this.props.title}</h1>
+                <p>{this.props.description}</p>
+                <p><button className="btn btn-primary">{this.props.button_text}</button> </p>
             </div>
         )
    } 

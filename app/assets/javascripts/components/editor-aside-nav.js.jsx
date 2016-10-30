@@ -33,7 +33,7 @@ var EditorAsideNav = React.createClass({
             <ul className="editor-aside editor-aside-nav">
                
                 {this.state.items.map(function(item, index){
-                     return <EditorAsideNavItem currentItem={this.state.currentItem} key={index} item={item.ticket_object} handleSelectEvent={this.selectItem} handleRefreshNav={this.refreshNav} />
+                     return <EditorAsideNavItem currentItem={this.state.currentItem} key={index} item={item.item == undefined ? item: item.item} handleSelectEvent={this.selectItem} handleRefreshNav={this.refreshNav} />
                  }.bind(this))} 
    
                 <a href="#" className="edit-aside-nav-add" onClick={this.addNavItem} ><h4>+ Add New Ticket Type</h4> </a>

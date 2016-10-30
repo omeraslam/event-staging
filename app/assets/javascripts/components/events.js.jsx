@@ -23,7 +23,7 @@ var Events = React.createClass({
                     </div>
                     <div className="event-status"> 
                         <div className="event-share">
-                            <a href="" className="btn btn-obvious"><i className="icon icon-plus"></i>create new event</a>
+                            <a href="/create" className="btn btn-obvious"><i className="icon icon-plus"></i>create new event</a>
                             <br/>
                             <p className="small"> New event website and/or invite</p>
                         </div>

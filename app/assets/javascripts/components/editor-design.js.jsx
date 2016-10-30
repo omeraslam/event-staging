@@ -24,13 +24,37 @@ var EditorDesign = React.createClass({
             $('.file-label').click();
           });
 
-  var imageModal = $('#image-search-modal').remodal();
+        var imageModal = $('#image-search-modal').remodal();
 
           $('.open-image-modal').click(function(e){
           e.preventDefault();
           imageModal.open();
       });
 
+
+          var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
+            var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
+
+            $( "#slider" ).slider({
+            value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
+            slide: function( event, ui ) { 
+
+              var percentage = ui.value/100;
+              $(".event-page .overlay").css("opacity", percentage);
+              requestEdit({bgOpacity:percentage});
+            }
+          });
+
+          //background color picker
+        $('input#color').minicolors({ 
+          position: 'top left', 
+          defaultValue: currentBgColor,
+          change: function(value, opacity) {
+              $(".event-page .overlay").css("background-color", value);
+              requestEdit({bgColor:value});
+
+          }
+       });
 
 
         //DESIGN > LAYOUT 
@@ -43,6 +67,8 @@ var EditorDesign = React.createClass({
 
             } 
         });
+
+
 
 
       

@@ -2,7 +2,7 @@ var EditorPanel = React.createClass({
     getInitialState: function() {
         return { 
             current_selection: this.props.current_selection,
-            event: this.props.event
+            event_slug: this.props.event_slug
 
         }
     },
@@ -16,10 +16,16 @@ var EditorPanel = React.createClass({
 
 
     render: function() {
+        var category = 'ticket'
+        if(category == 'ticket') {
+            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug}/>;
+        } else {
+             var SectionForm = <CouponForm current_selection={this.state.current_selection} event_slug={this.state.event_slug}/>;
+        }
+  
         return (
             <div className="editor-panel">
-            
-                <TicketForm current_selection={this.state.current_selection} event={this.state.event}/>
+                {SectionForm}
             </div>
         )
    } 

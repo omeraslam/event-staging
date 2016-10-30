@@ -1163,7 +1163,7 @@ def show
       tickets_sold = ticket.ticket_limit.to_i - LineItem.where(:ticket_id => ticket.id.to_s).count
       ticket["description"] = tickets_sold.to_s + " out of " + ticket.ticket_limit.to_s
       ticketobj = {
-        "ticket_object" => ticket
+        "item" => ticket
       }
       @tickets_for_event.push(ticketobj)
     end
@@ -1286,6 +1286,10 @@ def show
         @attendees_list["items"].push(attendee_block)
 
     end
+
+    @current_survey_question = @survey_questions.first
+
+    #logger.debug "CURRENT SURVEY QUESTION:: #{@current_survey_question.question_text}"
 
 
     @ticket = Ticket.new

@@ -2,7 +2,7 @@ var TicketForm = React.createClass({
     getInitialState: function() {
         return { 
             current_selection: this.props.current_selection,
-            event: this.props.event
+            event_slug: this.props.event_slug
 
         }
     },
@@ -49,7 +49,7 @@ var TicketForm = React.createClass({
         var method, uri;
         if (this.state.current_selection.id == null) {
             method = 'POST'
-            uri = this.props.event + '/tickets'
+            uri = this.props.event_slug + '/tickets'
         } else {
             method = 'PUT'
             uri = '/tickets/' + this.state.current_selection.id

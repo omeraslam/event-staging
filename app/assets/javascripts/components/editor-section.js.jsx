@@ -1,6 +1,6 @@
 var EditorSection = React.createClass({
     getInitialState: function() {
-        return { items: this.props.items, current_selection: null, event: this.props.event}
+        return { items: this.props.items, current_selection: null, event_slug: this.props.event_slug, category: this.props.category}
     },
     getDefaultProps: function() {
         return { items: [], current_selection: null}
@@ -10,6 +10,9 @@ var EditorSection = React.createClass({
    
     },
 
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({category: nextProps.category})
+    },
     selectItem: function(item) {
 
         this.setState({current_selection: item})
@@ -22,11 +25,10 @@ var EditorSection = React.createClass({
 
     },
     render: function() {
-        
         return (
            <div>
                 <EditorAsideNav items={this.props.items} handleSelectItem={this.selectItem} handleRefreshNav={this.refreshNav} />
-                <EditorPanelContainer current_selection={this.state.current_selection} handleOnPanelUpdate={this.onPanelUpdate} event={this.props.event}/>
+                <EditorPanelContainer current_selection={this.state.current_selection} handleOnPanelUpdate={this.onPanelUpdate} event_slug={this.props.event_slug} category={this.props.cagtegory}/>
             </div>
         )
    } 
