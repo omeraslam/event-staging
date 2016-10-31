@@ -28,7 +28,7 @@ var EditorSection = React.createClass({
         return (
            <div>
                 <EditorAsideNav items={this.props.items} handleSelectItem={this.selectItem} handleRefreshNav={this.refreshNav} />
-                <EditorPanelContainer current_selection={this.state.current_selection} handleOnPanelUpdate={this.onPanelUpdate} event_slug={this.props.event_slug} category={this.props.cagtegory}/>
+                <EditorPanelContainer current_selection={this.state.current_selection} handleOnPanelUpdate={this.onPanelUpdate} event_slug={this.state.event_slug} category={this.state.category}/>
             </div>
         )
    } 

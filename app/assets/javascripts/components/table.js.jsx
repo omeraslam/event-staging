@@ -8,7 +8,6 @@ var TableElement = React.createClass({
     },
 
     componentDidMount: function() {
-        alert('mount it');
         var $table = $(".table-attendees").tablesorter({
           // Sort on the second column, in ascending order
           sortList: [[1,0]],

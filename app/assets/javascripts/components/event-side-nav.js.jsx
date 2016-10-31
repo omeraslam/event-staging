@@ -1,4 +1,13 @@
 var EditorSideNav = React.createClass({
+    getInitialState: function() {
+        return {event:this.props.event}
+    },
+    componentWillReceiveProps: function(nextProps) {
+        alert(nextProps.event.slug)
+        this.setState({
+            event: nextProps.event
+        })
+    },
     componentDidMount: function() {
       //INTRO - slide in the editor tabs
       // setTimeout(function(){  
@@ -59,7 +68,7 @@ var EditorSideNav = React.createClass({
 
                     
        
-                    <a className="event-nav-link" href="/new-something-test" target="_blank"><i className="icon icon-eye"> </i> <span> Preview</span></a>  
+                    <a className="event-nav-link" href={'/' + this.state.event.slug} target="_blank"><i className="icon icon-eye"> </i> <span> Preview</span></a>  
                 </div>
                 <div className="event-nav-bottom">
                     <a className="event-nav-link toggleDesignPanel" id="editor-tool-background" data-target="editor-tool-background">

@@ -2,15 +2,26 @@ var EventUrlForm = React.createClass({
     getInitialState: function() {
         return { 
             eventObj: this.props.eventObj,
-            updateEvent: this.props.onUpdateEventItem
+            updateEvent: this.props.onUpdateEventItem,
+
 
         }
+    },
+    componentWillReceiveProps: function(nextProps) {
+      alert('nextprops in url form: '+nextProps);
+        // this.setState({
+        //     eventObj: nextProps.eventObj,
+        //     updateEvent: nextProps.onUpdateEventItem
+
+        // })
     },
 
     handleUpdate: function(e) {
 
         e.preventDefault();
         var method, uri;
+
+        var that = this;
       
         method = 'PUT'
         uri = '/events/' + this.state.eventObj.id
@@ -21,7 +32,8 @@ var EventUrlForm = React.createClass({
             dataType: 'JSON',
             success: function() {
                //alert('success');
-               this.updateEvent(this.state.eventObj)
+               alert('handle update on url form:'+JSON.stringify(that.state.eventObj.slug));
+               that.state.updateEvent(this.state.eventObj)
                
             }.bind(this)
         });

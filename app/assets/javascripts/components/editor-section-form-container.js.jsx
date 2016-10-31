@@ -7,6 +7,7 @@ var EditorSectionFormContainer = React.createClass({
     },
 
     updateEventItem: function(item) {
+        this.props.onUpdateEvent(item);
         this.setState({eventObj: item})
 
     },

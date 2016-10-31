@@ -1184,20 +1184,18 @@ def show
     # end
     # 
     @total_revenue = 0
-
+    spots_left = 0
     @tickets.each do |ticket|
+      spots_left += ticket.ticket_limit
       #if !Purchase.where(:event_id => @event.id).nil?
         Purchase.where(:event_id => @event.id).all.each do |purchase|
           @total_revenue += purchase.total_order
+
           @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end
       #end
       #
-      @event_stats = {
-        total_revenue: @total_revenue/100,
-        spots_left: 'TBD',
-        guest_number: 'TBD'
-      }
+      
 
       # if ticket.stop_date.to_date > @event.date_start.to_date
       #   @ticket_stop = ticket.stop_date.to_date > @event.date_start.to_date
@@ -1206,6 +1204,28 @@ def show
 
       @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
     end
+
+    registration_count_array = []
+      @data_stats = []
+      (@event.created_at.to_date..@event.date_start.to_date).each do |date|
+        logger.debug "CREATE DATE #{date}"
+        ticket_count = Attendee.where(:event_id => @event.id, :created_at => date.midnight..date.end_of_day).count
+        data = {'date' => date, 'registrations' => ticket_count}
+        registration_count_array.push(ticket_count)
+        @data_stats.push(data)
+        
+      end
+
+      guest_count = Attendee.where(:event_id => @event.id).count
+
+
+      @event_stats = {
+        total_revenue: @total_revenue/100,
+        registration_data: registration_count_array,
+        spots_left: spots_left-guest_count,
+        guest_number: guest_count
+      }
+      
 
     # if @ticket_quantity_left < 1
     #   if @ticket_stop
@@ -1238,7 +1258,7 @@ def show
 
 
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
-      @attendee_headers = ["First Name", "Last Name", "Email Address", "Ticket Type", "Registration Date"]
+      @attendee_headers = ["First Name", "Last Name", "Email Address", "Registration Date", "Ticket Type"]
 
       survey_headers = []
       @survey_questions = SurveyQuestion.where(:event_id => @event.id).all
