@@ -48,8 +48,13 @@
 				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.first_name %></td>
 				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.last_name %></td>
 				<td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.email %></td>
-				<% @guest = LineItem.where(:attendee_id => attendee.id.to_s).first %> 
-                        <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
+                <td style="border: 1px solid black;padding: 10px; margin: 0;">
+
+						<% @guest = LineItem.where(:id => attendee.line_item_id.to_s).first %> 
+                        <% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%>
+
+                        <%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> 
+                        </td>
                        
                         <td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
 

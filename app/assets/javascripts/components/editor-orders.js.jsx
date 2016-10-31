@@ -3,7 +3,7 @@ var EditorOrders = React.createClass({
         return (
 
             <div className="editor-tool editor-panel-top-nav" id="editor-tool-orders" >
-                <BuyerList items={this.props.items} headers={this.props.headers} />
+                <BuyerList items={this.props.items} headers={this.props.headers} category={'orders'} />
             </div>
         )
     }

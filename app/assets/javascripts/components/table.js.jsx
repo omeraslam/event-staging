@@ -1,7 +1,7 @@
 var TableElement = React.createClass({
     getInitialState: function() {
         return { attendees: this.props.items.items, headers: this.props.table_headers,
-        event: this.props.items.event }
+        event: this.props.items.event, category: this.props.category }
     },
     getDefaultProps: function() {
         return { attendees: [], event: {}, headers: []}
@@ -24,10 +24,10 @@ var TableElement = React.createClass({
 
     },
     _buildPrintLinkHref: function(e) {
-        return '/dashboard/print?event='+ this.props.items.event.event_id
+        return this.props.category == 'attendees' ? '/dashboard/print-attendees?event='+ this.props.items.event.event_id : '/dashboard/print?event='+ this.props.items.event.event_id
     },
     _buildDownloadLinkHref: function(e) {
-        return '/dashboard/event.csv?event='+ this.props.items.event.event_id
+        return this.props.category == 'attendees' ? '/dashboard/print-attendees-csv.csv?event='+ this.props.items.event.event_id : '/dashboard/event.csv?event='+ this.props.items.event.event_id
     },
 
     render: function() {
