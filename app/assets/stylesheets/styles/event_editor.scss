@@ -369,6 +369,19 @@ $editor_panel_width:1300px;
 
 		}
 
+		&.event-activity-meter-false {
+			span {
+				background:$brand-yellow;
+
+			}
+
+			h5 {
+				color:darken($brand-yellow,10%);
+			}
+
+		}
+
+
 		&:after {
 			content: "";
   			display: table;

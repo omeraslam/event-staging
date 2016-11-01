@@ -25,7 +25,7 @@ var Editor = React.createClass({
             <EditorSideNav event={this.state.event} />
             <div className="event-editor-section-container"> 
                 <div className="event-editor-header text-right">
-                   <a href="#">Contact Support</a> <a href="#">My account </a>  <a id="editor-panel-close"><i className="icon icon-arrow-left"> </i></a>
+                   <a href="mailto:support@eventcreate.com">Contact Support</a> <a href="#">My account </a>  <a id="editor-panel-close"><i className="icon icon-arrow-left"> </i></a>
                 </div>
                 <div className="event-editor-sections"> 
                     <DashboardContainer stats={this.props.stats} eventObj={this.props.event} />
