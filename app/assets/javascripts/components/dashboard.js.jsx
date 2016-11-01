@@ -97,15 +97,15 @@ var DashboardContainer = React.createClass({
                <div className="editor-aside">
                     <section>
                         <h4>Status </h4>
-                        <div className="event-activity-meter"><span> </span> <div className="event-activity-status"><h5>{this.props.eventObj.published ? 'Live' : 'Draft'} </h5> <p> { this.props.eventObj.published ?  'Your event website is live and ready to share.': 'Your event website is unpublished.'}</p> </div> </div>
-                        <div className="event-activity-meter"><span> </span> <div className="event-activity-status"><h5>Registration open </h5> <p> Your event is currently accepting regisations.</p> </div> </div>
+                        <div className={this.props.eventObj.published ? "event-activity-meter event-activity-meter-true" : "event-activity-meter event-activity-meter-false"}><span> </span> <div className="event-activity-status"><h5>{this.props.eventObj.published ? 'Live' : 'Draft'} </h5> <p> { this.props.eventObj.published ?  'Your event website is live and ready to share.': 'Your event website is unpublished and hidden.'}</p> </div> </div>
+                        <div className="event-activity-meter"><span> </span> <div className="event-activity-status"><h5>Registration Open </h5> <p> Your event is currently accepting registrations.</p> </div> </div>
                     </section>
 
                     <section>
                         <h4>Event URL </h4>
                         <div className="input-group">
-                            <input type="text" value={ "www.eventcreate.com/" + this.props.eventObj.slug} disabled="true" />
-                            <p> Lorem ipsum solor sit amet</p>
+                            <input type="text" value={ "www.eventcreate.com/" + this.props.eventObj.slug}  />
+                            <p> <a href={ "https://www.eventcreate.com/" + this.props.eventObj.slug} target="_blank"> Launch event website (new tab)</a> </p>
                         </div>
                     </section>
 
