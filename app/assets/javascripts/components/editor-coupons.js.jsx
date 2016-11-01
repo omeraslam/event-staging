@@ -1,6 +1,6 @@
 var EditorCoupons = React.createClass({
     getInitialState: function() {
-        return { items: this.props.items, current_selection: this.props.current_item, event_slug: this.props.event_slug, category: 'coupons', event_id: this.props.event_id }
+        return { items: this.props.items, current_selection: this.props.current_selection, event_slug: this.props.event_slug, category: 'coupon', event_id: this.props.event_id }
     },
     render: function() {
         return (

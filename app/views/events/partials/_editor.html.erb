@@ -1,15 +1,16 @@
 
+
  <%= react_component 'Editor', {
           event: @event, ticketObj:  @ticket ,
         attendees_list: @attendees_list, attendee_headers: @attendee_headers,
         stats: @event_stats,
         ticket_items: @tickets_for_event, current_ticket: @current_event_ticket, event_slug: @event.slug,
         order_items: @buyers_list, order_headers: @buyers_headers,
-        coupon_items: @coupons, current_coupon: @current_survey_question,
+        coupon_items: @coupons, current_coupon: @current_coupon,
         question_items: @survey_questions, current_question: @current_survey_question} %>
 
         
-
+ 
  <!--TEMP HOLDER FOR DRAG AND DROP ELEMENTS-->
   <a href="#" id="custom-image" style="display:none;">
 

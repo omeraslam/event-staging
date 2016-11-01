@@ -26,7 +26,7 @@ class CouponsController < ApplicationController
   def create
     @coupon = Coupon.new(coupon_params)
     @event = Event.find_by_slug(params[:slug])
-    @coupon.event_id = (params[:event_id]).to_i
+    @coupon.event_id = @event.id
 
 
     @coupon.save

@@ -27,7 +27,6 @@ var CouponForm = React.createClass({
 
     handleUpdate: function(e) {
         e.preventDefault();
-        //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
         var method, uri;
         if (this.state.current_selection.id == null) {
             method = 'POST'
@@ -42,12 +41,14 @@ var CouponForm = React.createClass({
             data: {"coupon" : {
                       "promo_code" : this.state.current_selection.promo_code, 
                       "discount" : this.state.current_selection.discount, 
-                      "is_fixed" : this.state.current_selection.is_fixed, 
-                      "event_id" : this.state.current_selection.event_id, 
+                      "is_fixed" : this.state.current_selection.is_fixed,
+                      "event_id" : this.state.current_selection.event_id,
                       "is_active" : this.state.current_selection.is_active
             }},
             dataType: 'JSON',
             success: function() {
+
+               this.props.onAddedNewItem(this.state.current_selection);
                this.props.onUpdateMessage('Coupon has been updated');
                
             }.bind(this)
@@ -56,6 +57,8 @@ var CouponForm = React.createClass({
         
 
     },
+
+  
 
     handleChange: function(e) {
         var name, obj;

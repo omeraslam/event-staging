@@ -33,13 +33,13 @@ var EditorPanelContainer = React.createClass({
        //if current selection is null, empty state
         if(this.props.current_selection == null) {
             switch(this.state.category) {
-              case 'ticketing':
+              case 'ticket':
                 EditorPanelContent = <EditorPanelEmpty title={'Ticketing'} button_text={'Add ticket'} description={"Add new ticket. It sure is neat. PS, we've added a sample \"General Admssion\" ticket for you, to help you get started."} onAddedNewItem={this.state.onAddedNewItem} />;
               break;
-              case 'coupons':
+              case 'coupon':
                 EditorPanelContent = <EditorPanelEmpty title={'Coupon'} button_text={'Add coupon'} description={"Add a new coupon. Offer attendees a discount or promotion to encourage registration."} onAddedNewItem={this.props.onAddedNewItem} />;
               break;
-              case 'questions':
+              case 'question':
                  EditorPanelContent = <EditorPanelEmpty title={'Questions'} button_text={'Add question'} description={"Add new question."} onAddedNewItem={this.props.onAddedNewItem} />
               break;
               default: 

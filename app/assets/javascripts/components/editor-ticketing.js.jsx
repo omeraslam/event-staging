@@ -1,6 +1,6 @@
 var EditorTicketing = React.createClass({
     getInitialState: function() {
-        return {items: this.props.items, current_selection: this.props.current_selection, event_slug: this.props.event_slug, category: 'ticketing'}
+        return {items: this.props.items, current_selection: this.props.current_selection, event_slug: this.props.event_slug, category: 'ticket'}
     },
     render: function() {
         return (

@@ -1173,6 +1173,7 @@ def show
     @total = 0
 
     @coupons = Coupon.where(:event_id => @event.id).all
+    @current_coupon = Coupon.where(:event_id => @event.id).first
     logger.debug "@coupons ==== #{@coupons}"
 
     # @tickets.each do |ticket|

@@ -1,6 +1,6 @@
 var EditorAsideNav = React.createClass({
     getInitialState: function() {
-        return { items: this.props.items, currentItem: null, handleSelectItem: this.props.handleSelectItem}
+        return { items: this.props.items, currentItem: null, handleSelectItem: this.props.handleSelectItem, category: this.props.category}
     },
     getDefaultProps: function() {
         return { items: []}
@@ -16,10 +16,22 @@ var EditorAsideNav = React.createClass({
     },
 
     addNavItem: function() {
-        var ticketObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')};
-        this.state.items.push(ticketObj)
+        switch(this.state.category) {
+            case 'coupon':
+            var itemObj = {"promo_code": "new coupon item", "discount": "0", "is_fixed": false, "is_active": false};
+            break;
+            case 'question':
+            var itemObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')};
+             
+            break;
+            case 'ticket':
+             var itemObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')};
+             default:
+             break;
+        }
+        this.state.items.push(itemObj)
         this.setState({items: this.state.items})
-        this.selectItem(ticketObj);
+        this.selectItem(itemObj);
     },
 
     refreshNav: function() {
@@ -27,6 +39,12 @@ var EditorAsideNav = React.createClass({
     },
 
     render: function() {
+        if(this.state.category == 'coupon' && this.state.items.length > 0) {
+            var addButton = '';
+        } else {
+            var addButton = <a href="#" className="edit-aside-nav-add" onClick={this.addNavItem} ><h4>+ Add New {this.state.category} Type</h4> </a>
+              
+        }
 
 
         return (
@@ -35,8 +53,8 @@ var EditorAsideNav = React.createClass({
                 {this.state.items.map(function(item, index){
                      return <EditorAsideNavItem currentItem={this.state.currentItem} key={index} item={item.item == undefined ? item: item.item} handleSelectEvent={this.selectItem} handleRefreshNav={this.refreshNav} />
                  }.bind(this))} 
-   
-                <a href="#" className="edit-aside-nav-add" onClick={this.addNavItem} ><h4>+ Add New Ticket Type</h4> </a>
+            
+                {addButton}
               
             </ul>
         )

@@ -1,6 +1,6 @@
 var EditorQuestions = React.createClass({
     getInitialState: function() {
-        return {items: this.props.items, current_selection: this.props.current_selection, event_slug: this.props.event_slug, category: 'questions'}
+        return {items: this.props.items, current_selection: this.props.current_selection, event_slug: this.props.event_slug, category: 'question'}
     },
     render: function() {
         return (
