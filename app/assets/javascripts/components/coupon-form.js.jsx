@@ -2,19 +2,11 @@ var CouponForm = React.createClass({
     getInitialState: function() {
         return { 
             current_selection: this.props.current_selection,
-            event_slug: this.props.event_slug
+            event_slug: this.props.event_slug,
+            event_id: this.props.event_id
 
         }
     },
-
-    setItemDate: function(dateText) {
-        ticketObj = this.state.current_selection;
-        ticketObj["stop_date"] = dateText;
-        console.log(ticketObj);
-        this.setState({current_selection: ticketObj})
-
-    },
-
 
     componentWillReceiveProps: function(nextProps) {
       nextProps.current_selection.stop_date = moment(nextProps.current_selection.stop_date).format('MM/DD/YYYY');
@@ -25,52 +17,41 @@ var CouponForm = React.createClass({
     },
 
     componentDidMount: function() {
-        alert('hello')
         var that = this;
         //format specific 
-        this.state.current_selection.stop_date = moment(this.state.current_selection.stop_date).format('MM/DD/YYYY');
         this.setState({current_selection: this.state.current_selection})
-        $('#datepairExample .date').datepicker({
-          onSelect: function(dateText) {
-
-            that.setItemDate(dateText);
-            $('.date').focusout();
-          },
-          'format': 'MM/DD/YYYY',
-          'autoclose': true
-        });
+        
 
    
     },
 
     handleUpdate: function(e) {
-
         e.preventDefault();
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
         var method, uri;
         if (this.state.current_selection.id == null) {
             method = 'POST'
-            uri = this.props.event_slug + '/tickets'
+            uri = this.props.event_slug + '/coupons'
         } else {
             method = 'PUT'
-            uri = '/tickets/' + this.state.current_selection.id
+            uri = '/coupons/' + this.state.current_selection.id
         }
         $.ajax({
             method: method,
             url: uri,
-            data: {"ticket" : {
-                     "title" : this.state.current_selection.title, 
-                      "description" : this.state.current_selection.description, 
-                      "price" : this.state.current_selection.price, 
-                      "ticket_limit" : this.state.current_selection.ticket_limit, 
-                      "buy_limit" : this.state.current_selection.buy_limit, 
-                      "stop_date" : this.state.current_selection.stop_date,
+            data: {"coupon" : {
+                      "promo_code" : this.state.current_selection.promo_code, 
+                      "discount" : this.state.current_selection.discount, 
+                      "is_fixed" : this.state.current_selection.is_fixed, 
+                      "event_id" : this.state.current_selection.event_id, 
                       "is_active" : this.state.current_selection.is_active
             }},
             dataType: 'JSON',
             success: function() {
                //alert('success');
                // this.props.handleDeleteEvent(this.props.event)
+               // 
+               this.props.onUpdateMessage('Coupon has been updated');
                
             }.bind(this)
         });
@@ -82,16 +63,16 @@ var CouponForm = React.createClass({
     handleChange: function(e) {
         var name, obj;
         name = e.target.name;
-        ticketObj = this.state.current_selection;
-        ticketObj[name] = e.target.value;
-        this.setState({current_selection: ticketObj});
+        couponObj = this.state.current_selection;
+        couponObj[name] = e.target.value;
+        this.setState({current_selection: couponObj});
     },
 
 
     render: function() {
         return (
                 <div>
-                <h1>{this.props.current_selection.title}</h1>
+                <h1>{this.props.current_selection.promo_code}</h1>
 
                     <form>
                         <div className="input-group">

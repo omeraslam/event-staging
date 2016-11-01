@@ -70,6 +70,7 @@ var TicketForm = React.createClass({
             success: function() {
                //alert('success');
                // this.props.handleDeleteEvent(this.props.event)
+               this.props.onUpdateMessage('Ticket has been updated');
                
             }.bind(this)
         });

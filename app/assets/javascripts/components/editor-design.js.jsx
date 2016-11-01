@@ -6,6 +6,25 @@ var EditorDesign = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         this.setState({eventObj: nextProps.eventObj})
     },
+
+    onDesignUpdate: function(callBack) {
+      var method, uri;
+      
+      method = 'PUT'
+      uri = '/events/' + this.props.eventObj.id
+      $.ajax({
+        method: method,
+        url: uri,
+        data: {"event": this.props.eventObj},
+        dataType: 'JSON',
+        success: function() {
+           //alert('success');
+           
+           
+        }.bind(this)
+      });
+    },
+
     onClosePanel: function() {
       $(".design-editor-section-container").removeClass("visible");
     },
@@ -14,7 +33,7 @@ var EditorDesign = React.createClass({
     },
     componentDidMount: function() {
 
-  
+      var that = this;
 
         $('.toggleDesignPanel').click(function() {
             $(".design-editor-section-container").addClass("visible");
@@ -34,7 +53,7 @@ var EditorDesign = React.createClass({
 
 
           var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
-            var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
+          var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
 
             $( "#slider" ).slider({
             value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
@@ -42,7 +61,9 @@ var EditorDesign = React.createClass({
 
               var percentage = ui.value/100;
               $(".event-page .overlay").css("opacity", percentage);
-              requestEdit({bgOpacity:percentage});
+              that.props.eventObj.bg_opacity = percentage;
+              that.setState({eventObj: that.props.eventObj})
+              that.onDesignUpdate();
             }
           });
 
@@ -52,7 +73,9 @@ var EditorDesign = React.createClass({
           defaultValue: currentBgColor,
           change: function(value, opacity) {
               $(".event-page .overlay").css("background-color", value);
-              requestEdit({bgColor:value});
+              that.props.eventObj.bg_color = value;
+              that.setState({eventObj: that.props.eventObj})
+              that.onDesignUpdate();
 
           }
        });
@@ -75,6 +98,7 @@ var EditorDesign = React.createClass({
       
         //DESIGN > LAYOUT 
         //click handler for layout select
+        var that = this;
         $(".test-show-layout").on( "click", function() {
           
           var target = $(this).data("target");
@@ -88,24 +112,27 @@ var EditorDesign = React.createClass({
             }, 200);
 
 
-            htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
-            htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
-            htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
-
-            saveChanges();
 
           } else {
             
             $(target).addClass("hidden");
             $(this).addClass("inactive");
 
-            htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
-            htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
-            htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
-
-            saveChanges();
+           
 
           }
+
+          htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
+          htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
+          htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
+
+          that.props.eventObj.html_hero_1 = htmlHeroOne;
+          that.props.eventObj.html_body_1 = htmlBodyOne;
+          that.props.eventObj.html_footer_1 = htmlFooterOne;
+
+          that.setState({eventObj: that.props.eventObj});
+
+          that.onDesignUpdate();
         
         });
 

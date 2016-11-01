@@ -25,7 +25,7 @@ class CouponsController < ApplicationController
 
   def create
     @coupon = Coupon.new(coupon_params)
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_slug(params[:slug])
     @coupon.event_id = (params[:event_id]).to_i
 
 
@@ -34,14 +34,21 @@ class CouponsController < ApplicationController
   end
 
   def update
-    @coupon.event_id = (params[:event_id]).to_i
+    @coupon.event_id = (params[:coupon][:event_id]).to_i
 
     @coupon.promo_code = @coupon.promo_code.gsub(/\s+/, '')
     @coupon.promo_code = @coupon.promo_code.upcase
 
     @coupon.update(coupon_params)
-    @event = Event.find(params[:event_id])
-    redirect_to slugger_path(@event) + '?editing=true'
+    @event = Event.find((params[:coupon][:event_id]).to_i)
+    
+
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Coupon was successfully created.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
+
   end
 
   def destroy

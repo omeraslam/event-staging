@@ -2,7 +2,8 @@ var EditorPanelContainer = React.createClass({
     getInitialState: function() {
         return { current_selection: this.props.current_selection,
                  event_slug: this.props.event_slug,
-                 category: this.props.category }
+                 category: this.props.category, message: this.props.message,
+                 event_id: this.props.event_id  }
     },
 
     componentDidMount: function() {
@@ -14,8 +15,14 @@ var EditorPanelContainer = React.createClass({
       this.setState({
         current_selection: nextProps.current_selection,
         event_slug: nextProps.event_slug,
-        category: nextProps.category
+        category: nextProps.category,
+        message: nextProps.messsage,
+        event_id: this.props.event_id
       });
+    },
+
+    onUpdateMessage: function(_message) {
+      this.setState({message: _message})
     },
 
     render: function() {
@@ -39,11 +46,12 @@ var EditorPanelContainer = React.createClass({
             }
 
         } else {
-         EditorPanelContent = <EditorPanel current_selection={this.props.current_selection} event_slug={this.props.event_slug} category={this.state.category} />
+         EditorPanelContent = <EditorPanel current_selection={this.props.current_selection} event_slug={this.props.event_slug} event_id={this.props.event_id}  category={this.state.category} onUpdateMessage={this.onUpdateMessage} handleOnPanelUpdate={this.props.handleOnPanelUpdate} />
        }
 
         return (
            <div>
+           <FormAlert message={this.state.message} />
             {EditorPanelContent}
        
             </div>

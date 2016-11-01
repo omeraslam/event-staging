@@ -32,9 +32,9 @@ var Editor = React.createClass({
                     <EditorSettings eventObj={this.props.event} ticketObj={this.props.ticketObj} onUpdateEvent={this.onUpdateEvent} />
                     <EditorAttendees attendees_list={this.props.attendees_list} headers={this.props.attendee_headers} />
                     <EditorOrders items={this.props.order_items} headers={this.props.order_headers} />
-                    <EditorTicketing items={this.props.ticket_items} current_selection={this.props.current_ticket} event_slug={this.props.event_slug} />
-                    <EditorCoupons items={this.props.coupon_items} current_selection={this.props.current_coupon} event_slug={this.props.event_slug} />
-                    <EditorQuestions items={this.props.question_items} current_selection={this.props.current_question} event_slug={this.props.event_slug} /> 
+                    <EditorTicketing items={this.props.ticket_items} current_selection={this.props.current_ticket} event_slug={this.props.event_slug} event_id={this.props.event.id} />
+                    <EditorCoupons items={this.props.coupon_items} current_selection={this.props.current_coupon} event_slug={this.props.event_slug} event_id={this.props.event.id}/>
+                    <EditorQuestions items={this.props.question_items} current_selection={this.props.current_question} event_slug={this.props.event_slug} event_id={this.props.event.id} /> 
                 </div>
             </div>
 
