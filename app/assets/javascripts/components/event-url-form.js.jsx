@@ -8,7 +8,6 @@ var EventUrlForm = React.createClass({
         }
     },
     componentWillReceiveProps: function(nextProps) {
-      alert('nextprops in url form: '+nextProps);
         // this.setState({
         //     eventObj: nextProps.eventObj,
         //     updateEvent: nextProps.onUpdateEventItem
@@ -32,7 +31,13 @@ var EventUrlForm = React.createClass({
             dataType: 'JSON',
             success: function() {
                //alert('success');
-               alert('handle update on url form:'+JSON.stringify(that.state.eventObj.slug));
+              // alert('handle update on url form:'+JSON.stringify(that.state.eventObj.slug));
+             
+              var urlPath = window.location.host + '/'+ that.state.eventObj.slug
+
+              //need to change url path in browser
+
+               this.props.onPanelUpdate('Event URL settings updated');
                that.state.updateEvent(this.state.eventObj)
                
             }.bind(this)

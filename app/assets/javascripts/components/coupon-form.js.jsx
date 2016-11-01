@@ -48,9 +48,6 @@ var CouponForm = React.createClass({
             }},
             dataType: 'JSON',
             success: function() {
-               //alert('success');
-               // this.props.handleDeleteEvent(this.props.event)
-               // 
                this.props.onUpdateMessage('Coupon has been updated');
                
             }.bind(this)

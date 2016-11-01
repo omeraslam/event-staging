@@ -19,7 +19,6 @@ var EditorSection = React.createClass({
 
     },
     onPanelUpdate: function() {
-        alert('on panel update');
 
     },
     refreshNav: function() {
