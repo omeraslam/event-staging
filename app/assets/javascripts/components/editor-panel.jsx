@@ -5,6 +5,7 @@ var EditorPanel = React.createClass({
             event_slug: this.props.event_slug,
             category: this.props.category,
             onUpdateMessage: this.props.onUpdateMessage,
+            onAddedNewItem: this.props.onAddedNewItem,
             event_id: this.props.event_id
 
         }
@@ -17,14 +18,13 @@ var EditorPanel = React.createClass({
       });
     },
 
+    onAddedNewItem: function() {
 
-
-
+    },
     render: function() {
-        var category = 'ticket'
         switch(this.props.category) {
             case 'ticketing':
-            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} />;
+            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem} />;
             break;
             case 'coupons':
              var SectionForm = <CouponForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} />;
@@ -33,7 +33,7 @@ var EditorPanel = React.createClass({
             var SectionForm = <QuestionForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} />;
             break;
             default:
-            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} />;
+            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem} />;
             break;
         }
   

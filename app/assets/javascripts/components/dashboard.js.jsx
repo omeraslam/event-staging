@@ -14,13 +14,11 @@ var DashboardContainer = React.createClass({
         // If you want an exclusive end date (half-open interval)
         for (var m = moment(a); m.isBefore(b); m.add(1, 'days')) {
          
-          console.log(m.format('MM/DD'));
           dateArray.push(m.format('MM/DD'))
         }
 
         // If you want an inclusive end date (fully-closed interval)
         for (var m = moment(a); m.diff(b, 'days') <= 0; m.add(1, 'days')) {
-          console.log(m.format('YYYY-MM-DD'));
         }
 
 

@@ -1,6 +1,6 @@
 var EditorAsideNav = React.createClass({
     getInitialState: function() {
-        return { items: this.props.items, currentItem: null}
+        return { items: this.props.items, currentItem: null, handleSelectItem: this.props.handleSelectItem}
     },
     getDefaultProps: function() {
         return { items: []}
@@ -16,7 +16,7 @@ var EditorAsideNav = React.createClass({
     },
 
     addNavItem: function() {
-        var ticketObj = {"ticket_object": {"title": "new ticket item", "description": "1000 of 1000", "is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')}};
+        var ticketObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')};
         this.state.items.push(ticketObj)
         this.setState({items: this.state.items})
         this.selectItem(ticketObj);

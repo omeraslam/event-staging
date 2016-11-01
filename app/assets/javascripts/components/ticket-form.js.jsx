@@ -2,20 +2,18 @@ var TicketForm = React.createClass({
     getInitialState: function() {
         return { 
             current_selection: this.props.current_selection,
-            event_slug: this.props.event_slug
+            event_slug: this.props.event_slug,
+            onAddedNewItem: this.props.onAddedNewItem
+
 
         }
     },
-
     setItemDate: function(dateText) {
         ticketObj = this.state.current_selection;
         ticketObj["stop_date"] = dateText;
         console.log(ticketObj);
         this.setState({current_selection: ticketObj})
-
     },
-
-
     componentWillReceiveProps: function(nextProps) {
       nextProps.current_selection.stop_date = moment(nextProps.current_selection.stop_date).format('MM/DD/YYYY');
         
@@ -23,7 +21,6 @@ var TicketForm = React.createClass({
         current_selection: nextProps.current_selection 
       });
     },
-
     componentDidMount: function() {
         var that = this;
         //format specific 
@@ -41,9 +38,7 @@ var TicketForm = React.createClass({
 
    
     },
-
     handleUpdate: function(e) {
-
         e.preventDefault();
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
         var method, uri;
@@ -54,6 +49,9 @@ var TicketForm = React.createClass({
             method = 'PUT'
             uri = '/tickets/' + this.state.current_selection.id
         }
+
+        var that = this;
+
         $.ajax({
             method: method,
             url: uri,
@@ -68,9 +66,8 @@ var TicketForm = React.createClass({
             }},
             dataType: 'JSON',
             success: function() {
-               //alert('success');
-               // this.props.handleDeleteEvent(this.props.event)
-               this.props.onUpdateMessage('Ticket has been updated');
+                that.props.onAddedNewItem(this.state.current_selection);
+               that.props.onUpdateMessage('Ticket has been updated');
                
             }.bind(this)
         });
@@ -104,7 +101,6 @@ var TicketForm = React.createClass({
                                 <option value="true">Active</option>
                                 <option value="false">Inactive</option>
                               </select>
-
                         </div>
                         <div className="input-group">
                             <label>Price</label>

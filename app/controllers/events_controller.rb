@@ -1208,7 +1208,6 @@ def show
     registration_count_array = []
       @data_stats = []
       (@event.created_at.to_date..@event.date_start.to_date).each do |date|
-        logger.debug "CREATE DATE #{date}"
         ticket_count = Attendee.where(:event_id => @event.id, :created_at => date.midnight..date.end_of_day).count
         data = {'date' => date, 'registrations' => ticket_count}
         registration_count_array.push(ticket_count)
