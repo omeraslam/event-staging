@@ -157,8 +157,12 @@ require 'rqrcode_png'
     sum = 0 
     fee = 0
 
+
+    credit_card_percent = 0.029
+    credit_card_cents_fee = 30
+
     #get fee rates
-    @fee_rate = @user.npo == true ? 0.015 : 0.020
+    @fee_rate = @user.npo == true ? 0.015 : (0.020 + credit_card_percent)
     num_of_paid_tickets = 0
     
     @event.tickets.all.each do |ticket|
@@ -213,7 +217,7 @@ require 'rqrcode_png'
 
       if @final_amount > 0
         logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
-        fee += 99 * num_of_paid_tickets
+        fee += (99 + credit_card_cents_fee) * num_of_paid_tickets
       end
 
 
@@ -259,8 +263,11 @@ require 'rqrcode_png'
               :currency => @event.currency_type.downcase,
               :source => token,
               :application_fee => fee,
-              :metadata => charge_metadata
-            }, {:stripe_account => @account.stripe_user_id})
+              :metadata => charge_metadata,
+              :destination => @account.stripe_user_id
+            })
+
+
             logger.debug "CHARGE is paid:::: #{charge['paid']}"
             if charge["paid"] == true
               @purchase.stripe_id = charge["id"]
@@ -492,6 +499,10 @@ def show_buy
      sum = 0 
      fee = 0
 
+
+    credit_card_percent = 0.029
+    credit_card_cents_fee = 30
+
       #get fee rates
       @fee_rate = @user.npo == true ? 0.015 : 0.020
 
@@ -518,7 +529,10 @@ def show_buy
     logger.debug "SUM AT TOP: #{sum}"
                           
     fee = (fee * 100).round.to_i
+    cc_fee = (sum*credit_card_percent) + 0.30
+    sum = sum + cc_fee
 
+    logger.debug "NEW SUM: #{cc_fee}"
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
 
@@ -526,6 +540,8 @@ def show_buy
         logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
         fee += 99 * num_of_paid_tickets
       end
+
+      fee += (cc_fee * 100).to_i
 
       @final_fee = (fee.to_f/100)
 
@@ -736,6 +752,8 @@ def complete_registration
   sum = 0 
   fee = 0
 
+  credit_card_percent = 0.029
+  credit_card_cents_fee = 30
   #get fee rates
   @fee_rate = @user.npo == true ? 0.015 : 0.020
 
@@ -747,6 +765,9 @@ def complete_registration
   logger.debug "FEE AT TOP: #{fee}"
                         
   fee = (fee * 100).round.to_i
+  cc_fee = (sum*credit_card_percent) + 0.30
+  sum = sum + cc_fee
+
 
   @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
@@ -764,6 +785,7 @@ def complete_registration
       #@discount_amount = @final_charge * @discount
       if @coupon.is_fixed == true
         @final_amount = @final_charge - (@coupon.discount * 100).to_i
+        logger.debug "FINAL AMOUNT COUPON #{@final_amount}"
         if @final_amount < 0
           flash[:error] = 'Coupon code is not valid or expired.'
           redirect_to slugger_path(@event)
@@ -788,9 +810,10 @@ def complete_registration
   end
 
   if @final_amount > 0
-    fee += 99 * quantity_num.to_i
+    fee += (99 + credit_card_cents_fee) * quantity_num.to_i
   end
 
+  fee += (cc_fee * 100).to_i
  
   
 
@@ -846,12 +869,14 @@ def complete_registration
 
         begin
           charge = Stripe::Charge.create({
-            :amount => (amount + fee),
-            :currency => @event.currency_type.downcase,
-            :source => token,
-            :application_fee => fee,
-            :metadata => charge_metadata
-          }, {:stripe_account => @account.stripe_user_id})
+              :amount => (amount + fee),
+              :currency => @event.currency_type.downcase,
+              :source => token,
+              :application_fee => fee,
+              :metadata => charge_metadata,
+              :destination => @account.stripe_user_id
+            })
+
 
           if charge["paid"] == true
             @purchase.stripe_id = charge["id"]
@@ -1179,9 +1204,14 @@ def show
     @purchase = Purchase.new
     @buyers = Purchase.where(:event_id => @event.id)
     @user = User.find(@event.user_id.to_i)
+
+
+    credit_card_percent = 0.029
+    credit_card_cents_fee = 30
+
     @fee_rate = @user.npo == true ? 0.015 : 0.020
     logger.debug "#{@current_ticket.price}"
-    @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
+    @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + (0.99)) + (@current_ticket.price * @fee_rate)
 
 
     #@ticket = @event.tickets.build(ticket_params)
