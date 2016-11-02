@@ -1,7 +1,5 @@
-
-
  <%= react_component 'Editor', {
-          event: @event, ticketObj:  @ticket ,
+          event: @event, ticketObj:  @ticket, advance_tickets: (@account == nil),
         attendees_list: @attendees_list, attendee_headers: @attendee_headers,
         stats: @event_stats,
         ticket_items: @tickets_for_event, current_ticket: @current_event_ticket, event_slug: @event.slug,

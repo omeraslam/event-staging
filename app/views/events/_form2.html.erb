@@ -275,9 +275,7 @@ switch(index) {
 
 
 }
-if (event_id != '') {
-  amplitude.logEvent(event_id);
-}
+
 
         //update the button copy
         $(".btn-next").html(eventCreationStates[index].btnCopy +
@@ -362,7 +360,6 @@ if (event_id != '') {
 
  
     
-  amplitude.logEvent('Create an Event');
 
   //add functionality for tabbing through fields
 

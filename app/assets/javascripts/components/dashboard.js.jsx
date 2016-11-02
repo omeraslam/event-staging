@@ -104,7 +104,7 @@ var DashboardContainer = React.createClass({
                     <section>
                         <h4>Event URL </h4>
                         <div className="input-group">
-                            <input type="text" value={ "www.eventcreate.com/" + this.props.eventObj.slug}  />
+                            <input type="text" defaultValue={ "www.eventcreate.com/" + this.props.eventObj.slug}  />
                             <p> <a href={ "https://www.eventcreate.com/" + this.props.eventObj.slug} target="_blank"> Launch event website (new tab)</a> </p>
                         </div>
                     </section>

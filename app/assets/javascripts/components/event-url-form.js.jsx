@@ -30,13 +30,9 @@ var EventUrlForm = React.createClass({
             data: {"event": this.state.eventObj},
             dataType: 'JSON',
             success: function() {
-               //alert('success');
-              // alert('handle update on url form:'+JSON.stringify(that.state.eventObj.slug));
-             
-              var urlPath = window.location.host + '/'+ that.state.eventObj.slug
-
+              var urlPath = window.location.protocol + '//' + window.location.host + '/'+ that.state.eventObj.slug + '?editing=true'
+              window.history.pushState('Object', 'Title', urlPath);
               //need to change url path in browser
-
                this.props.onPanelUpdate('Event URL settings updated');
                that.state.updateEvent(this.state.eventObj)
                

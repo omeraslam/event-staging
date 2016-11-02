@@ -26,12 +26,4 @@ var google_remarketing_only = false;
 </div>
 </noscript>
 
-<script type="text/javascript">
-    
-
-    amplitude.logEvent('Payment complete');
-    amplitude.logRevenue( <%= number_with_precision(@subscription.plan.amount/100, :precision => 2) %>, 1, '<%= @subscription.plan.id %>');
-
-</script>
-
 </div>

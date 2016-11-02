@@ -1,3 +1,5 @@
+
+
 var EventTicketingForm = React.createClass({
    getInitialState: function() {
         return { 
@@ -16,6 +18,8 @@ var EventTicketingForm = React.createClass({
     componentDidMount: function() {
         var that = this;
         //format specific 
+        //
+        $('#toggle-one').bootstrapToggle();
         this.state.ticketObj.stop_date = moment(this.state.ticketObj.stop_date).format('MM/DD/YYYY');
         this.setState({ticketObj: this.state.ticketObj})
         $('#datepairExample .date').datepicker({
@@ -74,12 +78,17 @@ var EventTicketingForm = React.createClass({
             <div>
              <h1>{this.props.header}</h1>
                 <p>{this.props.subheader}</p>
+                
+                <div className="checkbox">
+                  <label>
+                    <input id="toggle-one" type="checkbox" data-toggle="toggle" />
+                    Turn on Advanced Ticketing
+                  </label>
+                </div>
+
 
                 <form className="edit_ticket">
-                    <div className="input-group">
-                      <label>Ticket Price</label>
-                      <input name="price" type="text" value={this.state.ticketObj.price} onChange={this.handleChange} />
-                    </div>
+    
 
                     <div className="input-group" id="datepairExample">
                       <label>Registration closes on</label>

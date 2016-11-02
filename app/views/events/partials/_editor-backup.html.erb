@@ -1035,7 +1035,6 @@ $( document ).ready(function() {
     eventProperties.slug = eventProperties.slug.split('/')[3];
     eventProperties.type = $('#layout_style').val();
     var event_id = 'step 4 success - publishing event';
-    amplitude.logEvent(event_id, eventProperties);  
 
     published = true;    
     saveChanges(true);

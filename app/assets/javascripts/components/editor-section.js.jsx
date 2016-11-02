@@ -3,7 +3,7 @@ var EditorSection = React.createClass({
         return { items: this.props.items, current_selection: this.props.current_selection, event_slug: this.props.event_slug, category: this.props.category, event_id: this.props.event_id}
     },
     getDefaultProps: function() {
-        return { items: [], current_selection: null}
+        return { items: [], current_selection: ''}
     },
 
     componentDidMount: function() {
