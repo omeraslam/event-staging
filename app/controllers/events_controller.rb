@@ -161,9 +161,13 @@ require 'rqrcode_png'
     credit_card_percent = 0.029
     credit_card_cents_fee = 30
 
+      #########
+
     #get fee rates
-    @fee_rate = @user.npo == true ? 0.015 : (0.020 + credit_card_percent)
+    @fee_rate = @user.npo == true ? 0.015 : 0.020
     num_of_paid_tickets = 0
+
+
     
     @event.tickets.all.each do |ticket|
 
@@ -179,8 +183,11 @@ require 'rqrcode_png'
       end
     end
 
+                   
+
                           
     fee = (fee * 100).round.to_i
+
 
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
@@ -215,13 +222,17 @@ require 'rqrcode_png'
 
       end
 
-      if @final_amount > 0
+      cc_fee = (@final_amount*credit_card_percent) + 30
+      logger.debug "fee of just charge: #{cc_fee}"
+      if @final_charge > 0
         logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
-        fee += (99 + credit_card_cents_fee) * num_of_paid_tickets
+        fee += 99 * num_of_paid_tickets
+        fee += (cc_fee).ceil.to_i
       end
 
 
-
+      logger.debug "@final_charge with discount:  #{@final_amount}"
+      logger.debug "FEE WITH CC FEE IS  with discount: #{fee}"
 
 
     #Get the credit card details submitted by the form
@@ -525,12 +536,9 @@ def show_buy
       end
     end
 
-    logger.debug "FEE AT TOP: #{fee}"
-    logger.debug "SUM AT TOP: #{sum}"
                           
     fee = (fee * 100).round.to_i
     cc_fee = (sum*credit_card_percent) + 0.30
-    sum = sum + cc_fee
 
     logger.debug "NEW SUM: #{cc_fee}"
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
@@ -539,9 +547,9 @@ def show_buy
       if @final_charge > 0
         logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
         fee += 99 * num_of_paid_tickets
+        fee += (cc_fee * 100).to_i
       end
 
-      fee += (cc_fee * 100).to_i
 
       @final_fee = (fee.to_f/100)
 
@@ -766,7 +774,6 @@ def complete_registration
                         
   fee = (fee * 100).round.to_i
   cc_fee = (sum*credit_card_percent) + 0.30
-  sum = sum + cc_fee
 
 
   @final_charge = (sum * 100).to_i #add all line items to figure out final price
@@ -811,9 +818,9 @@ def complete_registration
 
   if @final_amount > 0
     fee += (99 + credit_card_cents_fee) * quantity_num.to_i
+    fee += (cc_fee * 100).to_i
   end
 
-  fee += (cc_fee * 100).to_i
  
   
 
