@@ -1190,7 +1190,7 @@ def show
       spots_left += ticket.ticket_limit
       #if !Purchase.where(:event_id => @event.id).nil?
         Purchase.where(:event_id => @event.id).all.each do |purchase|
-          @total_revenue += purchase.total_order
+          @total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order
 
           @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end

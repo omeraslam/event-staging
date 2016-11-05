@@ -7,6 +7,7 @@ class PagesController < ApplicationController
   before_filter :ensure_proper_root_domain
 
 
+
   def home      
   end
 

@@ -76,6 +76,8 @@ Rails.application.routes.draw do
   get '', to: 'events#show', constraints: CustomDomainConstraint, :as => :events_subdomain
   #get '', to: 'events#home', constraints: lambda { |r| (r.subdomain.present? && r.subdomain != 'www') || r.host == 'www.markbushyphotography.com' }, :as => :events_subdomain
   get '/users/:id/events/index', to: 'events#home', :as => :events_home
+
+  get '/admin', to: 'dashboard#admin', :as => :admin
  
 
   #get '', to: 'events#show', constraints: {subdomain: /.+/}
