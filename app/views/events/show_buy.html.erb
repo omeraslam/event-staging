@@ -359,14 +359,12 @@ var couponFixed = false;
                       }
                      
 
-
                   });
                 
                   $('.fee-amount').html('$' + parseFloat(Math.round(fee_price * 100) / 100).toFixed(2));
                   var total_price = $('.total-amount').html( '$' + parseFloat(Math.round((fee_price+total_ticket_price) * 100) / 100).toFixed(2) )
 
                 } else {
-
 
                    $('.ticket-amount').each(function( index ) {
 
@@ -381,20 +379,23 @@ var couponFixed = false;
                       total_ticket_price += ticket_price
 
 
-                      $(this).html('$' + parseFloat(Math.round(ticket_price * 100) / 100).toFixed(2));
+                      $(this).html('$' + parseFloat(Math.round((ticket_price * 100) / 100)- (couponDiscount*100)).toFixed(2));
 
                       if(ticket_price > 0) {
-                         fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * (.99)) +credit_card_fees + (total_ticket_price * credit_card_percent)
+                         fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * (.99)) 
                       }
                      
 
 
                   });
+                   var discounted_amount = total_ticket_price - (couponDiscount*100).toFixed(2)
+                    var total_cc_fee = credit_card_fees + (discounted_amount * credit_card_percent )
 
 
-                  $('.fee-amount').html('$' + parseFloat(Math.round(fee_price * 100) / 100).toFixed(2));
+                  $('.fee-amount').html('$' + parseFloat(Math.round((fee_price + total_cc_fee) * 100) / 100).toFixed(2));
 
-                  var total_price = $('.total-amount').html( '$' + parseFloat(Math.round((fee_price + Number(total_ticket_price) - (couponDiscount*100)) * 100) / 100).toFixed(2) ) 
+
+                  var total_price = $('.total-amount').html( '$' + parseFloat(discounted_amount + (fee_price + total_cc_fee)*100/100).toFixed(2) )
 
                 }
 
