@@ -4,9 +4,17 @@ var FormAlert = React.createClass({
     },
     componentWillReceiveProps: function(nextProps) {
         this.setState({message: nextProps.message})
-        if(nextProps.message != undefined) {
 
-        $('.alert').show();
+        //alert('sup: '+ (nextProps.message != undefined));
+        $('.alert').css('display', 'none');
+        if(nextProps.message != undefined) {
+         //   alert('again');
+        
+
+        setTimeout(function(){
+            $('.alert').show();
+        },300); 
+
         }
     },
     render: function() {

@@ -1,6 +1,8 @@
 var EventDetailsForm = React.createClass({
     getInitialState: function() {
-        return {eventObj: this.props.eventObj, onPanelUpdate: this.props.onPanelUpdate}
+        return {eventObj: this.props.eventObj, onPanelUpdate: this.props.onPanelUpdate,
+
+            updateEvent: this.props.onUpdateEventItem}
     },
 
     setItemDate: function(dateText) {
@@ -22,6 +24,8 @@ var EventDetailsForm = React.createClass({
 
         e.preventDefault();
         var method, uri;
+
+        var that = this;
       
         method = 'PUT'
         uri = '/events/' + this.state.eventObj.id
@@ -32,7 +36,8 @@ var EventDetailsForm = React.createClass({
             dataType: 'JSON',
             success: function() {
                //alert('success');
-               this.props.onPanelUpdate('Event details updated');
+               this.props.onPanelUpdate('Event details updated');  
+               that.state.updateEvent(that.state.eventObj)
                
                
             }.bind(this)

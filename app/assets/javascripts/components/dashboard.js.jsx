@@ -1,6 +1,9 @@
 var DashboardContainer = React.createClass({
     getInitialState: function() {
-        return {stats: this.props.stats, registrations: this.props.registrations }
+        return {stats: this.props.stats, registrations: this.props.registrations, eventObj: this.props.eventObj, registration_open: this.props.registration_open, ticket_items: this.props.ticket_items }
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({eventObj: nextProps.eventObj, registration_open: nextProps.registration_open, ticket_items: nextProps.ticket_items})
     },
     componentDidMount: function() {
         var ctx = document.getElementById("myChart");
@@ -92,13 +95,42 @@ var DashboardContainer = React.createClass({
             DashboardStats = <DashboardStatsPaid stats={this.props.stats}/>
         }
 
+        // check if registration really open
+        //  - tickets sold
+        //  - if the registration close date on those tickets are closed
+        //  - if the event has already passed
+        //  - draft
+        var tickets_closed = true;
+        this.state.ticket_items.forEach(function(element) {
+            if(moment(element.item.stop_date) > moment.now() && element.item.is_active == true){
+                tickets_closed = false;
+            }
+        });
+
+        // alert(tickets_closed);
+        // alert('registration open: ' + this.state.registration_open);
+        // alert('pubished: ' + (String(this.state.eventObj.published) == 'true'));
+        // alert('event start date passed: ' + ((
+        //     moment(this.state.eventObj.date_start) > moment.now())));
+        // alert('tickets not closed : ' + !tickets_closed);
+
+        
+
+        if (this.state.registration_open == true && String(this.state.eventObj.published) == 'true' && (
+            moment(this.state.eventObj.date_start) > moment.now() && !tickets_closed
+            ) ) {
+        var registrationStatus  =  <div className="event-activity-meter event-activity-meter-true" ><span> </span> <div className="event-activity-status"><h5>Registration Open</h5> <p>Your event is currently accepting registrations.</p> </div> </div>
+        } else {
+            var registrationStatus  = <div className="event-activity-meter event-activity-meter-false" ><span> </span> <div className="event-activity-status"><h5>Registration Closed</h5> <p>Your event is currently NOT accepting registrations.  </p> </div> </div>
+        }
+
         return (
             <div className="editor-tool editor-panel-primary" id="editor-tool-dashboard">
                <div className="editor-aside">
                     <section>
                         <h4>Status </h4>
-                        <div className={this.props.eventObj.published ? "event-activity-meter event-activity-meter-true" : "event-activity-meter event-activity-meter-false"}><span> </span> <div className="event-activity-status"><h5>{this.props.eventObj.published ? 'Live' : 'Draft'} </h5> <p> { this.props.eventObj.published ?  'Your event website is live and ready to share.': 'Your event website is unpublished and hidden.'}</p> </div> </div>
-                        <div className="event-activity-meter"><span> </span> <div className="event-activity-status"><h5>Registration Open </h5> <p> Your event is currently accepting registrations.</p> </div> </div>
+                        <div className={String(this.state.eventObj.published) == 'true' ? "event-activity-meter event-activity-meter-true" : "event-activity-meter event-activity-meter-false"}><span> </span> <div className="event-activity-status"><h5>{String(this.state.eventObj.published) == 'true' ? 'Live' : 'Draft'} </h5> <p> { String(this.state.eventObj.published) == 'true' ?  'Your event website is live and ready to share.': 'Your event website is unpublished and hidden.'}</p> </div> </div>
+                        {registrationStatus}
                     </section>
 
                     <section>

@@ -17,7 +17,7 @@ var EditorPanelContainer = React.createClass({
         current_selection: nextProps.current_selection,
         event_slug: nextProps.event_slug,
         category: nextProps.category,
-        message: nextProps.messsage,
+        //message: nextProps.messsage,
         event_id: this.props.event_id
       });
     },

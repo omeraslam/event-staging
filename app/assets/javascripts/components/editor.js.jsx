@@ -1,8 +1,8 @@
 var Editor = React.createClass({
     getInitialState: function() {
-        return { event: this.props.event, ticketObj: this.props.ticketObj, advance_tickets: this.props.advance_tickets,
+        return { event: this.props.event, ticketObj: this.props.ticketObj, advance_tickets: this.props.advance_tickets, scid: this.props.scid,
         attendees_list: this.props.attendees_list, headers: this.props.attendee_headers,
-        stats: this.props.stats,
+        stats: this.props.stats, registration_open: this.props.registration_open,
         ticket_items: this.props.ticket_items, current_ticket: '', event_slug: this.props.event_slug,
         order_items: this.props.order_items, order_headers: this.props.order_headers,
         coupon_items: this.props.coupon_items, current_coupon: '', 
@@ -12,8 +12,8 @@ var Editor = React.createClass({
     },
     componentWillReceiveProps: function(nextProps) {
         this.setState({
-            event: nextProps.event, ticketObj: nextProps.ticketObj, advance_tickets: nextProps.advance_tickets,
-        attendees_list: nextProps.attendees_list, headers: nextProps.attendee_headers,
+            event: nextProps.event, ticketObj: nextProps.ticketObj, advance_tickets: nextProps.advance_tickets, scid: nextProps.scid,
+        attendees_list: nextProps.attendees_list, headers: nextProps.attendee_headers, registration_open: nextProps.registration_open,
         stats: nextProps.stats,
         ticket_items: nextProps.ticket_items, current_ticket: nextProps.current_ticket, event_slug: nextProps.event_slug,
         order_items: nextProps.order_items, order_headers: nextProps.order_headers,
@@ -34,8 +34,8 @@ var Editor = React.createClass({
                    <a href="mailto:support@eventcreate.com">Contact Support</a> <a href="#">My account </a>  <a id="editor-panel-close"><i className="icon icon-arrow-left"> </i></a>
                 </div>
                 <div className="event-editor-sections"> 
-                    <DashboardContainer stats={this.props.stats} eventObj={this.props.event} />
-                    <EditorSettings eventObj={this.props.event} ticketObj={this.props.ticketObj} onUpdateEvent={this.onUpdateEvent} advance_tickets={this.props.advance_tickets} />
+                    <DashboardContainer stats={this.props.stats} eventObj={this.props.event} registration_open={this.props.registration_open} ticket_items={this.state.ticket_items} />
+                    <EditorSettings eventObj={this.props.event} ticketObj={this.props.ticketObj} onUpdateEvent={this.onUpdateEvent} ticket_items={this.state.ticket_items} advance_tickets={this.props.advance_tickets} scid={this.props.scid} />
                     <EditorAttendees attendees_list={this.props.attendees_list} headers={this.props.attendee_headers} />
                     <EditorOrders items={this.props.order_items} headers={this.props.order_headers} />
                     <EditorTicketing items={this.props.ticket_items} current_selection={this.props.current_ticket} event_slug={this.props.event_slug} event_id={this.props.event.id} advance_tickets={this.props.advance_tickets} />

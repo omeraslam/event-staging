@@ -1,6 +1,9 @@
-admin.html.erb
+
+                <div class="event-header container"> 
+
+ <%= react_component 'BuyerList', {
+        items: @buyers_list, headers: @buyers_headers, category: 'events'} %>
 
 
+</div>
 
- <%= react_component 'EditorOrders', {
-        items: @buyers_list, headers: @buyers_headers} %>

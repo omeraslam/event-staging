@@ -31,16 +31,26 @@ var TableElement = React.createClass({
     },
 
     render: function() {
+        if ( this.props.category == 'attendees' || this.props.category == 'orders') {
+
+        var printLinks =   <div className="col-md-6 text-right">
+                        <a href={this._buildPrintLinkHref()} className="btn btn-primary">Print List </a> <a href={this._buildDownloadLinkHref()} className="btn btn-primary">Download CSV</a>
+                   </div>;
+
+
+        } else {
+             var printLinks =   '';
+        }
         return (
             <div>
             <div className="editor-aside"> 
                 <div className="row">
                     <div className="col-md-6">
-                        <input className="search selectable table-search-attendees" type="search" placeholder="Search attendees" data-column="all" />
+                        <input className="search selectable table-search-attendees" type="search" placeholder={'Search by ' + this.props.category} data-column="all" />
                     </div>
-                    <div className="col-md-6 text-right">
-                        <a href={this._buildPrintLinkHref()} className="btn btn-primary">Print List </a> <a href={this._buildDownloadLinkHref()} className="btn btn-primary">Download CSV</a>
-                   </div>
+
+                    {printLinks}
+
                 </div>
             </div>
 

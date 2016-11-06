@@ -3,7 +3,10 @@
 var EventTicketingForm = React.createClass({
    getInitialState: function() {
         return { 
-            ticketObj: this.props.ticketObj
+            ticketObj: this.props.ticketObj,
+            eventObj: this.props.eventObj,
+            onPanelUpdate: this.props.onPanelUpdate,
+            updateEvent: this.props.onUpdateEventItem
 
         }
     },
@@ -64,6 +67,62 @@ var EventTicketingForm = React.createClass({
    
     },
 
+
+    handleUpdate: function(e) {
+
+        // e.preventDefault();
+        // var method, uri;
+      
+        // method = 'PUT'
+        // uri = '/events/' + this.state.eventObj.id
+        // $.ajax({
+        //     method: method,
+        //     url: uri,
+        //     data: {"event": this.state.eventObj},
+        //     dataType: 'JSON',
+        //     success: function() {
+        //        //alert('success');
+        //        this.props.onPanelUpdate('Event ticketing updated');
+               
+               
+        //     }.bind(this)
+        // });
+
+
+     e.preventDefault();
+        //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
+        var method, uri;
+        if (this.state.ticketObj.id == null) {
+            method = 'POST'
+            uri = this.props.eventObj.slug + '/tickets'
+        } else {
+            method = 'PUT'
+            uri = '/tickets/' + this.state.ticketObj.id
+        }
+
+        var that = this;
+
+        $.ajax({
+            method: method,
+            url: uri,
+            data: {"ticket" : {
+                     "title" : this.state.ticketObj.title, 
+                      "ticket_limit" : this.state.ticketObj.ticket_limit, 
+                      "buy_limit" : this.state.ticketObj.buy_limit, 
+                      "stop_date" : this.state.ticketObj.stop_date
+            }},
+            dataType: 'JSON',
+            success: function() {
+              //that.props.onAddedNewItem(this.state.current_selection);
+               this.props.onPanelUpdate('Event ticketing settings updated');
+               that.state.updateEvent(this.state.eventObj)
+               
+            }.bind(this)
+        });
+
+
+    },
+
     handleChange: function(e) {
         var name, obj;
         name = e.target.name;
@@ -103,7 +162,7 @@ var EventTicketingForm = React.createClass({
                       <input name="buy_limit" type="text" value={this.state.ticketObj.buy_limit} onChange={this.handleChange} />
                     </div>
                     <div className="input-group">
-                        <button className="btn btn-primary">Update</button>
+                        <button className="btn btn-primary" onClick={this.handleUpdate} >Update</button>
                     </div>
                 </form>
             </div>

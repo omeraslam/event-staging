@@ -1176,6 +1176,8 @@ def show
     @current_coupon = Coupon.where(:event_id => @event.id).first
     logger.debug "@coupons ==== #{@coupons}"
 
+    @scid = ENV['STRIPE_CLIENT_ID']
+
     # @tickets.each do |ticket|
     #   Purchase.where(:event_id => @event.id).all.each do |purchase|
     #     @total += LineItem.where(:purchase_id => purchase.id).count
@@ -1226,7 +1228,16 @@ def show
         guest_number: guest_count
       }
       
+      # tickets sold
+      # if the registration close date on those tickets are closed
+      # if the event has already passed
+      # draft
 
+      if spots_left-guest_count > 0 
+        @registration_open = true
+      else 
+        @registration_open = false
+      end
     # if @ticket_quantity_left < 1
     #   if @ticket_stop
     #     @event.html_hero_1['<span class="btn btn-reg">Registration closed</span>'] = '<span class="btn btn-reg">Sold out</span>'  
