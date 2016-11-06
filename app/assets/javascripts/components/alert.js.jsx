@@ -5,7 +5,6 @@ var FormAlert = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         this.setState({message: nextProps.message})
 
-        //alert('sup: '+ (nextProps.message != undefined));
         $('.alert').css('display', 'none');
         if(nextProps.message != undefined) {
          //   alert('again');

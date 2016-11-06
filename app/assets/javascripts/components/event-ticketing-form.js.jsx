@@ -6,7 +6,8 @@ var EventTicketingForm = React.createClass({
             ticketObj: this.props.ticketObj,
             eventObj: this.props.eventObj,
             onPanelUpdate: this.props.onPanelUpdate,
-            updateEvent: this.props.onUpdateEventItem
+            updateEvent: this.props.onUpdateEventItem,
+            tickets_on: this.props.tickets_on
 
         }
     },
@@ -131,6 +132,12 @@ var EventTicketingForm = React.createClass({
         this.setState({ticketObj: obj});
     },
 
+    handleTicketState: function(e) {
+        this.setState({tickets_on: !this.state.tickets_on});
+        //alert(this.state.tickets_on);
+        this.props.onTicketUpdate(!this.state.tickets_on)
+
+    },
 
     render: function() {
         return (
@@ -138,9 +145,9 @@ var EventTicketingForm = React.createClass({
              <h1>{this.props.header}</h1>
                 <p>{this.props.subheader}</p>
                 
-                <div className="checkbox">
+                <div className="checkbox" onClick={this.handleTicketState}>
                   <label>
-                    <input id="toggle-one" type="checkbox" data-toggle="toggle" />
+                    <input  id="toggle-one" type="checkbox" data-toggle="toggle" value={this.state.tickets_on} />
                     Turn on Advanced Ticketing
                   </label>
                 </div>

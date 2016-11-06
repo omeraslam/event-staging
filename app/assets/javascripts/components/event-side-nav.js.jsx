@@ -1,10 +1,11 @@
 var EditorSideNav = React.createClass({
     getInitialState: function() {
-        return {event:this.props.event}
+        return {event:this.props.event, tickets_on: this.props.tickets_on}
     },
     componentWillReceiveProps: function(nextProps) {
         this.setState({
-            event: nextProps.event
+            event: nextProps.event, 
+            tickets_on: nextProps.tickets_on
         })
     },
     componentDidMount: function() {
@@ -45,6 +46,12 @@ var EditorSideNav = React.createClass({
 
     },
     render: function() {
+      if(this.state.tickets_on == true) {
+        var divStyle = {display: 'block'}  ;
+      } else {
+        var divStyle = {display: 'none'}  ;
+      }
+
         return (
 
             <div className="event-nav-container">
@@ -77,12 +84,12 @@ var EditorSideNav = React.createClass({
                     <a className="event-nav-link toggleEditorPanel" id="editor-tool-details" data-target="editor-tool-details"  >
                         <i className="icon icon-settings"> </i> <span> Settings</span>
                     </a> 
+ 
 
-                    <a className="event-nav-link toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
-                        <i className="fa fa-fw fa-ticket"> </i> <span> Tickets</span>
-                          <div className="editor-tab-notification editor-tab-notification-error"></div>
-                       
-                    </a>    
+                   <a style={divStyle} className="event-nav-link toggleEditorPanel" id="editor-tool-ticketing" data-target="editor-tool-ticketing" >
+                   <i className="fa fa-fw fa-ticket"> </i> <span> Tickets</span>
+                   <div className="editor-tab-notification editor-tab-notification-error"></div>
+                   </a>
                   
 
                     <a className="event-nav-link toggleEditorPanel" id="editor-tool-coupons" data-target="editor-tool-coupons" >
