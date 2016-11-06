@@ -49,22 +49,25 @@ var QuestionForm = React.createClass({
         var method, uri;
         if (this.state.current_selection.id == null) {
             method = 'POST'
-            uri = this.props.event_slug + '/tickets'
+            uri = this.props.event_slug + '/questions'
         } else {
             method = 'PUT'
-            uri = '/tickets/' + this.state.current_selection.id
+            uri = '/survey_questions/' + this.state.current_selection.id
         }
         $.ajax({
             method: method,
             url: uri,
-            data: {"ticket" : {
-                     "title" : this.state.current_selection.title, 
+            data: {"survey_question" : {
+                     "question_text" : this.state.current_selection.question_text, 
+                      "response_required" : this.state.current_selection.response_required, 
                       "description" : this.state.current_selection.description, 
-                      "price" : this.state.current_selection.price, 
-                      "ticket_limit" : this.state.current_selection.ticket_limit, 
-                      "buy_limit" : this.state.current_selection.buy_limit, 
-                      "stop_date" : this.state.current_selection.stop_date,
-                      "is_active" : this.state.current_selection.is_active
+                      "answer_text" : this.state.current_selection.answer_text, 
+                      "field_type" : this.state.current_selection.field_type, 
+                      "ticket_id" : this.state.current_selection.ticket_id, 
+                      "event_id" : this.state.current_selection.event_id,
+                      "is_active" : this.state.current_selection.is_active,
+                      "free_text_active" : this.state.current_selection.free_text_active,
+                      "free_text" : this.state.current_selection.free_text
             }},
             dataType: 'JSON',
             success: function() {

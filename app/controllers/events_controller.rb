@@ -331,7 +331,7 @@ require 'rqrcode_png'
 
                    if @attendee.save
                       lineitem.attendee_id = @attendee.id
-
+                      
                        # surveyanswer = SurveyAnswer.new
                        # logger.debug "INDEX:::: #{(index+1)}"
                        # logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
