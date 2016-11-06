@@ -395,7 +395,7 @@ font-family: "futura-pt",sans-serif;
 
 
 .event-footer {
-	background:#222;
+	background:#1a1a1a;
 	padding:40px 0 60px;
 	text-align:center;
 	color:#fff;
@@ -761,3 +761,13 @@ img.fr-dib.fr-draggable {
 
 }
 
+.banner {
+    background: #ccc;
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    width: 600px;
+    text-align: center;
+    padding: 6px;
+    z-index: 999;
+}

@@ -139,13 +139,12 @@ var EditorDesign = React.createClass({
 
     },
     render: function() {
-
-
-        var imgUrl = this.state.eventObj.background_img == undefined  ? '/assets/themes/default_bg.jpg' : this.state.eventObj.background_img.url;
-        if(this.state.eventObj.external_image != '') {
+        var imgUrl = (this.state.eventObj.background_img == undefined || this.state.eventObj.background_img.url == null)  ? '/assets/themes/default_bg.jpg' : this.state.eventObj.background_img.url;
+        if(this.state.eventObj.external_image != '' &&  this.state.eventObj.external_image != null) {
+          alert('huh');
             imgUrl = this.state.eventObj.external_image;
         }
-        //alert(imgUrl);
+
         var divStyle = {
             backgroundImage: 'url(' + imgUrl + ')'
         }
@@ -178,7 +177,7 @@ var EditorDesign = React.createClass({
                         <h4>Background image/color </h4>
                         <p>Modify your website's main background here. </p>
                         <div className="editor-current-bg upload-btn" onClick={this.onUploadBtnClick} style={divStyle} > </div>  
-                        <a className="upload-btn btn btn-small"> <i className="fa fa-upload"> </i> Upload image </a> 
+                        <a className="upload-btn btn btn-small" onClick={this.onUploadBtnClick}> <i className="fa fa-upload"> </i> Upload image </a> 
                         <a className="open-image-modal btn btn-small"> <i className="fa fa-search"> </i> Search image library </a> 
                     </section>  
                     <section>

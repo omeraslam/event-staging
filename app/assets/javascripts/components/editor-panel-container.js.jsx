@@ -48,7 +48,7 @@ var EditorPanelContainer = React.createClass({
             }
 
         } else {
-         EditorPanelContent = <EditorPanel current_selection={this.props.current_selection} event_slug={this.props.event_slug} event_id={this.props.event_id}  category={this.state.category} onUpdateMessage={this.onUpdateMessage} handleOnPanelUpdate={this.props.handleOnPanelUpdate} onAddedNewItem={this.state.onAddedNewItem} />
+         EditorPanelContent = <EditorPanel current_selection={this.props.current_selection} event_slug={this.props.event_slug} event_id={this.props.event_id}  category={this.state.category} onUpdateMessage={this.onUpdateMessage} handleOnPanelUpdate={this.props.handleOnPanelUpdate} onAddedNewItem={this.state.onAddedNewItem} advance_tickets={this.props.advance_tickets} />
        }
 
         return (

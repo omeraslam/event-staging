@@ -30,13 +30,21 @@ var Editor = React.createClass({
         this.setState({tickets_on: _ticketState })
     },
     render: function() {
+        if(this.props.advance_tickets == true){
+            var banner = '';
+        } else {
+            var banner =   <div className="banner">Want to sell tickets? <a class="stripe-connect-btn" href={'https://connect.stripe.com/oauth/authorize?response_type=code&amp;client_id=' + this.props.scid + '&amp;scope=read_write'}><img width="140" src="/assets/stripe/blue-on-light@3x.png"  /></a> and starting selling now!</div>;
+         
+        }
+        
 
-       
+
         return (
             <div>
-            <EditorSideNav event={this.state.event} tickets_on={this.state.tickets_on} />
+            <EditorSideNav event={this.state.event} tickets_on={this.state.tickets_on} advance_tickets={this.props.advance_tickets} />
             <div className="event-editor-section-container"> 
-                <div className="event-editor-header text-right">
+            {banner}
+              <div className="event-editor-header text-right">
                    <a href="mailto:support@eventcreate.com">Contact Support</a> <a href="/">My account </a>  <a id="editor-panel-close"><i className="icon icon-arrow-left"> </i></a>
                 </div>
                 <div className="event-editor-sections"> 

@@ -5,7 +5,7 @@ var EditorTicketing = React.createClass({
     render: function() {
         return (
             <div className="editor-tool editor-panel-left-nav" id="editor-tool-ticketing" >
-              <EditorSection items={this.state.items} current_selection={this.state.current_selection} event_slug={this.state.event_slug} category={this.state.category} />
+              <EditorSection items={this.state.items} current_selection={this.state.current_selection} event_slug={this.state.event_slug} category={this.state.category} advance_tickets={this.props.advance_tickets}  />
             </div>
         )
     } 

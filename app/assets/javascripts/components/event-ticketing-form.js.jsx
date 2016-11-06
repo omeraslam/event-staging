@@ -140,6 +140,11 @@ var EventTicketingForm = React.createClass({
     },
 
     render: function() {
+        if(this.props.advance_tickets == true || this.state.tickets_on == true ) {
+          var ticketAdvanced = false;
+        } else {
+          var ticketAdvanced = true;
+        }
         return (
             <div>
              <h1>{this.props.header}</h1>
@@ -147,7 +152,7 @@ var EventTicketingForm = React.createClass({
                 
                 <div className="checkbox" onClick={this.handleTicketState}>
                   <label>
-                    <input  id="toggle-one" type="checkbox" data-toggle="toggle" value={this.state.tickets_on} />
+                    <input  id="toggle-one" type="checkbox" data-toggle="toggle" value={ticketAdvanced} />
                     Turn on Advanced Ticketing
                   </label>
                 </div>

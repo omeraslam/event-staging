@@ -855,9 +855,6 @@ def complete_registration
   amount = @final_amount
 
 
-    logger.debug "STRIPE TOKEN IN MODAL CHECKOUT::: #{token}"
-
-  logger.debug "FINAL CHARGE WITH DISCOUNT: #{amount}"
   
     if amount > 0
 

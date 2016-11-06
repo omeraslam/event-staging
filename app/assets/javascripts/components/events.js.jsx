@@ -13,6 +13,18 @@ var Events = React.createClass({
     },
 
     render: function() {
+        alert(this.state.events );
+        if(this.state.events == '') {
+            var eventList = <div className="empty"><h2>Well, this is uneventful; you don't have any events yet. Get on that! </h2><a className="btn btn-obvious" href="/create"><i className="icon icon-plus"></i> create new event</a> </div>;
+        } else {
+    var eventList =      <div className="events-list">
+                        {this.state.events.map(function(event){
+                            return <Event key={event.id} event={event} handleDeleteEvent={this.deleteEvent} />
+                        }.bind(this))}
+                    </div>;
+    }
+
+
         return (
             <div>
                 <div className="event-header container"> 
@@ -30,11 +42,7 @@ var Events = React.createClass({
                     </div>
                 </div>
                 <div className="container">
-                    <div className="events-list">
-                        {this.state.events.map(function(event){
-                            return <Event key={event.id} event={event} handleDeleteEvent={this.deleteEvent} />
-                        }.bind(this))}
-                    </div>
+                    {eventList}
                 </div>
             </div>
         )

@@ -104,7 +104,7 @@ var TicketForm = React.createClass({
                         </div>
                         <div className="input-group">
                             <label>Price</label>
-                            <input name="price" type="text" value={this.state.current_selection.price == undefined ? 0 : this.state.current_selection.price} onChange={this.handleChange} disabled={true}  />
+                            <input name="price" type="text" value={this.state.current_selection.price == undefined ? 0 : this.state.current_selection.price} onChange={this.handleChange} disabled={!this.props.advance_tickets}  />
                         </div>
                         <div className="input-group">
                             <label>Quantity Available</label>
