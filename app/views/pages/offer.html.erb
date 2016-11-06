@@ -21,26 +21,27 @@
 		<div class="col-md-5 col-md-offset-1">
 
 
-			<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" novalidate="novalidate"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="dS2znAI8/HlAkhwmkAJ+ScRZVXx/A5Dobmc+FNFCTGM="></div>
-			    
 
-			    <div class="input-group">
-			      <label>Your email address</label>
-			      <input autofocus="autofocus" class="input-primary valid" id="user_email" name="user[email]" placeholder="email@email.com" type="email" value="" aria-required="true" aria-invalid="false">
-			    </div>
+		  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+		    <%= devise_error_messages! %>
 
-			    <div class="input-group">
-			      <label>Choose a Password</label>
-			      <input autocomplete="off" class="input-primary" id="user_password" name="user[password]" placeholder="Password " type="password">
-			    </div>
+		    <div class="input-group">
+		      <label>Your email address</label>
+		      <%= f.email_field :email, autofocus: true, :class => 'input-primary', :placeholder => 'email@email.com' %>
+		    </div>
+
+		    <div class="input-group">
+		      <label>Password</label>
+		      <%= f.password_field :password, autocomplete: "off", :class => 'input-primary', :placeholder => 'Password ' %>
+		    </div>
 
 
-			    <div class="input-group">
-			      <input class="btn btn-large" name="commit" type="submit" value="Create my free account">
-			      <p> By signing up, you agree to the <a href="/terms" target="_blank">terms and conditions</a>. </p>
-			    </div>
+		    <div class="input-group">
+		      <%= f.submit "Create my free account", :class => 'btn btn-large' %>
+		      <p> By signing up, you agree to the <%= link_to 'terms and conditions', terms_path, :target => '_blank' %>.</p>
+		    </div>
 
-			</form>
+		  <% end %>
 
 
 		</div>
@@ -71,7 +72,7 @@
 		<div class="col-md-4">
 			<div class="row">
 				<div class="col-md-2"><span class="decorative-number">3</span> </div>
-				<div class="col-md-10 features-list"><h3>Collect your cash bonus</h3> <p> You'll earn $0.50 per ticket you sell, up to $500.  When your event if complete, we'll pay you your cash bonus via Paypal. </p> </div>
+				<div class="col-md-10 features-list"><h3>Collect your cash bonus</h3> <p> You'll earn $0.50 per ticket you sell, up to $500. When your event if complete, we'll pay you your cash bonus via Paypal.* </p> </div>
 			</div>
 		</div>		
 
@@ -232,13 +233,13 @@
 
 
 
-<div class="container hidden" id="offer-details">
+<div class="container" id="offer-details">
 	<div class="row">
 		<div class="col-md-12">
 
-		<p><b>Offer details: </b>Mauris viverra est justo, bibendum dignissim urna lacinia a. Aliquam arcu nunc, scelerisque non lacus id, ornare congue purus. Nulla fermentum, felis in faucibus placerat, enim erat egestas elit, vel dapibus tortor eros sed arcu. Suspendisse maximus vestibulum facilisis. Nunc nisl leo, fringilla tincidunt mauris eu, imperdiet tincidunt libero. Vestibulum eget urna in velit ornare pellentesque. Nullam tristique mi risus, sed vulputate urna aliquet posuere.</p>
+			<p>* Bonus Details: Offer applies to paid ticketed events only. Offer is for new users and not available to existing EventCreate users.  Offer is restricted to one (1) event per EventCreate account. Offer is available to United States customers only. To receive a bonus up to $500: 1) Open a new EventCreate account 2) Create an event 3) Sell tickets to the event using the EventCreate platform.  After your event has ended, we will transfer the bonus to an active Paypal account within 15 business days.  The bonus is calculated by multiplying the number of tickets sold by $0.50 (For instance, if your event sells 389 tickets, your bonus will be 389 x $.50, or $194.50). The ticket price for each ticket sold must exceed $1.00. The maximum bonus is $500. The minimum bonus is $50. </p>
 
-		<p>Donec tortor turpis, sagittis sed lorem eu, rutrum condimentum turpis. Morbi orci massa, vehicula in tellus pharetra, ullamcorper vulputate lacus. Curabitur lacinia ultricies tellus, sit amet cursus orci finibus sed. Maecenas porttitor semper pretium. Quisque laoreet felis quis mollis sollicitudin. Curabitur dictum consectetur sapien eu sodales. Vestibulum pellentesque viverra diam, ut efficitur dolor aliquam at. Duis sagittis porta est non volutpat. Sed gravida ut dui id sodales. Vivamus dictum feugiat augue vitae fermentum. Morbi semper ut justo sed imperdiet. Sed arcu orci, egestas vel nibh in, dignissim tristique diam. </p>
+			<p>The bonus may be withheld if at anytime during or after your event, we receive a chargeback on any ticket purchase or we have any indication to believe that the event is fake, or if any fraudulent activity is suspected. Bonuses may be considered income and will be reported to the IRS if applicable. </p>
 
 		</div>
 	</div>

@@ -1,2 +1,87 @@
+<% title "Manage Events" %>
+<div class="event-header container"> 
 
-  <%= react_component 'Events', { data: @events } %>
+	<div class="event-meta"> 
+		<h1>my events </h1>
+		<p class="lead">The key to your next big party is at your fingertips. Let's do this.
+		</p>
+	</div>
+
+	
+
+	<div class="event-status"> 
+		<div class="event-share">
+	 		<% if @disable_create %>
+	        	<%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, upgrade_path, class: 'btn btn-obvious' %>
+	        <% else %>
+	        	<%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, create_path, class: 'btn btn-obvious' %> 
+	        <% end %>
+
+			<br><p class="small"> New event website and/or invite</p>
+				
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<% if @events.empty? %>		
+	<div class="empty">
+		<h2>Well, this is uneventful; you don't have any events yet. Get on that! </h2>
+			<% if @disable_create %>
+		    <%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, upgrade_path, class: 'btn btn-obvious' %>
+		    <% else %>
+		    <%= link_to "<i class='icon icon-plus'></i> create new event".html_safe, create_path, class: 'btn btn-obvious' %> 
+		    <% end %>
+	</div>
+	<% end %> 
+
+
+
+		<div class="events-list">
+			<% @event_num=0 %>
+			<%  @events.each do |event| %>
+
+<!-- 	TICKET INVENTORY STATS		<% @tickets = Ticket.where(:event_id => event.id.to_s) %>
+
+			<% @tickets.each do |ticket| %>
+
+				Ticket type: <%= ticket.title %> <br/>
+				Ticket Inventory (bought/total): 
+				<%= LineItem.where(:ticket_id => ticket.id.to_s).count %>/<%= ticket.ticket_limit
+
+				    #LineItem.where(:ticket_id => ticket.id.to_s).count
+           			# ticket.ticket_limit 
+				 %><br/>
+			<% end %> -->
+
+      
+
+			<div class="event ">
+
+				<div class="image" style="background-image:url(<%= background_checker(event, true) %>);"> </div>
+				<div class="details"> 
+			
+					<%= link_to event.name, slugger_path(event.slug, :editing => "true" ), :class => 'title' %> 
+					
+			
+
+					<div class="time">
+						
+						<%= show_proper_date(event, false) %>
+
+					</div>
+
+	
+					<div class="actions"> 
+						<%= link_to 'Delete event', event_path(:id => event.id) , method: :delete, data: { confirm: 'Are you sure?' } %> 
+					</div>
+
+
+				</div>
+			</div>	
+			<% @event_num += 1 %>
+
+			<% end %>
+		</div>
+	</div>
+

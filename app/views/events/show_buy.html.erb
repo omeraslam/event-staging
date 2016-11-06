@@ -101,16 +101,6 @@
                                 </div>
                             </div>
 
-                              <% @survey_questions.each do |survey| %>
-                              <div class="input-group">
-                                 <label><%= survey.question_text %></label>
-                                 <p class="small"><%= survey.description %></p>
-                                 <% if survey.field_type == 1 %>
-                                 <textarea name="surveyanswers[<%= tick_num %>][answer_text]"></textarea>
-                                 <% end %>
-                              </div>
-                              <% end %>
-
                           </div>  
                         </div>
                       <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", @purchaser.id  %>
@@ -133,16 +123,7 @@
                                       <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
                                   </div>
                               </div>
-                              <% @survey_questions.each do |survey| %>
-                              <div class="input-group">
 
-                                <%= hidden_field_tag "surveyanswers["+ (tick_num.to_s)+"][survey_id]", survey.id  %>
-                                 <label><%= survey.question_text %></label>
-                                 <% if survey.field_type == 1 %>
-                                  <textarea name="surveyanswers[<%= tick_num %>][answer_text]"></textarea>
-                                 <% end %>
-                              </div>
-                              <% end %>
                               </div>  
                           </div>
 
@@ -354,6 +335,9 @@ var couponFixed = false;
 
                   var fee_price = 0
                   var total_ticket_price = 0
+                  var credit_card_percent = .029
+                  var credit_card_fees = .30
+
                 if(couponFixed == false) {
                   $('.ticket-amount').each(function( index ) {
 
@@ -371,11 +355,9 @@ var couponFixed = false;
                       $(this).html('$' + parseFloat(Math.round(ticket_price * 100) / 100).toFixed(2));
 
                       if(ticket_price > 0) {
-                         fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * .99)
-
+                         fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * (.99))  + credit_card_fees + (total_ticket_price * credit_card_percent)
                       }
                      
-
 
                   });
                 
@@ -384,7 +366,37 @@ var couponFixed = false;
 
                 } else {
 
-                  var total_price = ((Number($('.form-quantity').text())* (filteredPrice))*.020)+(Number($('.form-quantity').text())*(filteredPrice))+(.99*Number($('.form-quantity').text()))-(couponDiscount*100)
+                   $('.ticket-amount').each(function( index ) {
+
+                     var priceStringFromTitle = $(this).html()
+
+
+                      var filteredPrice = priceStringFromTitle.substring( priceStringFromTitle.lastIndexOf("$")+1, 
+                                  priceStringFromTitle.length-1
+                                );
+
+                       var ticket_price = filteredPrice;
+                      total_ticket_price += ticket_price
+
+
+                      $(this).html('$' + parseFloat(Math.round((ticket_price * 100) / 100)- (couponDiscount*100)).toFixed(2));
+
+                      if(ticket_price > 0) {
+                         fee_price += ticket_price * <%= @fee_rate.to_f %> + ($(this).closest('tr').find('.ticket-quantity').html() * (.99)) 
+                      }
+                     
+
+
+                  });
+                   var discounted_amount = total_ticket_price - (couponDiscount*100).toFixed(2)
+                    var total_cc_fee = credit_card_fees + (discounted_amount * credit_card_percent )
+
+
+                  $('.fee-amount').html('$' + parseFloat(Math.round((fee_price + total_cc_fee) * 100) / 100).toFixed(2));
+
+
+                  var total_price = $('.total-amount').html( '$' + parseFloat(discounted_amount + (fee_price + total_cc_fee)*100/100).toFixed(2) )
+
                 }
 
                 if(resp.status != "error") {

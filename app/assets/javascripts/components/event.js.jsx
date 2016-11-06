@@ -22,16 +22,16 @@ var Event = React.createClass({
             return (
                 <div className="event ">
                     <div className="image" style={{backgroundImage: 'url('+ this.props.event.background_img +')'}}> </div>
-                    <div className="details"> 
+                    <div className="details">
                         <a href={this._buildLinkHref()} className="title" >{this.props.event.name}</a>
                         <div className="time">
                             {this.props.event.date_start}
-                        </div>    
+                        </div>
                         <div className="actions">
                             <a href="" onClick={this.handleDelete} >Delete event</a>
                         </div>
                     </div>
-                </div>  
+                </div>
             );
     }
 });

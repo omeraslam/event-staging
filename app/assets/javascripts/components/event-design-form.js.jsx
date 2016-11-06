@@ -25,5 +25,5 @@ var EventDesignForm = React.createClass({
                 </form>
             </div>
         )
-    } 
+    }
 });

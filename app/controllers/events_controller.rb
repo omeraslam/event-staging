@@ -1,4 +1,3 @@
-
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
@@ -855,6 +854,9 @@ def complete_registration
   amount = @final_amount
 
 
+    logger.debug "STRIPE TOKEN IN MODAL CHECKOUT::: #{token}"
+
+  logger.debug "FINAL CHARGE WITH DISCOUNT: #{amount}"
   
     if amount > 0
 
@@ -1224,17 +1226,20 @@ def show
         spots_left: spots_left-guest_count,
         guest_number: guest_count
       }
-      
+
       # tickets sold
       # if the registration close date on those tickets are closed
       # if the event has already passed
       # draft
-
-      if spots_left-guest_count > 0 
+      
+      if spots_left-guest_count > 0
         @registration_open = true
-      else 
+      else
         @registration_open = false
       end
+
+      
+
     # if @ticket_quantity_left < 1
     #   if @ticket_stop
     #     @event.html_hero_1['<span class="btn btn-reg">Registration closed</span>'] = '<span class="btn btn-reg">Sold out</span>'  
@@ -1242,8 +1247,9 @@ def show
     #     @event.html_hero_1['<span class="btn btn-reg open-registration"> Register now</span>'] = '<span class="btn btn-reg">Sold out</span>'
     #   end 
     # end
+    # 
 
-    
+  
 
     #<span class="btn btn-reg open-registration"> Register now</span>
 
@@ -1324,6 +1330,7 @@ def show
 
     @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
+    Purchase.where(:first_name => nil).destroy_all
     @buyers = Purchase.where(:event_id => @event.id)
     @buyers_list = {
       "items" => [],   
@@ -1351,7 +1358,9 @@ def show
         @buyers_list["items"].push(buyer_block)
 
     end
-
+     
+    credit_card_percent = 0.029
+    credit_card_cents_fee = 30
 
     @user = User.find(@event.user_id.to_i)
     @fee_rate = @user.npo == true ? 0.015 : 0.020
@@ -1484,9 +1493,7 @@ def show
             <div class="container">
                 <div class="header-content">
                   <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1472761845708-logo3.png"/>
-
                   <h1>' + @event.name + '</h1><p class="lead">Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>
-
                   <span class="btn btn-reg open-registration"> Register now</span>
                 </div> 
               </div>
@@ -1495,18 +1502,14 @@ def show
 
 
     @eventBodyHtml = '<div id="about">
-
         <div class="container about-container">
           <div class="row">
             <div class="col-md-12">
               <h3 class="subheader">/About </h3>
               <p>Tell the attendees about your event! Lorem ipsum dolor sit amet Nullam vel ultricies metus, at tincidunt arcu. Morbi vestibulum, ligula ut efficitur mollis, mi massa accumsan justo, accumsan auctor orci lectus ac ipsum. Proin porta nisl sem, ac suscipit lorem dignissim et. Curabitur euismod nec augue vitae dictum. Nam mattis, massa quis consequat molestie, erat justo vulputate tortor, a sollicitudin turpis felis eget risus. Aliquam viverra urna felis, eu ornare enim consectetur sed. Morbi vitae ultrices velit. Sed molestie consectetur metus. Proin neque eros, dapibus ac accumsansodales sit amet velit. </p>
             </div>
-
           </div>  
         </div>
-
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-4 col-sm-padding">
@@ -1521,14 +1524,9 @@ def show
           </div>  
         </div>
       </div>
-
-
       <div id="speakers" class="hidden">
-
         <div class="container about-container" data-repeatable="speakers">
         <h3 class="subheader"> /Speakers</h3>
-
-
         <div class="row repeatable" >
           <div class="col-md-5">
             <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1473455426859-portrait2.jpg" class="img-responsive">
@@ -1539,14 +1537,10 @@ def show
             <p>Sed faucibus bibendum efficitur. Aliquam quis imperdiet urna. Sed tincidunt elit quis dolor aliquam sodales. Fusce eu fermentum eros, sit amet porttitor erat. Suspendisse accumsan mollis purus id rhoncus. Vestibulum feugiat ligula ut orci rhoncus efficitur. Phasellus vitae justo eu nisl hendrerit dictum vitae quis sapien.</p>
           </div>
         </div>    
-
-
         </div>
       </div>
-
       <div id="program">
         <div class="container about-container" data-repeatable="program">
-
           <h3 class="subheader">/Schedule</h3>
           <div class="row repeatable ">
             <div class="col-md-12">
@@ -1562,10 +1556,8 @@ def show
               <p>Sed faucibus bibendum efficitur. Aliquam quis imperdiet urna. Sed tincidunt elit quis dolor aliquam sodales. </p>
             </div>
           </div>
-
         </div>
       </div>
-
       <div id="sponsors" class="hidden">
         <div class="container about-container">
           <h3 class="subheader">/Sponsors</h3>

@@ -11,66 +11,47 @@
     </div>
   <% end %>
 
-
-
-
-
-
-
-  <div class="input-group">
+  <div class="field">
     <%= f.label :question_text %><br>
     <%= f.text_area :question_text %>
   </div>
-  <div class="input-group">
+  <div class="field">
     <%= f.label :response_required %><br>
     <%= f.check_box :response_required %>
   </div>
-  <div class="input-group">
+  <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
-  <div class="input-group">
+  <div class="field">
+    <%= f.label :answer_text %><br>
+    <%= f.text_area :answer_text %>
+  </div>
+  <div class="field">
     <%= f.label :field_type %><br>
     <%= f.number_field :field_type %>
   </div>
-  <div class="input-group">
-<!--     <%= f.label :ticket_id %><br>
-    <%= f.number_field :ticket_id %> -->
-    <% @event.tickets.all.each do |ticket| %>
-      <%= fields_for 'ticket[]' , ticket do |ticket_fields| %>
-        <div>
-        <%= ticket_fields.check_box :id %> <%= ticket.title %>
-        </div>
-      <% end %>
-
-    <% end %>
-
+  <div class="field">
+    <%= f.label :ticket_id %><br>
+    <%= f.number_field :ticket_id %>
   </div>
-
-
-
-
-<!--   <div class="input-group">
+  <div class="field">
     <%= f.label :event_id %><br>
     <%= f.number_field :event_id %>
-  </div> -->
-  <div class="input-group">
+  </div>
+  <div class="field">
     <%= f.label :is_active %><br>
     <%= f.check_box :is_active %>
   </div>
-  <div class="input-group">
+  <div class="field">
     <%= f.label :free_text_active %><br>
     <%= f.check_box :free_text_active %>
   </div>
-  <div class="input-group">
+  <div class="field">
     <%= f.label :free_text %><br>
     <%= f.text_area :free_text %>
   </div>
-
-
-<%= hidden_field_tag "survey_question[event_id]", @event.id  %>
-
   <div class="actions">
-    <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+    <%= f.submit %>
   </div>
 <% end %>

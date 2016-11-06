@@ -1,7 +1,3 @@
- 
-
-
-
  <%= react_component 'Editor', {
           event: @event, ticketObj:  @ticket, advance_tickets: (@account != nil), scid: @scid, registration_open: @registration_open,
         attendees_list: @attendees_list, attendee_headers: @attendee_headers,
@@ -12,7 +8,6 @@
         question_items: @survey_questions, current_question: @current_survey_question} %>
 
 
- 
  <!--TEMP HOLDER FOR DRAG AND DROP ELEMENTS-->
   <a href="#" id="custom-image" style="display:none;">
 
@@ -44,6 +39,11 @@
 
   </div>
   <div class="modal-body">
+   
+
+
+
+
   </div> 
 </div>
 
@@ -57,11 +57,69 @@
 $( document ).ready(function() {
 
 
+// <<<<<<< HEAD
+// =======
+  //contruct the layout select
+//   $(".test-show-layout").each(function() {
+
+//     var target = $(this).data("target");
+        
+//     if ($(target).hasClass("hidden")) { 
+      
+//       $(this).addClass("inactive");
+
+//     } else {
+      
+//       //$(this).addClass("inactive");
+
+//     }
+//   });
+
 
   
-  //FROALA > CUSTOM > LAYOUT
-  //repeatable sections on page
+
+//   //click handler for layout select
+//   $(".test-show-layout").on( "click", function() {
+    
+//     var target = $(this).data("target");
+    
+//     if ($(target).hasClass("hidden")) { 
+      
+//       $(target).removeClass("hidden");
+//       $(this).removeClass("inactive");
+//       $('html, body').animate({
+//         scrollTop: $(target).offset().top - 50
+//       }, 200);
+
+
+//       htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
+//       htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
+//       htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
+
+//       saveChanges();
+
+//     } else {
+      
+//       $(target).addClass("hidden");
+//       $(this).addClass("inactive");
+
+//       htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
+//       htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
+//       htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
+
+//       saveChanges();
+
+//     }
+  
+//   });
+
+// >>>>>>> master
+
+  
+
   $(".repeatable").append("<div contenteditable='false' class='repeatable-actions'><div class='repeatable-action repeatable-plus'><i class='fa fa-plus'></i></div><div class='repeatable-action repeatable-delete'><i class='fa fa-trash'></i></div></div>");
+
+
   $(document).on('click', ".repeatable-plus" , function() {
      
       var target = $(this).parents(".repeatable");
@@ -72,14 +130,22 @@ $( document ).ready(function() {
       }, 200);
 
   });
-  $(document).on('click', ".repeatable-delete" , function() {     
+
+
+
+  $(document).on('click', ".repeatable-delete" , function() {
+     
       var target = $(this).parents(".repeatable");
       var container = $(this).parents(".container").data("repeatable");
+
       if ($('*[data-repeatable="'+ container +'"] .repeatable').length > 1) {
         target.fadeOut(200, function() { $(target).remove(); });
       } else {
         alert("Ooops, you can't delete this one. If you'd like to hide this section, please change the section visbility under the design tab.")
       }
+
+
+  
   });
 
 
@@ -93,6 +159,29 @@ $( document ).ready(function() {
   $(".toggle-container").click(function() {   
       $(this).toggleClass("toggle-on");
       $(this).find("span").text("live");
+  });
+
+      var validator5 = $(".edit_ticket").validate({
+    rules: {
+      "ticket[title]": {
+        required: true
+      },
+      "ticket[price]": {
+        required: true
+      },
+      "ticket[ticket_limit]": {
+        required: true
+      },
+      "ticket[stop_date]": {
+        required: true
+      },
+    }, messages : {
+      "ticket[title]": 'Please enter a ticket name.',
+      "ticket[price]": 'Please enter a ticket price.',
+      "ticket[ticket_limit]": 'Please enter a ticket limit.',
+      "ticket[stop_date]": 'Please enter an end date.'
+
+    }
   });
 
 
@@ -109,6 +198,93 @@ $( document ).ready(function() {
 
 
 
+// <<<<<<< HEAD
+// =======
+
+
+//   $.validator.addMethod("loginRegex", function(value, element) {
+//         return /^[a-zA-Z0-9-]+$/i.test(value);
+//     }, "Event must contain only letters, numbers, or dashes.");
+
+//   var validator3 = $("#edit-event").validate({
+//     rules: {
+//       "event[name]": {
+//         required: true
+//       },
+//       "event[date_start]": {
+//         required: true
+//       },
+//       "event[location]": {
+//         required: true
+//       },
+//       "event[slug]": {
+//         required: true,
+//         loginRegex: true
+//       }
+
+
+//     },
+//     messages: {
+//       "event[name]": 'Please enter an event name',
+//       "event[date_start]": 'Please enter an event date',
+//       "event[location]": 'Please enter an event location',
+//       "event[slug]": 'Please enter an event url'
+//     }
+//   });
+
+
+
+
+
+
+//   //INTRO - slide in the editor tabs
+//   setTimeout(function(){  
+//     $('.tabs').addClass("visible");
+//   }, 500);
+
+
+
+
+
+
+
+
+
+
+
+//   //EDITOR - set size of panel
+//   $('.editor-tools').css("height",$(window).height());
+//   $( window ).resize(function() {
+//     $('.editor-tools').css("height",$(window).height());
+//   });
+
+//   //EDITOR -  editor panel interaction behaviors
+//   $('.toggleEditorPanel').click(function() {
+
+//     var active = $(this).hasClass('active');
+//     var target = $(this).data('target');
+//     $('.toggleEditorPanel.active').removeClass("active");
+//     if (!active) {
+//       $(".editor-tool").hide();
+//       $(".editor-tool#" + target).show();
+//       $(this).addClass("active");
+//       $(".editor-container").addClass("visible");
+//     } else {
+//       $(this).removeClass("active");
+//       $(".editor-container").removeClass("visible");
+//     }
+//   });
+
+//   $('#editor-panel-close').click(function() {
+//     $(".toggleEditorPanel.active").removeClass("active");
+//     $(".editor-container").removeClass("visible");
+//    });
+
+
+
+
+
+// >>>>>>> master
   //EDITOR - set values
   var published = $('#published').val()? $('#published').val(): "false"; 
   var currentFont = $('#font_type_id').val()? $('#font_type_id').val(): "brandon"; 
@@ -252,6 +428,7 @@ $( document ).ready(function() {
 
 
   //backgroud opacity slider
+// <<<<<<< HEAD
     // $(function() {
     //   $( "#slider" ).slider({
     //     value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
@@ -275,6 +452,31 @@ $( document ).ready(function() {
 
   //     }
   //  });
+// =======
+//     $(function() {
+//       $( "#slider" ).slider({
+//         value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
+//         slide: function( event, ui ) { 
+
+//           var percentage = ui.value/100;
+//           $(".event-page .overlay").css("opacity", percentage);
+//           requestEdit({bgOpacity:percentage});
+//         }
+//       });
+//     });
+
+
+//   //background color picker
+//     $('input#color').minicolors({ 
+//       position: 'top right', 
+//       defaultValue: currentBgColor,
+//       change: function(value, opacity) {
+//           $(".event-page .overlay").css("background-color", value);
+//           requestEdit({bgColor:value});
+
+//       }
+//    });
+// >>>>>>> master
 
   //change font
   $('.font').click(function() {
@@ -289,6 +491,20 @@ $( document ).ready(function() {
 
 
 
+
+
+
+  //EDITOR -  event saved modal
+  var eventSavedModal = $('#event-saved-modal').remodal();
+  $('#draft').click(function(e){
+    $(".full-page-loader.saving").addClass("visible");
+    setTimeout(function(){  
+      eventSavedModal.open();
+      $(".full-page-loader.saving").removeClass("visible");
+    }, 1500);
+
+    e.preventDefault;
+  });
 
 
 
@@ -457,4 +673,13 @@ $(function() {
     droppedFiles = e.originalEvent.dataTransfer.files;
   });
 
+
+
+
+
+
+
+
+
 </script>
+

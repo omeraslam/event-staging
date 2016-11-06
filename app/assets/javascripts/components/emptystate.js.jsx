@@ -7,6 +7,5 @@ var EmptyState = React.createClass({
               </div>
 
         )
-   } 
+   }
 });
-

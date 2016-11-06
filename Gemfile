@@ -86,6 +86,8 @@ end
 gem 'jquery-timepicker-rails'
 gem 'browserify-rails'
 gem 'react-rails'
+
+
 gem 'bootstrap-sass'
 
 # Use SCSS for stylesheets
@@ -130,7 +132,6 @@ gem 'friendly_id'
 gem 'gravtastic'
 gem 'chart-js-rails'
 gem 'jquery-tablesorter'
-
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

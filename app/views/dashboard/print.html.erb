@@ -3,6 +3,7 @@
 
 <div class="event-header dashboard-container"> 
 
+
     <div class="event-meta"> 
 
 
@@ -14,7 +15,7 @@
     
     <div class="event-status"> 
         <div class="status" style="display: none;">Live </div>
-        <div class="status-date" style="display: none;">Event last updated November 1, 2015 </div>
+        <div class="status-date" style="display: none;">Event last updated <%= @event.created_at.to_date.strftime("%B %d, %Y") %> </div>
     </div>
 
 </div>
@@ -23,7 +24,8 @@
 
 
 <table style="border: 1px solid black; padding: 0; margin: 0;">
-    <thead >
+
+  <thead >
         <tr width="400px" style="border: 1px solid black ; padding: 0; margin: 0;">
             <th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">ID</th>
             <th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">First Name</th>
@@ -52,6 +54,7 @@
                 <td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.email %></td>
                 
                  <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.nil? ? 0 : @guest.quantity - 1 %></td>
+
                         <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
                         <td style="border: 1px solid black;padding: 10px; margin: 0;">          
                             <% total_order = 0 %>
@@ -62,6 +65,7 @@
                     <% end %> 
                         <%= Purchase.find(attendee.id.to_i).total_order.nil? ? number_to_currency(total_order, :precision => 2) : number_to_currency(Purchase.find(attendee.id.to_i).total_order/100 , :precision => 2) %></td> <td style="border: 1px solid black;padding: 10px; margin: 0;"><%=   Purchase.find(attendee.id.to_i).affiliate_code.nil? || Purchase.find(attendee.id.to_i).affiliate_code == 'null' ? 'n/a' : Purchase.find(attendee.id.to_i).affiliate_code %>  </td>
                         <td style="border: 1px solid black;padding: 10px; margin: 0;"><%= attendee.created_at.to_date.strftime("%B %d ") %> </td>
+
 
 
             </tr>

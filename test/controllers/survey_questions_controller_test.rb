@@ -18,7 +18,7 @@ class SurveyQuestionsControllerTest < ActionController::TestCase
 
   test "should create survey_question" do
     assert_difference('SurveyQuestion.count') do
-      post :create, survey_question: { description: @survey_question.description, event_id: @survey_question.event_id, field_type: @survey_question.field_type, free_text: @survey_question.free_text, free_text_active: @survey_question.free_text_active, is_active: @survey_question.is_active, question_text: @survey_question.question_text, response_required: @survey_question.response_required, ticket_id: @survey_question.ticket_id }
+      post :create, survey_question: { answer_text: @survey_question.answer_text, description: @survey_question.description, event_id: @survey_question.event_id, field_type: @survey_question.field_type, free_text: @survey_question.free_text, free_text_active: @survey_question.free_text_active, is_active: @survey_question.is_active, question_text: @survey_question.question_text, response_required: @survey_question.response_required, ticket_id: @survey_question.ticket_id }
     end
 
     assert_redirected_to survey_question_path(assigns(:survey_question))
@@ -35,7 +35,7 @@ class SurveyQuestionsControllerTest < ActionController::TestCase
   end
 
   test "should update survey_question" do
-    patch :update, id: @survey_question, survey_question: { description: @survey_question.description, event_id: @survey_question.event_id, field_type: @survey_question.field_type, free_text: @survey_question.free_text, free_text_active: @survey_question.free_text_active, is_active: @survey_question.is_active, question_text: @survey_question.question_text, response_required: @survey_question.response_required, ticket_id: @survey_question.ticket_id }
+    patch :update, id: @survey_question, survey_question: { answer_text: @survey_question.answer_text, description: @survey_question.description, event_id: @survey_question.event_id, field_type: @survey_question.field_type, free_text: @survey_question.free_text, free_text_active: @survey_question.free_text_active, is_active: @survey_question.is_active, question_text: @survey_question.question_text, response_required: @survey_question.response_required, ticket_id: @survey_question.ticket_id }
     assert_redirected_to survey_question_path(assigns(:survey_question))
   end
 

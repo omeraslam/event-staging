@@ -29,7 +29,6 @@
 //= require Chart
 //= require jquery-tablesorter
 
-
 // Include other plugins.
 //= require plugins/align.min.js
 //= require plugins/char_counter.min.js

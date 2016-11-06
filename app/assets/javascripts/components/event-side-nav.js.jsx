@@ -10,9 +10,9 @@ var EditorSideNav = React.createClass({
     },
     componentDidMount: function() {
       //INTRO - slide in the editor tabs
-      // setTimeout(function(){  
-      //   $('.tabs').addClass("visible");
-      // }, 500);
+      setTimeout(function(){  
+        $('.tabs').addClass("visible");
+      }, 500);
 
 
 

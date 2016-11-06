@@ -25,5 +25,5 @@ var EventSeoForm = React.createClass({
                 </form>
             </div>
         )
-    } 
+    }
 });
