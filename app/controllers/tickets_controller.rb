@@ -46,7 +46,11 @@ class TicketsController < ApplicationController
   def update
     @ticket.update(ticket_params)
     @event = Event.find(@ticket.event_id)
-    redirect_to slugger_path(@event) + '?editing=true'
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Person was successfully created.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
   end
 
   def destroy

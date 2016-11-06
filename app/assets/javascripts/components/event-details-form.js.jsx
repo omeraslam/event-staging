@@ -54,7 +54,7 @@ var EventDetailsForm = React.createClass({
     componentDidMount: function() {
         var that = this;
         //format specific 
-        this.state.eventObj.date_start = moment(this.state.eventObj.date_start).format('MM/DD/YYYY');
+        this.state.eventObj.date_start = this.state.eventObj.date_start.indexOf('/') > -1 ? this.state.eventObj.date_start : moment(this.state.eventObj.date_start).format('MM/DD/YYYY');
         this.setState({eventObj: this.state.eventObj})
         $('#datepairExample .date').datepicker({
           onSelect: function(dateText) {

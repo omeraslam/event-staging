@@ -15,7 +15,7 @@ var TicketForm = React.createClass({
         this.setState({current_selection: ticketObj})
     },
     componentWillReceiveProps: function(nextProps) {
-      nextProps.current_selection.stop_date = moment(nextProps.current_selection.stop_date).format('MM/DD/YYYY');
+      nextProps.current_selection.stop_date = nextProps.current_selection.stop_date.indexOf('/') > -1 ? nextProps.current_selection.stop_date :  moment(nextProps.current_selection.stop_date).format('MM/DD/YYYY');
         
       this.setState({
         current_selection: nextProps.current_selection 
@@ -24,7 +24,7 @@ var TicketForm = React.createClass({
     componentDidMount: function() {
         var that = this;
         //format specific 
-        this.state.current_selection.stop_date = moment(this.state.current_selection.stop_date).format('MM/DD/YYYY');
+        this.state.current_selection.stop_date = this.state.current_selection.stop_date.indexOf('/') > -1 ? this.state.current_selection.stop_date : moment(this.state.current_selection.stop_date).format('MM/DD/YYYY');
         this.setState({current_selection: this.state.current_selection})
         $('#datepairExample .date').datepicker({
           onSelect: function(dateText) {

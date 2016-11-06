@@ -24,7 +24,8 @@ var EventTicketingForm = React.createClass({
         //format specific 
         //
         $('#toggle-one').bootstrapToggle();
-        this.state.ticketObj.stop_date = moment(this.state.ticketObj.stop_date).format('MM/DD/YYYY');
+
+        this.state.ticketObj.stop_date = this.state.ticketObj.stop_date.indexOf('/') > -1 ? this.state.ticketObj.stop_date : moment(this.state.ticketObj.stop_date).format('MM/DD/YYYY');
         this.setState({ticketObj: this.state.ticketObj})
         $('#datepairExample .date').datepicker({
           onSelect: function(dateText) {

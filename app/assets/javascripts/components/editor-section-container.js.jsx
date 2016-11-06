@@ -3,7 +3,7 @@ var EditorSectionContainer = React.createClass({
         return { items: this.props.items, current_selection: this.props.current_selection, eventObj: this.props.eventObj, ticketObj: this.props.ticketObj, onUpdateEvent:this.props.onUpdateEvent, message: this.props.message, advance_tickets: this.props.advance_tickets, scid: this.props.scid, tickets_on: this.props.tickets_on }
     },
     getDefaultProps: function() {
-        return { items: [], current_selection: null, eventObj: null}
+        return { items: [], current_selection: null, eventObj: null, message: ''}
     },
 
     componentDidMount: function() {
@@ -27,6 +27,7 @@ var EditorSectionContainer = React.createClass({
 
     },
     render: function() {
+       // alert(this.state.message);
         return (
            <div>
                 <EditorAsideSectionNav handleSelectItem={this.selectItem} />

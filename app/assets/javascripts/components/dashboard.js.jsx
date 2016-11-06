@@ -102,7 +102,8 @@ var DashboardContainer = React.createClass({
         //  - draft
         var tickets_closed = true;
         this.state.ticket_items.forEach(function(element) {
-            if(moment(element.item.stop_date) > moment.now() && element.item.is_active == true){
+
+            if(( element.item.stop_date.indexOf('/') > -1 ?  moment(element.item.stop_date, "MM-DD-YYYY"): moment(element.item.stop_date) ) > moment.now() && element.item.is_active == true){
                 tickets_closed = false;
             }
         });
@@ -117,7 +118,7 @@ var DashboardContainer = React.createClass({
         
 
         if (this.state.registration_open == true && String(this.state.eventObj.published) == 'true' && (
-            moment(this.state.eventObj.date_start) > moment.now() && !tickets_closed
+            ( this.state.eventObj.date_start.indexOf('/') > -1 ?  moment(this.state.eventObj.date_start, "MM-DD-YYYY"): moment(this.state.eventObj.date_start)) && !tickets_closed
             ) ) {
         var registrationStatus  =  <div className="event-activity-meter event-activity-meter-true" ><span> </span> <div className="event-activity-status"><h5>Registration Open</h5> <p>Your event is currently accepting registrations.</p> </div> </div>
         } else {

@@ -1,3 +1,4 @@
+
 class EventsController < ApplicationController
   require "uri"
   require "net/http"
@@ -156,9 +157,17 @@ require 'rqrcode_png'
     sum = 0 
     fee = 0
 
+
+    credit_card_percent = 0.029
+    credit_card_cents_fee = 30
+
+      #########
+
     #get fee rates
     @fee_rate = @user.npo == true ? 0.015 : 0.020
     num_of_paid_tickets = 0
+
+
     
     @event.tickets.all.each do |ticket|
 
@@ -174,8 +183,11 @@ require 'rqrcode_png'
       end
     end
 
+                   
+
                           
     fee = (fee * 100).round.to_i
+
 
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
@@ -210,13 +222,17 @@ require 'rqrcode_png'
 
       end
 
-      if @final_amount > 0
+      cc_fee = (@final_amount*credit_card_percent) + 30
+      logger.debug "fee of just charge: #{cc_fee}"
+      if @final_charge > 0
         logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
         fee += 99 * num_of_paid_tickets
+        fee += (cc_fee).round.to_i
       end
 
 
-
+      logger.debug "@final_charge with discount:  #{@final_amount}"
+      logger.debug "FEE WITH CC FEE IS  with discount: #{fee}"
 
 
     #Get the credit card details submitted by the form
@@ -258,8 +274,11 @@ require 'rqrcode_png'
               :currency => @event.currency_type.downcase,
               :source => token,
               :application_fee => fee,
-              :metadata => charge_metadata
-            }, {:stripe_account => @account.stripe_user_id})
+              :metadata => charge_metadata,
+              :destination => @account.stripe_user_id
+            })
+
+
             logger.debug "CHARGE is paid:::: #{charge['paid']}"
             if charge["paid"] == true
               @purchase.stripe_id = charge["id"]
@@ -267,11 +286,6 @@ require 'rqrcode_png'
               else
               end
              #Save customer to the db
-             #
-             logger.debug "#{params[:surveyanswers]}"
-
-
-
              
               @array_of_ticket = []
 
@@ -282,20 +296,11 @@ require 'rqrcode_png'
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
                    position = index+1
+                  logger.debug "BUYER ONLY::: #{@buyer_only != true}"
                    if @buyer_only != true 
                      first_name = params[:attendees][(index+1).to_s]["first_name"]
                      last_name = params[:attendees][(index+1).to_s]["last_name"]
                      email = params[:purchase]["email"]
-
-
-
-
-      #                   t.string :answer_text
-      # t.integer :attendee_id
-      # t.integer :survey_question_id
-      # t.integer :event_id
-
-
                    else
                      first_name = params[:attendees][(1).to_s]["first_name"]
                      last_name = params[:attendees][(1).to_s]["last_name"]
@@ -327,20 +332,18 @@ require 'rqrcode_png'
                    if @attendee.save
                       lineitem.attendee_id = @attendee.id
 
-
-                      surveyanswer = SurveyAnswer.new
-                      logger.debug "INDEX:::: #{(index+1)}"
-                      logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
-                      surveyanswer.answer_text = params[:surveyanswers][(index+1).to_s]["answer_text"]
-
-                      surveyanswer.attendee_id = @attendee.id
-                      surveyanswer.event_id = @event.id
-                      surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
-
-                      if surveyanswer.save
-                      else
-                      end
-
+                       surveyanswer = SurveyAnswer.new
+                       logger.debug "INDEX:::: #{(index+1)}"
+                       logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
+                       surveyanswer.answer_text = params[:surveyanswers][(index+1).to_s]["answer_text"]
+ 
+                       surveyanswer.attendee_id = @attendee.id
+                       surveyanswer.event_id = @event.id
+                       surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
+ 
+                       if surveyanswer.save
+                       else
+                       end
 
                        if lineitem.save
                        # save attendee id to lineitem
@@ -444,16 +447,16 @@ require 'rqrcode_png'
                     if @attendee.save
                       lineitem.attendee_id = @attendee.id
 
-
                       surveyanswer = SurveyAnswer.new
                       surveyanswer.answer_text = params[:surveyanswers][index+1]["answer_text"]
                       surveyanswer.attendee_id = @attendee.id
                       surveyanswer.event_id = @event.id
                       surveyanswer.survey_question_id = params[:surveyanswers][index+1]["survey_id"]
-
+                      
                       if surveyanswer.save
                       else
                       end
+
 
 
                       if lineitem.save
@@ -532,15 +535,17 @@ def show_buy
      sum = 0 
      fee = 0
 
+
+    credit_card_percent = 0.029
+    credit_card_cents_fee = 30
+
       #get fee rates
       @fee_rate = @user.npo == true ? 0.015 : 0.020
 
 
     num_of_paid_tickets = 0
 
-
     @survey_questions = @event.survey_questions.all
-
  
     @event.tickets.all.each do |ticket|
 
@@ -556,22 +561,44 @@ def show_buy
       end
     end
 
-    logger.debug "FEE AT TOP: #{fee}"
-    logger.debug "SUM AT TOP: #{sum}"
                           
     fee = (fee * 100).round.to_i
 
     @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
+    logger.debug "SUM GENERAL:: #{sum}"
+
+    cc_fee = (sum*credit_card_percent) + 0.30
+
+    logger.debug "NEW SUM: #{cc_fee}"
 
       if @final_charge > 0
         logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
         fee += 99 * num_of_paid_tickets
+        fee += (cc_fee * 100).to_i
       end
+      logger.debug "CC FEE = #{cc_fee*100}"
+      logger.debug "+ #{99 * num_of_paid_tickets}"
 
       @final_fee = (fee.to_f/100)
 
 
+
+
+##########
+#
+#
+
+
+
+
+
+ 
+
+
+#
+#
+##########
 
 
 
@@ -774,12 +801,12 @@ def complete_registration
 
 
 
-
-
   #calculate tickets
   sum = 0 
   fee = 0
 
+  credit_card_percent = 0.029
+  credit_card_cents_fee = 30
   #get fee rates
   @fee_rate = @user.npo == true ? 0.015 : 0.020
 
@@ -791,6 +818,8 @@ def complete_registration
   logger.debug "FEE AT TOP: #{fee}"
                         
   fee = (fee * 100).round.to_i
+  cc_fee = (sum*credit_card_percent) + 0.30
+
 
   @final_charge = (sum * 100).to_i #add all line items to figure out final price
 
@@ -808,6 +837,7 @@ def complete_registration
       #@discount_amount = @final_charge * @discount
       if @coupon.is_fixed == true
         @final_amount = @final_charge - (@coupon.discount * 100).to_i
+        logger.debug "FINAL AMOUNT COUPON #{@final_amount}"
         if @final_amount < 0
           flash[:error] = 'Coupon code is not valid or expired.'
           redirect_to slugger_path(@event)
@@ -832,7 +862,8 @@ def complete_registration
   end
 
   if @final_amount > 0
-    fee += 99 * quantity_num.to_i
+    fee += (99 ) * quantity_num.to_i
+    fee += (cc_fee * 100).to_i
   end
 
  
@@ -890,12 +921,14 @@ def complete_registration
 
         begin
           charge = Stripe::Charge.create({
-            :amount => (amount + fee),
-            :currency => @event.currency_type.downcase,
-            :source => token,
-            :application_fee => fee,
-            :metadata => charge_metadata
-          }, {:stripe_account => @account.stripe_user_id})
+              :amount => (amount + fee),
+              :currency => @event.currency_type.downcase,
+              :source => token,
+              :application_fee => fee,
+              :metadata => charge_metadata,
+              :destination => @account.stripe_user_id
+            })
+
 
           if charge["paid"] == true
             @purchase.stripe_id = charge["id"]
@@ -1150,23 +1183,27 @@ def show
       @event = Event.find_by_slug(params[:slug]) or not_found
     end
 
-
     @survey_questions = @event.survey_questions.all
+
+
+
     @tickets = @event.tickets.all 
 
-    @tickets_for_event = []
+     @tickets_for_event = []
+ 
+     @survey_question = SurveyQuestion.new
+ 
+     @tickets.each do |ticket|
+       tickets_sold = ticket.ticket_limit.to_i - LineItem.where(:ticket_id => ticket.id.to_s).count
+       ticket["description"] = tickets_sold.to_s + " out of " + ticket.ticket_limit.to_s
+       ticketobj = {
+         "item" => ticket
+       }
+       @tickets_for_event.push(ticketobj)
+     end
+     @current_event_ticket = @tickets_for_event[0]['ticket_object']
 
-    @survey_question = SurveyQuestion.new
 
-    @tickets.each do |ticket|
-      tickets_sold = ticket.ticket_limit.to_i - LineItem.where(:ticket_id => ticket.id.to_s).count
-      ticket["description"] = tickets_sold.to_s + " out of " + ticket.ticket_limit.to_s
-      ticketobj = {
-        "item" => ticket
-      }
-      @tickets_for_event.push(ticketobj)
-    end
-    @current_event_ticket = @tickets_for_event[0]['ticket_object']
     @tickets_for_purchase = @event.tickets.where(:is_active => true)
 
     @total = 0
@@ -1176,28 +1213,25 @@ def show
     logger.debug "@coupons ==== #{@coupons}"
 
     @scid = ENV['STRIPE_CLIENT_ID']
-
     # @tickets.each do |ticket|
     #   Purchase.where(:event_id => @event.id).all.each do |purchase|
     #     @total += LineItem.where(:purchase_id => purchase.id).count
     #   end
 
     #   @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
-    # end
+    # end 
     # 
     @total_revenue = 0
     spots_left = 0
+    
     @tickets.each do |ticket|
       spots_left += ticket.ticket_limit
       #if !Purchase.where(:event_id => @event.id).nil?
         Purchase.where(:event_id => @event.id).all.each do |purchase|
           @total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order
-
           @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end
       #end
-      #
-      
 
       # if ticket.stop_date.to_date > @event.date_start.to_date
       #   @ticket_stop = ticket.stop_date.to_date > @event.date_start.to_date
@@ -1207,14 +1241,14 @@ def show
       @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
     end
 
-    registration_count_array = []
+      registration_count_array = []
       @data_stats = []
       (@event.created_at.to_date..@event.date_start.to_date).each do |date|
         ticket_count = Attendee.where(:event_id => @event.id, :created_at => date.midnight..date.end_of_day).count
         data = {'date' => date, 'registrations' => ticket_count}
         registration_count_array.push(ticket_count)
         @data_stats.push(data)
-        
+
       end
 
       guest_count = Attendee.where(:event_id => @event.id).count
@@ -1231,14 +1265,15 @@ def show
       # if the registration close date on those tickets are closed
       # if the event has already passed
       # draft
-      
+
       if spots_left-guest_count > 0
         @registration_open = true
       else
         @registration_open = false
       end
 
-      
+
+
 
     # if @ticket_quantity_left < 1
     #   if @ticket_stop
@@ -1247,9 +1282,8 @@ def show
     #     @event.html_hero_1['<span class="btn btn-reg open-registration"> Register now</span>'] = '<span class="btn btn-reg">Sold out</span>'
     #   end 
     # end
-    # 
 
-  
+    
 
     #<span class="btn btn-reg open-registration"> Register now</span>
 
@@ -1258,7 +1292,6 @@ def show
     @tickets.each_with_index do |ticket, index|
       if @current_ticket.nil? && ticket.is_active == true
         @current_ticket = ticket
-        logger.debug "TICKET ID #{@current_ticket.id}"
       end 
       if ticket.price.to_i > 0 
        
@@ -1272,26 +1305,28 @@ def show
 
 
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
-      @attendee_headers = ["First Name", "Last Name", "Email Address", "Registration Date", "Ticket Type"]
 
-      survey_headers = []
-      @survey_questions = SurveyQuestion.where(:event_id => @event.id).all
-      @survey_questions.each do |survey|
-        @attendee_headers.push(survey.question_text)
-      end
-
-      @attendees_list = {
-        "items" => [],
-        "event" => {
-          "event_id" => @event.id
-          } 
-      }             
-    
-      @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Total Order", "Affiliate Code"]
-
+       @attendee_headers = ["First Name", "Last Name", "Email Address", "Registration Date", "Ticket Type"]
+ 
+       survey_headers = []
+       @survey_questions = SurveyQuestion.where(:event_id => @event.id).all
+       @survey_questions.each do |survey|
+         @attendee_headers.push(survey.question_text)
+       end
+ 
+       @attendees_list = {
+         "items" => [],
+         "event" => {
+           "event_id" => @event.id
+           }
+       }
+ 
+       @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Total Order", "Affiliate Code"]
+ 
 
 
     @attendees = Attendee.where(:event_id => @event.id)
+
     @attendees.each_with_index do |attendee|
       @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
       @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
@@ -1309,7 +1344,7 @@ def show
         end
 
         @survey_answers = SurveyAnswer.where(:attendee_id => attendee.id).all
-      
+
 
         if @survey_answers.count > 0
           @survey_answers.each_with_index do |sanswer, index|
@@ -1323,8 +1358,6 @@ def show
 
     @current_survey_question = @survey_questions.first
 
-    #logger.debug "CURRENT SURVEY QUESTION:: #{@current_survey_question.question_text}"
-
 
     @ticket = Ticket.new
 
@@ -1333,10 +1366,10 @@ def show
     Purchase.where(:first_name => nil).destroy_all
     @buyers = Purchase.where(:event_id => @event.id)
     @buyers_list = {
-      "items" => [],   
+      "items" => [],
       "event" => {
           "event_id" => @event.id
-          } 
+          }
 
     }
 
@@ -1354,27 +1387,32 @@ def show
           "total_order" => buyer.total_order,
           "affiliate_code" => buyer.affiliate_code == 'null' ? 'n/a' : buyer.affiliate_code
         }
+         @buyers_list["items"].push(buyer_block)
 
-        @buyers_list["items"].push(buyer_block)
+   end
 
-    end
-     
+
     credit_card_percent = 0.029
     credit_card_cents_fee = 30
 
     @user = User.find(@event.user_id.to_i)
+
     @fee_rate = @user.npo == true ? 0.015 : 0.020
     logger.debug "#{@current_ticket.price}"
-    @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + 0.99) + (@current_ticket.price * @fee_rate)
+    @starter_price =  (@current_ticket.price == 0 || @current_ticket.price.nil?) ? 0 : (@current_ticket.price + (0.99)) + (@current_ticket.price * @fee_rate)
 
 
+    #@ticket = @event.tickets.build(ticket_params)
 
     if !@event
 
       render_404
     else 
 
+       #@event = Event.where('id' => 70)
+      #@event = Event.find(request.subdomain)
       if @event.published == false && !signed_in?
+          #&& current_user.id.to_i != @event.user_id.to_i
           redirect_to root_path
       else  
         @user = User.find(@event.user_id)
@@ -1493,7 +1531,9 @@ def show
             <div class="container">
                 <div class="header-content">
                   <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1472761845708-logo3.png"/>
+
                   <h1>' + @event.name + '</h1><p class="lead">Join us on ' + @event.date_start.to_date.strftime("%B %d ") + '<p>
+
                   <span class="btn btn-reg open-registration"> Register now</span>
                 </div> 
               </div>
@@ -1502,14 +1542,18 @@ def show
 
 
     @eventBodyHtml = '<div id="about">
+
         <div class="container about-container">
           <div class="row">
             <div class="col-md-12">
               <h3 class="subheader">/About </h3>
               <p>Tell the attendees about your event! Lorem ipsum dolor sit amet Nullam vel ultricies metus, at tincidunt arcu. Morbi vestibulum, ligula ut efficitur mollis, mi massa accumsan justo, accumsan auctor orci lectus ac ipsum. Proin porta nisl sem, ac suscipit lorem dignissim et. Curabitur euismod nec augue vitae dictum. Nam mattis, massa quis consequat molestie, erat justo vulputate tortor, a sollicitudin turpis felis eget risus. Aliquam viverra urna felis, eu ornare enim consectetur sed. Morbi vitae ultrices velit. Sed molestie consectetur metus. Proin neque eros, dapibus ac accumsansodales sit amet velit. </p>
             </div>
+
           </div>  
         </div>
+
+
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-4 col-sm-padding">
@@ -1524,9 +1568,14 @@ def show
           </div>  
         </div>
       </div>
+
+
       <div id="speakers" class="hidden">
+
         <div class="container about-container" data-repeatable="speakers">
         <h3 class="subheader"> /Speakers</h3>
+
+
         <div class="row repeatable" >
           <div class="col-md-5">
             <img src="https://s3-us-west-1.amazonaws.com/eventcreate-v1/uploads%2F1473455426859-portrait2.jpg" class="img-responsive">
@@ -1537,10 +1586,14 @@ def show
             <p>Sed faucibus bibendum efficitur. Aliquam quis imperdiet urna. Sed tincidunt elit quis dolor aliquam sodales. Fusce eu fermentum eros, sit amet porttitor erat. Suspendisse accumsan mollis purus id rhoncus. Vestibulum feugiat ligula ut orci rhoncus efficitur. Phasellus vitae justo eu nisl hendrerit dictum vitae quis sapien.</p>
           </div>
         </div>    
+
+
         </div>
       </div>
+
       <div id="program">
         <div class="container about-container" data-repeatable="program">
+
           <h3 class="subheader">/Schedule</h3>
           <div class="row repeatable ">
             <div class="col-md-12">
@@ -1556,8 +1609,10 @@ def show
               <p>Sed faucibus bibendum efficitur. Aliquam quis imperdiet urna. Sed tincidunt elit quis dolor aliquam sodales. </p>
             </div>
           </div>
+
         </div>
       </div>
+
       <div id="sponsors" class="hidden">
         <div class="container about-container">
           <h3 class="subheader">/Sponsors</h3>
@@ -1716,7 +1771,6 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      #logger.debug "EVENT PARAMS:::: #{event_params}"
       valid = params.require(:event).permit(:name, :event_time, :date_start, :date_end, :time_start, :time_end, :time_display,:layout_id, :layout_style, :background_img, :show_custom, :slug, :location, :location_name, :description, :published, :host_name, :bg_opacity, :bg_color, :font_type, :external_image, :status, :html_hero_1,:html_hero_button, :html_body_1, :html_footer_1, :html_footer_button, :currency_type, :confirmation_text)
 
 
@@ -1797,7 +1851,6 @@ def show
            redirect_to params.merge({host: 'checkout.' + ENV['SITE_URL'].to_s})
          end
       end
-
 
       def force_http
         if request.ssl? && Rails.env.production?
