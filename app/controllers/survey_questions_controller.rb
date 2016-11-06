@@ -22,6 +22,9 @@ class SurveyQuestionsController < ApplicationController
 
   def create
     @event = Event.find_by_slug(params[:slug])
+    survey_question_params["event_id"] = params["survey_question"]["event_id"].to_s 
+
+
     @survey_question = SurveyQuestion.new(survey_question_params)
     @survey_question.save
     redirect_to slugger_path(@event) + '?editing=true'

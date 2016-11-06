@@ -2,7 +2,8 @@ var QuestionForm = React.createClass({
     getInitialState: function() {
         return { 
             current_selection: this.props.current_selection,
-            event_slug: this.props.event_slug
+            event_slug: this.props.event_slug,
+            event_id: this.props.event_id
 
         }
     },
@@ -64,7 +65,7 @@ var QuestionForm = React.createClass({
                       "answer_text" : this.state.current_selection.answer_text, 
                       "field_type" : this.state.current_selection.field_type, 
                       "ticket_id" : this.state.current_selection.ticket_id, 
-                      "event_id" : this.state.current_selection.event_id,
+                      "event_id" : this.state.event_id,
                       "is_active" : this.state.current_selection.is_active,
                       "free_text_active" : this.state.current_selection.free_text_active,
                       "free_text" : this.state.current_selection.free_text
@@ -84,13 +85,14 @@ var QuestionForm = React.createClass({
     handleChange: function(e) {
         var name, obj;
         name = e.target.name;
-        ticketObj = this.state.current_selection;
-        ticketObj[name] = e.target.value;
-        this.setState({current_selection: ticketObj});
+        obj = this.state.current_selection;
+        obj[name] = e.target.value;
+        this.setState({current_selection: obj});
     },
 
 
     render: function() {
+        //alert(this.props.event_id)
         return (
                 <div>
                 <h1>{this.props.current_selection.title}</h1>
@@ -111,7 +113,7 @@ var QuestionForm = React.createClass({
 
                         <div className="input-group">
                             <label>Response required</label>
-                            <input name="response_required" type="checkbox" className="input-primary" value={this.state.current_selection.response_required} onChange={this.handleChange}  />
+                            <input name="response_required" type="checkbox" className="" value={this.state.current_selection.response_required} onChange={this.handleChange}  />
                         </div>
 
                         <div className="input-group">
@@ -129,19 +131,19 @@ var QuestionForm = React.createClass({
                             <input name="ticket_id" type="number" className="input-primary" value={this.state.current_selection.ticket_id} onChange={this.handleChange}  />
                         </div>
 
-                        <div className="input-group">
-                            <label>Free Text Active</label>
-                            <input name="free_text_active" type="checkbox" className="input-primary" value={this.state.current_selection.free_text_active} onChange={this.handleChange}  />
-                        </div>
+                        // <div className="input-group">
+                        //     <label>Free Text Active</label>
+                        //     <input name="free_text_active" type="checkbox" className="" value={this.state.current_selection.free_text_active} onChange={this.handleChange}  />
+                        // </div>
 
-                        <div className="input-group">
-                            <label>Free Text</label>
-                            <textarea name="free_text" className="input-primary" value={this.state.current_selection.free_text} onChange={this.handleChange} ></textarea>
-                        </div>
+                        // <div className="input-group">
+                        //     <label>Free Text</label>
+                        //     <textarea name="free_text" className="input-primary" value={this.state.current_selection.free_text} onChange={this.handleChange} ></textarea>
+                        // </div>
 
 
 
-                        <input type="hidden" name="survey_question[event_id]" value={this.state.current_selection.event_id} />
+                        <input type="hidden" name="survey_question[event_id]" value={this.state.event_id} />
 
 
 

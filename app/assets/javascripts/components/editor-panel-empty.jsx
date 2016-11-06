@@ -24,7 +24,7 @@ var EditorPanelEmpty = React.createClass({
             break;
             case 'question':
             
-            var itemObj = {"question_text": "new question item", "response_required": false, "description": "", "answer_text": "","field_type": null, "ticket_id": null,  "event_id": null, "is_active": false, "free_text_active": false, "free_text": ""};
+            var itemObj = {"question_text": "new question item", "response_required": false, "description": "Enter more details", "answer_text": "","field_type": null, "ticket_id": null,  "event_id": null, "is_active": false, "free_text_active": false, "free_text": ""};
              
             break;
             case 'ticket':
