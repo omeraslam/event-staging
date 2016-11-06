@@ -15,7 +15,6 @@ var EditorSection = React.createClass({
     },
     selectItem: function(item) {
 
-        alert('sucka' + item);
         this.setState({current_selection: item})
 
     },

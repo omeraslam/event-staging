@@ -141,7 +141,7 @@ var EditorDesign = React.createClass({
     render: function() {
         var imgUrl = (this.state.eventObj.background_img == undefined || this.state.eventObj.background_img.url == null)  ? '/assets/themes/default_bg.jpg' : this.state.eventObj.background_img.url;
         if(this.state.eventObj.external_image != '' &&  this.state.eventObj.external_image != null) {
-          alert('huh');
+       
             imgUrl = this.state.eventObj.external_image;
         }
 
