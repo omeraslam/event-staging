@@ -447,15 +447,15 @@ require 'rqrcode_png'
                     if @attendee.save
                       lineitem.attendee_id = @attendee.id
 
-                      surveyanswer = SurveyAnswer.new
-                      surveyanswer.answer_text = params[:surveyanswers][index+1]["answer_text"]
-                      surveyanswer.attendee_id = @attendee.id
-                      surveyanswer.event_id = @event.id
-                      surveyanswer.survey_question_id = params[:surveyanswers][index+1]["survey_id"]
+                      # surveyanswer = SurveyAnswer.new
+                      # surveyanswer.answer_text = params[:surveyanswers][index+1]["answer_text"]
+                      # surveyanswer.attendee_id = @attendee.id
+                      # surveyanswer.event_id = @event.id
+                      # surveyanswer.survey_question_id = params[:surveyanswers][index+1]["survey_id"]
                       
-                      if surveyanswer.save
-                      else
-                      end
+                      # if surveyanswer.save
+                      # else
+                      # end
 
 
 
