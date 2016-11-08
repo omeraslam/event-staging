@@ -139,6 +139,38 @@ class DashboardController < ApplicationController
     @buyers = Purchase.where(:event_id => @event.id)
 
     #User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
+    #
+ 
+       @attendees_list = {
+         "attendees" => [],
+         "event" => {
+           "event_id" => @event.id,
+           "name" => @event.name,
+           "date_start" => @event.date_start.to_date.strftime("%B %d, %Y")
+           }
+       }
+ 
+ 
+     @attendees.each do |attendee|
+       @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
+       @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
+       attendee_block = {
+           "id" => attendee.id,
+           "first_name" => attendee.first_name,
+           "last_name" => attendee.last_name,
+           "email" => attendee.email,
+           "created_at" => attendee.created_at.to_date.strftime("%B %d, %Y "),
+           "ticket_type" => @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"'
+         }
+ 
+         @attendees_list["attendees"].push(attendee_block)
+ 
+     end
+ 
+     logger.debug "#{@attendees_list}"
+ 
+ 
+
    
     respond_to do |format|
       format.html
@@ -150,7 +182,38 @@ class DashboardController < ApplicationController
 
   def print
 
+
+   @event = Event.find_by id: params[:event]
+
+     @attendees_list = {
+       "attendees" => [],
+       "event" => {
+         "event_id" => @event.id,
+         "name" => @event.name,
+         "date_start" => @event.date_start.to_date.strftime("%B %d, %Y")
+         }
+     }
+
     @attendees = Attendee.where(user_id:current_user.id.to_s, event_id:params[:event])
+
+    @attendees.each do |attendee|
+      @guest = LineItem.where(:id => attendee.line_item_id.to_i).first
+      @ticket = @guest.nil? ? nil : Ticket.find_by_id( @guest.ticket_id.to_i)
+      attendee_block = {
+          "id" => attendee.id,
+          "first_name" => attendee.first_name,
+          "last_name" => attendee.last_name,
+          "email" => attendee.email,
+          "created_at" => attendee.created_at.to_date.strftime("%B %d, %Y "),
+          "ticket_type" => @ticket.nil? ? 'n/a' : '"'+@ticket.title+'"'
+        }
+
+        @attendees_list["attendees"].push(attendee_block)
+
+    end
+
+    logger.debug "#{@attendees_list}"
+
     @event = Event.find_by id: params[:event]
 
     @buyers = Purchase.where(:event_id => @event.id)

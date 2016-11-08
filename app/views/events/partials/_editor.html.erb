@@ -56,67 +56,6 @@
 
 $( document ).ready(function() {
 
-
-// <<<<<<< HEAD
-// =======
-  //contruct the layout select
-//   $(".test-show-layout").each(function() {
-
-//     var target = $(this).data("target");
-        
-//     if ($(target).hasClass("hidden")) { 
-      
-//       $(this).addClass("inactive");
-
-//     } else {
-      
-//       //$(this).addClass("inactive");
-
-//     }
-//   });
-
-
-  
-
-//   //click handler for layout select
-//   $(".test-show-layout").on( "click", function() {
-    
-//     var target = $(this).data("target");
-    
-//     if ($(target).hasClass("hidden")) { 
-      
-//       $(target).removeClass("hidden");
-//       $(this).removeClass("inactive");
-//       $('html, body').animate({
-//         scrollTop: $(target).offset().top - 50
-//       }, 200);
-
-
-//       htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
-//       htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
-//       htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
-
-//       saveChanges();
-
-//     } else {
-      
-//       $(target).addClass("hidden");
-//       $(this).addClass("inactive");
-
-//       htmlHeroOne = $("#htmlHeroOne").froalaEditor('html.get');
-//       htmlBodyOne = $("#htmlBodyOne").froalaEditor('html.get');
-//       htmlFooterOne = $("#htmlFooterOne").froalaEditor('html.get');
-
-//       saveChanges();
-
-//     }
-  
-//   });
-
-// >>>>>>> master
-
-  
-
   $(".repeatable").append("<div contenteditable='false' class='repeatable-actions'><div class='repeatable-action repeatable-plus'><i class='fa fa-plus'></i></div><div class='repeatable-action repeatable-delete'><i class='fa fa-trash'></i></div></div>");
 
 
@@ -142,10 +81,7 @@ $( document ).ready(function() {
         target.fadeOut(200, function() { $(target).remove(); });
       } else {
         alert("Ooops, you can't delete this one. If you'd like to hide this section, please change the section visbility under the design tab.")
-      }
-
-
-  
+      }  
   });
 
 
@@ -195,101 +131,9 @@ $( document ).ready(function() {
     $("#ticket-advanced-settings").slideToggle();
   });
 
-
-
-
-// <<<<<<< HEAD
-// =======
-
-
-//   $.validator.addMethod("loginRegex", function(value, element) {
-//         return /^[a-zA-Z0-9-]+$/i.test(value);
-//     }, "Event must contain only letters, numbers, or dashes.");
-
-//   var validator3 = $("#edit-event").validate({
-//     rules: {
-//       "event[name]": {
-//         required: true
-//       },
-//       "event[date_start]": {
-//         required: true
-//       },
-//       "event[location]": {
-//         required: true
-//       },
-//       "event[slug]": {
-//         required: true,
-//         loginRegex: true
-//       }
-
-
-//     },
-//     messages: {
-//       "event[name]": 'Please enter an event name',
-//       "event[date_start]": 'Please enter an event date',
-//       "event[location]": 'Please enter an event location',
-//       "event[slug]": 'Please enter an event url'
-//     }
-//   });
-
-
-
-
-
-
-//   //INTRO - slide in the editor tabs
-//   setTimeout(function(){  
-//     $('.tabs').addClass("visible");
-//   }, 500);
-
-
-
-
-
-
-
-
-
-
-
-//   //EDITOR - set size of panel
-//   $('.editor-tools').css("height",$(window).height());
-//   $( window ).resize(function() {
-//     $('.editor-tools').css("height",$(window).height());
-//   });
-
-//   //EDITOR -  editor panel interaction behaviors
-//   $('.toggleEditorPanel').click(function() {
-
-//     var active = $(this).hasClass('active');
-//     var target = $(this).data('target');
-//     $('.toggleEditorPanel.active').removeClass("active");
-//     if (!active) {
-//       $(".editor-tool").hide();
-//       $(".editor-tool#" + target).show();
-//       $(this).addClass("active");
-//       $(".editor-container").addClass("visible");
-//     } else {
-//       $(this).removeClass("active");
-//       $(".editor-container").removeClass("visible");
-//     }
-//   });
-
-//   $('#editor-panel-close').click(function() {
-//     $(".toggleEditorPanel.active").removeClass("active");
-//     $(".editor-container").removeClass("visible");
-//    });
-
-
-
-
-
-// >>>>>>> master
   //EDITOR - set values
   var published = $('#published').val()? $('#published').val(): "false"; 
   var currentFont = $('#font_type_id').val()? $('#font_type_id').val(): "brandon"; 
-  // var currentBgOpacity = $('#bg_opacity').val()? $('#bg_opacity').val(): ".5"; 
-  // var currentBgColor = $('#bg_color').val()? $('#bg_color').val(): "#222"; 
   var currentBg = $('#external_image').val(); 
   var currentBgLoaded = $('#bg').val()? $('#bg').val(): ''; 
   var currentShowCustom = $('#show_custom').val(); 
@@ -319,6 +163,12 @@ $( document ).ready(function() {
   //   e.preventDefault;
   // });
 
+
+  window.onbeforeunload = function(e) {
+    if(changesExist) {
+      return 'You have unsaved pages. Please wait until we have finished saving your event';
+    }
+  };
 
   //IMAGES - search unsplash
   var imageModal = $('#image-search-modal').remodal();
@@ -427,56 +277,6 @@ $( document ).ready(function() {
 
 
 
-  //backgroud opacity slider
-// <<<<<<< HEAD
-    // $(function() {
-    //   $( "#slider" ).slider({
-    //     value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
-    //     slide: function( event, ui ) { 
-
-    //       var percentage = ui.value/100;
-    //       $(".event-page .overlay").css("opacity", percentage);
-    //       requestEdit({bgOpacity:percentage});
-    //     }
-    //   });
-    // });
-
-
-  // //background color picker
-  //   $('input#color').minicolors({ 
-  //     position: 'top left', 
-  //     defaultValue: currentBgColor,
-  //     change: function(value, opacity) {
-  //         $(".event-page .overlay").css("background-color", value);
-  //         requestEdit({bgColor:value});
-
-  //     }
-  //  });
-// =======
-//     $(function() {
-//       $( "#slider" ).slider({
-//         value: (currentBgOpacity != undefined) ? currentBgOpacity*100 : 0,
-//         slide: function( event, ui ) { 
-
-//           var percentage = ui.value/100;
-//           $(".event-page .overlay").css("opacity", percentage);
-//           requestEdit({bgOpacity:percentage});
-//         }
-//       });
-//     });
-
-
-//   //background color picker
-//     $('input#color').minicolors({ 
-//       position: 'top right', 
-//       defaultValue: currentBgColor,
-//       change: function(value, opacity) {
-//           $(".event-page .overlay").css("background-color", value);
-//           requestEdit({bgColor:value});
-
-//       }
-//    });
-// >>>>>>> master
 
   //change font
   $('.font').click(function() {
@@ -651,11 +451,8 @@ $(function() {
 
 
   //warning before leave page
-  window.onbeforeunload = function(e) {
-    if(changesExist) {
-      return 'You have unsaved pages. Please wait until we have finished saving your event';
-    }
-  };
+  
+
 
   
   var $form = $('#background_form');

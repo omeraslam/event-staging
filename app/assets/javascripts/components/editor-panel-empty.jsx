@@ -11,7 +11,6 @@ var EditorPanelEmpty = React.createClass({
     },
 
     selectItem: function(item) {
-        alert('select item: ' + item);
         //this.setState({currentItem: item.id});
         this.props.handleSelectItem(item);
     },

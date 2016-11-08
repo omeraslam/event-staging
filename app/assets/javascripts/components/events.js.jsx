@@ -13,7 +13,6 @@ var Events = React.createClass({
     },
 
     render: function() {
-        alert(this.state.events );
         if(this.state.events == '') {
             var eventList = <div className="empty"><h2>Well, this is uneventful; you don't have any events yet. Get on that! </h2><a className="btn btn-obvious" href="/create"><i className="icon icon-plus"></i> create new event</a> </div>;
         } else {
