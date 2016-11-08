@@ -47,7 +47,7 @@ var EditorSideNav = React.createClass({
     },
     render: function() {
 
-      if(this.state.tickets_on == true || this.props.advance_tickets == true) {
+      if(this.state.tickets_on == true) {
         
         var divStyle = {display: 'block'}  ;
       } else {
