@@ -92,6 +92,9 @@ var EditorSideNav = React.createClass({
                    <div className="editor-tab-notification editor-tab-notification-error"></div>
                    </a>
                   
+                    <a className="event-nav-link toggleEditorPanel" id="editor-tool-questions" data-target="editor-tool-questions"  >
+                        <i className="icon icon-questions"> </i> <span> Questions</span>
+                    </a> 
 
                     <a className="event-nav-link toggleEditorPanel" id="editor-tool-coupons" data-target="editor-tool-coupons" >
                         <i className="fa fa-fw fa-tag"> </i> <span> Coupons</span>

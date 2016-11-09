@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014010151) do
+ActiveRecord::Schema.define(version: 20161109111805) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20161014010151) do
     t.string   "ticket_id"
     t.string   "attendee_id"
     t.string   "purchase_id"
-    t.boolean  "redeemed",    default: false
+    t.boolean  "redeemed",    default: true
   end
 
   create_table "purchases", force: true do |t|
@@ -159,6 +159,31 @@ ActiveRecord::Schema.define(version: 20161014010151) do
 
   add_index "reservation", ["attendee_id"], name: "index_reservation_on_attendee_id"
   add_index "reservation", ["event_id"], name: "index_reservation_on_event_id"
+
+  create_table "survey_answers", force: true do |t|
+    t.string   "answer_text"
+    t.integer  "attendee_id"
+    t.integer  "survey_question_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "survey_questions", force: true do |t|
+    t.text     "question_text"
+    t.boolean  "response_required"
+    t.text     "description"
+    t.text     "answer_text"
+    t.integer  "field_type"
+    t.integer  "ticket_id"
+    t.integer  "event_id"
+    t.boolean  "is_active"
+    t.boolean  "free_text_active"
+    t.text     "free_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "apply_to_buyer",    default: false
+  end
 
   create_table "themes", force: true do |t|
     t.string   "name"

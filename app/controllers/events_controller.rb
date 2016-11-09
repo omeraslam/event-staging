@@ -545,7 +545,8 @@ def show_buy
 
     num_of_paid_tickets = 0
 
-    @survey_questions = @event.survey_questions.all
+    @survey_questions = @event.survey_questions.where(:is_active => true).all
+    logger.debug "SURVEY QUESTIONS COUNT::: #{@survey_questions.count}"
  
     @event.tickets.all.each do |ticket|
 
@@ -1201,6 +1202,8 @@ def show
        }
        @tickets_for_event.push(ticketobj)
      end
+
+     logger.debug "TICKET COUNT IS: #{@tickets_for_event.count}"
      @current_event_ticket = @tickets_for_event[0]['ticket_object']
 
 

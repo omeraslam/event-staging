@@ -54,7 +54,7 @@ var Editor = React.createClass({
                     <EditorOrders items={this.props.order_items} headers={this.props.order_headers} />
                     <EditorTicketing items={this.props.ticket_items} current_selection={this.props.current_ticket} event_slug={this.props.event_slug} event_id={this.props.event.id} advance_tickets={this.props.advance_tickets}  /> 
                     <EditorCoupons items={this.props.coupon_items} current_selection={this.props.current_coupon} event_slug={this.props.event_slug} event_id={this.props.event.id}/>
-                    <EditorQuestions items={this.props.question_items} current_selection={this.props.current_question} event_slug={this.props.event_slug} event_id={this.props.event.id} /> 
+                    <EditorQuestions items={this.props.question_items} ticket_types={this.props.ticket_items} current_selection={this.props.current_question} event_slug={this.props.event_slug} event_id={this.props.event.id} /> 
                 </div>
             </div>
 

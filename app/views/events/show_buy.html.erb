@@ -99,6 +99,21 @@
                                     <label> Last Name </label>
                                     <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
                                 </div>
+                                <% @survey_questions.each do |survey_question| %>
+                                <div class="input-group">
+                                  <label><%= survey_question.question_text %></label>
+                                  <% if survey_question.field_type == 1 %>
+
+                                      <textarea name="" placeholder="Enter your response" /></textarea>
+
+                                  <% else %>  
+                                  <input name="" placeholder="Enter your response" />
+
+
+                                  <% end %>
+                                </div>
+                                <% end %>
+
                             </div>
 
                           </div>  
@@ -123,6 +138,14 @@
                                       <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
                                   </div>
                               </div>
+
+                              <!-- SURVEY QUESTIONS -->
+
+                              <% @survey_questions.each do |survey_question| %>
+                                <div class="input-group">
+                                  <label><%= survey_question.question_text %></label>
+                                </div>
+                              <% end %>
 
                               </div>  
                           </div>

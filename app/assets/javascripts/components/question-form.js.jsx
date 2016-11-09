@@ -3,7 +3,8 @@ var QuestionForm = React.createClass({
         return { 
             current_selection: this.props.current_selection,
             event_slug: this.props.event_slug,
-            event_id: this.props.event_id
+            event_id: this.props.event_id,
+            ticket_types: this.props.ticket_types
 
         }
     },
@@ -61,6 +62,7 @@ var QuestionForm = React.createClass({
             data: {"survey_question" : {
                      "question_text" : this.state.current_selection.question_text, 
                       "response_required" : this.state.current_selection.response_required, 
+                      "apply_to_buyer" : this.state.current_selection.apply_to_buyer,
                       "description" : this.state.current_selection.description, 
                       "answer_text" : this.state.current_selection.answer_text, 
                       "field_type" : this.state.current_selection.field_type, 
@@ -111,10 +113,6 @@ var QuestionForm = React.createClass({
                             <input name="question_text" type="text" className="input-primary" value={this.state.current_selection.question_text} onChange={this.handleChange}  />
                         </div>
 
-                        <div className="input-group">
-                            <label>Response required</label>
-                            <input name="response_required" type="checkbox" className="" value={this.state.current_selection.response_required} onChange={this.handleChange}  />
-                        </div>
 
                         <div className="input-group">
                             <label>Description</label>
@@ -123,24 +121,24 @@ var QuestionForm = React.createClass({
 
                         <div className="input-group">
                             <label>Field Type</label>
-                            <input name="field_type" type="number" className="input-primary" value={this.state.current_selection.field_type} onChange={this.handleChange}  />
+
+                              <select name="field_type"  value={this.state.current_selection.field_type} onChange={this.handleChange} >
+                                <option value="1">Text Area</option>
+                                <option value="2">Input Type</option>
+                                <option value="3">Checkbox</option>
+                                <option value="4">Radio Box</option>
+                              </select>
+
                         </div>
 
                         <div className="input-group">
-                            <label>Ticket Type</label>
-                            <input name="ticket_id" type="number" className="input-primary" value={this.state.current_selection.ticket_id} onChange={this.handleChange}  />
+                        <label>Apply question to:</label>
+
+                        <label><input type="checkbox" name="apply_to_buyer" className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Buyer</label>
+                        {this.state.ticket_types.map(function(item, index){
+                             return !item.item.is_active ? '' : <label><input type="checkbox" className="input-primary" value={item.item.title} onChange={this.handleChange}  />{item.item.title}</label>
+                         }.bind(this))} 
                         </div>
-
-                        // <div className="input-group">
-                        //     <label>Free Text Active</label>
-                        //     <input name="free_text_active" type="checkbox" className="" value={this.state.current_selection.free_text_active} onChange={this.handleChange}  />
-                        // </div>
-
-                        // <div className="input-group">
-                        //     <label>Free Text</label>
-                        //     <textarea name="free_text" className="input-primary" value={this.state.current_selection.free_text} onChange={this.handleChange} ></textarea>
-                        // </div>
-
 
 
                         <input type="hidden" name="survey_question[event_id]" value={this.state.event_id} />
