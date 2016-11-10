@@ -331,19 +331,20 @@ require 'rqrcode_png'
 
                    if @attendee.save
                       lineitem.attendee_id = @attendee.id
-                      
-                       # surveyanswer = SurveyAnswer.new
-                       # logger.debug "INDEX:::: #{(index+1)}"
-                       # logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
-                       # surveyanswer.answer_text = params[:surveyanswers][(index+1).to_s]["answer_text"]
+                       
+                        
+                       surveyanswer = SurveyAnswer.new
+                       logger.debug "INDEX:::: #{(index+1)}"
+                       logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
+                       surveyanswer.answer_text = params[:surveyanswers][(index+1).to_s]["answer_text"]
  
-                       # surveyanswer.attendee_id = @attendee.id
-                       # surveyanswer.event_id = @event.id
-                       # surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
+                       surveyanswer.attendee_id = @attendee.id
+                       surveyanswer.event_id = @event.id
+                       surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
  
-                       # if surveyanswer.save
-                       # else
-                       # end
+                       if surveyanswer.save
+                       else
+                       end
 
                        if lineitem.save
                        # save attendee id to lineitem
@@ -585,21 +586,6 @@ def show_buy
 
 
 
-
-##########
-#
-#
-
-
-
-
-
- 
-
-
-#
-#
-##########
 
 
 

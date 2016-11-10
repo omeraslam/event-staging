@@ -99,18 +99,19 @@
                                     <label> Last Name </label>
                                     <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
                                 </div>
-                                <% @survey_questions.each do |survey_question| %>
+                                <% @survey_questions.each_with_index do |survey_question,index| %>
                                 <div class="input-group">
                                   <label><%= survey_question.question_text %></label>
                                   <% if survey_question.field_type == 1 %>
 
-                                      <textarea name="" placeholder="Enter your response" /></textarea>
+                                      <textarea name="surveyanswers[<%=index+1%>][answer_text]" placeholder="Enter your response" /></textarea>
 
                                   <% else %>  
-                                  <input name="" placeholder="Enter your response" />
+                                  <input name="surveyanswers[<%=index+1%>][answer_text]" placeholder="Enter your response" />
 
-
+                                      
                                   <% end %>
+                                  <%= hidden_field_tag "surveyanswers["+ (index+1).to_s+"][survey_id]", survey_question.id  %>
                                 </div>
                                 <% end %>
 
