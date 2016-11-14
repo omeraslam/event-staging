@@ -55,35 +55,39 @@
                               
                                       <div class="input-group">
                                         <label><%= buyer_question.question_text %></label>
-                                        <% if buyer_question.field_type == 1 %>
+                                          <% if buyer_question.field_type == 1 %>
 
-                                            <textarea name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" placeholder="Enter your response" /></textarea>
+                                              <textarea name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" placeholder="Enter your response" /></textarea>
 
-                                        <% elsif buyer_question.field_type == 2  %>  
-                                        <input name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" placeholder="Enter your response" />
+                                          <% elsif buyer_question.field_type == 2  %>  
+                                          <input name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" placeholder="Enter your response" />
 
-                                            
-                                        <% elsif buyer_question.field_type == 3 %>
-   
+                                              
+                                          <% elsif buyer_question.field_type == 3 %>
+                                              <% buyer_question.answer_text.split(',').each_with_index do |answer, bindex| %>
+                                                      
+                                                      <input type="checkbox" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][<%= bindex %>][answer_text]" value="<%= answer %>" ><%= answer %><br>
+                                              <% end %>
+                                                
+                               
+
+                                          <% else %>
 
 
-                                        <input type="checkbox" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="true"> True<br>
-                                        <input type="checkbox" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="false" checked> False<br>
+                                            <% buyer_question.answer_text.split(',').each do |answer| %>
+                                                      
+                                                        <input type="radio" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" value="<%= answer %>"> <%= answer %>
 
-                                        <% else %>
+                                                   <br>
+                                              <% end %>
 
-
-                                        <input type="radio" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="true"> True
-                                        <input type="radio" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="false" checked> False
-
-                                        <% end %>
+                                          <% end %>
                                         <%= hidden_field_tag "buyeranswer[survey_id]", buyer_question.id  %>
                                       </div>
 
 
                             <% end %>
-                        </div>
-                    </div>      
+                  
                 </section>
 
 
@@ -164,23 +168,31 @@
 
                                             
                                         <% elsif survey_question.field_type == 3 %>
-      <!-- 
-                                        <input name="surveyanswers[<%= survey_question.id %>][answer_text]" placeholder="Enter your response" /> -->
+                                              <% survey_question.answer_text.split(',').each_with_index do |answer,bindex| %>
+                                                      
+                                                  <input type="checkbox" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][<%= bindex %>][answer_text]" value="<%= answer %>"> <%= answer %><br>
+                                              <% end %>
 
 
-                                        <input type="checkbox" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="true"> True<br>
-                                        <input type="checkbox" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="false" checked> False<br>
-
+                                  
                                         <% else %>
 
 
-                                        <input type="radio" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="true"> True
-                                        <input type="radio" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="false" checked> False
+
+
+
+
+                                             <% survey_question.answer_text.split(',').each do |answer| %>
+                                                      
+                                                   <input type="radio" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="<%= answer %>"> <%= answer %><br>
+                                              <% end %>
+
 
                                         <% end %>
-                                        <%= hidden_field_tag "surveyanswers["+ (index+1).to_s+"][survey_id]", survey_question.id  %>
                                       </div>
+                                         <%= hidden_field_tag "surveyanswers["+ (index+1).to_s+"][survey_id]", survey_question.id  %>
                                   <% end %>
+                                 
                                 <% end %>
 
 

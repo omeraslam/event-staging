@@ -16,7 +16,6 @@ var EditorPanelEmpty = React.createClass({
     },
 
     addNavItem: function() {
-        alert(this.props.category);
         switch(this.props.category) {
             case 'coupon':
             var itemObj = {"promo_code": "new coupon item", "discount": "0", "is_fixed": false, "is_active": false};

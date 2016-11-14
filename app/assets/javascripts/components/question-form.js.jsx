@@ -130,6 +130,13 @@ var QuestionForm = React.createClass({
 
     render: function() {
         //alert(this.props.event_id)
+        if(this.state.current_selection.field_type < 3) {
+
+        var divStyle= {display: 'none'}
+        } else {
+
+        var divStyle= {display: 'block'}
+        }
         return (
                 <div>
                 <h1>{this.props.current_selection.title}</h1>
@@ -166,12 +173,19 @@ var QuestionForm = React.createClass({
 
                         </div>
 
+                        <div className="input-group" style={divStyle}>
+                            <label>Choice responses (separated by comma)</label>
+
+                            <textarea name="answer_text" type="text" className="input-primary" value={this.state.current_selection.answer_text} onChange={this.handleChange} ></textarea>
+
+                        </div>
+
                         <div className="input-group">
                         <label>Apply question to:</label>
 
                         <label><input type="checkbox"  name="apply_to_buyer" checked={this.state.current_selection.apply_to_buyer} className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Buyer</label>
                         {this.state.ticket_types.map(function(item, index){
-                           var test = this.state.current_selection.ticket_id.indexOf(item.item.id.toString()) > -1;
+                           var test = this.state.current_selection.ticket_id == null ? false : this.state.current_selection.ticket_id.indexOf(item.item.id.toString()) > -1;
                              return !item.item.is_active ? '' : <label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.item.id} onChange={this.handleChange}  />{item.item.title}</label>
                          }.bind(this))} 
                         </div>
