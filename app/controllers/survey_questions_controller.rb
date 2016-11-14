@@ -31,8 +31,17 @@ class SurveyQuestionsController < ApplicationController
   end
 
   def update
+    @event = Event.find(@survey_question.event_id)
+
+
     @survey_question.update(survey_question_params)
-    respond_with(@survey_question)
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Survey Question was successfully created.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
+
+    #respond_with(@survey_question)
   end
 
   def destroy
@@ -46,6 +55,6 @@ class SurveyQuestionsController < ApplicationController
     end
 
     def survey_question_params
-      params.require(:survey_question).permit(:question_text, :response_required, :description, :answer_text, :field_type, :ticket_id, :event_id, :is_active, :free_text_active, :free_text)
+      params.require(:survey_question).permit(:question_text, :response_required, :description, :answer_text, :field_type, :ticket_id, :event_id, :is_active, :free_text_active, :free_text, :apply_to_buyer)
     end
 end

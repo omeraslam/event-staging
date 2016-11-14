@@ -82,45 +82,6 @@
 
                     <% tick_num = 1 %>
 
-                    <% if @buyer_only == true %>
-                      <% @purchaser = @line_items.first %>
-
-                      <% @ticket = Ticket.where(:id => @purchaser.ticket_id.to_i).first %> 
-
-                        <div class="ticket-holder">
-                          <div class="ticket-buyer-form">
-                            <div class="input-group"> 
-                                <div class="input-group-inline">
-                                    <label> First Name </label>
-                                    <input type="text" name="attendees[<%= tick_num %>][first_name]" placeholder="First Name" /> 
-                                </div>
-
-                                <div class="input-group-inline">
-                                    <label> Last Name </label>
-                                    <input type="text" name="attendees[<%= tick_num %>][last_name]" placeholder="Last Name"  /> 
-                                </div>
-                                <% @survey_questions.each_with_index do |survey_question,index| %>
-                                <div class="input-group">
-                                  <label><%= survey_question.question_text %></label>
-                                  <% if survey_question.field_type == 1 %>
-
-                                      <textarea name="surveyanswers[<%=index+1%>][answer_text]" placeholder="Enter your response" /></textarea>
-
-                                  <% else %>  
-                                  <input name="surveyanswers[<%=index+1%>][answer_text]" placeholder="Enter your response" />
-
-                                      
-                                  <% end %>
-                                  <%= hidden_field_tag "surveyanswers["+ (index+1).to_s+"][survey_id]", survey_question.id  %>
-                                </div>
-                                <% end %>
-
-                            </div>
-
-                          </div>  
-                        </div>
-                      <%= hidden_field_tag "attendees["+ (tick_num.to_s)+"][line_id]", @purchaser.id  %>
-                    <% else %>
                       <% @line_items.each do |line_item| %>
                             
                           <div class="ticket-holder">
@@ -142,11 +103,47 @@
 
                               <!-- SURVEY QUESTIONS -->
 
-                              <% @survey_questions.each do |survey_question| %>
+
+                                 <% @survey_questions.each_with_index do |survey_question,index| %>
+                              
+                                 <% if !survey_question.ticket_id.index(line_item.ticket_id.to_s).nil? %>
+                                
+                                      <div class="input-group">
+                                        <label><%= survey_question.question_text %></label>
+                                        <% if survey_question.field_type == 1 %>
+
+                                            <textarea name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" placeholder="Enter your response" /></textarea>
+
+                                        <% elsif survey_question.field_type == 2  %>  
+                                        <input name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" placeholder="Enter your response" />
+
+                                            
+                                        <% elsif survey_question.field_type == 3 %>
+      <!-- 
+                                        <input name="surveyanswers[<%= survey_question.id %>][answer_text]" placeholder="Enter your response" /> -->
+
+
+                                        <input type="checkbox" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="true"> True<br>
+                                        <input type="checkbox" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="false" checked> False<br>
+
+                                        <% else %>
+
+
+                                        <input type="radio" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="true"> True
+                                        <input type="radio" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="false" checked> False
+
+                                        <% end %>
+                                        <%= hidden_field_tag "surveyanswers["+ (index+1).to_s+"][survey_id]", survey_question.id  %>
+                                      </div>
+                                  <% end %>
+                                <% end %>
+
+
+                        <!--       <% @survey_questions.each do |survey_question| %>
                                 <div class="input-group">
                                   <label><%= survey_question.question_text %></label>
                                 </div>
-                              <% end %>
+                              <% end %> -->
 
                               </div>  
                           </div>
@@ -156,7 +153,6 @@
                         
 
                       <% end %>
-                    <% end %>
 
                 </section>
 
@@ -174,9 +170,6 @@
             <% end %>
         </div>
         <!-- END left column -->
-
-
-
 
 
         <!-- START right column -->

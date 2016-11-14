@@ -33,8 +33,6 @@
             <th width="300px"  style="border: 1px solid black;padding: 10px; margin: 0;">Email Address</th>
             <th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Guest Count</th>
 
-            <th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Ticket Type</th>
-
             <th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Total Order</th>
 
             <th width="100px"  style="border: 1px solid black;padding: 10px; margin: 0;">Affiliate Code</th>
@@ -55,7 +53,6 @@
                 
                  <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @guest = LineItem.where(:purchase_id => attendee.id.to_s).first %> <%= @guest.nil? ? 0 : @guest.quantity - 1 %></td>
 
-                        <td style="border: 1px solid black;padding: 10px; margin: 0;"><% @ticket = Ticket.find_by_id( @guest.ticket_id.to_i)%><%= @ticket.nil? ? 'N/A' : '"'+@ticket.title+'"' %> </td>
                         <td style="border: 1px solid black;padding: 10px; margin: 0;">          
                             <% total_order = 0 %>
                     <% LineItem.where(:purchase_id => attendee.id.to_s).all.each do |lineitem| %>

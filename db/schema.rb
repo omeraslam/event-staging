@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109111805) do
+ActiveRecord::Schema.define(version: 20161114042639) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 20161109111805) do
     t.text     "description"
     t.text     "answer_text"
     t.integer  "field_type"
-    t.integer  "ticket_id"
+    t.string   "ticket_id"
     t.integer  "event_id"
     t.boolean  "is_active"
     t.boolean  "free_text_active"

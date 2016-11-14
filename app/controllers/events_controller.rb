@@ -168,6 +168,9 @@ require 'rqrcode_png'
     num_of_paid_tickets = 0
 
 
+    @survey_questions = @event.survey_questions.where(:is_active => true).all
+
+    logger.debug "SURVEY QUESTION:::: #{@event.survey_questions.count}"
     
     @event.tickets.all.each do |ticket|
 
@@ -297,15 +300,15 @@ require 'rqrcode_png'
                    # create new attendee
                    position = index+1
                   logger.debug "BUYER ONLY::: #{@buyer_only != true}"
-                   if @buyer_only != true 
+                   #if @buyer_only != true 
                      first_name = params[:attendees][(index+1).to_s]["first_name"]
                      last_name = params[:attendees][(index+1).to_s]["last_name"]
                      email = params[:purchase]["email"]
-                   else
-                     first_name = params[:attendees][(1).to_s]["first_name"]
-                     last_name = params[:attendees][(1).to_s]["last_name"]
-                     email = params[:purchase]["email"]
-                   end
+                   # else
+                   #   first_name = params[:attendees][(1).to_s]["first_name"]
+                   #   last_name = params[:attendees][(1).to_s]["last_name"]
+                   #   email = params[:purchase]["email"]
+                   # end
 
                    if index == 0
                     @purchase.first_name = first_name
@@ -332,19 +335,21 @@ require 'rqrcode_png'
                    if @attendee.save
                       lineitem.attendee_id = @attendee.id
                        
-                        
-                       surveyanswer = SurveyAnswer.new
-                       logger.debug "INDEX:::: #{(index+1)}"
-                       logger.debug "SURVEY ANSWERS::: #{params[:surveyanswers][(index+1).to_s]['survey_id']}"
-                       surveyanswer.answer_text = params[:surveyanswers][(index+1).to_s]["answer_text"]
- 
-                       surveyanswer.attendee_id = @attendee.id
-                       surveyanswer.event_id = @event.id
-                       surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
- 
-                       if surveyanswer.save
-                       else
-                       end
+                      logger.debug "SURVEY QUESTION COUNT :::: #{@event.survey_questions.count}"
+                     @survey_questions.each_with_index do |survey_question, index|
+                       logger.debug "LINE_ITEM ID :::: #{params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s].nil?}"
+                      
+                         surveyanswer = SurveyAnswer.new
+                        surveyanswer.answer_text = params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s].nil? ? 'n/a' : params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s]["answer_text"]
+   
+                         surveyanswer.attendee_id = @attendee.id
+                         surveyanswer.event_id = @event.id
+                         surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
+   
+                         if surveyanswer.save
+                         else
+                         end
+                      end
 
                        if lineitem.save
                        # save attendee id to lineitem

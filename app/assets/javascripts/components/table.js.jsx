@@ -10,17 +10,74 @@ var TableElement = React.createClass({
     componentDidMount: function() {
         var $table = $(".table-attendees").tablesorter({
           // Sort on the second column, in ascending order
-          sortList: [[1,0]],
-           widgets: [ "filter"],
-               widgetOptions : {
+            theme: 'blue',
+            sortList: [[1,0]],
+           widgets: [ "filter", "columnSelector"], 
+          
+        
+
+
+
+            widgetOptions : {
             // use the filter_external option OR use bindSearch function (below)
             // to bind external filters.
             filter_external : '.table-search-attendees',
             filter_columnFilters: false,
-            filter_saveFilters : true    
+            filter_saveFilters : true,
+          
+              // target the column selector markup
+              columnSelector_container : $('#columnSelector'),
+              // column status, true = display, false = hide
+              // disable = do not display on list
+              columnSelector_columns : {
+                0: 'disable' /* set to disabled; not allowed to unselect it */
+              },
+              // remember selected columns (requires $.tablesorter.storage)
+              columnSelector_saveColumns: true,
+
+              // container layout
+              columnSelector_layout : '<label><input type="checkbox">{name}</label>',
+              // data attribute containing column name to use in the selector container
+              columnSelector_name  : 'data-selector-name',
+
+              /* Responsive Media Query settings */
+              // enable/disable mediaquery breakpoints
+              columnSelector_mediaquery: true,
+              // toggle checkbox name
+              columnSelector_mediaqueryName: 'Auto: ',
+              // breakpoints checkbox initial setting
+              columnSelector_mediaqueryState: true,
+              // hide columnSelector false columns while in auto mode
+              columnSelector_mediaqueryHidden: true,
+
+              // set the maximum and/or minimum number of visible columns; use null to disable
+              columnSelector_maxVisible: null,
+              columnSelector_minVisible: null,
+              // responsive table hides columns with priority 1-6 at these breakpoints
+              // see http://view.jquerymobile.com/1.3.2/dist/demos/widgets/table-column-toggle/#Applyingapresetbreakpoint
+              // *** set to false to disable ***
+              columnSelector_breakpoints : [ '20em', '30em', '40em', '50em', '60em', '70em' ],
+              // data attribute containing column priority
+              // duplicates how jQuery mobile uses priorities:
+              // http://view.jquerymobile.com/1.3.2/dist/demos/widgets/table-column-toggle/
+              columnSelector_priority : 'data-priority',
+
+              // class name added to checked checkboxes - this fixes an issue with Chrome not updating FontAwesome
+              // applied icons; use this class name (input.checked) instead of input:checked
+              columnSelector_cssChecked : 'checked'
+            
+
+
+
+
+    
         }
 
         });
+
+      
+
+
 
     },
     _buildPrintLinkHref: function(e) {
@@ -41,6 +98,11 @@ var TableElement = React.createClass({
         } else {
              var printLinks =   '';
         }
+        var columnSort = ''
+        if ( this.props.category == 'attendees') {
+           // columnSort = <div className="columnSelectorWrapper vertical"><input id="colSelect1" type="checkbox" className="hidden" /><label className="columnSelectorButton" htmlFor="colSelect1">Column</label><div id="columnSelector" className="columnSelector"></div></div>
+        }
+
         return (
             <div>
             <div className="editor-aside"> 
@@ -55,11 +117,17 @@ var TableElement = React.createClass({
             </div>
 
             <div className="editor-panel">
+
+          {columnSort}
+
+
+
+
                 <table className="table tablesorter table-attendees"> 
                             <thead> 
                                 <tr> 
                                      {this.state.headers.map(function(header, index){
-                                        return <th key={index}>{header}</th>
+                                        return <th data-priority={index} key={index}>{header}</th>
                                     }.bind(this))}   
                                 </tr> 
                             </thead> 

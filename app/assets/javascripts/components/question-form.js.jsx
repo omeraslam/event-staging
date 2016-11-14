@@ -46,7 +46,9 @@ var QuestionForm = React.createClass({
 
     handleUpdate: function(e) {
 
+
         e.preventDefault();
+        var that = this;
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
         var method, uri;
         if (this.state.current_selection.id == null) {
@@ -76,6 +78,9 @@ var QuestionForm = React.createClass({
             success: function() {
                //alert('success');
                // this.props.handleDeleteEvent(this.props.event)
+                
+              that.props.onAddedNewItem(this.state.current_selection);
+              that.props.onUpdateMessage('Survey question has been updated');
                
             }.bind(this)
         });
@@ -85,10 +90,32 @@ var QuestionForm = React.createClass({
     },
 
     handleChange: function(e) {
+     
+        var thun = e.target;
         var name, obj;
         name = e.target.name;
         obj = this.state.current_selection;
-        obj[name] = e.target.value;
+        var ticketArray = [];
+          var ticket_value_string = '';
+        if(name == 'ticket_id') {
+          ticketArray = [];
+          ticket_value_string = '';
+          $('input[name="ticket_id"]').each(function() {
+            console.log($(this).val());
+            if($(this).is(':checked')) {
+              ticketArray.push($(this).val());
+            }
+
+              ticket_value_string = ticketArray.toString();
+              console.log('ticket string: '+ticket_value_string);
+
+            obj[name] = ticket_value_string;
+          });
+        } else {
+          obj[name] = e.target.value;
+
+        }
+        console.log(JSON.stringify(obj));
         this.setState({current_selection: obj});
     },
 
@@ -136,7 +163,8 @@ var QuestionForm = React.createClass({
 
                         <label><input type="checkbox" name="apply_to_buyer" className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Buyer</label>
                         {this.state.ticket_types.map(function(item, index){
-                             return !item.item.is_active ? '' : <label><input type="checkbox" className="input-primary" value={item.item.title} onChange={this.handleChange}  />{item.item.title}</label>
+                           var test = this.state.current_selection.ticket_id.indexOf(item.item.id.toString()) > -1;
+                             return !item.item.is_active ? '' : <label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.item.id} onChange={this.handleChange}  />{item.item.title}</label>
                          }.bind(this))} 
                         </div>
 
