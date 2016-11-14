@@ -291,10 +291,44 @@ require 'rqrcode_png'
              #Save customer to the db
              
               @array_of_ticket = []
+              @buyer_survey_questions = @event.survey_questions.where(:is_active => true, :apply_to_buyer => true).all
+
+                buyer_first_name = params[:purchase]["first_name"]
+                buyer_last_name = params[:purchase]["last_name"]
+                email = params[:purchase]["email"]
+
+                @purchase.first_name = buyer_first_name
+                @purchase.last_name = buyer_last_name
+                if @purchase.save
+
+                  @buyer_survey_questions.each_with_index do |buyer_question, index| 
+                    #buyeranswer[<%= buyer_question.id %>][index][answer_text]
+                    surveyanswer = SurveyAnswer.new
+
+                    surveyanswer.answer_text = params[:buyeranswer][(buyer_question.id).to_s][(index).to_s].nil? ? 'n/a' : params[:buyeranswer][(buyer_question.id).to_s][(index).to_s]["answer_text"]
+                    #surveyanswer.attendee_id = 
+                    surveyanswer.event_id = @event.id
+                    surveyanswer.survey_question_id = buyer_question.id
+                    surveyanswer.purchase_id = @purchase.id 
+                    if surveyanswer.save
+                    else
+                    end
+
+
+
+                  end
+
+                end
+
 
               @event.tickets.all.each do |ticket|
 
                 @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
+
+
+                ##### save survey to buyer
+                
+                #
 
                 @line_items.each_with_index do |lineitem, index|
                    # create new attendee
@@ -310,11 +344,7 @@ require 'rqrcode_png'
                    #   email = params[:purchase]["email"]
                    # end
 
-                   if index == 0
-                    @purchase.first_name = first_name
-                    @purchase.last_name = last_name
-                    @purchase.save
-                   end
+                  
 
                    logger.debug "ATTENDEE INFO: #{first_name}"
                    @attendee = Attendee.new
@@ -336,19 +366,21 @@ require 'rqrcode_png'
                       lineitem.attendee_id = @attendee.id
                        
                       logger.debug "SURVEY QUESTION COUNT :::: #{@event.survey_questions.count}"
-                     @survey_questions.each_with_index do |survey_question, index|
-                       logger.debug "LINE_ITEM ID :::: #{params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s].nil?}"
-                      
-                         surveyanswer = SurveyAnswer.new
-                        surveyanswer.answer_text = params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s].nil? ? 'n/a' : params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s]["answer_text"]
-   
-                         surveyanswer.attendee_id = @attendee.id
-                         surveyanswer.event_id = @event.id
-                         surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
-   
-                         if surveyanswer.save
-                         else
-                         end
+                       if !params[:surveyanswers].nil?
+                        @survey_questions.each_with_index do |survey_question, index|
+                         logger.debug "LINE_ITEM ID :::: #{params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s].nil?}"
+                          
+                           surveyanswer = SurveyAnswer.new
+                           surveyanswer.answer_text = params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s].nil? ? 'n/a' : params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s]["answer_text"]
+     
+                           surveyanswer.attendee_id = @attendee.id
+                           surveyanswer.event_id = @event.id
+                           surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
+     
+                           if surveyanswer.save
+                           else
+                           end
+                        end
                       end
 
                        if lineitem.save
@@ -552,6 +584,7 @@ def show_buy
     num_of_paid_tickets = 0
 
     @survey_questions = @event.survey_questions.where(:is_active => true).all
+    @buyer_survey_questions = @event.survey_questions.where(:is_active => true, :apply_to_buyer => true).all
     logger.debug "SURVEY QUESTIONS COUNT::: #{@survey_questions.count}"
  
     @event.tickets.all.each do |ticket|
@@ -588,13 +621,6 @@ def show_buy
       logger.debug "+ #{99 * num_of_paid_tickets}"
 
       @final_fee = (fee.to_f/100)
-
-
-
-
-
-
-
 
 
      @line_items = LineItem.where(:purchase_id => @purchase.id.to_s)
@@ -1301,11 +1327,17 @@ def show
     @ticket_price = @current_ticket.price.nil? ? 0 :  @current_ticket.price 
 
        @attendee_headers = ["First Name", "Last Name", "Email Address", "Registration Date", "Ticket Type"]
+       @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Total Order", "Affiliate Code"]
+ 
+
  
        survey_headers = []
-       @survey_questions = SurveyQuestion.where(:event_id => @event.id).all
+       @survey_questions = @event.survey_questions.where(:is_active => true).all
        @survey_questions.each do |survey|
          @attendee_headers.push(survey.question_text)
+         if survey.apply_to_buyer == true
+             @buyers_headers.push(survey.question_text)
+         end
        end
  
        @attendees_list = {
@@ -1315,9 +1347,7 @@ def show
            }
        }
  
-       @buyers_headers = ["First Name", "Last Name", "Email Address", "Guest Count", "Total Order", "Affiliate Code"]
- 
-
+     
 
     @attendees = Attendee.where(:event_id => @event.id)
 
@@ -1381,7 +1411,24 @@ def show
           "total_order" => '$' + ("%.2f" % (buyer.total_order/100)).to_s,
           "affiliate_code" => buyer.affiliate_code == 'null' ? 'n/a' : buyer.affiliate_code
         }
+
+        @survey_questions.each_with_index do |survey, index|
+
+          buyer_block[("question_"+(survey.id.to_s))] = ""
+        end
+
+        @survey_answers = SurveyAnswer.where(:purchase_id => buyer.id).all
+
+
+        if @survey_answers.count > 0
+          @survey_answers.each_with_index do |sanswer, index|
+            buyer_block[("question_"+(sanswer.survey_question_id.nil? ? '0': sanswer.survey_question_id.to_s) )] = sanswer.answer_text
+          end
+        end
+
          @buyers_list["items"].push(buyer_block)
+
+
 
    end
 

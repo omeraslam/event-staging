@@ -97,6 +97,7 @@ var QuestionForm = React.createClass({
         obj = this.state.current_selection;
         var ticketArray = [];
           var ticket_value_string = '';
+
         if(name == 'ticket_id') {
           ticketArray = [];
           ticket_value_string = '';
@@ -112,9 +113,16 @@ var QuestionForm = React.createClass({
             obj[name] = ticket_value_string;
           });
         } else {
-          obj[name] = e.target.value;
+           if(name == 'apply_to_buyer') {
+
+            obj[name] = (e.target.value == 'false');
+          } else {
+
+            obj[name] = e.target.value;
+          }
 
         }
+
         console.log(JSON.stringify(obj));
         this.setState({current_selection: obj});
     },
@@ -161,7 +169,7 @@ var QuestionForm = React.createClass({
                         <div className="input-group">
                         <label>Apply question to:</label>
 
-                        <label><input type="checkbox" name="apply_to_buyer" className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Buyer</label>
+                        <label><input type="checkbox"  name="apply_to_buyer" checked={this.state.current_selection.apply_to_buyer} className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Buyer</label>
                         {this.state.ticket_types.map(function(item, index){
                            var test = this.state.current_selection.ticket_id.indexOf(item.item.id.toString()) > -1;
                              return !item.item.is_active ? '' : <label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.item.id} onChange={this.handleChange}  />{item.item.title}</label>

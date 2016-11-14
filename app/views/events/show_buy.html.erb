@@ -33,10 +33,55 @@
 
                 <!-- SECTION Email -->
                 <section>
-                    <div class="input-group"> 
+                  
+                      <div class="input-group">
+                        <div class="input-group-inline"> 
+
+                            <input type="text" name="purchase[first_name]" placeholder="First Name" /> 
+                      </div>
                         <div class="input-group-inline">
+                            <input type="text" name="purchase[last_name]" placeholder="Last Name" /> 
+                            </div>
+
+                     
+                        </div>
+
+                           <div class="input-group">
                             <label> Email Address </label>
                             <input type="text" name="purchase[email]" placeholder="email@email.com" /> 
+                            </div>
+                            <% @buyer_survey_questions.each_with_index do |buyer_question, index| %>
+
+                              
+                                      <div class="input-group">
+                                        <label><%= buyer_question.question_text %></label>
+                                        <% if buyer_question.field_type == 1 %>
+
+                                            <textarea name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" placeholder="Enter your response" /></textarea>
+
+                                        <% elsif buyer_question.field_type == 2  %>  
+                                        <input name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" placeholder="Enter your response" />
+
+                                            
+                                        <% elsif buyer_question.field_type == 3 %>
+   
+
+
+                                        <input type="checkbox" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="true"> True<br>
+                                        <input type="checkbox" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="false" checked> False<br>
+
+                                        <% else %>
+
+
+                                        <input type="radio" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="true"> True
+                                        <input type="radio" name="buyeranswer[<%= buyer_question.id %>][index][answer_text]" value="false" checked> False
+
+                                        <% end %>
+                                        <%= hidden_field_tag "buyeranswer[survey_id]", buyer_question.id  %>
+                                      </div>
+
+
+                            <% end %>
                         </div>
                     </div>      
                 </section>
