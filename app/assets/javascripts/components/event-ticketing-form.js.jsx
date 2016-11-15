@@ -7,7 +7,8 @@ var EventTicketingForm = React.createClass({
             eventObj: this.props.eventObj,
             onPanelUpdate: this.props.onPanelUpdate,
             updateEvent: this.props.onUpdateEventItem,
-            tickets_on: this.props.tickets_on
+            tickets_on: this.props.tickets_on,
+            advanced_tickets_on: (this.getCookie("advance_tickets_on") == 'true')
 
         }
     },
@@ -19,11 +20,54 @@ var EventTicketingForm = React.createClass({
 
     },
 
+    setCookie: function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+    },
+    getCookie: function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+
+    },
+    checkCookie: function() {
+        var is_advanced_tickets = this.getCookie("advance_tickets_on") == 'true';
+       if (is_advanced_tickets != "") {
+            //set up advanced tickets
+            this.setState({advanced_tickets_on: is_advanced_tickets })
+            this.setState({tickets_on: is_advanced_tickets});
+            this.props.onTicketUpdate(is_advanced_tickets)
+        } else {
+            if (is_advanced_tickets != "" && is_advanced_tickets != null) {
+                this.setCookie("advance_tickets_on", false, 365);
+            }
+        }
+    },
+
     componentDidMount: function() {
         var that = this;
         //format specific 
-        //
-        $('#toggle-one').bootstrapToggle();
+        if(this.state.advanced_tickets_on) {
+          $('#toggle-one').bootstrapToggle('on');
+
+        } else {
+
+        $('#toggle-one').bootstrapToggle('off');
+
+        }
+        this.checkCookie();
 
         this.state.ticketObj.stop_date = this.state.ticketObj.stop_date.indexOf('/') > -1 ? this.state.ticketObj.stop_date : moment(this.state.ticketObj.stop_date).format('MM/DD/YYYY');
         this.setState({ticketObj: this.state.ticketObj})
@@ -72,25 +116,6 @@ var EventTicketingForm = React.createClass({
 
     handleUpdate: function(e) {
 
-        // e.preventDefault();
-        // var method, uri;
-      
-        // method = 'PUT'
-        // uri = '/events/' + this.state.eventObj.id
-        // $.ajax({
-        //     method: method,
-        //     url: uri,
-        //     data: {"event": this.state.eventObj},
-        //     dataType: 'JSON',
-        //     success: function() {
-        //        //alert('success');
-        //        this.props.onPanelUpdate('Event ticketing updated');
-               
-               
-        //     }.bind(this)
-        // });
-
-
      e.preventDefault();
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
         var method, uri;
@@ -135,13 +160,15 @@ var EventTicketingForm = React.createClass({
 
     handleTicketState: function(e) {
         this.setState({tickets_on: !this.state.tickets_on});
-        //alert(this.state.tickets_on);
+        this.setState({advanced_tickets_on: !this.state.tickets_on});
+        this.setCookie("advance_tickets_on", !this.state.tickets_on, 365);
         this.props.onTicketUpdate(!this.state.tickets_on)
 
     },
 
     render: function() {
-        if(this.props.advance_tickets == true || this.state.tickets_on == true ) {
+
+        if(this.state.advanced_tickets_on == true || this.state.tickets_on == true ) {
           var ticketAdvanced = false;
         } else {
           var ticketAdvanced = true;

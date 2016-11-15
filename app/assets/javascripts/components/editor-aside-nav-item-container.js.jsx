@@ -12,7 +12,7 @@ var EditorAsideNavItem = React.createClass({
     render: function() {
             return (
 
-                <li onClick={this.selectItem} className={(this.state.currentItem == this.props.item.id) ? "active" : ""} >
+                <li onClick={this.selectItem} className={(this.state.currentItem != null && this.state.currentItem.id == this.props.item.id) ? "active" : ""} >
                     <div className="editor-aside-nav-desc">
                         <h3>{this.props.item.title == undefined ? (this.props.item.question_text == undefined ? this.props.item.promo_code : this.props.item.question_text) : this.props.item.title}</h3>
 

@@ -21,7 +21,18 @@ var TicketForm = React.createClass({
         current_selection: nextProps.current_selection 
       });
     },
+
     componentDidMount: function() {
+
+
+
+
+
+
+
+
+
+
         var that = this;
         //format specific 
         this.state.current_selection.stop_date = this.state.current_selection.stop_date.indexOf('/') > -1 ? this.state.current_selection.stop_date : moment(this.state.current_selection.stop_date).format('MM/DD/YYYY');
@@ -75,6 +86,11 @@ var TicketForm = React.createClass({
         
 
     },
+    handleCancel: function(e) {
+        e.preventDefault();
+        //this.setState({current_selection: null})
+         this.props.onResetCurrentSelection();
+    },
 
     handleChange: function(e) {
         var name, obj;
@@ -123,7 +139,7 @@ var TicketForm = React.createClass({
                             <input name="stop_date" className="date" type="text"  value={this.state.current_selection.stop_date} onChange={this.handleChange}/>
                         </div>
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">Update</button>
+                            <button onClick={this.handleUpdate} className="btn btn-primary">Update</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
                         </div>
                     </form>
                 </div>

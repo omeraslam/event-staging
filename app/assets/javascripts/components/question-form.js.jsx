@@ -88,6 +88,18 @@ var QuestionForm = React.createClass({
         
 
     },
+    handleDelete: function(e) {
+        alert('delete');
+    },
+
+    handleCancel: function(e) {
+      e.preventDefault();
+
+         this.props.onResetCurrentSelection();
+
+      //alert('cancel');
+
+    },
 
     handleChange: function(e) {
      
@@ -113,13 +125,17 @@ var QuestionForm = React.createClass({
             obj[name] = ticket_value_string;
           });
         } else {
-           if(name == 'apply_to_buyer') {
+           if(name == 'apply_to_buyer' || name == 'response_required') {
+
 
             obj[name] = (e.target.value == 'false');
+            //alert(obj[name]);
           } else {
 
             obj[name] = e.target.value;
           }
+
+
 
         }
 
@@ -130,6 +146,7 @@ var QuestionForm = React.createClass({
 
     render: function() {
         //alert(this.props.event_id)
+        
         if(this.state.current_selection.field_type < 3) {
 
         var divStyle= {display: 'none'}
@@ -139,7 +156,7 @@ var QuestionForm = React.createClass({
         }
         return (
                 <div>
-                <h1>{this.props.current_selection.title}</h1>
+                <h1>{this.state.current_selection.question_text}</h1>
 
                     <form>
                         <div className="input-group">
@@ -159,6 +176,11 @@ var QuestionForm = React.createClass({
                         <div className="input-group">
                             <label>Description</label>
                             <textarea name="description" type="text" className="input-primary" value={this.state.current_selection.description} onChange={this.handleChange} ></textarea>
+                        </div>
+
+
+                        <div className="input-group">
+                            <label><input type="checkbox"  name="response_required" checked={this.state.current_selection.response_required} className="input-primary" value={this.state.current_selection.response_required} onChange={this.handleChange} />Response required</label>
                         </div>
 
                         <div className="input-group">
@@ -197,7 +219,7 @@ var QuestionForm = React.createClass({
 
 
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">Update</button>
+                            <button onClick={this.handleUpdate} className="btn btn-primary">Update</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
                         </div>
                     </form>
                 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114055750) do
+ActiveRecord::Schema.define(version: 20161115004740) do
 
   create_table "accounts", force: true do |t|
     t.string   "access_token"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20161114055750) do
 
   create_table "survey_questions", force: true do |t|
     t.text     "question_text"
-    t.boolean  "response_required"
+    t.boolean  "response_required", default: false
     t.text     "description"
     t.text     "answer_text"
     t.integer  "field_type"

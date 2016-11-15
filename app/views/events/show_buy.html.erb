@@ -66,7 +66,7 @@
                                           <% elsif buyer_question.field_type == 3 %>
                                               <% buyer_question.answer_text.split(',').each_with_index do |answer, bindex| %>
                                                       
-                                                      <input type="checkbox" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][<%= bindex %>][answer_text]" value="<%= answer %>" ><%= answer %><br>
+                                                      <input type="checkbox" class="require-one" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][<%= bindex %>][answer_text]" value="<%= answer %>" ><%= answer %><br>
                                               <% end %>
                                                 
                                
@@ -170,7 +170,7 @@
                                         <% elsif survey_question.field_type == 3 %>
                                               <% survey_question.answer_text.split(',').each_with_index do |answer,bindex| %>
                                                       
-                                                  <input type="checkbox" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][<%= bindex %>][answer_text]" value="<%= answer %>"> <%= answer %><br>
+                                                  <input type="checkbox" class="require-one" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][<%= bindex %>][answer_text]" value="<%= answer %>"> <%= answer %><br>
                                               <% end %>
 
 
@@ -196,11 +196,7 @@
                                 <% end %>
 
 
-                        <!--       <% @survey_questions.each do |survey_question| %>
-                                <div class="input-group">
-                                  <label><%= survey_question.question_text %></label>
-                                </div>
-                              <% end %> -->
+        
 
                               </div>  
                           </div>
@@ -335,7 +331,8 @@ $(document).ready(function() {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
-
+ var checkboxes = $('.require-one:last');
+ var checkbox_names = $.map($('.require-one:last'), function(e,i) { return $(e).attr("name")}).join(" ");
   
   var validator = $("#purchase-tickets_form").validate({
     rules: {
@@ -356,7 +353,23 @@ $(document).ready(function() {
       "purchase[last_name]": 'Please enter your last name.',
       "purchase[email]": 'Please enter a valid email.',
 
-    }
+    },
+     errorPlacement: function(error, element) {
+              // if (element.attr("type") == "checkbox") {
+              //   //if error doesn't exist in this group add one
+              //   alert($(this).parent().html());
+              //   if($(element).parent().find('label.error').length == 0) {
+                
+              //     error.insertAfter($('.require-one.error').parent().find('label'));
+              //   }
+     
+              // } else {
+               error.insertAfter(element);
+            // }
+    }   
+
+
+
   });
   var attendee_length = $('.ticket-holder').length;
   for(var i=0; i< attendee_length; i++ ) {
@@ -369,6 +382,37 @@ $(document).ready(function() {
   $("input[name='attendees["+ (i+1) +"][email]']").rules("add", {required: true, messages: { required: 'Please enter a valid email'}});
   }
 
+  <% @line_items.each do |line_item| %>
+      <% @survey_questions.each_with_index do |survey_question,index| %>                  
+          <% if !survey_question.ticket_id.index(line_item.ticket_id.to_s).nil? && survey_question.response_required == true %>                
+                <% if (survey_question.field_type == 1 )  %>
+      
+                    $("textarea[name='surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]']").rules("add", {required: true, messages: { required: 'Please enter a valid answer'}});
+              
+                <% elsif (survey_question.field_type == 2 || survey_question.field_type == 4) %>
+
+                   $("input[name='surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]']").rules("add", {required: true, messages: { required: 'Please enter a valid answer'}});
+
+         
+
+                <% else %>
+                $('.require-one').on('change', function() {
+                  if($(this).is(':checked') == true) {
+                    $(this).parent().find('label.error').remove();
+                  } else {
+
+                  }
+                });
+
+          // $.validator.addMethod('require-one', function (value) {
+          //         return $('.require-one').parent().find('.require-one:checked').size() > 0; }, 'Please check at least one box.');
+
+
+
+                <% end %>              
+          <% end %>                           
+      <% end %>
+  <% end %>
 
 
 

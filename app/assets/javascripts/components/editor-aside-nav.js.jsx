@@ -1,28 +1,30 @@
 var EditorAsideNav = React.createClass({
     getInitialState: function() {
-        return { items: this.props.items, currentItem: null, handleSelectItem: this.props.handleSelectItem, category: this.props.category}
+        return { items: this.props.items, current_selection: this.props.current_selection, handleSelectItem: this.props.handleSelectItem, category: this.props.category}
     },
     getDefaultProps: function() {
         return { items: []}
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({current_selection: nextProps.current_selection});
     },
 
     componentDidMount: function() {
    
     },
 
-    selectItem: function(item) {
-        this.setState({currentItem: item.id});
-        this.props.handleSelectItem(item);
-    },
+
 
     addNavItem: function() {
         switch(this.state.category) {
             case 'coupon':
-            var itemObj = {"promo_code": "new coupon item", "discount": "0", "is_fixed": false, "is_active": false};
+            var itemObj = {"promo_code": "new coupon", "discount": "0", "is_fixed": false, "is_active": false};
             break;
             case 'question':
-            var itemObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')};
-             
+            
+            var itemObj = {"question_text": "new question item", "response_required": false, "description": "Enter more details", "answer_text": "","field_type": null, "ticket_id": null,  "event_id": null, "is_active": false, "free_text_active": false, "free_text": ""};
+            
             break;
             case 'ticket':
              var itemObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')};
@@ -31,7 +33,7 @@ var EditorAsideNav = React.createClass({
         }
         this.state.items.push(itemObj)
         this.setState({items: this.state.items})
-        this.selectItem(itemObj);
+        this.props.handleSelectItem(itemObj);
     },
 
     refreshNav: function() {
@@ -51,7 +53,7 @@ var EditorAsideNav = React.createClass({
             <ul className="editor-aside editor-aside-nav">
                
                 {this.state.items.map(function(item, index){
-                     return <EditorAsideNavItem currentItem={this.state.currentItem} key={index} item={item.item == undefined ? item: item.item} handleSelectEvent={this.selectItem} handleRefreshNav={this.refreshNav} />
+                     return <EditorAsideNavItem currentItem={this.state.current_selection} key={index} item={item.item == undefined ? item: item.item} handleSelectEvent={this.props.handleSelectItem} handleRefreshNav={this.refreshNav} />
                  }.bind(this))} 
             
                 {addButton}

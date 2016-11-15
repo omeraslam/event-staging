@@ -24,16 +24,16 @@ var EditorPanel = React.createClass({
     render: function() {
         switch(this.props.category) {
             case 'ticket':
-            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem} advance_tickets={this.props.advance_tickets} />;
+            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem} advance_tickets={this.props.advance_tickets}  onResetCurrentSelection={this.props.onResetCurrentSelection} />;
             break;
             case 'coupon':
-             var SectionForm = <CouponForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem} />;
+             var SectionForm = <CouponForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem} onResetCurrentSelection={this.props.onResetCurrentSelection} />;
             break;
             case 'question':
-            var SectionForm = <QuestionForm current_selection={this.state.current_selection} event_slug={this.state.event_slug}  ticket_types={this.props.ticket_types} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem} />;
+            var SectionForm = <QuestionForm current_selection={this.state.current_selection} event_slug={this.state.event_slug}  ticket_types={this.props.ticket_types} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem}  onResetCurrentSelection={this.props.onResetCurrentSelection} />;
             break;
             default:
-            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem}  advance_tickets={this.props.advance_tickets}  />;
+            var SectionForm = <TicketForm current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} onUpdateMessage={this.props.onUpdateMessage} onAddedNewItem={this.state.onAddedNewItem}  advance_tickets={this.props.advance_tickets}  onResetCurrentSelection={this.props.onResetCurrentSelection} />;
             break;
         }
   

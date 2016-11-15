@@ -8,12 +8,47 @@ var EditorSideNav = React.createClass({
             tickets_on: nextProps.tickets_on
         })
     },
+
+    setCookie: function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+    },
+    getCookie: function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+
+    },
+    checkCookie: function() {
+        var is_advanced_tickets = this.getCookie("advance_tickets_on") == 'true';
+       if (is_advanced_tickets != "") {
+            //set up advanced tickets
+            this.setState({tickets_on: is_advanced_tickets});
+        } else {
+            if (is_advanced_tickets != "" && is_advanced_tickets != null) {
+                this.setCookie("advance_tickets_on", false, 365);
+            }
+        }
+    },
     componentDidMount: function() {
       //INTRO - slide in the editor tabs
       setTimeout(function(){  
         $('.tabs').addClass("visible");
       }, 500);
 
+      this.checkCookie();
 
 
   //EDITOR - set size of panel
@@ -46,7 +81,6 @@ var EditorSideNav = React.createClass({
 
     },
     render: function() {
-
       if(this.state.tickets_on == true) {
         
         var divStyle = {display: 'block'}  ;
