@@ -160,12 +160,14 @@ input, .input, textarea, select {
 
 	label {
 		font-weight:600;
-		margin:0 0 20px;
-		font-size:12px;
-		color:#444;
-		display:block;
-		text-align:left;
-		margin:0 0 2px 0;
+
+		span {
+			display: block;
+			font-size: 11px;
+			font-weight: 600;
+			opacity: .5;
+		}
+
 		
 		&.error {
 		
@@ -229,6 +231,10 @@ input, .input, textarea, select {
 }
 
 
+.checkbox label {
+	cursor: normal;
+}
+
 
 input.date {
   //width: 140px;
@@ -248,4 +254,29 @@ input.date, input.time {
 
 #ticket_price-error {
 	display: block;
+}
+
+
+.toggle.btn {
+	float:left;
+	border-radius:50px !important;
+	border:1px solid #dcdcdc;
+
+	.toggle-handle {
+		border-radius: 43px;
+    	background: #fff !important;
+	}
+
+	.toggle-on {
+		background:$brand-green !important;
+	}
+}
+
+
+.event-editor-section-container .toggle-off.btn, .toggle-off.btn {
+    background: #efefef;
+}
+
+.toggle.btn {
+	float:left;
 }

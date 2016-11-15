@@ -103,6 +103,30 @@ $editor_panel_width:1300px;
 		width:$editor_panel_width;
 
 
+		.alert.alert-success {
+			position:absolute;
+			background:$brand-green;
+			color:#fff;
+			font-weight: 600;
+		}
+
+		.page-header {
+			margin: 0 0 30px 0;
+			border:none;
+
+			h1 {
+				font-size: 26px;
+				line-height: 32px;
+				font-weight: 600;
+				margin-bottom: 0;
+			}
+
+			p {
+				font-size: 16px;
+
+			}
+		}
+
 
 		.editor-panel-primary {
 

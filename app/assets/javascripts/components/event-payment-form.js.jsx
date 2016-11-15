@@ -46,7 +46,7 @@ var EventPaymentForm = React.createClass({
     },
     render: function() {
         if (this.props.advance_tickets) {
-            var paymentTab = <div><h3>User already connected to Stripe</h3></div>;
+            var paymentTab = <div className="input-group"><label><i className="icon icon-check"></i> Connected to Stripe</label></div>;
         } else {
             var paymentTab =     <div> <h3 style={{marginBottom: '20px'}}>  Nice! So you're selling tickets? Let's figure out how you want to get paid.</h3>
                     <p>EventCreate partners with Stripe to process payments, so <u> <b> you get paid immediately</b></u>.</p> 
@@ -57,8 +57,10 @@ var EventPaymentForm = React.createClass({
         }
         return (
             <div>
-             <h1>{this.props.header}</h1>
-                <p>{this.props.subheader}</p>
+            <div className="page-header">
+              <h1>{this.props.header}</h1>
+              <p>{this.props.subheader}</p>
+            </div>   
 
                 {paymentTab}
 

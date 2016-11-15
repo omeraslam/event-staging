@@ -175,13 +175,13 @@ var EventTicketingForm = React.createClass({
         }
         return (
             <div>
-             <h1>{this.props.header}</h1>
-                <p>{this.props.subheader}</p>
-                
-                <div className="checkbox" onClick={this.handleTicketState}>
-                  <label>
+            <div className="page-header">
+              <h1>{this.props.header}</h1>
+              <p>{this.props.subheader}</p>
+            </div>    
+                <div className="checkbox input-group" onClick={this.handleTicketState}>
                     <input  id="toggle-one" type="checkbox" data-toggle="toggle" value={ticketAdvanced} />
-                    Turn on Advanced Ticketing
+                    <label>Advanced Ticketing <span> Turn on advanced ticketing to sell tickets or collect multiple registration types.</span>
                   </label>
                 </div>
 

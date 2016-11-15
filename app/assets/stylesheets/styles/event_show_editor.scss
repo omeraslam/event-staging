@@ -1060,7 +1060,7 @@ body.invite-view {
 	box-shadow:4px 4px 20px rgba(0,0,0,.2);
 	bottom:-450px;
 	transition: bottom .3s ease-in-out;
-
+	display:none;
 
 	&.visible {
 		bottom:0;

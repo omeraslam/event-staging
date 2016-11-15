@@ -93,8 +93,10 @@ var EventDetailsForm = React.createClass({
     render: function() {
         return (
             <div>
-             <h1>{this.props.header}</h1>
-                <p>{this.props.subheader}</p>
+            <div className="page-header">
+              <h1>{this.props.header}</h1>
+              <p>{this.props.subheader}</p>
+            </div>   
 
                 <form className="edit-event">
                     <div className="input-group">
