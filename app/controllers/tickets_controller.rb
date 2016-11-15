@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :remove_ticket]
 
   respond_to :html, :js
 
@@ -51,6 +51,27 @@ class TicketsController < ApplicationController
       format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
       format.json { render :show, status: :created }
     end
+  end
+
+  def remove_ticket
+    @event = Event.find(@ticket.event_id)
+    @ticket_count = LineItem.where(:ticket_id => params[:id].to_s).count
+    if @ticket_count > 0
+      
+    else
+
+       @ticket.destroy
+
+    end
+    # @ticket.destroy
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Ticket was successfully destroyed.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
+
+    #redirect_to slugger_path(@event) + '?editing=true'
+
   end
 
   def destroy

@@ -89,7 +89,19 @@ var QuestionForm = React.createClass({
 
     },
     handleDelete: function(e) {
-        alert('delete');
+        e.preventDefault();
+
+        $.ajax({
+            method: 'POST',
+            url: '/remove-question',
+            data: {id: this.state.current_selection.id },
+            dataType: 'JSON',
+            success: function() {
+                //this.props.handleDeleteEvent(this.props.event)
+            }.bind(this)
+        });
+
+
     },
 
     handleCancel: function(e) {

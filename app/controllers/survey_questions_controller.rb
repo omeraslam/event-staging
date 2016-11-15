@@ -1,5 +1,5 @@
 class SurveyQuestionsController < ApplicationController
-  before_action :set_survey_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey_question, only: [:show, :edit, :update, :destroy, :remove_question]
 
   respond_to :html
 
@@ -42,6 +42,26 @@ class SurveyQuestionsController < ApplicationController
     end
 
     #respond_with(@survey_question)
+  end
+
+  def remove_question
+    @event = Event.find(@survey_question.event_id)
+    @answer_count = SurveyAnswer.where(:survey_question_id => @survey_question.id).count
+    
+    if @answer_count > 0
+    
+    else
+       @survey_question.destroy
+    end
+    # @ticket.destroy
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Ticket was successfully destroyed.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
+
+    #redirect_to slugger_path(@event) + '?editing=true'
+
   end
 
   def destroy

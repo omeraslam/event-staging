@@ -66,6 +66,9 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#index'
   get '/event-maker' => 'pages#event'
 
+  post '/remove-ticket' => 'tickets#remove_ticket'
+  post '/remove-question' => 'survey_questions#remove_question'
+
   get '/robots.:format' => 'pages#robots'
   get '/sitemap.xml.gz', to: redirect("https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/sitemaps/sitemap.xml.gz"), as: :sitemap
 

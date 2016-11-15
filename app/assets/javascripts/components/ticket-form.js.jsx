@@ -92,6 +92,23 @@ var TicketForm = React.createClass({
          this.props.onResetCurrentSelection();
     },
 
+    handleDelete: function(e){
+        e.preventDefault();
+
+        $.ajax({
+            method: 'POST',
+            url: '/remove-ticket',
+            data: {id: this.state.current_selection.id },
+            dataType: 'JSON',
+            success: function() {
+                //this.props.handleDeleteEvent(this.props.event)
+            }.bind(this)
+        });
+
+
+
+    },
+
     handleChange: function(e) {
         var name, obj;
         name = e.target.name;
