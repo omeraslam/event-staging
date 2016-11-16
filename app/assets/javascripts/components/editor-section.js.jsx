@@ -24,11 +24,13 @@ var EditorSection = React.createClass({
     refreshNav: function() {
 
     },
-    onAddedNewItem: function(item) {
+    onAddedNewItem: function(item, _push) {
         this.setState({current_selection: item})
 
-        this.state.items.push(item)
-        this.setState({items: this.state.items})
+        if(_push) {
+            this.state.items.push(item)
+            this.setState({items: this.state.items})
+        }
     },
 
     onRemovedNewItem: function(_id) {

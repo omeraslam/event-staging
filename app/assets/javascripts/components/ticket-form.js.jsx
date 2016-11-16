@@ -51,13 +51,16 @@ var TicketForm = React.createClass({
     handleUpdate: function(e) {
         e.preventDefault();
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
-        var method, uri;
+        var method, uri, save_message;
         if (this.state.current_selection.id == null) {
             method = 'POST'
             uri = this.props.event_slug + '/tickets'
+            save_message = 'Ticket has been created'
+
         } else {
             method = 'PUT'
             uri = '/tickets/' + this.state.current_selection.id
+            save_message = 'Ticket has been updated'
         }
 
         var that = this;
@@ -79,8 +82,8 @@ var TicketForm = React.createClass({
                that.state.current_selection = resp;
                //that.state.current_selection.stop_date =  moment(resp.stop_date).format('MM/DD/YYYY');
                
-               that.props.onAddedNewItem(that.state.current_selection);
-               that.props.onUpdateMessage('Ticket has been updated');
+               that.props.onAddedNewItem(that.state.current_selection, (method == 'POST'));
+               that.props.onUpdateMessage(save_message);
                
             }.bind(this)
         });

@@ -38,13 +38,15 @@ var QuestionForm = React.createClass({
         e.preventDefault();
         var that = this;
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
-        var method, uri;
+        var method, uri, save_message;
         if (this.state.current_selection.id == null) {
             method = 'POST'
             uri = this.props.event_slug + '/questions'
+            save_message = 'Survey question has been created'
         } else {
             method = 'PUT'
             uri = '/survey_questions/' + this.state.current_selection.id
+            save_message = 'Survey question has been updated'
         }
         $.ajax({
             method: method,
@@ -66,9 +68,9 @@ var QuestionForm = React.createClass({
             success: function(resp) {
 
                that.state.current_selection = resp;
-               that.props.onAddedNewItem(that.state.current_selection);
+               that.props.onAddedNewItem(that.state.current_selection, (method == 'POST'));
                // that.state.current_selection.id = id;
-              that.props.onUpdateMessage('Survey question has been updated');
+              that.props.onUpdateMessage(save_message);
                
             }.bind(this)
         });
