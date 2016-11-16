@@ -164,11 +164,13 @@ var QuestionForm = React.createClass({
 
         var deleteButton = '' 
         if(this.state.current_selection.id != undefined) {
-          deleteButton = <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
+          deleteButton = <a onClick={this.handleDelete} className="link-delete"><i className="fa fa-trash"></i> Delete question</a>
         }
         return (
                 <div>
-                <h1>{this.state.current_selection.question_text}</h1>
+                <div className="page-header">
+                  <h1>{this.state.current_selection.question_text}</h1>
+                </div>
 
                     <form>
                         <div className="input-group">
@@ -199,10 +201,10 @@ var QuestionForm = React.createClass({
                             <label>Field Type</label>
 
                               <select name="field_type"  value={this.state.current_selection.field_type} onChange={this.handleChange} >
-                                <option value="1">Text Area</option>
-                                <option value="2">Input Type</option>
-                                <option value="3">Checkbox</option>
-                                <option value="4">Radio Box</option>
+                                <option value="1">Paragraph Text</option>
+                                <option value="2">Single Line Text</option>
+                                <option value="3">Checkboxes</option>
+                                <option value="4">Multiple Choice (radio buttons)</option>
                               </select>
 
                         </div>
@@ -217,10 +219,10 @@ var QuestionForm = React.createClass({
                         <div className="input-group">
                         <label>Apply question to:</label>
 
-                        <label><input type="checkbox"  name="apply_to_buyer" checked={this.state.current_selection.apply_to_buyer} className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Buyer</label>
+                        <div className="checkbox"><label><input type="checkbox"  name="apply_to_buyer" checked={this.state.current_selection.apply_to_buyer} className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Ticket Buyer</label></div>
                         {this.state.ticket_types.map(function(item, index){
                            var test = this.state.current_selection.ticket_id == null ? false : this.state.current_selection.ticket_id.indexOf(item.id.toString()) > -1;
-                             return !item.is_active ? '' : <label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.id} onChange={this.handleChange}  />{item.title}</label>
+                             return !item.is_active ? '' : <div className="checkbox"><label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.id} onChange={this.handleChange}  />{item.title}</label></div>
                          }.bind(this))} 
                         </div>
 
@@ -231,7 +233,7 @@ var QuestionForm = React.createClass({
 
 
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' :  'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> {deleteButton}
+                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' :  'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary btn-gray">Cancel</button> {deleteButton}
                         </div>
                     </form>
                 </div>
