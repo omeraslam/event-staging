@@ -196,7 +196,7 @@ var QuestionForm = React.createClass({
                         </div>
 
                         <div className="input-group">
-                            <label>Field Type {this.state.current_selection.field_type}</label>
+                            <label>Field Type</label>
 
                               <select name="field_type"  value={this.state.current_selection.field_type} onChange={this.handleChange} >
                                 <option value="1">Text Area</option>
