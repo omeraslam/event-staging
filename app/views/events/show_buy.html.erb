@@ -170,7 +170,13 @@
                                         <% elsif survey_question.field_type == 3 %>
                                               <% survey_question.answer_text.split(',').each_with_index do |answer,bindex| %>
                                                       
-                                                  <input type="checkbox" class="require-one" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][<%= bindex %>][answer_text]" value="<%= answer %>"> <%= answer %><br>
+                                                <div class="checkbox">
+                                                    <label>
+                                                      <input type="checkbox" class="require-one" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][<%= bindex %>][answer_text]" value="<%= answer %>">
+                                                      <%= answer %>
+                                                    </label>
+                                                  </div>   
+
                                               <% end %>
 
 
@@ -184,7 +190,15 @@
 
                                              <% survey_question.answer_text.split(',').each do |answer| %>
                                                       
-                                                   <input type="radio" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="<%= answer %>"> <%= answer %><br>
+                                                   <div class="radio">
+                                                      <label>
+                                                        <input type="radio" name="surveyanswers[<%= (line_item.id).to_s %>][<%= survey_question.id %>][answer_text]" value="<%= answer %>">
+                                                         <%= answer %>
+                                                      </label>
+                                                    </div>
+
+
+
                                               <% end %>
 
 
