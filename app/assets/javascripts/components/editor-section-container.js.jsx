@@ -22,7 +22,6 @@ var EditorSectionContainer = React.createClass({
 
     },
     render: function() {
-       // alert(this.state.message);
         return (
            <div>
                 <EditorAsideSectionNav handleSelectItem={this.selectItem} />

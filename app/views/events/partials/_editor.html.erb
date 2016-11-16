@@ -97,29 +97,7 @@ $( document ).ready(function() {
       $(this).find("span").text("live");
   });
 
-      var validator5 = $(".edit_ticket").validate({
-    rules: {
-      "ticket[title]": {
-        required: true
-      },
-      "ticket[price]": {
-        required: true
-      },
-      "ticket[ticket_limit]": {
-        required: true
-      },
-      "ticket[stop_date]": {
-        required: true
-      },
-    }, messages : {
-      "ticket[title]": 'Please enter a ticket name.',
-      "ticket[price]": 'Please enter a ticket price.',
-      "ticket[ticket_limit]": 'Please enter a ticket limit.',
-      "ticket[stop_date]": 'Please enter an end date.'
-
-    }
-  });
-
+   
 
 
   //TICKET - new ticket modal functionality and validation

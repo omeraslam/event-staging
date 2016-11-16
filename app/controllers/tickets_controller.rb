@@ -59,8 +59,13 @@ class TicketsController < ApplicationController
 
   def remove_ticket
     @event = Event.find(@ticket.event_id)
-    @ticket_count = LineItem.where(:ticket_id => params[:id].to_s).count
-    if @ticket_count > 0
+    @ticket_registered = LineItem.where(:ticket_id => params[:id].to_s).count
+    @ticket_count = @event.tickets.count
+    if @ticket_count == 1
+      ticket_message = 'You need at least one ticket for people to register.'
+      ticket_status = 'error'
+
+    elsif @ticket_registered > 0
       ticket_message = 'Tickets have already been purchased and could not be deleted.'
       ticket_status = 'error'
     else

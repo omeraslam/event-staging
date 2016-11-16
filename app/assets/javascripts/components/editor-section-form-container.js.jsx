@@ -14,7 +14,6 @@ var EditorSectionFormContainer = React.createClass({
    render: function() {
         if(this.state.current_selection != null) {
 
-        //alert(this.state.current_selection["category"]);
             switch(this.state.current_selection["category"]) {
                 case 'details':
                     var sectionContent =  <EventDetailsForm header="Edit event settings" subheader="Change of venue? Modify your event details here." eventObj={this.state.eventObj} onUpdateMessage={this.props.onUpdateMessage}  onUpdateEventItem={this.updateEventItem}/>;

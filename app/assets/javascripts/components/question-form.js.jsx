@@ -34,7 +34,6 @@ var QuestionForm = React.createClass({
 
     handleUpdate: function(e) {
 
-
         e.preventDefault();
         var that = this;
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
@@ -112,8 +111,6 @@ var QuestionForm = React.createClass({
     },
 
     handleChange: function(e) {
-     
-        var thun = e.target;
         var name, obj;
         name = e.target.name;
         obj = this.state.current_selection;
@@ -152,8 +149,7 @@ var QuestionForm = React.createClass({
 
 
     render: function() {
-        //alert(this.props.event_id)
-        
+     
         if(this.state.current_selection.field_type < 3) {
 
         var divStyle= {display: 'none'}
@@ -217,12 +213,12 @@ var QuestionForm = React.createClass({
                         </div>
 
                         <div className="input-group">
-                        <label>Apply question to:</label>
+                        <label>Apply question to: {this.state.current_selection.apply_to_buyer}</label>
 
                         <div className="checkbox"><label><input type="checkbox"  name="apply_to_buyer" checked={this.state.current_selection.apply_to_buyer} className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Ticket Buyer</label></div>
                         {this.state.ticket_types.map(function(item, index){
                            var test = this.state.current_selection.ticket_id == null ? false : this.state.current_selection.ticket_id.indexOf(item.id.toString()) > -1;
-                             return !item.is_active ? '' : <div className="checkbox"><label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.id} onChange={this.handleChange}  />{item.title}</label></div>
+                             return !item.is_active ? '' : <div className="checkbox" key={index} ><label><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.id} onChange={this.handleChange}  />{item.title}</label></div>
                          }.bind(this))} 
                         </div>
 

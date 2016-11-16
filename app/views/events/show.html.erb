@@ -11,7 +11,7 @@
 <%= render 'events/partials/eventwebsite' %>
 <%# render 'events/partials/contact_form' %>
 <%# render 'events/partials/rsvp_form' %>
-<% if !@has_paid_ticket %>
+<% if !@has_paid_ticket && !@has_active_questions %>
 <%= render 'events/partials/rsvp_modal_new' %>
 <% end %>
 
@@ -112,7 +112,7 @@ $( document ).ready(function() {
  
   $('.open-registration').click(function(e){
     e.preventDefault();
-    if(<%= !@has_paid_ticket %>) {
+    if(<%= !@has_paid_ticket && !@has_active_questions %>) {
 
       registrationModal.open();
     } else {

@@ -24,14 +24,6 @@ var TicketForm = React.createClass({
     componentDidMount: function() {
 
 
-
-
-
-
-
-
-
-
         var that = this;
         //format specific 
         this.state.current_selection.stop_date = this.state.current_selection.stop_date.indexOf('/') > -1 ? this.state.current_selection.stop_date : moment(this.state.current_selection.stop_date).format('MM/DD/YYYY');
@@ -45,6 +37,31 @@ var TicketForm = React.createClass({
           'format': 'MM/DD/YYYY',
           'autoclose': true
         });
+
+
+   var validator5 = $(".ticket-form").validate({
+    rules: {
+      "title": {
+        required: true
+      },
+      "price": {
+        required: true
+      },
+      "ticket_limit": {
+        required: true
+      },
+      "stop_date": {
+        required: true
+      },
+    }, messages : {
+      "title": 'Please enter a ticket name.',
+      "price": 'Please enter a ticket price.',
+      "ticket_limit": 'Please enter a ticket limit.',
+      "stop_date": 'Please enter an end date.'
+
+    }
+  });
+
 
    
     },
@@ -144,7 +161,7 @@ var TicketForm = React.createClass({
                 <div className="page-header">
                     <h1>{this.props.current_selection.title}</h1>
                 </div>
-                    <form>
+                    <form className="ticket-form">
                         <div className="input-group">
                             <label> Ticket Name</label>
                             <input name="title" type="text" value={this.state.current_selection.title} onChange={this.handleChange} />

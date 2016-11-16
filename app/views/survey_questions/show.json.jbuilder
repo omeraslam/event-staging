@@ -1,1 +1,1 @@
-json.extract! @survey_question, :id, :question_text, :response_required, :description, :answer_text, :field_type, :ticket_id, :event_id, :is_active, :free_text_active, :free_text, :created_at, :updated_at
+json.extract! @survey_question, :id, :question_text, :response_required, :description, :answer_text, :field_type, :ticket_id, :event_id, :is_active, :free_text_active, :free_text, :apply_to_buyer, :created_at, :updated_at

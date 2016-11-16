@@ -1409,6 +1409,10 @@ def show
       end
     end
 
+    @active_survey_questions = @event.survey_questions.where(:is_active => true).all
+
+    @has_active_questions = @active_survey_questions.count > 0
+
     @coupon = Coupon.where(:event_id => @event.id).first.nil? ? Coupon.new : Coupon.where(:event_id => @event.id).first
 
     @slug = params[:slug]
