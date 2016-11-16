@@ -7,7 +7,7 @@ var EditorCoupons = React.createClass({
 
             <div className="editor-tool editor-panel-left-nav" id="editor-tool-coupons" >
 
-               <EditorSection items={this.state.items} current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} category={this.state.category} />
+               <EditorSection items={this.state.items} current_selection={this.state.current_selection} event_slug={this.state.event_slug} event_id={this.state.event_id} category={this.state.category} onUpdateMessage={this.props.onUpdateMessage} />
                            
             </div>
         )

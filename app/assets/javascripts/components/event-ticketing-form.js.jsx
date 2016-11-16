@@ -141,7 +141,7 @@ var EventTicketingForm = React.createClass({
             dataType: 'JSON',
             success: function() {
               //that.props.onAddedNewItem(this.state.current_selection);
-               this.props.onPanelUpdate('Event ticketing settings updated');
+               this.props.onUpdateMessage('Event ticketing settings updated');
                that.state.updateEvent(this.state.eventObj)
                
             }.bind(this)

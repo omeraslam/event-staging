@@ -26,6 +26,21 @@ var EditorSection = React.createClass({
     },
     onAddedNewItem: function(item) {
         this.setState({current_selection: item})
+
+        this.state.items.push(item)
+        this.setState({items: this.state.items})
+    },
+
+    onRemovedNewItem: function(_id) {
+
+        myArray = this.state.items.filter(function( obj ) {
+
+            return obj.id !== _id;
+        });
+
+        this.setState({items: myArray});
+        this.setState({current_selection: null})
+
     },
 
 
@@ -40,8 +55,8 @@ var EditorSection = React.createClass({
         return (
            <div>
 
-                <EditorAsideNav items={this.props.items} handleSelectItem={this.selectItem} current_selection={this.state.current_selection} handleRefreshNav={this.refreshNav} category={this.state.category} />
-                <EditorPanelContainer current_selection={this.state.current_selection} ticket_types={this.props.ticket_types}  onUpdateMessage={this.onUpdateMessage} handleOnPanelUpdate={this.onPanelUpdate} event_slug={this.state.event_slug} event_id={this.state.event_id}  category={this.state.category} onAddedNewItem={this.onAddedNewItem} advance_tickets={this.props.advance_tickets}  handleSelectItem={this.selectItem} onResetCurrentSelection={this.onResetCurrentSelection} />
+                <EditorAsideNav items={this.state.items} handleSelectItem={this.selectItem} current_selection={this.state.current_selection} handleRefreshNav={this.refreshNav} category={this.state.category} />
+                <EditorPanelContainer current_selection={this.state.current_selection} ticket_types={this.props.ticket_types}  onUpdateMessage={this.props.onUpdateMessage} handleOnPanelUpdate={this.onPanelUpdate} event_slug={this.state.event_slug} event_id={this.state.event_id}  category={this.state.category} onAddedNewItem={this.onAddedNewItem} onRemovedNewItem={this.onRemovedNewItem} advance_tickets={this.props.advance_tickets}  handleSelectItem={this.selectItem} onResetCurrentSelection={this.onResetCurrentSelection} onUpdateMessage={this.props.onUpdateMessage} />
             </div>
         )
    } 

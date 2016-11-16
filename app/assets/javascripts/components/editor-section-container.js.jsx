@@ -18,11 +18,6 @@ var EditorSectionContainer = React.createClass({
         this.setState({current_selection: item, message: null})
 
     },
-    onPanelUpdate: function(_message) {
-
-        this.setState({message: _message})
-
-    },
     refreshNav: function() {
 
     },
@@ -31,8 +26,7 @@ var EditorSectionContainer = React.createClass({
         return (
            <div>
                 <EditorAsideSectionNav handleSelectItem={this.selectItem} />
-                 <FormAlert message={this.state.message} />
-                <EditorSectionFormContainer current_selection={this.state.current_selection} eventObj={this.state.eventObj} ticketObj={this.state.ticketObj} onUpdateEvent={this.props.onUpdateEvent} onPanelUpdate={this.onPanelUpdate} advance_tickets={this.props.advance_tickets} scid={this.props.scid} tickets_on={this.props.tickets_on} onTicketUpdate={this.props.onTicketUpdate} />
+                <EditorSectionFormContainer current_selection={this.state.current_selection} eventObj={this.state.eventObj} ticketObj={this.state.ticketObj} onUpdateEvent={this.props.onUpdateEvent} onUpdateMessage={this.props.onUpdateMessage} advance_tickets={this.props.advance_tickets} scid={this.props.scid} tickets_on={this.props.tickets_on} onTicketUpdate={this.props.onTicketUpdate} />
             </div>
         )
    } 

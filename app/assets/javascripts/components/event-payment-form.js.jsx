@@ -32,7 +32,7 @@ var EventPaymentForm = React.createClass({
                //alert('success');
                //
                
-               that.props.onPanelUpdate('Event payment settings updated');
+               that.props.onUpdateMessage('Event payment settings updated');
                that.state.updateEvent(that.state.eventObj)
                
             }.bind(this)

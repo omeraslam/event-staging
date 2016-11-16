@@ -7,7 +7,7 @@ var EditorAsideNav = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        this.setState({current_selection: nextProps.current_selection});
+        this.setState({current_selection: nextProps.current_selection, items: nextProps.items});
     },
 
     componentDidMount: function() {
@@ -41,13 +41,12 @@ var EditorAsideNav = React.createClass({
     },
 
     render: function() {
-        if(this.state.category == 'coupon' && this.state.items.length > 0) {
-            var addButton = '';
-        } else {
-            var addButton = <a href="#" className="edit-aside-nav-add" onClick={this.addNavItem} ><h4>+ Add New {this.state.category} Type</h4> </a>
+        // if(this.state.category == 'coupon' && this.state.items.length > 0) {
+        //     var addButton = '';
+        // } else {
+        //     var addButton = <a href="#" className="edit-aside-nav-add" onClick={this.addNavItem} ><h4>+ Add New {this.state.category} Type</h4> </a>
               
-        }
-
+        // }
 
         return (
             <ul className="editor-aside editor-aside-nav">
@@ -56,7 +55,7 @@ var EditorAsideNav = React.createClass({
                      return <EditorAsideNavItem currentItem={this.state.current_selection} key={index} item={item.item == undefined ? item: item.item} handleSelectEvent={this.props.handleSelectItem} handleRefreshNav={this.refreshNav} />
                  }.bind(this))} 
             
-                {addButton}
+               
               
             </ul>
         )

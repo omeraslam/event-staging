@@ -27,7 +27,11 @@ class SurveyQuestionsController < ApplicationController
 
     @survey_question = SurveyQuestion.new(survey_question_params)
     @survey_question.save
-    redirect_to slugger_path(@event) + '?editing=true'
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Survey Question was successfully created.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
   end
 
   def update
@@ -48,16 +52,28 @@ class SurveyQuestionsController < ApplicationController
     @event = Event.find(@survey_question.event_id)
     @answer_count = SurveyAnswer.where(:survey_question_id => @survey_question.id).count
     
-    if @answer_count > 0
-    
+     if @answer_count > 0
+      survey_message = 'Survey question already has answers and cannot not be deleted.'
+      survey_status = 'error'
     else
+      #format.json { render :json => { :error_message => @campaign.errors.full_messages }, :status => :unprocessable_entity }
+
+      survey_message = 'Survey question has been deleted.'
+      survey_status = 'success'
        @survey_question.destroy
+
     end
+
+
+      
+ 
+
+
     # @ticket.destroy
     respond_to do |format|
       format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Ticket was successfully destroyed.' }
       format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
-      format.json { render :show, status: :created }
+      format.json { render :json => {:status => survey_status, :message => survey_message}, status: :created }
     end
 
     #redirect_to slugger_path(@event) + '?editing=true'

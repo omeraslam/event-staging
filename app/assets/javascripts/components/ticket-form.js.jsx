@@ -11,7 +11,6 @@ var TicketForm = React.createClass({
     setItemDate: function(dateText) {
         ticketObj = this.state.current_selection;
         ticketObj["stop_date"] = dateText;
-        console.log(ticketObj);
         this.setState({current_selection: ticketObj})
     },
     componentWillReceiveProps: function(nextProps) {
@@ -76,8 +75,11 @@ var TicketForm = React.createClass({
                       "is_active" : this.state.current_selection.is_active
             }},
             dataType: 'JSON',
-            success: function() {
-                that.props.onAddedNewItem(this.state.current_selection);
+            success: function(resp) {
+               that.state.current_selection = resp;
+               //that.state.current_selection.stop_date =  moment(resp.stop_date).format('MM/DD/YYYY');
+               
+               that.props.onAddedNewItem(that.state.current_selection);
                that.props.onUpdateMessage('Ticket has been updated');
                
             }.bind(this)
@@ -94,13 +96,23 @@ var TicketForm = React.createClass({
 
     handleDelete: function(e){
         e.preventDefault();
+        var that = this;
+
+        alert(JSON.stringify(this.state.current_selection));
+
+        var itemID = this.state.current_selection.id;
 
         $.ajax({
             method: 'POST',
             url: '/remove-ticket',
             data: {id: this.state.current_selection.id },
             dataType: 'JSON',
-            success: function() {
+            success: function(resp) {
+                that.props.onUpdateMessage(resp.message);
+                if(resp.status == 'success') {
+                    that.props.onRemovedNewItem(itemID);
+                }
+
                 //this.props.handleDeleteEvent(this.props.event)
             }.bind(this)
         });
@@ -119,6 +131,12 @@ var TicketForm = React.createClass({
 
 
     render: function() {
+
+        var deleteButton = '' 
+        if(this.state.current_selection.id != undefined) {
+          deleteButton = <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
+        }
+
         return (
                 <div>
                 <h1>{this.props.current_selection.title}</h1>
@@ -156,7 +174,7 @@ var TicketForm = React.createClass({
                             <input name="stop_date" className="date" type="text"  value={this.state.current_selection.stop_date} onChange={this.handleChange}/>
                         </div>
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">Update</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
+                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' : 'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> {deleteButton}
                         </div>
                     </form>
                 </div>

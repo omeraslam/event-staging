@@ -39,8 +39,12 @@ class TicketsController < ApplicationController
     logger.debug "#{params[:slug]}"
     @ticket = @event.tickets.build(ticket_params)
     @ticket.save
-    #respond_with(@ticket)
-    redirect_to slugger_path(@event) + '?editing=true'
+    #respond_with(@ticket) 
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Person was successfully created.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
   end
 
   def update
@@ -57,9 +61,13 @@ class TicketsController < ApplicationController
     @event = Event.find(@ticket.event_id)
     @ticket_count = LineItem.where(:ticket_id => params[:id].to_s).count
     if @ticket_count > 0
-      
+      ticket_message = 'Tickets have already been purchased and could not be deleted.'
+      ticket_status = 'error'
     else
+      #format.json { render :json => { :error_message => @campaign.errors.full_messages }, :status => :unprocessable_entity }
 
+      ticket_message = 'Ticket has been deleted.'
+      ticket_status = 'success'
        @ticket.destroy
 
     end
@@ -67,7 +75,7 @@ class TicketsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Ticket was successfully destroyed.' }
       format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
-      format.json { render :show, status: :created }
+      format.json { render :json => {:status => ticket_status, :message => ticket_message}, status: :created }
     end
 
     #redirect_to slugger_path(@event) + '?editing=true'

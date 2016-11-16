@@ -102,20 +102,12 @@ var DashboardContainer = React.createClass({
         //  - draft
         var tickets_closed = true;
         this.state.ticket_items.forEach(function(element) {
-
-            if(( element.item.stop_date.indexOf('/') > -1 ?  moment(element.item.stop_date, "MM-DD-YYYY"): moment(element.item.stop_date) ) > moment.now() && element.item.is_active == true){
+            if(( element.stop_date.indexOf('/') > -1 ?  moment(element.stop_date, "MM-DD-YYYY"): moment(element.stop_date) ) > moment.now() && element.is_active == true){
                 tickets_closed = false;
             }
         });
 
-        // alert(tickets_closed);
-        // alert('registration open: ' + this.state.registration_open);
-        // alert('pubished: ' + (String(this.state.eventObj.published) == 'true'));
-        // alert('event start date passed: ' + ((
-        //     moment(this.state.eventObj.date_start) > moment.now())));
-        // alert('tickets not closed : ' + !tickets_closed);
 
-        
 
         if (this.state.registration_open == true && String(this.state.eventObj.published) == 'true' && (
             ( this.state.eventObj.date_start.indexOf('/') > -1 ?  moment(this.state.eventObj.date_start, "MM-DD-YYYY"): moment(this.state.eventObj.date_start)) && !tickets_closed

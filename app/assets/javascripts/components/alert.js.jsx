@@ -14,7 +14,11 @@ var FormAlert = React.createClass({
         
 
             setTimeout(function(){
-                $('.alert').show();
+                // $('.alert').show(100, function() {
+                //     $(this).delay(10000).hide();
+                // });
+                $('.alert').show().delay(2000).hide(100);
+                
             },300); 
 
         }

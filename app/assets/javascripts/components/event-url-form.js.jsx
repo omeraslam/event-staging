@@ -33,7 +33,7 @@ var EventUrlForm = React.createClass({
               var urlPath = window.location.protocol + '//' + window.location.host + '/'+ that.state.eventObj.slug + '?editing=true'
               window.history.pushState('Object', 'Title', urlPath);
               //need to change url path in browser
-               this.props.onPanelUpdate('Event URL settings updated');
+               this.props.onUpdateMessage('Event URL settings updated');
                that.state.updateEvent(this.state.eventObj)
                
             }.bind(this)

@@ -11,15 +11,12 @@ var QuestionForm = React.createClass({
 
     setItemDate: function(dateText) {
         ticketObj = this.state.current_selection;
-        ticketObj["stop_date"] = dateText;
-        console.log(ticketObj);
         this.setState({current_selection: ticketObj})
 
     },
 
 
     componentWillReceiveProps: function(nextProps) {
-      nextProps.current_selection.stop_date = moment(nextProps.current_selection.stop_date).format('MM/DD/YYYY');
         
       this.setState({
         current_selection: nextProps.current_selection 
@@ -29,17 +26,8 @@ var QuestionForm = React.createClass({
     componentDidMount: function() {
         var that = this;
         //format specific 
-        this.state.current_selection.stop_date = moment(this.state.current_selection.stop_date).format('MM/DD/YYYY');
         this.setState({current_selection: this.state.current_selection})
-        $('#datepairExample .date').datepicker({
-          onSelect: function(dateText) {
-
-            that.setItemDate(dateText);
-            $('.date').focusout();
-          },
-          'format': 'MM/DD/YYYY',
-          'autoclose': true
-        });
+  
 
    
     },
@@ -75,11 +63,11 @@ var QuestionForm = React.createClass({
                       "free_text" : this.state.current_selection.free_text
             }},
             dataType: 'JSON',
-            success: function() {
-               //alert('success');
-               // this.props.handleDeleteEvent(this.props.event)
-                
-              that.props.onAddedNewItem(this.state.current_selection);
+            success: function(resp) {
+
+               that.state.current_selection = resp;
+               that.props.onAddedNewItem(that.state.current_selection);
+               // that.state.current_selection.id = id;
               that.props.onUpdateMessage('Survey question has been updated');
                
             }.bind(this)
@@ -91,13 +79,21 @@ var QuestionForm = React.createClass({
     handleDelete: function(e) {
         e.preventDefault();
 
+        var that = this;
+
+        var itemID = this.state.current_selection.id
+
         $.ajax({
             method: 'POST',
             url: '/remove-question',
             data: {id: this.state.current_selection.id },
             dataType: 'JSON',
-            success: function() {
-                //this.props.handleDeleteEvent(this.props.event)
+            success: function(resp) {
+              
+              that.props.onUpdateMessage(resp.message);
+                if(resp.status == 'success') {
+                    that.props.onRemovedNewItem(itemID);
+                }
             }.bind(this)
         });
 
@@ -126,13 +122,11 @@ var QuestionForm = React.createClass({
           ticketArray = [];
           ticket_value_string = '';
           $('input[name="ticket_id"]').each(function() {
-            console.log($(this).val());
             if($(this).is(':checked')) {
               ticketArray.push($(this).val());
             }
 
               ticket_value_string = ticketArray.toString();
-              console.log('ticket string: '+ticket_value_string);
 
             obj[name] = ticket_value_string;
           });
@@ -151,7 +145,6 @@ var QuestionForm = React.createClass({
 
         }
 
-        console.log(JSON.stringify(obj));
         this.setState({current_selection: obj});
     },
 
@@ -165,6 +158,11 @@ var QuestionForm = React.createClass({
         } else {
 
         var divStyle= {display: 'block'}
+        }
+
+        var deleteButton = '' 
+        if(this.state.current_selection.id != undefined) {
+          deleteButton = <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
         }
         return (
                 <div>
@@ -196,7 +194,7 @@ var QuestionForm = React.createClass({
                         </div>
 
                         <div className="input-group">
-                            <label>Field Type</label>
+                            <label>Field Type {this.state.current_selection.field_type}</label>
 
                               <select name="field_type"  value={this.state.current_selection.field_type} onChange={this.handleChange} >
                                 <option value="1">Text Area</option>
@@ -219,8 +217,8 @@ var QuestionForm = React.createClass({
 
                         <label><input type="checkbox"  name="apply_to_buyer" checked={this.state.current_selection.apply_to_buyer} className="input-primary" value={this.state.current_selection.apply_to_buyer} onChange={this.handleChange} />Buyer</label>
                         {this.state.ticket_types.map(function(item, index){
-                           var test = this.state.current_selection.ticket_id == null ? false : this.state.current_selection.ticket_id.indexOf(item.item.id.toString()) > -1;
-                             return !item.item.is_active ? '' : <label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.item.id} onChange={this.handleChange}  />{item.item.title}</label>
+                           var test = this.state.current_selection.ticket_id == null ? false : this.state.current_selection.ticket_id.indexOf(item.id.toString()) > -1;
+                             return !item.is_active ? '' : <label key={index} ><input type="checkbox" checked={test}  name="ticket_id" className="input-primary" value={item.id} onChange={this.handleChange}  />{item.title}</label>
                          }.bind(this))} 
                         </div>
 
@@ -231,7 +229,7 @@ var QuestionForm = React.createClass({
 
 
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">Update</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
+                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' :  'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> {deleteButton}
                         </div>
                     </form>
                 </div>
