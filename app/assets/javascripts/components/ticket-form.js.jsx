@@ -101,7 +101,6 @@ var TicketForm = React.createClass({
         e.preventDefault();
         var that = this;
 
-        alert(JSON.stringify(this.state.current_selection));
 
         var itemID = this.state.current_selection.id;
 
