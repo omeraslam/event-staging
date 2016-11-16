@@ -136,13 +136,14 @@ var TicketForm = React.createClass({
 
         var deleteButton = '' 
         if(this.state.current_selection.id != undefined) {
-          deleteButton = <button onClick={this.handleDelete} className="btn btn-primary">Delete</button>
+          deleteButton = <a onClick={this.handleDelete} className="link-delete"><i className="fa fa-trash"></i> Delete ticket</a>
         }
 
         return (
                 <div>
-                <h1>{this.props.current_selection.title}</h1>
-
+                <div className="page-header">
+                    <h1>{this.props.current_selection.title}</h1>
+                </div>
                     <form>
                         <div className="input-group">
                             <label> Ticket Name</label>
@@ -176,7 +177,7 @@ var TicketForm = React.createClass({
                             <input name="stop_date" className="date" type="text"  value={this.state.current_selection.stop_date} onChange={this.handleChange}/>
                         </div>
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' : 'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary">Cancel</button> {deleteButton}
+                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' : 'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary btn-gray">Cancel</button> {deleteButton}
                         </div>
                     </form>
                 </div>

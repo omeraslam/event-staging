@@ -707,6 +707,11 @@ button {
       background-color:darken($brand-primary,8%);
     }
 
+
+    &.btn-gray {
+      background-color:#cdd2d6;
+    }
+
     &.btn-block {
       padding: 16px 36px;
       margin-top:10px;
@@ -760,6 +765,15 @@ button {
     }
     
 }
+
+
+.link-delete {
+  color:$brand-red;
+  display: block;
+  //HACK
+  margin-top: 40px;
+}
+
 
 
 a.circle {
