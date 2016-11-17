@@ -27,14 +27,29 @@ var QuestionForm = React.createClass({
         var that = this;
         //format specific 
         this.setState({current_selection: this.state.current_selection})
+
+
+        var validator5 = $(".question-form").validate({
+        submitHandler: function() { that.handleUpdate() },
+        rules: {
+          "question_text": {
+            required: true
+          }
+        }, messages : {
+          "question_text": 'Please enter a question.'
+        }
+      });
+
   
 
    
     },
-
-    handleUpdate: function(e) {
+    handleValidation: function(e) {
 
         e.preventDefault();
+      },
+    handleUpdate: function() {
+
         var that = this;
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
         var method, uri, save_message;
@@ -168,7 +183,7 @@ var QuestionForm = React.createClass({
                   <h1>{this.state.current_selection.question_text}</h1>
                 </div>
 
-                    <form className="question-form">
+                    <form className="question-form" onSubmit={this.handleValidation} >
                         <div className="input-group">
                             <label>Survey Active</label>
                              <select name="is_active"  value={this.state.current_selection.is_active} onChange={this.handleChange} >
@@ -229,7 +244,7 @@ var QuestionForm = React.createClass({
 
 
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' :  'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary btn-gray">Cancel</button> {deleteButton}
+                            <button type="submit" className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' :  'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary btn-gray">Cancel</button> {deleteButton}
                         </div>
                     </form>
                 </div>

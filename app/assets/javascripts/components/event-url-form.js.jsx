@@ -14,10 +14,11 @@ var EventUrlForm = React.createClass({
 
         // })
     },
+    handleValidation: function(e) {
+      e.preventDefault();
+    },
+    handleUpdate: function() {
 
-    handleUpdate: function(e) {
-
-        e.preventDefault();
         var method, uri;
 
         var that = this;
@@ -66,9 +67,10 @@ var EventUrlForm = React.createClass({
   $.validator.addMethod("loginRegex", function(value, element) {
         return /^[a-zA-Z0-9-]+$/i.test(value);
     }, "Event must contain only letters, numbers, or dashes.");
-
+      var that = this;
 
       var validator2 = $(".edit-slug").validate({
+          submitHandler: function() { that.handleUpdate() },
          rules: {
            "slug": {
              required: true,
@@ -98,7 +100,7 @@ var EventUrlForm = React.createClass({
               <p>{this.props.subheader}</p>
             </div>   
 
-                <form className="edit-slug">
+                <form className="edit-slug" onSubmit={this.handleValidation} >
                     <div className="input-group">
                       <label>Your event URL</label>
                       <input name="slug" type="text" value={this.state.eventObj.slug} onChange={this.handleChange} />
@@ -113,7 +115,7 @@ var EventUrlForm = React.createClass({
                       <small>You can prevent anyone from accessing your event website by changing the status to "hidden." Once hidden, only you will be able to view the website when logged in.</small> 
                     </div>
                     <div className="input-group">
-                        <button className="btn btn-primary" onClick={this.handleUpdate} >Update</button>
+                        <button className="btn btn-primary" type="submit" >Update</button>
                     </div>
                 </form>
             </div>

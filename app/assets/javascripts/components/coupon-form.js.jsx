@@ -20,13 +20,34 @@ var CouponForm = React.createClass({
         var that = this;
         //format specific 
         this.setState({current_selection: this.state.current_selection})
+
+
+        var validator5 = $(".coupon-form").validate({
+        submitHandler: function() { that.handleUpdate() },
+        rules: {
+          "promo_code": {
+            required: true
+          },
+          "discount": {
+            required: true
+          },
+
+        }, messages : {
+          "promo_code": 'Please enter a promotional code.',
+          "discount": 'Please enter a discount value.'
+        }
+      });
+
         
 
    
     },
 
-    handleUpdate: function(e) {
+    handleValidation: function(e) {
         e.preventDefault();
+    },
+
+    handleUpdate: function() {
         var method, uri;
         if (this.state.current_selection.id == null) {
             method = 'POST'
@@ -74,7 +95,7 @@ var CouponForm = React.createClass({
                 <div>
                 <h1>{this.props.current_selection.promo_code}</h1>
 
-                    <form>
+                    <form className="coupon-form" onSubmit={this.handleValidation}>
                         <div className="input-group">
                             <label>Coupon Active</label>
                              <select name="is_active"  value={this.state.current_selection.is_active} onChange={this.handleChange} >
@@ -111,7 +132,7 @@ var CouponForm = React.createClass({
 
 
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">Update</button>
+                            <button type="submit" className="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

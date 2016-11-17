@@ -83,11 +83,9 @@ var EventTicketingForm = React.createClass({
 
 
         var validator5 = $(".edit_ticket").validate({
+          submitHandler: function() { that.handleUpdate() },
           rules: {
             "title": {
-              required: true
-            },
-            "price": {
               required: true
             },
             "ticket_limit": {
@@ -101,9 +99,8 @@ var EventTicketingForm = React.createClass({
             },
           }, messages : {
             "title": 'Please enter a ticket name.',
-            "price": 'Please enter a ticket price.',
             "ticket_limit": 'Please enter a ticket limit.',
-            "buy_limit": 'Please enter a ticket limit.',
+            "buy_limit": 'Please enter a buy limit.',
             "stop_date": 'Please enter an end date.'
 
           }
@@ -112,11 +109,12 @@ var EventTicketingForm = React.createClass({
 
    
     },
+    handleValidation: function(e){
+        e.preventDefault();
+    },
 
+    handleUpdate: function() {
 
-    handleUpdate: function(e) {
-
-     e.preventDefault();
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
         var method, uri;
         if (this.state.ticketObj.id == null) {
@@ -186,7 +184,7 @@ var EventTicketingForm = React.createClass({
                 </div>
 
 
-                <form className="edit_ticket">
+                <form className="edit_ticket" onSubmit={this.handleValidation}>
     
 
                     <div className="input-group" id="datepairExample">
@@ -202,7 +200,7 @@ var EventTicketingForm = React.createClass({
                       <input name="buy_limit" type="text" value={this.state.ticketObj.buy_limit} onChange={this.handleChange} />
                     </div>
                     <div className="input-group">
-                        <button className="btn btn-primary" onClick={this.handleUpdate} >Update</button>
+                        <button className="btn btn-primary" type="submit" >Update</button>
                     </div>
                 </form>
             </div>

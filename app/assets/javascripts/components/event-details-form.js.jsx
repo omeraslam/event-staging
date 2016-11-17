@@ -20,9 +20,8 @@ var EventDetailsForm = React.createClass({
     },
 
 
-    handleUpdate: function(e) {
+    handleUpdate: function() {
 
-        e.preventDefault();
         var method, uri;
 
         var that = this;
@@ -50,7 +49,9 @@ var EventDetailsForm = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         this.setState({eventObj: nextProps.eventObj})
     },
-
+    handleValidation: function(e) {
+      e.preventDefault();
+    },
     componentDidMount: function() {
         var that = this;
         //format specific 
@@ -68,7 +69,8 @@ var EventDetailsForm = React.createClass({
 
 
 
-          var validator3 = $(".edit-event").validate({
+          var validator3 = $(".edit-event").validate({ 
+            submitHandler: function() { that.handleUpdate() },
             rules: {
               "name": {
                 required: true
@@ -98,7 +100,7 @@ var EventDetailsForm = React.createClass({
               <p>{this.props.subheader}</p>
             </div>   
 
-                <form className="edit-event">
+                <form className="edit-event" onSubmit={this.handleValidation} >
                     <div className="input-group">
                       <label>Event Name</label>
                       <input name="name" type="text" value={this.state.eventObj.name} onChange={this.handleChange} />
@@ -114,7 +116,7 @@ var EventDetailsForm = React.createClass({
                       <input name="location" type="text"  value={this.state.eventObj.location} onChange={this.handleChange} />
                     </div>
                     <div className="input-group">
-                        <button className="btn btn-primary" onClick={this.handleUpdate}>Update</button>
+                        <button className="btn btn-primary" type="submit" > Update</button>
                     </div>
                 </form>
             </div>
