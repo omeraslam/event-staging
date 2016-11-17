@@ -21,6 +21,11 @@ var TicketForm = React.createClass({
       });
     },
 
+    handleValidation: function(e) {
+      e.preventDefault();
+
+    },
+
     componentDidMount: function() {
 
 
@@ -37,9 +42,10 @@ var TicketForm = React.createClass({
           'format': 'MM/DD/YYYY',
           'autoclose': true
         });
-        
+
 
    var validator5 = $(".ticket-form").validate({
+    submitHandler: function() { that.handleUpdate() },
     rules: {
       "title": {
         required: true
@@ -50,6 +56,9 @@ var TicketForm = React.createClass({
       "ticket_limit": {
         required: true
       },
+      "buy_limit": {
+        required: true
+      },
       "stop_date": {
         required: true
       },
@@ -57,6 +66,7 @@ var TicketForm = React.createClass({
       "title": 'Please enter a ticket name.',
       "price": 'Please enter a ticket price.',
       "ticket_limit": 'Please enter a ticket limit.',
+      "buy_limit": 'Please enter a buy limit.',
       "stop_date": 'Please enter an end date.'
 
     }
@@ -65,9 +75,9 @@ var TicketForm = React.createClass({
 
    
     },
-    handleUpdate: function(e) {
-        e.preventDefault();
+    handleUpdate: function() {
         //this.props.current_selection["stop_date"] = moment(this.props.current_selection["stop_date"], "YYYY-MM-DD");
+      
         var method, uri, save_message;
         if (this.state.current_selection.id == null) {
             method = 'POST'
@@ -161,7 +171,7 @@ var TicketForm = React.createClass({
                 <div className="page-header">
                     <h1>{this.props.current_selection.title}</h1>
                 </div>
-                    <form className="ticket-form">
+                    <form className="ticket-form" onSubmit={this.handleValidate}>
                         <div className="input-group">
                             <label> Ticket Name</label>
                             <input name="title" type="text" value={this.state.current_selection.title} onChange={this.handleChange} />
@@ -194,7 +204,7 @@ var TicketForm = React.createClass({
                             <input name="stop_date" className="date" type="text"  value={this.state.current_selection.stop_date} onChange={this.handleChange}/>
                         </div>
                         <div className="input-group">
-                            <button onClick={this.handleUpdate} className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' : 'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary btn-gray">Cancel</button> {deleteButton}
+                            <button type="submit" className="btn btn-primary">{this.state.current_selection.id == undefined ? 'Save' : 'Update' }</button> <button onClick={this.handleCancel} className="btn btn-primary btn-gray">Cancel</button> {deleteButton}
                         </div>
                     </form>
                 </div>
