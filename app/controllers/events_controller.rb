@@ -388,26 +388,29 @@ require 'rqrcode_png'
                       logger.debug "SURVEY QUESTION COUNT :::: #{@event.survey_questions.count}"
                        if !params[:surveyanswers].nil?
                         @survey_questions.each_with_index do |survey_question, index|
-                       
-                          surveyanswer = SurveyAnswer.new
-                          if survey_question.field_type == 3 
-                            saveAnswer = []
-                            survey_question.answer_text.split(',').each_with_index do |answer, bindex|
-                              if !params[:surveyanswers][(lineitem.id).to_s ][(survey_question.id).to_s][bindex.to_s].nil?
-                                saveAnswer.push(answer) 
+                         if(survey_question.ticket_id != '')
+                            surveyanswer = SurveyAnswer.new
+                            if survey_question.field_type == 3 
+                              saveAnswer = []
+                              survey_question.answer_text.split(',').each_with_index do |answer, bindex|
+                                if !params[:surveyanswers][(lineitem.id).to_s ][(survey_question.id).to_s][bindex.to_s].nil?
+                                  saveAnswer.push(answer) 
+                                end
                               end
+                              surveyanswer.answer_text = saveAnswer.map(&:inspect).join(', ')
+                            else 
+                              logger.debug "#{survey_question.id}"
+                              logger.debug "#{params[:surveyanswers][(lineitem.id).to_s][survey_question.id]}"
+                              surveyanswer.answer_text =  params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s]["answer_text"]
                             end
-                            surveyanswer.answer_text = saveAnswer.map(&:inspect).join(', ')
-                          else 
-                            surveyanswer.answer_text =  params[:surveyanswers][(lineitem.id).to_s][(survey_question.id).to_s]["answer_text"]
-                          end
 
-                          surveyanswer.attendee_id = @attendee.id
-                          surveyanswer.event_id = @event.id
-                          surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
-     
-                          if surveyanswer.save
-                          else
+                            surveyanswer.attendee_id = @attendee.id
+                            surveyanswer.event_id = @event.id
+                            surveyanswer.survey_question_id = params[:surveyanswers][(index+1).to_s]["survey_id"]
+       
+                            if surveyanswer.save
+                            else
+                            end
                           end
                         end
                       end

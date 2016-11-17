@@ -37,7 +37,7 @@ var TicketForm = React.createClass({
           'format': 'MM/DD/YYYY',
           'autoclose': true
         });
-
+        
 
    var validator5 = $(".ticket-form").validate({
     rules: {

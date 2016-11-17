@@ -168,7 +168,7 @@ var QuestionForm = React.createClass({
                   <h1>{this.state.current_selection.question_text}</h1>
                 </div>
 
-                    <form>
+                    <form className="question-form">
                         <div className="input-group">
                             <label>Survey Active</label>
                              <select name="is_active"  value={this.state.current_selection.is_active} onChange={this.handleChange} >
