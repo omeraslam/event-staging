@@ -93,9 +93,9 @@ var TableElement = React.createClass({
     render: function() {
         if ( this.props.category == 'attendees' || this.props.category == 'orders') {
 
-        var printLinks =   <div className="col-md-6 text-right">
+        var printLinks = <span>
                         <a href={this._buildPrintLinkHref()} className="btn btn-primary">Print List </a> <a href={this._buildDownloadLinkHref()} className="btn btn-primary">Download CSV</a>
-                   </div>;
+                   </span>;
 
 
         } else {
@@ -103,7 +103,7 @@ var TableElement = React.createClass({
         }
         var columnSort = ''
         if ( this.props.category == 'attendees' ||  this.props.category == 'orders') {
-            columnSort = <div className="columnSelectorWrapper vertical"><input id={"colSelect-"+this.props.category} type="checkbox" className="hidden" /><label className="columnSelectorButton" htmlFor={"colSelect-"+this.props.category}>Column</label><div id={"columnSelector-"+ this.props.category} className="columnSelector"></div></div>
+            columnSort = <div className="columnSelectorWrapper vertical"><input id={"colSelect-"+this.props.category} type="checkbox" className="hidden" /><label className="columnSelectorButton" htmlFor={"colSelect-"+this.props.category}>Show/Hide Columns</label><div id={"columnSelector-"+ this.props.category} className="columnSelector"></div></div>
         }
 
         return (
@@ -114,14 +114,17 @@ var TableElement = React.createClass({
                         <input className={"search selectable table-search-"+this.props.category} type="search" placeholder={'Search by ' + this.props.category} data-column="all" />
                     </div>
 
+                    <div className="col-md-6 text-right">
+                    {columnSort}
+
                     {printLinks}
+                    </div>
 
                 </div>
             </div>
 
             <div className="editor-panel">
 
-          {columnSort}
 
 
 
