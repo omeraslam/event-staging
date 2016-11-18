@@ -14,75 +14,63 @@ class DashboardController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
   def admin
+    if !current_user.is_admin
+      not_found
+    end
 
-    @events = Event.all
-    events = []
-    @events.each do |event|
-      @user = User.find(event.user_id )
-      @tickets = event.tickets.all 
-      ticket_count = 0
-      total_revenue = 0
-      total_fee = 0
-      @attendees = Attendee.where(:event_id => event.id)
-      @tickets.each do |ticket|
-        if ticket.is_active
-          ticket_count += ticket.ticket_limit
+      @events = Event.all
+      events = []
+      @events.each do |event|
+        @user = User.find(event.user_id )
+        @tickets = event.tickets.all 
+        ticket_count = 0
+        total_revenue = 0
+        total_fee = 0
+        @attendees = Attendee.where(:event_id => event.id)
+        @tickets.each do |ticket|
+          if ticket.is_active
+            ticket_count += ticket.ticket_limit
+          end
+
+         Purchase.where(:event_id => event.id).all.each do |purchase|
+            total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order
+            total_fee += purchase.total_fee.nil? ? 0 : purchase.total_fee
+
+           # @total += LineItem.where(:purchase_id => purchase.id.to_s).count
+          end
+          
         end
 
-       Purchase.where(:event_id => event.id).all.each do |purchase|
-          total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order
-          total_fee += purchase.total_fee.nil? ? 0 : purchase.total_fee
+        dataObj = {
+          "Event Name" => event.name, 
+          "Url" => 'http://lvh.me:3000/'+event.slug, 
+          "Created At" => event.created_at.to_date.strftime("%B %d, %Y"),  
+          "Updated At" => event.updated_at.to_date.strftime("%B %d, %Y"),  
+          "User Email" => @user.email,  
+          "Event Date" => event.date_start.to_date.strftime("%B %d, %Y"), 
+          "Published" =>  event.published.to_s, 
+          "Status" => event.status.to_s, 
+          "Total Attendees" => @attendees.count,  
+          "Spots Remaining" => ticket_count - @attendees.count, 
+          "Total Sales" => '$' + (total_revenue/100).round(2).to_s, 
+          "Total Fees" => '$' + (total_fee/100).to_s
 
-         # @total += LineItem.where(:purchase_id => purchase.id.to_s).count
-        end
-        
+        }
+        events.push(dataObj)
+       
       end
 
 
-
-    #    @total_revenue = 0
-    # spots_left = 0
-    # @tickets.each do |ticket|
-    #   spots_left += ticket.ticket_limit
-    #     Purchase.where(:event_id => @event.id).all.each do |purchase|
-    #       @total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order
-
-    #       @total += LineItem.where(:purchase_id => purchase.id.to_s).count
-    #     end
-
-    #   @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_img
+      @buyers_list = { "items" => events, "event" => 1} 
 
 
-      dataObj = {
-        "Event Name" => event.name, 
-        "Url" => 'http://lvh.me:3000/'+event.slug, 
-        "Created At" => event.created_at.to_date.strftime("%B %d, %Y"),  
-        "Updated At" => event.updated_at.to_date.strftime("%B %d, %Y"),  
-        "User Email" => @user.email,  
-        "Event Date" => event.date_start.to_date.strftime("%B %d, %Y"), 
-        "Published" =>  event.published.to_s, 
-        "Status" => event.status.to_s, 
-        "Total Attendees" => @attendees.count,  
-        "Spots Remaining" => ticket_count - @attendees.count, 
-        "Total Sales" => '$' + (total_revenue/100).round(2).to_s, 
-        "Total Fees" => '$' + (total_fee/100).to_s
-
-      }
-      events.push(dataObj)
-     
-    end
+      @buyers_headers = ["Event Name", "Url", "Created At", "Updated At", "User Email", "Event Date", "Published", "Status", "Total Attendees", "Spots Remaining", "Total Sales", "Total Fees"]
 
 
-    @buyers_list = { "items" => events, "event" => 1} 
-
-
-    @buyers_headers = ["Event Name", "Url", "Created At", "Updated At", "User Email", "Event Date", "Published", "Status", "Total Attendees", "Spots Remaining", "Total Sales", "Total Fees"]
-
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
+      respond_to do |format|
+        format.html
+        format.js
+      end
 
     
   end
