@@ -141,11 +141,11 @@
   border-radius: 5px;
   padding: 5px;
 }
-#colSelect1:checked + label {
+#colSelect-orders:checked + label, #colSelect-attendees:checked + label {
   background: #5797d7;
   border-color: #555;
 }
-#colSelect1:checked ~ #columnSelector {
+#colSelect-attendees:checked ~ #columnSelector-attendees, #colSelect-orders:checked ~ #columnSelector-orders {
   display: block;
 }
 .columnSelector {

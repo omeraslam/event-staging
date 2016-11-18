@@ -8,25 +8,22 @@ var TableElement = React.createClass({
     },
 
     componentDidMount: function() {
-        var $table = $(".table-attendees").tablesorter({
+        var that = this;
+        var $table = $(".table-"+this.props.category).tablesorter({
           // Sort on the second column, in ascending order
             theme: 'blue',
             sortList: [[1,0]],
-           widgets: [ "filter", "columnSelector"], 
+            widgets: [ "filter", "columnSelector"], 
           
-        
-
-
-
             widgetOptions : {
             // use the filter_external option OR use bindSearch function (below)
             // to bind external filters.
-            filter_external : '.table-search-attendees',
+            filter_external : '.table-search-'+this.props.category,
             filter_columnFilters: false,
             filter_saveFilters : true,
           
               // target the column selector markup
-              columnSelector_container : $('#columnSelector'),
+              columnSelector_container : $('#columnSelector-'+this.props.category),
               // column status, true = display, false = hide
               // disable = do not display on list
               columnSelector_columns : {
@@ -75,6 +72,12 @@ var TableElement = React.createClass({
 
         });
 
+
+
+
+
+
+  
       
 
 
@@ -99,8 +102,8 @@ var TableElement = React.createClass({
              var printLinks =   '';
         }
         var columnSort = ''
-        if ( this.props.category == 'attendees') {
-           // columnSort = <div className="columnSelectorWrapper vertical"><input id="colSelect1" type="checkbox" className="hidden" /><label className="columnSelectorButton" htmlFor="colSelect1">Column</label><div id="columnSelector" className="columnSelector"></div></div>
+        if ( this.props.category == 'attendees' ||  this.props.category == 'orders') {
+            columnSort = <div className="columnSelectorWrapper vertical"><input id={"colSelect-"+this.props.category} type="checkbox" className="hidden" /><label className="columnSelectorButton" htmlFor={"colSelect-"+this.props.category}>Column</label><div id={"columnSelector-"+ this.props.category} className="columnSelector"></div></div>
         }
 
         return (
@@ -108,7 +111,7 @@ var TableElement = React.createClass({
             <div className="editor-aside"> 
                 <div className="row">
                     <div className="col-md-6">
-                        <input className="search selectable table-search-attendees" type="search" placeholder={'Search by ' + this.props.category} data-column="all" />
+                        <input className={"search selectable table-search-"+this.props.category} type="search" placeholder={'Search by ' + this.props.category} data-column="all" />
                     </div>
 
                     {printLinks}
@@ -123,7 +126,7 @@ var TableElement = React.createClass({
 
 
 
-                <table className="table tablesorter table-attendees"> 
+                <table className={"table tablesorter table-"+this.props.category}> 
                             <thead> 
                                 <tr> 
                                      {this.state.headers.map(function(header, index){

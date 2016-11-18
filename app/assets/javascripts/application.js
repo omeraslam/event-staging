@@ -27,7 +27,9 @@
 //= require turbolinks
 //= require froala_editor.min.js
 //= require Chart
-//= require jquery-tablesorter
+//= require jquery-tablesorter/jquery.tablesorter
+//= require jquery-tablesorter/jquery.tablesorter.widgets
+
 
 // Include other plugins.
 //= require plugins/align.min.js
