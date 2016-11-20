@@ -49,6 +49,7 @@ var CouponForm = React.createClass({
 
     handleUpdate: function() {
         var method, uri;
+        var that = this;
         if (this.state.current_selection.id == null) {
             method = 'POST'
             uri = this.props.event_slug + '/coupons'
@@ -67,10 +68,12 @@ var CouponForm = React.createClass({
                       "is_active" : this.state.current_selection.is_active
             }},
             dataType: 'JSON',
-            success: function() {
+            success: function(resp) {
+               that.state.current_selection = resp;
 
-               this.props.onAddedNewItem(this.state.current_selection);
-               this.props.onUpdateMessage('Coupon has been updated');
+               that.props.onAddedNewItem(that.state.current_selection, (method == 'POST'));
+             
+               that.props.onUpdateMessage('Coupon has been updated');
                
             }.bind(this)
         });

@@ -41,7 +41,7 @@ class TicketsController < ApplicationController
     @ticket.save
     #respond_with(@ticket) 
     respond_to do |format|
-      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Person was successfully created.' }
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Ticket was successfully created.' }
       format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
       format.json { render :show, status: :created }
     end
@@ -51,7 +51,7 @@ class TicketsController < ApplicationController
     @ticket.update(ticket_params)
     @event = Event.find(@ticket.event_id)
     respond_to do |format|
-      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Person was successfully created.' }
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Ticket was successfully created.' }
       format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
       format.json { render :show, status: :created }
     end

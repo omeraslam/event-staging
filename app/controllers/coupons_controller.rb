@@ -30,7 +30,12 @@ class CouponsController < ApplicationController
 
 
     @coupon.save
-    redirect_to slugger_path(@event) + '?editing=true'
+    # redirect_to slugger_path(@event) + '?editing=true'
+    respond_to do |format|
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Coupon was successfully created.' }
+      format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
+      format.json { render :show, status: :created }
+    end
   end
 
   def update
@@ -44,10 +49,12 @@ class CouponsController < ApplicationController
     
 
     respond_to do |format|
-      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Coupon was successfully created.' }
+      format.html { redirect_to slugger_path(@event) + '?editing=true', notice: 'Coupon was successfully updated.' }
       format.js   { render action: 'confirmation', status: :created, location: slugger_path(@event) + '?editing=true' }
       format.json { render :show, status: :created }
     end
+
+
 
   end
 
