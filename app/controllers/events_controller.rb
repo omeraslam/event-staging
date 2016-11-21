@@ -1334,23 +1334,19 @@ def show
     # 
     @total_revenue = 0
     spots_left = 0
+
+        Purchase.where(:event_id => @event.id).all.each do |purchase|
+          @total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order 
+          @total += LineItem.where(:purchase_id => purchase.id.to_s).count
+        end
     
     @tickets.each do |ticket|
       spots_left += ticket.ticket_limit
-      #if !Purchase.where(:event_id => @event.id).nil?
-        Purchase.where(:event_id => @event.id).all.each do |purchase|
-          @total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order
-          @total += LineItem.where(:purchase_id => purchase.id.to_s).count
-        end
-      #end
+ 
 
-      # if ticket.stop_date.to_date > @event.date_start.to_date
-      #   @ticket_stop = ticket.stop_date.to_date > @event.date_start.to_date
-      #   @event.html_hero_1['<span class="btn btn-reg open-registration"> Register now</span>'] = '<span class="btn btn-reg">Registration closed</span>'  
-      # end
-
-      @ticket_quantity_left = ticket.ticket_limit.to_i - @total.to_i
+      
     end
+    @ticket_quantity_left = spots_left.to_i - @total.to_i
 
       registration_count_array = []
       @data_stats = []
