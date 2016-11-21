@@ -146,6 +146,7 @@ require 'rqrcode_png'
     @event = Event.find_by_slug(params[:slug].to_s) or not_found
     @user = User.where(:id => @event.user_id.to_i).first
     @account = Account.where(:user_id => @user.id.to_s).first 
+    puts "ACCOUNT IS:::: #{@account.id}"
     @purchase = Purchase.where(:confirm_token => (params[:oid]).to_s).first
 
     @buyer_only = @event.buyer_only
@@ -277,7 +278,7 @@ require 'rqrcode_png'
             }
           end 
 
-          logger.debug "CONNECTED ACCOUNT IS::: #{@account.stripe_user_id}"
+          puts "CONNECTED ACCOUNT IS::: #{@account.stripe_user_id}"
           begin
             charge = Stripe::Charge.create({
               :amount => (amount + fee),
