@@ -204,6 +204,8 @@ require 'rqrcode_png'
         else
           if @coupon.is_fixed == true
             @final_amount = @final_charge - (@coupon.discount * 100).to_i
+
+            fee =  (@final_amount * @fee_rate).to_i
             if @final_amount < 0
               flash[:error] = 'Coupon code is not valid or expired.'
               #redirect_to slugger_path(@event)
@@ -227,9 +229,11 @@ require 'rqrcode_png'
 
       cc_fee = (@final_amount*credit_card_percent) + 30
       logger.debug "fee of just charge: #{cc_fee}"
+      logger.debug "@final_amount: #{@final_amount}"
       if @final_charge > 0
         logger.debug "num_of_paid_tickets: #{num_of_paid_tickets}"
         fee += 99 * num_of_paid_tickets
+        logger.debug "fee without cc_fee: #{fee}"
         fee += (cc_fee).round.to_i
       end
 
