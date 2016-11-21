@@ -62,6 +62,7 @@ $(document).ready(function(){
 
           },
           error: function(resp) {
+            console.log(resp);
 
             $(".full-page-loader").removeClass("visible");
             alert('Sorry, there seems to be a problem processing that credit card. Please try another card.');
