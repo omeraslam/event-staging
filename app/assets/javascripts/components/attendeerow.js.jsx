@@ -17,7 +17,6 @@ var AttendeeRow = React.createClass({
                  <tr> 
 
                     { Object.keys(this.props.attendee).map(function (key, index) {
-                        //alert('key', key);
                         var propitem = this.props.attendee[key]
                         propitemElement = propitem
                         if(key == 'Url') {

@@ -29,9 +29,7 @@ var EventPaymentForm = React.createClass({
             data: {"event": this.state.eventObj},
             dataType: 'JSON',
             success: function() {
-               //alert('success');
-               //
-               
+                
                that.props.onUpdateMessage('Event payment settings updated');
                that.state.updateEvent(that.state.eventObj)
                

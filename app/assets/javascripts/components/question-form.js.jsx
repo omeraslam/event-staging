@@ -121,8 +121,6 @@ var QuestionForm = React.createClass({
 
          this.props.onResetCurrentSelection();
 
-      //alert('cancel');
-
     },
 
     handleChange: function(e) {
@@ -149,7 +147,6 @@ var QuestionForm = React.createClass({
 
 
             obj[name] = (e.target.value == 'false');
-            //alert(obj[name]);
           } else {
 
             obj[name] = e.target.value;

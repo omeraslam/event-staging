@@ -18,9 +18,7 @@ var EditorDesign = React.createClass({
         data: {"event": this.props.eventObj},
         dataType: 'JSON',
         success: function() {
-           //alert('success');
-           
-           
+ 
         }.bind(this)
       });
     },
@@ -148,9 +146,6 @@ var EditorDesign = React.createClass({
         var divStyle = {
             backgroundImage: 'url(' + imgUrl + ')'
         }
-
-
-       // alert(divStyle.backgroundImage)
 
 
         return (

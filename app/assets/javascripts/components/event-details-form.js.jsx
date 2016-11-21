@@ -34,7 +34,6 @@ var EventDetailsForm = React.createClass({
             data: {"event": this.state.eventObj},
             dataType: 'JSON',
             success: function() {
-               //alert('success');
                this.props.onUpdateMessage('Event details updated');  
                that.state.updateEvent(that.state.eventObj)
                

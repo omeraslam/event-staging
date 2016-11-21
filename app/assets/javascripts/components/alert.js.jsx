@@ -9,14 +9,10 @@ var FormAlert = React.createClass({
     render: function() {
 
         $('.alert').css('display', 'none');
-        if(this.props.message != undefined && this.props.message != '') {
-         //   alert('again');
-        
+        if(this.props.message != undefined && this.props.message != '') {       
 
             setTimeout(function(){
-                // $('.alert').show(100, function() {
-                //     $(this).delay(10000).hide();
-                // });
+       
                 $('.alert').show().delay(2000).hide(100);
                 
             },300); 

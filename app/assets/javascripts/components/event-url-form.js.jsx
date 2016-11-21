@@ -49,16 +49,12 @@ var EventUrlForm = React.createClass({
     $(".edit_event").on("ajax:success", function(e, data, status, xhr) {
 
       }).on("ajax:error", function(e, data, status, xhr) {
-        alert('ajax error');
 
       var alertHTML = '<label id="event_slug-error" class="error" for="event_slug">Custom url name has already been taken. Please choose another</label>';
 
         $(alertHTML).insertAfter($('#event_slug'));
 
 
-
-
-        // return $("#step-clients form").render_form_errors('client', data.responseJSON);
       });
 
 
