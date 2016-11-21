@@ -60,7 +60,7 @@ var Editor = React.createClass({
                     <EditorSettings eventObj={this.props.event} ticketObj={this.props.ticketObj} onUpdateEvent={this.onUpdateEvent} ticket_items={this.state.ticket_items} advance_tickets={this.props.advance_tickets} scid={this.props.scid} tickets_on={this.state.tickets_on} onTicketUpdate={this.onTicketChange}  onUpdateMessage={this.onUpdateMessage} />
                     <EditorAttendees attendees_list={this.props.attendees_list} headers={this.props.attendee_headers} />
                     <EditorOrders items={this.props.order_items} headers={this.props.order_headers} />
-                    <EditorTicketing items={this.props.ticket_items} current_selection={this.props.current_ticket} event_slug={this.props.event_slug} event_id={this.props.event.id} advance_tickets={this.props.advance_tickets} onUpdateMessage={this.onUpdateMessage}  /> 
+                    <EditorTicketing event_date={this.state.event.date_start} items={this.props.ticket_items} current_selection={this.props.current_ticket} event_slug={this.props.event_slug} event_id={this.props.event.id} advance_tickets={this.props.advance_tickets} onUpdateMessage={this.onUpdateMessage}  /> 
                     <EditorCoupons items={this.props.coupon_items} current_selection={this.props.current_coupon} event_slug={this.props.event_slug} event_id={this.props.event.id} onUpdateMessage={this.onUpdateMessage} />
                     <EditorQuestions items={this.props.question_items} ticket_types={this.props.ticket_items} current_selection={this.props.current_question} event_slug={this.props.event_slug} event_id={this.props.event.id} onUpdateMessage={this.onUpdateMessage} /> 
                 </div>

@@ -48,7 +48,6 @@ var EditorSection = React.createClass({
 
     onResetCurrentSelection: function(e) {
       //e.preventDefault();
-
       this.setState({
         current_selection: null
       });
@@ -58,7 +57,7 @@ var EditorSection = React.createClass({
            <div>
 
                 <EditorAsideNav items={this.state.items} handleSelectItem={this.selectItem} current_selection={this.state.current_selection} handleRefreshNav={this.refreshNav} category={this.state.category} />
-                <EditorPanelContainer current_selection={this.state.current_selection} ticket_types={this.props.ticket_types}  onUpdateMessage={this.props.onUpdateMessage} handleOnPanelUpdate={this.onPanelUpdate} event_slug={this.state.event_slug} event_id={this.state.event_id}  category={this.state.category} onAddedNewItem={this.onAddedNewItem} onRemovedNewItem={this.onRemovedNewItem} advance_tickets={this.props.advance_tickets}  handleSelectItem={this.selectItem} onResetCurrentSelection={this.onResetCurrentSelection} onUpdateMessage={this.props.onUpdateMessage} />
+                <EditorPanelContainer event_date={this.props.event_date}  current_selection={this.state.current_selection} ticket_types={this.props.ticket_types}  onUpdateMessage={this.props.onUpdateMessage} handleOnPanelUpdate={this.onPanelUpdate} event_slug={this.state.event_slug} event_id={this.state.event_id}  category={this.state.category} onAddedNewItem={this.onAddedNewItem} onRemovedNewItem={this.onRemovedNewItem} advance_tickets={this.props.advance_tickets}  handleSelectItem={this.selectItem} onResetCurrentSelection={this.onResetCurrentSelection} onUpdateMessage={this.props.onUpdateMessage} />
             </div>
         )
    } 

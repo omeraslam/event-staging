@@ -5,11 +5,6 @@ var EditorPanelEmpty = React.createClass({
     getDefaultProps: function() {
         return { items: [], current_selection: null}
     },
-
-    componentDidMount: function() {
-   
-    },
-
     selectItem: function(item) {
         //this.setState({currentItem: item.id});
         this.props.handleSelectItem(item);
@@ -26,7 +21,7 @@ var EditorPanelEmpty = React.createClass({
              
             break;
             case 'ticket':
-             var itemObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment().format('YYYY-MM-DD')};
+             var itemObj = {"title": "new ticket item", "description": "1000 of 1000", "price": 0,"is_active": false, "ticket_limit": 1000, "buy_limit": 4, "stop_date": moment(this.props.event_date).format('YYYY-MM-DD')};
              default:
              break;
         }
