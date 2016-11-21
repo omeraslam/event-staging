@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/checkthemethod/eventcreate_v1#readme",
   "devDependencies": {
-    "browserify": "^13.1.0",
     "browserify-incremental": "^3.1.1"
   },
   "dependencies": {
+    "browserify": "^13.1.1",
     "browserify-incremental": "^3.1.1",
     "react-bootstrap": "^0.30.5",
     "react-bootstrap-toggle": "^1.2.19"
