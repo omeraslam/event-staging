@@ -275,6 +275,7 @@ require 'rqrcode_png'
             }
           end 
 
+          logger.debug "CONNECTED ACCOUNT IS::: #{@account.stripe_user_id}"
           begin
             charge = Stripe::Charge.create({
               :amount => (amount + fee),
@@ -1036,6 +1037,7 @@ def complete_registration
           }
         end 
 
+          logger.debug "CONNECTED ACCOUNT IS::: #{@account.stripe_user_id}"
         begin
           charge = Stripe::Charge.create({
               :amount => (amount + fee),
@@ -1275,19 +1277,12 @@ end
 
 
 def show
-
-
-
     session[:return_to] ||= request.path
-
     @hash = AmazonSignature::data_hash
 
-
-
-     if signed_in?
+    if signed_in?
       @user = current_user
       @account = Account.where(:user_id => @user.id).first.nil? ? nil : Account.where(:user_id => @user.id).first
-
     else
       @account = nil
     end
@@ -1302,11 +1297,8 @@ def show
 
     @survey_questions = @event.survey_questions.all
 
-
-
     @tickets = @event.tickets.all 
-
-     @tickets_for_event = []
+    @tickets_for_event = []
  
      @survey_question = SurveyQuestion.new
  
