@@ -136,6 +136,8 @@ require 'rqrcode_png'
 
   def submit_attendees
 
+    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+
 
     #replace with actual data
 
