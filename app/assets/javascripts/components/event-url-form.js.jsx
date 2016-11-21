@@ -93,7 +93,7 @@ var EventUrlForm = React.createClass({
             <div>
             <div className="page-header">
               <h1>{this.props.header}</h1>
-              <p>{this.props.subheader}</p>
+              <p>{this.props.subheader}</p> 
             </div>   
 
                 <form className="edit-slug" onSubmit={this.handleValidation} >
