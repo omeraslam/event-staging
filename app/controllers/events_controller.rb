@@ -1305,7 +1305,7 @@ def show
  
      @tickets.each do |ticket|
        tickets_sold = ticket.ticket_limit.to_i - LineItem.where(:ticket_id => ticket.id.to_s).count
-       ticket["description"] = tickets_sold.to_s + " out of " + ticket.ticket_limit.to_s
+       #ticket["description"] = tickets_sold.to_s + " out of " + ticket.ticket_limit.to_s
        ticketobj = ticket
        
        @tickets_for_event.push(ticketobj)

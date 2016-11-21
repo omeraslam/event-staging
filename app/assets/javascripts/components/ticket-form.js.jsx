@@ -185,15 +185,15 @@ var TicketForm = React.createClass({
                         </div>
                         <div className="input-group">
                             <label>Price</label>
-                            <input name="price" type="text" value={this.state.current_selection.price == undefined ? 0 : this.state.current_selection.price} onChange={this.handleChange} disabled={!this.props.advance_tickets}  />
+                            <input name="price" type="number" value={this.state.current_selection.price == undefined ? 0 : this.state.current_selection.price} onChange={this.handleChange} disabled={!this.props.advance_tickets}  />
                         </div>
                         <div className="input-group">
                             <label>Quantity Available</label>
-                            <input name="ticket_limit" type="text" value={this.state.current_selection.ticket_limit} onChange={this.handleChange}  />
+                            <input name="ticket_limit" type="number" value={this.state.current_selection.ticket_limit} onChange={this.handleChange}  />
                         </div>
                         <div className="input-group">
                             <label>Buy Limit</label>
-                            <input name="buy_limit" type="text"  value={this.state.current_selection.buy_limit} onChange={this.handleChange}/>
+                            <input name="buy_limit" type="number"  value={this.state.current_selection.buy_limit} onChange={this.handleChange}/>
                         </div>
                         <div className="input-group">
                             <label>Description</label>

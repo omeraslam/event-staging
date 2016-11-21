@@ -55,6 +55,7 @@
                               
                                       <div class="input-group">
                                         <label><%= buyer_question.question_text %></label>
+                                        <p><%= buyer_question.description %></p>
                                           <% if buyer_question.field_type == 1 %>
 
                                               <textarea name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" placeholder="Enter your response" /></textarea>
@@ -75,10 +76,12 @@
 
 
                                             <% buyer_question.answer_text.split(',').each do |answer| %>
-                                                      
-                                                        <input type="radio" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" value="<%= answer %>"> <%= answer %>
 
-                                                   <br>
+                                                <div class="radio">
+                                                      <label>
+                                                        <input type="radio" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][answer_text]" value="<%= answer %>"> <%= answer %>
+                                                      </label>
+                                                    </div>
                                               <% end %>
 
                                           <% end %>
