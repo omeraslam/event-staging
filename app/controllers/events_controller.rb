@@ -175,8 +175,8 @@ require 'rqrcode_png'
     logger.debug "SURVEY QUESTION:::: #{@event.survey_questions.count}"
     
     @event.tickets.all.each do |ticket|
-      logger.debug "TICKET IS NIL? #{ticket.id}"
-      logger.debug "PURCHASE ID IS NIL? #{@purchase.id?}"
+      # logger.debug "TICKET IS NIL? #{ticket.id}"
+      # logger.debug "PURCHASE ID IS NIL? #{@purchase.id?}"
       #get line item
       @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
 
@@ -1338,7 +1338,7 @@ def show
     spots_left = 0
 
         Purchase.where(:event_id => @event.id).all.each do |purchase|
-          @total_revenue += purchase.total_order.nil? ? 0 : purchase.total_order 
+          @total_revenue += purchase.total_order.nil? || purchase.total_order == 'n/a' ? 0 : purchase.total_order 
           @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end
     
@@ -1480,7 +1480,7 @@ def show
 
     @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
-    Purchase.where(:first_name => nil).destroy_all
+    #Purchase.where(:event_id => @event.id, :first_name => nil).destroy_all
     @buyers = Purchase.where(:event_id => @event.id)
     @buyers_list = {
       "items" => [],
@@ -1501,7 +1501,7 @@ def show
           "email" => buyer.email,
           "guest_count" => LineItem.where(:purchase_id => buyer.id.to_s).count > 0 ? (LineItem.where(:purchase_id => buyer.id.to_s).count).to_i - 1 : 0,
 
-          "total_order" => buyer.total_order.nil? ? 'n/a' : '$' + ("%.2f" % (buyer.total_order/100)).to_s,
+          "total_order" => buyer.total_order.nil? || buyer.total_order == 'n/a' ? 'n/a' : '$' + ("%.2f" % (buyer.total_order/100)).to_s,
           "affiliate_code" => buyer.affiliate_code == 'null' ? 'n/a' : buyer.affiliate_code
         }
         if !@survey_questions.nil?
