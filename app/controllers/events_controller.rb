@@ -1499,7 +1499,7 @@ def show
           "email" => buyer.email,
           "guest_count" => LineItem.where(:purchase_id => buyer.id.to_s).count > 0 ? (LineItem.where(:purchase_id => buyer.id.to_s).count).to_i - 1 : 0,
 
-          "total_order" => '$' + ("%.2f" % (buyer.total_order/100)).to_s,
+          "total_order" => buyer.total_order.nil? ? 'n/a' : '$' + ("%.2f" % (buyer.total_order/100)).to_s,
           "affiliate_code" => buyer.affiliate_code == 'null' ? 'n/a' : buyer.affiliate_code
         }
         if !@survey_questions.nil?
