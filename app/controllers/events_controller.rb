@@ -175,9 +175,11 @@ require 'rqrcode_png'
     logger.debug "SURVEY QUESTION:::: #{@event.survey_questions.count}"
     
     @event.tickets.all.each do |ticket|
-
+      logger.debug "TICKET IS NIL? #{ticket.id}"
+      logger.debug "PURCHASE ID IS NIL? #{@purchase.id?}"
       #get line item
       @line_items = LineItem.where(:ticket_id => ticket.id.to_s, :purchase_id => @purchase.id.to_s).all
+
       @line_items.each_with_index do |lineitem, index|
 
         sum += ticket.price.to_f
