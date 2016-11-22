@@ -60,7 +60,7 @@ require 'rqrcode_png'
     @event = Event.find_by_slug(params[:slug])
 
 
-    @purchase = Purchase.where(:event_id => @event.id, :first_name => nil ).destroy_all
+    #@purchase = Purchase.where(:event_id => @event.id, :first_name => nil ).destroy_all
 
     if(!@event.layout_style?)
       @event.layout_id = '1'
