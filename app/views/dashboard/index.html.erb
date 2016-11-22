@@ -40,22 +40,6 @@
 		<div class="events-list">
 			<% @event_num=0 %>
 			<%  @events.each do |event| %>
-
-<!-- 	TICKET INVENTORY STATS		<% @tickets = Ticket.where(:event_id => event.id.to_s) %>
-
-			<% @tickets.each do |ticket| %>
-
-				Ticket type: <%= ticket.title %> <br/>
-				Ticket Inventory (bought/total): 
-				<%= LineItem.where(:ticket_id => ticket.id.to_s).count %>/<%= ticket.ticket_limit
-
-				    #LineItem.where(:ticket_id => ticket.id.to_s).count
-           			# ticket.ticket_limit 
-				 %><br/>
-			<% end %> -->
-
-      
-
 			<div class="event ">
 
 				<div class="image" style="background-image:url(<%= background_checker(event, true) %>);"> </div>
