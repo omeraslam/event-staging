@@ -1,5 +1,5 @@
- <%= react_component 'Editor', {
-          event: @event, ticketObj:  @ticket, advance_tickets: (@account != nil), scid: @scid, registration_open: @registration_open,
+<%= react_component 'Editor', {
+          event: @event, ticketObj:  @ticket, advance_tickets: (@account_exists != nil), scid: @scid, registration_open: @registration_open,
         attendees_list: @attendees_list, attendee_headers: @attendee_headers,
         stats: @event_stats,
         ticket_items: @tickets_for_event, current_ticket: @current_event_ticket, event_slug: @event.slug,
@@ -34,7 +34,6 @@
        <% if  @account == nil %>
           <a class="stripe-connect-btn" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=<%= ENV['STRIPE_CLIENT_ID'] %>&scope=read_write"><img src="/assets/stripe/blue-on-light.png" /> </a>
       <% end %>
-
 
 
   </div>

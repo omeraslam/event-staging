@@ -449,7 +449,9 @@ require 'rqrcode_png'
               @purchase.destroy
 
             end 
-
+          rescue Stripe::StripeError => e
+            logger.debug "GENERAL STRIPE ERROR"
+            @purchase.destroy
           rescue Stripe::CardError => e
 
               logger.debug "CARD DECLINED"
@@ -1121,6 +1123,9 @@ def complete_registration
             @purchase.destroy
 
           end 
+        rescue Stripe::StripeError => e
+            logger.debug "GENERAL STRIPE ERROR"
+            @purchase.destroy
 
         rescue Stripe::CardError => e
 
@@ -1283,13 +1288,41 @@ def show
     session[:return_to] ||= request.path
     @hash = AmazonSignature::data_hash
 
+
+    @scid = ENV['STRIPE_CLIENT_ID']
+
+
+
+
     if signed_in?
       @user = current_user
       @account = Account.where(:user_id => @user.id).first.nil? ? nil : Account.where(:user_id => @user.id).first
     else
       @account = nil
     end
-     
+
+    @account_exists = nil
+
+    if signed_in? && !@account.nil?
+      begin 
+        #Stripe.api_key = @account.access_token
+        @account_exists = Stripe::Account.retrieve(@account.stripe_user_id)
+
+      rescue Stripe::InvalidRequestError => e
+        logger.debug "INVALID REQUEST"
+      rescue Stripe::AuthenticationError => e
+        logger.debug "AUTHENTICATION REQUEST #{e}"
+      rescue Stripe::APIConnectionError => e
+        # Network communication with Stripe failed
+        logger.debug "APIConnectionError REQUEST #{e}"
+      rescue Stripe::StripeError => e
+        # Display a very generic error to the user, and maybe 
+        logger.debug "GENERIC STRIPE ERROR  REQUEST #{e}"
+      end
+        logger.debug "ACCOUNT EXISTS:::: #{@account_exists != nil}"
+    end 
+
+
     if request.domain != ENV['SITE_URL'].to_s
       @event = Event.find_by_domain(request.host) or not_found
     elsif params[:slug].nil?
@@ -1313,7 +1346,6 @@ def show
        @tickets_for_event.push(ticketobj)
      end
 
-     logger.debug "TICKET COUNT IS: #{@tickets_for_event.count}"
      @current_event_ticket = @tickets_for_event[0]['ticket_object']
 
 
@@ -1323,9 +1355,7 @@ def show
 
     @coupons = Coupon.where(:event_id => @event.id).all
     @current_coupon = Coupon.where(:event_id => @event.id).first
-    logger.debug "@coupons ==== #{@coupons}"
 
-    @scid = ENV['STRIPE_CLIENT_ID']
     # @tickets.each do |ticket|
     #   Purchase.where(:event_id => @event.id).all.each do |purchase|
     #     @total += LineItem.where(:purchase_id => purchase.id).count
@@ -1480,7 +1510,9 @@ def show
 
     @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
-    #Purchase.where(:event_id => @event.id, :first_name => nil).destroy_all
+    if signed_in? && current_user.id.to_s == @event.user_id.to_s 
+      Purchase.where(:event_id => @event.id, :first_name => nil).destroy_all
+    end
     @buyers = Purchase.where(:event_id => @event.id)
     @buyers_list = {
       "items" => [],
