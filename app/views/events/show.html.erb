@@ -31,7 +31,7 @@ $( document ).ready(function() {
 
 </script>
 
-<% if signed_in? && current_user.id == @user.id && params.has_key?(:editing) %>  
+<% if signed_in? && (current_user.id == @user.id || current_user.is_admin) && params.has_key?(:editing) %>  
 
 
 
