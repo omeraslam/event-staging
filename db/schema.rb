@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(version: 20161118003252) do
     t.string   "phone_number"
     t.string   "message"
     t.boolean  "attending"
-    t.integer  "event_id"
-    t.string   "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "event_id"
+    t.string   "user_id"
     t.integer  "line_item_id"
   end
 
@@ -68,9 +68,9 @@ ActiveRecord::Schema.define(version: 20161118003252) do
     t.text     "description",        limit: 255
     t.string   "location"
     t.string   "background_img"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_id"
     t.string   "date_start"
     t.string   "time_start"
     t.string   "date_end"
@@ -95,13 +95,14 @@ ActiveRecord::Schema.define(version: 20161118003252) do
     t.text     "html_footer_button", limit: 255
     t.string   "currency_type",                  default: "USD"
     t.text     "confirmation_text"
-    t.boolean  "paid_event",                     default: false
     t.boolean  "buyer_only",                     default: true
     t.string   "domain"
     t.string   "ga_code"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", unique: true
+  add_index "events", ["user_id", "created_at"], name: "index_events_on_user_id_and_created_at"
+  add_index "events", ["user_id"], name: "index_events_on_user_id"
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -131,7 +132,7 @@ ActiveRecord::Schema.define(version: 20161118003252) do
     t.string   "ticket_id"
     t.string   "attendee_id"
     t.string   "purchase_id"
-    t.boolean  "redeemed",    default: true
+    t.boolean  "redeemed",    default: false
   end
 
   create_table "purchases", force: true do |t|
@@ -204,13 +205,16 @@ ActiveRecord::Schema.define(version: 20161118003252) do
     t.text     "description"
     t.float    "price"
     t.integer  "ticket_limit"
-    t.integer  "buy_limit",    default: 4
+    t.integer  "buy_limit"
     t.date     "stop_date"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "event_id"
     t.boolean  "is_active",    default: true
   end
+
+  add_index "tickets", ["event_id", "created_at"], name: "index_tickets_on_event_id_and_created_at"
+  add_index "tickets", ["event_id"], name: "index_tickets_on_event_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -229,6 +233,11 @@ ActiveRecord::Schema.define(version: 20161118003252) do
     t.string   "uid"
     t.string   "name"
     t.string   "image"
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
@@ -249,6 +258,7 @@ ActiveRecord::Schema.define(version: 20161118003252) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
