@@ -43,7 +43,7 @@ class DashboardController < ApplicationController
 
         dataObj = {
           "Event Name" => event.name, 
-          "Url" => 'http://lvh.me:3000/'+event.slug, 
+          "Url" => 'http://www.eventcreate.com/'+event.slug+'?editing=true', 
           "Created At" => event.created_at.to_date.strftime("%B %d, %Y"),  
           "Updated At" => event.updated_at.to_date.strftime("%B %d, %Y"),  
           "User Email" => @user.email,  
