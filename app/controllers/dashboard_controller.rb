@@ -47,7 +47,7 @@ class DashboardController < ApplicationController
           "Created At" => event.created_at.to_date.strftime("%B %d, %Y"),  
           "Updated At" => event.updated_at.to_date.strftime("%B %d, %Y"),  
           "User Email" => @user.email,  
-          "Event Date" => event.date_start.to_date.strftime("%B %d, %Y"), 
+          "Event Date" => event.date_start, 
           "Published" =>  event.published.to_s, 
           "Status" => event.status.to_s, 
           "Total Attendees" => @attendees.count,  
