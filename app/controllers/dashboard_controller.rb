@@ -21,7 +21,7 @@ class DashboardController < ApplicationController
       @events = Event.all
       events = []
       @events.each do |event|
-        @user = User.find(event.user_id )
+        @user = User.find(event.user_id)
         @tickets = event.tickets.all 
         ticket_count = 0
         total_revenue = 0

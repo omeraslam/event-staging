@@ -385,7 +385,7 @@ GEM
       rdoc (~> 4.0)
     sitemap_generator (5.1.0)
       builder
-    spring (1.6.3)
+    spring (1.7.1)
     sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -428,7 +428,7 @@ GEM
       oauth2 (~> 1)
     warden (1.2.6)
       rack (>= 1.0)
-    wicked_pdf (1.0.4)
+    wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.9.9.3)
     wysiwyg-rails (2.3.4)
       font-awesome-rails (~> 4.4, >= 4.4.0.0)
@@ -499,4 +499,4 @@ DEPENDENCIES
   wysiwyg-rails
 
 BUNDLED WITH
-   1.12.5
+   1.13.6
