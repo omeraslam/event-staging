@@ -1511,7 +1511,7 @@ def show
     @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
     if signed_in? && current_user.id.to_s == @event.user_id.to_s 
-      Purchase.where(:event_id => @event.id, :stripe_id => nil).destroy_all
+      #Purchase.where(:event_id => @event.id, :stripe_id => nil).destroy_all
     end
     @buyers = Purchase.where(:event_id => @event.id)
     @buyers_list = {
