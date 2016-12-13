@@ -29,7 +29,7 @@ class DashboardController < ApplicationController
         @attendees = Attendee.where(:event_id => event.id)
         @tickets.each do |ticket|
           if ticket.is_active
-            ticket_count += ticket.ticket_limit
+            ticket_count += ticket.ticket_limit.nil? ? 0 : ticket.ticket_limit.to_i
           end
 
          Purchase.where(:event_id => event.id).all.each do |purchase|
