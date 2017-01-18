@@ -18,6 +18,7 @@ public/uploads
 tmp
 logs
 eventcreate.esproj/
+docs/
 
 node_modules/
 .env

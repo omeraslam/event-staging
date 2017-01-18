@@ -65,9 +65,23 @@
 
                                               
                                           <% elsif buyer_question.field_type == 3 %>
-                                              <% buyer_question.answer_text.split(',').each_with_index do |answer, bindex| %>
+
+
+
                                                       
-                                                      <input type="checkbox" class="require-one" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][<%= bindex %>][answer_text]" value="<%= answer %>" ><%= answer %><br>
+                                              
+
+
+
+
+                                              <% buyer_question.answer_text.split(',').each_with_index do |answer, bindex| %>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                      <input type="checkbox" class="require-one" name="buyeranswer[<%= buyer_question.id %>][<%= index %>][<%= bindex %>][answer_text]" value="<%= answer %>" ><%= answer %>
+                                                    </label>
+                                                  </div>   
+                                                       
                                               <% end %>
                                                 
                                
