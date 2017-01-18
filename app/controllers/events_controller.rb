@@ -453,13 +453,13 @@ require 'rqrcode_png'
             end 
           rescue Stripe::StripeError => e
             logger.debug "GENERAL STRIPE ERROR"
-            @purchase.destroy
+            #@purchase.destroy
           rescue Stripe::CardError => e
 
               logger.debug "CARD DECLINED"
             # The card has been declined
 
-              @purchase.destroy
+              #@purchase.destroy
       
    
           else 
@@ -1375,7 +1375,7 @@ def show
     @total_revenue = 0
     spots_left = 0
 
-        Purchase.where(:event_id => @event.id).all.each do |purchase|
+        Purchase.where(:event_id => @event.id ).all.each do |purchase|
           @total_revenue += purchase.total_order.nil? || purchase.total_order == 'n/a' ? 0 : purchase.total_order 
           @total += LineItem.where(:purchase_id => purchase.id.to_s).count
         end
@@ -1519,7 +1519,7 @@ def show
     @ticket = Ticket.where(:event_id => @event.id).first
     @purchase = Purchase.new
     if signed_in? && current_user.id.to_s == @event.user_id.to_s 
-      Purchase.where(:event_id => @event.id, :first_name => nil).destroy_all
+      Purchase.where(:event_id => @event.id, :stripe_id => nil).destroy_all
     end
     @buyers = Purchase.where(:event_id => @event.id)
     @buyers_list = {

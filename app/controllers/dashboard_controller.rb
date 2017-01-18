@@ -21,7 +21,7 @@ class DashboardController < ApplicationController
       @events = Event.all
       events = []
       @events.each do |event|
-        @user = User.find(event.user_id )
+        @user = User.find(event.user_id)
         @tickets = event.tickets.all 
         ticket_count = 0
         total_revenue = 0
@@ -29,7 +29,7 @@ class DashboardController < ApplicationController
         @attendees = Attendee.where(:event_id => event.id)
         @tickets.each do |ticket|
           if ticket.is_active
-            ticket_count += ticket.ticket_limit
+            ticket_count += ticket.ticket_limit.nil? ? 0 : ticket.ticket_limit.to_i
           end
 
          Purchase.where(:event_id => event.id).all.each do |purchase|
@@ -43,11 +43,11 @@ class DashboardController < ApplicationController
 
         dataObj = {
           "Event Name" => event.name, 
-          "Url" => 'http://lvh.me:3000/'+event.slug, 
+          "Url" => 'http://www.eventcreate.com/'+event.slug+'?editing=true', 
           "Created At" => event.created_at.to_date.strftime("%B %d, %Y"),  
           "Updated At" => event.updated_at.to_date.strftime("%B %d, %Y"),  
           "User Email" => @user.email,  
-          "Event Date" => event.date_start.to_date.strftime("%B %d, %Y"), 
+          "Event Date" => event.date_start, 
           "Published" =>  event.published.to_s, 
           "Status" => event.status.to_s, 
           "Total Attendees" => @attendees.count,  
