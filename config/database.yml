@@ -9,17 +9,13 @@ development:
   <<: *default
   database: daisy_development
 
-production:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
-
-staging:
-  <<: *production
-  database: <%= ENV.fetch('PGDATABASE', 'daisy_staging') %>
-
 test:
   adapter: postgresql
   host:     <%= ENV.fetch('PGHOST', 'localhost') %>
   username: <%= ENV.fetch('PGUSER', nil) %>
   password: <%= ENV.fetch('PGPASSWORD', 'password') %>
   database: daisy_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
