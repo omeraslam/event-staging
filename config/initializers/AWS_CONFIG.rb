@@ -6,3 +6,6 @@ AWS_CONFIG = {
   'acl' => 'public-read',
   'key_start' => 'uploads/'
 }
+
+
+
