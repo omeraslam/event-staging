@@ -1,6 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  pool: 5
   timeout: 5000
 
 
@@ -8,9 +9,9 @@ development:
   <<: *default
   database: daisy_development
 
-production: &production
+production:
   <<: *default
-  database: <%= ENV.fetch('PGDATABASE', 'daisy') %>
+  url: <%= ENV['DATABASE_URL'] %>
 
 staging:
   <<: *production
